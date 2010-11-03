@@ -1,0 +1,100 @@
+#{extends 'main.html' /}
+#{set title:'Modules' /}
+
+<div id="top">
+    <p class="category">Community contributed extensions</p>
+</div>
+
+<div class="wrapper">
+    
+    <div id="submenu">
+        
+        <ul class="sidemenu">
+            <li class="selected">
+                <a href="/modules">All modules</a> <span>←</span>
+            </li>
+
+            <li class="">
+                <a href="/modules/scala">Scala</a> <span>←</span>
+            </li>
+            <li class="">
+                <a href="/modules/gae">Google App Engine</a> <span>←</span>
+            </li>
+
+            <li class="">
+                <a href="/modules/pdf">PDF Generation</a> <span>←</span>
+            </li>
+            <li class="">
+                <a href="/modules/sass">SASS and SCSS</a> <span>←</span>
+            </li>
+
+            <li class="">
+                <a href="/modules/gwt2">Google Web Toolkit</a> <span>←</span>
+            </li>
+            <li class="">
+                <a href="/modules/morphia">MongoDB</a> <span>←</span>
+            </li>
+
+            <li class="">
+                <a href="/modules/search">Simple search</a> <span>←</span>
+            </li>
+            <li class="">
+                <a href="/modules/objectify">Objectify</a> <span>←</span>
+            </li>
+        </ul>
+
+        <h2>Developer login</h2>
+            <p>
+                Use your OpenID to connect and manage your modules.
+            </p>
+            <form action="/login" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" >
+                <input type="hidden" name="authenticityToken" value="">
+                <input type="hidden" name="from" value="http://www.playframework.org/modules">
+                <p>
+                    <input type="text" name="openid">
+                    <input type="submit" value="Login">
+                </p>
+            </form>
+    </div>
+
+    <div class="wrapped wikistyle">
+    
+        <h1>Modules repository</h1>
+        <p>
+            Here you can find great modules contributed by the play community. Make your choice and add instant power to your application. 
+            Need help about modules? Check the <a href="/documentation/latest/modules">manual page</a>. 
+        </p>
+
+        <p>
+            <input type="text" id="keyword" size="50" class="disabled" style="font-size: 20px" defaultvalue="Searching for something special?" />
+        </p>
+
+        <div id="modules">
+            <div class="module">
+            <h2>[akka] <a>akka support</a> <span class="by">by Dustin Whitney</span></h2>
+
+            <p>akka (http://akkasource.org) is a platform for building simple, correct, fault-tolerant, concurrent, and scalable applications for the JVM.  This module allows you to configure akka through The Play! framework&#8217;s conf/application.conf file; it provides a few command-line scripts to start akka when your application starts; and it has some examples of it in action.</p>
+            <p>
+                <a href="/modules/akka">Get details and versions</a>
+            </p>
+            </div>
+        </div>
+
+<script type="text/javascript" charset="utf-8">
+    var route = function(options) {var pattern = '/modules?keyword=:keyword'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+    $('#keyword')
+        .keyup(function() {
+            $('#modules').load(route({keyword: this.value}) + ' #modules')
+        })
+        .val($('#keyword').attr("defaultvalue"))
+        .addClass('notactive')
+        .focus(function() {
+            if($(this).val() == $(this).attr("defaultvalue")) {
+                $(this).val('').removeClass('notactive')
+            }
+        })
+</script>
+
+    </div>
+
+</div>
