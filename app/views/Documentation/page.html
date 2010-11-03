@@ -1,0 +1,76 @@
+#{extends 'main.html' /}
+#{set title:'Documentation' /}
+#{script src="navigation.js" /}
+
+<div id="top">
+    <p class="category">
+        Manual, tutorials & references
+    </p>
+</div>
+
+<div class="wrapper">
+    <div id="docSidebar">
+        <h2>Browse</h2>
+        <ul>
+            <li id="gotoc"><a href="home">Table of contents</a></li>
+        </ul>
+
+        <h2>Contents</h2>
+        <div id="toc"></div>
+    
+        <h2>Select the version</h2>
+        <div id="bc">
+            <ul>
+                <li><a class="selected" href="/documentation?version=1.1">1.1</a> ←</li>
+                <li><a class="" href="/documentation?version=1.0.3.2">1.0.3.2</a> </li>
+                <li><a class="" href="/documentation?version=1.0.2.1">1.0.2.1</a> </li>
+                <li><a class="" href="/documentation?version=1.0.1">1.0.1</a> </li>
+                <li><a class="" href="/documentation?version=1.0">1.0</a> </li>
+            </ul>
+        </div>
+
+        <h2>Search</h2>
+        <p>Get help with google</p>
+        <div id="searchBox">
+            <form action="http://www.google.com/cse" id="cse-search-box">
+                <input type="hidden" name="cx" value="002614023023983855063:jn1mu_7bof0" />
+                <input type="hidden" name="ie" value="UTF-8" /><input type="text" name="q" size="28" style="font-size:14px"/>
+            </form>
+        </div>
+        <script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
+    </div>
+
+    <div id="pageContent">
+        
+        <div class="wikistyle">${html.raw()}</div>
+        
+        <div id="comments">
+            <h2><a name="comments">Comments</a></h2>
+
+            <p>
+                Use this form to add corrections, additions and suggestions about the documentation on this page. 
+                Please ask questions on the play-framework group instead. Support requests, bug reports, and off-topic 
+                comments will be deleted without warning.
+            </p>
+        </div>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+          var disqus_identifier = '${id}';
+          var disqus_title = '${title}';
+          (function() {
+            var dsq = document.createElement('script');
+            dsq.type = 'text/javascript';
+            dsq.async = true;
+            dsq.src = 'http://playdocja.disqus.com/embed.js';
+            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+          })();
+        </script>
+    </div>
+
+    <script type="text/javascript" charset="utf-8">
+        // Fix @API link
+        $('a[href=/@api/index.html]').attr('href', "/documentation/api/1.1/index.html")
+    </script>
+    
+</div>
