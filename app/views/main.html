@@ -1,16 +1,81 @@
-<!DOCTYPE html>
-
+﻿<!DOCTYPE html>
 <html>
     <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>#{get 'title' /}</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
+        #{stylesheet src="main.css" /}
+        #{stylesheet src="wiki.css" /}
         #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+        <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png">
+        #{script src="jquery-1.4.2.min.js" /}
         #{get 'moreScripts' /}
     </head>
-    <body>
+    <body class="home">
+    
+        <div id="header">
+            <div class="wrapper">
+                <h1 id="logo"><a href="/">Playframework</a></h1>
+                <ul id="menu">
+                    <li class="selected">
+                        <a href="/">Home</a><span>&gt;</span>
+                    </li>
+                    <li class="">
+                        <a href="/documentation">Learn</a><span>&gt;</span>
+                    </li>
+                    <li class="">
+                        <a href="http://www.playframework.org/community">Community</a><span>&gt;</span>
+                    </li>
+                    <li class="">
+                        <a href="/code">Code</a><span>&gt;</span>
+                    </li>
+                    <li class="">
+                        <a href="/ecosystem">Ecosystem</a><span>&gt;</span>
+                    </li>
+                    <li class="">
+                        <a href="/modules">Modules</a><span>&gt;</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
         #{doLayout /}
+        
+        <div id="footer">
+            <div class="wrapper">
+                <ul>
+                    <li><h5><a href="/documentation">Learn</a></h5></li>
+                    <li><a href="/documentation/latest/overview">Overview</a></li>
+                    <li><a href="/documentation/latest/firstapp">Your first application</a></li>
+                    <li><a href="/documentation/latest/guide1">Tutorial</a></li>
+                    <li><a href="/documentation/latest/main">The manual</a></li>
+                </ul>
+                <ul>
+                    <li><h5><a href="http://www.playframework.org/community">Community</a></h5></li>
+                    <li><a href="http://twitter.com/playframework">@playframework</a></li>
+                    <li><a href="http://groups.google.com/group/play-framework">Google group</a></li>
+                    <li><a href="http://www.playframework.org/community/planet">Planet ♥ Play</a></li>
+                    <li><a href="http://www.playframework.org/community/snippets">Code snippets</a></li>
+                </ul>
+                <ul>
+                    <li><h5><a href="http://www.playframework.org/code">Contribute</a></h5></li>
+                    <li><a href="http://github.com/playframework/play">Source code</a></li>
+                    <li><a href="http://play.lighthouseapp.com/">Bug tracking</a></li>
+                    <li><a href="http://github.com/playframework/play/contributors">Contributors</a></li>
+                    <li><a href="http://integration.playframework.org/">Integration server</a></li>
+                </ul>
+                <ul>
+                    <li><h5><a href="http://download.playframework.org/">Download</a></h5></li>
+                    <li><a href="http://download.playframework.org/releases">Releases</a></li>
+                    <li><a href="http://download.playframework.org/1.1-nightly/">Nightly builds</a></li>
+                    <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a></li>
+                </ul>
+                <hr>
+                <a class="zenexity" href="http://www.zenexity.com/"><img src="/public/images/zenexity.png" alt="zenexity - web oriented architecture"></a>
+                <p class="licence">
+                    Play! is brought to you by <a href="http://guillaume.bort.fr/">guillaume bort</a> &amp; <a href="http://www.zenexity.com/">zenexity</a>
+                    Distributed under apache 2 licence - Hosted on <a href="http://www.playapps.net/">playapps.net</a>
+                </p>
+            </div>
+        </div>
     </body>
 </html>

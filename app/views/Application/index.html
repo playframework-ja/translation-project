@@ -1,4 +1,97 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Play framework - Home' /}
 
-#{welcome /}
+<div id="top">
+    <div class="wrapper">
+        <div id="side">
+            <div id="quicklinks">
+                <h3>はじめよう！</h3>
+                <p>
+                    最新の安定版リリース <a href="http://download.playframework.org/releases/play-1.1.zip">Play-1.1</a> をダウンロード。
+                    <small>以前の <a href="http://download.playframework.org/releases/play-1.0.3.2.zip">Play-1.0.3.2</a> はこちら。</small>
+                </p>
+                <h3>学習</h3>
+                <p>
+                    Read the <a href="http://www.playframework.org/documentation/latest/overview">Play framework の概要</a> を読み、<a href="http://www.playframework.org/documentation/latest/guide1">チュートリアル</a> をひと通り試して、<a href="http://www.playframework.org/documentation">ドキュメント</a> を参照しましょう。
+                </p>
+                <h3>ヘルプ</h3>
+                <p>
+                    <a href="http://groups.google.com/group/play-framework" target="_blank">Google group</a> に参加して話し合ったり、
+                    <a href="http://stackoverflow.com/tags/playframework" target="_blank">Stackoverflow</a> で助けてもらったり、
+                    コミュニティと <a href="http://www.playframework.org/community/snippets">ちょっとしたコード</a> を共有したり、
+                    他の開発者と <a href="http://www.playframework.org/community/events">出会う</a> ことができます。
+                </p>
+                <h3>協力</h3>
+                <p>
+                    <a href="http://play.lighthouseapp.com/" target="_blank">バグを報告</a> したり、<a href="http://github.com/playframework/play" target="_blank">github のソースコード</a> をチェックアウトしたり、プロジェクトに <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide" target="_blank">貢献</a> することができます。
+                </p>
+            </div>
+        </div>
+        <div id="introduction">
+            <h2>Play framework で Java Web アプリケーション開発をもっと簡単に</h2>
+            <p>
+                ついに Web デベロッパによって Java フレームワークが開発されました。
+                肥大化したエンタープライズ Java スタックを置き換える洗練された選択肢があります。
+                Play は開発者の生産性に注目し、RESTful アーキテクチャを目指します。
+            </p>
+            <div id="video">
+                <iframe src="http://player.vimeo.com/video/7087610?title=0&amp;byline=0&amp;portrait=0" width="600" height="337" frameborder="0"></iframe>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="overview">
+    <div class="wrapper">
+        
+        <div id="activity">
+        </div>
+        
+        <div id="quickoverview">
+            <h1>概要</h1>
+            <div class="feature clear">
+                <h2><img src="/public/images/refresh.png">バグを直してリロード！</h2> 
+                <p>
+                    Java ファイルを修正して、保存して、ブラウザをリロードすれば、すぐに結果を見ることができます！コンパイルもデプロイもサーバの再起動も必要ありません。
+                </p>
+            </div>
+            <div class="feature">
+                <h2><img src="/public/images/stateless.png">ステートレスモデル</h2>
+                <p>
+                    Play は "Share nothing" なシステムです。同じアプリケーションの多数のインスタンスを複数台のサーバ上で動作させることで容易にスケールし、REST に適しています。
+                </p>
+            </div>
+            <div class="feature clear">
+                <h2><img src="/public/images/magic.png">効率的なテンプレートシステム</h2>
+                <p>
+                    拡張言語としての Groovy に基づいたクリーンなテンプレートシステムです。テンプレートの継承、包含、そしてタグ機能を提供します。
+                </p>
+            </div>
+            <div class="feature">
+                <h2><img src="/public/images/bug.png">素早くエラー解決</h2>
+                <p>
+                    エラーが発生すると、play はソースコードと問題のある行を表示します。テンプレートについても同様です。
+                </p>
+            </div>
+            <div class="feature clear">
+                <h2><img src="/public/images/application.png">フルスタック</h2>
+                <p>
+                    Hibernate, OpenID, Memcached 等との統合やプラグインシステムを提供します。
+                </p>
+            </div>
+            <div class="feature">
+                <h2><img src="/public/images/java.png">ピュア Java</h2>
+                <p>
+                    Java でコーディングします。どんな Java ライブラリでも使用できますし、お好みの IDE で開発ができます。eclipse と netbeans は特によく統合されています。
+                </p>
+            </div>
+            <div class="feature clear">
+                <h2><img src="/public/images/fast.png">本当に速い</h2>
+                <p>
+                    素早くやり直せて高速に動作します。
+                </p>
+            </div>
+        </div>
+    
+    </div>
+</div>
