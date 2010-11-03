@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                                       Application.index
+GET     /{action}                               Application.{action}
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public

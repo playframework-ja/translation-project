@@ -1,0 +1,94 @@
+#{extends 'main.html' /}
+#{set title:'Code' /}
+
+<div id="top">
+    <p class="category">Contribute to Play framework</p>
+</div>
+
+<div class="wrapper">
+    
+    <div id="submenu">
+        
+        <ul class="sidemenu">
+            <li>
+                <a href="http://github.com/playframework/play" target="_blank">Source code</a>
+            </li>
+            <li>
+                <a href="http://play.lighthouseapp.com" target="_blank">Bug Tracking</a>
+            </li>
+            <li>
+                <a href="http://github.com/playframework/play/contributors" target="_blank">Contributors</a>
+            </li>
+            <li>
+                <a href="http://integration.playframework.org" target="_blank">Integration server</a>
+
+            </li>
+            <li>
+                <a href="http://download.playframework.org" target="_blank">Downloads</a>
+            </li>
+        </ul>
+    </div>
+    
+    <div class="wrapped wikistyle">
+        
+        <h1>Licence</h1>
+        
+        <p>
+            The Play framework source code is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a>. 
+        </p>
+        
+        <h2>Reporting bugs</h2>
+        
+        <p>
+            We use <a href="http://play.lighthouseapp.com">Lighthouse</a> as issue tracker.
+            Bug reports are incredibly helpful, so take time to report bugs and request features 
+            in our ticket tracker. We’re always grateful for patches to Play’s code. Indeed, bug 
+            reports with attached patches will get fixed far quickly than those without any. 
+        </p>
+
+        
+        <h2>Getting the code</h2>
+
+        <p>
+            Play framework is hosted on Github using the Git version control system. You can get the code with the following command:
+        </p>
+
+        <pre><code>git clone git://github.com/playframework/play.git</code></pre>
+        
+        <p>
+            The project history is pretty big. You can pull only a shallow clone by specifying the number of commits you want with  depth:
+        </p>
+
+        
+        <pre><code>git clone git://github.com/playframework/play.git --depth 10</code></pre>
+        
+        <h2>Building from source</h2>
+        
+        <p>
+            You need <a href="http://ant.apache.org/">Ant</a> to build the Play framework. Just en enter the <strong>framework/</strong> directory and run:
+        </p>
+        
+        <pre><code>ant</code></pre>
+        
+        <p>
+            That's all! If you want run the test suite on your computer, just run:
+        </p>
+        
+        <pre><code>ant test</code></pre>
+        
+        <h2>Contributing</h2>
+        
+        <p>
+            The best ways to contribute are by finding and reporting bugs, writing tests for bugs, and improving the documentation. We’re always grateful for patches to Play’s code. Indeed, bug reports with attached patches will get fixed far quickly than those without.
+        </p>
+
+        <p>
+            If you want to change the code, be careful follow our design-decisions. Be especially careful not to break compatibility with modules and older versions, or to increase complexity if you don't have a really good reason.
+        </p>
+        <p>
+            You have a patch? Check the <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide">contributor guide</a>.
+        </p>
+        
+    </div>
+    
+</div>

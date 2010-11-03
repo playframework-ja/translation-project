@@ -1,3 +1,4 @@
 tmp/bytecode/*
 eclipse/classes/*
+precompiled/*
 
