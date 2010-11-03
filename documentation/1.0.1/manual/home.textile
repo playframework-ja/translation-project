@@ -1,0 +1,125 @@
+h1. Play framework documentation
+
+Welcome to the play framework documentation. This documentation is intended for the *1.0.1 release* and may significantly differs from previous versions of the framework. Check the "release notes of the 1.0.1 version":releasenotes.
+
+p(note). This is a work in progress, feel free to ask any question not covered into these documents or report any error. You can contribute to the documentation the "same way you can contribute code":faq.
+
+
+h2. <a name="started">Getting started</a>
+
+Your first steps with play and your first 5 minutes of fun.
+
+# "Play framework overview":overview
+# "Watch the screencast":http://vimeo.com/7087610
+# "Five cool things you can do with Play":5things
+# "Frequently Asked Questions":faq
+# "Installation guide":install
+# "Your first application — the 'Hello World' tutorial":firstapp
+# "Set up your preferred IDE":ide
+# "Sample applications":samples
+
+
+h2. <a name="guide">Tutorial -- Play guide, a real world app step by step</a>
+
+Learn play by coding **'Yet Another Blog Engine'**, from start to finish. Each chapter will be an occasion to learn one more cool Play feature.
+
+# "Starting up the project":guide1
+# "A first iteration of the data model":guide2
+# "Building the first screen":guide3
+# "The comments page":guide4
+# "Setting up a Captcha":guide5
+# "Add tagging support":guide6
+# "A basic admin area using CRUD":guide7
+# "Adding authentication":guide8
+# "Creating a custom editor area":guide9
+# "Completing the application tests":guide10
+# "Preparing for production":guide11
+
+h2. <a name="manual">The essential documentation</a>
+
+Everything you need to know about Play.
+
+# "Main concepts":main
+## "The MVC application model":main#mvc
+## "A request life cycle":main#request
+## "Application layout & organization":main#application
+## "Development lifecycle":main#lifecycle
+# "HTTP routing":routes
+## "The routes file syntax":routes#syntax
+## "Routes priority":routes#priority
+## "Serving static resources":routes#static
+## "Reverse routing : generate some URL":routes#reverse
+# "Controllers":controllers
+## "A Controller overview":controllers#overview
+## "Retrieve HTTP parameters":controllers#params
+## "Return a result":controllers#result
+## "Actions chaining":controllers#chaining
+## "Interceptions":controllers#interceptions
+## "Session and Flash scopes":controllers#session
+# "The template engine":templates
+## "Template syntax":templates#syntax
+## "Template inheritance":templates#inheritance
+## "Create tags":templates#tags
+## "Extending the templates language":templates#extensions
+## "Implicit objects":templates#implicits
+# "The domain object model":model
+## "Properties simulation":model#properties
+## "Setup a database to persist your model objects":model#database
+## "Persist you object model with Hibernate":model#hibernate
+## "The stateless model":model#stateless
+# "A little of asynchronism using jobs":jobs
+## "Bootstrap jobs":jobs#concepts
+## "Scheduled jobs":jobs#scheduling
+## "Suspendable requests":jobs#suspendable
+# "Testing the application":test
+## "Writing tests":test#writing
+## "Running the tests":test#running
+## "Fixtures":test#fixtures
+## "Continuous integration":test#continus
+
+
+h2. <a name="cook">Cookbook</a>
+
+Tips about everything and anything.
+
+# "More about the JPA support":jpa
+# "Using data validation":validation
+# "Application modularization":modules
+# "How to configure logs":logs
+# "Manage application.conf in several environments":ids
+# "Setting up i18n":i18n
+# "Use cache and configure Memcached":cache
+# "Put your application in production":production
+# "Sending emails":emails
+# "OpenID integration":openid
+
+
+h2. <a name="modules">Other batteries included</a>
+
+Add instant power to your application by enabling one of these modules.
+
+# "CRUD":crud
+# "Security":secure
+# "Search":search
+# "Spring support":spring
+# "Siena":siena
+# "Extended CSS":ecss
+# "Google App Engine":gae
+# "Google Web Toolkit":gwt
+# "Bespin editor":bespin
+# "Cobertura test coverage":cobertura
+
+
+h2. <a name="references">References</a>
+
+Extended references for day to day hacking.
+
+# "Browse API documentation":/@api/index.html
+# "Template tags and extensions reference":tags
+
+
+
+
+
+
+

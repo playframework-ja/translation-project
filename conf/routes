@@ -6,7 +6,6 @@
 GET     /                                       Application.index
 GET     /{action}                               Application.{action}
 
-GET     /documentation                          Documentation.index
 GET     /documentation/{version}/{id}           Documentation.page
 
 # Map static resources from the /app/public folder to the /public path
