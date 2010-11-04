@@ -1,0 +1,223 @@
+h1. Scala サポート
+
+play 1.1 リリースには、プログラミング言語 "Scala":http://www.scala-lang.org のサポートが含まれる予定です。play フレームワークの柔軟なアーキテクチャのおかげで、Scala のサポートはシンプルなモジュールとして提供されます。必要なのは **conf/application.conf** ファイルで scala モジュールを有効にすることだけです。
+
+bc. module.scala=${play.path}/modules/scala
+
+こうすることで、アプリケーションの全部または一部を scala を使って書くことができるようになります。もちろん Java と混在させることも可能です。
+
+p(note). 我々はこのモジュールをとてもとても活発に開発しています。このモジュールを実験的な機能として試すことはできます。現時点で完全な play アプリケーションを Scala で書くことは期待しないでください。
+
+scala サポートをざっと眺めてみたい場合は、"Scala スクリーンキャスト":http://vimeo.com/7731173 を見てみてください。
+
+h2. <a>Scala サポートを使って新しいアプリケーションを作成する</a>
+
+**play new** コマンドの **--with** オプションを使うことで、scala を使う準備が整ったアプリケーションを自動的に作成することが可能です。とにかく試してみてください:
+
+bc. play new myApp --with scala
+
+play アプリケーションはいつも通り作成されますが、 **controllers** パッケージを見てみると **Application.java** ファイルが **Application.scala** ファイルに置き換えられています:
+
+bc. package controllers
+ 
+import play._
+import play.mvc._
+ 
+object Application extends Controller {
+  def index = render()
+}
+
+これは Java 版のデフォルト Application コントローラととても似ています。
+
+いつものように **play run** を使ってアプリケーションを実行すれば、いつものウェルカムページが表示されます。ここで **render()** 呼び出しを置き換えるように **Application.scala** ファイルを編集してみてください。
+
+bc. def index = "Hello scala !"
+
+ページを更新すると、魔法が見られます。
+
+いつも通り、間違いがあった場合、play は完璧な方法でエラーの内容を表示します; (今回、後に続くセミコロンを忘れることは、これまでより難しくなりました)
+
+!images/scala-error!
+
+h2. <a>型の直接返却</a>
+
+上記のように、シンプルなアクションメソッドの場合、アクションの結果を送出するために推論された返却型を直接使用することができます。例えば、String を使う場合は以下のようになります:
+
+bc. def index = "<h1>Hello world</h1>"
+
+XHTML をリテラルとして書くために、組込みの XML サポートを使うこともできます:
+
+bc. def index = <h1>Hello world</h1>
+
+返却型がバイナリストリームのように見える場合、play は自動的に **renderBinary()** を使います。このため、組込みの Captcha ヘルパを使ったキャプチャの生成を、次のように書くことができます:
+
+bc. def index = Images.captcha
+
+h2. <a>アクションパラメータと scala のデフォルト引数</a>
+
+Java と同じやり方で、いくつかのアクションパラメータを宣言することができます:
+
+bc. def index(name: String) = <h1>Hello {name}</h1>
+
+scala の大きな利点は、これらのパラメータにデフォルト値を定義できることです:
+
+bc. def index(name: String = "Guest") = <h1>Hello {name}</h1>
+
+こうすると、もし **name** HTTP パラメータが見つからない場合、play はデフォルト引数値を使います。
+
+h2. <a>トレイトを使ったコントローラの合成</a>
+
+コントローラは、複数のインターセプタを結び付けるために複数のトレイトを使用することができます。
+
+Secure トレイトを定義しましょう:
+
+bc. package controllers
+ 
+import play._
+import play.mvc._ 
+ 
+trait Secure extends Controller {
+  @Before
+  def check {
+    session("user") match {
+      name: String => info("Logged as %s", name)
+      _ => Security.login
+    }
+  }
+}
+
+そして、これを Application コントーラで使用することができます:
+
+bc. package controllers
+ 
+object Application extends Controller with Secure {
+  def index = "Hello world"
+}
+
+
+h2. <a>モデルの定義とアクセス方法</a>
+
+モデルを java だけではなく、scala でも同様に定義することができます。
+
+h3. Scala モジュールは以下の特性を持っています:
+
+* すべてのクラスは Model を継承する必要があります
+* フィールドはコンストラクタ引数として定義されます
+* 対となるオブジェクトは QueryOn[T] を継承する必要があります
+* 追加の検索メソッドは対となるオブジェクトに定義されるべきです
+
+以下に例を示します:
+
+bc.. @Entity
+class User(
+  //fields
+
+  @Email
+  @Required
+  var email: String,
+
+  @Required
+  var password: String,
+  
+  var fullname: String
+
+) extends Model {
+    //instance methods
+    var isAdmin = false
+    override def toString = email
+}
+object User extends QueryOn[User] {
+//extra finder methods (if any) come here
+}
+
+h3. <a>モデルに対するクエリの実行</a>
+
+以下のメソッドを利用することができます:
+
+bc. def count(implicit m: M[T]) = i.count(m)
+def count(q: String, ps: AnyRef*)(implicit m: M[T])  
+def findAll(implicit m: M[T]) 
+def findById(id: Any)(implicit m: M[T]) 
+def findBy(q: String, ps: AnyRef*)(implicit m: M[T]) 
+def find(q: String, ps: AnyRef*)(implicit m: M[T]) 
+def all(implicit m: M[T]) 
+def delete(q: String, ps: AnyRef*)(implicit m: M[T]) 
+def deleteAll(implicit m: M[T]) = 
+def findOneBy(q: String, ps: AnyRef*)(implicit m: M[T]): T 
+def create(name: String, ps: play.mvc.Scope.Params)(implicit m: M[T]): T
+
+ご覧の通り、これらは本当に java API に似ていて、例えば (対となるオブジェクトを適切に定義していると仮定すれば) User クラスの count を呼び出すだけでユーザの数を数えることができます:
+
+bc. User.count
+
+p(note). Scala Model API には save メソッドがチェーン呼び出し形式では動かないという、ひとつの既知の制限があり、そのため、この後にある単体テストの節で見るように、常にインスタンス上で実行する必要があります
+
+モデルにアクセスする別の手段として *play.db.jpa.QueryOn* を利用することができるので、先ほどの例を使うと: *User.count* は *QueryOn[User].count* となります。
+
+p(note). 通常は、対となるオブジェクトを使ってクエリ機能を提供する (例えば User.count) ことが推奨されます。より包括的な *QueryOn* アプローチの主な利点は *scala と java* モデルの両方で動作することです。
+
+h2. <a>単体テスト</a>
+
+ScalaTest サポートは Play に統合されており、例えば以下のようにして、ScalaTest を使って容易に単体テストを書くことができます:
+
+bc. class SpecStyle extends UnitTest with FlatSpec with ShouldMatchers {
+"Creating a user" should "be succesfull" in {
+  val user = new User("bob@gmail.com", "secret", "Bob")
+  user.save
+  bob = User.find("byEmail", "bob@gmail.com").first
+  bob should not be (null)
+  bob.fullname should be ("Bob")
+ }
+}
+
+h2. <a>Scala コンソール</a>
+
+play-scala には、アプリケーションの様々な層を試すために本当に便利なコンソールが含まれています。
+
+以下に例を示します:
+
+bc.. kola:yabe-with-scala phausel$ play scala:console
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.1-unstable-localbuild, http://www.playframework.org
+~
+15:43:17,805 INFO  ~ Starting /Users/phausel/workspace/play-scala/samples-and-tests/yabe-with-scala
+15:43:17,809 INFO  ~ Module secure is available (/opt/local/lib/play-1.1-unstable-r777/modules/secure)
+15:43:17,809 INFO  ~ Module scala is available (/Users/phausel/workspace/play-scala/samples-and-tests/yabe-with-scala/../..)
+15:43:17,810 INFO  ~ Module crud is available (/opt/local/lib/play-1.1-unstable-r777/modules/crud)
+15:43:19,300 WARN  ~ You're running Play! in DEV mode
+~
+~ Starting up, please be patient
+~ Ctrl+D to stop
+~
+15:43:31,774 INFO  ~ Connected to jdbc:hsqldb:mem:playembed
+15:43:33,130 INFO  ~ Application 'Yet Another Blog Engine' is now started !
+Welcome to Scala version 2.8.0.Beta1-prerelease (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_17).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> import models._
+import models._
+
+scala> User.count     
+res0: Long = 3
+
+p(note). コマンドはトランザクション内で実行されるので、モデルの変更は永続化されます。
+
+h2. <a>モジュールラッパ</a>
+
+Play には 2 つのデフォルトモジュール (secure と crud) が含まれており、scala モジュールはこれらのラッパを提供します。例えば **CRUDFor** トレイトを合成して CRUD コントローラを作ることができます:
+
+bc. object Companies extends Controller with CRUDFor[Company]
+
+同様に、これに **Secured** トレイトを合成してコントローラを堅牢にすることができます:
+
+bc. object Companies extends Controller with CRUDFor[Company] with Secured
+
+h2. <a>Scala 版 Yabe</a>
+
+scala 版のブログアプリケーションは play-scala に同梱されており、"ここ":http://github.com/guillaumebort/play-scala/tree/master/samples-and-tests/ にあります。

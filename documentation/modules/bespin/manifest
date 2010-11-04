@@ -1,0 +1,15 @@
+id: bespin
+
+name: Bespin online editor
+
+description: >
+  Bespin is a Mozilla Labs experiment on how to build an extensible web code editor using HTML 5 technology. The play bespin module allows you to edit all the application sources directly in the browser using bespin.
+
+url: http://github.com/erwan/playbespin
+
+author: Erwan Loisant
+
+versions:
+- version: "1.0.1"
+  publishedAt: Jan 13, 2010
+  isDefault: true

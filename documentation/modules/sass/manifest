@@ -1,0 +1,23 @@
+id: sass
+
+name: Syntactically Awesome Stylesheets
+
+description: >
+  {style with attitude} - Sass makes CSS fun again. Sass is CSS, plus nested rules, variables, mixins, and more, all in a concise, readable syntax.
+  
+  Read more at http://sass-lang.com
+  
+url: http://github.com/guillaumebort/play-sass
+
+author: Guillaume Bort
+
+versions:
+- version: "head"
+  publishedAt: Oct 29, 2010
+
+- version: "0.1"
+  publishedAt: Jul 28, 2010
+
+- version: "1.0"
+  publishedAt: Oct 29, 2010
+  isDefault: true

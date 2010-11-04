@@ -1,0 +1,113 @@
+#{extends 'main.html' /}
+#{set title:'Modules' /}
+
+<div id="top">
+    <p class="category">Community contributed extensions</p>
+</div>
+
+<div class="wrapper">
+    
+    <div id="submenu">
+        
+        <ul class="sidemenu">
+            <li class="selected">
+                <a href="/modules">All modules</a> <span>#{if module.id == ''}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/scala">Scala</a> <span>#{if module.id == "scala"}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/gae">Google App Engine</a> <span>#{if module.id == "gae"}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/pdf">PDF Generation</a> <span>#{if module.id == "pdf"}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/sass">SASS and SCSS</a> <span>#{if module.id == "sass"}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/gwt2">Google Web Toolkit</a> <span>#{if module.id == "gwt2"}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/morphia">MongoDB</a> <span>#{if module.id == "morphia"}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/search">Simple search</a> <span>#{if module.id == "search"}←#{/if}</span>
+            </li>
+            <li class="">
+                <a href="/modules/objectify">Objectify</a> <span>#{if module.id == "objectify"}←#{/if}</span>
+            </li>
+        </ul>
+
+        <h2>Developer login</h2>
+            <p>
+                Use your OpenID to connect and manage your modules.
+            </p>
+            <form action="/login" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" >
+                <input type="hidden" name="authenticityToken" value="">
+                <input type="hidden" name="from" value="http://www.playframework.org/modules">
+                <p>
+                    <input type="text" name="openid">
+                    <input type="submit" value="Login">
+                </p>
+            </form>
+    </div>
+    
+    <div class="wrapped wikistyle">
+    
+        <h1>${module.name} [${module.id}] module</h1>
+        
+        <p>${module.description.raw()}</p>
+        
+        <p><a href="${module.url}">${module.url}</a>, written by ${module.author}.</p>
+        
+        <h2><a>Published releases</a></h2>
+        
+        <p>
+            To install one of these modules use the <strong>install</strong> command: 
+        </p>
+        
+        <pre><code>play install ${module.id}-{version}</code></pre>  
+        
+        <p>
+            Check the documentation link of each release to check version notes.
+        </p>
+        
+        <table>
+        #{list items:versions, as:'item'}
+            <tr>
+                <td><strong>${module.id}-${item.version}&nbsp;#{if item.isDefault}&#9733;#{/if}</strong></td>
+                <td>${item.publishedAt}</td>
+
+                <td><a href="/modules/${module.id}-${item.version}/home">Documentation</a></td>
+                <td style="text-align:right"
+                    <a href="http://www.playframework.org/modules/${module.id}-${item.version}.zip">Download</a>
+                </td>
+            </tr>
+        #{/list}
+        </table>
+    </div>
+
+    <div class="wrapped">
+        <div id="comments">
+            <h3>Comments</h3>
+
+            <p>
+                Use this form to discuss about this module. Off-topic 
+                comments will be deleted without warning.
+            </p>
+
+        </div>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+                        var disqus_identifier = 'modules-${module.id}';
+            var disqus_title = '${module.name} [${module.id}]';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = 'http://playdocja.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+    </div>
+        
+</div>

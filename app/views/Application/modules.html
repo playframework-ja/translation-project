@@ -68,32 +68,33 @@
         <p>
             <input type="text" id="keyword" size="50" class="disabled" style="font-size: 20px" defaultvalue="Searching for something special?" />
         </p>
-
+        
+        #{list items:modules, as:"module"}
         <div id="modules">
             <div class="module">
-            <h2>[akka] <a>akka support</a> <span class="by">by Dustin Whitney</span></h2>
-
-            <p>akka (http://akkasource.org) is a platform for building simple, correct, fault-tolerant, concurrent, and scalable applications for the JVM.  This module allows you to configure akka through The Play! framework&#8217;s conf/application.conf file; it provides a few command-line scripts to start akka when your application starts; and it has some examples of it in action.</p>
+            <h2>[${module.id}] <a>${module.name}</a> <span class="by">by ${module.author}</span></h2>
+            <p>${module.description.raw()}</p>
             <p>
-                <a href="/modules/akka">Get details and versions</a>
+                <a href="/modules/${module.id}">Get details and versions</a>
             </p>
             </div>
         </div>
+        #{/list}
 
-<script type="text/javascript" charset="utf-8">
-    var route = function(options) {var pattern = '/modules?keyword=:keyword'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
-    $('#keyword')
-        .keyup(function() {
-            $('#modules').load(route({keyword: this.value}) + ' #modules')
-        })
-        .val($('#keyword').attr("defaultvalue"))
-        .addClass('notactive')
-        .focus(function() {
-            if($(this).val() == $(this).attr("defaultvalue")) {
-                $(this).val('').removeClass('notactive')
-            }
-        })
-</script>
+        <script type="text/javascript" charset="utf-8">
+            var route = function(options) {var pattern = '/modules?keyword=:keyword'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+            $('#keyword')
+                .keyup(function() {
+                    $('#modules').load(route({keyword: this.value}) + ' #modules')
+                })
+                .val($('#keyword').attr("defaultvalue"))
+                .addClass('notactive')
+                .focus(function() {
+                    if($(this).val() == $(this).attr("defaultvalue")) {
+                        $(this).val('').removeClass('notactive')
+                    }
+                })
+        </script>
 
     </div>
 

@@ -1,0 +1,15 @@
+id: akka
+
+name: akka support
+
+description: >
+  akka (http://akkasource.org) is a platform for building simple, correct, fault-tolerant, concurrent, and scalable applications for the JVM. This module allows you to configure akka through The Play! framework's conf/application.conf file; it provides a few command-line scripts to start akka when your application starts; and it has some examples of it in action.
+
+url: http://github.com/dwhitney/akka
+
+author: Dustin Whitney
+
+versions:
+- version: "head"
+  publishedAt: Jul 10, 2010
+  isDefault: true

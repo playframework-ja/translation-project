@@ -1,0 +1,24 @@
+id: cobertura
+
+name: Cobertura
+
+description: >
+  Cobertura is a free Java tool that calculates the percentage of code accessed by tests. It can be used to identify which parts of your Java program are lacking test coverage. It is based on jcoverage.
+
+url: http://github.com/julienba/play-cobertura
+
+author: Julien Bille
+
+versions:
+- version: "1.0"
+  publishedAt: Jan 14, 2010
+
+- version: "1.1"
+  publishedAt: Mar 15, 2010
+  
+- version: "1.2"
+  publishedAt: Apr 11, 2010
+  
+- version: "2.0"
+  publishedAt: May 13, 2010
+  isDefault: true

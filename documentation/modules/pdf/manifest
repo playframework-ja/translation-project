@@ -1,0 +1,15 @@
+id: pdf
+
+name: PDF module
+
+description: >
+  A module that allows you to render PDF document from your HTML templates. The PDF library is based on the YaHP Converter library http://www.allcolor.org/YaHPConverter/ -
+  
+url: http://github.com/pepite/play--pdf
+
+author: Nicolas Leroux
+
+versions:
+- version: "head"
+  publishedAt: Mar 29, 2010
+  isDefault: true

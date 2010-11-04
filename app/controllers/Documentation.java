@@ -10,11 +10,14 @@ import org.eclipse.mylyn.wikitext.textile.core.TextileLanguage;
 import play.Play;
 import play.libs.IO;
 import play.mvc.Controller;
+import util.Textile;
 
 public class Documentation extends Controller {
 
     public static void page(String version, String id) throws Exception {
 
+        String action = "documentation";
+        
         String latest = Play.configuration.getProperty("version.latest");
 
         File page = new File(
@@ -29,16 +32,10 @@ public class Documentation extends Controller {
         }
 
         String textile = IO.readContentAsString(page);
-        String html = toHTML(textile);
+        String html = Textile.toHTML(textile);
         String title = getTitle(textile);
 
-        render(version, id, html, title);
-    }
-
-    static String toHTML(String textile) {
-        String html = new MarkupParser(new TextileLanguage()).parseToHtml(textile);
-        html = html.substring(html.indexOf("<body>") + 6, html.lastIndexOf("</body>"));
-        return html;
+        render(action, version, id, html, title);
     }
 
     static String getTitle(String textile) {
