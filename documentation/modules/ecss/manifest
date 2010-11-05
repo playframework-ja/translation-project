@@ -1,0 +1,18 @@
+id: ecss
+
+name: Extended CSS
+
+description: >
+  This module allow you to use constants in the CSS files. It is very helpful when you work with large CSS files, to avoid to repeat yourself with color, fonts...
+  
+  
+  p(note). This module is no longer maintained. You should take a look at the sass module.
+  
+url: http://github.com/guillaumebort/play-ecss
+
+author: Guillaume Bort
+
+versions:
+- version: "1.0"
+  publishedAt: Jan 12, 2010
+  isDefault: true

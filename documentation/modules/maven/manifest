@@ -1,0 +1,34 @@
+id: maven
+
+name: Maven dependency management
+
+description: >
+  This module lets you manage your dependencies with apache maven.
+  
+  
+  Expected behavior this module:
+  
+  
+  # Allow declaration dependencies in pom.xml, without putting explicitly unless the transitive dependency does not work (for older version or depending on undesirable big jar file)
+  
+  # Able to download all dependencies not provided by Play into lib folder, with src and javadoc
+  
+  # Able to download source/javadoc artifiacts to depsrc folder for declared or transitive dependency which is provided by Play, for easier debugging (using command mvn:play-src) 
+  
+  
+  There is something I am consciously trying to avoid:
+  
+  # Long download time.
+  
+  # Handle classpath.
+  
+  # Change Play's structure. 
+  
+url: http://github.com/wangyizhuo/play-maven
+
+author: Wang Yizhuo
+
+versions:
+- version: "head"
+  publishedAt: May 28, 2010
+  isDefault: true

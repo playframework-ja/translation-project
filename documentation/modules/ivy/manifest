@@ -1,0 +1,18 @@
+id: ivy
+
+name: Ivy dependency management
+
+description: >
+  This module lets you manage your dependencies with apache ivy.
+   
+url: http://github.com/pk11/play-ivy
+
+author: Peter Hausel
+
+versions:
+- version: "1.0"
+  publishedAt: Apr 01, 2010
+  
+- version: "1.0.1"
+  publishedAt: Sep 10, 2010
+  isDefault: true

@@ -1,0 +1,21 @@
+id: i18ntools
+
+name: i18ntools
+
+description: >
+  This module will add some tools to ease use of i18n in your Play! projects.
+  
+  
+  "i18n-extract" will parse your application's files to find internationalized strings, and add missing strings to your messages files.
+  
+url: http://github.com/naholyr/i18ntools
+
+author: naholyr
+
+versions:
+- version: "1.0"
+  publishedAt: Oct 04, 2010
+  
+- version: "1.0.1"
+  publishedAt: Oct 08, 2010
+  isDefault: true

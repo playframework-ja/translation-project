@@ -1,0 +1,24 @@
+id: db
+
+name: Database module
+
+description: >
+  Export your Play! domain model to a DDL file and import a database into your Play! domain model. Please refer to the documentation for more information. The 1.1 version is for the Play! 1.1 branch while the 1.0 is for the 1.0 Play! branch.
+  
+url: http://github.com/pepite/play--database
+
+author: Nicolas Leroux
+
+versions:
+- version: "1.1"
+  publishedAt: May 16, 2010
+
+- version: "1.0"
+  publishedAt: May 16, 2010
+
+- version: "1.0.1"
+  publishedAt: Jul 24, 2010
+  isDefault: true
+
+- version: "1.1.1"
+  publishedAt: Jul 24, 2010

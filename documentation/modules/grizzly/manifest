@@ -1,0 +1,18 @@
+id: grizzly
+
+name: Grizzly network stack
+
+description: >
+  Experimental module that replace the Mina based network stack by the Grizzly one.
+  
+  
+  p(note). This module is no longer maintained. The grizzly support is now built-in since Play 1.1
+  
+url: http://github.com/guillaumebort/play-grizzly
+
+author: Guillaume Bort
+
+versions:
+- version: "head"
+  publishedAt: Jan 12, 2010
+  isDefault: true
