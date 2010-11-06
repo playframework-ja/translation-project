@@ -1,0 +1,15 @@
+id: oauth
+
+name: OAuth Client
+
+description: >
+  This module provides tools to connect to an OAuth provider, such as Twitter or Google.
+  
+url: http://github.com/erwan/playoauthclient
+
+author: Erwan Loisant
+
+versions:
+- version: "1.0"
+  publishedAt: Feb 24, 2010
+  isDefault: true

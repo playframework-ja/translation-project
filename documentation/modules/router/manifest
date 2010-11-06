@@ -1,0 +1,15 @@
+id: router
+
+name: Annotations router
+
+description: >
+  This module allows you to add routes through annotations, allowing you to declare your routes in your controllers.
+  
+url: http://kenai.com/projects/play-router-module
+
+author: Nicolas Leroux
+
+versions:
+- version: "head"
+  publishedAt: Feb 07, 2010
+  isDefault: true

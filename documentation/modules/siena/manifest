@@ -1,0 +1,27 @@
+id: siena 
+
+name: Siena 
+
+description: >
+  The siena module automatically enable Siena support for your application.
+  
+  
+  Read more at http://www.sienaproject.com/
+  
+url: http://github.com/vijaykiran/play-siena
+
+author: Vijay Kiran, Alberto Gimeno
+
+versions:
+- version: "1.0"
+  publishedAt: Jan 11, 2010
+
+- version: "1.1"
+  publishedAt: Feb 23, 2010
+
+- version: "1.2"
+  publishedAt: Sep 01, 2010
+
+- version: "1.3"
+  publishedAt: Oct 07, 2010
+  isDefault: true

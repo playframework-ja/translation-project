@@ -1,0 +1,15 @@
+id: scaffold 
+
+name: scaffold 
+
+description: >
+  scaffold will generate basic scaffolding for bootstrapping a project from your JPA or Senia entities. Unlike the CRUD module, scaffold statically generates the controllers and templates, and does not dynamically introspect your model at runtime. Simply create your JPA or Senia models and run "play scaffold:gen --overwrite" to create controllers and CRUD templates for your models.
+  
+url: http://github.com/lmcalpin/Play--Scaffold
+
+author: Lawrence McAlpin
+
+versions:
+- version: "head"
+  publishedAt: Oct 10, 2010
+  isDefault: true

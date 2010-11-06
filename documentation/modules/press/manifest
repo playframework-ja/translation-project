@@ -1,0 +1,49 @@
+id: press
+
+name: Minimize javascript/css files
+
+description: >
+  The press module is a JavaScript and CSS minimizer that is designed to be transparent to the application developer:
+  Simply replace script tags with #{press.script} tags.
+  
+  
+  It is a simplified version of the greenscript module, with the difference that greenscript allows the developer to set up a dependency graph, whereas press can be switched on and off easily and therefore makes it easier to debug JavaScript and CSS.
+  
+url: http://github.com/mockduck/press
+
+author: mockduck
+
+versions:
+- version: "1.0"
+  publishedAt: Jul 29, 2010
+
+- version: "1.0.1"
+  publishedAt: Aug 03, 2010
+
+- version: "1.0.2"
+  publishedAt: Aug 05, 2010
+
+- version: "1.0.3"
+  publishedAt: Aug 06, 2010
+
+- version: "1.0.4"
+  publishedAt: Aug 06, 2010
+
+- version: "1.0.5"
+  publishedAt: Aug 06, 2010
+
+- version: "1.0.6"
+  publishedAt: Aug 06, 2010
+
+- version: "1.0.7"
+  publishedAt: Aug 26, 2010
+
+- version: "1.0.8"
+  publishedAt: Sep 07, 2010
+
+- version: "1.0.9"
+  publishedAt: Oct 06, 2010
+
+- version: "1.0.10"
+  publishedAt: Oct 20, 2010
+  isDefault: true

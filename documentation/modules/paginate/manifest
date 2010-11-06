@@ -1,0 +1,15 @@
+id: paginate
+
+name: paginate
+
+description: >
+  A simple module that allows for easily reusable pagination.
+  
+url: http://github.com/lmcalpin/Play--Paginate
+
+author: Lawrence McAlpin
+
+versions:
+- version: "head"
+  publishedAt: Oct 12, 2010
+  isDefault: true
