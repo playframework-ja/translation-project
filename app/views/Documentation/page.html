@@ -4,21 +4,21 @@
 
 <div id="top">
     <p class="category">
-        Manual, tutorials & references
+        マニュアル、チュートリアルとリファレンス
     </p>
 </div>
 
 <div class="wrapper">
     <div id="docSidebar">
-        <h2>Browse</h2>
+        <h2>閲覧</h2>
         <ul>
-            <li id="gotoc"><a href="home">Table of contents</a></li>
+            <li id="gotoc"><a href="home">目次</a></li>
         </ul>
-
-        <h2>Contents</h2>
+        
+        <h2>内容</h2>
         <div id="toc"></div>
-    
-        <h2>Select the version</h2>
+        
+        <h2>バージョン選択</h2>
         <div id="bc">
             <ul>
                 <li><a class="selected" href="/documentation?version=1.1">1.1</a> ←</li>
@@ -28,23 +28,23 @@
                 <li><a class="" href="/documentation?version=1.0">1.0</a> </li>
             </ul>
         </div>
-
+        
     </div>
-
+    
     <div id="pageContent">
         
         <div class="wikistyle">${html.raw()}</div>
         
         <div id="comments">
-            <h2><a name="comments">Comments</a></h2>
-
+            <h2><a name="comments">コメント</a></h2>
+            
             <p>
-                Use this form to add corrections, additions and suggestions about the documentation on this page. 
-                Please ask questions on the play-framework group instead. Support requests, bug reports, and off-topic 
-                comments will be deleted without warning.
+                このフォームを使用して、このページのドキュメントに関する修正や追記、提案を追加してください。
+                質問はここには書かず、play-framework グループに質問してください。
+                サポート要求、バグレポート、趣旨に沿わないコメントは警告無しに削除されます。
             </p>
         </div>
-
+        
         <div id="disqus_thread"></div>
         <script type="text/javascript">
           var disqus_identifier = '${id}';
@@ -58,7 +58,7 @@
           })();
         </script>
     </div>
-
+    
     <script type="text/javascript" charset="utf-8">
         // Fix @API link
         $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/1.1/index.html")
