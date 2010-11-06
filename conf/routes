@@ -7,6 +7,8 @@ GET     /                                       Application.index
 GET     /{action}                               Application.{action}
 
 GET     /documentation/{version}/{id}           Documentation.page
+GET     /documentation/{version}/images/{name}  Documentation.image
+GET     /documentation/{version}/files/{name}   Documentation.file
 
 GET     /modules/{id}                           Modules.index
 GET     /modules/{id}-{version}/home            Modules.page

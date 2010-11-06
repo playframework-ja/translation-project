@@ -38,6 +38,22 @@ public class Documentation extends Controller {
         render(action, version, id, html, title);
     }
 
+    public static void image(String version, String name) {
+        renderBinaryFile("documentation/" + version + "/images/" + name + ".png");
+    }
+
+    public static void file(String version, String name) {
+        renderBinaryFile("documentation/" + version + "/files/" + name);
+    }
+    
+    static void renderBinaryFile(String filepath) {
+        File file = new File(Play.applicationPath, filepath);
+        if (!file.exists()) {
+            notFound(file.getPath());
+        }
+        renderBinary(file);
+    }
+    
     static String getTitle(String textile) {
         if (textile.length() == 0) {
             return "";
