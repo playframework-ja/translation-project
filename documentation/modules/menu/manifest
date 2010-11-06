@@ -1,0 +1,37 @@
+id: menu
+
+name: Menu
+
+description: >
+  elp app developer to easily implement navigation menu. Basically with the module what you need to do is:
+  
+  
+  # create menu structure file (_menu.yml) in YAML format
+  
+  # put "#{menu.menu /}" tag in proper place of your main.html file 
+  
+  Yes, that's all!
+  
+  
+  for detail, please refer to document
+  
+  
+  Note, Menu module itself shall be able to run on Play-1.0. However the demo app needs Play-morphia-1.1 to run, which in turn relies on Play-1.1beta2
+  
+  
+  Many thanks to roymax@gmail.com who test and report issues of this module
+  
+url: http://github.com/greenlaw110/play-menu
+
+author: Green Luo
+
+versions:
+- version: "1.0"
+  publishedAt: Sep 17, 2010
+  
+- version: "1.0b"
+  publishedAt: Oct 11, 2010
+  
+- version: "1.0c"
+  publishedAt: Oct 24, 2010
+  isDefault: true

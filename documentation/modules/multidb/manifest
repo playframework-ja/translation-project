@@ -1,0 +1,21 @@
+id: multidb
+
+name: Multiple Databases
+
+description: >
+  Multiple Database module for the Play! framework.u000du000aThis module allows you to scale your Play! apps to multiple databases with a common schema.
+  
+url: http://github.com/dcardon/play-multidb
+
+author: David Cardon
+
+versions:
+- version: "1.0"
+  publishedAt: Jul 13, 2010
+  
+- version: "1.1"
+  publishedAt: Aug 11, 2010
+
+- version: "1.2"
+  publishedAt: Aug 31, 2010
+  isDefault: true
