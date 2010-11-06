@@ -2,7 +2,7 @@
 #{set title:'Modules' /}
 
 <div id="top">
-    <p class="category">Community contributed extensions</p>
+    <p class="category">コミュニティが寄付した拡張</p>
 </div>
 
 <div class="wrapper">
@@ -11,7 +11,7 @@
         
         <ul class="sidemenu">
             <li class="#{if module.id == ''}selected#{/if}">
-                <a href="/modules">All modules</a> <span>←</span>
+                <a href="/modules">すべてのモジュール</a> <span>←</span>
             </li>
             <li class="#{if module.id == 'scala'}selected#{/if}">
                 <a href="/modules/scala">Scala</a> <span>←</span>
@@ -43,22 +43,22 @@
     
     <div class="wrapped wikistyle">
     
-        <h1>${module.name} [${module.id}] module</h1>
+        <h1>${module.name} [${module.id}] モジュール</h1>
         
         <p>${module.description.raw()}</p>
         
-        <p><a href="${module.url}">${module.url}</a>, written by ${module.author}.</p>
+        <p><a href="${module.url}">${module.url}</a>, 作成者 ${module.author}</p>
         
-        <h2><a>Published releases</a></h2>
+        <h2><a>公開されたリリース</a></h2>
         
         <p>
-            To install one of these modules use the <strong>install</strong> command: 
+            このモジュールをインストールには <strong>install</strong> コマンドを使用してください:
         </p>
         
         <pre><code>play install ${module.id}-{version}</code></pre>  
         
         <p>
-            Check the documentation link of each release to check version notes.
+            バージョン互換性を確認するために各リリースのドキュメントを確認してください。
         </p>
         
         <table>
@@ -67,9 +67,9 @@
                 <td><strong>${module.id}-${item.version}&nbsp;#{if item.isDefault}&#9733;#{/if}</strong></td>
                 <td>${item.publishedAt}</td>
 
-                <td><a href="/modules/${module.id}-${item.version}/home">Documentation</a></td>
+                <td><a href="/modules/${module.id}-${item.version}/home">ドキュメント</a></td>
                 <td style="text-align:right"
-                    <a href="http://www.playframework.org/modules/${module.id}-${item.version}.zip">Download</a>
+                    <a href="http://www.playframework.org/modules/${module.id}-${item.version}.zip">ダウンロード</a>
                 </td>
             </tr>
         #{/list}
@@ -78,11 +78,11 @@
 
     <div class="wrapped">
         <div id="comments">
-            <h3>Comments</h3>
+            <h3>コメント</h3>
 
             <p>
-                Use this form to discuss about this module. Off-topic 
-                comments will be deleted without warning.
+                このモジュールについて議論するためにこのフォームを使用してください。
+                趣旨に沿わないコメントは警告無しに削除されます。
             </p>
 
         </div>
