@@ -1,0 +1,61 @@
+h1. DB モジュール
+
+このモジュールは、JPA クラスを SQL スクリプトにエクスポートする、またはデータベースのテーブルを POJO インスタンスにインポートすることを可能にします。
+
+h2. <a>アプリケーションで DB モジュールを有効にする</a>
+
+/conf/application.conf ファイルに以下の行を追加して、DB モジュールを利用可能にしてください:
+
+bc. # The db  module
+module.db=${play.path}/modules/db
+
+h2. <a>ドメインモデルから SQL スクリプトを作成する</a>
+
+bc. play db:export myapplication
+
+このコマンドはデータベースを作成するために必要な SQL を作成します。これは、アプリケーションを本番環境へデプロイし、手動でデータベースを更新しなければならない場合に、とても便利です。
+conf/application.conf ファイルに JPA 方言を正しく設定していることを確認してください。
+
+h3. オプション (play! 1.0.2.1 以上のみ)
+
+SQL の drop 節のみを生成する
+
+bc. play db:export myapplication --drop
+
+SQL の create 節のみを生成する
+
+bc. play db:export myapplication --create
+
+SQL の区切り文字を指定する
+
+bc. play db:export myapplication --delimiter=;
+
+出力ファイルを指定する
+
+bc. play db:export myapplication  --output=myfile.ddl
+
+データベースをエクスポートする
+
+bc. play db:export myapplication  --export
+
+外部データをデータベースにインポートする (--export と共に使用されます)
+
+bc. play db:export myapplication  --import=import.sql
+
+SQL をフォーマットしない
+
+bc. play db:export myapplication  --noformat
+
+最初のエラーでスクリプトの生成を中止する
+
+bc. play db:export myapplication  --haltonerror
+
+SQL の drop 節のみを生成する
+
+h2. <a>データベースからドメインモデルを作成する</a>
+
+bc. play db:import myapplication
+
+このコマンドは、データベースのテーブルに基くクラスをモデルパッケージ内に作成します。これは、データベースが存在し、このデータベースを再利用したい場合に便利です。
+
+application.conf ファイルに、データベースへのアクセス情報 (db.user, db.pass, db.driver, db.url, その他...) を正しく設定していることを確認してください。
