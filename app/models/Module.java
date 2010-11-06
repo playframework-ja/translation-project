@@ -12,7 +12,7 @@ import util.Textile;
 
 import controllers.Documentation;
 
-public class Module {
+public class Module implements Comparable<Module> {
 
     public String id;
     public String name;
@@ -41,5 +41,9 @@ public class Module {
                             (String) version.get("publishedAt"),
                             (Boolean) version.get("isDefault")));
         }
+    }
+
+    public int compareTo(Module o) {
+        return this.id.compareTo(o.id);
     }
 }

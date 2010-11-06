@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
@@ -52,6 +54,8 @@ public class Application extends Controller {
             Map<String, Object> map = (Map<String, Object>) new Yaml().load(new FileInputStream(manifest));
             modules.add(new Module(map));
         }
+        
+        Collections.sort(modules);
         
         render(action, modules);
     }
