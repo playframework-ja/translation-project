@@ -10,32 +10,32 @@
     <div id="submenu">
         
         <ul class="sidemenu">
-            <li class="selected">
-                <a href="/modules">All modules</a> <span>#{if module.id == ''}←#{/if}</span>
+            <li class="#{if module.id == ''}selected#{/if}">
+                <a href="/modules">All modules</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/scala">Scala</a> <span>#{if module.id == "scala"}←#{/if}</span>
+            <li class="#{if module.id == 'scala'}selected#{/if}">
+                <a href="/modules/scala">Scala</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/gae">Google App Engine</a> <span>#{if module.id == "gae"}←#{/if}</span>
+            <li class="#{if module.id == 'gae'}selected#{/if}">
+                <a href="/modules/gae">Google App Engine</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/pdf">PDF Generation</a> <span>#{if module.id == "pdf"}←#{/if}</span>
+            <li class="#{if module.id == 'pdf'}selected#{/if}">
+                <a href="/modules/pdf">PDF Generation</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/sass">SASS and SCSS</a> <span>#{if module.id == "sass"}←#{/if}</span>
+            <li class="#{if module.id == 'sass'}selected#{/if}">
+                <a href="/modules/sass">SASS and SCSS</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/gwt2">Google Web Toolkit</a> <span>#{if module.id == "gwt2"}←#{/if}</span>
+            <li class="#{if module.id == 'gwt2'}selected#{/if}">
+                <a href="/modules/gwt2">Google Web Toolkit</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/morphia">MongoDB</a> <span>#{if module.id == "morphia"}←#{/if}</span>
+            <li class="#{if module.id == 'morphia'}selected#{/if}">
+                <a href="/modules/morphia">MongoDB</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/search">Simple search</a> <span>#{if module.id == "search"}←#{/if}</span>
+            <li class="#{if module.id == 'search'}selected#{/if}">
+                <a href="/modules/search">Simple search</a> <span>←</span>
             </li>
-            <li class="">
-                <a href="/modules/objectify">Objectify</a> <span>#{if module.id == "objectify"}←#{/if}</span>
+            <li class="#{if module.id == 'objectify'}selected#{/if}">
+                <a href="/modules/objectify">Objectify</a> <span>←</span>
             </li>
         </ul>
 
