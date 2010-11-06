@@ -13,28 +13,24 @@
             <li class="selected">
                 <a href="/modules">All modules</a> <span>←</span>
             </li>
-
             <li class="">
                 <a href="/modules/scala">Scala</a> <span>←</span>
             </li>
             <li class="">
                 <a href="/modules/gae">Google App Engine</a> <span>←</span>
             </li>
-
             <li class="">
                 <a href="/modules/pdf">PDF Generation</a> <span>←</span>
             </li>
             <li class="">
                 <a href="/modules/sass">SASS and SCSS</a> <span>←</span>
             </li>
-
             <li class="">
                 <a href="/modules/gwt2">Google Web Toolkit</a> <span>←</span>
             </li>
             <li class="">
                 <a href="/modules/morphia">MongoDB</a> <span>←</span>
             </li>
-
             <li class="">
                 <a href="/modules/search">Simple search</a> <span>←</span>
             </li>
@@ -43,21 +39,22 @@
             </li>
         </ul>
     </div>
-
+    
     <div class="wrapped wikistyle">
     
         <h1>Modules repository</h1>
         <p>
-            Here you can find great modules contributed by the play community. Make your choice and add instant power to your application. 
+            Here you can find great modules contributed by the play community. Make your choice and add instant power to your application.
+            
             Need help about modules? Check the <a href="/documentation/latest/modules">manual page</a>. 
         </p>
-
+        
         <p>
             <input type="text" id="keyword" size="50" class="disabled" style="font-size: 20px" defaultvalue="Searching for something special?" />
         </p>
         
-        #{list items:modules, as:"module"}
         <div id="modules">
+            #{list items:modules, as:"module"}
             <div class="module">
             <h2>[${module.id}] <a>${module.name}</a> <span class="by">by ${module.author}</span></h2>
             <p>${module.description.raw()}</p>
@@ -65,11 +62,17 @@
                 <a href="/modules/${module.id}">Get details and versions</a>
             </p>
             </div>
+            #{/list}
         </div>
-        #{/list}
-
+        
         <script type="text/javascript" charset="utf-8">
-            var route = function(options) {var pattern = '/modules?keyword=:keyword'; for(key in options) { pattern = pattern.replace(':'+key, options[key]); } return pattern };
+            var route = function(options) {
+                var pattern = '/modules?keyword=:keyword';
+                for(key in options) {
+                    pattern = pattern.replace(':'+key, options[key]);
+                }
+                return pattern
+            };
             $('#keyword')
                 .keyup(function() {
                     $('#modules').load(route({keyword: this.value}) + ' #modules')
@@ -82,7 +85,7 @@
                     }
                 })
         </script>
-
+        
     </div>
 
 </div>

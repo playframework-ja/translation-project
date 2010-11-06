@@ -39,18 +39,6 @@
             </li>
         </ul>
 
-        <h2>Developer login</h2>
-            <p>
-                Use your OpenID to connect and manage your modules.
-            </p>
-            <form action="/login" method="POST" accept-charset="utf-8" enctype="application/x-www-form-urlencoded" >
-                <input type="hidden" name="authenticityToken" value="">
-                <input type="hidden" name="from" value="http://www.playframework.org/modules">
-                <p>
-                    <input type="text" name="openid">
-                    <input type="submit" value="Login">
-                </p>
-            </form>
     </div>
     
     <div class="wrapped wikistyle">
@@ -100,10 +88,12 @@
         </div>
         <div id="disqus_thread"></div>
         <script type="text/javascript">
-                        var disqus_identifier = 'modules-${module.id}';
+            var disqus_identifier = 'modules-${module.id}';
             var disqus_title = '${module.name} [${module.id}]';
             (function() {
-                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
                 dsq.src = 'http://playdocja.disqus.com/embed.js';
                 (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
             })();
