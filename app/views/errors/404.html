@@ -1,18 +1,27 @@
+#{if play.mode.name() == 'DEV'}
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
     <head>
         <title>Not found</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>	
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     </head>
     <body>
-		#{if play.mode.name() == 'DEV'}
-			#{404 result /}
-		#{/if}
-        #{else}
-        	<h1>Not found</h1>
-			<p>
-				${result.message}
-			</p>
-        #{/else}
+    #{404 result /}
     </body>
 </html>
+#{/if}
+
+#{else}
+#{extends 'main.html' /}
+<div id="top">
+    <p class="category">ページが見つかりません</p>
+</div>
+
+<div class="wrapper" id="notfound">
+    <div class="wrapped">
+        <p>
+            申し訳ありませんが、お探しのページが見つかりませんでした。このサイトになにか問題があるとお考えの場合は、<a href="https://github.com/garbagetown/playdocja/issues">github バグトラッカ</a> に問題を報告してください。
+        </p>
+    </div>
+</div>
+#{/else}
