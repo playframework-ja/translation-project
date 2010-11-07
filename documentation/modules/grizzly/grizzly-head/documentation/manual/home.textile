@@ -1,0 +1,7 @@
+h1. Grizzly network stack
+
+Just enable the module and use:
+
+bc. play grizzly:run
+
+Instead of the play run command.

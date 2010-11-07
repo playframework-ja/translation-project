@@ -1,0 +1,206 @@
+h1. press
+
+The __press__ module is a JavaScript and CSS minimizer that is designed to be transparent to the application developer:
+Simply replace **==&lt;script>==** tags with **#{press.script}** tags, and **==&lt;link rel="stylesheet">==** tags with **#{press.stylesheet}** tags.
+
+
+h2. <a>Using press</a>
+
+h3. Load the __press__ module
+
+Run the following command to install the __press__ module in your copy of Play, and note the version of the module that is installed.
+
+bc. play install press
+
+Include the following line in your application’s **conf/application.conf** file to load the __press__ module. Be sure to use the appropriate version number:
+
+bc. module.press=${play.path}/modules/press-1.0
+
+By default, __press__ does not minimize JavaScript and CSS files when Play is in dev mode. Add the following line to **conf/application.conf** in order to see the compressed output in dev:
+
+bc. press.enabled=true
+
+Add the following line to **conf/routes** to import the __press__ routes. This simply makes the urls used by the __press__ module more uniform:
+
+bc. *  /  module:press
+
+
+h3. Replace **==&lt;script>==** with **#{press.script}**
+
+For example, your template includes the following JavaScript files:
+
+bc. <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+<script src="/public/javascripts/header.login.js" type="text/javascript"><script>
+<script src="/public/javascripts/main.js" type="text/javascript"></script>
+<script src="/public/javascripts/library.min.js" type="text/javascript"></script>
+
+You would change the template to look like this:
+
+bc. <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript"></script>
+#{press.script 'header.login.js' /}
+#{press.script 'main.js' /}
+#{press.script src:'library.min.js', compress:false /}
+#{press.compressed-script /}
+
+The **#{press.compressed-script /}** tag outputs a **==&lt;script>==** tag whose source is the compressed output of the other files.
+
+Note:
+* library.min.js is already minimized. We don't need to minimize it again so we add the parameter **compress:false**.
+* Don't try to minimize files included from an external website :) (eg if you include jQuery from Google's CDN)
+
+h3. Replace **==&lt;link rel="stylesheet">==** with **#{press.stylesheet}**
+
+For example, your template includes the following CSS files:
+
+bc. <link href="/public/stylesheets/styles.css" rel="stylesheet"></link>
+<link href="/public/stylesheets/header.login.css" rel="stylesheet"></link>
+
+You would change the template to look like this:
+
+bc. #{press.stylesheet 'header.login.css' /}
+#{press.stylesheet 'main.css' /}
+#{press.compressed-stylesheet /}
+
+
+h3. Sample output
+
+The above example will output something that looks like this:
+
+bc. <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+<!-- press-js: header.login.js -->
+<!-- press-js: main.js -->
+<!-- press-js: libary.min.js -->
+<script src="/press/js/sNJSWMCDDFAekXYWryWgigJJ.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+<!-- press-css: header.login.css -->
+<!-- press-css: main.css -->
+<link href="/press/css/mDcFcAqEAhDvWvFVBfCOiQJJ.css" rel="stylesheet" type="text/css" charset="utf-8" ></link>
+
+All JavaScript files are compressed into a single JS file and all CSS files are compressed into a single CSS file.  __press__ outputs HTML comments indicating the order in which each JavaScript/CSS file was added to compression
+
+
+h2. <a>Tips</a>
+
+* The source CSS and JS files **MUST** be UTF-8 encoded
+* The source files will be output in compressed format in the same order as they appear in HTML when compression is disabled.
+* It doesn't matter where the **#{press.compressed-script}** and **#{press.compressed-stylesheet}** tags are declared. Even if there are **#{press.script}** or **#{press.stylesheet}** tags after them in the template, they will still be included in compression. 
+* In dev mode, changes to the JS and CSS files are detected real time. Simply save and refresh the page. See "Caching":#caching for options related to caching and the defaults for each mode.
+
+
+h2. <a name="caching">Caching</a>
+
+When a compressed file is generated for a given set of input files, it is stored on disk in a configurable location. The next time the same set of files in the same order is requested, the file is retrieved from the cache.
+
+press uses different caching mechanisms depending on whether Play is in dev or production mode. These can be overridden in "Configuration":#configuration. 
+* In dev mode, __press__ by default uses the caching strategy **Change**: __press__ will detect changes to the JS and CSS files real time. Simply save and refresh the page.
+* In production mode, __press__ by default uses the caching strategy **Always**: __press__ will not auto-detect changes. The cache is cleared each time the server is restarted.
+* There is a third caching strategy that can be configured called **Never**, in which __press__ will not use the cache. Compression will be performed for every page request. This mode obviously puts a high load on the server and is only recommended if one of the above strategies cannot be used for some reason.
+
+
+h2. <a name="configuration">Configuration</a>
+
+Many configuration options are different between dev and production. All of them can be overridden. For more information on how to override a Play configuration option for a particular environment, see "Managing application.conf in several environments":http://www.playframework.org/documentation/1.0.3/ids
+
+h3. __press.enabled__
+
+Whether or not __press__ is enabled.
+
+**press.enabled=true**
+   Each **#{press.script}** and **#{press.stylesheet}** tag will output an HTML comment
+   The **#{press.compressed-script}** and **#{press.compressed-stylesheet}** tags will output a **==&lt;script>==** or **==&lt;link rel="stylesheet">==** tag with its src attribute pointing to the compressed source.
+
+**press.enabled=false**
+   Each **#{press.script}** and **#{press.stylesheet}** tag will output a corresponding **==&lt;script>==** or **==&lt;link rel="stylesheet">==** tag with the original, uncompressed source.
+   The **#{press.compressed-script}** and **#{press.compressed-stylesheet}**  tag will output nothing
+
+By default, when play is in dev mode __press__ is disabled, and in production it is enabled
+
+
+h3. __press.cache__
+
+The caching strategy to use. See "Caching":#caching.
+
+**press.cache=Always**
+   The cache will always be used, regardless of whether the component files have changed. The cache will be cleared when the server is restarted - this mode is recommended for a production environment.
+
+**press.cache=Change**
+   The compressed file will be regenerated when the last modified date of one of the source js or css files is detected to have changed - recommended for a dev environment.
+
+**press.cache=Never**
+   The cache will not be used: the js and css files will be compressed on every request
+
+By default, when play is in dev mode the caching strategy is **Change**, and in production it is **Always**.
+
+
+h3. __press.cache.clearEnabled__
+
+Indicates whether the action to clear the cache from the web is enabled in production.
+Press exposes an action to clear the compressed js and css cache at /press/clear
+
+By default, when play is in dev mode the action is available and in production it is disabled.
+**press.cache.clearEnabled=true**
+
+
+h3. __press.key.lifetime__
+
+The amount of time to keep the compression key, in play Time duration format (see play.libs.Time.parseDuration)
+
+When the **#{press.compressed-script}** or **#{press.compressed-stylesheet}** tag is output, a temporary key is generated and used as part of the file name. The browser then requests the file and the server responds with the compressed javascript. So the key must last as long as the time between when the browser receives the HTML and when it makes the request for the JS. The default is 2 minutes
+**press.key.lifetime=2mn**
+
+
+h3. __press.js.sourceDir__
+
+The source directory for javascript files, relative to the application root
+**press.js.sourceDir=/public/javascripts/**
+
+h3. __press.css.sourceDir__
+
+The source directory for css files, relative to the application root
+**press.css.sourceDir=/public/stylesheets/**
+
+h3. __press.js.outputDir__
+
+The output directory where compressed javascript files will be written to, relative to the application root. Note: This directory will be created if it doesn't exist.
+**press.js.outputDir=/public/javascripts/press/**
+
+h3. __press.css.outputDir__
+
+The output directory where compressed css files will be written to, relative to the application root. Note: This directory will be created if it doesn't exist.
+**press.css.outputDir=/public/stylesheets/press/**
+
+
+h3. Options for the YUI compressor
+
+See "http://developer.yahoo.com/yui/compressor":http://developer.yahoo.com/yui/compressor for details
+
+**press.yui.css.lineBreak=-1**
+**press.yui.js.lineBreak=-1**
+**press.yui.js.munge=true**
+**press.yui.js.warn=false**
+**press.yui.js.preserveAllSemiColons=false**
+**press.yui.js.preserveStringLiterals=false**
+
+
+
+h2. <a>How __press__ works</a>
+
+press uses "YUI Compressor":http://developer.yahoo.com/yui/compressor/ to perform JavaScript and CSS minimization.
+
+Each **#{press.script}** tag is replaced with a corresponding HTML comment, eg **<!-- press-js: main.js -->**. This is necessary in order to indicate the order in which the files are declared, required to generate the compressed output (explained below).
+
+The **#{press.compressed-script}** tag is replaced with a **==&lt;script>==** tag containing a key derived from the page URL, eg
+
+bc. <script src="/press/js/sNJSWMCDDFAekXYWryWgigJJ.js" type="text/javascript" language="javascript" charset="utf-8"></script>
+
+When the page is ready to be sent to the browser, __press__ scans the output for comments of the form **<!-- press-js: main.js -->** and creates a list of files that will be compressed, that is associated with the key.
+
+When the browser makes a request for **/press/js/sNJSWMCDDFAekXYWryWgigJJ.js**, __press__ extracts the key from the file path and uses it to retrieve the list of files. If there is already a compressed file containing those files in that order in the cache, __press__ returns that file to the browser. Otherwise it generates the compressed file on the fly and saves it to the cache.
+
+The process is the same for CSS files.
+
+
+h2. <a>Questions</a>
+
+If anything in the documentation is not clear, if you find a bug, or if you have questions, please use the play google group and include the word "press" in the subject line:
+"http://groups.google.com/group/play-framework":http://groups.google.com/group/play-framework
+

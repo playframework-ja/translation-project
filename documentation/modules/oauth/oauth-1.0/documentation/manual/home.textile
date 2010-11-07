@@ -1,0 +1,75 @@
+h1. OAuth Client
+
+This module allows applications to connect to an "oauth":http://oauth.net provider, such as "Twitter":http://apiwiki.twitter.com/ or "Google":http://code.google.com/apis/accounts/docs/AuthForWebApps.html .
+
+h2. <a>OAuth Basics</a>
+
+In order to access to users' data from a oauth provider, you need to register and obtain a consumer key. See the documentation on your provider's website for detailed on how to obtain it.
+
+You need to following:
+* Request URL
+* Access URL
+* Authorize URL
+* Consumer key
+* Consumer secret
+
+The workflow is the following, for each user:
+# Get a request token from the provider. The user must be redirected to a page on the provider's site where he explicitly grants access rights to your application.
+# Exchange the request token for an access token.
+# Use the token to sign requests to access the user's data with REST request on the provider.
+
+Depending on the provider's policy the token may expire at any time. The user can also revoke the permission to your application.
+
+h2. <a>Using The Module</a>
+
+The main class to use is play.modules.oauthclient.OAuthClient. It is used to retrieve request and access token, and sign requests.
+
+You need to store each user's token in your data layer. To do so you must provide a ICredentials for each user; you can use the Credentials implementation which inherits model and as such will be serialized to your data layer.
+
+h2. <a>The OAuthClient Class</a>
+
+Here is how you would create a client to connect to Twitter's API:
+
+bc. OAuthClient client = new OAuthClient(
+"http://twitter.com/oauth/request_token",
+"http://twitter.com/oauth/access_token",
+"http://twitter.com/oauth/authorize",
+"aaaaaaaaaaaaaaaaaaaaaa", // Your application's consumer key
+"bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); // You application's consumer secret
+
+h2. <a>Authentication</a>
+
+First, you need a request token:
+
+bc. ICredentials creds = new Credentials();
+client.authenticate(creds, callbackURL);
+
+Calling this method will redirect the user to a page on the provider where he is asked to grant your application permission to access his data. After that, the provider will redirect him to the URL you provided in callbackURL with oauth_token and oauth_verifier as arguments. You will need the oauth_verifier to get your access token. The token and secret will be set in creds. If you use your own implementation of ICredentials, make sure that they get saved in the setters.
+
+Then, you need to exchange this request token for an access token:
+
+bc. client.retrieveAccessToken(creds, oauth_verifier);
+
+creds should contain the tokens set by OAuthClient.authenticate. oauth_verifier comes from the callback in the previous step.
+
+When this is done, creds contain everything you need to sign request and retrieve data related to the user who performed the workflow.
+
+h2. <a>Signing Requests</a>
+
+With the correct ICredentials, you can sign any request; this is not limited to the current session. Requests are done using play.libs.WS:
+
+While a classical, non signed request would be the following:
+
+bc. WS.url(url).get();
+
+A signed request will be:
+
+bc. WS.url(client.sign(creds, url)).get();
+
+If the request is not a GET, you need to sign the request instead of the URL and pass the method:
+
+bc. client.sign(creds, WS.url(url), "POST").post();
+
+h2. <a>Example</a>
+
+A simple "twitter example":http://github.com/erwan/playoauthclient/tree/master/example/twitter/ is available.

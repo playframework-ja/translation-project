@@ -1,0 +1,49 @@
+h1. Sass module
+
+This module brings sass to play applications. Sass makes CSS fun again. Sass is CSS, plus nested rules, variables, mixins, and more, all in a concise, readable syntax.
+
+You can read more about sass on "the official website":http://sass-lang.com/
+
+p(note). This version use Haml-3.0.22 - Both syntax SASS and SCSS are supported.
+
+h2. <a>Usage</a>
+
+As always, you need to declare the sass module in your application configuration file using:
+
+bc. module.sass=${play.path}/modules/sass
+
+Note that if you are using a recent version of play these simple steps are enough:
+
+bc. $ play install sass
+$ play new myApp --with sass
+
+Once the module is installed you can write some sass files in the **public/stylesheets** directory of your application.
+
+Let's see a very simple example. Create the **public/stylesheets/main.scss** file:
+
+bc. $blue: #3bbfce;
+ 
+h1 {
+    color: $blue;
+    font-weight: bold;
+}
+
+And you can then use it into your main template, **app/views/main.html**:
+
+bc. ...
+<link rel="stylesheet" href="@{'public/stylesheets/main.scss'}" type="text/css">
+...
+
+The sass file is automatically compiled and the generated CSS is sent to the browser. As you can see, in DEV mode, the generated CSS contains debug informations that can help you to find the sass statement that generated the rules:
+
+bc. /* line 3 */
+h1 {
+  color: #3bbfce;
+  font-weight: bold;
+}
+
+In PROD mode the CSS is stripped down to the minimal size.
+
+In cas of error the generated CSS will not be interpreted by your browser and you will see the error message directly into the page:
+
+!images/error!

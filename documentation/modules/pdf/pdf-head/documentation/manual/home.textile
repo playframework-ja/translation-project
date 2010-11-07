@@ -1,0 +1,21 @@
+h1. PDF module
+
+The PDF module allows you to render PDF document. It is rather simple to use as it only requires to import a static file.
+
+h2. <a>Enable the PDF module for the application</a>
+
+In the **/conf/application.conf** file, enable the PDF module by adding this line:
+
+bc. # The PDF module
+module.pdf=${play.path}/modules/pdf-head
+
+h2. <a>Using the PDF module</a>
+
+h3. <a>The renderPDF() method</a>:
+
+bc. import static play.modules.pdf.PDF.*;
+
+And then use the renderPDF() method as you would use the render() method.
+
+The renderPDF will first look for a .pdf template. If there are none, it will fall back to the .html template. You can use a media="print" css to customize the PDF to render. The result is a PDF file. The render method uses the same template as for rendering HTML.
+Please refer to the samples-and-test for an example.

@@ -1,0 +1,294 @@
+h1. Scala support
+
+The 1.1 release of play will include support for the "Scala":http://www.scala-lang.org programming language. Thanks to the flexibility of the play framework architecture, the Scala support is provided with a simple module. You just need to enable the scala module in the **conf/application.conf** file.
+
+bc. module.scala=${play.path}/modules/scala
+
+Then you can write all or parts of your play application using scala. You can of course mix it with Java.
+
+p(note). We are in very very active development on this stuff. You can try it for now as an experimental feature. Don't expect to write a complete play application in Scala right now.
+
+For a quick overview of the scala support, you can watch this "Scala screencast":http://vimeo.com/7731173
+
+h2. <a>Create a new application, with Scala support</a>
+
+You can automatically create a scala ready application, by using the **--with** option of the **play new** command. Just try:
+
+bc. play new myApp --with scala
+
+The play application will be created as usual, but if you look at the **controllers** package, the **Application.java** file is now replaced by a **Application.scala** file:
+
+bc. package controllers
+ 
+import play._
+import play.mvc._
+ 
+object Application extends Controller {
+  def index = render()
+}
+
+It is very close to the Java version of the default Application controller.
+
+Now just run the application as usual using **play run** and it will display the standard welcome page. Now just edit the **Application.scala** file to replace the **render()** call:
+
+bc. def index = "Hello scala!"
+
+Refresh the page, and see the magic. 
+
+p(note). if you prefer a more explicit style you can use **renderHtml** method to directly write to the response object
+
+As always, if you make a mistake, play will just show you the error in a perfect way; (it's just more difficult now to forget the trailing semicolon)
+
+!images/scala-error!
+
+h2. <a>Return type inference</a>
+
+As shown above, you can directly use the inferred return type to send the action result. For example using a String:
+
+bc. def index = "<h1>Hello world</h1>"
+
+And you can even use the built-in XML support to write XHTML in a literal way:
+
+bc. def index = <h1>Hello world</h1>
+
+If the return type looks like a binary stream, play will automatically use **renderBinary()**. So generating a captcha image using the built-in Captcha helper can be written as:
+
+bc. def index = Images.captcha
+
+h2. <a>Action parameters, and scala default arguments</a>
+
+You can declare some action parameter the same way you do it in Java:
+
+bc. def index(name: String) = <h1>Hello {name}</h1>
+
+To big plus of scala is the ability to define some default values to these parameters:
+
+bc. def index(name: String = "Guest") = <h1>Hello {name}</h1>
+
+This way if the **name** HTTP parameter is missing, play will use the default argument value.
+
+h2. <a>Controller composition using traits</a>
+
+A controller can use several traits to combine several interceptor.
+
+Let's define a Secure trait:
+
+bc. package controllers
+ 
+import play._
+import play.mvc._ 
+ 
+trait Secure {
+  self: Controller =>
+  @Before
+  def check {
+    session("user") match {
+      name: String => info("Logged as %s", name)
+      _ => Security.login
+    }
+  }
+}
+
+And you can them use it in the Application controller:
+
+bc. package controllers
+ 
+object Application extends Controller with Secure {
+  def index = "Hello world"
+}
+
+
+h2. <a>How to define and access Models</a>
+
+Models can be defined not only in java but in scala as well.
+
+h3.  Scala Models have the following characteristics:
+
+* each and every class needs to extend Model
+* fields are defined as constructor arguments
+* companion object needs to extend QueryOn[T]  
+* extra finder methods should be defined in the companion object
+
+here is an example:
+
+bc.. import play.db.jpa._
+import play.data.Validators._
+
+@Entity
+class User(
+  //fields
+
+  @Email
+  @Required
+  var email: String,
+
+  @Required
+  var password: String,
+  
+  var fullname: String
+
+) extends Model {
+    //instance methods
+    var isAdmin = false
+    override def toString = email
+}
+object User extends QueryOn[User] {
+//placeholder for extra finder methods (if any) 
+}
+
+p(note). Notice the two import statements. Due to changes in scala 2.8 rc2, the previous versions (ie *import play.data.validations._* and *import javax.persistence._*) are no longer working
+
+h3. <a>Running queries against Models</a>
+
+"The API":http://github.com/guillaumebort/play-scala/blob/master/src/play/db/jpa/QueryOn.scala is really similar to the java one so, for example to count the number of users, you can just call count on the User class (assuming you defined the appropriate companion object):
+
+bc. User.count
+
+or if you want to run a complex find query with bindings, that would look something like this:
+
+bc. Post.find("select distinct p.id from Post p join p.tags as t where t.name in (:tags) group by p.id having count(t.id) = :size", Map("tags" -> tags.toArray, "size" -> tags.size)).fetch
+
+
+h2. <a>Interoperability with Java Models</a>
+
+Due to differences in how static methods are handled in Scala and Java, we needed to introduce a few workarounds to make the Scala API look nice. Unfortunately, the workarounds meant that Java models do not work absolutely seamlessly from scala controllers/jobs (ie. calls like *JPost.findAll()* or *jpost.save()* will fail). Not all is lost though, with a little effort you can convert your Java models into Scala ones.   
+
+
+h3. How to query Java Models
+
+bc. import play.db.jpa.asScala
+import models._
+asScala[JUser].findAll
+asScala[JPost].find("select distinct p.id from Post p join p.tags as t where t.name in (:tags) group by p.id having count(t.id) = :size", Map("tags" -> tags.toArray, "size" -> tags.size)).fetch
+
+h3. How to manage an instance
+
+bc. import play.db.jpa.asScala
+import models._
+//this implicit conversion is imported in most packages by default
+import play.db.jpa.asScala.enrichJavaModel 
+val u  = new JUser("peter@gmail.com","secret","my name").asScala[JUser].save()
+
+or
+
+bc. val u = new JUser("peter@gmail.com","secret","my name")
+u.asScala.save()
+
+h2. <a>Cache API</a>
+
+using the scala version of the "cache api":http://www.playframework.org/documentation/1.0.2.1/cache one can do stuff like this
+
+bc. Cache.get[People]("person-key-25") match {case Some(p) => println (p.name); case None => println("boo")}
+
+
+h2. <a>Testing</a>
+
+ScalaTest support is integrated into Play, so one can easily write unit and functional tests using ScalaTest, for example: 
+
+bc. class SpecStyle extends UnitFlatSpec with ShouldMatchers {
+"Creating a user" should "be succesfull" in {
+  val user = new User("bob@gmail.com", "secret", "Bob").save()
+  bob = User.find("byEmail", "bob@gmail.com").first
+  bob should not be (null)
+  bob.fullname should be ("Bob")
+ }
+}
+
+bc. class RenderMethodsTest extends FunctionalTestCase with Matchers{
+  val response = GET("/application/json1")
+  response shouldBeOk()
+  response contentTypeShouldBe("application/json")
+  response charsetShouldBe("utf-8")
+  response contentShouldBe("{'name':'guillaume'}")
+}
+
+"Full API":http://github.com/guillaumebort/play-scala/blob/master/src/play/test/Wrappers.scala
+ 
+
+h2. <a> Scala console</a>
+
+play-scala comes with a console which can be really useful to try out various layers of your application.
+
+here is an example session:
+
+bc.. kola:yabe-with-scala phausel$ play scala:console
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.1-unstable-localbuild, http://www.playframework.org
+~
+15:43:17,805 INFO  ~ Starting /Users/phausel/workspace/play-scala/samples-and-tests/yabe-with-scala
+15:43:17,809 INFO  ~ Module secure is available (/opt/local/lib/play-1.1-unstable-r777/modules/secure)
+15:43:17,809 INFO  ~ Module scala is available (/Users/phausel/workspace/play-scala/samples-and-tests/yabe-with-scala/../..)
+15:43:17,810 INFO  ~ Module crud is available (/opt/local/lib/play-1.1-unstable-r777/modules/crud)
+15:43:19,300 WARN  ~ You're running Play! in DEV mode
+~
+~ Starting up, please be patient
+~ Ctrl+D to stop
+~
+15:43:31,774 INFO  ~ Connected to jdbc:hsqldb:mem:playembed
+15:43:33,130 INFO  ~ Application 'Yet Another Blog Engine' is now started !
+Welcome to Scala version 2.8.0.Beta1-prerelease (Java HotSpot(TM) 64-Bit Server VM, Java 1.6.0_17).
+Type in expressions to have them evaluated.
+Type :help for more information.
+
+scala> import models._
+import models._
+
+scala> User.count     
+res0: Long = 3
+
+p(note). commands are executed in a transaction, so changes to your models will be persistent
+
+
+h2. <a>Module wrappers</a>
+
+Play comes with 2 default modules (secure and crud) and the scala module provides wrapper for them. For example you can create a CRUD controller by mixing in the **CRUDFor** trait:
+
+bc. object Companies extends Controller with CRUDFor[Company]
+
+And by mixing in the **Secured** trait, you can turn on authentication:
+
+bc. object Companies extends Controller with CRUDFor[Company] with Secured
+
+
+
+h2. <a>Utils</a>
+
+Similar to **play.utils.Java**, scala specific helper methods are stored in **play.utils.Scala** object. A few examples: 
+
+bc. import play.utils.Scala._
+
+h3. Automatic Resource Management
+
+bc. for (stream <- using (new PipeStream())   {
+//do something with stream, close() will be called at the end
+}
+
+h3. Elvis operator
+
+bc. def nuller:String = null
+?(nuller.toLowerCase.substring(1)) match  { case Some(s) =>s;case None=>"oh no" }
+
+
+h3. URL reader 
+
+bc. val html = fromURLPath("http://www.playframework.org/@api/play/Play.html").mkString //read and connection timeout can be set too
+
+
+h2. <a>Yabe with Scala</a>
+
+A scala version of the blog application is bundled with play-scala and can be found "here":http://github.com/guillaumebort/play-scala/tree/master/samples-and-tests/ 
+
+h2. <a>Mailer example</a>
+
+Mailer classes can be written in Scala too, "here":http://github.com/guillaumebort/play-scala/blob/master/samples-and-tests/just-test-cases/app/notifiers/Mails.scala is an example  
+
+h2. <a>Tutorial</a>
+
+a tutorial can be found "here":http://sites.google.com/site/scalatohoku/dai74kaibenkyoukai/starting-up-the-project-scala-version--memo
+
+

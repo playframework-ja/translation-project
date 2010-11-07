@@ -1,0 +1,69 @@
+h1. akka support
+
+akka (http://akkasource.org) is a platform for building simple, correct, fault-tolerant, concurrent, and scalable applications for the JVM.  This module allows you to get up and running with play and akka in not time.
+
+p(note). **Note on akka's REST, Comet, Spring, Guice, Camel, Persistence, and AQMP libraries** I've taken these out of the akka module.  The REST and Comet libraries are built to work with servlets, and probably will not work how you expect them to. However, because Play! already includes such great support for REST and comet, you really don't need the REST and comet support from akka. Also, I did not include the Spring or Guice support for akka, because I did not want to stomp on the Spring and Guice Play! modules (did somebody say OSGi?). And lastly I've left out the Camel, Persistence, and AQMP support because I wanted to reduce the amount of dependencies.  If you'd like to include akka support for these, you can download the jars and put them on your classpath.
+
+p(note). Also, even though the Scala module is required, there is a Java API for akka.  I enjoy programming in Scala, and I have not looked much at the Java API, so the examples are all in Scala.  If you'd like to contribute some examples of the Java API, I'd be more than happy to include them!
+
+**There are some of screencasts** 
+
+Screencast One for the akka module for The Play! framework: http://vimeo.com/10764693 
+
+Screencast Two for the akka Play! Module. Rudimentary Actors: http://vimeo.com/10792173
+
+**watch the third one if nothing else!**
+Screencast Three for the akka Play! module. Remote Actors: http://vimeo.com/10793443
+
+h2. Getting Started
+
+p(note). It should be noted that both the Scala and akka modules require Play! 1.1, which is still under development, so until Play! 1.1 is final, use this at your own risk!  (it's more fun that way anyway!)
+
+The Scala module is required, so if you have not installed it, you can with the **install** command.
+
+bc. play install scala-head
+
+Once that's done, go ahead and install the akka module
+
+bc. play install akka-head
+
+You can then create a new Play! project, called "myApp", with
+
+bc. play new myApp --with scala-head,akka-head
+
+To include akka in an existing project add the following lines to your **conf/application.conf** file
+
+bc. module.scala=${play.path}/modules/scala-head
+module.akka=${play.path}/modules/akka
+
+To **run** your application execute
+
+bc. play run 
+
+(the above command will be changed to "play run" when a bug is fixed in the Play! 1.1 branch)
+
+
+h2. Configuration
+
+All of the configuration is done in the akka.conf file, which is in the conf folder.  There is more information on how to configure it here: http://doc.akkasource.org/configuration
+
+h2. Examples
+
+There are some examples included with the module, located in the sample-app folder.  To run the sample-app, make sure scala-head is installed, cd to the ${play.path}/modules/akka/sample-app directory and execute:
+
+bc. play run
+
+The examples are all hit counters, illustrate different aspects of akka, and are thoroughly explored in the screencasts: 
+
+Screencast One for the akka module for The Play! framework: http://vimeo.com/10764693 
+
+Screencast Two for the akka Play! Module. Rudimentary Actors: http://vimeo.com/10792173
+
+**watch the third one if nothing else!**
+Screencast Three for the akka Play! module. Remote Actors: http://vimeo.com/10793443
+
+The first example is in **app/controllers/HitCounter.scala**, and can be accessed at http://localhost:9000/hitCounter  It illustrates how to use Software Transactional Memory (STM).  Every time a user hits that URL, the hit counter will be increased.  Operations on the TransactionalRef must occur in the context of a transaction, which is atomic, isolated, and consistent, which basically means, if two requests try to update the reference at the same time, one will win and one will lose.  When the one that loses, loses, it will automatically retry the update, so if 20,000 people visit the site, the hit counter will accurately report 20,000.  This is thoroughly explored, along with implications, in the screencast: http://vimeo.com/10764693.
+
+The second example, also a hit counter, is in **app/controllers/ActorHitCounter.scala**, and can be accessed at http://localhost:9000/actorHitCounter It shows some very rudimentary actors stuff.  If you are unfamiliar with The Actors Pattern, the screencast: http://vimeo.com/10792173 gives an overview of it, and show some different methods of working with akka actors.  This example doesn't show anything you couldn't do with the actors library included with the Scala distribution - to see the really cool stuff, take a look at the next example.
+
+The third example shows a hit counter that works in a clustered environment and is located in **app/controllers/ClusteredHitCounter.scala** along with **app/AkkaBootStrapJob.scala**.  The previous examples will accurately report hits in a single server environment, but when multiple servers are clustered together, the number will report how many users have hit a given server, not the cluster as a whole.  To accurately tally the number of hits on a cluster as a whole, a server managed actor is registered to keep track of hits and report them when asked.  This example is a little more involved because to see it in action, multiple servers need to be started - it's fully explored in the screencast: http://vimeo.com/10793443.

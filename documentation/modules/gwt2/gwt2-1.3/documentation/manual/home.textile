@@ -1,0 +1,226 @@
+h1. <a>Play-GWT2 Module</a>
+
+p.  Play GWT2 provides some classes and commands to simplify the integration of a GWT 2.x Module in a play application. 
+ 
+h2. <a>Installation</a>
+
+p. 1. This module does not includes GWT SDK. You will need to download it. ( version 2.0.x )
+
+p. 2. Create a new Play! application or use an existing one. 
+
+p. 2. Set GWT_PATH (or GWT_HOME) environment variable.
+
+p. 3. Install GWT2 module. > play install gwt2
+
+p. 4. Edit the conf/application.conf file to enable the GWT2 module :
+
+bc. # Additional modules
+# ~~~~~
+# A module is another play! application. Add a line for each module you want
+# to add to your application. Modules path are either absolutes or relative to
+# the application root.
+#
+module.gwt2=${play.path}/modules/gwt2-1.3
+
+ 
+h2. <a>Initialize you Application</a> 
+ 
+bc. play gwt2:init myApp
+
+p. this will
+ - create a folder in your application : <application_path>/app/gwt (directory for gwt modules)
+ - create a folder in your application : <application_path>/gwt-public (directory for GWT compiled resources)
+ - and copy gwt-user.jar to <application_path>/lib
+
+if you want to change get path for you gwt modules, edit the conf/application.conf file and add theese lines
+
+bc. # GWT2 Configuration
+# ~~~~~
+# gwt2.modulespath=myfolder
+
+then you can set you personal folder to use
+
+
+h2. <a>Create a GWT Module</a> 
+ 
+create your module like this:
+
+bc. play gwt2:create myApp
+
+p. this will ask you a gwt module name 
+
+bc. What is the gwt module name ?
+
+p. enter for eg: firstmodule
+
+p. this action create some files
+	<application_path>/app/gwt/firstmodule
+	<application_path>/app/gwt/firstmodule/Firstmodule.gwt.xml (module)
+	<application_path>/app/gwt/firstmodule/public
+	<application_path>/app/gwt/firstmodule/public/index.html (default page for entry point)
+	<application_path>/app/gwt/firstmodule/client
+	<application_path>/app/gwt/firstmodule/client/Firstmodule.java (entry point)
+	<application_path>/app/gwt/firstmodule/client/GreetingService.java
+	<application_path>/app/gwt/firstmodule/client/GreetingServiceAsync.java
+	<application_path>/app/gwt/firstmodule/shared
+	<application_path>/app/gwt/firstmodule/shared/FieldVerifier.java
+	<application_path>/app/gwt/firstmodule/server
+	<application_path>/app/gwt/firstmodule/server/GreetingServiceImpl.java
+
+p. GreetingService Interface must use annotation @RemoteServiceRelativePath("greet")
+
+p. GreetingServiceImpl.java must implements GWTService and us @GWT2ServicePath("/firstmodule/greet") annotation
+
+
+h2. <a>Testing you GWT Module with dev mode</a>
+
+First start you Play application.
+
+bc. play run myApp
+
+Then start the dev mode, 
+
+bc. play gwt2:devmode myApp
+
+p.  GWT will compile your modules at first time.
+
+p. Now you access your gwt module this url <host>/app/firstmodule/index.html 
+
+h2. <a>Compiling a module</a>
+
+To compile a module (eg: before deployment)
+
+bc. play gwt2:compile myApp
+
+p. this will ask you a gwt module name 
+
+bc. What is the gwt module name ? 
+
+p.  Enter a name, then GWT will compile your module.
+
+
+h2. <a>Remove a GWT Module</a>
+
+p. As for creating a new GWT Module but use gwt2:remove 
+
+bc. play gwt2:remove myApp
+
+p. this will ask you a gwt module name 
+
+bc. What is the gwt module name ?
+
+p. all directory of your module will be deleted:
+- 	<application_path>/app/gwt/firstmodule/**
+- 	<application_path>/gwt-public/firstmodule/**
+
+
+h2. <a>Debugging the GWT UI</a>
+
+p. 1. The easiest way it to eclipsify, netbeansify, ... you application and then use you prefered IDE to use JPDA. By default GWT listen on port 3408.
+
+
+h2. <a>Creating a service using GWT-RPC</a>
+
+**this part is the same as the Play-GWT by Rustem Suniev**.
+
+If you follow the GWT manual, it will explain you how to expose a service with GWT-RPC using a **RemoteServiceServlet**. 
+
+Exposing a GWT service with Play is almost the same, but since you can't define servlets in a Play application, you have to use the provided support class, **play.modules.gwt.GWTService** 
+
+For example, to implement this service:
+
+bc. 
+package gwt.mymod.client;
+import com.google.gwt.user.client.rpc.RemoteService;
+import com.google.gwt.user.client.rpc.RemoteServiceRelativePath;
+@RemoteServiceRelativePath("hello")
+public interface HelloService extends RemoteService {
+    String sayHello(String name);
+}
+
+
+simply create a class that extends the **play.modules.gwt.GWTService**, and define the service URL path with the **play.modules.gwt.GWTServicePath** annotation. Like this:
+
+bc.  
+package services;
+import play.modules.gwt2.GWT2Service;
+import play.modules.gwt2.GWT2ServicePath;
+import gwt.mymod.client.HelloService;
+@GWT2ServicePath("/main/hello")
+public class HelloServiceImpl extends GWT2Service implements HelloService {
+    public String sayHello(String name) {
+        return "Hello " + name;
+    }
+}
+
+This is the only difference from the GWT documentation.
+
+h2. <a>Using Play Model</a>
+You can use Play Model directly with your GWT Services. For that you have 2 solutions.
+
+p. 1. the first one is to create JPA Entity without extending play.db.jpa.Model
+
+bc. @Entity
+public class MyModel 
+{
+	@Required
+	@MinSize(1)
+	@MaxSize(100)
+	@Column(name="text", nullable=false, length=100)
+	public String someText;
+}
+
+You will have to use JPA.em().
+
+p. 2. the second one is to extends your model with play.db.jpa.Model and add a Custom Field Serializer side to the model class.
+
+bc. MyModel.java
+@Entity
+public class MyModel extends Model 
+{
+	@Required
+	@MinSize(1)
+	@MaxSize(100)
+	@Column(name="text", nullable=false, length=100)
+	public String someText;
+}
+
+bc. MyModel_CustomFieldSerializer.java
+public class MyModel_CustomFieldSerializer {
+	public static MyModel instantiate(SerializationStreamReader reader)
+		throws SerializationException {
+		return new MyModel();
+	}
+	public static void serialize(SerializationStreamWriter writer,
+			MyModel instance)
+		throws SerializationException {
+		writer.writeObject(instance.id);
+		writer.writeString(instance.someText);
+	}
+	public static void deserialize(SerializationStreamReader reader,
+			MyModel instance)
+		throws SerializationException {
+		instance.id = (Long) reader.readObject();
+		instance.someText = reader.readString();
+	}
+
+h2. <a>Samples</a>
+
+You will find 2 samples in the folder "samples" in the play gwt2 modules.
+
+1. simple test 
+This sample is just a basic gwt module create with:
+ - gwt2:init
+ - gwt2:create
+ - gwt2:compile
+
+2. myModel
+This sample is an basic gwt module wich use Play Model.
+
+
+h2. <a>About</a>
+
+This Module is maintained by **Vincent Buzzano** and was originaly based on the GWT Plugin by **Rustem Suniev**.
+
+website:
+ - http://github.com/vbuzzano/play-gwt2
