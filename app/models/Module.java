@@ -34,12 +34,14 @@ public class Module implements Comparable<Module> {
         List<Map<String, Object>> innerMap =
             (List<Map<String, Object>>) outerMap.get("versions");
         
-        for (Map<String, Object> version : innerMap) {
-            versions.add(
-                    new Version(
-                            (String) version.get("version"),
-                            (String) version.get("publishedAt"),
-                            (Boolean) version.get("isDefault")));
+        if (innerMap != null) {
+            for (Map<String, Object> version : innerMap) {
+                versions.add(
+                        new Version(
+                                (String) version.get("version"),
+                                (String) version.get("publishedAt"),
+                                (Boolean) version.get("isDefault")));
+            }
         }
     }
 

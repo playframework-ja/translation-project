@@ -51,6 +51,7 @@
         
         <h2><a>公開されたリリース</a></h2>
         
+        #{if versions}
         <p>
             このモジュールをインストールには <strong>install</strong> コマンドを使用してください:
         </p>
@@ -74,6 +75,12 @@
             </tr>
         #{/list}
         </table>
+        #{/if}
+        #{ifnot versions}
+        <p>
+        このモジュールにはまだ公開されたリリースがありません。以前のバージョンを取得する場合はプロジェクトホームページを参照してください。
+        </p>
+        #{/ifnot}
     </div>
 
     <div class="wrapped">
