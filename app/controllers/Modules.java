@@ -47,8 +47,11 @@ public class Modules extends Controller {
 
         String frameworkVersions = prop.get("frameworkVersions");
 
-        File textile = new File(basepath, "documentation/manual/home.textile");
-        String html = Textile.toHTML(IO.readContentAsString(textile));
+        File page = new File(basepath, "documentation/manual/home.textile");
+        if (!page.exists()) {
+            notFound(page.getPath());
+        }
+        String html = Textile.toHTML(IO.readContentAsString(page));
 
         render(action, id, version, frameworkVersions, versions, html);
     }
