@@ -1,53 +1,53 @@
-h1. Frequently Asked Questions
+h1. よくある質問
 
-h2. <a>Where do I ask questions that are not answered here?</a>
+h2. <a>ここで答えられていない質問はどこにすればいいですか?</a>
 
-The "Community":http://www.playframework.org/community page links to various places where you can read and post about Play. In general, the best place to ask questions is the "play-framework Google Group":http://groups.google.com/group/play-framework.
+"コミュニティ":http://www.playframework.org/community ページに Play について読み書きできる様々なサイトへのリンクがあります。一般的に、質問をするのに最適な場所は "play-framework Google グループ":http://groups.google.com/group/play-framework です。
 
-h2. <a>How does Play compare to framework X?</a>
+h2. <a>X framework と比べて Play はどうですか?</a>
 
-Nowadays, you have a very large number of choices for developing web applications. Play being a Java web application framework, let’s compare it to other Java frameworks. Play is built for a ‘share nothing’ architecture (think about it as a stateless framework), so it’s very different from all these Java stateful and components based frameworks like Seam, Tapestry or Wicket. It’s closer to Spring MVC or Struts (or Struts 2), but way more opinionated.
+今日では、web アプリケーションを開発するにあたって非常に多くの選択肢があります。Play は web アプリケーションフレームワークなので、他の Java フレームワークと比較してみましょう。Play は 'share nothing' アーキテクチャに向けて作られた (ステートレスなフレームワークと考えてください) ので、Seam, Tapestry や Wicket のようなステートフルでコンポーネントベースの Java フレームワークとは大きく異なります。Spring MVC や Struts (または Struts2) に近いですが、もっと偏屈です。 
 
-However Play is a unique Java framework. It does not really rely on the so-called Java Enterprise standards. It uses Java, but tries to bring all the good things from the frameworks based on scripting languages like Ruby On Rails, Django, Pylons, Symfony, Grails and Cake PHP to the Java world. We really tried to get the best out of the Java platform without getting the pain of traditional Java web development: a slow development cycle, too much abstraction and too much configuration.
+しかしながら、Play はユニークな Java フレームワークです。Play はいわゆる Java エンタープライズ仕様をまったく当てにしません。Play は Java を使いますが、Ruby On Rails, Django, Pylons, Symfony, Grails, Cake PHP などのスクリプト言語に基づいたフレームワークの良い部分を、すべて Java の世界に取り込もうとしています。私たちは、鈍重な開発サイクル、行き過ぎた抽象化、多過ぎる環境設定と言った伝統的な Java web 開発の痛みを伴わない、最高の Java プラットフォームを本気で手に入れようとしてきました。
 
-h2. <a>Why don’t you rename the ‘play’ package to ‘org.playframework’?!</a>
+h2. <a>'play' パッケージを 'org.playframework' に変更しないのですか?!</a>
 
-You are missing the point. Play is not another library that you add to your Servlet container. It’s really a full stack Java framework that runs your application stand-alone. The Java package naming conventions exist to avoid name clashes when you use several different libraries from several vendors. But believe us, you will never put the **play.jar** library in your own project. This is not the way Play works. Play **is the platform**. Don’t worry about that.
+あなたはポイントを押さえていません。Playは、Servlet コンテナに別途追加するようなライブラリではありません。スタンドアロンでアプリケーションを実行するフルスタックな Java フレームワークです。Java パッケージ命名規約は、いくつかのベンダーの異なるライブラリを使うときに、名前が衝突すること避けるために存在します。しかし、我々を信じてください。 **play.jar** ライブラリを自分のプロジェクトに入れたりすることは決してないでしょう。これは Play を動作させる方法ではありません。Playは **プラットフォーム** です。心配しないでください。
 
-h2. <a>Why do I need Python (I would prefer Maven)?</a>
+h2. <a>なぜ Python が必要なのですか (Maven がいいのですが)?</a>
 
-We need a lot of scripts to manage Play applications, for creating a new application, running it, launching a browser, etc… Of course we could write these in Java directly. But running a Java VM for simple tasks like project creation is very slow. And Java itself is very limited when it comes to OS interaction.
+新しいアプリケーションを作成したり、実行したり、ブラウザを起動したり、などなど... Play アプリケーションを管理するために沢山のスクリプトが必要です。もちろん、これらを Java で直接書くこともできました。しかし、プロジェクト作成のような簡単な作業のために JavaVM を起動するのはとても遅いです。さらに、OS とのやり取りとなると、Java 自体は非常に制限されています。
 
-Python allowed us to write these scripts in a completely portable way. It’s fast to run, easy to write and available out of the box on most systems. It’s not on Windows, that’s why we bundle a Windows Python binary with the framework.
+Python では、これらのスクリプトを完全に可搬性のある方法で書くことができました。Python は高速に動作し、書き易く、ほとんどのシステムにおいて制限を受けずに利用可能です。Python は Windows にはインストールされていないので、私たちは Windows 用の Python バイナリをバンドルしています。
 
-h2. <a>Is Play a Groovy framework?</a>
+h2. <a>play は Groovy フレームワークですか?</a>
 
-No. Even though we use Groovy as the base technology for the Play templating system, it’s totally transparent. Also, you can’t directly write any other part of the application (such as controllers, models or other utilities) in Groovy. If you’re looking for a Groovy based framework you should have a look at Grails.
+いいえ。たしかに Play のテンプレートシステムの基本的な技術として Groovy を使用していますが、完全に透過的です。アプリケーションのいかなる箇所 (コントローラ、モデル、または他のユーティリティ) も Groovy で書くことはできません。Groovy ベースのフレームワークを探しているなら、Grails を覗いてみてください。
 
-h2. <a>You guys don’t even know how to program in Java...</a>
+h2. <a>あなたたちは Java プログラミングの作法すら分かっていない...</a>
 
-We are fully aware that we made choices that are pretty uncommon in the Java world, and that Play does not blindly follow all the so-called Java ‘good practices’. But all of the Play team members are very experienced Java developers and we are totally aware of the choices we made and the rules we broke.
+私たちが Java の世界ではかなり珍しい選択をしていること、Play が Java のいわゆる '良い慣習' に則っていないことは百も承知です。しかし、 Play の全チームメンバーは非常に経験豊富な Java 開発者であり、行った選択と破った規則について完全に認識しています。
 
-Java itself is a very generic programming language and not originally designed for web application development. It is a very different thing to write a generic and reusable Java library and to create a web application. A web application itself doesn’t need to be designed to be reusable. You need less abstraction, less configuration. Reusability does exist for web applications, but through web service APIs rather than language-level integration.
+Java そのものはとても汎用的なプログラミング言語であり、初めから web アプリケーション開発に向けて設計されたものではありません。汎用的で再利用できる Java ライブラリを書くことと、web アプリケーションを作ることは、かなり異なる作業です。web アプリケーションそのものは再利用可能なように設計される必要はありません。行き過ぎない抽象化や少ない設定が必要です。web アプリケーションにおける再利用性は、言語レベルでの組み込みよりも、むしろ web サービス API を通して存在します。
 
-When the development time tends to zero you can concentrate on your application features and experiment quickly, instead of trying to abstract things for future developments.
+開発時間が限りなくゼロに近いとき、未来の開発に向けた抽象化に挑戦するのではなく、速やかにアプリケーションの機能開発や試験に向けて集中するべきです。
 
-h2. <a>Is Play fast?</a>
+h2. <a>Play は速いですか?</a>
 
-Yes, Play itself is fast. But that doesn’t mean that any particular application will be fast. The embedded HTTP server, the basic routing and the controller invocation stack are very very fast. Used with a modern JVM and Just In Time compiling you can easily get thousands of requests per second. Unfortunately, your application will likely use a database, which will become the bottleneck as usual.
+はい。Play そのものは高速です。しかし、どれだけ特殊なアプリケーションでも速いという意味ではありません。組み込みの HTTPサーバ、基本的なルーティング、そしてコントローラ起動スタックは、とてもとても高速に動作します。昨今の JVM と JIT コンパイルを使用することで、毎秒数千リクエストを容易に捌くことができます。残念ながら、あなたがたのアプリケーションは、常にボトルネックとなるデータベースを使用することが多いでしょう。
 
-The biggest CPU consumer in the Play stack at the moment is the Groovy-based template engine. But as Play applications are easily scalable, it is not really a problem if you need to handle very high traffic: you can balance the load between several servers. We also hope for a performance gain at this level with the new JDK7 and its better support for dynamic languages.
+現在、Play スタックで最も CPU を消費しているのは、Groovy ベースのテンプレートエンジンです。しかし、もしあなたが大量のトラフィックを捌かなければならないとしても、Play アプリケーションが容易にスケールする限り、大した問題にはなりません: 複数台のサーバで負荷を分散することが可能です。私たちは JDK7 と、その動的言語のこれまで以上のサポートによるパフォーマンスの向上を期待しています。
 
-h2. <a>Can I already use Play for a production application?</a>
+h2. <a>Play は製品としてのアプリケーションに使用できる段階にあるでしょうか?</a>
 
-Sure, "a lot of people":http://www.playframework.org/community/testimonials already use Play in production. The 1.0 branch is now in maintenance mode, which means that we will just fix bugs and keep API compatibility in that branch.
+はい、既に "多くの方々":http://www.playframework.org/community/testimonials が Play を製品アプリケーションに使用しています。1.0 ブランチは現在、メンテナンスモードであり、バグ修正のみが行われ、API の互換性は保ち続けられます。
 
-h2. <a>Is library X supported?</a>
+h2. <a>X ライブラリをサポートしていますか?</a>
 
-Play is standard Java, so any standard Java library can easily be used. However keep in mind that Play does not use the Servlet API (although you can get it work in a standard Servlet container using the WAR export feature). So unless the library you want to use relies on the Servlet API, there won’t be any problem.
+Play は標準的な Java アプリケーションであり、一般的な Java ライブラリであればどのようなものでも容易に使用できます。ただし、Play がサーブレット API を使用しないことは忘れないでください (WAR エクスポート機能を使って標準的なサーブレットコンテナ上で動かせば、それすらも可能ですが) 。使用したいライブラリがサーブレット API に依存していなければ、とくに問題ないでしょう。 
 
-h2. <a>How can I help/contribute?</a>
+h2. <a>どうすれば支援/貢献できますか?</a>
 
-We use "GitHub":http://github.com/playframework/play as our main development tool, and launchpad itself is very open. You can just register a GitHub account and fork the code base. Check the "contributor guide":http://play.lighthouseapp.com/projects/57987/contributor-guide.
+私たちは主な開発ツールとして "GitHub":http://github.com/playframework/play を使用しており、GitHub 自体がとてもオープンです。GitHub のアカウントを登録するだけでコードベースをフォークすることができます。"貢献者ガイド":http://play.lighthouseapp.com/projects/57987/contributor-guide を確認してください。
 
-The documentation itself is kept as "Textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29 files in the framework source repository, so you can edit it and contribute just as you do with code.
+ドキュメント自体も "Textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29 ファイルとしてフレームワークのソースコードリポジトリ中に管理されており、ソースコードと同じように、編集して寄稿することができます。
