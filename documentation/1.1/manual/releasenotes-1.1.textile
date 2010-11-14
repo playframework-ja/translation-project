@@ -23,7 +23,7 @@ h2. <a name="headless">新しいヘッドレステストランナー</a>
 
 !images/auto-test!
 
-この画面無しのブラウザが Internet Explorer 8 のように振る舞おうとすることに注意してください。ほとんどの開発者は Firefox や Webki といった本物のブラウザを使用し、手元でテストするので、画面無しブラウザが IE8 のように振る舞おうとすることは、統合されたプラットフォーム上における Javascript の互換性を明示的に確認することになるので、良いことです。
+この画面無しのブラウザが Internet Explorer 8 のように振る舞おうとすることに注意してください。ほとんどの開発者は Firefox や Webki といった本物のブラウザを使用し、手元でテストするので、この画面無しブラウザが IE8 のように振る舞おうとすることは、統合されたプラットフォーム上における Javascript の互換性を明示的に確認することになるので、良いことです。
 
 h2. <a name="server">JBoss Netty ベースの新しい HTTP サーバ</a>
 
@@ -63,7 +63,7 @@ Glassfish は複数のアプリケーションを同時に実行できるので�
 
 h2. <a name="routeHost">routes におけるバーチャルホストのサポート</a>
 
-**routes** ファイルでホストマッチングをサポートしました。これは、ホストパラメータからアクションをパラメータを抽出しなければならない場合に便利です。例えば、ある SaaS アプリケーションにおいて、以下のように使用することができます:
+**routes** ファイルでホストマッチングをサポートしました。これは、ホストのパラメータからアクションのパラメータを抽出しなければならない場合に便利です。例えば、ある SaaS アプリケーションにおいて、以下のように使用することができます:
 
 bc. GET    {client}.mysoftware.com/         Application.index
 
@@ -126,7 +126,7 @@ bc. public static void update(@As(",") List<String> items) {
 
 h3. @play.data.binding.NoBinding
 
-新たに追加された **@play.data.binding.NoBinding** は、バインド非対称フィールドをマークし、潜在的なセキュリティ問題を解決します。以下に例を示します:
+新たに追加された **@play.data.binding.NoBinding** は、バインド非対象フィールドをマークし、潜在的なセキュリティ問題を解決します。以下に例を示します:
 
 bc. public class User extends Model {	
 	@NoBinding("profile") public boolean isAdmin;
@@ -213,7 +213,7 @@ h2. <a name="https">HTTPS サポート</a>
 bc. http.port=9000
 https.port=9443
 
-*conf* ディレクトリに証明書を配置する必要があります。Play は X590証明書とキーストア証明書をサポートします。X509 証明書は次のようにめいめいされなければなりません:
+*conf* ディレクトリに証明書を配置する必要があります。Play は X509 証明書とキーストア証明書をサポートします。X509 証明書は次のように命名されなければなりません:
 証明書には *host.cert* と命名し、キーには *host.key* と命名します。キーストアを使用する場合、デフォルトでは *keystore.jks* という名前が付けられます。
 
 X509 証明書を使用する場合、 *application.conf* に以下のパラメータを設定することができます:
