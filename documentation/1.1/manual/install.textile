@@ -1,69 +1,69 @@
-h1. Installation guide
+h1. インストールガイド
 
 
-h2. <a>Prerequisites</a>
+h2. <a>前提条件</a>
 
-To run the Play framework, you need "Java 5 or later":http://java.sun.com. If you wish to build Play from source, you will need the "Git source control client":http://git-scm.com/ to fetch the source code and "Ant":http://ant.apache.org/ to build it.
+Play framework を実行するには、"Java5 以降":http://java.sun.com が必要です。Play をソースからビルドしたいのであれば、ソースコードを取得するために "Git ソースコントロールクライアント":http://git-scm.com/ が必要であり、ビルドするために "Ant":http://ant.apache.org/ が必要になります。
 
-p(note). If you are using MacOS, Java is just built-in. If you are using Linux, make sure to use either the Sun-JDK or OpenJDK (and not gcj which is the default Java command on many Linux distros). If you are using Windows, just download and install the latest JDK package.
+p(note). MacOS を使っているのであれば、すでに Java は組み込まれています。Linux を使用している場合は、Sun-JDK か OpenJDK のいずれかを使用すること (多くの Linux ディストリビューションにおいてデフォルトの java コマンドである gcj ではないこと) を確認してください。Windows を使用する場合は、最新の JDK パッケージをダウンロードして、インストールしてください。
 
-Be sure to have Java in the current path (enter **java -version** to check). Play will use the default Java or the one available at the **$JAVA_HOME** path if defined.
+カレントパスで java コマンドが認識できることを確認してください (**java -version** を入力して確認してみてください) 。Play はデフォルトの java コマンドか、 **$JAVA_HOME** が定義されている場合は、このパスで実行可能な java コマンドを使用します。
 
-The *play* command line utility uses Python. So it should work out of the box on any UNIX system (however it requires at least Python 2.5). If you’re running Windows, don’t worry, a Python runtime is bundled with the framework.
+**play** のコマンドラインユーティリティは Python を使用します。ですから、どのような UNIX システムでもそのまま使うことができます (ただし Python 2.5 以上が必要です) 。 Windows で実行する場合でも、フレームワークに Python ランタイムをバンドルしているので、心配する必要はありません。
 
 
-h2. <a>Download the binary package</a>
+h2. <a>バイナリパッケージのダウンロード</a>
 
-Download the latest "Play binary package":http://download.playframework.org/ and extract the archive. For convenience, you should add the framework installation directory to your system PATH. If you’re on UNIX, make sure that the *play* script is runnable (otherwise simply do a **chmod +x play**). That’s all.
+最新の "Play バイナリパッケージ":http://download.playframework.org/ をダウンロードして、アーカイブを展開してください。利便性のために、フレームワークのインストールディレクトリをシステムの PATH に追加することをお勧めします。UNIX を使用している場合は、 *play* スクリプトが実行できることを確認してください (もしくは、単純に **chmod +x play** を実行してください) 。これだけです。
 
 p(note). *Tip*
  
-If you need to rebuild the framework for some reason, run **ant** in the **$PLAY_HOME/framework/** directory.
+もし何かしらの理由でフレームワークのリビルドが必要になった場合は、 *$PLAY_HOME/framework* ディレクトリで *ant* を実行してください。 
 
 
-h2. <a>Build from the latest sources</a>
+h2. <a>最新ソースからのビルド</a>
 
-To benefit from the latest improvements and bug fixes, you may want to compile Play from sources. You’ll need a "Git client":http://git-scm.com/ to fetch the sources and "Ant":http://ant.apache.org/ to build the framework.
+最新の機能やバグ修正の恩恵を得るために、Play をソースからコンパイルしたくなるかもしれません。ソースコードを取得するためには "Git クライアント":http://git-scm.com/ が必要であり、フレームワークをビルドするためには "Ant":http://ant.apache.org/ が必要です。
 
-From the command line:
+コマンドラインから下記を実行します:
 
 bc. # git clone git://github.com/playframework/play.git
 # cd play/framework
 # ant
 
-The Play framework is ready to use.
+これで Play framework を使用する準備が整いました。
 
 
-h2. <a>Using the play command</a>
+h2. <a>play コマンドを使用する</a>
 
-When the framework is correctly installed, open a shell and execute *play*. 
+フレームワークを正しくインストールしたら、シェルを開いて *play* コマンドを実行してください。
 
 bc. $ play
 
-You should see the play default message:
+play のデフォルトメッセージが見えるはずです:
 
 !images/help!
 
-You can get more help on any specific command using *play help any-command-name-here*. For example, try:
+*play help コマンド名* を実行することで、特定のコマンドのより詳細なヘルプを見ることができます。次の例を試してみてください:
 
 bc. # play help run
 
-h2. <a>Creating a new application</a>
+h2. <a>新しいアプリケーションの作成</a>
 
-Use the **new** command to create a new application. You must give a non-existent path where the application will be created.
+**new** コマンドを使って新しいアプリケーションを作成してください。アプリケーションの作成先として、存在しないパスを指定する必要があります。
 
 bc. # play new myApp
 
 !images/guide1-1!
 
-Will create a new application. Start it with:
+新しいアプリケーションが作成されます。以下のコマンドでアプリケーションを開始します:
 
 bc. # play run myApp
 
-You can then open a browser at "http://localhost:9000":http://localhost:9000 and see the default page for the application.
+ブラウザで "http://localhost:9000":http://localhost:9000 を開いて、アプリケーションのデフォルトページを見ることができます。
 
 !images/guide1-2!
 
-p(note). **Your Play environnement is ready**
+p(note). **Play を利用する環境が整いました**
  
-Next: %(next)"Set-up your preferred IDE":ide%.
+次は %(next)"お好みの IDE を設定しましょう":ide%.
