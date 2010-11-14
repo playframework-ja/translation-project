@@ -3,10 +3,10 @@ id: siena
 name: Siena 
 
 description: >
-  The siena module automatically enable Siena support for your application.
+  siena モジュールは、自動的にアプリケーションで Siena を利用可能にします。
   
   
-  Read more at http://www.sienaproject.com/
+  詳細は http://www.sienaproject.com/ を参照してください。
   
 url: http://github.com/vijaykiran/play-siena
 

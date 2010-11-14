@@ -3,7 +3,7 @@ id: playapps
 name: playapps.net
 
 description: >
-  playapps.net is a streamlined deployment environment designed to get your Play applications up and running quickly and efficiently
+  playapps.net は、あなたの Play アプリケーションを素早く効率的に起動し実行するよう設計された合理的なデプロイ環境です。
   
 url: http://github.com/zenexity/play-playapps
 

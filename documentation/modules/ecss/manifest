@@ -3,10 +3,10 @@ id: ecss
 name: Extended CSS
 
 description: >
-  This module allow you to use constants in the CSS files. It is very helpful when you work with large CSS files, to avoid to repeat yourself with color, fonts...
+  このモジュールは CSS ファイルで定数を使えるようにします。大きな CSS ファイルを扱うときに、文字色やフォントなどのくり返しを避けることに役立ちます。
   
   
-  p(note). This module is no longer maintained. You should take a look at the sass module.
+  p(note). このモジュールはもうメンテナンスされていません。sass モジュールを確認してください。
   
 url: http://github.com/guillaumebort/play-ecss
 
