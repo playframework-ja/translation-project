@@ -1,79 +1,79 @@
-h1. ‘Hello World’ tutorial -- Your first Play application
+h1. はじめてのアプリケーション -- 'Hello World' チュートリアル
 
-A very simple tutorial, that will just help you to discover the Play framework with the famous 'Hello World' example.
+よくある 'Hello World' の例を使って Play フレームワークの良さを理解する、とてもシンプルなチュートリアルです。
 
-h2. <a>Prerequisites</a>
+h2. <a>前提条件</a>
 
-First of all, make sure that you have a working Java installation. Play requires **Java 5 or later**.
+何よりも、まず Java がインストールされていることを確認してください。Play は **Java 5 以降** を必要とします。
 
-As we will use the command line a lot, it's better to use a Unix-like OS. If you run a Windows system, it will also work fine; you'll just have to type a few commands in the command prompt.
+私たちはコマンドラインを多用するので、Unix ライクな OS のほうが良いでしょう。もし Windows 上で動かす場合でも、問題なく動作します。ただコマンドプロンプトでいくつかのコマンドを実行しなければならないだけです。
 
-You will of course need a text editor. If you are accustomed to use a full featured Java IDE like Eclipse or Netbeans you can of course use it. However with Play you can have fun working with a simple text editor like Textmate, Emacs or VI. This is because the framework manages the compilation and the deployment process itself. We will soon see that…
+もちろんテキストエディタも必要です。もし Eclipse や Netbeans のようなフル機能の Java IDE に慣れているなら、もちろんそれを使用できます。しかし、Play であれば、Textmate, Emacs または VI のようにシンプルなテキストエディタでも楽しく作業できます。これは、フレームワーク自身がコンパイルとデプロイを管理するからです。間もなくその様子をご覧に入れます...
 
 
-h2. <a>Installing the Play framework</a>
+h2. <a>Play フレームワークのインストール</a>
 
-Installation is very simple. Just download the latest binary package from the download page and unzip it to any path.
+インストールは非常に簡単です。 ダウンロードページから最新のバイナリパッケージをダウンロードして、任意のパスに展開してください。
 
-p(note). If you're using Windows, it is generally a good idea to avoid space characters in the path, so for example **c:\Play** would be a better choice than **c:\Documents And Settings\user\play**.
+p(note). Windows を使用している場合、パスにスペースを含めないのは一般的に良い案です。例えば、 **c:\Play** は **c:\Documents And Settings\user\play\** よりも良い選択です。
 
-To work efficiently, you need to add the Play directory to your working path. It allows to type just **play** at the command prompt to use the Play utility. To check that the installation worked, just open a new command line and type **play**; it should show you the Play basic usage help.
+効率的に作業するためには、作業パスに Play ディレクトリを加える必要があります。パスを追加することで、コマンドプロンプトでただ **play** とタイプすれば、Play ユーティリティを使用できるようになります。正常にインストールが完了したことを確認するには、新しいコマンドラインを開いて **play** とタイプしてください; このコマンドは Play の基本的なヘルプを表示します。
 
-h2. <a>Project creation</a>
+h2. <a>プロジェクトの作成</a>
 
-Now that Play is correctly installed, it's time to create the hello world application. Creating a Play application is pretty easy and fully managed by the Play command line utility. That allows for standard project layouts between all Play applications. 
+Play が正しくインストールされたので、いよいよ hello world アプリケーションを作成します。Play アプリケーションの作成は、Play コマンドラインユーティリティによって完全に管理されており、とても簡単です。Play コマンドラインユーティリティは、すべての Play アプリケーション間において標準的なプロジェクトレイアウトを割り当てます。
 
-Open a new command line and type:
+新しいコマンドラインを開いて、以下をタイプしてください:
 
 bc. ~$ play new helloworld
 
-It will prompt you for the application full name. Type **Hello world**.
+アプリケーションの完全な名前を入力するプロンプトが表示されます。 **Hello world** とタイプしてください。
 
 !images/firstapp-1!
 
-The **play new** command creates a new directory **helloworld/** and populates it with a series of files and directories, the most important being:
+**play new** コマンドは **helloworld/** ディレクトリを新規に作成し、一連のファイルやディレクトリをここに追加します。以下は、もっとも重要なディレクトリです:
 
-**app/** contains the application’s core, split between models, controllers and views directories. It can contain other Java package as well. This is the directory where **.java** source files live.
+**app/** ディレクトリはアプリケーションの中心部であり、モデル、コントローラ、およびビュー用のディレクトリに分けられています。 他の Java パッケージを含むこともできます。 app/ ディレクトリは **.java** ソースファイルを保存するディレクトリです。
 
-**conf/** contains all the application’s configuration files, especially the main **application.conf** file, the **routes** definition files and the **messages** files used for internationalization.
+**conf/** ディレクトリは、特に重要な **application.conf** ファイル、ルーティングを定義する **routes** ファイル、国際化のための **messages** ファイルなど、アプリケーションを設定する全てのファイルを保存します。
 
-**lib/** contains all optional Java libraries packaged as standard .jar files.
+**lib/** は標準的な .jar ファイルとしてパッケージされたオプションの Java ライブラリを保存します。
 
-**public/** contains all the publicly available resources, which includes JavaScript, stylesheets and images directories.
+**public/** は JavaScript、スタイルシート、および画像ディレクトリを含む公的に利用可能なリソースを保存します。
 
-**test/** contains all the application tests. Tests are either written either as Java JUnit tests or as Selenium tests.
+**test/** には、すべてのアプリケーションテストを保存します。テストは Java の JUnit として書かれるか、または Selenium テストとして書かれます。
 
-p(note). Because **Play uses UTF-8** as single encoding, it's very important that all text files hosted in these directories are encoded using this charset. Make sure to configure your text editor accordingly.
+p(note). **Play は UTF-8** 唯一のエンコーディングとして使用するので、これらのディレクトリでホスティングされたすべてのテキストファイルが UTF-8 でエンコードされていることは非常に重要です。テキストエディタの設定がこれに従っていることを確認してください。
 
-Now if you're a seasoned Java developer, you may wonder where all the .class files go. The answer is nowhere: Play doesn't use any class files but reads the Java source files directly. Under the hood we use the Eclipse compiler to compile Java sources on the fly. 
+もし、あなたが熟練した Java 開発者であれば、すべての .class ファイルがどこに行ってしまったのか不思議に思うことでしょう。実は、どこにもありません: Play はいかなる class ファイルも使用せず、java ソースファイルを直接読み込みます。舞台裏では、実行中の Java ソースをコンパイルするために Eclipse コンパイラを使用しています。
 
-That allows two very important things in the development process. The first one is that Play will detect changes you make to any Java source file and automatically reload them at runtime. The second is that when a Java exception occurs, Play will create better error reports showing you the exact source code.
+これは、開発工程において 2 つの非常に重要なことを可能にします。最初の 1 つは、Play はあなたが Java ソースファイルに加えたいかなる変更をも検出して、実行時にそれを自動的にリロードするということです。 2 番目は、Java の例外が発生したとき、Play がソースコードそのものを示しながらより良いエラーレポートを作成するということです。
 
-h2. <a>Running the application</a>
+h2. <a>アプリケーションの実行</a>
 
-We can now test the newly-created application. Just return to the command line, go to the newly-created **helloworld/** directory and type **play run**. Play will now load the application and start a Web server on port 9000.
+ここまで来れば、新しく作成したアプリケーションを試してみることができます。コマンドラインに戻り、新たに作成された **helloworld/** ディレクトリに移動したら、 **play run** とタイプしてください。Play がアプリケーションをロードし、9000 番ポートで Web サーバを起動します。
 
-You can see the new application by opening a browser to "http://localhost:9000":http://localhost:9000. A new application has a standard welcome page that just tells you that it was successfully created.
+ブラウザから "http://localhost:9000":http://localhost:9000 を開くことで、新しいアプリケーションを閲覧することができます。新しいアプリケーションは、それが首尾よく作成されたこと示す標準のウェルカムページを表示します。
 
 !images/guide1-2!
 
-Let’s see how the new application can display this page. 
+新しいアプリケーションがどのようにしてこのページを表示するのかを見てみましょう。
 
-The main entry point of your application is the **conf/routes** file. This file defines all of the application’s accessible URLs. If you open the generated routes file you will see this first ‘route’:
+アプリケーションのエントリーポイントは **conf/routes** ファイルです。このファイルはアプリケーション上のアクセス可能な URL をすべて定義します。 生成された routes ファイルを開くと、最初の 'route' が確認できるでしょう:
 
 bc. GET		/			Application.index
 
-That simply tells Play that when the web server receives a **GET** request for the **/** path, it must call the **Application.index** Java method. In this case, **Application.index** is a shortcut for **controllers.Application.index**, because the controllers package is implicit. 
+この設定は、web サーバが **/** パスに対する **GET** リクエストを受け取った場合には **Application.index** という Java メソッドをコールしなければならないことを Play に伝えています。この場合、controllers パッケージが暗黙的に指定されるので、 **Application.index** は **controllers.Application.index** のショートカットです。
 
-When you create standalone Java applications you generally use a single entry point defined by a method such as:
+スタンドアロンな Java アプリケーションを作成するとき、一般的に以下のようなメソッドを定義することで単一のエントリーポイントを設けます:
 
 bc. public static void main(String[] args) {
   ... 
 }
 
-A Play application has several entry points, one for each URL. We call these methods **action** methods. Action methods are defined in special classes that we call **controllers**.
+Play アプリケーションには、各 URL あたり 1 つのエントリーポイントがあります。 私たちは、これらのメソッドを **アクション** メソッドと呼びます。アクションメソッドは **コントローラ** と呼ぶ特別なクラスで定義されます。
 
-Let’s see how the **controllers.Application** controller looks like. Open the **helloworld/app/controllers/Application.java** source file:
+**controllers.Application** コントローラがどのようなものか見てみましょう。 **helloworld/app/controllers/Application.java** ソースファイルを開いてください:
 
 bc. package controllers;
  
@@ -87,26 +87,26 @@ public class Application extends Controller {
  
 }
 
-You see that controller classes extend the **play.mvc.Controller** class. This class provides all useful methods for controllers, like the **render()** method we use in the index action.
+コントローラクラスは **play.mvc.Controller** クラスを継承します。このクラスは index アクションで使用した **render()** メソッドのような、コントローラ向けの便利なメソッドを提供します。
 
-The index action is defined as a **public static void** method. This is how action methods are defined. You can see that action methods are static, because the controller classes are never instantiated. They are marked public to authorize the framework to call them in response of a URL. They always return void.  
+index アクションは **public static void** なメソッドとして定義されています。アクションメソッドはこのようにして定義されます。コントローラクラスは決してインスタンス化されないので、アクションメソッドは static です。アクションメソッドは、フレームワークがリクエストされた URL にレスポンスできるよう public として宣言されます。アクションメソッドは常に void を返します。
 
-The default index action is simple: it calls the **render()** method which tells Play to render a template. Using a template is the most common way (but not the only one) to generate the HTTP response.
+デフォルトの index アクションはシンプルです: Play にテンプレートをレンダリングするよう指示する **render()** メソッドをコールします。テンプレートの使用は HTTP レスポンスを生成する最も一般的な (しかし、唯一ではない) 方法です。
 
-Templates are simple text files that live in the **/app/views** directory. Because we didn’t specify a template, the default one for this action will be used: **Application/index.html**
+テンプレートは **/app/views** ディレクトリに存在するシンプルなテキストファイルです。今回はテンプレートを指定しなかったので、このアクション用のデフォルトのテンプレートが使用されます: **Application/index.html** です。
 
-To see what the template looks like, open the **helloworld/app/views/Application/index.html** file:
+テンプレートがどのようなものかを見るには、 **helloworld/app/views/Application/index.html** ファイルを開いてください:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
  
 #{welcome /}
 
-The template content seems pretty light. In fact, all you see are Play tags. Play tags are very close to JSP taglib. This is the **#{welcome /}** tag that generates the welcome message you’ve seen in the browser. 
+テンプレートの内容はとても簡単に見えます。実際、ここにあるものはすべて Play のタグです。Play タグは JSP taglib にとても似ています。 **#{welcome /}** が、ブラウザに表示されたウェルカムメッセージを生成しています。
 
-The **#{extends /}** tags tells Play that this template inherits another template called **main.html**. Template inheritance is a powerful concept that allows to create complex web pages by reusing common parts.
+**#{extends /}** タグは、このテンプレートが **main.html** と呼ばれる別のテンプレートを継承することを Play に伝えます。テンプレートの継承は、共通化された部分を再利用することで複雑なウェブページを作成することができる強力な概念です。
 
-Open the **helloworld/app/views/main.html** template:
+**helloworld/app/views/main.html** テンプレートを開いていてください:
 
 bc. <!DOCTYPE html>
 <html>
@@ -123,13 +123,13 @@ bc. <!DOCTYPE html>
     </body>
 </html>
 
-Can you see the **#{doLayout /}** tag? This is where the content of **Application/index.html** will be inserted.
+**#{doLayout /}** タグに気付きましたか?ここに **Application/index.html** の内容が挿入されます。
 
-h2. <a>Creating the form</a>
+h2. <a>フォームの作成</a>
 
-We will start the ‘Hello World’ application with a form where you can enter your name.
+名前を入力できるフォームを作成するところから 'Hello World' アプリケーションを始めましょう。
 
-Edit the **helloworld/app/views/Application/index.html** template:
+**helloworld/app/views/Application/index.html** テンプレートを編集してください:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -139,13 +139,13 @@ bc. #{extends 'main.html' /}
     <input type="submit" value="Say hello!" />
 </form> 
 
-p(note). Note that we use GET as form submission method, because the form submission does not have any side effect and is idempotent.
+p(note). フォームの投稿はいかなる副作用も持たず、べき等であるべきなので、フォームを投稿するメソッドとして GET を使用することに注意してください。
 
-We use the **@{…}** notation to ask Play to automatically generate the URL able to invoke the **Application.sayHello** action. Now, refresh the home page in the browser.
+**Application.sayHello** アクションを起動できる URL を自動的に生成するよう Play に問い合わせるには **@{...}** 記法を使用します。さあ、ブラウザ内のトップページをリフレッシュしましょう。
 
 !images/firstapp-2!
 
-Oops, you get an error. This is because you reference the non-existent action **Application.sayHello**. Let’s create it in the **helloworld/app/controllers/Application.java** file:
+おっと、エラーです。存在しない **Application.sayHello** アクションを参照していることが原因です。 **helloworld/app/controllers/Application.java** ファイル内にアクションを作成しましょう:
 
 bc. package controllers;
  
@@ -163,15 +163,15 @@ public class Application extends Controller {
  
 }
 
-We have declared the **myName** parameter in the action method signature, so it will automatically be filled with the value of the HTTP **myName** parameter, coming from the form submission. And we call render to just display a template; as we pass the **myName** variable to the **render()** call, this one will be available from the template.
+アクションメソッドのシグネチャに **myName** パラメータを宣言したので、ここにはフォームから投稿される HTTP **myName** パラメータの値が自動的に設定されます。その後、テンプレートを表示するために render をコールします。 **myName** 変数を **render()** の呼び出しに渡しているので、この変数はテンプレートから利用できます。
 
 !images/firstapp-3!
 
-Now, if you try to enter your name and submit the form, you will get another error:
+この段階で名前を入力してフォームをサブミットすると、別のエラーが発生します:
 
 !images/firstapp3!
 
-The error is pretty clear. Play tries to render the default template for this action method, but it doesn’t exist. Let’s create it in the file **helloworld/app/views/Application/sayHello.html**:
+エラーの内容はかなり明確です。Play はこのアクションメソッドのデフォルトのテンプレートをレンダリングしようとしますが、それは存在しません。 **helloworld/app/views/Application/sayHello.html** を作成しましょう:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -180,31 +180,31 @@ bc. #{extends 'main.html' /}
  
 <a href="@{Application.index()}">Back to form</a>
 
-You can refresh the page.
+ページをリフレッシュします。
 
 !images/firstapp-4!
 
-Look how we have used Groovy’s **?:** operator. It switches to a default value if the **myName** variable is not filled. So if you try to submit the form without entering any name, it will display ‘Hello guest’.
+Groovy の **?:** 演算子の使い方を見てください。 **myName** 変数に値が設定されていない場合は、デフォルト値を表示します。このため、名前を入力せずにフォームをサブミットすると、'Hello guest' を表示します。
 
-h2. <a>Providing a better URL</a>
+h2. <a>より良いURLの提供</a>
 
-Well, if you look at the submission URL, you will see something like:
+さて、投稿した URL を見てみると、このような感じのものになっていることでしょう:
 
 bc. http://localhost:9000/application/sayhello?myName=guillaume
 
-It is not very pretty. This is because Play used the default ‘catch all’ route.
+これはあまりきれいではありません。これは Play がデフォルトの 'catch all' ルートを使用したからです。
 
 bc. *       /{controller}/{action}                  {controller}.{action}
 
-We can have a better URL by specifying a custom path for the **Application.sayHello** action. Edit the **helloworld/conf/routes** file and add this route after the first one:
+**Application.sayHello** アクションにカスタムパスを設定する事でより良い URL を得ることができます。 **helloworld/conf/routes** を編集して、はじめの一行の次にこのルーティングを追記してください:
 
 bc. GET     /hello                                  Application.sayHello
 
-Now go back to the form and submit it again to check that it uses the new URL pattern.
+フォームに戻ってもう一度サブミットし、新しい URL パターンが使用されることを確認してください。
 
-h2. <a>Customizing the layout</a>
+h2. <a>レイアウトのカスタマイズ</a>
 
-As both templates that the application use so far inherit from the same **main.html** template, you can easily add a custom layout. Edit the **helloworld/app/views/main.html** file:
+アプリケーションが使用する両方のテンプレートが、同じ **main.html** テンプレートを継承する場合、容易にカスタムレイアウトを加えることができます。 **helloworld/app/views/main.html** を編集してください:
 
 bc. ...
 <body>
@@ -215,15 +215,15 @@ bc. ...
 </body>
 ...
 
-Now we have a common header for both pages.
+これで両方のページに共通のヘッダを持たせることができます。
 
 !images/firstapp-5!
 
-h2. <a>Adding validation</a>
+h2. <a>バリデーションの追加</a>
 
-We will add a little validation to the form, to make the name field required. We can use the Play validation framework to do that.
+名前欄を入力必須とするちょっとしたバリデーションをフォームに追加しましょう。Play のバリデーションフレームワークを使用できます。
 
-Edit the **helloworld/app/controllers/Application.java** controller, and the **sayHello** action:
+**helloworld/app/controllers/Application.java** コントローラの **sayHello** アクションを編集してください:
 
 bc. ...
 public static void sayHello(@Required String myName) {
@@ -235,11 +235,11 @@ public static void sayHello(@Required String myName) {
 }
 ...
 
-And don’t forget to import the **play.data.validation.*** package to get the **@Required** annotation. Play will automatically check that the myName field is filled or will add an error object to the **errors** scope. Then if there is any error, we add a message to the **flash** scope and redirect to the **index** action.
+**@Required** アノテーションを使用するために **play.data.validation.** をインポートするのを忘れないでください。Play は自動的に myName フィールドに値が設定されているかを確認し、設定されていない場合は **errors** スコープにエラーオブジェクトを追加します。何かエラーがある場合は、 **flash** スコープにメッセージを追加して **index** アクションにリダイレクトするようにします。
 
-The flash scope allows to keep messages during action redirection.
+flash スコープは、アクションがリダイレクトされる間もメッセージを保持します。
 
-Now you just have to display the **error** message if any. Edit the **helloworld/app/views/Application/index.html**:
+さて、何かエラーがあれば **error** メッセージを表示しなければなりません。 **helloworld/app/views/Application/index.html** を編集してください:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -255,27 +255,27 @@ bc. #{extends 'main.html' /}
     <input type="submit" value="Say hello!" />
 </form>
 
-And check that it works:
+これが動作する事を確認します:
 
 !images/firstapp-6!
 
-h2. <a>Writing an automated test suite</a>
+h2. <a>自動化されたテストスイートの作成</a>
 
-We will finish by writing a test for the application. As there is no Java logic to test, we need to test the Web application itself. So we will write a Selenium test.
+このアプリケーションのためのいくつかのテストを書いて、このチュートリアルを終えましょう。今はテストすべき Java のロジックが無いので、Web アプリケーションそのものをテストする必要があります。そこで、Selenium テストを書いていきましょう。
 
-First, you need to run your application in **test mode**. Stop the application and restart it with the **test** command:
+まず最初に、アプリケーションを **test モード** で実行する必要があります。アプリケーションを停止し、 **test** コマンドで再起動してください:
 
 bc. $ play test
 
-The **play test** command is almost the same as **play run**, except that it loads a test runner module that allows to run test suite directly from a browser. 
+**play test** コマンドは、ブラウザから直接テストスイートを実行することのできるテストランナーモジュールをロードすること以外は **play run** とほとんど同じです。
 
-Open a browser to the "http://localhost:9000/@tests":http://localhost:9000/@tests URL to see the test runner. Try to select all the default tests and run them; all should be green… But these default tests don’t really test anything.
+URL "http://localhost:9000/@tests":http://localhost:9000/@tests をブラウザで開き、テストランナーを見てみてください。デフォルトのテストをすべて選択して実行してみてください。すべてのテストはグリーンであるべきですが、実際のところ、これらのデフォルトのテストは何もテストしません。
 
 !images/guide2-1!
 
-A selenium test suite is typically written as an HTML file. The HTML syntax required by selenium is a little tedious (formatted using an HTML table element) to write. The good news is that Play will help you to generate it using the Play template engine and a set of tags that support a simplified syntax for selenium scenarios. 
+通常、selenium のテストスイートは HTML ファイルとして記述されます。selenium が必要とする HTML の構文は (HTML のテーブル要素を使うようフォーマットされており) 少々退屈です。Play のテンプレートエンジンと selenium シナリオの構文を簡易にするタグのセットを使うことで、Play がこれを手助けしてくれるのは良いニュースです。
 
-The default test suite of a newly created Play application already contains a selenium test. Open the **helloworld/test/Application.test.html** file:
+新しく作成された Play アプリケーションのデフォルトのテストスイートには selenium テストが含まれています。 **helloworld/test/Application.test.html** ファイルを開いてください:
 
 bc. *{ You can use plain selenium command using the selenium tag }*
  
@@ -285,9 +285,9 @@ bc. *{ You can use plain selenium command using the selenium tag }*
     assertNotTitle('Application error')
 #{/selenium}
 
-This test should run without any problem with the application for now. It just open the home page and check that the page content does not contain the ‘Application error’ text.
+現時点でこのテストは何も問題なく実行されるはずです。このテストは、ホームページを開いて、このページが 'Application error' というテキストを含んでいないことを確認するだけです。
 
-Let’s write a test for our application. Edit the test content:
+アプリケーションのためのテストを書きましょう。テストの内容を編集してください:
 
 bc. #{selenium}
     // Open the home page, and check that no error occurred
@@ -318,11 +318,11 @@ bc. #{selenium}
     assertTextNotPresent('Hello bob!')
 #{/selenium}
 
-We have fully tested the application. Just select this test in the test runner and click ‘Start’. Everything should be green!
+これでこのアプリケーションを完全にテストできました。テストランナーでこのテストを選択して 'Start' をクリックしてください。すべてがグリーンになるはずです!
 
 !images/firstapp-7!
 
 
-h2. <a>Learn more</a>
+h2. <a>さらに詳しく</a>
 
-This was a very simple tutorial about a very dumb application. If you want to learn more about Play, you can now check out the %(next)"Play tutorial":guide1%.
+これは非常にばかばかしいアプリケーションに関するとても簡単なチュートリアルでした。Play についてもっと学びたいなら、 %(next)"Play guide":guide1% をチェックしてください。
