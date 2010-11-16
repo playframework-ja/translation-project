@@ -59,4 +59,8 @@ public class Application extends Controller {
         
         render(action, modules);
     }
+    
+    public static void about(String action) {
+        render(action);
+    }
 }
