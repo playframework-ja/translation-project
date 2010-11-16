@@ -1,3 +1,12 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
+about.01=About this site
+about.02=Welcome to playdocja
+about.03=Welcome to the Play framework document translation site. Information on this site is shown below. 
+about.04=It is not an official site. 
+about.05=This project IS NOT made by <a href="http://www.playframework.org/">playframework.org</a>.
+about.06=Please do not make any question about the contents of this project to playframework.org. 
+about.07=Progress
+about.08=to be prepared...
+about.09=Translators
