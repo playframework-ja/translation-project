@@ -4,3 +4,4 @@ precompiled/*
 .project
 .settings/*
 .classpath
+eclipse/*
