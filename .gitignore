@@ -1,4 +1,6 @@
 tmp/bytecode/*
 eclipse/classes/*
 precompiled/*
-
+.project
+.settings/*
+.classpath
