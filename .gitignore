@@ -6,3 +6,4 @@ precompiled/*
 .classpath
 eclipse/*
 .DS_Store
+*.swp

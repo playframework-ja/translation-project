@@ -4,7 +4,7 @@ h1. Maven support
 
 h3. はじめに
 
-まずはじめに "apache maven":http://maven.apache.org/download.html をインストールして下さい
+まずはじめに "apache maven":http://maven.apache.org/download.html をインストールして下さい。
  
 
 次に play-maven をインストールして下さい。
@@ -21,7 +21,7 @@ h4. *NOTE: このバグ "commands.py loading breaks if more than one module":htt
 
 bc. module.ivy=${play.path}/modules/maven
 
-プロジェクトを一から作成し始めるのであれば、 *play new myapp --with maven* コマンドでivyプロジェクトを作成することが出来ます。これによってモジュールが有効化され、 play mvn:init が実行されることになります。
+プロジェクトを一から作成し始めるのであれば、 *play new myapp --with maven* コマンドでプロジェクトを作成することが出来ます。これによってモジュールが有効化され、 play mvn:init が実行されることになります。
 
 
 h3. play-maven 特有のコマンド
