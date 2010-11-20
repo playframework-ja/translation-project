@@ -1,42 +1,40 @@
 h1. Ivy support
 
-This module lets you manage your dependencies with "apache ivy":http://ant.apache.org/ivy/
+このモジュールは "apache ivy":http://ant.apache.org/ivy/ による依存関係の管理を可能にします。
 
-h3. Getting Started
+h3. はじめに
 
-first you need to download and install "apache ant":http://ant.apache.org/bindownload.cgi
+まずはじめに "apache ant":http://ant.apache.org/bindownload.cgi をインストールして下さい。
 
-then you need to "download":http://ant.apache.org/ivy/download.html ivy and copy *ivy-XXX.jar* to your *$ANT_HOME/lib* directory. 
+次にivyを "ダウンロード":http://ant.apache.org/ivy/download.html して、 *ivy-XXX.jar* を *$ANT_HOME/lib* にコピーしてください。
 
-finally, you need to install the play-ivy module  
+最後にplay-ivyモジュールをインストールして下さい。
 
 bc. play install ivy
 
 
-h3. Activate module 
+h3. モジュールの有効化
 
-for existing projects, you can add the following line to your conf/application.conf:
+既にプロジェクトが存在しているのであれば、conf/application.confに下記のように追記してください。
 
 bc. module.ivy=${play.path}/modules/ivy
 
-if you start from scratch, you can create an ivy project with *play new myapp --with ivy* command, which will active the module and execute play ivy:init.
+プロジェクトを一から作成し始めるのであれば、 *play new myapp --with ivy* コマンドでivyプロジェクトを作成することが出来ます。これによってモジュールが有効化され、 play ivy:init が実行されることになります。
 
-
-h3. play-ivy specific commands 
+h3. play-ivy 特有のコマンド 
 
 bc. play ivy:init
 
-creates the appropriate *ivy.xml* and *build.xml* files. After this step, you can add your dependencies to ivy.xml 
+適切な *ivy.xml* と *build.xml* を作成します。その後、ivy.xmlに依存関係を追記することができるようになります。	
 
 bc. play ivy:update // or play ivy:up
 
-retrieves all defined dependencies and then it copies them into your app/lib folder
+定義された全ての依存関係を抽出して、app/libフォルダにコピーします。
 
 bc. play ivy:refresh // or play ivy:re
 
-clears your app/lib folder first, then it executes play ivy:up 
+まず最初にapp/libフォルダをクリアした後、play ivy:upを実行します。
 
 bc. play ivy:dependencies // or play ivy:dep
 
-lists core, module and application specific jars
-
+コアとモジュール、およびアプリケーション固有のjarを一覧します。
