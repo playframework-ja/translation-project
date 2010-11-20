@@ -5,3 +5,4 @@ precompiled/*
 .settings/*
 .classpath
 eclipse/*
+.DS_Store
