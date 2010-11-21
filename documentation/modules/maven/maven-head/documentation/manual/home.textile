@@ -1,41 +1,43 @@
 h1. Maven support
 
-This module lets you manage your dependencies with "Maven":http://maven.apache.org/
+このモジュールは "Maven":http://maven.apache.org/ による依存関係の管理を可能にします。
 
-h3. Getting Started
+h3. はじめに
 
-first you need to download and install "apache maven":http://maven.apache.org/download.html
+まずはじめに "apache maven":http://maven.apache.org/download.html をインストールして下さい。
+ 
 
-finally, you need to install the play-maven module  
+次に play-maven をインストールして下さい。
 
 bc. play install maven
 
 
-h3. Activate module 
+h3. モジュールの有効化
 
-h4. *NOTE: due to this reported bug: "commands.py loading breaks if more than one module":https://bugs.launchpad.net/play/+bug/560852 , this module does not work together with ivy module, or maybe other modules.*
+h4. *NOTE: このバグ "commands.py loading breaks if more than one module":https://bugs.launchpad.net/play/+bug/560852
+ のため、このモジュールは ivy モジュールやおそらく他のモジュールとも、同時に動かすことが出来ないかもしれません。
 
-for existing projects, you can add the following line to your conf/application.conf:
+既にプロジェクトが存在しているのであれば、conf/application.confに下記のように追記してください。
 
 bc. module.ivy=${play.path}/modules/maven
 
-if you start from scratch, you can create an ivy project with *play new myapp --with maven* command, which will active the module and execute play mvn:init.
+プロジェクトを一から作成し始めるのであれば、 *play new myapp --with maven* コマンドでプロジェクトを作成することが出来ます。これによってモジュールが有効化され、 play mvn:init が実行されることになります。
 
 
-h3. play-maven specific commands 
+h3. play-maven 特有のコマンド
 
 bc. play mvn:init
 
-installs play-parent project (a Maven pom project) into local Maven repository. Then creates the appropriate *pom.xml*. After this step, you can add your dependencies to pom.xml 
+play-parent プロジェクト（Maven pom プロジェクト）をローカルのMavenリポジトリにインストールします。その後適切な *pom.xml* を作成します。このステップの後、pom.xmlに依存関係を追記することができるようになります。
 
 bc. play mvn:update // or play mvn:up
 
-retrieves all defined dependencies and then it copies them into your app/lib folder
+定義された全ての依存関係を抽出して、app/libフォルダにコピーします。
 
 bc. play mvn:refresh // or play mvn:re
 
-clears your app/lib folder first, then it executes play mvn:up 
+まず最初にapp/libフォルダをクリアした後、play mvn:upを実行します。
 
 bc. play mvn:source // or play mvn:src
 
-retrieves all sources (if available) of defined dependencies and then it copies them into app/lib folder
+定義された依存関係を抽出して、もし存在すればソースコードを取得してapp/libフォルダにコピーします。

@@ -3,27 +3,26 @@ id: maven
 name: Maven dependency management
 
 description: >
-  This module lets you manage your dependencies with apache maven.
+  このモジュールはMavenによる依存関係の管理を可能にします。
   
+  下記のように動作します：
+ 
   
-  Expected behavior this module:
+  # pom.xmlに依存関係を宣言することができます。依存関係の全てを明示的に記述しなくともよくなります。ただし、古いバージョンに依存していたり、あまりに巨大なjarに依存している場合は、依存関係をうまく解決出来ない場合があります。
+
+  # Play提供でないアーティファクトに関して全ての依存関係を解決し、ソースとJavadocとともにlibフォルダにダウンロードします。
   
+  # Play提供のアーティファクトをsource/javadocとともに、depsrcフォルダにダウンロードすることが出来ます。宣言されているものと、それに依存しているものの双方が対象です。これによりデバッグが容易になります。(mvn:play-srcコマンドを使用してください)
+
   
-  # Allow declaration dependencies in pom.xml, without putting explicitly unless the transitive dependency does not work (for older version or depending on undesirable big jar file)
+  その他に下記を解決しようと取り組んでいます：
   
-  # Able to download all dependencies not provided by Play into lib folder, with src and javadoc
+  # ダウンロード時間の短縮
+ 
+  # クラスパスの管理
   
-  # Able to download source/javadoc artifiacts to depsrc folder for declared or transitive dependency which is provided by Play, for easier debugging (using command mvn:play-src) 
-  
-  
-  There is something I am consciously trying to avoid:
-  
-  # Long download time.
-  
-  # Handle classpath.
-  
-  # Change Play's structure. 
-  
+  # Playの構成の変更
+ 
 url: http://github.com/wangyizhuo/play-maven
 
 author: Wang Yizhuo

@@ -1,4 +1,9 @@
 tmp/bytecode/*
 eclipse/classes/*
 precompiled/*
-
+.project
+.settings/*
+.classpath
+eclipse/*
+.DS_Store
+*.swp
