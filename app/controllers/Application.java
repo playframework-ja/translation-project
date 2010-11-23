@@ -40,7 +40,7 @@ public class Application extends Controller {
         render(action);
     }
 
-    public static void modules(String action) throws FileNotFoundException {
+    public static void modules(String action, String keyword) throws FileNotFoundException {
         
         File[] dirs = new File(Play.applicationPath, "documentation/modules").listFiles();
         
@@ -48,11 +48,17 @@ public class Application extends Controller {
         
         for (File dir : dirs) {
             
-            Logger.info("loading %s's manifest...", dir.getName());
-            
             File manifest = new File(dir, "manifest");
             Map<String, Object> map = (Map<String, Object>) new Yaml().load(new FileInputStream(manifest));
-            modules.add(new Module(map));
+            
+            Module module = new Module(map);
+
+            if (keyword == null
+                    || module.id.contains(keyword)
+                    || module.name.contains(keyword)
+                    || module.description.contains(keyword)) {
+                modules.add(module);
+            }
         }
         
         Collections.sort(modules);
