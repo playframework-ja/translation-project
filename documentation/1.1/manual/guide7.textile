@@ -1,32 +1,32 @@
-h1. Setting up a basic administration area using CRUD
+h1. CRUD による基本的な管理機能のセットアップ
 
-Currently, we have no way to create new blog posts or moderate comments using the blog UI. Play provides an out of the box **CRUD** module that will help quickly generate a basic administration area.
+今のところ、ブログ UI を使って新しいブログや控えめなコメントを作る方法はありません。Play は、すぐに使えて、基本的な管理機能を素早く生成する **CRUD** モジュールを提供しています。
 
-h2. <a>Enabling the CRUD module</a>
+h2. <a>CRUD モジュールの有効化</a>
 
-A Play application can be assembled from several application modules. This lets you reuse components across several applications or split a large application into several smaller ones.
+Play アプリケーションはいくつかのアプリケーションモジュールから組み立てることができます。これにより、複数のアプリケーションをまたいでアプリケーションコンポーネントを再利用したり、大きなアプリケーションをいくつかの、より小さなアプリケーションに分割することが可能です。
 
-The CRUD module is a generic application that introspects the model classes to create simple lists and forms.
+CRUD モジュールは、シンプルなリストとフォームを作るためにモデルクラスに対してイントロスペクションを行う、汎用アプリケーションです。
 
-To enable the CRUD module, add this line to the **/yabe/conf/application.conf** file:
+CRUD モジュールを有効にするには、 **/yabe/conf/application.conf** ファイルに次の行を追加します:
 
 bc. # Import the crud module
 module.crud=${play.path}/modules/crud
 
-Then this module comes with a generic set of **routes** that we can reuse for now. To import these routes just add this line to the **/yabe/conf/routes** file:
+そして、このモジュールには、今回、再利用できる一般的な **routes** のセットが含まれています。これらのルートをインポートするには、 **/yabe/conf/routes** に次の行を追加するだけです:
 
 bc. # Import CRUD routes
 *      /admin              module:crud
 
-This will import all the CRUD routes using the **/admin** prefix for the URL paths.
+これで、URL パスの接頭辞として **/admin** を使用する、すべての CRUD ルートがインポートされます。
 
-You have to restart the application to take the new module into account.
+新しいモジュールを認識させるために、アプリケーションを再起動する必要があります。
 
-h2. <a>Declaring the CRUD controllers</a>
+h2. <a>CRUD コントローラの宣言</a>
 
-For each model object that we want to integrate to the administration area, we have to declare a controller that extends the **controllers.CRUD** super controller. This is very easy.
+管理エリアに統合するどのモデルオブジェクトについても、 **controllers.CRUD** スーパーコントローラを継承するコントローラを宣言しなければなりません。これはとても簡単です。
 
-Create one controller for each model object. For example, for the **Post** object create the **Posts** controller in the **/yabe/app/controllers/Posts.java** file. 
+モデルオブジェクトごとに 1 つのコントローラを作成します。例えば、 **Post** オブジェクト用に、 **/yabe/app/controllers/Posts.java** ファイル中に **Posts** コントローラを作成します。
 
 bc. package controllers;
  
@@ -36,9 +36,9 @@ import play.mvc.*;
 public class Posts extends CRUD {    
 }
 
-p(note). The convention is to pluralize the model object name to create the corresponding controller. This way, Play will automatically find the associated model object for each controller. If you need to use a different name, you can still use the **@CRUD.For** annotation. Check the "manual page":crud.
+p(note). 対応するコントローラを作成するためには、モデルオブジェクトの名前を複数形にすることが規約で定められています。こうすることで、Play はそれぞれのコントローラに関連するモデルオブジェクトを自動的に見つけます。もし違う名前をつける必要がある場合は、 **@CRUD.For** アノテーションを使うこともできます。"マニュアルページ":crud を確認してください。
 
-Create the same for all model objects:
+すべてのモデルオブジェクトについて同じように作りましょう:
 
 bc. package controllers;
  
@@ -64,13 +64,13 @@ import play.mvc.*;
 public class Tags extends CRUD {    
 }
 
-Now just open the "http://localhost:9000/admin/":http://localhost:9000/admin/ URL, and you should get to the administration area.
+これで、ただ URL "http://localhost:9000/admin/":http://localhost:9000/admin/ を開くだけで、管理機能を使用することができるはずです。
 
 !images/guide7-1!
 
-If you browse it a little, you will notice that the object names in the lists are a little rough. This is because the default is to use a simple **toString()** to get a readable representation of the model objects.
+管理機能をざっと見てみると、リストされたオブジェクトの名前が少し雑なことに気付くと思います。これは、デフォルトではモデルオブジェクトの判読できる表現を得るために、単純に **toString()** を使用することが原因です。
 
-We can easily fix that, by providing correct implementations of the **toString()** method for all models. For example, for the User class:
+すべてのモデルオブジェクトについて、 **toString()** の適切な実装を提供することで、簡単にこれを修正することができます。例えば、User クラスについて、以下のようにします:
 
 bc. ...
 public String toString() {
@@ -78,11 +78,11 @@ public String toString() {
 }
 ...
 
-h2. <a>Adding validation</a>
+h2. <a>バリデーションの追加</a>
 
-The generated administration area’s main problem is that forms don’t contain any validation rules. But actually the CRUD module is able to extract the validation rules from the validation annotations if the model class is correctly annotated.
+生成された管理機能の主な問題は、フォームにどのようなバリデーションルールも含まれていないことです。しかし、実際には CRUD モジュールは、モデルクラスが適切にアノテーションで注釈されている場合、バリデーションルールを抽出することができます。
 
-Let’s add some annotations to the **User** class:
+**User** クラスにいくつかアノテーションを追加しましょう:
 
 bc. package models;
  
@@ -107,11 +107,11 @@ public class User extends Model {
     
 ...
 
-Now if you go to the edition or creation form for the **User** model object, you will see that validation rules are auto-magically added to the form:
+これで、 **User** モデルオブジェクトの編集または作成フォームにアクセスしてみると、このフォームに自動的に、魔法のようにバリデーションルールが追加されていることを見ることができます:
 
 !images/guide7-2!
 
-Let’s do the same for the **Post** class:
+**Post** クラスにも同じことをしましょう:
 
 bc. package models;
  
@@ -147,13 +147,13 @@ public class Post extends Model {
         
 ...
 
-And check the result:
+結果を確認してみます:
 
 !images/guide7-3!
 
-Here you see an interesting side effect: the **@MaxSize** validation rule has changed the way Play displays the Post form. It now uses a large text area for the content field.
+ここに興味深い副作用が見られます: **@MaxSize** バリデーションルールは、Play が Post フォームを表示する方法を変更しています。今では content フィールド用に大きなテキストエリアを使用しています。
 
-Finally we can add validation rules to the **Comment** and **Tag** classes as well:
+最後に、 **Comment** と **Tag** クラスにも同様にバリデーションルールを追加しましょう:
 
 bc. package models;
  
@@ -199,13 +199,13 @@ public class Comment extends Model {
  
 ...
 
-h2. <a>Better form labels</a>
+h2. <a>より良いフォームラベル</a>
 
-As you can see the form labels are a little rough. Play uses the Java field name as form label. To customize it, we just have to provide better labels in the **/yabe/conf/messages** file.
+見ての通り、フォームのラベルが少し雑です。Play はフォームのラベルに Java のフィールド名を使用します。これをカスタマイズするのに必要なのは、単に **/yabe/conf/messages** により良いラベルを提供することだけです。
 
-p(note). In fact, you can have a separate **messages** file for each language supported by your application. For example, you could put French messages in the **/yabe/conf/messages.fr** file. You will see how to add language localisation in part 12: "Internationalisation and localisation":guide12.
+p(note). ちなみに、アプリケーションがサポートする言語ごとに **messagaes** ファイルを分けて作成することができます。例えば、フランス語のメッセージは **yabe/conf/messages.fr** ファイルに書くことができます。12 章で地域化された言語を追加する方法をご覧に入れます: "国際化と地域化":guide12.
 
-Add these labels to the **messages** file:
+これらのラベルを **messages** ファイルに追加しましょう:
 
 bc. title=Title
 content=Content
@@ -219,21 +219,21 @@ password=Password
 fullname=Full name
 isAdmin=User is admin
 
-Then refresh any form, and you will see the new form labels:
+どれかフォームをリフレッシュすれば、新しいフォームラベルが表示されます:
 
 !images/guide7-4!
 
-h2. <a>Customizing the ‘Comments’ data list</a>
+h2. <a>'Comments' データリストのカスタマイズ</a>
 
-The CRUD module is made to be fully customizable. For example if you look at the comments list page, the way that data is listed is not great. We would like to add more columns, especially the ‘related post’ column to help us filter the list easily.
+CRUD モジュールは完全にカスタマイズ可能なように作られています。例えば、コメントリストのページを見てみると、データを一覧するやり方は良くありません。もっと列を、特に容易に一覧をフィルタできるようにする 'related post' 列を追加したくなります。
 
-In fact, as your applications keep the master, you can really override any **action** or **template** provided by the CRUD module. For example if we want to customize the ‘comments list’ view, we just have to provide another **/yabe/app/views/Comments/list.html** template.
+実際のところ、アプリケーションがこのマスタを保持する限り、CRUD モジュールによって提供された **アクション** または **テンプレート** のどれでも完全に上書きすることができます。例えば、'comment list' ビューをカスタマイズする場合にしなければならないのは、別の **/yabe/app/views/Comments/list.html** テンプレートを用意することだけです。
 
-The **CRUD** module provides more Play commands when it’s enabled. The **crud:ov** command helps you override any template. From a command line, type:
+**CRUD** モジュールが有効化されている場合、追加の Play コマンドが提供されます。 **crud:ov** コマンドはテンプレートを上書きする手助けとなります。コマンドラインから、以下のようにタイプしてください:
 
 bc. $ play crud:ov --template Comments/list
 
-Now you have a new template at **/yabe/app/views/Comments/list.html**:
+**/yabe/app/views/Comments/list.html** に、新しいテンプレートが作成されます:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -259,35 +259,35 @@ bc. #{extends 'CRUD/layout.html' /}
  
 </div>
 
-The **#{crud.table /}** actually generates the table. We can customize it using the **fields** parameter to add more columns. Try this:
+まさに **#{crud.table /}** がテーブルを生成します。 **fields** パラメータを使うことで、さらに列を追加するようカスタマイズすることができます。以下のようにしてみてください:
 
 bc. #{crud.table fields:['content', 'post', 'author'] /}
 
-And now we have 3 columns in the table:
+これでテーブルに列が 3 つ表示されます:
 
 !images/guide7-5!
 
-The problem is that the **content** field could be very long for some comments. We will specialize the way that the **#{crud.table /}** handles it to be able to truncate it if needed.
+いくつかのコメントの **content** フィールドはとても長くなることがあり、問題です。必要な場合はこれを切り詰められるよう、 **#{crud.table /}** タグがこれを扱う方法を特別にしてみましょう:
 
-We can specify a custom way to display each field using the **#{crud.custom /}** tag as is:
+以下のようにして、 **#{crud.custom /}** タグを使うあらゆるフィールドの表示方法をカスタマイズすることができます:
 
 bc. #{crud.table fields:['content', 'post', 'author']}
  #{crud.custom 'content'}
   <a href="@{Comments.show(object.id)}">
-   ${object.content.length() > 50 ? object.content[0..50] + '…' : object.content}
+   ${object.content.length() > 50 ? object.content[0..50] + '窶ｦ' : object.content}
   </a>
  #{/crud.custom}
 #{/crud.table}
 
-p(note). Yes, there is some Groovy syntactic sugar at work here.
+p(note). はい、ここでの作業には groovy の糖衣構文が使われています。
 
-h2. <a>Customizing the ‘Post’ form</a>
+h2. <a>'Post' フォームのカスタマイズ</a>
 
-We can customize the generated forms as well. For example, the way we enter tags in the Post form is not really easy. We could build something better. Let’s override the **Posts/show** template:
+生成されたフォームについても同様にカスタマイズ可能です。例えば、Post フォームにタグを入力する方法は、とても簡単ではありません。もっと良くすることができます。 **Posts/show** テンプレートを上書きしましょう:
 
 bc. $ play crud:ov --template Posts/show
 
-Now you have a new template at **/yabe/app/views/Posts/show.html**:
+**/yabe/app/views/Posts/show.html** に、新しいテンプレートが作成されます:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -313,7 +313,7 @@ bc. #{extends 'CRUD/layout.html' /}
  
 </div>
 
-You can hack the **#{crud.form /}** tag the make the **tags** field custom:
+**tags** フィールドをカスタマイズするために **#{crud.form /}** タグをハックすることができます:
 
 bc. #{crud.form}
     #{crud.custom 'tags'}
@@ -355,10 +355,10 @@ bc. #{crud.form}
     #{/crud.custom}
 #{/crud.form}
 
-This is a little hacky and we could do better here, but we have now a simpler tags selector using a little bit of JavaScript:
+これはちょっと hacky であり、もっとうまくやることもできますが、ちょっとした JavaScript を使うことでタグセレクタはよりシンプルになりました:
 
 !images/guide7-6!
 
-This is a good start for the administration area!
+管理機能のスタートは上々です!
 
-p(note). Next: %(next)"Adding authentication":guide8%.
+p(note). 次: %(next)"認証機能の追加":guide8%.
