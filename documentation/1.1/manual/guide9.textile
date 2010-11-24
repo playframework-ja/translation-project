@@ -1,19 +1,19 @@
-h1. Creating a custom editor area
+h1. カスタムエディタの作成
 
-In the previous part we have created an administration area for yabe and prepared the ‘My posts’ section. This page will give each author a list of his own posts, and the ability to edit them or create a new one as well.
+これまでの部分で yabe の管理機能を作成し、'My posts' 画面の準備をしました。このページは、それぞれの投稿者に自身の投稿のリストと、これらを編集する、または新規に作成する機能も提供します。
 
-We could easily reuse the CRUD module as a basis for this page but here we will create something from scratch. We need a lot of personalization on these screens.
+このページを作り始めるのに CRUD モジュールを再利用することもできますが、ここではスクラッチで作成してみましょう。これらのページには、パーソナライズする箇所がたくさんあります。
 
-h2. <a>Start with the user posts list</a>
+h2. <a>ユーザの投稿一覧から始めましょう</a>
 
-We just need to retrieve and display the posts written by the connected user. Very easy. Start to enhance the **Admin.index** action:
+まずは接続しているユーザが書いた投稿を検索し、表示しなければなりません。とても簡単です。 **Admin.index** アクションを拡張するところから始めましょう:
 
 bc. public static void index() {
     List<Post> posts = Post.find("author.email", Security.connected()).fetch();
     render(posts);
 }
 
-And complete the **yabe/app/views/Admin/index.html**:
+そして **yabe/app/views/Admin/index.html** を以下のように仕上げます:
 
 bc. #{extends 'admin.html' /}
  
@@ -29,20 +29,20 @@ bc. #{extends 'admin.html' /}
     <a href="#"><span>+</span> write a new post</a>
 </p>
 
-The first screen is ready:
+最初の画面が整いました:
 
 !images/guide9-1!
 
-h2. <a>The ‘write a new post’ page</a>
+h2. <a>'新規投稿作成' 画面</a>
 
-We will create a form to create a new post. Basically with a form you have 2 actions: one to display the form and one to handle the form submission. Let’s create the new **Admin.form** and **Admin.save** actions that will display and handle form submission:
+新しい投稿を作成するフォームを作ります。基本的に、フォームには 2 つのアクションがあります: 1 つはフォームを表示し、もう 1 つはフォームのサブミットを扱います。フォームの表示とサブミットを取り扱う新しい **Admin.form** アクションと **Admin.save** アクションを作成しましょう。
 
-Add the routes in the **yabe/conf/routes** file:
+**yabe/conf/routes** ファイルにルートを追加します:
 
 bc. GET     /admin/new                          Admin.form
 POST    /admin/new                          Admin.save
 
-And add the **form()** and **save()** actions to the **Admin.java** controller:
+そして **Admin.java** コントローラに **form()** と **save()** アクションを追加します:
 
 bc. public static void form() {
     render();
@@ -52,7 +52,7 @@ public static void save() {
     // Not implemented yet
 }
 
-Now you have to create the **yabe/app/views/Admin/form.html** template:
+ここで **yabe/app/views/Admin/form.html** テンプレートを作成しなければなりません:
 
 bc. #{extends 'admin.html' /}
  
@@ -96,7 +96,7 @@ bc. #{extends 'admin.html' /}
     
 #{/form}
 
-Finally, edit the **yabe/app/views/Admin/index.html** template to link the **Write a new post** button to this form:
+最後に、 **Write a new post** ボタンがこのフォームにリンクするよう **yabe/app/views/Admin/index.html** テンプレートを編集します:
 
 bc. ...
 <p id="newPost" >
@@ -104,11 +104,11 @@ bc. ...
 </p>
 ...
 
-You can check the result:
+結果を確認することができます:
 
 !images/guide9-2!
 
-Now we have to complete the **Admin.save** action to handle correctly the form submission. It will create a new **Post** object, convert the tag list to a real **Tag** objects set, validate all the fields and save it. If there is any problem it will redisplay the form to show the errors.
+ここで、フォームのサブミットを適切に取り扱うよう **Admin.save** アクションを完成させなければなりません。このアクションは、新しい **Post** オブジェクトを作成し、タグリストを実際の **Tags** オブジェクトのセットに変換し、全てのフィールドの妥当性を検証し、そして保存します。何らかのエラーがあった場合には、エラーを示すためにフォームを再表示します。
 
 bc. public static void save(String title, String content, String tags) {
     // Create post
@@ -130,15 +130,15 @@ bc. public static void save(String title, String content, String tags) {
     index();
 }
 
-p(note). Here we use render("@form") as a shortcut of render("Admin/form.html"). It just tells Play to use the form action’s default template.
+p(note). ここでは render("Admin/form.html") のショートカットとして render("@form") を使用しています。このショートカットは、単に form アクションのデフォルトテンプレートを使用するよう Play に告げています。
 
-Test it!
+確認してみましょう!
 
-h2. <a>Reusing this stuff for editing Posts</a>
+h2. <a>投稿の '編集' へ再利用しましょう</a>
 
-We have defined the HTML form and the Java action able to create a new blog Post. But we also need to allow editing existing posts. We can easily reuse exactly the same code with a few modifications.
+新しいブログを投稿できるよう HTML フォームと Java アクションを定義しました。しかし、既に存在する投稿も編集できるようにする必要があります。ほんの少しの変更でまったく同じコードを容易に再利用することができます。
 
-First we need the **Admin.form** to retrieve an existing Post:
+初めに、 **Admin.form** で存在する投稿を検索する必要があります:
 
 bc. public static void form(Long id) {
     if(id != null) {
@@ -148,7 +148,7 @@ bc. public static void form(Long id) {
     render();
 }
 
-As you see we made it optional, so the same action will retrieve an existing post only if the **id** parameter is filled. So you can now link the main screen’s post list to the edit form. Edit the **yabe/app/views/Admin/index.html** template:
+見てのとおり、この検索はオプション扱いにしたので、 **id** パラメータが入力されている場合にのみ、この同じアクションは存在する投稿を検索します。これで、メイン画面の投稿リストを編集フォームにリンクすることができます。 **yabe/app/views/Admin/index.html** テンプレートを以下のように編集してください:
 
 bc. #{extends 'admin.html' /}
  
@@ -164,20 +164,20 @@ bc. #{extends 'admin.html' /}
 	<a href="@{form()}"><span>+</span> write a new post</a>
 </p>
 
-Well, very easy but we have a problem. If you look at the actual URL generated by the Router for these links, you should see something like:
+とても簡単ですが、問題があります。Router によって生成されたこれらのリンクの実際の URL を見てみてると、以下のようになっているはずです:
 
 bc. /admin/new?id=3
 
-It works, but it’s not really pretty. We will define another route that will use a different URL pattern if the **id** parameter is submitted:
+これは動作しますが美しくありません。 **id** パラメータがサブミットされた場合は違う URL を使う別のルートを定義しましょう:
 
 bc. GET     /admin/myPosts/{id}                 Admin.form
 GET     /admin/new                          Admin.form
 
-As you can see we define this route before the old one, so it has a higher priority. That means that if an **id** parameter is submitted Play will prefer this URL pattern. If not, it will still use the old route.
+見てのとおり、このルートを古いものの前に定義したので、これはより高い優先度を持ちます。これは、もし **id** パラメータがサブミットされた場合には、Play はこの URL を優先するということです。id パラメータがサブミットされない場合は、古いルートがそのまま使用されます。
 
-Refresh the **My posts** page and you should get better URL on these links.
+**My posts** ページを更新すれば、これらのリンクにより良い URL が設定されるはずです。
 
-Now we need to modify the **yabe/app/views/Admin/form.html** template as well:
+ここで **yabe/app/views/Admin/form.html** テンプレートも同様に変更しなければなりません:
 
 bc. #{extends 'admin.html' /}
  
@@ -226,9 +226,9 @@ bc. #{extends 'admin.html' /}
     
 #{/form}
 
-As you can see we have updated the form destination action to add the post ID as the first action parameter if it exists. So when the post has an id field set (meaning that the post already exists in the system), it will be sent the the **Admin.save** action. 
+見てのとおり、投稿の ID が存在する場合、これをアクションの第一引数として追加するよう、フォームの送り先となるアクションを更新しました。このため、投稿の id フィールドが設定されている (つまり、システム中に投稿が既に存在する) 場合、その id は **Admin.save** アクションに送られます。
 
-Now we can change the **save()** method a little to handle both creation and editing cases:
+これで、作成と編集の両方のケースを取り扱うよう、 **save()** メソッドを少し変更することができます:
 
 bc. public static void save(Long id, String title, String content, String tags) {
     Post post;
@@ -260,11 +260,11 @@ bc. public static void save(Long id, String title, String content, String tags) 
     index();
 }
 
-And for better URL we will use the same trick as before, by adding a new preferred route if an **id** parameter exist:
+そして、より良い URL のために、 **id** パラメータが存在する場合に優先されるルートを追加する、先ほどと同じトリックを使用します:
 
 bc. POST    /admin/myPosts/{id}                  Admin.save
 POST    /admin/new                          Admin.save
 
-That’s done! Now we’re using the same action for both creating new blog posts and editing old ones, and the administration area is finished!
+できました! これからは同じアクションを新しいブログの投稿の作成と古い投稿の編集に使用します。これで管理機能は完成です!
 
-p(note). Next: %(next)"Completing the application tests":guide10%. 
+p(note). 次: %(next)"テストの完了":guide10%. 
