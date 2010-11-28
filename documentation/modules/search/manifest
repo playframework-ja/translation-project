@@ -3,8 +3,7 @@ id: search
 name: Search
 
 description: >
-  Search allows you to have basic full text search functionalities to your JPA Model. It is based on Lucene, and requires a real file system to store its indexes.
-  
+  JPA モデルに対して全文検索機能を提供するモジュールです。Lucene をベースにしているため、Lucene のインデックスを格納するためのファイルシステムが必要になります。 
 url: http://github.com/jfp/play-search/
 
 author: Jean-Francois POUX

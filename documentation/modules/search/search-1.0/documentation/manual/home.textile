@@ -1,17 +1,17 @@
 h1. Search module
 
-The **Search** module allows you to have basic full text search functionalities to your JPA Model. It is based on Lucene, and requires a real file system to store its indexes.
+ **Search** モジュールは JPA モデルに対して全文検索機能を提供します。Lucene をベースにしているため、Lucene のインデックスを格納するためのファイルシステムが必要になります。 
 
-h2. <a> Enable the module</a>
+h2. <a> モジュールの有効化 </a>
 
-In the **/conf/application.conf** file, enable the Search module by adding this line: 
+ **/conf/application.conf** に次の行を追記してモジュールを有効化します。
 
 bc. # The search module
 module.search=${play.path}/modules/search
 
-h2. <a> Indexing your objects </a>
+h2. <a> オブジェクトのインデックス作成 </a>
 
-Use the **@Indexed** annotation to mark **your Model**, and then use the **@Field** to mark the fields to be indexed.
+ **あなたが作成した Model** に対して **@Indexed** アノテーションを付与します。次にインデックスしたいフィールドに対して **@Field** アノテーションを付与します。
 
 bc. @Indexed
 public class Folder extends Model {
@@ -21,17 +21,17 @@ public class Folder extends Model {
     @Field
     public String object;
 
-The **@Field** annotation currently supports only primitive types.
+ 現状、 **@Field** アノテーションはプリミティブ型のみをサポートしています。
 
-h2. <a> Search the objects </a>
+h2. <a> オブジェクトの検索 </a>
 
-Use the **Search** helper to build your queries:
+**Search** ヘルパーを使ってクエリを構築します。:
 
 bc. Search.search("object:dogs", Folder.class)
 
-The first parameter is a lucene query and the second is your Model class. You may want to refer to the Lucene query documentation at this point, knowing that the **Search** maintains a separated index per class and adds the properties marked with **@Field** as a Lucene Field.
+第一引数には Lucene のクエリ、第二引数には Model クラスを渡します。ここでLuceneのドキュメントを参照したくなるかもしれません。 **Search** モジュールはクラス毎に分割された形でインデックスを管理します。 **@Field** を付与されたプロパティは Lucene のフィールドとして追加していきます。
 
-The Search.search returns a query object that you can tweak:
+Search.search は微調整可能な形でクエリオブジェクトを返します。:
 
 bc. Query q = Search.search("object:dogs", Folder.class);
 q.orderBy("object")
@@ -39,40 +39,40 @@ q.orderBy("object")
     .reverse();
     
 
-To finish your query, if you wish to retrieve your **Model** objects, use
+クエリを終了する際に **Model** オブジェクトを抽出したい場合、下記のようにしてください。:
 
 bc. List<Folder> folders = q.fetch();
     
 
-or to get only ids (to use in a JPA query by example...):
+id のみ取得したい場合は下記のようにしてください。（JPA クエリの例を示します）:
 
 bc. List<Long> folderIds = q.fetchIds();
     
 
-To get full informations (like relevance), you would use:
+すべての情報を取得したい場合（例えば relevance の情報など）、下記のようにしてください。:
 
 bc. List<QueryResult> results = q.executeQuery();
     
 
-h2. <a> Maintaining the indexes </a>
+h2. <a> インデックスの管理 </a>
 
-Each time you create, update or delete your **Model** objects, the corresponding index is automatically updated. 
+**Model** クラスを create/update/delete するたびに、対応するインデックスが自動的に更新されます。
 
-Should you need to re-index your objects (like if you have manually modified your database), you will reboot your application with:
+インデックスを再構築する必要が出てくると思います（例えばデータベースを手動で変更した場合などです）。その場合、 conf/application.conf に下記のように記述した上でアプリケーションを再起動してください。:
 
 bc. play.search.reindex=enabled
 
-In your conf/application.conf. Don't forget to remove it after!
+再構築後に削除するのを忘れないでください！
 
-h2. <a> Misc configuration </a>
+h2. <a> その他の設定 </a>
 
-You can use the following properties in your conf/application.conf file:
+conf/application.conf ファイルにおいて、下記の設定を利用できます。
 
 bc. play.search.path=/tmp/myDevApplication
 play.search.analyser=org.apache.lucene.analysis.standard.StandardAnalyzer
 
-**play.search.path** is where the module stores it's indexes
-**play.search.analyser** is the lucene analyzer class used for indexation.
+**play.search.path** はインデックスを格納する場所の設定です。
+**play.search.analyser** はインデックスを構築する際に使う Lucene analyzer の設定です。
 
 
 
