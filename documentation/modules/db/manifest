@@ -3,7 +3,7 @@ id: db
 name: Database module
 
 description: >
-  Export your Play! domain model to a DDL file and import a database into your Play! domain model. Please refer to the documentation for more information. The 1.1 version is for the Play! 1.1 branch while the 1.0 is for the 1.0 Play! branch.
+  このモジュールは Play! のドメインモデルから DDL ファイルをエクスポートすることと、データベースから Play! のドメインモデルを生成することが出来ます。詳細はドキュメントを参照してください。バージョン 1.1 は Play! 1.1 に対応し、 1.0 は Play! 1.0 に対応します。
   
 url: http://github.com/pepite/play--database
 

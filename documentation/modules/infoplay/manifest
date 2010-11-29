@@ -3,8 +3,8 @@ id: infoplay
 name: InfoPlay
 
 description: >
-  InfoPlay is a module which gives many informations like infophp in PHP language. It display useful informations about the running application, the framework, the virtual machine and the operating system.
-  
+  InfoPlay は PHP で言うところの infophp のように、多くの情報を出力することのできるモジュールです。アプリケーションの稼働状況や、フレームワーク、 VM 、OS に関する有用な情報を出力します。
+ 
 url: http://code.google.com/p/infoplay/
 
 author: BLR
