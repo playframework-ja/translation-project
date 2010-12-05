@@ -1,69 +1,69 @@
 h1. akka support
 
-akka (http://akkasource.org) is a platform for building simple, correct, fault-tolerant, concurrent, and scalable applications for the JVM.  This module allows you to get up and running with play and akka in not time.
+akka (http://akkasource.org) はシンプルで正確でフォールトトレラントで、並列でスケーラブルなアプリケーションを構築できる JVM のためのプラットフォームです。このモジュールは Play と akka を同時に起動、実行することが出来ます。
 
-p(note). **Note on akka's REST, Comet, Spring, Guice, Camel, Persistence, and AQMP libraries** I've taken these out of the akka module.  The REST and Comet libraries are built to work with servlets, and probably will not work how you expect them to. However, because Play! already includes such great support for REST and comet, you really don't need the REST and comet support from akka. Also, I did not include the Spring or Guice support for akka, because I did not want to stomp on the Spring and Guice Play! modules (did somebody say OSGi?). And lastly I've left out the Camel, Persistence, and AQMP support because I wanted to reduce the amount of dependencies.  If you'd like to include akka support for these, you can download the jars and put them on your classpath.
 
-p(note). Also, even though the Scala module is required, there is a Java API for akka.  I enjoy programming in Scala, and I have not looked much at the Java API, so the examples are all in Scala.  If you'd like to contribute some examples of the Java API, I'd be more than happy to include them!
+p(note). **Note akka の REST, Comet, Spring, Guice, Camel, Persistence, AQMP ライブラリについて** akka モジュールからこれらを取り除いてあります。 REST と Comet ライブラリは servlet とともに動くように作られており、おそらく期待するようには動きません。しかし、 PLay! はすでに REST と Comet については素晴らしいサポートをしているため、 akka によって REST と Comet のサポートを受ける必要はないでしょう。同様に、 Spring や Guice のサポートも含めていません。なぜなら Spring や Guice の Play! モジュールの邪魔をしたくないからです（だれか OSGi って言った？）。そして最後に Camel, Persistence, AQMP のサポートを外しました。依存関係を減らしたかったためです。もしこれらの akka サポートを利用したい場合には、自分で jar をダウンロードしてクラスパスに追加することが出来ます。
 
-**There are some of screencasts** 
+p(note). akka は Scala モジュールが必要であるにも関わらず、 Java の API も存在します。私は Scala でプログラミングするのを楽しんでおり、 Java API はあまりきちんとは確認していません。全てのサンプルは Scala で書いています。もしあなたが Java API によるサンプルを提供してくれるのであれば、私は喜んでそれを含めますよ！
+
+**スクリーンキャスト**
 
 Screencast One for the akka module for The Play! framework: http://vimeo.com/10764693 
 
 Screencast Two for the akka Play! Module. Rudimentary Actors: http://vimeo.com/10792173
 
-**watch the third one if nothing else!**
+**とりあえずこれだけは見てください**
 Screencast Three for the akka Play! module. Remote Actors: http://vimeo.com/10793443
 
-h2. Getting Started
+h2. はじめに
 
-p(note). It should be noted that both the Scala and akka modules require Play! 1.1, which is still under development, so until Play! 1.1 is final, use this at your own risk!  (it's more fun that way anyway!)
+p(note). Scala モジュールも akka モジュールも、開発中の Play1.1 が必要であることについて注意すべきです。 Play1.1 が完成するまでは、このモジュールの利用は自己責任で使ってください！（とにかく楽しいけどね！）
 
-The Scala module is required, so if you have not installed it, you can with the **install** command.
+Scala モジュールが必要です。まだインストールしていなければ、 **install** コマンドでインストールして下さい。
 
 bc. play install scala-head
 
-Once that's done, go ahead and install the akka module
+インストールが終わったら、 akka モジュールをインストールしましょう。
 
 bc. play install akka-head
 
-You can then create a new Play! project, called "myApp", with
+新しい Play! プロジェクトを "myapp" という名前で作りましょう。
 
 bc. play new myApp --with scala-head,akka-head
 
-To include akka in an existing project add the following lines to your **conf/application.conf** file
+既に存在しているプロジェクトに akka を追加する場合は、下記の行を **conf/application.conf** ファイルに追記します。
 
 bc. module.scala=${play.path}/modules/scala-head
 module.akka=${play.path}/modules/akka
 
-To **run** your application execute
+**起動** するには下記のようにします。
 
 bc. play run 
 
-(the above command will be changed to "play run" when a bug is fixed in the Play! 1.1 branch)
+（上記コマンドは Play1.1 のバグが直ったら、 "play run" に変わります）
 
+h2. 設定
 
-h2. Configuration
+すべての設定は conf フォルダーの下に置いた akka.conf ファイルで行います。設定の仕方についての詳細な情報はここにあります。: http://doc.akkasource.org/configuration
 
-All of the configuration is done in the akka.conf file, which is in the conf folder.  There is more information on how to configure it here: http://doc.akkasource.org/configuration
+h2. サンプル
 
-h2. Examples
-
-There are some examples included with the module, located in the sample-app folder.  To run the sample-app, make sure scala-head is installed, cd to the ${play.path}/modules/akka/sample-app directory and execute:
+いくつかのサンプルをモジュールに含めてあります。 sample-app フォルダーの中にあります。 sample-app を実行するには、 scala-head がインストールされていることを確認した上で、${play.path}/modules/akka/sample-app に移動して、下記のように実行してください。:
 
 bc. play run
 
-The examples are all hit counters, illustrate different aspects of akka, and are thoroughly explored in the screencasts: 
+サンプルはすべてヒットカウンターです。 akka について異なる視点から説明しています。下記のスクリーンキャストの中ですべて見ることができます。:
 
 Screencast One for the akka module for The Play! framework: http://vimeo.com/10764693 
 
 Screencast Two for the akka Play! Module. Rudimentary Actors: http://vimeo.com/10792173
 
-**watch the third one if nothing else!**
+**とにかくこれだけは見てください**
 Screencast Three for the akka Play! module. Remote Actors: http://vimeo.com/10793443
 
-The first example is in **app/controllers/HitCounter.scala**, and can be accessed at http://localhost:9000/hitCounter  It illustrates how to use Software Transactional Memory (STM).  Every time a user hits that URL, the hit counter will be increased.  Operations on the TransactionalRef must occur in the context of a transaction, which is atomic, isolated, and consistent, which basically means, if two requests try to update the reference at the same time, one will win and one will lose.  When the one that loses, loses, it will automatically retry the update, so if 20,000 people visit the site, the hit counter will accurately report 20,000.  This is thoroughly explored, along with implications, in the screencast: http://vimeo.com/10764693.
+最初のサンプルは **app/controllers/HitCounter.scala** にあります。 http://localhost:9000/hitCounter でアクセスできます。これは Software Transactional Memory (STM) をどのように使えばいいのかについての説明です。ユーザーがこの URL を叩くたびに、ヒットカウンターが増えていきます。 TransactionalRef における操作はアトミックで独立し、矛盾のないトランザクションとして実行されます。これが基本的に意味するところは、二つのリクエストが同時に更新しようとした場合に、片方のリクエストが成功し、片方が失敗するということです。失敗したほうのリクエストが失敗した時には、自動的に更新を再実行しようとします。もし 20,000 人の人がサイトを訪れた場合、ヒットカウンターは正確に 20,000 と表示されます。この結果をスクリーンキャストで確認することが出来ます:  http://vimeo.com/10764693
 
-The second example, also a hit counter, is in **app/controllers/ActorHitCounter.scala**, and can be accessed at http://localhost:9000/actorHitCounter It shows some very rudimentary actors stuff.  If you are unfamiliar with The Actors Pattern, the screencast: http://vimeo.com/10792173 gives an overview of it, and show some different methods of working with akka actors.  This example doesn't show anything you couldn't do with the actors library included with the Scala distribution - to see the really cool stuff, take a look at the next example.
+次のサンプルもヒットカウンターです。**app/controllers/ActorHitCounter.scala** にあります。 http://localhost:9000/actorHitCounter でアクセスできます。これによってとても初歩的な actor の例を見ることが出来ます。もしあなたが Actor パターンに馴染みがないのであれば http://vimeo.com/10792173 のスクリーンキャストが Actor パターンに関する概要と、 akka actor とともに動く幾つかの異なるメソッドについての参考になります。このサンプルは Scala ディストリビューションに含まれている actor ライブラリでは出来ない事については何も見ることが出来ません。本当にクールなものを見たければ、次のサンプルを見てください。
 
-The third example shows a hit counter that works in a clustered environment and is located in **app/controllers/ClusteredHitCounter.scala** along with **app/AkkaBootStrapJob.scala**.  The previous examples will accurately report hits in a single server environment, but when multiple servers are clustered together, the number will report how many users have hit a given server, not the cluster as a whole.  To accurately tally the number of hits on a cluster as a whole, a server managed actor is registered to keep track of hits and report them when asked.  This example is a little more involved because to see it in action, multiple servers need to be started - it's fully explored in the screencast: http://vimeo.com/10793443.
+三番目のサンプルはクラスター環境で動くヒットカウンターです。 **app/controllers/ClusteredHitCounter.scala** に **app/AkkaBootStrapJob.scala** とともにあります。前のサンプルはシングルサーバー環境において正しい数値が表示される例でしたが、複数のサーバーがクラスター化された場合、サーバーに対して何人のユーザーがリクエストをしたかについてのヒット数になってしまい、クラスター全体に対するヒット数ではなくなってしまいます。クラスター全体に対するヒット数を正確に集計するには、各サーバーは、ヒット数のトラッキングができるように actor を登録しておき、尋ねられたときにその数を報告できるように管理する必要があります。このサンプルはもう少し込み入っています。これが実際に動いているのを見るには、複数のサーバーが起動している必要があるためです。全てを確認するには、このスクリーンキャストを見てください。: http://vimeo.com/10793443
