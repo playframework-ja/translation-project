@@ -71,4 +71,4 @@ h2. <a name="stax">Stax クラウドホスティングプラットフォーム</
 
 p(note). **考察を続けます**
  
-Next: %(next)"本番環境へのデプロイ":production%.
+次: %(next)"本番環境へのデプロイ":production%.

@@ -160,4 +160,4 @@ h2. <a name="continuous">継続的統合と自動的なテストの実行</a>
 
 p(note). **考察を続けます**
  
-Next: %(next)"デプロイオプション":deployment%.
+次: %(next)"デプロイオプション":deployment%.
