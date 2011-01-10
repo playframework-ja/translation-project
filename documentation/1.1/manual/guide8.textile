@@ -310,4 +310,4 @@ secure.signin=Log in now
 
 !images/guide8-8!
 
-p(note). 次: %(next)"カスタムエディタの作成":guide9%. 
+p(note). 次: %(next)"カスタムエディタの作成":guide9%

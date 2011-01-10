@@ -66,4 +66,4 @@ bc. # play run myApp
 
 p(note). **Play を利用する環境が整いました**
  
-次は %(next)"お好みの IDE を設定しましょう":ide%.
+次は %(next)"お好みの IDE を設定しましょう":ide%

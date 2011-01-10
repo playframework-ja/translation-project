@@ -290,4 +290,4 @@ bc. #{extends 'main.html' /}
 
 !images/guide6-3!
 
-p(note). 次: %(next)"CRUD モジュールによる基本的な管理機能":guide7%.
+p(note). 次: %(next)"CRUD モジュールによる基本的な管理機能":guide7%

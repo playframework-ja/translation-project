@@ -361,4 +361,4 @@ bc. #{crud.form}
 
 管理機能のスタートは上々です!
 
-p(note). 次: %(next)"認証機能の追加":guide8%.
+p(note). 次: %(next)"認証機能の追加":guide8%

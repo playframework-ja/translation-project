@@ -4,8 +4,6 @@ Play には、HTML、XML、JSON、その他あらゆるテキストベースの�
 
 テンプレートは **app/views** ディレクトリに保存されます。
 
-h2. <a name="syntax">Template syntax</a>
-
 h2. <a name="syntax">テンプレートの構文</a>
 
 テンプレートファイルは、一部に動的に内容を生成するためのプレースホルダを持つテキストファイルです。テンプレートの動的な要素は、 "Groovy":http://groovy.codehaus.org/ 言語を使用して書かれます。Groovy の構文は Java のそれにとてもよく似ています。 
@@ -245,7 +243,7 @@ bc. <ul>
 
 型ごとに利用できるメソッドの一覧は "API ドキュメント":http://www.playframework.org/@api/play/templates/JavaExtensions.html で見つけることができます。
 
-h3. h3. カスタム式の作成
+h3. 独自拡張の作成
 
 プロジェクトが、特別なフォーマットを必要とする場合、独自の拡張を提供することができます。
 
