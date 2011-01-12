@@ -2,7 +2,7 @@ h1. 組込みテンプレートタグ
 
 以下は、中心となる "テンプレートエンジン構文":templates#syntax に従うことで利用できる、組み込みのタグです。
 
-p(note). こことは別に %(next)"Java エクステンション":javaextension% マニュアルページがあります。
+p(note). こことは別に %(next)"Java エクステンション":javaextensions% マニュアルページがあります。
 
 
 h2. <a name="a">a</a>
