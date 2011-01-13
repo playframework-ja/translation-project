@@ -49,6 +49,11 @@ public class Application extends Controller {
         for (File dir : dirs) {
             
             File manifest = new File(dir, "manifest");
+            
+            if (!manifest.exists()) {
+                continue;
+            }
+            
             Map<String, Object> map = (Map<String, Object>) new Yaml().load(new FileInputStream(manifest));
             
             Module module = new Module(map);
