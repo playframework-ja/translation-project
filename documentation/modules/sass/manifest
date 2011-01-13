@@ -3,9 +3,10 @@ id: sass
 name: Syntactically Awesome Stylesheets
 
 description: >
-  {style with attitude} - Sass makes CSS fun again. Sass is CSS, plus nested rules, variables, mixins, and more, all in a concise, readable syntax.
+  **{属性を持つスタイル}** - Sass は CSS をもう一度楽しくします。Sass は、組込みのルール、変数、ミックスインなどを可読性の高い構文で追加した CSS です。
   
-  Read more at http://sass-lang.com
+  
+  詳細は http://sass-lang.com
   
 url: http://github.com/guillaumebort/play-sass
 

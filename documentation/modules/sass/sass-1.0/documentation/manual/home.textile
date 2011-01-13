@@ -1,25 +1,25 @@
-h1. Sass module
+h1. Sass モジュール
 
-This module brings sass to play applications. Sass makes CSS fun again. Sass is CSS, plus nested rules, variables, mixins, and more, all in a concise, readable syntax.
+このモジュールは play アプリケーションに sass を持ち込みます。Sass は CSS をもう一度楽しくします。Sass は、組込みのルール、変数、ミックスインなどを可読性の高い構文で追加した CSS です。
 
-You can read more about sass on "the official website":http://sass-lang.com/
+sass について "公式 web サイト":http://sass-lang.com/ で更に詳しく読むことができます。
 
-p(note). This version use Haml-3.0.22 - Both syntax SASS and SCSS are supported.
+p(note). このバージョンは SASS と SCSS 両方の構文をサポートする Haml-3.0.22 を使用します。
 
-h2. <a>Usage</a>
+h2. <a>使い方</a>
 
-As always, you need to declare the sass module in your application configuration file using:
+いつも通り、以下を使ってアプリケーション設定ファイルに sass モジュールを宣言する必要があります:
 
 bc. module.sass=${play.path}/modules/sass
 
-Note that if you are using a recent version of play these simple steps are enough:
+play の最近のバージョンを使っている場合は、これらの単純な手順で充分です:
 
 bc. $ play install sass
 $ play new myApp --with sass
 
-Once the module is installed you can write some sass files in the **public/stylesheets** directory of your application.
+モジュールがインストールされたら、アプリケーションの **public/stylesheets** ディレクトリに sass ファイルを書くことができます。
 
-Let's see a very simple example. Create the **public/stylesheets/main.scss** file:
+シンプルな例を見てみましょう。 **public/stylesheets/main.sass** ファイルを作成してください:
 
 bc. $blue: #3bbfce;
  
@@ -28,13 +28,13 @@ h1 {
     font-weight: bold;
 }
 
-And you can then use it into your main template, **app/views/main.html**:
+そして、これをメインのテンプレート **app/views/main.html** で使用することができます:
 
 bc. ...
 <link rel="stylesheet" href="@{'public/stylesheets/main.scss'}" type="text/css">
 ...
 
-The sass file is automatically compiled and the generated CSS is sent to the browser. As you can see, in DEV mode, the generated CSS contains debug informations that can help you to find the sass statement that generated the rules:
+この sass ファイルは自動的にコンパイルされ、生成された CSS はブラウザに送られます。ご覧のとおり、DEV モードで生成された CSS は、そのルールを生成した sass ステートメントを見つけるのに役立つデバッグ情報含みます:
 
 bc. /* line 3 */
 h1 {
@@ -42,8 +42,8 @@ h1 {
   font-weight: bold;
 }
 
-In PROD mode the CSS is stripped down to the minimal size.
+PROD モードでは、CSS は最小のサイズにそぎ落とされます。
 
-In cas of error the generated CSS will not be interpreted by your browser and you will see the error message directly into the page:
+エラーが発生した場合、生成された CSS はブラウザで解釈されず、ページに直接エラーメッセージが表示されます:
 
 !images/error!

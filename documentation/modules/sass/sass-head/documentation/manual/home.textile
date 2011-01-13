@@ -2,7 +2,7 @@ h1. Sass モジュール
 
 このモジュールは play アプリケーションに sass を持ち込みます。Sass は CSS をもう一度楽しくします。Sass は、組込みのルール、変数、ミックスインなどを可読性の高い構文で追加した CSS です。
 
-sass について "the official website":http://sass-lang.com/ で更に詳しく読みことができます。
+sass について "公式 web サイト":http://sass-lang.com/ で更に詳しく読むことができます。
 
 h2. <a>使い方</a>
 
@@ -17,7 +17,7 @@ $ play new myApp --with sass
 
 モジュールがインストールされたら、アプリケーションの **public/stylesheets** ディレクトリに sass ファイルを書くことができます。
 
-シンプルな例を見てみましょう。**public/stylesheets/main.sass** ファイルを作成してください:
+シンプルな例を見てみましょう。 **public/stylesheets/main.sass** ファイルを作成してください:
 
 bc. !blue = #3bbfce
  
@@ -31,7 +31,7 @@ bc. ...
 <link rel="stylesheet" href="@{'public/stylesheets/main.sass'}" type="text/css">
 ...
 
-この sass ファイルは自動的にコンパイルされ、生成された CSS はブラウザに送られます。ご覧のとおり、DEV モードで生成された CSS は、そのルールを生成した sass ステートメントを見つけるのに役立つデバッグ情報含みます。
+この sass ファイルは自動的にコンパイルされ、生成された CSS はブラウザに送られます。ご覧のとおり、DEV モードで生成された CSS は、そのルールを生成した sass ステートメントを見つけるのに役立つデバッグ情報含みます:
 
 bc. /* line 3 */
 h1 {
