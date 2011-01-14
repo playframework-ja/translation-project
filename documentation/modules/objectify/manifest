@@ -3,9 +3,11 @@ id: objectify
 name: Objectify
 
 description: >
-  Objectify is a flexible abstraction on Google App Engine/J which makes data access simple and elegant. Together the Play Framework and Objectify provide a powerful technology stack for building fast and scalable applications on Google's infrastructure.
-
-  Sample Application:
+  Objectify は、Google App Engine/J におけるデータアクセスをシンプルかつエレガントにする柔軟な抽象化です。Play フレームワークと併せて使用することで、Objectify は Google のインフラストラクチャ上に高速でスケーラブルなアプリケーションを構築する強力なテクノロジスタックを提供します。
+  
+  
+  サンプルアプリケーション:
+  
   http://play-framework-objectify.appspot.com/
   
 url: http://code.google.com/p/play-framework-objectify/
