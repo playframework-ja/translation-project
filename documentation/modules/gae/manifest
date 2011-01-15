@@ -3,7 +3,7 @@ id: gae
 name: Google App Engine
 
 description: >
-  Create play application for the Google App Engine platform.
+  Google App Engine プラットフォーム向けの play アプリケーションを作成します。
   
 url: http://github.com/guillaumebort/play-gae
 
@@ -22,9 +22,9 @@ versions:
 - version: "1.0.3"
   publishedAt: Sep 05, 2010
 
-- version: "head"
-  publishedAt: Oct 29, 2010
-
 - version: "1.1"
   publishedAt: Oct 29, 2010
+
+- version: "1.4"
+  publishedAt: Dec 08, 2010
   isDefault: true

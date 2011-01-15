@@ -1,30 +1,30 @@
-h1. Google App Engine support
+h1. Google App Engine サポート
 
-The GAE module enables Google App Engine support for your application. It wraps commons GAE services in play basic services whenever possible (Logging, Mail, Cache...) and expose directly other Google specifics services (User services, Datastore...)
+GAE モジュールは、アプリケーションの Google App Engine サポートを有効にします。GAE モジュールは、可能な場合はいつでも GAE のサービスを play の基本的なサービス (ロギング、メール、キャッシュ...) にラップし、その他の Google の特別なサービス (ユーザサービス、データストア...) を直接アクセスできるようにします。
 
-Moreover, this module sets up a GAE development environment directly in the play development server, so you don't need to develop directly in the Google App Engine SDK (but it's supported too).
+さらに、このモジュールは play 開発サーバ内に GAE 開発環境をセットアップするので、Ggoogle App Engine SDK 内で直接開発する必要はありません (ただし、GAE SDK 内での直接開発もサポートしています) 。
 
-h2. <a>What is supported?</a>
+h2. <a>何がサポートされていますか?</a>
 
-* The application layout is totally standard.
-* Auto reload works as expected.
-* Logging is correctly dispatched to java.util.logging when the module is enabled.
-* tmp folder is disabled because you can't write to the filesystem in GAE.
-* Direct datastore access is fully supported.
-* JPA support can be enabled but you still depends on GAE JPA limitations and you cannot extend play JPASupport.
-* Cache is correctly wrapped to the GAE memcached instance.
-* Mail is correctly wrapped to the GAE mail service.
-* Users services is available with a 'sign in' page simulation in the development server.
-* You can still break out your application into several modules.
-* PROD mode is forced when the application is running on the GAE production environment.
+* アプリケーションのレイアウトは完全にいつもと同じです。
+* 自動リロードは期待通りに動作します。
+* このモジュールが有効な場合、ロギングは java.util.logging に正しくディスパッチされます。
+* GAE のファイルシステムに書き込みを行うことはできないので、tmp フォルダは無効になります。
+* データストアへの直接アクセスは完全にサポートされます。
+* JPA サポートを有効にすることもできますが、やはり GAE の JPA 制限には依存し、play の JPASuppor を継承することはできません。
+* キャッシュは GAE の memcached インスタンスに正しくラップされます。
+* メールは GAE のメールサービスに正しくラップされます。
+* ユーザサービスは、開発サーバ内の 'サインイン' ページと共に利用することができます。
+* これまで通り、アプリケーションを複数のモジュールに分割することができます。
+* GAE 本番環境で実行されるアプリケーションは、強制的に PROD モードになります。
 
-h2. <a>Setting up the GAE module</a>
+h2. <a>GAE モジュールのセットアップ</a>
 
-Start to create a new application in the classical way.
+標準的な方法でアプリケーションを作成するところから始めましょう。
 
 bc. # play new test-gae
 
-Then edit the **conf/application.conf** file to enable the GAE module:
+そして **conf/application.conf** を編集して GAE モジュールを有効にします:
 
 bc. # Additional modules
 # ~~~~~
@@ -34,7 +34,7 @@ bc. # Additional modules
 #
 module.gae=${play.path}/modules/gae
 
-Now you can start your application, and play will start a GAE development environment:
+ここでアプリケーションを開始すると、play は GAE 開発環境を起動します:
 
 bc. # play run test-gae
  
@@ -61,38 +61,37 @@ bc. # play run test-gae
 11:37:02,529 INFO  ~ Listening for HTTP on port 9000 ...
 11:37:02,529 INFO  ~ 
 
-A blank **appengine-web.xml** file has been created in the **war/WEB-INF** directory. Don't forget to set up a correct GAE application id before running it into the GAE SDK.
+空の **appengine-web.xml** が **war/WEB-INF** ディレクトリに作成されます。GAE SDK 上で実行する前に、正しい GAE アプリケーション id を設定することを忘れないでください。
 
-p(note). **Note**
+p(note). **注意**
  
-Content of the **war** directory will be merged during the war export command. It's not specific to the GAE module.
+**war** ディレクトリの内容は war export コマンドの実行中にマージされます。これは GAE モジュールに限ったことではありません。
 
-h2. <a>Deployment</a>
+h2. <a>デプロイ</a>
 
-To deploy your application to Google's cloud, you can use the **gae:deploy** command. You need to specify the location of the GAE sdk using the **--gae** option:
+**gae:deploy** コマンドを使って、アプリケーションを Google のクラウドにデプロイすることができます。 **--gae** オプションを使って GAE sdk の場所を指定する必要があります:
 
 bc. # play gae:deploy --gae ~/Desktop/appengine-sdk-1.3.1
 
-Make sure to specify your GAE application id in the 'war/WEB-INF/appengine-web.xml' file.
+'war/WEB-INF/appengine-web.xml' ファイルにGAE アプリケーション id を 指定していることを確認してください。
 
-h2. <a>About JPA</a>
+h2. <a>JPA について</a>
 
-Play offers a cool abstraction of JPA through the JPASupport/Model classes. But when you use these classes on GAE a lot of problems occur. This is because the JPA support in GAE is very different of Hibernate + a relational database.
+Play は JPASupport/Model クラスを通じて、JPA のクールな抽象化を提供します。しかし、これらのクラスを GAE で使用すると様々な問題が起こります。これは GAE における JPA サポートが、Hibernate とリレーショナルデータベースの組み合わせから大きく異なることが原因です。
 
-There are two reasons you would like use JPA on Google App Engine :
+Google App Engine 上で JPA を使用する理由が二つあります。
 
-* To be able to transparently move your application in/out of GAE
-* Because you already know the JPA API very well, and you want reuse this knowledge.
+* アプリケーションを GAE へ/から、透過的に移動したい
+* すでに JPA API をよく知っていて、この知識を再利用したい
 
-But these 2 reasons fail. The JPA support is so different in GAE that you just can't use it in a transparent way. It will work only for a single simple entity without relations. But even with a simple relation, you'll have to rely on special Google classes. And because the JPA support is very different,
-you can't do things the way you are used to.
+しかし、この二つの理由は役に立ちません。GAE における JPA サポートは大きく異なるため、これを透過的な方法で使用することはできません。JPA サポートは関連を持たない単一のシンプルなエンティティに対してのみ動作します。シンプルな関連を持つ場合ですら、Google の特別なクラスに依存します。このように JPA サポートが大きく異なるため、これまでのやり方は通用しません。
 
-That's why our advice is to not use JPA on Google App Engine. If you really want to use JPA, you should avoid using the JPASupport/Model helpers and just rely on simple JPA examples that Google provides.
+これが、Google App Engine 上で JPA を使わないことを勧める理由です。もし本当に JPA を使用したいのであれば、JPASupport/Model ヘルパを使わずに、Google が提供する JPA のシンプルな使用例を頼りにすべきです。
 
-We provide an alternative persistence manager module called "Siena":http://www.playframework.org/modules/siena. It's a better match and your application code should be even simpler than if you used JPA.
+代わりの永続化マネージャとして "Siena":http://www.playframework.org/modules/siena と呼ばれるモジュールを提供しています。こちらのほうがより良く適合し、JPA を使う場合よりコードもシンプルになります。
 
-h2. <a>Sample application</a>
+h2. <a>サンプルアプリケーション</a>
 
-You can take a look at the **samples-and-tests/lists-with-gae** as a sample of a real Google App Engine application.
+Google App Engine アプリケーションの実際のサンプルとして、 **samples-and-tests/lists-with-gae** を調べてみることができます。
 
-p(note). **This app is available online** at "http://play-lists.appspot.com":http://play-lists.appspot.com.
+p(note). **このアプリケーションは** "http://play-lists.appspot.com":http://play-lists.appspot.com. から **オンラインで利用することができます。**
