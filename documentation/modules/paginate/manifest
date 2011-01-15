@@ -3,7 +3,7 @@ id: paginate
 name: paginate
 
 description: >
-  A simple module that allows for easily reusable pagination.
+  ページングを簡単に再利用するシンプルなモジュールです。
   
 url: http://github.com/lmcalpin/Play--Paginate
 
