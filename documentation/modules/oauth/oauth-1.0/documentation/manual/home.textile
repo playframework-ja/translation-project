@@ -1,34 +1,34 @@
-h1. OAuth Client
+h1. OAuth クライアント
 
-This module allows applications to connect to an "oauth":http://oauth.net provider, such as "Twitter":http://apiwiki.twitter.com/ or "Google":http://code.google.com/apis/accounts/docs/AuthForWebApps.html .
+このモジュールを使って "Twitter":http://apiwiki.twitter.com/ や "Google":http://code.google.com/apis/accounts/docs/AuthForWebApps.html のような "oauth":http://oauth.net プロバイダに接続することができます。
 
-h2. <a>OAuth Basics</a>
+h2. <a>OAuth 基礎</a>
 
-In order to access to users' data from a oauth provider, you need to register and obtain a consumer key. See the documentation on your provider's website for detailed on how to obtain it.
+OAuth プロバイダのユーザデータにアクセスするために、コンシューマ・キーを登録し、取得する必要があります。取得に関する詳細は、プロバイダの web サイトにあるドキュメントを参照してください。
 
-You need to following:
-* Request URL
-* Access URL
-* Authorize URL
-* Consumer key
-* Consumer secret
+以下に従う必要があります:
+* リクエスト URL
+* アクセス URL
+* 認証 URL
+* コンシューマ・キー
+* コンシューマ・シークレット
 
-The workflow is the following, for each user:
-# Get a request token from the provider. The user must be redirected to a page on the provider's site where he explicitly grants access rights to your application.
-# Exchange the request token for an access token.
-# Use the token to sign requests to access the user's data with REST request on the provider.
+ユーザ毎に、以下のワークフローに従います:
+# プロバイダからリクエストトークンを取得します。ユーザは、アプリケーションに対して明示的にアクセス権限を付与するプロバイダのサイトへリダイレクトされなければなりません。
+# リクエストトークンとアクセストークンを交換します。
+# プロバイダへの REST リクエストによってユーザのデータにアクセスするために、トークンを使ってリクエストを署名します。
 
-Depending on the provider's policy the token may expire at any time. The user can also revoke the permission to your application.
+プロバイダのポリシーによって、トークンはいつでも破棄される可能性があります。ユーザがアプリケーションに対するアクセス権限を取り消すこともできます。
 
-h2. <a>Using The Module</a>
+h2. <a>モジュールを使う</a>
 
-The main class to use is play.modules.oauthclient.OAuthClient. It is used to retrieve request and access token, and sign requests.
+使用する主なクラスは play.modules.oauthclient.OAuthClient です。リクエストを検索し、トークンにアクセスし、リクエストを署名するために使用します。
 
-You need to store each user's token in your data layer. To do so you must provide a ICredentials for each user; you can use the Credentials implementation which inherits model and as such will be serialized to your data layer.
+ユーザのトークンをデータ層に保存する必要があります。このため、ユーザ毎に ICredentials を提供しなければなりません; モデルを継承するクリデンシャルの実装を使うことで、データ層にシリアライズすることができるでしょう。
 
-h2. <a>The OAuthClient Class</a>
+h2. <a>OAuthClient クラス</a>
 
-Here is how you would create a client to connect to Twitter's API:
+Twitter の API に接続するクライアントは、以下のようにして作成します:
 
 bc. OAuthClient client = new OAuthClient(
 "http://twitter.com/oauth/request_token",
@@ -37,39 +37,39 @@ bc. OAuthClient client = new OAuthClient(
 "aaaaaaaaaaaaaaaaaaaaaa", // Your application's consumer key
 "bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb"); // You application's consumer secret
 
-h2. <a>Authentication</a>
+h2. <a>認証</a>
 
-First, you need a request token:
+最初に必要なのはリクエストトークンです:
 
 bc. ICredentials creds = new Credentials();
 client.authenticate(creds, callbackURL);
 
-Calling this method will redirect the user to a page on the provider where he is asked to grant your application permission to access his data. After that, the provider will redirect him to the URL you provided in callbackURL with oauth_token and oauth_verifier as arguments. You will need the oauth_verifier to get your access token. The token and secret will be set in creds. If you use your own implementation of ICredentials, make sure that they get saved in the setters.
+このメソッドを呼ぶと、ユーザは、アプリケーションにユーザのデータにアクセスする権限を与えるかを尋ねられるプロバイダのページにリダイレクトされます。その後、プロバイダは、ユーザデータとして oauth_token と oauth_verifier を含め、コールバックに指定した URL へユーザをリダイレクトします。アクセストークンを取得するために oauth_verifier が必要になります。トークンとシークレットはクリデンシャルに設定されます。ICredentials の独自実装を使用する場合は、これらを setter メソッドで保存できることを確認してください。
 
-Then, you need to exchange this request token for an access token:
+それから、このリクエストトークンをアクセストークンと交換しなければなりません:
 
 bc. client.retrieveAccessToken(creds, oauth_verifier);
 
-creds should contain the tokens set by OAuthClient.authenticate. oauth_verifier comes from the callback in the previous step.
+クリデンシャルは OAuthClient.authenticate によって設定されたこれらのトークンを含んでいるはずです。oauth_verifier は上述の手順にあるコールバックによって設定されます。
 
-When this is done, creds contain everything you need to sign request and retrieve data related to the user who performed the workflow.
+これが完了すると、リクエストを署名して、ワークフローを実行したユーザに関連するデータを取得するために必要な全てのものが、クリデンシャルの中に含まれます。
 
-h2. <a>Signing Requests</a>
+h2. <a>リクエストの署名</a>
 
-With the correct ICredentials, you can sign any request; this is not limited to the current session. Requests are done using play.libs.WS:
+適切な ICredentials を使うと、どのようなリクエストでも署名することができます; 現在のセッションに制限されません。リクエストは play.libs.WS を使って行われます:
 
-While a classical, non signed request would be the following:
+署名されない古典的なリクエストは以下のようになります:
 
 bc. WS.url(url).get();
 
-A signed request will be:
+一方、署名されたリクエストは以下のようになります:
 
 bc. WS.url(client.sign(creds, url)).get();
 
-If the request is not a GET, you need to sign the request instead of the URL and pass the method:
+GET リクエストでない場合、URL の替わりにリクエストを署名し、メソッドに渡す必要があります:
 
 bc. client.sign(creds, WS.url(url), "POST").post();
 
-h2. <a>Example</a>
+h2. <a>サンプル</a>
 
-A simple "twitter example":http://github.com/erwan/playoauthclient/tree/master/example/twitter/ is available.
+シンプルな "twitter サンプル":http://github.com/erwan/playoauthclient/tree/master/example/twitter/ が利用可能です。

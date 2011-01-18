@@ -3,7 +3,7 @@ id: oauth
 name: OAuth Client
 
 description: >
-  This module provides tools to connect to an OAuth provider, such as Twitter or Google.
+  このモジュールは、Twitter や Google のような OAuth プロバイダに接続するためのツールを提供します。
   
 url: http://github.com/erwan/playoauthclient
 
