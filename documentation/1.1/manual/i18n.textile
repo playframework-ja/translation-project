@@ -93,4 +93,4 @@ bc. <h1>&{'hello', params.user}</h1>
 
 p(note). **考察を続けます**
  
-次: %(next)"キャッシュ":cache%
+次: %(next)"キャッシュ":cache% 

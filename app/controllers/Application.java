@@ -1,22 +1,16 @@
 package controllers;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.io.*;
+import java.net.*;
+import java.util.*;
 
-import models.Module;
+import models.*;
+import net.htmlparser.jericho.*;
 
-import org.yaml.snakeyaml.JavaBeanParser;
-import org.yaml.snakeyaml.Yaml;
+import org.yaml.snakeyaml.*;
 
-import play.Logger;
-import play.Play;
-import play.mvc.Controller;
+import play.*;
+import play.mvc.*;
 
 public class Application extends Controller {
 
@@ -32,6 +26,62 @@ public class Application extends Controller {
         Documentation.page(version, "home");
     }
 
+    public static void download(String action) throws MalformedURLException, IOException {
+        
+        Long downloads = null;
+        Download latest = null;
+        List<Download> upcomings = null;
+        List<Download> olders = null;
+        List<Download> nightlies = null;
+        
+        Source source = new Source(new URL("http://www.playframework.org/download"));
+        
+        downloads = toDownloads(source.getFirstElementByClass("category"));
+        
+        List<Element> tables = source.getAllElements(HTMLElementName.TABLE);
+        
+        for (int i = 0, n = tables.size(); i < n; i++) {
+            
+            List<Element> elements = tables.get(i).getAllElements(HTMLElementName.TR);
+            
+            switch (i) {
+            case 0:
+                latest = toDownload(elements).get(0);
+                break;
+            case 1:
+                upcomings = toDownload(elements);
+            case 2:
+                olders = toDownload(elements);
+            case 3:
+                nightlies = toDownload(elements);
+            default:
+                break;
+            }
+        }
+        render(action, downloads, latest, upcomings, olders, nightlies);
+    }
+    
+    private static Long toDownloads(Element element) {
+        String content = element.getContent().toString().trim().replace(",", "");
+        return new Long(content.substring(0, content.indexOf(" ")));
+    }
+    
+    private static List<Download> toDownload(List<Element> elements) {
+        List<Download> downloads = new ArrayList<Download>();
+        for (Element element : elements) {
+            downloads.add(toDownload(element));
+        }
+        return downloads;
+    }
+    
+    private static Download toDownload(Element element) {
+        List<Element> list = element.getAllElements(HTMLElementName.TD);
+        String url = list.get(0).getChildElements().get(0).getAttributeValue("href");
+        String date = list.get(1).getContent().toString();
+        String size = list.get(2).getContent().toString();
+        return new Download(url, date, size);
+    }
+    
     public static void code(String action) {
         render(action);
     }
