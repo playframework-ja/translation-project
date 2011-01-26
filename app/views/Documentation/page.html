@@ -21,11 +21,12 @@
         <h2>バージョン選択</h2>
         <div id="bc">
             <ul>
-                <li><a class="selected" href="/documentation?version=1.1">1.1</a> ⬅</li>
-                <li><a class="" href="/documentation?version=1.0.3.2">1.0.3.2</a> </li>
-                <li><a class="" href="/documentation?version=1.0.2.1">1.0.2.1</a> </li>
-                <li><a class="" href="/documentation?version=1.0.1">1.0.1</a> </li>
-                <li><a class="" href="/documentation?version=1.0">1.0</a> </li>
+                <li><a class="#{if version == '1.1.1'}selected#{/if}" href="/documentation?version=1.1.1">1.1.1</a> #{if version == '1.1.1'}⬅#{/if}</li>
+                <li><a class="#{if version == '1.1'}selected#{/if}" href="/documentation?version=1.1">1.1</a> #{if version == '1.1'}⬅#{/if}</li>
+                <li><a class="#{if version == '1.0.3.2'}selected#{/if}" href="/documentation?version=1.0.3.2">1.0.3.2</a> #{if version == '1.0.3.2'}⬅#{/if}</li>
+                <li><a class="#{if version == '1.0.2.1'}selected#{/if}" href="/documentation?version=1.0.2.1">1.0.2.1</a> #{if version == '1.0.2.1'}⬅#{/if}</li>
+                <li><a class="#{if version == '1.0.1'}selected#{/if}" href="/documentation?version=1.0.1">1.0.1</a> #{if version == '1.0.1'}⬅#{/if}</li>
+                <li><a class="#{if version == '1.0'}selected#{/if}" href="/documentation?version=1.0">1.0</a> #{if version == '1.0'}⬅#{/if}</li>
             </ul>
         </div>
         
