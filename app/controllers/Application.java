@@ -30,7 +30,6 @@ public class Application extends Controller {
         
         Long downloads = null;
         Download latest = null;
-        List<Download> upcomings = null;
         List<Download> olders = null;
         List<Download> nightlies = null;
         
@@ -49,16 +48,14 @@ public class Application extends Controller {
                 latest = toDownload(elements).get(0);
                 break;
             case 1:
-                upcomings = toDownload(elements);
-            case 2:
                 olders = toDownload(elements);
-            case 3:
+            case 2:
                 nightlies = toDownload(elements);
             default:
                 break;
             }
         }
-        render(action, downloads, latest, upcomings, olders, nightlies);
+        render(action, downloads, latest, olders, nightlies);
     }
     
     private static Long toDownloads(Element element) {

@@ -26,21 +26,7 @@
                 <td width="100">${latest.size}M</td>
             </tr>
         </table>
-        
-        <h2>リリース予定</h2>
-        <p>
-            次のバージョンのプレビュー版とリリース候補版です。
-        </p>
-        <table>
-        #{list upcomings, as:'upcoming'}
-            <tr class="${upcoming_parity}">
-                <td><a href="${upcoming.url}">${upcoming.name}</a></td>
-                <td width="200">${upcoming.date.format('dd MMM yyyy', 'us')}</td>
-                <td width="100">${upcoming.size}M</td>
-            </tr>
-        #{/list}
-        </table>        
-                
+          
         <h2>古いバージョン</h2>
         
         <p>
