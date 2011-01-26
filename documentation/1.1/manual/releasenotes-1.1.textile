@@ -85,7 +85,6 @@ bc. #{if Play.mode.isDev()}
 #{/}
 
 そして、テンプレートに以下のように記述します:
-And in your templates:
 
 bc. <img src="@@{'/public/images/logo.png'}">
 
