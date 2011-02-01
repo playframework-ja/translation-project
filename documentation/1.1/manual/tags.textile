@@ -341,7 +341,7 @@ bc. #{set 'title'}
 
 h2. <a name="stylesheet">stylesheet</a>
 
-テンプレートに **link** タグを挿入します。利便性のため、このタグは **/public/javascripts** 内の CSS ファイルを参照します。
+テンプレートに **link** タグを挿入します。利便性のため、このタグは **/public/stylesheets** 内の CSS ファイルを参照します。
 
 * **src** (必須) - **/public/stylesheets** パスを含まないファイル名
 * **id** (オプション) - 生成された **link** タグの **id** 属性の値

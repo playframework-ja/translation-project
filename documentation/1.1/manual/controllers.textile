@@ -249,7 +249,7 @@ bc. ?client.customers[0].id=123
 &client.customers[2].id=789
 
 
-h2. <a>JPA オブジェクトの紐付け</a>
+h2. <a name="objectbinding">JPA オブジェクトの紐付け</a>
 
 HTTP と Java の紐付けを使って、自動的に JPA オブジェクトを紐付けることができます。
 
@@ -354,7 +354,7 @@ p(note). **重要！**
 
 h4. 別のテンプレートの指定
 
-デフォルトのテンプレートを使用したくない場合、 **renderTemplate(...)** メソッドの第一引数にテンプレート名を渡して使うことで、独自のテンプレートファイルを指定することができます。
+デフォルトのテンプレートを使用したくない場合、 **renderTemplate(…)** メソッドの第一引数にテンプレート名を渡して使うことで、独自のテンプレートファイルを指定することができます。
 
 例えば、以下のようにします:
 
@@ -365,7 +365,7 @@ bc. public static void show(Long id) {
 
 h3. 別の URL へのリダイレクト
 
-**redirect(...)** メソッドは HTTP Redirect レスポンスを生成する Redirect イベントを発行します。
+**redirect(…)** メソッドは HTTP Redirect レスポンスを生成する Redirect イベントを発行します。
 
 bc. public static void index() {
     redirect("http://www.zenexity.fr");
