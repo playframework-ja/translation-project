@@ -98,10 +98,10 @@ Play について学ばなければならない全てです。
 ## "フィクスチャ":test#fixtures
 ## "継続的統合":test#continus
 # "デプロイオプション":deployment
-## "スタンドアロン Play アプリケーション":deployment#aStandalonePlayapplicationa
-## "JEE アプリケーションサーバ上での実行":deployment#aApplicationserversa
-## "Google App Engine":deployment#aGoogleApplicationEngineGAEa
-## "Stax クラウドホスティングプラットフォーム":deployment#aStaxcloudhostingplatforma"
+## "スタンドアロン Play アプリケーション":deployment#standalone
+## "JEE アプリケーションサーバ上での実行":deployment#appservers
+## "Google App Engine":deployment#gae
+## "Stax クラウドホスティングプラットフォーム":deployment#stax"
 # "本番環境":production
 ## "application.conf の設定":production#application
 ## "ログの設定":production#logging

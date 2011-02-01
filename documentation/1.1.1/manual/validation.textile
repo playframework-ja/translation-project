@@ -20,7 +20,7 @@ validation オブジェクトは、 **play.data.validation.Error** オブジェ�
 
 bc. public static void hello(String name) {
      validation.required(name);
-     ...
+     …
 }
 
 このコードは、name 変数が正しく設定されていることをチェックします。正しく設定されていない場合、対応するエラーが現在のエラーコレクションに追加されます。
@@ -31,10 +31,10 @@ bc. public static void hello(String name, Integer age) {
      validation.required(name);
      validation.required(age);
      validation.min(age, 0);
-     ...
+     …
 }
 
-h2. <a name="messages">エラーメッセージの取得</a>
+h2. <a name="messages">バリデーションエラーメッセージ</a>
 
 バリデーションの終了時に、何かエラーが作成されているか、そしてそれらを表示するかどうかをチェックすることができます:
 
@@ -50,7 +50,7 @@ bc. public static void hello(String name, Integer age) {
      }
 }
 
-name と age が null の場合、以下のように表示されます:
+name と age が **null** の場合、以下のように表示されます:
 
 bc. Required
 Required
