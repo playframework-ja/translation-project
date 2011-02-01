@@ -1,45 +1,43 @@
-h1. Deployment options
+h1. デプロイオプション
 
-Play applications can be deployed virtually anywhere: inside Servlet containers, as standalone servers, in Google Application Engine, Stack, a Cloud, etc...
+事実上、Play アプリケーションはどこにでもデプロイすることができます: サーブレットコンテナの中や、スタンドアロンサーバとして、または Google App Engine、Stack、クラウドにもデプロイすることができます。
 
-h2. <a name="standalone">Standalone Play application</a>
+h2. <a name="standalone">スタンドアロン Play アプリケーション</a>
 
-The simplest and the more robust way is to simply run your Play application without any container. You can use a frontal HTTP server like Lighttpd or Apache if you need more advanced HTTP features like virtual hosting.
+もっとも簡単で堅牢な方法は、Play アプリケーションをどのコンテナにも乗せずに実行することです。バーチャルホストのような高度な HTTP の機能が必要な場合は、フロントに Lighttpd や Apache のような HTTP サーバを使用することができます。
 
-The built-in HTTP server can serve thousands of HTTP requests per second so it will never be the performance bottleneck. Moreover it uses a more efficient threading model (where a Servlet container uses 1 thread per request). Different "modules":http://playframework.org/modules allow you to use different servers (Grizzly, Netty, etc...) as well.
+内蔵の HTTP サーバは 1 秒あたり数千の HTTP リクエストを捌くことができるので、これが性能のボトルネックになることは決してありません。さらに、この HTTP サーバはより効率的なスレッドモデルを使用します (Servlet コンテナは 1 リクエストあたり 1 つのスレッドを使用します) 。"モジュール":http://playframework.org/modules を使うことで、別のサーバ (Grizzly、Netty、その他...) を使用することもできます。
 
-Those servers support long polling and allow to manage very long requests (waiting for a long task to complete), and direct streaming of File objects (and any InputStream if you specify the Content-Length), without blocking the execution thread.
+これらのサーバは、長時間のポーリングをサポートしており、実行スレッドをブロックせずに非常に長い (長時間タスクの完了を待つ) リクエストや、ファイルオブジェクト (それから、Content-Length を指定すれば、どのような入力ストリームでも) の直接ストリーミングを管理することができます。
 
-You will have less problems running your application this way, as you will use the same environment that you used during the development process. A lot of bugs can be discovered only when you deploy to a JEE application server (different home dir, classloader issues, library conflicts, etc...).
+開発工程で使用したものと同じ環境を使用するので、この方法でアプリケーションを実行する場合、問題はほとんど起こりません。JEE アプリケーションサーバにデプロイするときにだけ、大量のバグ (異なるホームディレクトリ、クラスローダの問題、ライブラリの競合、その他...) が検出されます。
 
-Please refer to the "'Put your application in production' page":production for more information.
+より詳しい情報については、 "アプリケーションの本番稼動":production を参照してください。
 
-h2. <a name="appservers">Application servers</a>
+h2. <a name="appservers">アプリケーションサーバ</a>
 
-Your Play application can also run inside your favorite application server. Most application servers are supported out of the box.
-
-h3. Application server compatibility matrix
+Play アプリケーションは、お好みのアプリケーションサーバで実行することもできます。ほとんどのアプリケーションサーバーは特別な設定なしでサポートされています。
 
 || JBoss 4.2.x || JBoss 5.x || JBoss 6M2 || Glasshfish v3 || IBM Websphere 6.1 ||IBM Websphere 7 || Geronimo 2.x || Tomcat 6.x || Jetty 7.x || Resin 4.0.5 ||
-| ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |  ✓ | ✓  |                                                                                                                                                            
+|| ✓ || ✓ || ✓ || ✓ || ✓ || ✓ || ✓ || ✓ ||  ✓ || ✓  ||                                                                                                                                                            
 
-These application server are known to work with Play 1.0.2; but feel free to report any other working deployment.
+これらのアプリケーションサーバで play 1.0.2 が動作することは分かっています; この他に動作する配備環境があれば、遠慮なく報告してください。
 
-h3. Deploying
+h3. デプロイ
 
-You need to package your application as a war file. This is easily done with the following command:
+アプリケーションを war ファイルとしてパッケージする必要があります。これは、以下のコマンドで容易に実行できます:
 
 bc. play war myapp -o myapp.war
 
-p(note). Please note that your application server must support deployment of exploded WAR files.
+p(note). アプリケーションサーバが展開された WAR ファイルの配備をサポートしていることを確認してください。
 
-You are now ready to deploy your application.
+これでアプリケーションをデプロイする準備が整いました。
 
-You are advised to ‘isolate’ your Play application from the other applications to avoid version mismatches between the application libraries. This step is not standardized by the JEE / Servlet Container specification, and is therefore vendor specific.
+アプリケーションのライブラリ間におけるバージョン不整合を避けるため、Play アプリケーションを他のアプリケーションから ‘隔離’ するようアドバイスされています。この手順はベンダに特化したものであり、標準的な JEE/サーブレットコンテナ仕様によるものではありません。
 
-We recommend you refer to your application server manual in order to ‘isolate’ your WAR. As an example below is how you isolate a war file in JBoss Application server. Note that this is an optional step:
+WAR ファイルを ‘隔離’ するために、アプリケーションサーバのマニュアルを参照することをお勧めします。以下の例は、JBoss アプリケーションサーバにおいて war ファイルを隔離する方法です。これがオプションの手順であることに注意してください:
 
-Insert the following content (or create the file) in your application war directory at myapp.war/WEB-INF/jboss-web.xml:
+アプリケーションの war ディレクトリにある myapp.war/WEB-INF/jboss-web.xml に以下の内容を挿入 (または新規に作成) してください:
 
 bc. 
 <jboss-web>
@@ -51,22 +49,22 @@ bc.
 </class-loading>
 </jboss-web>
 
-Replace com.example:archive=unique-archive-name with whatever you wish as long as it is unique.            
+com.example:archive=unique-archive-name を一意であり続ける名前に書き換えてください。
 
-h2. <a name="gae">Google Application Engine (GAE)</a>
+h2. <a name="gae">Google App Engine (GAE)</a>
 
-A Play application can very easily be deployed to the GAE. It is a matter of installing the relevant "GAE module.":http://playframework.org/modules/gae
+Play! アプリケーションは容易に GAE にデプロイすることができます。以下のようにして関連する "GAE モジュール":http://playframework.org/modules/gae をインストールします。
 
 bc. play install gae
 
-Deploying to the Google Application Engine is again really easy:
+Google App Engine へのデプロイも非常に簡単です:
 
 bc. play gae:deploy myapp
 
-Refer to the "module documentation":http://playframework.org/modules/gae-1.0.2/home for more information.
+より詳しい情報については、 "モジュールのドキュメント":http://playframework.org/modules/gae-1.0.2/home を参照してください。
 
-h2. <a name="stax">Stax cloud hosting platform</a>
+h2. <a name="stax">Stax クラウドホスティングプラットフォーム</a>
 
-Easy deployment to the "Stax cloud hosting platform":http://www.stax.net: again nothing could be easier. Install the Stax module and deploy within seconds.
+"Stax クラウドホスティングプラットホーム":http://www.stax.net へのデプロイもこれ以上ないほど簡単です。Stax モジュールのインストールとデプロイにかかるのは数秒です。
 
-Refer to the "module documentation":http://www.playframework.org/modules/stax-1.0.1/home for more information.
+より詳しい情報については、 "モジュールのドキュメント":http://www.playframework.org/modules/stax-1.0.1/home を参照してください。

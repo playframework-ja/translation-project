@@ -1,131 +1,131 @@
-h1. Play framework documentation
+h1. Play framework ドキュメント
 
-Welcome to the Play framework documentation. This documentation is intended for the **1.0.3 release** and may significantly differ from previous versions of the framework. Check the "version 1.0.3 release notes":releasenotes-1.0.3.
-
-p(note). This is a work in progress, feel free to ask any question not covered into these documents or report any errors. You can contribute to the documentation the "same way you can contribute code":faq.
-
-<div id="searchBox"><form action="http://www.google.com/cse" id="cse-search-box"><div><input type="hidden" name="cx" value="002614023023983855063:jn1mu_7bof0" /><input type="hidden" name="ie" value="UTF-8" /><input type="text" name="q" size="31" style="font-size:14px"/> <input type="submit" name="sa" value="Search with google" style="font-size:14px"/></div></form><script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script></div>
-
-h2. <a name="started">Getting started</a>
-
-Your first steps with Play and your first 5 minutes of fun.
-
-# "Play framework overview":overview
-# "Watch the screencast":http://vimeo.com/7087610
-# "Five cool things you can do with Play":5things
-# "Usability - details matter as much as features":usability
-# "Frequently Asked Questions":faq
-# "Installation guide":install
-# "Your first application — the ‘Hello World’ tutorial":firstapp
-# "Set up your preferred IDE":ide
-# "Sample applications":samples
-# "Live coding script - to practice, and impress your colleagues with":http://www.lunatech-research.fr/archives/2010/06/14/how-demo-play-framework-live-coding-script
+Play framework ドキュメントへようこそ。このドキュメントは **リリース 1.0.3** を対象としており、以前のバージョンとは大きく異なるかもしれません。"バージョン 1.0.3 リリースノート":releasenotes-1.0.3 を確認してください。
 
 
-h2. <a name="guide">Tutorial -- Play guide, a real world app step-by-step</a>
+p(note). このドキュメントは書きかけです。このドキュメントに書かれていないことに関する質問や、間違いの指摘はお気軽にどうぞ。"ソースコードと同様の方法":faq で、このドキュメントに貢献することもできます。
 
-Learn Play by coding **‘Yet Another Blog Engine’**, from start to finish. Each chapter will be a chance to learn one more cool Play feature.
+<div id="searchBox"><form action="http://www.google.com/cse" id="cse-search-box"><div><input type="hidden" name="cx" value="002614023023983855063:jn1mu_7bof0" /><input type="hidden" name="ie" value="UTF-8" /><input type="text" name="q" size="31" style="font-size:14px"/> <input type="submit" name="sa" value="google 検索" style="font-size:14px"/></div></form><script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script></div>
 
-# "Starting up the project":guide1
-# "A first iteration of the data model":guide2
-# "Building the first screen":guide3
-# "The comments page":guide4
-# "Setting up a Captcha":guide5
-# "Add tagging support":guide6
-# "A basic admin area using CRUD":guide7
-# "Adding authentication":guide8
-# "Creating a custom editor area":guide9
-# "Completing the application tests":guide10
-# "Preparing for production":guide11
-# "Internationalisation and localisation":guide12
+h2. <a name="started">はじめよう</a>
 
-h2. <a name="manual">The essential documentation</a>
+Play framework のはじめの一歩を学ぶ楽しい 5 分間です。
 
-Everything you need to know about Play.
-
-# "Main concepts":main
-## "The MVC application model":main#mvc
-## "A request life cycle":main#request
-## "Application layout & organization":main#application
-## "Development lifecycle":main#lifecycle
-# "HTTP routing":routes
-## "The routes file syntax":routes#syntax
-## "Routes priority":routes#priority
-## "Serving static resources":routes#static
-## "Reverse routing: generate some URL":routes#reverse
-## "Setting content types":routes#content-types
-## "Content negotiation":routes#content-negotiation
-# "Controllers":controllers
-## "A Controller overview":controllers#overview
-## "Retrieve HTTP parameters":controllers#params
-## "Advanced HTTP to Java binding":controllers#binding
-## "Return a result":controllers#result
-## "Interceptions":controllers#interceptions
-## "Session and Flash scopes":controllers#session
-# "The template engine":templates
-## "Template syntax":templates#syntax
-## "Template inheritance":templates#inheritance
-## "Create tags":templates#tags
-## "Extending the templates language":templates#extensions
-## "Implicit objects":templates#implicits
-# "The domain object model":model
-## "Properties simulation":model#properties
-## "Setup a database to persist your model objects":model#database
-## "Persist your object model with Hibernate":model#hibernate
-## "The stateless model":model#stateless
-# "A little of asynchronism using jobs":jobs
-## "Bootstrap jobs":jobs#concepts
-## "Scheduled jobs":jobs#scheduling
-## "Suspendable requests":jobs#suspendable
-# "Testing the application":test
-## "Writing tests":test#writing
-## "Fixtures":test#fixtures
-## "Running the tests":test#running
-## "Continuous integration":test#continuous
-# "Deployment options":deployment
-## "Standalone Play application":deployment#standalone
-## "Running on JEE application servers":deployment#appservers
-## "Google Application Engine":deployment#gae
-## "Stax cloud hosting platform":deployment#stax
+# "Play framework の概要":overview
+# "動画を観てみよう":http://vimeo.com/7087610
+# "Play でできる 5 つのすごいこと":5things
+# "利便性 - 細部は機能と同様に重要":usability
+# "よくある質問":faq
+# "インストールガイド":install
+# "はじめてのアプリケーション － 'Hello World' チュートリアル":firstapp
+# "お好みの IDE を設定しよう":ide
+# "サンプルアプリケーション":samples
+# "ライブコーディング脚本 - 仲間を訓練し、そして感動させるために":http://www.lunatech-research.fr/archives/2010/06/14/how-demo-play-framework-live-coding-script
 
 
-h2. <a name="cook">Cookbook</a>
+h2. <a name="guide">チュートリアル — リアルな Play アプリケーションを一歩ずつ作成するガイド</a>
 
-Tips about everything and anything.
+**'Yet Another Blog Engine'** を最初から最後までコーディングすることで Play について学びます。
+各章は Play の更なるクールな機能について学ぶ機会となるでしょう。
 
-# "Using Play modules, and the modules repository":modules
-# "Security Guide":security
-# "More about the JPA support":jpa
-# "Using data validation":validation
-# "How to configure logs":logs
-# "Manage application.conf in several environments":ids
-# "Setting up i18n":i18n
-# "Use cache and configure Memcached":cache
-# "Put your application in production":production
-# "Sending e-mail":emails
-# "OpenID integration":openid
-# "Doing Ajax with JQuery":ajax
+# "プロジェクトの立ち上げ":guide1
+# "はじめてのモデル":guide2
+# "はじめての画面":guide3
+# "コメント投稿ページ":guide4
+# "キャプチャの設定":guide5
+# "タグ機能のサポート":guide6
+# "CRUD モジュールによる基本的な管理機能":guide7
+# "認証機能の追加":guide8
+# "カスタムエディタの作成":guide9
+# "テストの完了":guide10
+# "本番環境への準備":guide11
+# "国際化と地域化":guide12
 
-h2. <a name="modules">Distribution Modules</a>
+h2. <a name="manual">重要なドキュメンテーション</a>
 
-These optional modules are included with the standard distribution. "More modules":http://www.playframework.org/modules.
+Play について学ばなければならない全てです。
+
+# "主要な概念":main
+## "MVC アプリケーションモデル":main#mvc
+## "リクエストライフサイクル":main#request
+## "アプリケーションのレイアウトと編成":main#application
+## "開発ライフサイクル":main#lifecycle
+# "HTTP ルーティング":routes
+## "routes ファイルの構文":routes#syntax
+## "ルーティングの優先順位":routes#priority
+## "静的リソースの配信":routes#static
+## "リバースルーティング : URL の生成":routes#reverse
+# "コントローラ":controllers
+## "コントローラの概要":controllers#overview
+## "HTTP パラメータの取得":controllers#params
+## "結果の返却":controllers#result
+## "アクションチェーン":controllers#chaining
+## "インターセプション":controllers#interceptions
+## "セッションとフラッシュのスコープ":controllers#session
+# "テンプレートエンジン":templates
+## "テンプレートの構文":templates#syntax
+## "テンプレートの継承":templates#inheritance
+## "タグの作成":templates#tags
+## "テンプレート言語の拡張":templates#extensions
+## "暗黙オブジェクト":templates#implicits
+# "ドメインオブジェクトモデル":model
+## "プロパティのシミュレーション":model#properties
+## "モデルを永続化するデータベースの設定":model#database
+## "Hibernate によるモデルの永続化":model#hibernate
+## "ステートレスモデル":model#stateless
+# "ジョブによるちょっとした非同期処理":jobs
+## "起動時に実行するジョブ":jobs#concepts
+## "スケジューリングされたジョブ":jobs#scheduling
+## "中断可能なリクエスト":jobs#suspendable
+# "アプリケーションのテスト":test
+## "テストの記述":test#writing
+## "テストの実行":test#running
+## "フィクスチャ":test#fixtures
+## "継続的統合":test#continus
+# "デプロイオプション":deployment
+## "スタンドアロン Play アプリケーション":deployment#standalone
+## "JEE アプリケーションサーバ上での実行":deployment#appservers
+## "Google App Engine":deployment#gae
+## "Stax クラウドホスティングプラットフォーム":deployment#stax"
+
+
+h2. <a name="cook">クックブック</a>
+
+ありとあらゆるものの Tips 集です。
+
+# "Play モジュールの使い方とモジュールリポジトリ":modules
+# "セキュリティガイド":security
+# "JPA サポートについてもっと詳しく":jpa
+# "バリデーションの使い方":validation
+# "ログの設定方法":logs
+# "複数環境用 application.conf の管理":ids
+# "i18n の設定":i18n
+# "キャッシュの使い方と Memcached の設定":cache
+# "アプリケーションの本番稼動":production
+# "メール送信":emails
+# "OpenID の統合":openid
+# "JQuery による Ajax の実行":ajax
+
+h2. <a name="modules">配布モジュール</a>
+
+これらのオプションモジュールは標準の配布物に含まれています。"その他のモジュールはこちら":/modules 。
 
 # "CRUD":crud
 # "Secure":secure
 
-h2. <a name="references">References</a>
+h2. <a name="references">リファレンス</a>
 
-Extended references for day-to-day hacking.
+日々のハックのための広範囲なリファレンスです。
 
-# "The missing cheat sheet":http://download.playframework.org/miscellaneous/play-cheat-sheet.pdf
-# "Browse API documentation":/@api/index.html
-# "Template tags and extensions reference":tags
-# "Java extensions":javaextensions
+# "見当たらなかったチートシート":http://download.playframework.org/miscellaneous/play-cheat-sheet.pdf
+# "API ドキュメント":http://www.playframework.org/@api/index.html
+# "テンプレートタグとエクステンション":tags
+# "Java エクステンション":javaextensions
 
 
-h2. <a name="versionnotes">Version notes</a>
+h2. <a name="versionnotes">リリースノート</a>
 
-New versions of Play include certain changes.
+Play のバージョンアップに含まれる変更点です。
 
 # "Play 1.0.3":releasenotes-1.0.3
 # "Play 1.0.2":releasenotes-1.0.2

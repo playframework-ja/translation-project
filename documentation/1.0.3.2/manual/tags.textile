@@ -1,26 +1,26 @@
-h1. Built-in template tags 
+h1. 組込みテンプレートタグ
 
-These are the standard tags built in the template engine.
+以下は、テンプレートエンジンに組み込まれた標準タグです。
 
-p(note). There is a separate "Java extensions":javaextensions manual page.
+p(note). こことは別に "Java エクステンション":javaextensions マニュアルページがあります。
 
 
 h2. <a>a</a>
 
-The **a** tag inserts an HTML link to a controller action.
+**a** タグはコントローラのアクションへの HTML リンクを挿入します。
 
 bc. #{a @Application.logout()}Disconnect#{/a}
 
-Rendered as:
+以下のようにレンダリングされます:
 
 bc. <a href="/application/logout">Disconnect</a>
 
-If the action you try call does not have any route able to invoke it using a GET method, Play will automatically generate a hidden form that will be submitted on link click using JavaScript.
+もし呼び出そうとしているアクションが GET メソッドを使用して起動するどんなルートも持たない場合、Play は自動的に、リンクをクリックしたときに JavaScript を使ってサブミットする隠しフォームを生成します。
 
 
 h2. <a>doLayout</a>
 
-Used with template inheritance, this tag insert the evaluated sub-template’s contents.
+このタグは、テンプレート継承と共に使用し、評価された子テンプレートの内容を挿入します。
 
 bc. <!-- common header here -->
 <div id="content">
@@ -31,7 +31,7 @@ bc. <!-- common header here -->
 
 h2. <a>else</a>
 
-Of course used with the **if** tag.
+当然、 **if** タグと共に使用されます。
 
 bc. #{if user}
     Connected user is ${user}
@@ -40,7 +40,7 @@ bc. #{if user}
     Please log in
 #{/else}
 
-However, you can also use it with the **list** tag and it will be executed if the list was empty.
+一方で、 **list** タグと共に使用することも可能であり、list が空の場合に実行されます。
 
 bc. #{list items:task, as:'task'}
     <li>${task}</li>
@@ -65,12 +65,12 @@ bc. #{if tasks.size() > 1}
     Nothing to do
 #{/else}
 
-As for **else**, you can use it with the **list** tag.
+**else** と同様に、 **list**タグと共に使用することも可能です。
 
 
 h2. <a>errors</a>
 
-Iterates over the current validation errors.
+現在のバリデーションエラーをくり返します。
 
 bc. <ul>
 #{errors}
@@ -78,12 +78,12 @@ bc. <ul>
 #{/errors}
 </ul>
 
-The tag defines implicit variables in its body.
+このタグはボディに暗黙的な変数を定義します。
 
-* **error_index**, the error’s index, starting at 1
-* **error_isLast**, true for the last element
-* **error_isFirst**, true for the first element
-* **error_parity**, alternates between **odd** and **even**
+* **error_index**, エラーの index で、1 から始まります
+* **error_isLast**, 最後の要素の場合に true になります
+* **error_isFirst**, 最初の要素の場合に true になります
+* **error_parity**, **odd** と **even** が交互に値になります
 
 bc. <table>
 <tr><th>#</th><th>Error</th></tr>
@@ -95,16 +95,16 @@ bc. <table>
 
 h2. <a>extends</a>
 
-Makes the template inherit another template.
+そのテンプレートに、他のテンプレートを継承させます。
 
 bc. #{extends 'main.html' /}
 
 
 h2. <a>field</a>
 
-The field tag is an helper, based on the spirit of the Don’t Repeat Yourself. It works this way:
+field タグは Don't Repeat Yourself の精神に基づいたヘルパです。このタグは次のようにして動作します:
 
-Instead of writing this:
+以下のように書く代わりに:
 
 bc. <p>
   <label>&{'user.name'}</label>
@@ -112,7 +112,7 @@ bc. <p>
   <span class="error">${errors.forKey('user.name')}</span>
 </p>
 
-You can just write:
+以下のように書くことができます:
 
 bc. #{field 'user.name'}
 <p>
@@ -122,24 +122,23 @@ bc. #{field 'user.name'}
 </p>
 #{/}
 
-So you don’t repeat **user.name** again and again.
+何度も何度も **user.name** をくり返してはいけません。
 
 
 h2. <a>form</a>
 
-Inserts a **form** tag. The HTTP method is guessed from the route, and defaults to POST. If there are both GET and POST routes configured for the URL, the tag will default to using the first route defined in routes.  
+**form** タグを挿入します。HTTP メソッドはルートから推測され、デフォルトは POST です。指定した URL に対して GET と POST の両方が設定されている場合、このタグはデフォルトでは最初に routes に定義されているものを使用します。
 
-* Optional **id** attribute sets an ID to the form element. 
-* Optional **enctype** attribute sets the form’s data encoding. it defaults to ‘application/x-www-form-urlencoded’.
+* オプションの **id** 属性は、form 要素に id を設定します。
+* オプションの **enctype** 属性は、フォームのデータエンコーディングを設定します。デフォルトは 'application/x-www-form-urlencoded' です。
 
-Charset encoding is always ‘utf-8’.
+文字セットエンコーディングは常に ‘utf-8’ です。
 
 bc. #{form @Client.create() , id:'creationForm' enctype:'multipart/form-data' }
    ...
 #{/form}
 
-
-Rendered as:
+以下のようにレンダリングされます:
 
 bc. <form action="/client/create" id="frm" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
  ...
@@ -148,13 +147,13 @@ bc. <form action="/client/create" id="frm" method="POST" accept-charset="utf-8" 
 
 h2. <a>get</a>
 
-Retrieves a value defined with a **set** tag. You may use  the get/set mechanism to exchange values between templates, layouts and sub-templates.
+**set** タグで定義された値を検索します。get/set メカニズムを使うことで、テンプレート間、すなわちレイアウトと子テンプレート間で値をやり取りすることができます。
 
 bc. <head>
     <title>#{get 'title' /}
 </head>
 
-You can also use the get tag in the following way, which will display "Homepage" if title has not been specified.
+以下のように、title が指定されていない場合には "Homepage" を表示するような方法で、このタグを使用することもできます。
 
 bc. <head>
     <title>#{get 'title'}Homepage #{/} 
@@ -163,18 +162,18 @@ bc. <head>
 
 h2. <a>i18n</a>
 
-Exports localized messages in JavaScript. Localized messages are available from your JavaScript code using the **i18n()** function.
+ローカライズされた Javascript メッセージを外部化します。ローカライズされたメッセージは **i18n()** 関数を使うことで JavaScript から利用することができます。
 
-Define your translations in the **conf/messages** file.
+**conf/messages** ファイルに訳語を定義してください。
 
 bc. hello_world=Hello, World !
 hello_someone=Hello %s !
 
-Include the messages in your template (or layout) page:
+テンプレート (またはレイアウト) ページにメッセージを取り込んでください:
 
 bc. #{i18n /}
 
-And retrieve keys from JavaScript:
+そして JavaScript からキーを使って検索してください:
 
 bc. alert(i18n('hello_world'));
 alert(i18n('hello_someone', 'John'));
@@ -182,13 +181,13 @@ alert(i18n('hello_someone', 'John'));
 
 h2. <a>if</a>
 
-Evaluates the given test, and if true, evaluates the tag body.
+指定された条件を評価し、true の場合はタグボディを評価します。
 
 bc. #{if user.countryCode == 'en"' }
     Connected user is ${user}
 #{/if}
 
-Using composite conditions:
+条件を組み合わせて使用する場合は、以下のようにします:
 
 bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
     You are admin, allowed to administer.
@@ -197,7 +196,7 @@ bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
 
 h2. <a>ifnot</a>
 
-Cleaner alternative to #{if !condition}
+きれいに #{if !condition} を書き換えます。
 
 bc. #{ifnot tasks}
     No tasks today
@@ -206,7 +205,7 @@ bc. #{ifnot tasks}
 
 h2. <a>include</a>
 
-Includes another template. All of the current template’s variables are directly available in the included template.
+別のテンプレートを取り込みます。取り込み側のテンプレート上の全ての変数は、取り込んだ側のテンプレートにて直接利用することができます。
 
 bc. <div id="tree">
     #{include 'tree.html' /}
@@ -215,13 +214,13 @@ bc. <div id="tree">
 
 h2. <a>jsAction</a>
 
-The #{jsAction /} tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.
+この #{jsAction /} タグは、サーバアクションに基づいた URL と自由な変数から成る JavaScript 関数を返却します。この関数では AJAX リクエストを行わないので、返却された URL を使って手作業で Ajax リクエストを実行する必要があります。
 
-Let’s see an example:
+例を見てみましょう:
 
 bc. GET     /users/{id}        Users.show
 
-Now you can import this route client side:
+クライアント側でこのルートをインポートすることができます:
 
 bc. <script type="text/javascript">
     var showUserAction = #{jsAction @Users.show(':id') /}
@@ -234,7 +233,7 @@ bc. <script type="text/javascript">
 
 h2. <a>list</a>
 
-Iterates over an object collection.
+オブジェクトのコレクションをくり返します。
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -242,12 +241,12 @@ bc. <ul>
 #{/list}
 </ul>
 
-The tag defines implicit variables in its body. The variable names are prefixed with the loop variable name.
+このタグは、ボディに暗黙的な変数を定義します。変数名には、接頭辞としてループ変数名が付きます。
 
-* **name_index**, the item’s index, starting at 1
-* **name_isLast**, true for the last element
-* **name_isFirst**, true for the first element
-* **name_parity**, alternates between **odd** and **even**
+* **name_index**, アイテムの index で、1 から始まります
+* **name_isLast**, 最後の要素の場合に true になります
+* **name_isFirst**, 最初の要素の場合に true になります
+* **name_parity**, **odd** と **even** が交互に値になります
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -256,21 +255,21 @@ bc. <ul>
 #{/list}
 </ul>
 
-The **items** parameter is optional and can be replaced by the default **arg** argument.
+**items** パラメータはオプションであり、デフォルトの **arg** 引数で置き換えることが可能です。
 
-So you can rewrite:
+このため:
 
 bc. #{list items:users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-as:
+を、以下のように書き換えることができます:
 
 bc. #{list users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-**for** loops are easy to create using Groovy **range** object:
+Groovy の **range** オブジェクトを使うことで、容易に **for** ループを作ることができます:
 
 bc. #{list items:0..10, as:'i'}
     ${i}
@@ -280,22 +279,23 @@ bc. #{list items:'a'..'z', as:'letter'}
     ${letter} ${letter_isLast ? '' : '|' }
 #{/list}
 
-The **as** parameter is optional as well. It uses **_** as default variable name:
+**as** パラメータもまたオプションです。デフォルト変数名として **_** を使用します:
 
 bc. #{list users}
     <li>${_}</li>
 #{/list}
 
 
+
 h2. <a>script</a>
 
-Inserts a **script** tag in the template. By convention, the tag refers to a script in **/public/javascripts**
+テンプレートに **script** タグを挿入します。利便性のため、このタグは **/public/javascripts** 内のスクリプトを参照します。
 
-* **src** (required) - script file name, without the leading path **/public/javascripts**
-* **id** (optional) - an **id** attribute value for the generated **script** tag
-* **charset** (optional) - sets source encoding - defaults to UTF-8
+* **src** (必須) - **/public/javascripts** パスを含まないスクリプトファイル名
+* **id** (オプション) - 生成された **script** タグの **id** 属性の値
+* **charset** (オプション) - ソースのエンコーディングを設定します - デフォルトは UTF-8 です
 
-The **src** parameter can be replaced by the default **arg** argument.
+**src** パラメータはデフォルトの **arg** 引数に置き換えることもできます。
 
 bc. #{script 'jquery-1.4.2.min.js' /}
 #{script id:'datepicker' , src:'ui/ui.datepicker.js', charset:'utf-8' /}
@@ -303,16 +303,16 @@ bc. #{script 'jquery-1.4.2.min.js' /}
 
 h2. <a>set</a>
 
-Define a value which can be retrieve in the same template or any layout with the **get** tag.
+同じテンプレートかレイアウトにおいて **get** タグを使って検索できる値を定義します。
 
 bc. #{set title:'Admin' /}
 #{set style:'2columns' /}
 
-You can also use variables:
+変数を使用することも可能です:
 
 bc. #{set title:'Profile of ' + user.login /}
 
-You can define variables value in the body:
+変数の値をボディ内で定義することも可能です:
 
 bc. #{set 'title'}
     Profile of ${user.login}
@@ -321,14 +321,14 @@ bc. #{set 'title'}
 
 h2. <a>stylesheet</a>
 
-Inserts a **link** tag in the template. By convention, the tag refers to a CSS file in **/public/javascripts**
+テンプレートに **link** タグを挿入します。利便性のため、このタグは **/public/javascripts** 内の CSS ファイルを参照します。
 
-* **src** (required) - file name, without the leading path **/public/stylesheets**
-* **id** (optional) - an **id** attribute value for the generated **link** tag
-* **media** (optional) - a **media** attribute value: screen, print, aural, projection…
-* **title** (optional) - **title** atttribute value (or description)
+* **src** (必須) - **/public/stylesheets** パスを含まないファイル名
+* **id** (オプション) - 生成された **link** タグの **id** 属性の値
+* **media** (オプション) - **media** 属性の値: screen, print, aural, projection…
+* **title** (オプション) - **title** 属性の値 (または説明)
 
-The **src** parameter can be replaced by the default **arg** argument.
+**src** パラメータはデフォルトの **arg** 引数に置き換えることもできます。
 
 bc. #{stylesheet 'default.css' /}
 #{stylesheet id:'main', media:'print', src:'print.css', title:'Print stylesheet' /}
@@ -336,10 +336,9 @@ bc. #{stylesheet 'default.css' /}
 
 h2. <a>verbatim</a>
 
-Disables HTML escaping in template output, like the "raw()":javaextensions#arawa Java extension, but for the whole tag body.
+Java 拡張の "raw()":javaextensions#arawa のように、しかしタグボティ全体のテンプレート出力における HTML エスケープを無効にします。
 
 bc. ${'&amp;'}
 #{verbatim}${'&amp;'}#{/verbatim}
 
-In this example, the first line outputs **&amp;** while the second line outputs an ampersand. 
-
+この例の場合、最初の行は **&amp;** を出力しますが、二番目の行はアンパサンドを出力します。

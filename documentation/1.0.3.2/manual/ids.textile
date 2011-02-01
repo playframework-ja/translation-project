@@ -1,18 +1,18 @@
-h1. Manage application.conf in several environments
+h1. 複数環境用 application.conf の管理
 
-When you work in a team, different developers will use different configuration keys in their **application.conf**. For example, the log level, some database configuration… This generally leads to recurrent conflicts when you commit the file using your VCS. 
+チームで作業をする場合、様々な開発者がそれぞれの **application.conf** で異なる設定キーを使用します。例えば、ログレベルやいくつかのデータベース設定… これは一般的に、使用する VCS にファイルをコミットするときのコンフリクトの再発を招きます。
 
-Furthermore, different deployment environments - e.g. dev, test, staging and production - need different configurations.
+さらに、様々なデプロイ環境 - 例えば、開発、テスト、ステージング、本番環境 - は、それぞれ異なる設定を必要とします。
 
-h2. <a>The framework ID</a>
+h2. <a>フレームワーク ID</a>
 
-To resolve this problem, Play allows you to give an **ID** to each framework installation. Use the play tool’s **id** command to define this ID:
+この問題を解決するため、Play ではインストールしたフレームワーク毎に **ID** を与えることができます。この ID を定義するためには、play ツールの **id** コマンドを使用してください:
 
 bc. play id
 
 !images/id!
 
-You can then prefix your configuration keys with the framework ID for which the configuration option is intended:
+こうすることで、選択可能にしたい設定項目のキーにフレームワーク ID を接頭辞として付けることができます:
 
 bc. application.name=Cool app
 application.mode=dev
@@ -30,20 +30,20 @@ application.log=INFO
 %prod.application.log=INFO
 %prod.application.mode=prod
 
-h2. <a>Framework ID can be set from the command line</a>
+h2. <a name="command">コマンドラインによるフレームワーク ID の設定</a>
 
-You can specify the framework ID to use for a particular command directly from the command line. For example to run an application in production mode you can use:
+使用するフレームワーク ID を、特定のコマンドに対してコマンドラインから直接指定することができます。例えば、アプリケーションを production モードで実行するためには、以下のように使用することができます:
 
 bc. play run --%production
 
-with these line defined in the **application.conf** file:
+**application.conf** ファイルに定義されている設定行は以下のとおりです:
 
 bc. application.mode=dev
 %production.application.mode=prod
 
-It should be compatible with all commands using the framework ID information. The default ID is still defined using the **play id** command.
+これは、フレームワーク ID 情報を使用するすべてのコマンドと互換性があるはずです。デフォルトの ID は既に **play id** コマンドを使用して定義されています。
 
-By the way, **play test** is then equivalent to:
+ちなみに、 **play test** は以下と等価です:
 
 bc. play run --%test
 

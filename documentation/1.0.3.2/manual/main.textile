@@ -1,126 +1,125 @@
-h1. The main concepts
+h1. 主要な概念
 
-h2. <a name="mvc">The MVC application model</a>
+h2. <a name="mvc">MVC アプリケーションモデル</a>
 
-A Play application follows the MVC architectural pattern applied to the web architecture.
+Play アプリケーションは web に適用された MVC アーキテクチャパターンに従います。
 
-This pattern splits the application into separate layers: the Presentation layer and the Model layer. The Presentation layer is further split into a View and a Controller layer. 
+このパターンはアプリケーションを別々の層: Presentation 層 と Model 層 に分割します。Presentation 層 はさらに View 層 と Controller 層 に分けられます。
 
-* The **Model** is the domain-specific representation of the information on which the application operates. Domain logic adds ‘meaning’ to raw data (e.g., calculating if today is the user’s birthday, or the totals, taxes, and shipping charges for a shopping cart). Most applications use a persistent storage mechanism such as a database to store data. MVC does not specifically mention the data access layer because it is understood to be underneath, or encapsulated by, the Model.
+* **Model** は、アプリケーションが扱う情報をドメインに特化して表現したものです。ドメインのロジックは生のデータに '意味' (例えば、今日がユーザの誕生日かとか、あるいはショッピングカートの合計や税金や送料などを計算して) を追加します。ほとんどのアプリケーションが、データを保存するためにデータベースなどの永続的なストレージを使用します。Model によって隠蔽されるかカプセル化されることが分かっているので、MVC ではデータアクセス層について明確には言及しません。
 
-* The **View** renders the model into a form suitable for interactions, typically a user interface. Multiple views can exist for a single model, for different purposes. In a Web application the view is usually rendered in a ‘web format’ like HTML, XML or JSON. However there are some cases where the view can be expressed in a binary form, e.g. dynamically rendered chart diagrams.
+* **View** は、通常はユーザインタフェースである双方向のやり取りに適した形式にモデルをレンダリングします。異なる目的に応じて、ひとつのモデルに対して複数のビューが存在することもあります。Web アプリケーションでは、通常、ビューは HTML、XML または JSON のような 'Web フォーマット' としてレンダリングされます。しかし、例えば動的にレンダリングされたチャートダイヤグラムのようにバイナリ形式としてビューを表現する場合もいくつかあります。
 
-* The **Controller** responds to events (typically user actions) and processes them, and may also invoke changes on the model. In a Web application, events are typically HTTP requests: a Controller listens for HTTP requests, extracts relevant data from the ‘event’, such as query string parameters, request headers... And applies changes on the underlying model objects.
+* **Controller** は、イベント (通常はユーザのアクション) に反応してそれらを処理します。このとき、モデルの変更も実行するかもしれません。Web アプリケーションでは、通常、イベントは HTTP リクエストです: コントローラは HTTP リクエストを待ち受けて、'イベント' からクエリ文字列パラメータやリクエストヘッダ... と言った関連データを抽出します。そして、下層のモデルオブジェクトに変更を適用します。
 
 !images/diagrams_mvc!
 
-In a Play application these three layers are defined in the **app** directory, each one in a separate package:
+Play アプリケーションでは、これらの 3 つの層は **app** ディレクトリの中に、それぞれ別々のパッケージとして定義されます。
 
 h3. app/controllers
 
-A Controller is a Java class where each public, static, method is an **action**. An action is a Java entry point invoked when a HTTP Request is received. The Java code from the Controller class isn’t really object oriented: it’s mainly procedural code. The action method extracts relevant data from the HTTP request, reads or updates the model objects, and sends back a result which is wrapped into an HTTP Response. 
+コントローラは、public かつ static なメソッドはいずれも **action** となるクラスです。アクションは HTTP リクエストが受信されたときに起動される Java のエントリポイントです。コントローラクラスの Java コードはまったくオブジェクト指向的ではありません: 主に手続き型のコードです。アクションメソッドは、HTTP リクエストから関連データを抽出して、モデルを検索するか更新して、HTTP レスポンスにラップされた結果を返します。
 
 h3. app/models
 
-The domain model object layer is a set a Java classes using all the object oriented features available from the Java language. It contains data structures and operations on which the application operates. Whenever model objects need to be saved into a persistent storage, they may contain some glue artifacts like JPA annotations or SQL statements.
+ドメインモデルオブジェクト層は、Java 言語から利用可能なすべてのオブジェクト指向特徴を使用する Java クラスの集合です。ドメインモデルオブジェクト層はアプリケーションが扱うデータ構造と操作を含んでいます。モデルオブジェクトを永続的なストレージに保存する必要がある場合は、ドメインモデルオブジェクト層には JPA アノテーションや SQL ステートメントのような、接着剤的な部品を含むこともあるかもしれません。
 
 h3. app/views
 
-Most of the application views are generated using an efficient templating system provided by Play. The Controller gets some interesting data from the model layer, and then applies a template to decorate these objects. This packages contains HTML, XML, JSON... template files with special directives used to dynamically generate the model representation.
+アプリケーションのビューのほとんどは、Play によって提供された効率的なテンプレートシステムを使用して生成されます。コントローラは、モデル層からいくつかのデータを取得し、これらのオブジェクトを装飾するためにテンプレートを適用します。このパッケージは HTML、XML、JSON などの、動的にモデルの値を表現する特別なディレクティブを持つテンプレートファイルを保持します。
 
 
-h2. <a name="request">The request life cycle</a>
+h2. <a name="request">リクエストライフサイクル</a>
 
-The Play framework is fully stateless and only Request/Response oriented. All HTTP Requests follow the same path:
+Play フレームワークは完全にステートレスであり、リクエスト/レスポンスのみを重視します。すべての HTTP リクエストは同じ処理フローを通ります:
 
-* An HTTP Request is received by the framework.
-* The Router component tries to find the most specific route able to accept this request. The corresponding action method is then invoked.
-* The application code is executed.
-* If a complex view needs to be generated, a template file is rendered.
-* The result of the action method (HTTP Response code, Content) is then written as an HTTP Response.
+* HTTP リクエストがフレームワークによって受信されます。
+* Router コンポーネントは、このリクエストに適合する最も特殊なルーティングを探します。そして、対応するアクションメソッドが起動されます。
+* アプリケーションコードが実行されます。
+* 複雑なビューを生成する必要がある場合は、テンプレートファイルがレンダリングされます。
+* アクションメソッドの結果 (HTTP レスポンスコードと内容) は HTTP レスポンスとして出力されます。
 
-This diagram summarizes the HTTP Request path:
+HTTP リクエストの処理フローを図にまとめます:
 
 !images/diagrams_path!
 
 
-h2. <a name="application">The standard application layout</a>
+h2. <a name="application">標準的なアプリケーションレイアウト</a>
 
-The layout of a Play application is standardized to keep things as simple as possible.
+Play アプリケーションのレイアウトは、できるだけ物事を簡単に保つために標準化されています。
 
 
-h3. The app directory
+h3. app ディレクトリ
 
-This directory contains all executable artifacts: Java source code and view templates.
+このディレクトリはすべての実行可能な部品: Java ソースコードとビューテンプレートを含みます。
 
-p(note). **Where are my .class files??**
+p(note). **.classファイルはどこ??**
  
-Don’t look for compiled Java classes. The framework compiles the Java source code at runtime and only keeps compiled classes in a bytecode cache under the tmp directory. The main executable artifacts in a Play application are the *.java* source files, not the compiled classes.
+コンパイルされた Java クラスを探さないでください。フレームワークは実行時に Java ソースコードをコンパイルして、 tmp ディレクトリ配下にバイトコードキャッシュとしてコンパイルされたクラスを保持するだけです。Play アプリケーションにおける主な実行可能な成果物は、コンパイルされたクラスではなく、 *.java* ソースファイルです。
 
-There are three standard packages in the app directory, one for each layer of the MVC architectural pattern. You can of course add your own packages like for example a *utils* packages.
+app ディレクトリには、MVC アーキテクチャパターンのそれぞれの層にあたる 3 つの標準的なパッケージがあります。もちろん、例えば **utils** のような独自のパッケージを追加することも可能です。
 
-In addition, the views package is further organized into sub-packages:
+加えて、view パッケージの内容は複数のサブパッケージに整理されます:
 
-* **tags**, hosts application tags, e.g. reusable pieces of templates.
-* **One views folder for each Controller**, by convention templates related to each Controller are stored in their own sub-package.
+* **tags** ディレクトリは、例えば再利用できるテンプレート部品のようなアプリケーションタグを管理します。
+* **コントローラごとにひとつのビューディレクトリ** が割り当てられます。慣例により、コントローラに関連するテンプレートはそれぞれのサブパッケージ内に保持されます。
 
 
-h3. The public directory
+h3. public ディレクトリ
 
-Resources stored in the **public** directory are static assets and are served directly by the Web server.
+**public** ディレクトリに保存されたリソースは、静的な資産であり、Web サーバによって直接配信されます。
 
-This directory is split into three standard sub-directories: for images, CSS stylesheets and JavaScript files. You should try to organize your static assets like this to keep all Play applications consistent.
+このディレクトリは 3 つの標準的なサブディレクトリ: 画像、CSS スタイルシート、および JavaScript ファイル用のディレクトリに分けられます。すべての Play アプリケーションにおいて一貫性を保つために、静的な資産はこのように管理されるべきです。
 
 p(note). **Tip**
  
-By default the /public directory is mapped to the /public URL path, but you can easily change that, or even use several directories for your static assets.
+デフォルトでは /public ディレクトリは /public という URL にマッピングされますが、これは容易に変更可能であり、静的な資産のために複数のディレクトリを使用することもできます。
 
 
-h3. The conf directory
+h3. conf ディレクトリ
 
-The **conf** directory contains all configuration files for the application.
+**conf** ディレクトリはアプリケーションのためのすべての構成ファイルを含んでいます。
 
-There are two required configuration files:
+2 つの必要な構成ファイルがあります:
 
-* **application.conf**, the main configuration file for the application. It contains standard configuration options.
-* **routes**, the routes definition file.
+* **application.conf** は、アプリケーションのための主な構成ファイルです。標準的な構成オプションを含んでいます。
+* **routes** は、ルーティングを定義するファイルです。
 
 p(note). **Tip**
-	
-If you need to add some configuration options specific to your application, it’s a good idea to add more options to the application.conf file. If any library needs a specific configuration file, try to file it under the conf directory: **this directory is included in the Java ClassPath**.
-
-h3. The lib directory
-
-This directory contains all standard Java libraries needed by your application. There are automatically added to the Java classpath.
-
-
-h2. <a name="lifecycle">Development life cycle</a>
-
-There are no compilation, packaging or deployment phases while working with Play. However Play implements two distinct environments: DEV mode during the development phase and PROD mode when the application is deployed. 
-
-p(note). **About DEV/PROD modes**
  
-You can run an application either in a DEV or PROD mode. You toggle this mode using the *application.mode* configuration property. When run in DEV mode, Play will check for file changes and will handle hot reloading if necessary. 
+アプリケーションに特定のいくつかの設定オプションを加える必要がある場合、application.conf ファイルにさらにオプションを追加するのは良い案です。何かのライブラリが特定の設定ファイルを必要とするならば、conf ディレクトリ配下にそのファイルを格納するようにしてください: **このディレクトリは Java クラスパスに含まれます** 。
+
+h3. lib ディレクトリ
+
+このディレクトリはアプリケーションに必要なすべての標準的な Java ライブラリを含みます。これらのライブラリは、自動的に Java クラスパスに追加されます。
+
+
+h2. <a name="lifecycle">開発ライフサイクル</a>
+
+Play を使って作業している間、コンパイル、パッケージング、そしてデプロイのいずれのフェーズも存在しません。一方で、Play には 2 つの異なった環境が用意されています: 開発フェーズ中の DEV モードと、アプリケーションがデプロイされるときの PROD モードです。
+
+p(note). **DEV/PROD モードについて**
  
-The PROD mode is fully optimized for production: Java sources and templates are compiled once and cached for multiple uses.
+アプリケーションは DEV か PROD いずれかのモードで実行できます。 **application.mode** 設定プロパティを使ってこのモードを切り換えます。DEV モードで動作している場合、Play はファイルの変更をチェックし、必要な場合は動的にリロードします。 
+ 
+PROD モードは本番稼動向けに完全に最適化されます: Java ソースとテンプレートは、一度だけコンパイルされ、複数の用途のためにキャッシュされます。
 
-Java source code is compiled and loaded at runtime. If a Java source file is modified while the application is running, the source code is recompiled and hot-swapped into the JVM.
+Java ソースコードは、実行時にコンパイルされ、ロードされます。アプリケーションが動作している間に Java ソースファイルが変更された場合、ソースコードは再コンパイルされて JVM 上に動的にリロードされます。
 
-If a compilation error occurs, the exact problem is displayed in the browser (in DEV mode only).
+コンパイルエラーが発生した場合、問題が正確にブラウザに表示されます (DEV モードの場合のみ) 。
 
 !images/guide1-3!
 
-Template files are hot-compiled and hot-reloaded too.
+テンプレートも動的に再コンパイルされ、リロードされます。
 
-h3. Connect a Java debugger
+h3. Java デバッガへの接続
 
-When you run the application in DEV mode, you can connect a Java debugger to the port 8000.
+アプリケーションを DEV モードで実行している場合、Java デバッガをポート 8000 に接続することができます。
 
-For example, using the NetBeans debugger:
+例えば、NetBeans デバッガはこのように使用します:
 
 !images/screenshot_attach-debugger!
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
  
-Now that you’ve seen what a Play application is, let’s see how "the Router":routes works. The Router is in charge of translating incoming HTTP Requests into actions.
-
+ここまでは、Play アプリケーションがどういったものであるかを見てきたので、 "ルータ":routes がどのように動作するかを見ていきましょう。Router は送り込まれた HTTP リクエストのアクションへの対応付けを担当します。

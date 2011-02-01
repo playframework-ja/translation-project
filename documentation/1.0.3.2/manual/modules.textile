@@ -1,24 +1,24 @@
-h1. Using Play modules
+h1. Play モジュール
 
-A Play application can be assembled from several application modules. This allows you to reuse application components across several application or split a large application into several smaller applications.
+Play アプリケーションは、いくつかのアプリケーションモジュールから組み立てることができます。これにより、複数のアプリケーションをまたいでアプリケーションコンポーネントを再利用したり、大きなアプリケーションをいくつかの、より小さなアプリケーションに分割することが可能です。
 
-h2. <a>What is a module?</a>
+h2. <a>モジュールとは?</a>
 
-A module is just another Play application; however some differences exist in the way resources are loaded for an application module:
+モジュールは、ただの play アプリケーションです; しかし、アプリケーションモジュールのリソースがロードされる方法にいくつかの違いがあります:
 
-* A module does not have a **conf/application.conf** file.
-* A module can have a **conf/routes** file, but these routes will not be  loaded automatically.
-* All files are first searched for in the main application path, then in all loaded modules.
-* A module can contain plain Java code packaged as a JAR file in the module/lib directory.
-* Everything in a module is optional.
+* モジュールには **conf/application.conf** ファイルがありません。
+* モジュールは **conf/routes** ファイルを持つことができますが、これらのルートは自動的にはロードされません。
+* すべてのファイルは、まずメインのアプリケーションパスから検索され、その後、すべてのロードされたモジュールから検索されます。
+* モジュールは module/lib ディレクトリ に JAR ファイルとしてパッケージされたピュア Java コードを含むことができます。
+* モジュールにおいて、すべてが任意です。
 
-You can create a module with the **play new-module** command.
+**play new-module** コマンドでモジュールを作成することができます。
 
-h2. <a>How to load a module from an application</a>
+h2. <a>アプリケーションからモジュールをロードするには</a>
 
-The default modules installation path is in the **$PLAY_HOME/modules** directory. This way all modules are automatically available to all applications run with the framework.
+デフォルトのモジュールインストール先は **$PLAY_HOME/modules** ディレクトリです。この方法では、フレームワークで実行されるすべてのアプリケーションからすべてのモジュールが自動的に利用可能となります。
 
-If you want to load external modules from an application, just declare external modules in the application.conf file in the main application.
+アプリケーションから外部のモジュールをロードしたい場合は、アプリケーション中の application.conf ファイルに外部のモジュールを宣言するだけです。
 
 bc. # Additional modules
 # ~~~~~
@@ -28,9 +28,9 @@ bc. # Additional modules
 #
 module.crud=${play.path}/modules/crud
 
-You can also create a standalone project that contains all modules needed by your application. You just need to copy all modules into the same directory as your application. 
+アプリケーションに必要なすべてのモジュールを含むスタンドアロンプロジェクトを作成することもできます。必要なのは、アプリケーションと同じディレクトリにすべてのモジュールをコピーすることだけです。
 
-Let’s say you have a large application with a CMS component, a forum component, a directory component and using the GWT module. You can create a project using this layout:
+CMS コンポーネント、フォーラムコンポーネント、ディレクトリコンポーネントと GWT モジュールを使用する大きなアプリケーションがあるとしましょう。このプロジェクトは次のレイアウトを使うことで作成できます:
 
 bc. /my-project
     /cms
@@ -39,9 +39,9 @@ bc. /my-project
     /gwt
     /main
 
-Here **main** is the directory of your main application (created using the **play new** command), **gwt** is a module installed from the modules repository, and **cms**, **forum** and **directory** are modules created using the **play new-module** command.
+**main** は (**play new** コマンドを使って作った) メインアプリケーションのディレクトリで、 **gwt** にはモジュールリポジトリからインストールされたモジュールがあり、そして、 **cms** 、 **forum** 、および **directroy** は、 **play new-module** コマンドを使って作られたモジュールです。
 
-Now from the main application configuration file (my-project/main/conf/application.conf), you can load these modules using:
+メインアプリケーションの設定ファイル (my-project/main/conf/application.conf) において、以下を使用するこれらのモジュールをロードできます:
 
 bc. # Additional modules
 # ~~~~~
@@ -50,26 +50,26 @@ module.cms=../cms
 module.forum=../forum
 module.directory=../directory
 
-When you run the main application (using **play run my-project/main**) it will load all these modules in memory as a larger application.
+(**play run my-project/main** を使って) メインアプリケーションを実行したとき、これらのモジュールはメモリにロードされ、より大きなアプリケーションとなります。
 
-p(note). If module paths are relative, they are resolved from the main application root.
+p(note). モジュールパスが相対パスである場合、メインアプリケーションのルートから解決されます。
 
-h2. <a>Load default routes from modules</a>
+h2. <a>モジュールからデフォルトルートをロードする</a>
 
-A module can provide a default routes file. You can load it in the main application routes file, using a special route declaration:
+モジュールはデフォルトルートファイルを提供することができます。特別なルート宣言を使用することで、メインアプリケーションの routes ファイルにこれをロードすることができます:
 
 bc. # Import the default CRUD routes
 GET     /admin	     module:crud
 
-You can even load routes from all available modules:
+すべての利用可能なモジュールからルートをロードすることもできます:
 
 bc. GET     /	     module:*
 
-h2. <a>Using the module repository</a>
+h2. <a>モジュールリポジトリの使用</a>
 
-The "module repository":http://www.playframework.org/modules identifies all modules contributed by the community. A module can have several versions. You have to check the module’s documentation for which version you need to use for your framework version.
+"モジュールリポジトリ":http://www.playframework.org/modules は、コミュニティによって寄付されたすべてのモジュールを識別します。モジュールはいくつかのバージョンを持つことができます。使用するフレームワークのバージョンに必要なのはどのバージョンのモジュールなのか、モジュールのドキュメントをチェックする必要があります。
 
-You can also browse the module repository using the **play list-modules** command. 
+**play list-modules** コマンドを使ってモジュールリポジトリを閲覧することもできます。
 
 bc. gbo-mac:~ guillaume$ play11 list-modules
 ~        _            _ 
@@ -93,31 +93,31 @@ bc. gbo-mac:~ guillaume$ play11 list-modules
 ~   Versions: 1.0
 ...
 
-You can install a module using the **play install {module}-{version}** command. For example, to install the Scala support to the framework, use:
+**play install {module}-{version}** コマンドを使ってモジュールをインストールできます。例えば、Scala サポートをフレームワークにインストールするには、以下を使います:
 
 bc. play install scala-head
 
-By convention the **head** version is the unstable version of the module. You can also install the default version of a module by omitting the version information. For example:
+規約では、 **head** バージョンのモジュールは不安定です。バージョン情報を省略することで、デフォルトバージョンのモジュールをインストールすることもできます。例えば、以下のようにします:
 
 bc. play install scala
 
-Modules installed this way are downloaded to the **/modules** directory of your framework installation. You can change the installation path using the **--path** option:
+この方法では、モジュールはフレームワークをインストールした先の **/modules** ディレクトリにダウンロードされます。 **--path** オプションを使用してインストールパスを変更することができます:
 
 bc. play install gwt --path=my-project
 
-h2. <a>Contributing a new module to the module repository</a>
+h2. <a>モジュールリポジトリに新しいモジュールを寄付する</a>
 
-First you need to have an OpenID. It will help us to authenticate you as author of your modules. Then send us a module registration request on the Google Group.
+まず最初に、OpenID が必要です。OpenID は、あなたをモジュールの作者として認証する手助けになります。その後、Google Group でモジュール登録のリクエストを送ってください。
 
-Please tell us:
+以下を連絡してください:
 
-* More about your module. What is it?
-* Your module name. It must match the [a-zA-Z]+ regular expression.
-* A short description of the module.
-* Your project home page.
-* Your OpenID.
-* Your module must be hosted somewhere with the source code available and a way to report bugs. If you don’t have any idea, github, Google Code and Launchpad are good choices. 
+* モジュールに関する詳しい情報。どのようなモジュールですか?
+* モジュールの名前。[a-zA-Z]+ の正規表現にマッチしなければなりません。
+* モジュールの短い概要
+* プロジェクトホームページ
+* OpenID
+* モジュールは、ソースコードが利用可能で、かつバグを報告できるどこかで管理されていなければなりません。適当な場所を知らないのであれば、github、Google Code、または launchpad が良い選択肢です。
 
-To release your module, simply use the play build-module command. Then connect to the module repository and upload the generated package.
+モジュールをリリースするには、単に play build-module コマンドを使用してください。そして、モジュールリポジトリに接続して、生成されたパッケージをアップロードしてください。
 
-You can of course use the offical Google Group to provide help and share information about your work.
+もちろん、ヘルプを提供したり情報を共有するために公式の Google Group を使用することができます。

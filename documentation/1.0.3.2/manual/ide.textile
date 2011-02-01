@@ -1,119 +1,118 @@
-h1. Setting up your preferred IDE
+h1. お好みの IDE を設定しよう
 
-Working with Play is easy. You don’t even need a sophisticated IDE as Play compiles and refreshes the modifications you make to your source files automatically. So you can easily work using a simple text editor.
+Play と共に作業することは簡単です。Play が自動的にソースファイルに加えられた変更をコンパイルしてリフレッシュするので、高性能な IDE は必要ありません。シンプルなテキストエディタを使って簡単に作業することができます。
 
-However, using a modern Java IDE provides cool productivity features like auto-completion, on-the-fly compilation, assisted refactoring and debugging. Play supports the "NetBeans":http://www.netbeans.org, "IntelliJ IDEA":http://www.jetbrains.com/idea/index.html and "Eclipse":http://www.eclipse.org platforms.
+とは言え、近頃の Java IDE は自動補完、逐次コンパイル、リファクタリングやデバッグのアシストと言ったクールで生産的な機能を提供します。Play は "Netbeans":http://www.netbeans.org, "IntelliJ IDEA":http://www.jetbrains.com/idea/index.html と "Eclipse":http://www.eclipse.org プラットフォームをサポートします。
 
 
-h2(#eclipse). <a>Generate configuration files for Eclipse</a>
+h2(#eclipse). <a>Eclipse 設定ファイルの生成</a>
 
-Play provides a command to simplify Eclipse configuration. To transform a Play application into a working Eclipse project, use the **eclipsify** command:
+Play は Eclipse の設定を簡易化するコマンドを提供しています。Play アプリケーションを動作する Eclipse プロジェクトに変換するには、 **eclipsify** コマンドを使用してください:
 
 bc. # play eclipsify myApp
 
-You then need to import the application into your Workspace with the **File/Import/General/Existing project…** menu.
+その後、 **File/Import/General/Existing project...** メニューから Workspace にアプリケーションをインポートする必要があります。
 
 !images/eclipse!
 
-The **eclipsify** command generates several launchers for the application. The main launcher in only usable with the **Run As** Eclipse command. You can then use the *Connect JPDA launcher* using *Debug As* to start a debugging session at any time. Stopping the debugging session will not stop the server.
+**eclipsify** コマンドはアプリケーション用にいくつかのランチャを生成します。主要なランチャは Eclipse の **Run As** コマンドで実行するだけで利用できます。 *Connect JPDA launcher* を *Debug As* から使用することで、いつでもデバッグセッションを始めることができます。サーバを起動したままでデバッグセッションを終了することができます。
 
-If you make any important changes to your application, such as changing the classpath, use **eclipsify** again to regenerate the configuration files.
+classpath の変更のような重要な変更をアプリケーションへ加えるときは、設定ファイルを再生成するために **eclipsify** を再度実行します。
 
-Additionally, an Eclipse plugin is available in your Play distribution, in the **support/eclipse/** directory. To install it, simply copy the JAR file you will find to your Eclipse installation’s **dropins** folder.
+加えて、Play の配布物中の **support/eclipse/** ディレクトリにある Eclipse プラグインを利用することができます。プラグインをインストールするには、単に JAR ファイルを Eclipse インストールパスにある **dropins** フォルダにコピーします。
 
-p(note). **Do not commit Eclipse configuration files when you work in a team!**
+p(note). **チームで作業しているときは Eclipse 設定ファイルをコミットしないこと!**
 
-The generated configuration files contain absolute references to your framework installation. These are specific to your own installation. When you work in a team, each developer must keep his Eclipse configuration files private. 
+生成した設定ファイルにはフレームワークをインストールした場所への絶対参照が含まれています。これはあなた自身のインストール作業に特化したものです。チームで作業するときは、それぞれの開発者は自分の Eclipse 設定ファイルを個人で管理しなければなりません。
 
-h2(#netbeans). <a>Generate configuration files for NetBeans</a>
+h2(#netbeans). <a>NetBeans 設定ファイルの生成</a>
 
-Play provides a command to simplify NetBeans configuration. To transform an existing application to a valid NetBeans project, use the **netbeansify** command:
+Play は Netbeans の設定を簡易化するコマンドを提供しています。既存のアプリケーションを妥当な Netbeans プロジェクトに変換するには、 **netbeansify** コマンドを使用してください:
 
 bc. # play netbeansify myApp
 
-Then you can just open the application as a NetBeans project.
+その後は、そのアプリケーションをそのまま Netbeans プロジェクトとして開くことができます。
 
 !images/netbeans!
 
-Use the standard *Run* button to start the application. When the application is started you can attach a debugging session at any time using the *Debug* button. Stopping the debugging session doesn’t stop the server.
+アプリケーションを開始するには、標準の *Run* ボタンを使用してください。アプリケーションが起動されていれば、いつでも *Debug* ボタンを使ってデバッグセッションをアタッチすることができます。デバッグセッションを終了してもサーバは止まりません。
 
-If you make any important change to your application such as changing the classpath, use **netbeansify** again to regenerate the configuration files. 
+classpath の変更のような重要な変更をアプリケーションへ加えるときは、設定ファイルを再生成するために **netbeansify** を再度実行します。
 
-p(note). **Do not commit the nbproject/ directory when you work in a team!**
+p(note). **チームで作業しているときは nbproject/ ディレクトリルをコミットしないこと!**
  
-The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his NetBeans configuration files private.
+生成した設定ファイルにはフレームワークをインストールした場所への絶対参照が含まれています。これはあなた自身のインストール作業に特化したものです。チームで作業するときは、それぞれの開発者は自分の Netbeans 設定ファイルを個人で管理しなければなりません。
 
-h2(#intellij). <a>Generate configuration files for IntelliJ IDEA</a>
+h2(#intellij). <a>IntelliJ IDEA 設定ファイルの生成</a>
 
-Play provides a command to simplify IntelliJ IDEA configuration. To transform an existing application to a valid IntelliJ IDEA module/project, use the **idealize** command:
+Play は IntelliJ IDEA の設定を簡易化するコマンドを提供しています。既存のアプリケーションを妥当な IntelliJ IDEA プロジェクトまたはモジュールに変換するには、 **idealize** コマンドを使用してください:
 
 bc. # play idealize myApp
 
-Then you can just import the application in IntelliJ using the import module facility.
+その後、モジュールインポート機能を使ってアプリケーションを InelliJ にインポートすることができます。
 
 !images/intellij!
 
-You can use the *Run* and *Debug* using the context menu. 
+*Run* と *Debug* はコンテキストメニューから実行できます。
 
-p(note). **Do not commit the .iml files when you work in a team!**
+p(note). **チームで作業しているときは .iml ファイルをコミットしないこと!**
  
-The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his IntelliJ IDEA configuration files private.
+生成した設定ファイルにはフレームワークをインストールした場所への絶対参照が含まれています。これはあなた自身のインストール作業に特化したものです。チームで作業するときは、それぞれの開発者は自分の IntelliJ IDEA 設定ファイルを個人で管理しなければなりません。
 
 
 h2(#textmate). <a>Textmate</a>
 
-Download and install the bundle provided for "Textmate":http://macromates.com/ to enable syntax coloring and auto-completion. The bundle also eases navigation between controllers and views.
+シンタックスハイライトとオートコンプリートが使える "Textmate":http://macromates.com/ 用に提供されたバンドルをダウンロードしてインストールすることができます。このバンドルによって、コントローラとビュー間を容易に行き来することもできます。
 
 !images/editor!
 
 
-h2(#custom). <a>Manually configure your preferred editor</a>
+h2(#custom). <a>お好みのエディタの手動設定</a>
 
-As Play applications are standard Java applications, you don’t need a specific plug-in to work with your preferred editor.  This, however, requires a little bit of knowledge of how Play works.
+Play アプリケーションは標準的な Java アプリケーションであり、お好みのエディタを使って作業をするために特定のプラグインも必要としません。ただし、その場合は Play がどのように動作しているかについて、ほんのちょっとの知識を必要とします:
 
-h3. Classpath settings
+h3. Classpath 設定
 
-A Play application classpath is built as follows (in this order): 
+Play アプリケーションのクラスパスは以下の通り (この順で) 構築されます:
 
-* The **conf/** directory for the application
-* The **$PLAY_PATH/framework/play.jar**
-* All JAR files found in your application’s **lib/** directory
-* All JAR files found in the **$PLAY_PATH/framework/lib/** directory
+* アプリケーションの **conf/** ディレクトリ
+* **$PLAY_PATH/framework/play.jar**
+* **lib/** ディレクトリ内のすべての JAR ファイル
+* **$PLAY_PATH/framework/lib/** ディレクトリ内のすべての JAR ファイル
 
 p(note). *Tip*
  
-If you have any modules enabled, you will need to add all modules’ libraries (from the **$module/lib/** directory) to the classpath as well.
+モジュールを利用する場合は、すべてのモジュールライブラリも同様に ( **$module/lib/** ディレクトリから) クラスパスに追加する必要があります。  からモジュールライブラリをクラスパスに追加する必要があります。
 
 
-h3. Main class to run
+h3. 実行する Main クラス
 
-To start a Play application, just run the **play.server.Server** class. Play uses the **"application.path"** system property to locate the application to run. Typically you pass this value with:
+Play アプリケーションを開始するには、 **play.server.Server** クラスを実行するだけです。Play は実行するアプリケーションの場所を見つけるために **"application.path"** システムプロパティを使用します。通常、以下のようにしてこの値を渡します:
 
 bc. java -Dapplication.path="/app/path"...
 
 
-h3. Java agent
+h3. Java エージェント
 
-To enable HotSwap reloading you have to load a Java agent packaged in the **play.jar** library. Typically like this:
+HotSwap リロードを有効にするためには、Java agent を **play.jar** ライブラリに組み込む必要があります。通常は以下のようにします:
 
 bc. java -javaagent:"$PLAY_PATH/framework/play.jar" ...
 
-It’s not required, but will speed-up class reloading when it is possible.
+これは必須ではありませんが、これが利用可能であるとき、クラスのリロードが高速になるでしょう。
 
 
-h2. <a>Debugging issues</a>
+h2. <a>デバッグ問題</a>
 
-Play automatically reloads Java classes when the Java sources are modified. However as Java does not fully support class reloading, the JDPA debugger can easily get confused: breakpoint submission may fail or the debugger may stop on the wrong line when you step into the code.
+Java ソースが変更されたとき、Play は自動的に Java クラスをリロードします。しかし、Java はクラスのリロードを完全にサポートしていないので、JDPA デバッグは簡単に混乱します: コードをステップインしたときに、ブレークポイントの設定に失敗したり、デバッガが間違った行で止まるかもしれません。
 
-To avoid this behavior, a better way is to start a fresh debugging session after a code modification. Luckily, JPDA supports the ability to connect and disconnect the debugger at any time without restarting the JVM.
+これを避けるよりよい方法は、コードを変更した後にデバッグセッションを新規に開始することです。幸運なことに、JPDA は JVM を再起動することなく、いつでもデバッガを接続したり、切断することができます。
 
-So the correct workflow for debugging is:
+以上より、デバッグにおける正しいワークフローは次のようになります:
 
-# <span>Make changes to your source code.</span>
-# <span>Refresh the browser to see the results. (At this time Play will reload your code modifications and redefine classes in the JVM.)</span>
-# <span>If something goes wrong and you need to debug, start a new debug session.</span>
-# <span>Debug and correct your code.</span>
-# <span>Disconnect the debugger.</span>
+* <span>ソースコードを変更します。</span>
+* <span>結果を見るためにブラウザをリフレッシュします。 (このとき Play は変更内容をリロードして JVM 上のクラスを再定義します)</span>
+* <span>何かがおかしくデバッグする必要がある場合は、新しいデバッグセッションを開始します。</span>
+* <span>コードをデバッグして、修正します。</span>
+* <span>デバッガを切断します。</span>
 
-By using this work-flow you will always have a debugger synchronized with the code loaded in the JVM.
-
+このワークフローを使用することによって、JVM にロードされたコードとデバッガを常に同期させることができます。
