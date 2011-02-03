@@ -1,40 +1,40 @@
-h1. Ajax in the Play framework
+h1. Play! フレームワークにおける Ajax
 
-The Play framework allows you to easily perform Ajax requests, and is shipped with "jQuery":http://jquery.com by default.
-This section describes how to effectively use "jQuery":http://jquery.com within the framework.
+Play! フレームワークは、はじめから "jQuery":http://jquery.com を含めてリリースされており、簡単に Ajax リクエストを行うことができます。この項には、どのようにして Play! フレームワークにおいて "jQuery":http://jquery.com を効率的に使用するかについて記載されています。
 
-The Play framework also comes with the handy **jsAction** tag to transparently get a method definition from the controller.
+Play! フレームワークには、コントローラから透過的にメソッド定義を取得する、手軽な **jsAction** タグも含まれています。
 
-h2. <a>Using jQuery with the jsAction tag</a>
+h2. <a>jQuery を jsAction タグと使う</a>
 
-The #{jsAction /} tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.
+この #{jsAction /} タグは、サーバアクションに基づいた URL と自由な変数から成る JavaScript 関数を返却します。この関数では AJAX リクエストを行わないので、返却された URL を使って手作業で Ajax リクエストを実行する必要があります。
 
-Let's see an example:
+例を見てみましょう:
 
 bc. GET     /hotels/list        Hotels.list
 
-Now you can import this route client side:
+クライアント側でこのルートをインポートすることができます:
 
 bc. <script type="text/javascript">
    var listAction = #{jsAction @list(':search', ':size', ':page') /}
    $('#result').load(listAction({search: 'x', size: '10', page: '1'}), function() {
        $('#content').css('visibility', 'visible')
    })
+
 </script>
 
-In this example we are requesting the list method from the default Application controller. We are also passing three parameters: search, size and page. The request we perform is then saved into the listAction variable. Now using jQuery and the **load** function we are performing a request (an HTTP GET request in fact).
+この例では、デフォルトの Application コントローラの list メソッドを指定しています。3 つの引数: search、size そして page も渡しています。この実行結果は listAction 変数に保存されます。ここで、jQuery と **load** 関数を使ってリクエスト (実際には HTTP GET リクエスト) を実行します。
 
-In fact, the following request is sent:
+実際のところ、以下のリクエストが発行されます:
 
 bc. GET /hotels/list?search=x&size=10&page=1
 
-In that case the request returns HTML data.
+このケースでは、発行したリクエストは HTML データを返します。
 
-However, it is also possible to return JSON or XML and to have jQuery interpret the data. In your controller, use the appropriate render method (renderJSON, renderXML or an XML template).
+jQuery にデータを解釈させるために JSON または XML を返すことも可能です。コントローラで適切な render メソッド (renderJSON、renderXML または XML テンプレート) を使用してください。
 
-Please refer to the "jQuery":http://docs.jquery.com/Main_Page documentation for more info.
+より詳しい情報については、"jQuery":http://docs.jquery.com/Main_Page ドキュメントを参照してください。
 
-Also please note that we could perform a POST; the jQuery method should then be changed to:
+jQuery メソッドを以下のように変更することで POST も発行できることに注意してください:
 
 bc. $.post(listAction, function(data) {
   $('.result').html(data);

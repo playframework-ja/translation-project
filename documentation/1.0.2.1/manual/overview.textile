@@ -1,67 +1,67 @@
-h1. Play framework overview
+h1. Play framework の概要
 
-The Play framework is a clean alternative to bloated Enterprise Java stacks. It focuses on developer productivity and targets RESTful architectures. Play is a perfect companion to *agile software development*.
+Play framework は、ぶくぶくに膨れ上がったエンタープライズ Java を代替する洗練されたフレームワークです。開発者の生産性に注目し、RESTful アーキテクチャを目指します。Play は *アジャイルソフトウェア開発* のための完璧なガイドです。
 
-The Play framework’s goal is to ease web applications development while sticking with Java. Let’s see how this is possible.
+Play framework のゴールは Java による Web アプリケーション開発を容易にすることです。これをどのようにして達成するのかを見ていきましょう。
 
-p(note). **Wanna see some code?** 
+p(note). **コードを見てみたいですか？**
  
-Check "Five cool things you can do with play":5things, or start directly with the "hello world tutorial":firstapp.
+"Play でできる 5 つのすごいこと":5things をチェックするか、いますぐ "hello world チュートリアル":firstapp を始めてみてください。
 
 
-h2. <a name="java">A Java framework without the pain</a>
+h2. <a name="java">痛みの伴わない Java フレームワーク</a>
 
-Play is a pure Java framework and allows you to keep your preferred development tools and libraries. If you already use Java as a development platform you don’t need to switch to another language, another IDE and other libraries. *Just switch to a more productive Java environment!*
+Play は純粋な Java フレームワークであり、あなた好みのツールやライブラリで開発を続けることができます。開発プラットフォームとして既に Java を使用しているのならば、別の言語や IDE、ライブラリに切り替える必要はありません。 *単純に、もっと生産的な Java 開発環境に切り替えましょう！*
 
-h2. <a name="reload">Fix the bug and hit Reload</a>
+h2. <a name="reload">バグを直して画面をリロード</a>
 
-The Java platform is infamous for its low productivity, mainly due to repeated and tedious compile-package-deploy cycles.
+生産性が低いことで悪名高い Java ですが、その主な原因は何度もくり返される退屈なコンパイル-パッケージング-デプロイのサイクルです。
 
-That’s why we rethought the development cycle to make developing with Play an efficient process.
+そこで我々は play による開発プロセスが効率的になるよう開発サイクルを見直しました。
 
-The framework compiles your Java sources directly and hot-reloads them into the JVM without the need to restart the server. You can then edit, reload and see your modifications immediately, just as in a LAMP or Rails environment. 
+play フレームワークは Java のソースコードを直接コンパイルし、サーバを再起動する必要なしに JVM へ動的にリロードします。ちょうど LAMP や Rails のように、コードを編集してリロードすれば直ちに変更点を見ることができます。
 
-It’s so fun that you can even work with a simple text editor and skip a full-featured Java IDE if you want.
+お望みであれば、フル機能の Java IDE を使わなくてもシンプルなテキストエディタさえあれば作業できます。これはとても楽しいことです。
 
 !images/editor!
 
-Whenever an error occurs, the framework makes its best effort to identify and show you the problem.
+どのようなエラーが発生した場合でも、フレームワークはできる限り問題の原因を特定して表示します。
 
 !images/guide1-3!
 
-Even the stack traces are stripped down and optimized to make it easier to solve problems. Look how template execution is nicely integrated to the Java stack trace. 
+スタックトレースからは余分な情報が取り除かれ、より簡単に問題を解決できるよう最適化されています。テンプレートの実行についても、いかに Java  スタックトレースとうまく統合されているか見てみてください。
 
 !images/stacktrace!
 
-h2. <a>Simple stateless MVC architecture</a>
+h2. <a>シンプルなステートレス MVC アーキテクチャ</a>
 
-You’ve got a database on one side and a web browser on the other. Why should you have a state in between?
+一方にはデータベースがあり、もう一方には Web ブラウザがあります。この中間で状態を保持すべきなのでしょうか？
 
-Stateful and component based Java Web frameworks make it easy to automatically save page state, but that brings a lot of other problems: what happens if the user opens a second window? What if the user hits the browser back button?
+ステートフルでコンポーネントベースの Java Web フレームワークは、自動的にページの状態を保持するのを容易にしますが、他に多くの問題をもたらします: ユーザがふたつ目のウィンドウを開いたら何が起こるでしょう？ブラウザの戻るボタンを押したら？
 
-The "Share Nothing":http://zef.me/883/the-share-nothing-architecture architecture is promoted by many Web application frameworks from PHP to Ruby on Rails or Django. As the browser is becoming more and more powerful, it is now easy to use Ajax or offline storage to solve the state problems client-side.
+"Share Nothing":http://zef.me/883/the-share-nothing-architecture アーキテクチャは、PHP に始まり、Ruby on Rails や Django など数多くの Web フレームワークで奨励されています。ブラウザがどんどん強力になっていくにつれて、今や Ajax やオフラインストレージを使って、クライアントサイドで状態保持の問題を解決することが容易になっています。
 
-We don’t need to hack the HTTP model anymore to rebuild a fake state over the Web. Another aspect of “share nothing” is to make it easier to render portions of the page in parallel, and to do partial page updates (or progressive enhancements).
+もう Web に紛い物の状態を再構築するために HTTP モデルをハックする必要はありません。"Share Nothing" には、画面の部品を同時にレンダリングすることや、画面の一部を更新（または段階的に表示する）ことを容易にする側面もあります。
 
 
-h2. <a name="http">HTTP-to-code mapping</a>
+h2. <a name="http">HTTP-コードマッピング</a>
 
-If you’re already using another Java Web framework like the Servlet API or the Struts framework, you have already used an abstract view of the HTTP protocol with strange Java APIs and concepts. We think differently. A Web application framework should give you full, straightforward access to HTTP and its concepts. This is a fundamental difference between Play and other Java web application frameworks.
+もしあなたが Servlet API や Strtus のような Java の Web フレームワークを使っているならば、HTTP プロトコルを Java の奇妙な API やコンセプトで抽象化したビューを使ってきたことになります。私たちは違う考え方をします。Web アプリケーションフレームワークは HTTP とそのコンセプトに対して完全かつ容易なアクセス手段を提供すべきです。これが Play とその他の Java web フレームワークの根本的な違いです。
 
-HTTP, the Request/Response pattern, the REST architectural style, content-type negotiation, URI are all major concepts for the Play framework. 
+HTTP, Request/Response パターン, REST アーキテクチャ, content-type ネゴシエーション, URI はいずれも play framework では主要な概念です。 
 
-For instance, binding a URI pattern to a Java call is just one line:
+例えば、URI パターンと Java の呼び出しの紐付けはたった一行です: 
 
 bc. GET    /clients/{id}        Clients.show
 
-If AJAX, REST and managing back/forward movement between web pages are some of the issues you face in your day-to-day web development, just give Play a try.
+もし日々の web 開発で Ajax や REST, Web ページ間の戻る/進むといった問題の管理に直面しているのであれば、play を試してみてください。
 
 
-h2. <a name="templates">Efficient templating engine</a>
+h2. <a name="templates">効率的なテンプレートエンジン</a>
 
-We like the idea behind JSP & Expression Language. But why do we need so many configuration files to create a Tag library? Why can’t we have full access to the underlying object model? JSP has a lot of limitations and this is indeed frustrating. That’s why we’ve created a custom template system, inspired by JSP but without its constraints!
+私たちは JSP と式言語の考え方を気に入っています。しかし、なぜタグライブラリを作成するのに大量の設定ファイルが必要なのでしょうか？なぜ元々のオブジェクト・モデルに完全なアクセスできないのでしょうか？JSP には多くの制限があり、イライラさせられますす。これが私たちがテンプレートエンジンを作成した理由です。我々のテンプレートエンジンは JSP の影響を受けていますが、JSP のような制約はありません！
 
-You and anyone else should be tired of writing things like this:
+このような書き方にはみんなもう飽き飽きなはずです:
 
 bc. <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
@@ -75,18 +75,18 @@ bc. <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
     </c:otherwise>
 </c:choose>
 
-We think you would certainly prefer to write:
+こんな書き方のほうが気に入ると思います: 
 
 bc. You have ${emails.unread ?: 'no'} ${emails.unread?.pluralize('email')} !
 
-The expression language used by the play template engine is "Groovy":http://groovy.codehaus.org/, which provides a syntax consistent with Java. While Play mainly uses the templating system to render HTML responses, you are free to use it to generate any other documents such as e-mail messages, JSON responses, etc.
+play のテンプレートエンジンで使用する式言語は Java の構文と一貫性を持つ "Groovy":http://groovy.codehaus.org/ です。play は主に HTML レスポンスをレンダリングするためにテンプレートシステムを使用しますが、これは email メッセージや json レスポンスなどのドキュメントを生成するのにも使えます。
 
 
-h2. <a>JPA on steroids</a>
+h2. <a>強化された JPA</a>
 
-JPA is the cleanest ORM API available for Java. If you already know it you will be amazed how much simpler it becomes with Play. With nothing to configure, Play will automatically start the JPA Entity Manager and magically synchronize it while the code is reloaded. 
+JPA は Java で利用できる、もっともきれいな ORM API です。もし JPA を知っているなら、play で JPA がいとも簡単に利用できることに驚くでしょう。なんの設定も無しに play は自動的に JPA のエンティティマネージャを起動し、コードがリロードされたときはまるで魔法のように同期を行います。
 
-Moreover if you use the provided **play.db.jpa.Model** superclass it will help make your code prettier. Have a look:
+さらに、スーパークラス **play.db.jpa.Model** を使うことでコードをよりきれいにすることもできます。こんな感じです:
 
 bc. public void messages(int page) {
     User connectedUser = User.find("byEmail", connected());
@@ -97,28 +97,27 @@ bc. public void messages(int page) {
     render(connectedUser, messages);
 }
 
-h2. <a>Test driven development (if you like it)</a>
+h2. <a>テスト駆動開発（お好みで）</a>
 
-The integrated test runner makes it easy to work in a TDD mode. You can write all kind of tests, from simple unit tests to full acceptance tests, and run them directly in a browser using "Selenium":http://seleniumhq.org/. Code coverage is also measured.
+組み込みのテストランナーは TDD による作業を容易にします。シンプルなユニットテストから受入テストまで、あらゆる種類のテストを記述し、"Selenium":http://seleniumhq.org/ を使用してブラウザでこれらを実行することができます。コードのカバレッジ率も計測されます。
 
 !images/guide2-2!
 
-h2. <a name="full-stack">Full-stack application framework</a>
+h2. <a name="full-stack">フルスタック・アプリケーションフレームワーク</a>
 
-The Play framework was initially inspired by our own Java applications. It has all the tools needed to create a modern web application:
+play framework は、初めは私たち自身の Java アプリケーションから閃きを得ていました。play は最近の web アプリケーションを作成するのに必要な全てのツールを備えています:
 
-* Relational Database support through JDBC.
-* Object-Relational Mapping using Hibernate (with the JPA API).
-* Integrated Cache support, with easy use of the distributed memcached system if needed.
-* Straightforward Web services consumption either in JSON or XML (we talk *real* web services here; not the SOAP stuff).
-* OpenID support for distributed authentication.
-* Your web application ready to be deployed anywhere (application server, GAE, Cloud, etc...)
-* Image manipulation API.
+* JDBC を介したリレーショナルデータベースのサポート
+* Hibernate を (JPA API と共に) 利用した Object-Relational マッピング
+* 必要なときには分散 memchashed システムを簡単に使える組み込みキャッシュサポート
+* JSON か XML による簡単な web サービス利用 (ここでは SOAP のようなガラクタではない、 *本当* の web サービスについて言及しています)
+* OpenID による分散認証サポート
+* どこ (Application server, GAE, Cloud, etc...) にでもデプロイできる web アプリケーション
+* イメージ操作 API
 * ...
 
+モジュールアーキテクチャは、色々なものを web アプリケーションに組み込むことを可能にします。モジュールのおかげで、java コードやテンプレート、そして (Javascript や CSS ファイルなどの) 静的なリソースを簡単に再利用する事ができます。
 
-The modular architecture lets you combine a web application with many others. Thanks to "application modules":modules, you can reuse your Java code, templates and static resources (such as JavaScript and CSS files) in a simple way.
-
-p(note). **Give it a try**
+p(note). **やってみよう**
  
-"Install the Play framework":install and start developing your first application.
+"play framework をインストール":install して最初のアプリケーション開発を始めてみましょう。

@@ -1,46 +1,46 @@
-h1. The template engine
+h1. テンプレートエンジン
 
-Play has an efficient templating system which allows to dynamically generate HTML, XML, JSON or any text-based formatted document. The template engine uses "Groovy":http://groovy.codehaus.org/ as an expression language. A tag system allows you to create reusable functions.
+Play には、HTML、XML、JSON の他にもあらゆるテキストベースのドキュメントを動的に生成する効率的なテプレートシステムがあります。テンプレートエンジンは式言語として "Groovy":http://groovy.codehaus.org/ を使用します。タグシステムによって、再利用可能な機能を作成することができます。
 
-Templates are stored in the **app/views** directory. 
+テンプレートは **app/views** ディレクトリに保存されます。
 
-h2. <a name="syntax">Template syntax</a>
+h2. <a name="syntax">テンプレートの構文</a>
 
-A template file is a text file, some parts of which have placeholders for dynamically generated content. The  template’s dynamic elements are written using the "Groovy":http://groovy.codehaus.org/ language. Groovy’s syntax is very close to Java’s. 
+テンプレートファイルは、一部に動的に内容を生成するためのプレースホルダを持つテキストファイルです。テンプレートの動的な要素は、 "Groovy":http://groovy.codehaus.org/ 言語を使用して書かれます。Groovy の構文は Java にとてもよく似ています。 
 
-Dynamic elements are resolved during template execution. The rendered result is then sent as part of the HTTP response.
+動的な要素はテンプレートの実行中に解決されます。レンダリング結果は、HTTP レスポンスの一部として送信されます。
 
-h3. Expressions: ${…}
+h3. 式 : ${...}
 
-The simplest way to make a dynamic element is to declare an expression. The syntax used here is **${…}**. The result of evaluating the expression is inserted in place of the expression.
+動的な要素を作る最もシンプルな方法は、式を宣言することです。ここで使用する構文は **${...}** です。この式の評価結果は、この式部分に挿入されます。
 
-For example:
+例えば、以下のようにします:
 
 bc. <h1>Client ${client.name}</h1>
 
-If you can’t be sure of client being null, there is a Groovy shortcut:
+client が null でないと確信できない場合には、groovy のショートカットがあります:
 
 bc. <h1>Client ${client?.name}</h1>
 
-Which will only display the client name if the client is not null. 
+これは client が null でない場合、client の name のみを表示します。
 
-h3. Tags: #{tagName /}
+h3. タグ : #{tagName /}
 
-A tag is a template fragment that can be called with parameters. If the tag has only one parameter, by convention it is called "arg" and its name can be omitted.
+タグは、パラメータと共に呼ぶことができるテンプレートの断片です。タグに 1 つのパラメータしかない場合、規約によりそのパラメータは "arg" と呼ばれ、省略することができます。
 
-For example, this tag inserts a SCRIPT tag to load a JavaScript file:
-
-bc. #{script 'jquery.js' /}
-
-A tag has to be closed, either directly or by an end tag:
+例えば、このタグは JavaScript ファイルをロードするための SCRIPT タグを挿入します:
 
 bc. #{script 'jquery.js' /}
 
-or
+タグは直接閉じるか、終了タグによって閉じられなければなりません:
+
+bc. #{script 'jquery.js' /}
+
+または、以下のようにします。
 
 bc. #{script 'jquery.js'}#{/script}
 
-For example the **list** tag allows iteration over any collection. It takes two mandatory parameters:
+例えば、 **list** タグはどんなコレクションでもくり返すことができます。list タグは 2 つの必須パラメータを受け取ります:
 
 bc. <h1>Client ${client.name}</h1>
 <ul>
@@ -49,25 +49,25 @@ bc. <h1>Client ${client.name}</h1>
     #{/list}
 </ul>
 
-All dynamic expressions are escaped by the template engine to avoid XSS security issues in your application. So the **title** variable containing **==&lt;h1>Title&lt;/h1>==** is now escaped:
+すべての動的な式は、アプリケーションの XSS セキュリティ問題を回避するために、テンプレートエンジンによってエスケープされます。そのため **==&lt;h1>Title&lt;/h1>==** を含む **titile** 変数はエスケープされてしまいます:
 
 bc. ${title} --> &lt;h1&gt;Title&lt;/h1&gt;
 
-If you really want to display it in an unescaped way, you need to explicitely call the **raw()** method:
+エスケープせずに表示したい場合は、明示的に **raw()** メソッドをコールする必要があります:
 
 bc. ${title.raw()} --> <h1>Title</h1>
 
-Also, if you want to display a large part of raw HTML, you can use the **#{verbatim /}** tag:
+素の HTML のかなりの部分を表示したい場合は、 **#{verbatim /}** タグを使用することができます:
 
 bc. #{verbatim}
     ${title} --> <h1>Title</h1>
 #{/verbatim}
 
-h3. Actions: @{…} or @@{…}
+h3. アクション : @{...} または @@{...}
 
-You can use the Router to (reverse) generate a URL corresponding to a specified route. From a template you can use the special **@{…}** syntax to do that.
+Router を使用することで、指定されたルートに対応する URL を (リバースして) 生成することができます。特別な **@{...}** 構文を使用して、テンプレートからこれを行うことができます。
 
-For example:
+例えば、以下のようにします:
 
 bc. <h1>Client ${client.name}</h1>
 <p>
@@ -76,32 +76,32 @@ bc. <h1>Client ${client.name}</h1>
 <hr />
 <a href="@{Clients.index()}">Back</a>
 
-The **@@{…}** syntax does the same but generates an absolute URL (notably useful for e-mail, …).
+**@@{...}** 構文は、(とりわけ email や ... に便利な) 絶対 URL を生成する点以外は同じです。
 
-h3. Messages: &{…}
+h3. メッセージ : &{...}
 
-If your application needs internationalization you can use the **&{…}** syntax to display an internationalized message:
+アプリケーションを国際化する必要がある場合は、 **&{...}** 構文を使って国際化されたメッセージを表示することができます:
 
-For example in the files **conf/messages** we specify:
+例えば **conf/messages** ファイルに次のように指定した場合:
 
 bc. clientName=The client name is %s
 
-To display this message in a template, simply use:
+このメッセージをテンプレートに表示する使い方はシンプルです:
 
 bc. <h1>&{'clientName', client.name}</h1>
 
-h3. Comment: ==*{…}*==
+h3. コメント : ==*{...}*==
 
-Comments aren’t evaluated by the template engine. They are just comments…
+コメントはテンプレートエンジンによって評価されません。コメントはただのコメントです...
 
 bc. *{**** Display the user name ****}*
 <div class="name">
     ${user.name}
 </div>
 
-h3. Scripts: ==%{…}%==
+h3. スクリプト : ==%{...}%==
 
-A script is a more complicated set of expressions. A script can declare some variables and define some statements. Use the **%{…}%** syntax to insert a script.
+スクリプトは、より複雑な式のセットです。スクリプトは、いくつかの変数を宣言して、いくつかの命令を定義できます。 **%{...}%** 構文を使用してスクリプトを挿入してください。
 
 bc. %{
    fullName = client.name.toUpperCase()+' '+client.forname;
@@ -109,14 +109,14 @@ bc. %{
  
 <h1>Client ${fullName}</h1>
 
-A script can write dynamic content directly using the **out** object:
+スクリプトは、 **out** オブジェクトを使用して、動的な内容を直接出力することができます:
 
 bc. %{
    fullName = client.name.toUpperCase()+' '+client.forname;
    out.print('<h1>'+fullName+'</h1>');
 }%
 
-You can use a script to create a structure such as an iteration in your template:
+テンプレート内においてくり返しなどの構造を作成するためにスクリプトを使用することができます:
 
 bc. <h1>Client ${client.name}</h1>
 <ul>
@@ -129,19 +129,19 @@ bc. <h1>Client ${client.name}</h1>
 }%
 </ul>
 
-Bear in mind that a template is not a place to do complex things. So, use a tag when you can, or move the computations into the controller or the model object.
+テンプレートが複雑なことをする場所でないことを覚えておいてください。タグを使えるところではタグを使い、そうでない場合は計算処理をコントローラかモデルオブジェクトに移動してください。
 
-h2. <a>Template inheritance</a>
+h2. <a>テンプレートの継承</a>
 
-A template can inherit another template, i.e. it can be included as a part of an other template.
+テンプレートは別のテンプレートを引き継ぐこと、すなわち、他のテンプレートの一部として取り込まれることができます。
 
-To inherit another template, use the **extends** tag:
+別のテンプレートを継承するには **extends** タグを使用します:
 
 bc. #{extends 'main.html' /}
  
 <h1>Some code</h1>
 
-The **main.html** template is a standard template, but it uses the **doLayout** tag to include the content:
+**main.html** テンプレートは標準のテンプレートですが、内容を取り込むために **doLayout** タグを使用します:
 
 bc. <h1>Main template</h1>
  
@@ -149,78 +149,78 @@ bc. <h1>Main template</h1>
     #{doLayout /}
 </div>
 
-h2. <a>Create tags</a>
+h2. <a>タグの作成</a>
 
-You can easily create specifics tags for your application. A tag is a simple template file, stored in the **app/views/tags** directory. The template’s file name is used as the tag name.
+アプリケーションのための特別なタグを容易に作成することができます。タグは、 **app/views/tags** ディレクトリに格納されるシンプルなテンプレートファイルです。テンプレートのファイル名はタグ名として使用されます。このテンプレートファイル名はタグの名前として使用されます。
 
-To create a **hello** tag, just create the **app/views/tags/hello.html** file.
+**hello** タグを作成するためには、単に **app/views/tags/hello.html** ファイルを作成してください。
 
 bc. Hello from tag!
 
-No need to configure anything. You can use the tag directly:
+設定は一切必要ありません。このタグを直接使用することができます。
 
 bc. #{hello /}
 
-h3. Retrieve tags parameters
+h3. タグパラメータの取得
 
-Tag parameters are exposed as template variables. The variable names are constructed with the ‘_’ character prepended to the parameter name. 
+タグパラメータは、テンプレートの変数として表現されます。変数名は '_' 文字をパラメータ名の前に付けた状態で構成されます。
 
-For example: 
+例えば、以下のようにします: 
 
 bc. Hello ${_name} !
 
-And you can pass the name parameter to the tag:
+そして、この name パラメータをタグに渡すことができます:
 
 bc. #{hello name:'Bob' /}
 
-If your tag has only one parameter, you can use the fact than the default parameter name is **arg** and that its name is implicit.
+タグにパラメータが 1 つしかない場合、暗黙的な名前である **arg** というデフォルトパラメータ名を使うことができます。
 
-Example:
+例えば:
 
 bc. Hello ${_arg}!
 
-And you can call it easily using:
+次のようにして、これを容易に使用することができます:
 
 bc. #{hello 'Bob' /}
 
-h3. Invoke tag body
+h3. タグボディの実行
 
-If your tag supports a **body**, you can include it at any point in the tag code, using the **doBody** tag.
+タグが **body** をサポートする場合、 **doBody** タグを使用することでタグコードの任意の位置にボディの内容を取り込むことができます。
 
-For example:
+例えば、以下のようにします:
 
 bc. Hello #{doBody /}!
 
-And you can then pass the name as tag body:
+そして、タグボディをこの名前として渡すことができます:
 
 bc. #{hello}
    Bob
 #{/hello}
 
 
-h2. <a>Java object extensions in templates</a>
+h2. <a>テンプレートにおける Java オブジェクトの拡張</a>
 
-When you use your Java object within the template engine, new methods are added to it. These methods don’t exist in the original Java class and are dynamically added by the template engine.
+テンプレートエンジン内において Java オブジェクトを使用すると、新しいメソッドが追加されます。これらのメソッドは、元の Java クラスには存在しておらず、テンプレートエンジンによって動的に追加されます。
 
-For example, to allow easy number formatting in a template, a **format** method is added to **java.lang.Number**.
+例えば、テンプレートにおいて数値を簡単にフォーマットするために、 **java.lang.Number** に **format** メソッドが追加されます。
 
-It’s then very easy to format a number:
+数値をフォーマットするのは非常に簡単です:
 
 bc. <ul>
 #{list items:products, as:'product'}
-    <li>${product.name}. Price: ${product.price.format('## ###,00')} €</li>
+   <li>${product.name}. Price : ${product.price.format('## ###,00')} €</li>
 #{/list}
 </ul>
 
-You can find a list of available methods within the "API documentation":/@api/play/templates/JavaExtensions.html.
+利用できるメソッドの一覧は "API ドキュメント":http://www.playframework.org/@api/play/templates/JavaExtensions.html で見つけることができます。
 
-h3. Create custom extensions
+h3. カスタム式の作成
 
-Your project may have specific formatting needs, in which case you can provide your own extensions.
+プロジェクトが、特別なフォーマットを必要とする場合、独自の拡張を提供することができます。
 
-You only need to create a Java class extending **play.templates.JavaExtensions**.
+必要なのは **play.templates.JavaExtensions** を拡張する Java クラスを作成することだけです。
 
-For instance, to provide a custom currency formatter for a number:
+例えば、数値にカスタム通貨フォーマットを提供するためには、以下のようにします:
 
 bc. package ext;
  
@@ -235,35 +235,35 @@ public class CurrencyExtensions extends JavaExtensions {
  
 }
 
-Each extension method is a static method and should return a **java.lang.String** to be written back in the page. The first parameter will hold the enhanced object.
+拡張メソッドは static なメソッドであり、ページに書き戻すために **java.lang.String** を返すべきです。最初のパラメータは拡張されるオブジェクトを保持します。
 
-Use your formatter like this:
+このフォーマットは以下のようにして使います:
 
 bc. <em>Price: ${123456.324234.ccyAmount()}</em>
 
-Template extension classes are automatically detected by Play at start-up. You just have to restart your application to make them available.
+テンプレート拡張クラスは play によって起動時に自動的に検出されます。それらを利用可能にするために必要なのは、アプリケーションを再起動することだけです。
 
-h2. <a>Implicit objects available from a template</a>
+h2. <a>テンプレートで利用可能な暗黙オブジェクト</a>
 
-All objects added to the **renderArgs** scope are directly injected as template variables. 
+**renderArgs** スコープに追加されたすべてのオブジェクトは、テンプレート変数として直接注入されます。
 
-For instance, to inject a ‘user’ bean into the template from a controller:
+例えば、コントローラからテンプレートに ''user'' Bean を注入するためには、以下のようにします:
 
 bc. renderArgs.put("user", user );
 
-When you render a template from an action, the framework also adds implicit objects:
+アクションからテンプレートをレンダリングするとき、フレームワークは以下の暗黙オブジェクトも追加します:
 
-* **session**, the Session object
-* **flash**, the Flash scope
-* **request**, the current Request
-* **params**, HTTP params 
-* **play**, a reference to play.Play
-* **lang**, the current language
-* **messages**, the messages map
-* **out**, the Writer
+* **session**, セッションオブジェクト
+* **flash**, フラッシュスコープ
+* **request**, 現在のリクエスト
+* **params**, HTTP パラメータ
+* **play**, play.Play の参照
+* **lang**, 現在の言語
+* **messages**, メッセージの map
+* **out**, 出力オブジェクト
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
  
-The last layer of a Play application is the "domain object model":model.
+play アプリケーションの最後の層は "ドメインオブジェクトモデル":model です。
 
  

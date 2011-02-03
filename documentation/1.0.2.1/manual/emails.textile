@@ -1,18 +1,18 @@
-h1. Sending e-mail with Play
+h1. play のメール送信
 
-You can use the play.libs.Mail utility to send e-mail very easily:
+play.libs.Mail ユーティリティを使って、とても簡単にメールを送ることができます:
 
 bc. Mail.send("sender@zenexity.fr","recipient@zenexity.fr","Subject","Message");
 
-h2. <a>Mail and MVC integration</a>
+h2. <a>メールと MVC の統合</a>
 
-You can also send complex, dynamic e-mail using the standard templates mechanism and syntax.
+標準的なテンプレート機構と構文を使うことで、複雑で動的なメールを送信することもできます。
 
-First,  define a **Mailer notifier** in your application. Your mailer notifier must subclass **play.mvc.Mailer** and be part of the **notifiers** package. 
+はじめに、アプリケーション内に **メーラ通知者** を定義してください。メーラ通知者は **play.mvc.Mailer** のサブクラスであり、 **notifiers** パッケージに含まれていなければなりません。
 
-Each public static method will be an e-mail sender, in a similar manner as actions for a MVC controller.
+MVC コントローラにおける action の手法と同じように、public かつ static なメソッドは、いずれもメールを送信します。
 
-For example:
+以下に例を示します:
 
 bc. package notifiers;
  
@@ -40,15 +40,15 @@ public class Mails extends Mailer {
  
 }
 
-h3. text/html e-mail 
+h3. text/html E メール
 
-The send call will render the app/views/Mails/welcome.html template as the e-mail message body.
+send の呼び出しはメールのメッセージ本文として、app/views/Mails/welcome.html テンプレートをレンダリングします。
 
 bc. <html><body><p>Welcome <b>${user.name}</b>, </p>
 ...
 </html>
 
-The template for the lostPassword method could look like this:
+lostPassword メソッド用のテンプレートは以下のようになるかもしれません:
 
 app/views/Mails/lostPassword.html
 
@@ -58,16 +58,16 @@ Your new password is <b>${newpassword}</b>.
 </body>
 </html>
 
-h3. text/plain e-mail
+h3. text/plain E メール
 
-If no HTML template is defined, then a text/plain e-mail is sent using the text template.
+HTML テンプレートが定義されていない場合、テキストテンプレートを使った text/plain メールが送信されます。
 
-The send call will render the app/views/Mails/welcome.txt template as the e-mail message body.
+send の呼び出しはメールのメッセージ本文として、app/views/Mails/welcome.txt テンプレートをレンダリングします。
 
 bc. Welcome ${user.name},
 ...
 
-The template for the lostPassword method could look like this:
+lostPassword メソッド用のテンプレートは以下のようになるかもしれません:
 
 app/views/Mails/lostPassword.txt
 
@@ -75,56 +75,58 @@ bc. Hello ${user.name},
  
 Your new password is ${newpassword}.
 
-h3. text/html e-mail with text/plain alternative
+h3. text/plain alternative を使った text/html E メール
 
-If an HTML template is defined and a text template exists, then the text template will be used as an alternative message. In our previous example, if both 
+HTML テンプレートが定義されていて、テキストテンプレートも存在する場合、テキストテンプレートは代替メッセージとして使用されます。先ほどの例において、
 
 app/views/Mails/lostPassword.html 
 
-and 
+と
 
 app/views/Mails/lostPassword.txt
 
-are defined, then the e-mail will be sent in text/html as defined in lostPassword.html with an alternative part as defined in lostPassword.txt. So you can send nice HMTL e-mail to your friends and still please those geeky friends that still use mutt ;)
+の両方が定義されている場合、lostPassword.txt に定義された代替部分を持つ、lostPassword.html で定義された text/html E メールとして送信されます。
 
-h2. <a>SMTP configuration</a>
+このため、友達にすてきな HTML メールを送ることもできますし、いまだに mutt を使っているギークな友達を喜ばせることもできます ;)
 
-First of all, you need to define the SMTP server to use:
+h2. <a>SMTP の設定</a>
+
+まず初めに、使用する smtp サーバを定義する必要があります:
 
 bc. mail.smtp.host=smtp.taldius.net
 
-If your SMTP server requires authentication, use the following properties: 
+SMTP サーバが認証を求める場合は、以下のプロパティを使用してください:
 
 bc. mail.smtp.user=jfp
 mail.smtp.pass=topsecret
 
-h3. Channel & ports
+h3. チャネルとポート
 
-There are two ways to send the e-mail over an encrypted channel. If your server supports the **starttls** command (see: RFC 2487), you can use a clear connection on port 25 that will switch to SSL/TLS. You can do so by adding this configuration option:
+暗号化された経路でメールを送るには、ふたつの方法があります。サーバが **starttls** コマンド (rfc 2487 参照:) をサポートしている場合は、SSL/TLS に変換される 25 番ポートのクリアな接続を使用することができます。このため、以下の設定オプションを追加することで、この接続を使用することができます:
 
 bc. mail.smtp.channel=starttls
 
-Your server may also provide a SMTP-over-SSL (SMTPS) connector, that is a SSL socket listening on port 465. In that case, you tell Play to use this setup using the configuration option:
+サーバは、465 番ポートでリッスンする SSL ソケットである smtp-over-ssl (smpts) コネクタもサポートするかもしれません。この場合は、以下の設定オプションを使って play にこのコネクタを使用することを伝えます。
 
 bc. mail.smtp.channel=ssl
 
-h2. <a>More about configuration</a>
+h2. <a>更なる設定</a>
 
-Under the hood, Play uses JavaMail to perform the actual SMTP transactions. If you need to see what’s going on, try:
+舞台裏では、play は実際の smtp トランザクションを実行するために JavaMail を使用します。何が行われているのか確認したい場合は、以下を試してみてください:
 
 bc. mail.debug=true
 
-When using SSL connections with JavaMail, the default SSL behavior is to drop the connection if the remote server certificate is not signed by a root certificate. This is the case in particular when using a self-signed certificate. Play’s default behavior is to skip that check. You can control this using the following property:
+JavaMail で ssl 接続を取り扱うとき、デフォルトの振る舞いでは、リモートサーバ証明書がルート認証局によって署名されていない場合に接続を切断します。これは自己署名証明書を使用する特別な場合です。Play はデフォルトでこのチェックをスキップします。以下のプロパティを使用することで、これをコントロールすることができます:
 
 bc. mail.smtp.socketFactory.class
 
-If you need to connect to servers using non-standard ports, the following property will override the defaults:
+標準以外のポートでサーバに接続する必要がある場合、以下のプロパティでデフォルト設定をオーバーライドします:
 
 bc. mail.smtp.port=2500
 
-h2. <a>Using Gmail</a>
+h2. <a>Gmail の利用</a>
 
-To use Gmail’s servers, use this configuration: 
+gmail サーバを使用するには、以下の設定を使用してください:
 
 bc. mail.smtp.host=smtp.gmail.com
 mail.smtp.user=yourGmailLogin

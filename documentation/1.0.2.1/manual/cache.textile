@@ -1,12 +1,12 @@
-h1. Use a cache
+h1. キャッシュの使用
 
-To create high-performance systems, sometimes you need to cache data. Play has a cache library and will use "memcached":http://www.danga.com/memcached/ when used in a distributed environment.
+パフォーマンスの高いシステムを作成するため、データのキャッシュが必要になる場合があります。Play にはキャッシュライブラリがあり、分散環境下では "Memcahed":http://www.danga.com/memcached/ を使用します。
 
-If you don’t configure memcached, Play will use a standalone cache that stores data in the JVM heap. Caching data in the JVM application breaks the "share nothing" assumption made by Play: you can’t run your application on several servers, and expect the application to behave consistently. Each application instance will have a different copy of the data.
+memcached を設定しない場合、play は JVM ヒープにデータを保存するスタンドアロンキャッシュを使用します。JVM へのデータのキャッシュは、play の "何も共有しない" という前提を覆します: 複数のサーバで実行したアプリケーションの振る舞いが一貫していると期待することはできません。それぞれのアプリケーションインスタンスは異なるデータのコピーを持ちます。
 
-It is important to understand that the cache contract is clear: when you put data in a cache, you can’t expect that data to remain there forever. In fact you shouldn’t. A cache is fast, but values expire, and the cache generally exists only in memory (without persistent backup). 
+キャッシュの規約がはっきりしていることを理解することは重要です: キャッシュにデータを置いた場合、このデータが永久に残り続けると期待することはできません。実際のところ、期待すべきではありません。キャッシュは高速ですが、その値は失効しますし、(永続的にバックアップしない限り) 基本的にキャッシュはメモリ上にのみ存在します。
 
-So the best way to use the cache is to repopulate it when it doesn’t have what you expect:
+このため、期待するデータが無い場合、再度データを置くことが、キャッシュを使う最善の方法です:
 
 bc. public static void allProducts() {
     List<Product> products = Cache.get("products", List.class);
@@ -17,11 +17,11 @@ bc. public static void allProducts() {
     render(products);
 }
 
-h2. <a>The cache API</a>
+h2. <a>キャッシュ API</a>
 
-The cache API is provided by the **play.cache.Cache** class. This class contains the set of methods to set, replace, and get data from the cache. Refer to the memcached documentation to understand the exact behavior of each method.
+キャッシュ API は **play.cache.Cache** クラスによって提供されます。このクラスには、キャッシュのデータを設定する、置き換える、取得する、と言ったひと揃えのメソッドがあります。それぞれのメソッドの振る舞いを正確に理解するには、memcached のドキュメントを参照してください。
 
-Some examples:
+いくつか例を示します:
 
 bc. public static void showProduct(String id) {
     Product product = Cache.get(id, Product.class);
@@ -53,53 +53,53 @@ public static void deleteProduct(String id) {
     allProducts();
 }
 
-Some methods start with the **safe** prefix - e.g. **safeDelete**, **safeSet**. The standard methods are non-blocking. That means that when you issue the call:
+いくつかのメソッドは **safe** という接頭辞で始まります - 例えば、 **safeDelete** や **safeSet** という具合です。標準のメソッドは処理をブロックしません。これは、以下のメソッド呼び出しを発行した際:
 
 bc. Cache.delete("product_"+id);
 
-The **delete** method will return immediately and will not wait until the cached object is actually deleted. So if an error occurs - e.g. an IO error - the object may still be present.
+**delete** メソッドが、キャッシュオブジェクトが実際に削除されるまで待たずに、直ちにリターンすることを意味します。このため、このオブジェクトはまだ存在するかもしれない場合には、エラー - 例えば IO エラー - が発生します。
 
-When you need to make sure that the object is deleted before continuing, you can use the **safeDelete** method:
+処理を続行する前に、このオブジェクトを確実に削除したい場合には、 **safeDelete** メソッドを使うことができます:
 
 bc. Cache.safeDelete("product_"+id);
 
-This method is blocking and returns a boolean value indicating whether he object has been deleted or not. So the full pattern that ensures an item is deleted from the cache is:
+このメソッドは処理をブロックし、オブジェクトが削除されたかどうかを示す boolean 型の値を返します。以上より、キャッシュからあるアイテムが削除されたことを保証する完全なパターンは、以下のようになります:
 
 bc. if(!Cache.safeDelete("product_"+id)) {
     throw new Exception("Oops, the product has not been removed from the cache");
 }
 ...
 
-Note that those being blocking calls, **safe** methods will slow down your application. So use them only when needed.
+これらの処理をブロックする **safe** メソッドの呼び出しは、アプリケーションを遅くすることに注意してください。このため、これらのメソッドは必要な場合にのみ使用してください。
 
-h2. <a>Don’t use the Session as a cache!</a>
+h2. <a>セッションをキャッシュとして使ってはいけません！</a>
 
-If you come from a framework that uses an in-memory Session implementation, you may be frustrated to see that Play allows only a small set of String data to be saved in the HTTP Session. But this is much better because a session is not the place to cache your application data! 
+インメモリのセッション実装を使用するフレームワークを使ってきたならば、play が小さな String 型のデータのみを HTTP セッションに保存することを許可することを不満に感じるかもしれません。しかし、セッションはアプリケーションデータをキャッシュする場所ではないので、このほうが良いのです！
 
-So if you have been accustomed to doing things similar to:
+このため、以下のようなやり方に慣れているならば:
 
 bc. httpServletRequest.getSession().put("userProducts", products);
 ...
 // and then in subsequent requests
 products = (List<Product>)httpServletRequest.getSession().get("userProducts");
 
-In Play you achieve the same effect a little differently. We think it’s a better approach:
+play ではちょっと違ったやり方で同じ効果を得られます。以下のほうがより良いアプローチだと考えます:
 
 bc. Cache.put(session.getId(), products);
 ...
 // and then in subsequent requests
 List<Product> products = Cache.get(session.getId(), List.class)
 
-Here we have used a unique UUID to keep unique information in the Cache for each user. Remember that, unlike a session object, the cache in not bound to any particular User!
+ここでは、Cache の中のそれぞれの情報が一意性を保てるように、一意な uuid を使用しました。セッションオブジェクトとは違い、キャッシュはどのユーザにも紐付かないことを忘れないでください！
 
-h2. <a>Configure memcached</a>
+h2. <a>memcached の設定</a>
 
-When you want to enable a real memcached implementation, enable memcached and define the daemon address in your **application.conf**:
+memcached の実際の実装を利用する場合は、 **application.conf** において memcached を利用可能にし、デーモンのアドレスを定義します:
 
 bc. memcached=enabled
 memcached.host=127.0.0.1:11211
 
-You can connect to a distributed cache by specifying multiple daemon addresses: 
+複数のデーモンアドレスを指定することで、分散されたキャッシュに接続することができます:
 
 bc. memcached=enabled
 memcached.1.host=127.0.0.1:11211
