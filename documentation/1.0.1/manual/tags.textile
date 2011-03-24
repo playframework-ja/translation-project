@@ -1,24 +1,24 @@
-h1. Built-in template tags 
+h1. 組込みテンプレートタグ
 
-These are the standard tags built in the template engine.
+以下は、テンプレートエンジンに組み込まれた標準タグです。
 
-p(note). If you search about available standard Java extensions, you should look at the "JavaDoc":/@api/play/templates/JavaExtensions.html
+p(note). 利用可能な Java 拡張を検索したい場合は、"JavaDoc":http://www.playframework.org/@api/play/templates/JavaExtensions.html を見てみてください。
 
 h2. <a>a</a>
 
-The **a** tag inserts a HTML link to a controller action.
+**a** タグはコントローラのアクションへの HTML リンクを挿入します。
 
 bc. #{a @Application.logout()}Disconnect#{/a}
 
-Rendered as:
+以下のようにレンダリングされます:
 
 bc. <a href="/application/logout">Disconnect</a>
 
-If the action you try call does not have any route able to invoke it using a GET method, play will automatically generate an hidden form that will be submitted on link click using javascript.
+もし呼び出そうとしているアクションが GET メソッドを使用して起動するどんなルートも持たない場合、play は自動的に、リンクをクリックしたときに javascript を使ってサブミットする隠しフォームを生成します。
 
 h2. <a>doLayout</a>
 
-Used with template inheritance, this tag insert the content of the evaluated sub-template.
+このタグは、テンプレート継承と共に使用し、評価された子テンプレートの内容を挿入します。
 
 bc. <!-- common header here -->
 <div id="content">
@@ -28,25 +28,25 @@ bc. <!-- common header here -->
 
 h2. <a>extends</a>
 
-Make the template inherit another template.
+そのテンプレートに、他のテンプレートを継承させます。
 
 bc. #{extends 'main.html' /}
 
 h2. <a>form</a>
 
-Insert a **form** tag. HTTP method is guessed from the route, and defaults to POST. 
+**form** タグを挿入します。HTTP メソッドはルートから推測され、デフォルトは POST です。
 
-Optional **id** attribute sets an id to the form element. 
-Optional **enctype** attribute sets the form's data encoding. it defaults to ''application/x-www-form-urlencoded''.
+オプションの **id** 属性は、form 要素に id を設定します。
+オプションの **enctype** 属性は、フォームのデータエンコーディングを設定します。デフォルトは 'application/x-www-form-urlencoded' です。
 
-Charset encoding is always ''utf-8''
+文字セットエンコーディングは常に ''utf-8'' です。
 
 bc. #{form @Client.create() , id:'creationForm' enctype:'multipart/form-data' }
    ...
 #{/form}
 
 
-Rendered as :
+以下のようにレンダリングされます:
 
 bc. <form action="/client/create" id="frm" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
  ...
@@ -54,7 +54,7 @@ bc. <form action="/client/create" id="frm" method="POST" accept-charset="utf-8" 
 
 h2. <a>get</a>
 
-Retrieve a value defined with a **set** tag. You may use  the get/set mechanism to exchange values between templates, layouts and sub-templates.
+**set** タグで定義された値を検索します。get/set メカニズムを使うことで、テンプレート間、すなわちレイアウトと子テンプレート間で値をやり取りすることができます。
 
 bc. <head>
     <title>#{get 'title' /}
@@ -62,25 +62,25 @@ bc. <head>
 
 h2. <a>i18n</a>
 
-Export localized messages in Javascript. Localized messages are available from your javascript code using the **i18n()** function.
+ローカライズされた Javascript メッセージを外部化します。ローカライズされたメッセージは **i18n()** 関数を使うことで javascript から利用することができます。
 
-Define your translations in the **conf/messages** file.
+**conf/messages** ファイルに訳語を定義してください。
 
 bc. hello_world=Hello, World !
 hello_someone=Hello %s !
 
-Include the messages in your template (or layout) page:
+テンプレート (またはレイアウト) ページにメッセージを取り込んでください:
 
 bc. #{i18n /}
 
-And retrieve keys from Javascript:
+そして Javascript からキーを使って検索してください:
 
 bc. alert(i18n('hello_world'));
 alert(i18n('hello_someone', 'John'));
 
 h2. <a>include</a>
 
-Include another template. All variable of the current template are directly availables in the included template.
+別のテンプレートを取り込みます。取り込み側のテンプレート上の全ての変数は、取り込んだ側のテンプレートにて直接利用することができます。
 
 bc. <div id="tree">
     #{include 'tree.html' /}
@@ -88,13 +88,13 @@ bc. <div id="tree">
 
 h2. <a>if</a>
 
-Evaluate the given test, and if true, evaluate the tag body.
+指定された条件を評価し、true の場合はタグボディを評価します。
 
 bc. #{if user.countryCode == 'en"' }
     Connected user is ${user}
 #{/if}
 
-Using composite conditions:
+条件を組み合わせて使用する場合は、以下のようにします:
 
 bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
     You are admin, allowed to administer.
@@ -102,7 +102,7 @@ bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
 
 h2. <a>ifnot</a>
 
-Cleaner alternative to #{if !condition}
+きれいに #{if !condition} を書き換えます。
 
 bc. #{ifnot tasks}
     No tasks today
@@ -110,7 +110,7 @@ bc. #{ifnot tasks}
 
 h2. <a>else</a>
 
-Of course used with the **if** tag.
+当然、 **if** タグと共に使用されます。
 
 bc. #{if user}
     Connected user is ${user}
@@ -119,7 +119,7 @@ bc. #{if user}
     Please log in
 #{/else}
 
-However, you can use it also with the **list** tag and it will be executed if the list was empty.
+一方で、 **list** タグと共に使用することも可能であり、list が空の場合に実行されます。
 
 bc. #{list items:task, as:'task'}
     <li>${task}</li>
@@ -143,11 +143,11 @@ bc. #{if tasks.size() > 1}
     Nothing to do
 #{/else}
 
-As for **else**, you can use it with the **list** tag.
+**else** と同様に、 **list**タグと共に使用することも可能です。
 
 h2. <a>list</a>
 
-Iterate over an object collection.
+オブジェクトのコレクションをくり返します。
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -155,12 +155,12 @@ bc. <ul>
 #{/list}
 </ul>
 
-The tag define implicit variables in his body. The variable names are prefixed with the loop variable name.
+このタグは、ボディ内に暗黙的な変数を定義します。変数名には、接頭辞としてループ変数名が付きます。
 
-* **name_index**, the index of the item, starting at 1
-* **name_isLast**, true for the last element
-* **name_isFirst**, true for the first element
-* **name_parity**, alternate between **odd** and **even** value
+* **name_index**, アイテムの index で、1 から始まります
+* **name_isLast**, 最後の要素の場合に true になります
+* **name_isFirst**, 最初の要素の場合に true になります
+* **name_parity**, **odd** と **even** が交互に値になります
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -169,7 +169,7 @@ bc. <ul>
 #{/list}
 </ul>
 
-**for** loops are easy to create using Groovy **range** object :
+Groovy の **range** オブジェクトを使うことで、容易に **for** ループを作ることができます:
 
 bc. #{list items:0..10, as:'i'}
     ${i}
@@ -182,16 +182,16 @@ bc. #{list items:'a'..'z', as:'letter'}
 
 h2. <a>set</a>
 
-Define a value which can be retrieve in the same template or any layout with the **get** tag.
+同じテンプレートかレイアウトにおいて **get** タグを使って検索できる値を定義します。
 
 bc. #{set title:'Admin' /}
 #{set style:'2columns' /}
 
-You can also use variables:
+変数を使用することも可能です:
 
 bc. #{set title:'Profile of ' + user.login /}
 
-You can define variables value in the body:
+変数の値をボディ内で定義することも可能です:
 
 bc. #{set 'title'}
     Profile of ${user.login}
@@ -199,13 +199,13 @@ bc. #{set 'title'}
 
 h2. <a>jsRoute</a>
 
-The **#{jsRoute /}** tag allow to import a server-side defined route as a Javascript function. It is very useful if you need to call an URL with an AJAX call using free variables.
+この #{jsRoute /} タグは、サーバ側で定義したルートを Javascript 関数として取り込むことができます。自由な変数を使ってある URL を AJAX で呼び出す必要がある場合、これはとても便利です。
 
-Let's see an example:
+例を見てみましょう:
 
 bc. GET     /users/{id}        Users.show
 
-Now you can import this route client side:
+クライアント側でこのルートをインポートすることができます:
 
 bc. <script type="text/javascript">
     var showUserAction = #{jsRoute @Users.show(':id')}
@@ -214,4 +214,5 @@ bc. <script type="text/javascript">
         $('userDetail').load( showUserAction({id: userId}) )
     }
 </script>
+
 

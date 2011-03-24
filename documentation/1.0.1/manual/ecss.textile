@@ -1,20 +1,20 @@
-h1. Constants support in CSS files
+h1. CSS ファイルでの定数サポート
 
-This module allow you to use constants in the CSS files. It is very helpful when you work with large CSS files, to avoid to repeat yourself with color, fonts...
+このモジュールは CSS ファイルで定数を使えるようにします。大きな CSS ファイルを扱うときに、文字色やフォントなどのくり返しを避けることに役立ちます。
 
-h2. <a>Enable this module for your application</a>
+h2. <a>アプリケーションでこのモジュールを有効にする</a>
 
-Just add this line to the **conf/application.conf** file of your application:
+アプリケーションの /conf/application.conf ファイルに以下の行を追加してください:
 
 bc. module.ecss=${play.path}/modules/ecss
 
-At application start time, you should see the following message:
+アプリケーションの起動時に、以下のメッセージが表示されるはずです:
 
 bc. 00:21:45,192 INFO  ~ Module ecss is available (.../play/modules/ecss)
 
-h2. <a>Define constants in the CSS files</a>
+h2. <a>CSS ファイルでの定数定義</a>
 
-Just declare CSS constants in top of your CSS files and reuse them latter in the same file. 
+CSS ファイルの最上部に CSS 定数を宣言して、同じファイルの後方でそれらを再利用します。
 
 bc. $mainColor: #c00; $secondaryColor: green;
 $font: verdana, sans-serif;
@@ -33,8 +33,8 @@ em {
    color: $secondaryColor
 }
 
-p(note). **Warning**
+p(note). **警告**
  
-The ''ecss'' module just enable constants in static CSS files. The CSS files will not be parsed for each request.
+この ''ecss'' モジュールは、静的な CSS ファイルで定数を使えるようにするだけです。CSS ファイルはリクエスト毎にはパースされません。
  
-If you want to enable CSS variables whose values depend on your application context, it's a different story... You can for example generate the stylesheet from a play Controller action, or define some CSS rules in your main HTML template.
+アプリケーションのコンテキストに依存した値の CSS 変数を利用したい場合は、話が別です... 例えば、play コントローラアクションでスタイルシートを生成したり、あるいは主要な HTML テンプレートで CSS ルールを定義することができます。

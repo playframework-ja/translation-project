@@ -1,27 +1,27 @@
-h1. Controllers
+h1. コントローラ
 
-Business logic is managed in the domain model layer. As a client (typically a Web browser) cannot directly invoke this code, the functionality of domain object is exposed as resources represented by a URI. 
+ビジネスロジックはドメインモデル層で管理されます。クライアント (通常はウェブブラウザ) が直接このコードを呼び出すことができないことから、ドメインオブジェクトの機能性は URI によって表されたリソースとして公開されます。
 
-A client uses the uniform API provided by the HTTP protocol to manipulate these resources, and by implication the underlying business logic. However, this mapping of resources to domain objects is not a bijection: the granularity can be expressed at different levels, some resources may be virtuals, some resources aliases may be defined...
+クライアントは、HTTP プロトコルによって提供された統一的な API を使用して、これらのリソースと、暗黙的にその下にあるビジネスロジックを操作します。しかし、ドメインオブジェクトとリソースのマッピングは一対一ではありません: 粒度は異なるレベルで表現され、あるリソースは仮想化されたものかもしれませんし、あるリソースは別名が定義されているかもしれません...
 
-This is precisely the role played by the Controller layer: providing a **glue** between the domain model objects and transport layer events. As the Model layer, controllers are written in pure Java, making it easy to access or modify Model objects. Like the HTTP interface, Controllers are procedural and Request/Response oriented.
+これは、まさにコントローラ層によって果たされる役割です: ドメインモデルオブジェクトとトランスポート層イベントの間の **グルー** を提供します。モデル層においては、モデルオブジェクトに容易にアクセスし変更するために、コントローラは純粋な Java で書かれます。HTTP インタフェースのように、コントローラは手続き的で、リクエスト/レスポンス指向です。
 
-The Controller layer reduces the **impedance mismatch** between HTTP and the Domain Model.
+コントローラ 層 は HTTP とドメインモデルの間の **インピーダンスミスマッチ** を減少させます。
 
-p(note). **Note**
+p(note). **注意**
  
-There are different architectural models with different strategies. Some protocols give you direct access to the domain model objects. This is typically what EJB or Corba protocols do. In these cases, the architectural style used is RPC (Remote Procedure Call). These communication styles are hardly compatible with the Web architecture.
+異なる戦略をもった異なるアーキテクチャモデルがあります。いくつかのプロトコルはドメインモデルオブジェクトに直接アクセスします。これは、EJB や CORBA プロトコルによく見られます。これらの場合、そのアーキテクチャスタイルは、RPC (Remote Procedure Call) を使います。これらのコミュニケーションスタイルは、Web アーキテクチャとほとんど互換性がありません。
  
-Some technologies like SOAP try to give access to the model object domain through the Web. However, SOAP is just another RPC-style protocol, in this case using HTTP as a transport protocol. It is not an application protocol.
+SOAP のようないくつかの技術は Web を通してドメインモデルオブジェクトへのアクセスをていきょうします。しかし、SOAP はただのRPC スタイルプロトコルであり、この場合、HTTP はトランスポートプロトコルとして使用されます。アプリケーションプロトコルではありません。
 
-The principles of the Web are not fundamentally object oriented. So a layer is needed to adapt HTTP to your favorite language. 
+Web の原則は基本的にオブジェクト指向ではありません。そのため、お気に入りの言語に HTTP を適合させる層が必要になります。
 
 
-h2. <a name="overview">A controller overview</a>
+h2. <a name="overview">コントローラの概要</a>
 
-A Controller is a Java class, hosted by the **controllers** package, and subclassing **play.mvc.Controller**.
+コントローラは Java のクラスであり、 **controllers** パッケージで管理される **play.mvc.Controller** のサブクラスです。
 
-This is a Controller:
+コントローラはこのようなものになります:
 
 bc. package controllers;
  
@@ -42,68 +42,68 @@ public class Clients extends Controller {
  
 }
 
-Each public, static method in a Controller is called an action. The signature for an action method is always :
+コントローラの public かつ static なそれぞれのメソッドはアクションと呼ばれます。アクションメソッドのシグネチャは以下の通りです :
 
 bc. public static void action_name(params...);
 
-You can define parameters in the action method signature. These parameters will be automatically resolved by the framework from the corresponding HTTP parameters.
+アクションメソッドのシグネチャに引数を定義できます。これらのパラメタはフレームワークによって対応する HTTP パラメタから自動的に解決されます。
 
-Usually, an action method doesn't include any return statement. The method exit is done by the invocation of a **result** method. In this example, **render(...)** is a result method that executes and displays a template.
+通常、アクションメソッドは return 構文を持ちません。アクションメソッドは **result** メソッドの起動によって終了します。今回の例では、テンプレートを実行して表示する **render(...)** が result メソッドです。
 
-h2. <a name="params">Retrieving HTTP parameters</a>
+h2. <a name="params">HTTP パラメータの取得</a>
 
-An HTTP request contains data. This data can be extracted from:
+HTTP リクエストはデータを含んでいます。以下のようにしてこのデータを抽出することができます:
 
-* The URI path: in **/clients/1541**, 1541 is dynamic part of the URI Pattern.
-* The Query String: **/clients?id=1541.**
-* The request body: if the request was sent from an HTML form, the request body contains the form data encoded as **x-www-urlform-encoded**.
+* URI パス: in **/clients/1541**, 1541 URI パターンの動的部分です。
+* クエリ文字列: **/clients?id=1541.**
+* リクエスト本文: リクエストが HTML フォームから送信される場合、そのリクエスト本文には **x-www-urlform-encoded** としてエンコードされたフォームデータを含んでいます。
 
-In all cases, play extracts this data and builds a Map<String, String[]> which contains all the HTTP parameters. The key is the parameter name. The parameter name is derived from :
+いずれの場合でも、play はデータを抽出して、すべての HTTP パラメータを含む Map<String, String[]> を構築します。このマップのキーはパラメータ名です。パラメータ名は以下のようにして導出されます。
 
-* The name of the dynamic part of the URI (as specified in the route)
-* The name portion of a name-value pair taken from the Query String
-* The contents of a x-www-urlform-encoded body.
+* (ルーティングで指定された) URI の動的部分の名前
+* クエリ文字列から取得される名前-値のペアの名前の部分
+* エンコードされた本文の内容
 
-h3. Using the params map
+h3. パラメータマップの使い方
 
-The **params** object is available to any Controller class (it is defined in the **play.mvc.Controller** super class). This object contains all the HTTP parameters found for the current request.
+**params** オブジェクトはすべてのコントローラクラスで利用できます (スーパークラス **play.mvc.Controller** で定義されています) 。このオブジェクトは、現在のリクエストから見つけられるすべての HTTP パラメータを含んでいます。
 
-For example:
+例えば:
 
 bc. public static void show() {
     String id = params.get("id");
     String[] names = params.getAll("names");
 }
 
-You can also ask play to do the type conversion for you:
+play に型変換を指示することもできます:
 
 bc. public static void show() {
     Long id = params.get("id", Long.class);
 }
 
-But wait, there are better ways to do this :)
+でも、ちょっと待ってください。これをするより良い方法があります:)
 
-h3. From the action method signature
+h3. アクションメソッドのシグネチャから
 
-You can retrieve HTTP parameters directly from the action method signature. The name of the Java parameter must be the same as the HTTP parameter.
+アクションメソッドのシグネチャから HTTP パラメータを直接検索することができます。Java 引数の名前は HTTP パラメータのものと同じであるに違いありません。
 
-For example, in this request:
+例えば、このリクエストでは:
 
 bc. /clients?id=1451
 
-An action method can retrieve the **id** parameter value by declaring an **id** parameter in its signature:
+アクションメソッドは、シグネチャにおいて **id** 引数を宣言することによって、 **id** パラメータの値を検索することができます:
 
 bc. public static void show(String id) {
     System.out.println(id); 
 }
 
-You can use other Java types than String. In this case the framework will try to cast the parameter value to the correct Java type :
+String 以外の Java の型も使えます。この場合、フレームワークはパラメータの値を正しい Java 型にキャストしようとします:
 
 bc. public static void show(Long id) {
     System.out.println(id);  
 }
 
-If the parameter is multivalued, you can declare an Array argument:
+パラメータが多値である場合は、配列引数を宣言することができます:
 
 bc. public static void show(Long[] id) {
     for(String anId : id) {
@@ -111,7 +111,7 @@ bc. public static void show(Long[] id) {
     }
 }
 
-or even a collection type:
+コレクションも宣言することができます:
 
 bc. public static void show(List<Long> id) {
     for(String anId : id) {
@@ -119,23 +119,23 @@ bc. public static void show(List<Long> id) {
     }
 }
 
-p(note). **Exceptions**
+p(note). **例外**
  
-If the HTTP parameter corresponding to the action method argument is not found, the corresponding method argument is set to it default value (typically null for objects and 0 for primitive numeric types). If a value is found but can't be properly cast to the required Java type, an error is added to the validation error collection and the default value is used.
+アクションメソッド引数に対応する HTTP パラメータが見つからない場合、対応するメソッド引数はデフォルト値 (通常、オブジェクト型は null、基本データ型は 0) に設定されます。値が見つかっても、要求された Java 型に適切にキャストできない場合、バリデーションエラーのコレクションにエラーが追加され、デフォルト値が設定されます。
 
-h2. <a name="binding">Advanced HTTP to Java binding</a>
+h2. <a name="binding">HTTP と Java の高度な紐付け</a>
 
-h3. Simple types
+h3. シンプルな型
 
-All the native and common Java type are automatically bound:
+すべての基本データ型と、そして、一般的な Java の型は自動的に紐付けられます:
 
 **int**, **long**, **boolean**, **char**, **byte**, **float**, **double**, **Integer**, **Long**, **Boolean**, **Char**, **String**, **Float**, **Double**.
 
-Note that if the parameter is missing in the HTTP Request, or that automatic conversion fails, Object type will be set to null and native types will be set to their default value.
+HTTP リクエスト中にパラメータが見つからないか、または自動変換に失敗した場合、オブジェクト型には null、基本データ型にはそれらのデフォルト値が設定されることに注意してください。
 
-h3. Date
+h3. 日付
 
-A date object can be automatically bound if the string representation of the date matches one of the following patterns:
+日付の文字列表現が以下のパターンのいずれか 1 つにマッチする場合、自動的に日付オブジェクトに紐付けられます:
 
 * yyyy-MM-dd'T'hh:mm:ss'Z' // ISO8601 + timezone
 * yyyy-MM-dd'T'hh:mm:ss" // ISO8601
@@ -149,7 +149,7 @@ A date object can be automatically bound if the string representation of the dat
 * MM-dd-yy
 * MM'/'dd'/'yy
 
-For example:
+例えば:
 
 bc. archives?from=21/12/1980
 
@@ -158,9 +158,9 @@ bc. public static void articlesSince(Date from) {
     render(articles);
 }
 
-h3. Files
+h3. ファイル
 
-File upload is easy with play. Use a **multipart/form-data** encoded request to post files to the server, and then use the **java.io.File** type to retrieve the file object:
+play によるファイルアップロードは簡単です。 **multipart/form-data** エンコードされたリクエストを使ってサーバにファイルをポストしたら、 **java.io.File** 型を使ってファイルオブジェクトを取得してください:
 
 bc. public static void create(String comment, File attachment) {
     String s3Key = S3.post(attachment);
@@ -169,45 +169,45 @@ bc. public static void create(String comment, File attachment) {
     show(doc.id);
 }
 
-The created file has the same name as the original file. It's stored in a temporary directory and deleted at the end of the request. So you have to copy it in a safe directory or it will be lost.
+作成されたファイルは、元のファイルと同じ名前になります。ファイルは一時ディレクトリに保存されて、リクエストの完了時に削除されます。このため、作成されたファイルは安全なディレクトリにコピーしなければなりません。そうでなければファイルは無くなってしまいます。
 
-h3. Arrays or collections of supported types
+h3. サポートされた型の配列またはコレクション
 
-All supported types can be retrieved as an Array or a collection of objects:
+すべてのサポートされた型は配列またはオブジェクトのコレクションとして取得することができます:
 
 bc. public static void show(Long[] id) {
     ...
 }
 
-or :
+または :
 
 bc. public static void show(List<Long> id) {
     ...
 }
 
-or :
+または :
 
 bc. public static void show(Set<Long> id) {
     ...
 }
 
 
-h3. POJO objects binding
+h3. POJO オブジェクトの紐付け
 
-Play also automatically binds any of your model classes using the same simple naming convention rules.
+Play は簡単な命名規約ルールを使用することで、どんなモデルクラスでも自動的に紐付けることができます。
 
 bc. public static void create(Client client ) {
     client.save();
     show(client);
 }
 
-A query string to create a client using this action would look like:
+このアクションを使って client を作るクエリ文字列は次のようになるでしょう:
 
 bc. ?client.name=Zenexity&client.email=contact@zenexity.fr
 
-play creates a Client instance and resolves HTTP parameters name to properties on the Client object. Unresolved parameters are safely ignored. Types mismatches are also safely ignored.
+play は Client インスタンスを作成し、HTTP パラメータ名をClient オブジェクトのプロパティに解決します。解決できないパラメータ名は安全に無視されます。型のミスマッチも安全に無視されます。
 
-Parameter binding is done recursively, which means you can address complete object graphs:
+パラメータの紐付けは再帰的に行われるので、完全なオブジェクトグラフを扱うことができます:
 
 bc. ?client.name=Zenexity
 &client.address.street=64+rue+taitbout
@@ -215,11 +215,11 @@ bc. ?client.name=Zenexity
 &client.address.country=France
 
 
-h2. <a name="result">Result types</a>
+h2. <a name="result">戻り値の型</a>
 
-An action method has to generate an HTTP response. The easiest way to do this is to emit a Result object. When a Result object is emitted, the normal execution flow is interrupted and the method returns.
+アクションメソッドは、HTTP レスポンスを生成しなければなりません。HTTP レスポンスを生成するもっとも簡単な方法は、Result オブジェクトを発行することです。Result オブジェクトが発行されると、通常の実行フローは中断され、メソッドはリターンされます。
 
-For example:
+例えば:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
@@ -227,29 +227,29 @@ bc. public static void show(Long id) {
     System.out.println("This message will never be displayed !");
 }
 
-The **render(...)** method emits a Result object and stops further method execution.
+**render(...)** メソッドは Result オブジェクトを発行し、以降のメソッドは実行しません。
 
-h3. Return some textual content
+h3. テキスト内容の返却
 
-The **renderText(...)** method emits a simple Result event which writes some text directly to the underlying HTTP Response.
+**renderText(...)** メソッドは基本的なHTTP レスポンスに何らかのテキストを直接書き込むシンプルな Result イベントを発行します。
 
-Example:
+例えば:
 
 bc. public static void countUnreadMessages() {
     Integer unreadMessages = MessagesBox.countUnreadMessages();
     renderText(unreadMessages);
 }
 
-You can format the text message using the Java standard formatting syntax:
+Java 標準のフォーマット構文を使ってテキストメッセージをフォーマットすることができます:
 
 bc. public static void countUnreadMessages() {
     Integer unreadMessages = MessagesBox.countUnreadMessages();
     renderText("There are %s unread messages", unreadMessages);
 }
 
-h3. Execute a template
+h3. テンプレートの実行
 
-If the generated content is complex, you should use a template to generate the response content.
+生成する内容が複雑である場合、レスポンスの内容を生成するためにテンプレートを使用するべきです。
 
 bc. public class Clients extends Controller {
  
@@ -259,15 +259,15 @@ bc. public class Clients extends Controller {
  
 }
 
-A template name is automatically deduced from the Play conventions. The path of the default template is resolved using the Controller and action names. 
+テンプレート名は Play の規約から自動的に推測されます。デフォルトテンプレートのパスは、コントローラとアクションの名前を使って解決されます。
 
-In this example the invoked template is:
+この例で呼び出されるテンプレートは以下の通りです:
 
 bc. app/views/Clients/index.html
 
-h4. Add data to the template scope
+h4. テンプレートスコープへの値の追加
 
-Often the template needs data. You can add these data to the template scope using the **renderArgs** object:
+テンプレートはしばしばデータを必要とします。 **renderArgs** オブジェクトを使用することでテンプレートスコープにこれらのデータを追加することができます:
 
 bc.. public class Clients extends Controller {
  
@@ -279,62 +279,62 @@ bc.. public class Clients extends Controller {
  
 }
 
-During template execution, the **client** variable will be defined.
+テンプレートが実行される間、この **client** 変数は定義されています。
 
-For example:
+例えば、以下のようになります。:
 
 bc. <h1>Client ${client.name}</h1>
 
-h4. A simpler way to add data to the template scope
+h4. テンプレートスコープにデータを追加するより簡単な方法
 
-You can pass data directly to the template using **render(...)** method arguments :
+**render(...)** メソッドの引数を使って、直接テンプレートにデータを渡すことができます:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
     render(client);    
 }
 
-In this case, the variables accessible by the template have the same name as the local Java variables.
+この場合、テンプレートからアクセスする変数は、Java のローカル変数と同じ名前になります。
 
-You can pass more than one variable:
+複数の変数を渡すこともできます:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
     render(id, client);    
 }
 
-p(note). **Important!**
+p(note). **重要!**
  
-You can only pass **local variables** in this way.
+この方法で渡せるのは **ローカル変数** だけです。
 
 
-h4. Specify another template
+h4. 別のテンプレートの指定
 
-If you don't want to use the default template, you can specify your own template file during the **render(...)** call. Just pass it as the first parameter of the render method:
+デフォルトのテンプレートを使用したくない場合、 **render(...)** 呼び出し中に自身のテンプレートファイルを指定することができます。単に render メソッドの第一引数に自身のテンプレートファイルを渡してください。
 
-Example:
+例えば、以下のようにします:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
     render("Clients/showClient.html", id, client);    
 }
 
-h3. Redirect to another URL
+h3. 別の URL へのリダイレクト
 
-The **redirect(...)** method emits a Redirect event that in turn generates an HTTP Redirect response.
+**redirect(...)** メソッドは HTTP Redirect レスポンスを生成する Redirect イベントを発行します。
 
 bc. public static void index() {
     redirect("http://www.zenexity.fr");
 }
 
 
-h3. Action chaining
+h3. アクションチェーン
 
-There is no equivalent to the Servlet API **forward**. An HTTP request can only invoke one action. If you need to invoke another action, you have to redirect the browser to the URL able to invoke that action. In this way, the browser URL is always consistent with the executed action, and the **Back/Forward/Refresh** management is much easier.
+Servlet API の **forward** に該当するものはありません。HTTP リクエストは 1 つのアクションだけを呼び出します。別のアクションを呼び出す必要がある場合は、そのアクションを呼び出すことができる URL にブラウザをリダイレクトさせなければなりません。このようにすることで、ブラウザの URL は常に実行されるアクションと一致し、 **戻る/進む/更新** の管理がはるかに簡単になります。
 
-You can send a Redirect response to any action, simply by invoking the action method in a Java way. The Java call is intercepted by the framework and the correct HTTP Redirect is generated.
+単に Java のやり方でアクションメソッドを実行するだけで、どんなアクションに対しても Redirect レスポンスを送ることができます。Java の呼び出しはフレームワークによってインターセプトされ、適切な HTTP Redirect が生成されます。
 
-For example:
+例えば:
 
 bc. public class Clients extends Controller {
  
@@ -351,31 +351,31 @@ bc. public class Clients extends Controller {
  
 }
 
-With these routes:
+以下のような routes ファイルの場合:
 
 bc. GET    /clients/{id}            Clients.show
 POST   /clients                 Clients.create 
 
-* The browsers POST to the **/clients** URL.
-* The Router invokes the **create** action of the **Clients** controller.
-* The action method call the **show** action method directly.
-* The Java call is intercepted and the Router reverse route generation creates the URL needed to invoke Clients.show with an id parameter.
-* The HTTP Response is **302 Location:/clients/3132**.
-* The browser then issues **GET /clients/3132**.
+* ブラウザは **/clients** URL に POST を送ります。
+* Router は **Clients** コントローラの **create** アクションを起動します。
+* create アクションは **show** アクションを直接呼び出します。
+* Java 呼び出しはインターセプトされ、Router は id パラメータと共に Clients.show を実行するために必要な URL をリバース生成します。
+* HTTP レスポンスは **302 Location:/clients/3132** です。
+* ブラウザは **GET /clients/3132** を発行します。
 * ...
 
 
-h2. <a name="interceptions">Interceptions</a>
+h2. <a name="interceptions">インターセプション</a>
 
-A controller can define interception methods. Interceptors are invoked for all actions of the controller class and its descendants. It's a useful way to define treatments that are common to all actions: verifying that a user is authenticated, loading request-scope information...
+コントローラにインターセプタを定義することができます。インターセプタは、コントローラクラスとその子孫におけるすべてのアクションに対して実行されます。すべてのアクションに共通する処理: ユーザ認証されていることの確認、リクエストスコープ情報のロード... を定義するのは便利なやり方です。
 
-These methods have to be **static** but not **public**. You have to annotate these method with a valid interception marker.
+これらのメソッドは、 **static** ですが、 **public** である必要はありません。適切なインターセプションマーカでこれらのメソッドを注釈しなければなりません。
 
 h3. @Before
 
-Methods annotated with the **@Before** annotation are executed before each action call for this Controller.
+@Before アノテーションで注釈されたメソッドは、このコントローラにおけるすべてのアクション呼び出しの前に実行されます。
 
-So, to create a security check:
+例えば、セキュリティチェックを行うには以下のようにします:
 
 bc. public class Admin extends Application {
  
@@ -393,7 +393,7 @@ bc. public class Admin extends Application {
  
 }
 
-If you don't want the @Before method to intercept all action calls, you can specify a list of actions to exclude:
+@Before メソッドにすべてのアクション呼び出しをインターセプトさせたくない場合、除外アクションのリストを指定することができます:
 
 bc. public class Admin extends Application {
  
@@ -413,7 +413,7 @@ bc. public class Admin extends Application {
 
 h3. @After
 
-Methods annotated with the **@After** annotation are executed after each action call for this Controller.
+@After アノテーションで注釈されたメソッドは、このコントローラにおけるすべてのアクション呼び出しの後に実行されます。
 
 bc. public class Admin extends Application {
  
@@ -433,7 +433,7 @@ bc. public class Admin extends Application {
 
 h3. @Finally
 
-Methods annotated with the **@Finally** annotation are executed after each action result is applied from for this Controller.
+@Finally アノテーションで注釈されたメソッドは、このコントローラにおけるすべてのアクション呼び出しの結果が確定された後に実行されます。
 
 bc. public class Admin extends Application {
  
@@ -451,15 +451,15 @@ bc. public class Admin extends Application {
  
 }
 
-h3. Controller hierarchy
+h3. コントローラ階層
 
-If a Controller class is a subclass of another Controller class, interceptions are applied to the full Controller hierarchy.
+コントローラクラスが別のコントローラのクラスのサブクラスである場合、インターセプションは完全なクラス階層に対して適用されます。
 
-h3. Adding more interceptors using the @With annotation
+h3. @With アノテーションを使った更なるインターセプタの追加
 
-Because Java does not allow multiple inheritance, it can be very limiting to rely on the Controller hierarchy to apply interceptors. But you can define some interceptors in a totally different class, and link them with any controller using the **@With** annotation.
+Java は多重継承を認めないので、インターセプタの適用はクラス階層に制限されたとても限定的なものになりがちです。しかし、完全に異なるクラス中にいくつかのインターセプタを定義し、 **@With** アノテーションを使用していかなるコントローラにもこれらをリンクすることができます。
 
-Example:
+例えば、以下のようにします:
 
 bc. public class Secure extends Controller {
     
@@ -471,7 +471,7 @@ bc. public class Secure extends Controller {
     }
 }    
 
-And on another Controller:
+そして、別のコントローラにおいて、以下のようにします:
 
 bc. @With(Secure.class)
 public class Admin extends Application {
@@ -480,15 +480,15 @@ public class Admin extends Application {
      
 }
 
-h2. <a name="session">Session and Flash scope</a>
+h2. <a name="session">セッションとフラッシュのスコープ</a>
 
-If you have to keep data across multiple HTTP Requests, you can save them in the Session or the Flash scope. Data stored in the Session are available during the whole user session, and data stored in the flash scope are available to the next request only.
+複数の HTTP リクエストにまたがってデータを保持しなければならない場合、セッションまたはフラッシュスコープにでそれらを保存することができます。セッションに保存されたデータは、ユーザセッションにおける全ての間で利用可能であり、フラッシュスコープに保存されたデータは、次のリクエストにおいてのみ利用可能です。
 
-It's important to understand that Session and Flash data are not stored in the server but are added to each subsequent HTTP Request, using the Cookie mechanism. So the data size is very limited (up to 4Ko) and you can only store String values.
+セッションとフラッシュのデータはサーバに保存されず、Cookie メカニズムを使って次の HTTP リクエストに追加されることを理解するのは重要です。このため、そのデータサイズはとても制限 (最大で 4ko) され、また、文字列しか保存できません。
 
-Of course, cookies are signed with a secret key so the client can't modify the cookie data (or it will be invalidated). The play session is not aimed to be used as a cache. If you need to cache some data related to a specific session, you can use the play built-in cache mechanism and use the *session.getId()* key to keep them related to a specific user session. 
+もちろん、クライアントが cookie のデータを変更できない (変更した場合は無効にされる) よう、cookie は秘密鍵で署名されます。play のセッションは、キャッシュとして使用されることを目的としません。特定のセッションに関連するいくつかのデータをキャッシュする必要がある場合は、play 内蔵のキャッシュ機構と、特定のユーザセッションにそれらを継続して紐付けるための **session.getId()** を使用することができます。
 
-Example:
+例えば、以下のようにします:
 
 bc. public static void index() {
     List messages = Cache.get(session.getId() + "-messages", List.class);
@@ -500,8 +500,8 @@ bc. public static void index() {
     render(messages);
 }
 
-The cache has a different semantic than the classic servlet HTTP session object. You can't assume that these objects will be always in the cache. So it forces you to handle the cache miss cases, and keeps your application fully stateless.
+キャッシュには、古典的な servlet HTTP セッションオブジェクトとは異なる意味があります。これらのオブジェクトが常にキャッシュにあるとは仮定できません。そのため、キャッシュに失敗した場合について扱わなければなりませんが、アプリケーションは完全にステートレスであり続けます。
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
  
-The next important layer of the MVC model is the View layer, for which play provides an efficient "templating system":templates.
+MVC モデルの次の重要な層は、play が効率的な "テンプレートシステム":templates を提供するビュー層です。

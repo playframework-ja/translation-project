@@ -1,18 +1,18 @@
-h1. Building the first screen
+h1. はじめての画面
 
-Now that we have built a first data model, it's time to start to create the first page of the application. This page will just show the most recent posts, as well as a list of older posts.
+はじめてのデータモデルを作ったので、いよいよこのアプリケーションのはじめての画面を作り始めます。この画面はもっとも新しい投稿のみを表示し、古い投稿はリストとして表示します。
 
-Here is a mock of what we want to achieve:
+以下は、実現したい画面のモックです:
 
 !images/guide-mock1!
 
-h2. <a>Bootstrapping with default data</a>
+h2. <a>デフォルトデータでの起動</a>
 
-In fact before coding the first screen we need one more thing. Working on a web application without test data is not fun. You can't even test what you're doing. But because we haven't developed the contribution screens yet, we can't populate the blog with posts ourselves. 
+実は、はじめての画面をコーディングする前にやらなければならないことが、もうひとつあります。テストデータなしに web アプリケーションの仕事をするのは楽しくありません。テストすることすらできません。しかし、まだ投稿画面を開発していないので、自分自身でブログに投稿を追加することもできません。
 
-One way to inject default data into the blog is to load a fixture file at application load time. To do that we will create a Bootstrap Job. A play job is something that executes itself outside of any HTTP request, for example at the application start or at specific interval using a CRON job.
+ブログにデフォルトデータを投入するひとつの方法は、アプリケーション起動時にフィクスチャファイルを読み込むことです。これを行うために、Bootstrap ジョブを作りましょう。play のジョブは一切の HTTP リクエスト無しに、例えばアプリケーション起動時や、CRON ジョブを使用した指定間隔毎に、自分自身で起動します。
 
-Let's create the **/yabe/app/Bootstrap.java** job that will load a set of default data using **Fixtures**:
+**Fixtures** を使ってデフォルトデータをロードする **/yabe/app/Bootstrap.java** ジョブを作成しましょう。
 
 bc. import play.*;
 import play.jobs.*;
@@ -32,23 +32,23 @@ public class Bootstrap extends Job {
  
 }
 
-We have annotated this Job with the **@OnApplicationStart** annotation to tell play that we want to run this job synchronously at application startup.
+このジョブをアプリケーションの起動と同期して実行したい旨を play に伝えるために、 **@OnApplicationStart** アノテーションでこのジョブを注釈しました。
 
-p(note). In fact this job will be run differently in DEV or PROD modes. In DEV mode, play waits for a first request to start. So this job will be executed synchronously at the first request. That way, if the job fails, you will get the error message in your browser. In PROD mode however, the job will be executed at application start (synchrously with the **'play run'** command) and will prevent the application from starting in case of an error.
+p(note). 実際のところ、このジョブは DEV モードと PROD モードでは異なる動作をします。DEV モードの場合、play は最初のリクエストがあるまでアプリケーションの起動を待機します。このため、このジョブは最初のリクエストと同期して実行されます。この方法では、ジョブが失敗した場合、ブラウザにエラーメッセージが表示されます。一方、PROD モードでは、このジョブはアプリケーションの起動時に ( **'play run'** コマンドと同期して) 実行され、エラーが発生した場合はアプリケーションの起動を停止します。
 
-You have to create an initial-data.yml in the **/yabe/conf** directory. You can of course reuse the **data.yml** content that we just used for tests previously.
+**/yabe/conf** ディレクトリに initial-data.yml を作成する必要があります。もちろん、以前にテストで使用した **data.yml** の内容を再利用することもできます。
 
-Now run the application using **play run** and display the "http://localhost:9000":http://localhost:9000 page in the browser.
+それでは **play run** を使ってアプリケーションを実行し、ブラウザで "http://localhost:9000":http://localhost:9000 を表示してみましょう。
 
-h2. <a>The blog home page</a>
+h2. <a>ブログトップページ</a>
 
-This time, we can really start to code the home page.
+今度こそ本当にトップページのコーディングを始められます。
 
-Do you remember how the first page is displayed? First the routes file defines that the **/** URL will invoke the **controllers.Application.index()** action method. Then this method calls **render()** and executes the **/yabe/app/views/Application/index.html** template.
+最初の画面がどのようにして表示されるのか覚えていますか？まず最初に、routes ファイルで **/** という URL が **controllers.Application.index()** というアクションメソッドを起動するよう定義します。次に、このメソッドが **render()** を呼び出して **/yabe/app/views/Application/index.html** テンプレートを実行します。
 
-We will keep these components but add code to them to load the posts list and display them.
+これらのコンポーネントを使いつつ、投稿リストをロードして表示するコードを追加します。
 
-Open the **/yabe/app/controllers/Application.java** controller and modify the **index()** action to load the posts list, as is:
+**/yabe/app/controllers/Application.java** コントローラを開いたら、投稿リストをロードするよう **index()** アクションを以下のように変更します:
 
 bc. package controllers;
  
@@ -71,9 +71,9 @@ public class Application extends Controller {
  
 }
 
-Can you see how we pass objects to the render method? It will allow us to access them from the template using the same name. In this case, the variables **frontPost** and **olderPosts** will be available in the template.
+どのようにして render メソッドにオブジェクトを渡すか分かりましたか？これでテンプレートからこれらのオブジェクトに同じ名前でアクセスすることができます。この場合はテンプレートで変数 **frontPost** と **olderPosts** が利用できます。
 
-Open the **/yabe/app/views/Application/index.html** and modify it to display these objects:
+**/yabe/app/views/Application/index.html** を開いて、これらのオブジェクトを表示するよう変更します:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -138,17 +138,17 @@ bc. #{extends 'main.html' /}
     </div>
 #{/else}
 
-You can read more about the "template language here":templates. Basically, it allows you to access your java objects dynamically. Under the hood we use Groovy. Most of the pretty constructs you see (like the ?: operator) come from Groovy. But you don't really need to learn groovy to write play templates. If you're already familiar with another template language like JSP with JSTL you won't be lost.
+"ここでテンプレート言語":templates についてもっと詳しく読むことができます。基本的に、テンプレートを使うと java オブジェクトに動的にアクセスすることができます。その背後では Groovy を使います。(?: 演算子のような) かわいらしい構成要素のほとんどは Groovy から来たものです。しかし play のテンプレートを書くために本気で groovy の勉強をする必要はありません。JSP や JSTL のようなテンプレート言語に既に慣れているのであれば、迷うことはないでしょう。
 
-OK, now refresh the blog home page.
+OK, それではブログトップページをリフレッシュしてみましょう。
 
 !images/guide3-0!
 
-Not pretty but it works!
+きれいな画面ではありませんが、動いています！
 
-However you can see we have already started to duplicate code. Because we will display posts in several ways (full, full with comment, teaser) we should create something like a function that we could call from several templates. This is exactly what a play tag does!
+しかし、もう既にコードの重複が始まっているのが見られます。投稿をいくつかの方法 (全文、全文とコメント、前文) で表示したいので、いくつかの画面から呼び出すことのできる関数のようなものを作るべきです。これはまさに play タグでできることです!
 
-To create a tag, just create the new **/yabe/app/views/tags/display.html** file. A tag is just another template. It has parameters (like a function). The **#{display /}** tag will have 2 parameters: the Post object to display and the display mode which will be one of 'home', 'teaser' or 'full'.
+タグを作るためには、ただ **/yabe/app/views/tags/display.html** ファイルを作成してください。タグは単なる別のテンプレートです。タグは (関数のように) 引数を持ちます。 **#{display /}** タグは 2 つの引数を持ちます: 表示する Post オブジェクトと、'home', 'teaser', または 'full' のうちいずれか 1 つの表示モードです。
 
 bc. *{ Display a post in one of these modes: 'full', 'home' or 'teaser' }*
  
@@ -202,7 +202,7 @@ bc. *{ Display a post in one of these modes: 'full', 'home' or 'teaser' }*
     </div>
 #{/if}
 
-Now using this tag we can rewrite the home page without code duplication :
+これで、このタグを使うことでトップページをコードの重複無しに書き直すことができます。
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -231,13 +231,13 @@ bc. #{extends 'main.html' /}
     </div>
 #{/else}
 
-Reload the page and check that all is fine.
+ページをリロードして、すべてがうまく行っていることを確認してください。
 
-h2. <a>Improving the layout</a>
+h2. <a>レイアウトの改善</a>
 
-As you can see, the **index.html** template extends **main.html**. Because we want to provide a common layout for all blog pages, with the blog title and authentication links, we need to modify this file.
+見ての通り、 **index.html** テンプレートは **main.html** を継承します。すべてのブログページに共通の、ブログタイトルと認証リンクを含んだレイアウトを提供したいので、このファイルを編集する必要があります。
 
-Edit the **/yabe/app/views/main.html** file :
+**/yabe/app/views/main.html** ファイルを次のように編集します:
 
 bc. <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
  
@@ -281,11 +281,11 @@ bc. <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w
     </body>
 </html>
 
-Refresh and check the result. It seems to work, except that the **blogTitle** and the **blogBaseLine** variables are not displayed. This is because we didn't pass them to the **render(...)** call. Of course we could add them to the **render()** call in the index action. But because the **main.html** file will be used as main template for all application actions, we don't want to add them every time.
+ページを更新して結果を確認してください。 **blogTitle** と **blogBaseLine** 変数が表示されないことを除けば、動作しているように見えます。これは、 **render(...)** 呼び出しにこれらオブジェクトを引き渡していないことが原因です。もちろん index アクションで **render()** 呼び出しにこれらのオブジェクトを追加することもできます。しかし、 **main.html** ファイルはアプリケーションのすべてのアクションにおいて主要なテンプレートとして使われるので、これらのオブジェクトを毎回追加したくありません。
 
-One way to execute the same code for each action of a controller (or a hierarchy of controllers) is to define a **@Before** interceptor. 
+あるコントローラ (もしくはコントローラ階層) のそれぞれのアクションで同じコードを実行する 1 つの方法は、 **@Before** インターセプタを定義することです。
 
-Let's add the **addDefaults()** method to the Application controller :
+Application コントローラに **addDefaults()** メソッドを追加しましょう:
 
 bc. @Before
 static void addDefaults() {
@@ -293,36 +293,36 @@ static void addDefaults() {
     renderArgs.put("blogBaseline", Play.configuration.getProperty("blog.baseline"));
 }
 
-All variables added to the **renderArgs** scope will be available from the templates. And you can see that the method reads the variable's values from the **Play.configuration** object. This object contains all configuration keys from the **/yabe/conf/application.conf** file.
+すべての変数はテンプレートから利用することができる **renderArgs** スコープに追加されます。そして、ご覧の通り、このメソッドは **Play.configuration** オブジェクトから変数の値を読み込みます。このオブジェクトは **/yabe/conf/application.conf** ファイルにあるすべての設定キーを保持します。
 
-Add these 2 keys to the configuration file:
+設定ファイルに 2 つのキーを追加します:
 
 bc. # Configuration of the blog engine
 # ~~~~~
 blog.title=Yet another blog
 blog.baseline=We won't write about anything
 
-Reload the home page and check that it works!
+トップページをリロードして、これが動いていることを確認しましょう！
 
 !images/guide3-1!
 
-h2. <a>Adding some style</a>
+h2. <a>いくつかのスタイルの追加</a>
 
-Now the blog home page is almost done, but it's not very pretty. We'll add some style to make it shinier. As you have seen, the main template file main.html includes the **/public/stylesheets/main.css** stylesheet. We'll keep it but add more style rules to it.
+ここまでで、ブログのトップページはほとんど出来上がりましたが、あまりきれいではありません。これをより輝かせるいくつかのスタイルを追加します。見てのとおり、中心的なテンプレートファイルである main.html は **/public/stylesheets/main.css** スタイルシートを読み込みます。このファイルをそのまま使い、いくつかスタイルを追加します。
 
-You can "download it here":files/main.css, and copy it to the **/public/stylsheets/main.css** file.
+スタイルは "ここからダウンロード":files/main.css して **/public/stylsheets/main.css** ファイルにコピーすることもできます。
 
-Refresh the home page and you should now see a styled page.
+トップページを更新すると、今度はスタイルの適用されたページが表示されます。
 
 !images/guide3-2!
 
-h2. <a>Commit your work</a>
+h2. <a>作業内容のコミット</a>
 
-The blog home page is now finished. As usual we can commit this blog version to bazaar:
+ブログのトップページは完成しました。いつもどおりこのバージョンのブログを bazaar にコミットすることができます:
 
 bc. $ bzr st
 $ bzr add
 $ bzr commit -m 'Home page'
 
-p(note). Go to the "next part":guide4. 
+p(note). "次のステップ":guide4 に進みましょう。
 

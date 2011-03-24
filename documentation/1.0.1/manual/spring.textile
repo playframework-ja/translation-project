@@ -1,19 +1,19 @@
-h1. Spring module
+h1. Spring モジュール
 
-The spring support module help you to integrate Spring managed beans with a play application.
+spring サポートモジュールは Spring が管理する Bean の play アプリケーションに対する統合を支援します。
 
-h2. <a>Enable the Spring module for the application</a>
+h2. <a>Spring モジュールの有効化</a>
 
-In the **/conf/application.conf** file, enable the Spring module by adding this line:
+**/conf/application.conf** ファイルに次の行を追記して Spring モジュールを有効化します:
 
 bc. # The spring module
 module.spring=${play.path}/modules/spring
 
-h2. <a>Define an application-context.xml registry</a>
+h2. <a>application-context.xml レジストリの定義</a>
 
-In the **conf/** directory of the application you can then create a **application-context.xml** file and define some beans.
+アプリケーションの **conf/** ディレクトリに **application-context.xml** ファイルを作成し、Bean を定義することができます。
 
-For example:
+例:
 
 bc. <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springsource.org/dtd/spring-beans-2.0.dtd">
@@ -23,9 +23,9 @@ bc. <?xml version="1.0" encoding="UTF-8"?>
     
 </beans>
 
-h2. <a>Retrieve beans from application code</a>
+h2. <a>アプリケーションコードからの Bean の検索</a>
 
-You can obtain bean instances from the application code, using the **play.modules.spring.Spring** helper.
+**play.modules.spring.Spring** ヘルパを使って、アプリケーションコードから Bean インスタンスを取得することができます。
 
 bc. public Application extends Controller {
     
@@ -36,11 +36,11 @@ bc. public Application extends Controller {
     
 }
 
-h2. <a>@javax.inject.Inject support</a>
+h2. <a>@javax.inject.Inject サポート</a>
 
-You can now use the **@Inject** annotation to automatically inject defined beans in your controllers, jobs and mailer.
+**@Inject** アノテーションを使って、定義した Bean をコントローラ、ジョブ、メーラに自動的に注入することができます。
 
-It works on static fields defined in these artefact. For example to inject a **PriceWatcher** service defined in Spring to one of your controller, just do:
+自動的な注入は、これらのクラスの定義された static フィールドに対して働きます。例えば、Spring 内に定義された **PriceWatcher** サービスをあるコントローラに注入するには、単に以下のようにします:
 
 bc. public class Application extends Controller {
     
@@ -53,4 +53,4 @@ bc. public class Application extends Controller {
     
 }
 
-Auto-reload should work as exepected.
+自動リロードは期待通りに動作します。

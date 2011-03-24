@@ -1,16 +1,16 @@
-h1. Completing the application tests
+h1. テストの完了
 
-We've now finished the blog engine we wanted to create in this tutorial. However the project itself is not yet completely finished. To be totally confident with our code we need to add more tests to the project. 
+ここまでで、このチュートリアルで作成したかったブログエンジンを完成させました。ですが、プロジェクトそのものはまだ完全には終わっていません。すべてのコードに自信を持つためには、プロジェクトにより多くのテストを追加する必要があります。
 
-Of course we've already written unit tests in order to test all the yabe model layer functionalities. And it's great as it will ensure that the core functionalities of the blog engine are well tested. But a web application is not only about the 'model' part. We need to ensure that the web interface works as expected. That means testing the controller layer of the yabe blog engine. But we even need to test the UI itself, as for example, our Javascript code.
+もちろん、yabe のすべてのモデル層の機能をテストするための単体テストは既に作成しています。この単体テストが、ブログエンジンの主要な機能がよくテストされていると保証するのは素晴らしいことです。しかし、web アプリケーションは 'モデル' の部分だけではありません。web インタフェースが期待通り動作することを保証する必要があります。これは、yabe ブログエンジンのコントローラ層をテストすることを意味します。そして、例えば Javascript コードのように、UI 自体もテストしなければなりません。
 
-h2. <a>Testing the controller part</a>
+h2. <a>コントローラのテスト</a>
 
-Play gives you a way to test directly the controller part of the application using JUnit. We call these tests **'Functional tests'**. This is because we want to test complete functionalities of the web application.
+Play は、JUnit を使ってアプリケーションのコントローラ部分を直接テストする方法を提供します。これは **'機能テスト'** と呼ばれます。なぜなら、アプリケーションの機能性を完全にテストするからです。
 
-Basically a functional test calls the play **ActionInvoker** directly, simulating an HTTP request. So we give an HTTP method, an URI and HTTP parameters. Play then routes the request, invokes the corresponding action and sends you back the filled response. You can then analyze it to check that the response content is like you expected.
+基本的には、機能テストは HTTP リクエストをシミュレートする play の **ActionInvoker** を直接呼び出します。このため、HTTP メソッドと URI、そして HTTP パラメータを指定します。その後 Play は、リクエストをルーティングして対応するアクションを起動し、値を詰めたレスポンスを返します。このレスポンスを分析し、その内容が期待したものであるかを確認することができます。
 
-Let's write a first functional test. Open the **yabe/test/ApplicationTest.java** unit test:
+最初の機能テストを書いてみましょう。 **yabe/test/ApplicationTest.java** 単体テストを開いてください:
 
 bc. import org.junit.*;
 import play.test.*;
@@ -30,9 +30,9 @@ public class ApplicationTest extends FunctionalTest {
     
 }
 
-It looks like a standard JUnit test for now. Note that we use the Play **FunctionalTest** super class in order to get all useful utility helpers. This test is correct and just checks that the application home page (typically the '/' URL renders an HTML response with **'200 OK'** as status code).
+今のところ、これは標準的な JUnit テストのように見えます。便利なユーティリティヘルパを取得するために、Play の **FunctionalTest** スーパークラスを使用することに注意してください。このテストに誤りは無く、ただ単にアプリケーションのトップページ (典型的な '/' という URL は、ステータスコード **'200 OK'** と共に HTML レスポンスをレンダリングすること) を確認します。
 
-Now we will check that the security of the administration area works as expected. Add this new test to the **ApplicationTest.java** file:
+ここで、管理領域のセキュリティ機能が期待通りに動作することを確認してみましょう。 **ApplicationTest.java** ファイルに新しいテストを追加してください:
 
 bc. ...
 @Test
@@ -43,25 +43,25 @@ public void testAdminSecurity() {
 }
 ...
 
-Now run the yabe application in test mode using the **'play test'** command, open "http://localhost:9000/@tests":http://localhost:9000/@tests, select the **ApplicationTest.java** test case and run it.
+**'play test'** コマンドを使って yabe アプリケーションを test モードで実行したら、 "http://localhost:9000/@tests":http://localhost:9000/@tests を開き、 **ApplicationTest.java** を選択して実行します。
 
-Is it green?
+グリーンになりましたか？
 
 !images/guide10-1!
 
-Well, we could continue to test all the application functionalities this way, but it's not the better way to test an HTML based web application. As our blog engine is intended to be executed in a web browser, it would be better to test it directly in a **real web browser**. And that's exactly what Play's **'Selenium tests'** do.
+さて、このやり方でアプリケーションの全機能をテストし続けることもできますが、HTML ベースの web アプリケーションをテストする方法としては、あまり良いやり方ではありません。このブログエンジンは web ブラウザで実行するつもりなので、 **本物の web ブラウザ** で直接テストする方がより良いでしょう。そして、Play の **'Selenium テスト'** は、まさにこれを行います。
 
-These kinds of JUnit based **'Functional tests'** are still useful, typically to test Web services returning non-HTML responses such as JSON or XML over HTTP.
+これらの JUnit ベースの **'機能テスト'** は、HTTP を使って JSON や XML と言った 非 HTML なレスポンスを返す Web サービスの典型的なテストには依然として有用です。
 
-h2. <a>Writing Selenium tests</a>
+h2. <a>Selenium テストの作成</a>
 
-"Selenium":http://seleniumhq.org is a testing tool specifically for testing web applications. The cool things here is that Selenium allows to run the test suite directly in any existing browser. As it does not use any 'browser simulator', you can be sure that you're testing what your users will use.
+"Selenium":http://seleniumhq.org は web アプリケーションのテストに特化したテストツールです。Selenium は、既存のあらゆるブラウザで直接テストスイートを実行することができる点においてクールです。Selenium は 'ブラウザシミュレータ' は一切使わないので、ユーザが使用するブラウザでテストしていることを確信することができます。
 
-A selenium test suite is typically written as an HTML file. The HTML syntax required by selenium is a little tedious to write (formatted using an HTML table element). The good news is that play helps you generate it using the Play template engine and a set of tags that support a simplified syntax for selenium scenarios. An interesting side effect of using templates is that your are not tied with 'static scenarios' anymore and you can use the power of Play templates (looping, conditional blocks) to write more complicated tests.
+通常、selenium のテストスイートは HTML ファイルとして記述されます。selenium が必要とする HTML の構文は (HTML のテーブル要素を使うようフォーマットされており) 少々退屈です。Play のテンプレートエンジンと selenium シナリオの構文を簡易にするタグのセットを使うことで、play がこれを手助けしてくれるのは良いニュースです。複雑なテストを書くために (くり返しや条件ブロックなどの) Play テンプレートの機能を使うことで、どのような '静的なシナリオ' にも縛られなくなるのは、テンプレートを使用することの興味深い副作用です。
 
-p(note). However you can still write plain HTML selenium syntax in the template and forget the specific selenium tags if needed. It can become interesting if you use one of the several selenium tools that generate the test scenarios for you, like "Selenium IDE":http://seleniumhq.org/projects/ide.
+p(note). とは言え、もし必要であれば特別な selenium タグのことは忘れて、テンプレート内に素の HTML 構文を書くことも可能です。"Selenium IDE":http://seleniumhq.org/projects/ide のような、いくつかのテストシナリオ生成ツールのうちのひとつを使ってみるのも面白いかもしれません。
 
-The default test suite of a newly created Play application already contains a selenium test. Open the **yabe/test/Application.test.html** file:
+新規作成した Play アプリケーションのデフォルトのテストスイートには、すでに selenium テストが含まれています。 **yabe/test/Application.test.html** ファイルを開いてください:
 
 bc. *{ You can use plain selenium commands using the selenium tag }*
  
@@ -72,9 +72,9 @@ bc. *{ You can use plain selenium commands using the selenium tag }*
     assertNotTitle('Application error')
 #{/selenium}
 
-This test should run without any problem with the yabe application. It just opens the home page and check that the page content does not contain the 'Application error' text.
+yabe アプリケーションでは、このテストは問題なく実行できるはずです。このテストは、単にトップページを開き、その内容に文字列 'Application error' が含まれていないことを確認します。
 
-However like any complex test, you need to setup a set of well known data before navigating the application and test it. We will of course reuse the fixture concept and the **yabe/test/data.yml** file that we've used before. To import this data set before the test suite, just use the **#{fixtures /}** tag:
+一方で、複雑なテストなどの場合には、アプリケーションを操作してテストを実行する前に、分かりきったデータセットを設定する必要があります。もちろん、以前に使用したフィクスチャの概念と **yabe/test/data.yml** ファイルを再利用することができます。テストスイートの前にこのデータセットをインポートするためには、ただ **#{fixtures /}** タグを使用してください:
 
 bc. #{fixture delete:'all', load:'data.yml' /}
  
@@ -85,9 +85,9 @@ bc. #{fixture delete:'all', load:'data.yml' /}
     assertNotTitle('Application error')
 #{/selenium}
 
-Another important thing to check is that we have a fresh user session at the test start. The session being stored in a browser transient cookie, you would keep the same session during two successive test run.
+確認すべきもうひとつの重要なことは、テスト開始時に新しいユーザセッションを使用することです。セッションはブラウザの永続化クッキーに保存され、ふたつの成功するテストを実行している間、同じセッションが保持されるでしょう。
 
-So let's start our test with a special command:
+そこで、特別なコマンドを使ってテストを開始するようにしましょう:
 
 bc. #{fixture delete:'all', load:'data.yml' /}
  
@@ -100,9 +100,9 @@ bc. #{fixture delete:'all', load:'data.yml' /}
     assertNotTitle('Application error')
 #{/selenium}
 
-Run it to be sure that there is no mistake. It should be green.
+これを実行して何も問題が無いことを確認してください。このテストはグリーンになるはずです。
 
-So we can write a more specific test. Open the home page and check that the default posts are present:
+これでもっと特別なテストを書くことができます。トップページを開いてデフォルトの投稿が存在することを確認しましょう:
 
 bc. #{fixture delete:'all', load:'data.yml' /}
  
@@ -123,13 +123,13 @@ bc. #{fixture delete:'all', load:'data.yml' /}
     assertTextPresent('Just a test of YABE')
 #{/selenium}
 
-We use the standard selenium syntax, called "selenese":http://seleniumhq.org/docs/04_selenese_commands.html.
+ここでは、"selenese":http://seleniumhq.org/docs/04_selenese_commands.html と呼ばれる標準的な selenium 構文を使っています。
 
-Run it (you can run in a different window just by opening the test link in a new window).
+このテストを実行してください (単にリンクを新しいウィンドウで開けば、その別のウィンドウでテストを実行することができます) 。
 
 !images/guide10-2!
 
-We will now test the comments form. Just add a new **#{selenium /}** tag to the template:
+今度はコメントフォームをテストします。テンプレートに新しい **#{selenium /}** タグを追加してください:
 
 bc. #{selenium 'Test comments'}
  
@@ -154,11 +154,11 @@ bc. #{selenium 'Test comments'}
     assertTextPresent('Hello')
 #{/selenium}
 
-And run it. Well it fails; and we have a serious problem here.
+そして実行してください。はい、失敗します; ここには深刻な問題があります。
 
 !images/guide10-3!
 
-We can't really test correctly the captcha mechanism, so we have to cheat. In test mode we will validate any code as a correct captcha. We know that we're in test mode when the framework id is **test**. So let's modify the **postComment** action in the **yabe/app/controllers/Application.java** file to skip this validation in test mode:
+キャプチャ機能を本当の意味で正しくテストすることはできないので、ずるをしなければなりません。テストモードではどんなコードでも正しいキャプチャとして妥当性を検証するようにしましょう。ご存知のように、テストモードの場合のフレームワーク id は **test** です。そこで、テストモードの場合は妥当性検証をスキップするよう **yabe/app/controllers/Application.java** ファイル中の **postComment** アクションを変更しましょう:
 
 bc. ...
 if(!Play.id.equals("test")) {
@@ -166,7 +166,7 @@ if(!Play.id.equals("test")) {
 }
 ...
 
-Now just modify the test case to type any code in the text field, as is:
+今度は、以下のように適当なコードをタイプするようテストケースを変更します:
 
 bc. ...
 type('author', 'Me')
@@ -174,25 +174,25 @@ type('code', 'XXXXX')
 clickAndWait('css=input[type=submit]')
 ...
 
-And now run the test again, it should work.
+これでテストを再度実行すれば、動作するはずです。
 
-h2. <a>Measuring code coverage</a>
+h2. <a>コードカバレッジ計測</a>
 
-Of course we don't have written all required test cases for the application. But it's enough for this tutorial. Now in a real-world project, how can we know if we have written enough test cases? We need something called **'code coverage'**. 
+もちろん、アプリケーションに必要なすべてのテストケースを書いたわけではありません。しかし、このチュートリアルにはこれで充分です。ところで、実世界のプロジェクトの場合では、どうすれば充分なテストを書いたと知ることができるのでしょうか？これは **'コードカバレッジ'** などと呼ばれます。
 
-Play comes with a code coverage module based on the "Cobertura":http://cobertura.sourceforge.net/ tool. We need to enable this module only for test mode. So add this line to the **application.conf** file, and restart the application in test mode.
+Play には "Cobertura":http://cobertura.sourceforge.net/ というツールに基づいたモジュールが含まれています。このモジュールはテストモードにおいてのみ有効にします。このため、 **application.conf** ファイルに以下の行を追加し、テストモードでアプリケーションを再起動してください。
 
 bc. # Import the cobertura module in test mode
 %test.module.cobertura=${play.path}/modules/cobertura
 
-Now reopen the browser at the "http://localhost:9000/@tests":http://localhost:9000/@tests URL, select all tests and run them. All should be green.
+ここで、ブラウザから "http://localhost:9000/@tests":http://localhost:9000/@tests URL を再度開き、すべてのテストを選択して実行してください。すべてグリーンになるはずです。
 
 !images/guide10-5!
 
-When all tests are passed, stop the application and cobertura will then generate the code coverage report. You can then open the **yabe/test-result/code-coverage/index.html** in your browser and check the report.
+すべてのテストをパスしてからアプリケーションを停止すると、cobertura はコードカバレッジレポートを生成します。ブラウザで **yabe/test-result/code-coverage/index.html** を開き、このレポートを確認することができます。
 
 !images/guide10-4!
 
-As you see we're far from testing all cases of the application. A good testing suite should approach 100%, even if it is of course nearly impossible to check all the code. Typically because we often need to hack in test mode, like we did for the captcha.
+見ての通り、アプリケーションの全ケースをテストするには程遠い状態です。すべてのコードを確認することがほとんど不可能だとしても、よく出来たテストスイートのカバレッジ率は 100% に近付くはずです。通常このために、キャプチャについて行ったようなテストモードにおけるハックをしばしば行うことになります。
 
-p(note). Go to the "next part":guide11.
+p(note). "次のステップ":guide11 に進みましょう。

@@ -1,16 +1,16 @@
-h1. Siena module
+h1. Siena モジュール
 
-The siena module automatically enable "Siena":http://www.sienaproject.com support for your application.
+siena モジュールは、自動的にアプリケーションで "Siena":http://www.sienaproject.com を利用可能にします。
 
-p(note). **Note** that it only support the Google App Engine persistence manager for now. So it is currently intended to be used with the "GAE module":gae.
+p(note). 現在、Siena モジュールは Google App Engine 永続化マネージャしかサポートしないことに **注意** してください。このため、現状では "GAE module":gae と合わせて使用することを前提としています。
 
-h2. <a>Enable the Siena module for the application</a>
+h2. <a>アプリケーションで Siena モジュールを利用可能にする</a>
 
-In the **/conf/application.conf** file, enable the Siena module by adding this line:
+**/conf/application.conf** ファイルに以下の行を追加して、Siena モジュールを利用可能にしてください:
 
 bc. # The siena module
 module.siena=${play.path}/modules/siena
 
-h2. <a>Using siena</a>
+h2. <a>siena の使用</a>
 
-For more informations check at the "Siena documentation":http://www.sienaproject.com/documentation.html page.
+詳細は "Siena のドキュメント":http://www.sienaproject.com/documentation.html ページを確認してください。

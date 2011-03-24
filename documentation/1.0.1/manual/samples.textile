@@ -1,39 +1,39 @@
-h1. Sample applications
+h1. サンプルアプリケーション
 
-Play comes with a set of sample applications in the the **samples-and-test** directory of the framework installation path. We use them to run our automated test suite, and you can take a look at them to discover typical play usages.
+Play はフレームワークをインストールしたパスの **samples-and-test** ディレクトリ内にあるサンプルアプリケーション一式と共に提供されています。私たちは自動化されたテストスイートを動かすためにそれらを使用しますし、あなたは play の典型的な使い方を見つけるためにそれらを覗いてみることができます。
 
 h2. <a>Yet Another Blog Engine</a>
 
-The final application from the "play guide":guide1 tutorial.
+"play ガイド":guide1 チュートリアルで作成するアプリケーションの完成形です。
 
 !images/yabe!
 
 h2. <a>Forum</a>
 
-A simple forum application using JPA.
+JPA を使用する簡単なフォーラムアプリケーションです。
 
 !images/forum!
 
 h2. <a>Jobboard</a>
 
-A full faetured job board application that uses the CRUD module to automatically generate the administration area. 
+CRUD モジュールを使用して管理画面を自動生成するフル機能のジョブボードアプリケーションです。
 
 !images/jobboard!
 
 h2. <a>Chat</a>
 
-An HTTP based chat application. We use the asynchronous request model to be able to handle a lot of simultaneous connected users without resources waste.
+HTTP ベースのチャットアプリケーションです。リソースを浪費せずに多くの同時接続ユーザを扱うことができるよう、非同期リクエストモデルを使用します。
 
 !images/chat!
 
 h2. <a>Stock watcher</a>
 
-Based on the default GWT tutorial, it shows how to use GWT within a play application.
+デフォルトの GWT チュートリアルに基づき、GWT を play アプリケーションと共に使う方法を紹介します。
 
 !images/stocks!
 
 h2. <a>My lists</a>
 
-A clone of the the well known 37Signals TadaList application built using the Google App Engine support. It uses Siena as persistence engine.
+Google App Engine サポートを使った、有名な 37Signals の TadaList アプリケーションのクローンです。永続化エンジンに Siena を使います。
 
 !images/lists!

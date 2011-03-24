@@ -1,125 +1,118 @@
-h1. Play framework documentation
+h1. Play framework ドキュメント
 
-Welcome to the play framework documentation. This documentation is intended for the *1.0.1 release* and may significantly differs from previous versions of the framework. Check the "release notes of the 1.0.1 version":releasenotes.
+play framework ドキュメントへようこそ。このドキュメントは *リリース 1.0.1* を対象としており、以前のバージョンとは大きく異なるかもしれません。"バージョン 1.0.1 リリースノート":releasenotes を確認してください。
 
-p(note). This is a work in progress, feel free to ask any question not covered into these documents or report any error. You can contribute to the documentation the "same way you can contribute code":faq.
-
-
-h2. <a name="started">Getting started</a>
-
-Your first steps with play and your first 5 minutes of fun.
-
-# "Play framework overview":overview
-# "Watch the screencast":http://vimeo.com/7087610
-# "Five cool things you can do with Play":5things
-# "Frequently Asked Questions":faq
-# "Installation guide":install
-# "Your first application — the 'Hello World' tutorial":firstapp
-# "Set up your preferred IDE":ide
-# "Sample applications":samples
+p(note). このドキュメントは書きかけです。このドキュメントに書かれていないことに関する質問や、間違いの指摘はお気軽にどうぞ。"ソースコードと同様の方法":faq で、このドキュメントに貢献することもできます。
 
 
-h2. <a name="guide">Tutorial -- Play guide, a real world app step by step</a>
+h2. <a name="started">はじめよう</a>
 
-Learn play by coding **'Yet Another Blog Engine'**, from start to finish. Each chapter will be an occasion to learn one more cool Play feature.
+play framework のはじめの一歩を学ぶ楽しい 5 分間です。
 
-# "Starting up the project":guide1
-# "A first iteration of the data model":guide2
-# "Building the first screen":guide3
-# "The comments page":guide4
-# "Setting up a Captcha":guide5
-# "Add tagging support":guide6
-# "A basic admin area using CRUD":guide7
-# "Adding authentication":guide8
-# "Creating a custom editor area":guide9
-# "Completing the application tests":guide10
-# "Preparing for production":guide11
-
-h2. <a name="manual">The essential documentation</a>
-
-Everything you need to know about Play.
-
-# "Main concepts":main
-## "The MVC application model":main#mvc
-## "A request life cycle":main#request
-## "Application layout & organization":main#application
-## "Development lifecycle":main#lifecycle
-# "HTTP routing":routes
-## "The routes file syntax":routes#syntax
-## "Routes priority":routes#priority
-## "Serving static resources":routes#static
-## "Reverse routing : generate some URL":routes#reverse
-# "Controllers":controllers
-## "A Controller overview":controllers#overview
-## "Retrieve HTTP parameters":controllers#params
-## "Return a result":controllers#result
-## "Actions chaining":controllers#chaining
-## "Interceptions":controllers#interceptions
-## "Session and Flash scopes":controllers#session
-# "The template engine":templates
-## "Template syntax":templates#syntax
-## "Template inheritance":templates#inheritance
-## "Create tags":templates#tags
-## "Extending the templates language":templates#extensions
-## "Implicit objects":templates#implicits
-# "The domain object model":model
-## "Properties simulation":model#properties
-## "Setup a database to persist your model objects":model#database
-## "Persist you object model with Hibernate":model#hibernate
-## "The stateless model":model#stateless
-# "A little of asynchronism using jobs":jobs
-## "Bootstrap jobs":jobs#concepts
-## "Scheduled jobs":jobs#scheduling
-## "Suspendable requests":jobs#suspendable
-# "Testing the application":test
-## "Writing tests":test#writing
-## "Running the tests":test#running
-## "Fixtures":test#fixtures
-## "Continuous integration":test#continus
+# "Play framework の概要":overview
+# "動画を観てみよう":http://vimeo.com/7087610
+# "Play でできる 5 つのすごいこと":5things
+# "よくある質問":faq
+# "インストールガイド":install
+# "はじめてのアプリケーション － 'Hello World' チュートリアル":firstapp
+# "お好みの IDE を設定しよう":ide
+# "サンプルアプリケーション":samples
 
 
-h2. <a name="cook">Cookbook</a>
+h2. <a name="guide">チュートリアル -- リアルな Play アプリケーションを一歩ずつ作成するガイド</a>
 
-Tips about everything and anything.
+**'Yet Another Blog Engine'** を最初から最後までコーディングすることで Play について学びます。各章は Play の更なるクールな機能について学ぶ機会となるでしょう。
 
-# "More about the JPA support":jpa
-# "Using data validation":validation
-# "Application modularization":modules
-# "How to configure logs":logs
-# "Manage application.conf in several environments":ids
-# "Setting up i18n":i18n
-# "Use cache and configure Memcached":cache
-# "Put your application in production":production
-# "Sending emails":emails
-# "OpenID integration":openid
+# "プロジェクトの立ち上げ":guide1
+# "はじめてのモデル":guide2
+# "はじめての画面":guide3
+# "コメント投稿ページ":guide4
+# "キャプチャの設定":guide5
+# "タグ機能のサポート":guide6
+# "CRUD モジュールによる基本的な管理機能":guide7
+# "認証機能の追加":guide8
+# "カスタムエディタの作成":guide9
+# "テストの完了":guide10
+# "本番環境への準備":guide11
+
+h2. <a name="manual">重要なドキュメンテーション</a>
+
+Play について学ばなければならない全てです。
+
+# "主要な概念":main
+## "MVC アプリケーションモデル":main#mvc
+## "リクエストライフサイクル":main#request
+## "アプリケーションのレイアウトと編成":main#application
+## "開発ライフサイクル":main#lifecycle
+# "HTTP ルーティング":routes
+## "routes ファイルの構文":routes#syntax
+## "ルーティングの優先順位":routes#priority
+## "静的リソースの配信":routes#static
+## "リバースルーティング : URL の生成":routes#reverse
+# "コントローラ":controllers
+## "コントローラの概要":controllers#overview
+## "HTTP パラメータの取得":controllers#params
+## "結果の返却":controllers#result
+## "アクションチェーン":controllers#chaining
+## "インターセプション":controllers#interceptions
+## "セッションとフラッシュのスコープ":controllers#session
+# "テンプレートエンジン":templates
+## "テンプレートの構文":templates#syntax
+## "テンプレートの継承":templates#inheritance
+## "タグの作成":templates#tags
+## "テンプレート言語の拡張":templates#extensions
+## "暗黙オブジェクト":templates#implicits
+# "ドメインオブジェクトモデル":model
+## "プロパティのシミュレーション":model#properties
+## "モデルを永続化するデータベースの設定":model#database
+## "Hibernate によるモデルの永続化":model#hibernate
+## "ステートレスモデル":model#stateless
+# "ジョブによるちょっとした非同期処理":jobs
+## "起動時に実行するジョブ":jobs#concepts
+## "スケジューリングされたジョブ":jobs#scheduling
+## "中断可能なリクエスト":jobs#suspendable
+# "アプリケーションのテスト":test
+## "テストの記述":test#writing
+## "テストの実行":test#running
+## "フィクスチャ":test#fixtures
+## "継続的統合":test#continus
 
 
-h2. <a name="modules">Other batteries included</a>
+h2. <a name="cook">クックブック</a>
 
-Add instant power to your application by enabling one of these modules.
+ありとあらゆるものの Tips 集です。
+
+# "JPA サポートについてもっと詳しく":jpa
+# "バリデーションの使い方":validation
+# "アプリケーションのモジュール化":modules
+# "ログの設定方法":logs
+# "複数環境用 application.conf の管理":ids
+# "i18n の設定":i18n
+# "キャッシュの使い方と Memcached の設定":cache
+# "アプリケーションの本番稼動":production
+# "メール送信":emails
+# "OpenID の統合":openid
+
+
+h2. <a name="modules">この他に含まれるもの</a>
+
+これらのモジュールを有効にすることで、アプリケーションに即座に機能を追加します。
 
 # "CRUD":crud
 # "Security":secure
 # "Search":search
-# "Spring support":spring
+# "Spring サポート":spring
 # "Siena":siena
-# "Extended CSS":ecss
+# "拡張 CSS":ecss
 # "Google App Engine":gae
 # "Google Web Toolkit":gwt
-# "Bespin editor":bespin
-# "Cobertura test coverage":cobertura
+# "Bespin エディタ":bespin
+# "Cobertura テストカバレッジ":cobertura
 
+h2. <a name="references">リファレンス</a>
 
-h2. <a name="references">References</a>
+日々のハックのための広範囲なリファレンスです。
 
-Extended references for day to day hacking.
-
-# "Browse API documentation":/@api/index.html
-# "Template tags and extensions reference":tags
-
-
-
-
-
-
+# "API ドキュメント":http://www.playframework.org/@api/index.html
+# "テンプレートタグとエクステンション":tags
 

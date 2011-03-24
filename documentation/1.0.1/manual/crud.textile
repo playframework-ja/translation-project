@@ -1,28 +1,28 @@
-h1. CRUD: Administration generator
+h1. CRUD: 管理機能ジェネレータ
 
-The CRUD (Create, Read, Update, Delete) module generates a fully usable web interface for your JPA Model objects.
+CRUD (Create, Read, Update, Delete) モジュールは、JPA モデルオブジェクト用の完全に利用可能な web インタフェースを生成します。
 
-Let's see a simple example.
+例を見てみましょう。
 
-h2. <a>Enable the CRUD module for the application</a>
+h2. <a>アプリケーションで CRUD モジュールを利用可能にする</a>
 
-In the **/conf/application.conf** file, enable the CRUD module by adding this line:
+**/conf/application.conf** ファイルに次の行を追加することで、CRUD モジュールを有効にします:
 
 bc. # The crud module
 module.crud=${play.path}/modules/crud
 
-h2. <a>Import default CRUD routes</a>
+h2. <a>デフォルトの CRUD ルートの取り込み</a>
 
-In the **conf/routes** file, import the default module routes by adding this line:
+**conf/routes** ファイルに次の行を追加することで、モジュールのデフォルトのルートを取り込みます。
 
 bc. # Import CRUD routes
 *      /admin              module:crud
 
-p(note). **Note** that using the default routes file is not required. You can also define your own routes, or mix the two.
+p(note). デフォルトのルートファイルの使用は必須ではないことに **注意** してください。独自のルートを定義することも、これら 2 つを混ぜ合わせることも可能です。
 
-h2. <a>Create a User class</a>
+h2. <a>User クラスの作成</a>
 
-We will start by creating a User class:
+User クラスの作成から始めましょう:
 
 bc. package models;
  
@@ -41,9 +41,9 @@ public class User extends Model {
  	
 }
 
-h2. <a>Create the Users controller</a>
+h2. <a>Users コントローラの作成</a>
 
-Then, we create a simple controller that just inherits the CRUD controller.
+続いて、CRUD コントローラを継承するだけのシンプルなコントローラを作成します。
 
 bc. package controllers;
  
@@ -51,11 +51,11 @@ public class Users extends CRUD {
     
 }
 
-Now open "http://localhost:9000/admin":http://localhost:9000/admin and you should see the User admin area.
+ここで "http://localhost:9000/admin":http://localhost:9000/admin を開くと、User 管理画面が見えるはずです。
 
 !images/crud1!
 
-The controller's class name has to be the model class name with a final 's'. If you want to name it differently, you can do it using an annotation.
+コントローラクラスの名前は、モデルクラス名の最後に 's' を付けたものでなければなりません。違う名前を付けたい場合は、アノテーションを使うことができます。
 
 bc. package controllers;
  
@@ -64,13 +64,13 @@ public class AdminUsers extends CRUD {
    
 }
 
-h2. <a>The User form</a>
+h2. <a>User フォーム</a>
 
-Click the **Add** button, and you should see the User form.
+**Add** ボタンをクリックすると、User フォームが表示されるはずです。
 
 !images/crud2!
 
-Now we can add some validation rules to the User class:
+User クラスにいくつかバリデーションルールを追加することができます:
 
 bc. package models;
  
@@ -104,37 +104,37 @@ public class User extends Model {
 }
 
 
-Refresh the User form and you will see that the validation is automatically applied.
+User フォームを更新すれば、バリデーションが自動的に適用されていることを確認できるでしょう。
 
 !images/crud3!
 
-h2. <a>Change the form label</a>
+h2. <a>フォームラベルの変更</a>
 
-Add these lines to the **conf/messages** file in your application:
+アプリケーションの **conf/messages** ファイルに以下の行を追加してください:
 
 bc. name=Name
 email=Email address
 address=Postal address
 
-And refresh the User form.
+そして、User フォームを更新してください。
 
 !images/crud4!
 
-h2. <a>Create a User and customize the list view</a>
+h2. <a>User の作成とリストビューのカスタマイズ</a>
 
-The default list view uses only one column containing the result of the object's toString() method.
+デフォルトのリストビューは、オブジェクトの toString() メソッドの結果を含むただひとつの列を使用します。
 
 !images/crud5!
 
-To customize this view, we need to create the **/app/views/Users/list.html** template in the application.
+このビューをカスタマイズするには、アプリケーションに **/app/views/Users/list.html** テンプレートを作成する必要があります。
 
-Open a shell, go the application directory and type:
+シェルを開いてアプリケーションディレクトリに移動したら、以下をタイプします:
 
 bc. play crud:ov --template Users/list
 
-This will copy the default CRUD **list.html** template to the **Users/list.html** template in your application, overwriting it if present.
+このコマンドは、CRUD のデフォルトの **list.html** テンプレートを、アプリケーションの **Users/list.html** にコピーしますが、もしこのファイルが存在すれば上書きします。
 
-Edit the template like this:
+このテンプレートを以下のように編集してください:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -160,16 +160,16 @@ bc. #{extends 'CRUD/layout.html' /}
  
 </div>
 
-and refresh the list.
+そして、リストを更新してください。
 
 !images/crud6!
 
 
-h2. <a>Custom fields rendering: the crud.custom tag</a>
+h2. <a>フィールドレンダリングのカスタマイズ: crud.custom タグ</a>
 
-You can go a bit further by customizing the way each field of your ''User'' entity is displayed in the list and form views.
+それぞれの ''User'' エンティティの、リストやフォームビューにおける表示のされ方をカスタマイズすることで、ちょっと前進することができます。
 
-To customize a field, use the ''#{crud.custom}'' tag:
+フィールドをカスタマイズするには、''#{crud.custom}'' タグを使用します:
 
 bc. #{crud.table fields:['name', 'company']}
  
@@ -179,7 +179,7 @@ bc. #{crud.table fields:['name', 'company']}
  
 #{/crud.table}
 
-You can also display additional columns or form inputs by defining custom handlers:
+カスタムハンドラを定義することで、追加の列や入力フォームを表示することもできます:
 
 bc. #{crud.table fields:['name', 'company', 'edit']}
  
@@ -192,4 +192,3 @@ bc. #{crud.table fields:['name', 'company', 'edit']}
    #{/crud.custom}
  
 #{/crud.table}
-

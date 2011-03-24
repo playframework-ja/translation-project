@@ -1,25 +1,25 @@
-h1. Edit your application in the browser with Bespin
+h1. Bespin を使ってブラウザからアプリケーションを編集する
 
-"Bespin":https://bespin.mozilla.com/ is a Mozilla Labs experiment on how to build an extensible web code editor using HTML 5 technology. The play bespin module allows you to edit all the application sources directly in the browser using bespin.
+"Bespin":https://bespin.mozilla.com/ は Mozilla Labs にて行われている、HTML 5 テクノロジを使って拡張可能な web コードエディタを作成する方法の実験です。Play の Bespin モジュールは、Bespin を使ってアプリケーションのすべてのソースをブラウザから直接編集可能にします。
 
-For now it's just a proof of concept. However we think that we could create an excellent -- possibly the best -- play IDE directly in the browser using bespin as the main component for the source code editor:
+今のところは概念の裏付けに過ぎません。しかしながら、Bespin を使えば、ブラウザから直接利用する素晴らしい — おそらくベストな —  Play IDE ソースコードエディタを主要なコンポーネントとして作成できると考えています:
 
-* Syntax highlighting for all sources types (Java, Templates, Route files)
-* Error reports in the editor. Like in eclipse, it should be possible to display errors at edit time for both Java and template files, since the compilers are directly available in play
-* Code snippets, application templates
-* Collaboration
+* すべてのソースタイプ (Java, テンプレート, Route ファイル) に対する構文ハイライト
+* エディタ内でのエラーレポート。Play はコンパイルを直接利用することができるので、eclipse のように Java またはテンプレートファイルを編集したタイミングでエラーを表示できるはずです。 
+* コードの断片、アプリケーションの雛形
+* コラボレーション
 
-h2. <a>Enable Bespin for your application</a>
+h2. <a>アプリケーションで Bespin を利用する</a>
 
-In any application, just add this line to the **conf/application.conf** file:
+どのようなアプリケーションにおいても、 **conf/application.conf** ファイルに以下の行を追加するだけです:
 
 bc. module.bespin=${play.path}/modules/bespin
 
-At application start time, you should see this message:
+アプリケーション起動時に、以下のメッセージが表示されるはずです:
 
 bc. 00:21:45,192 INFO  ~ Module bespin is available (.../play/modules/bespin)
 
-Now open bespin in your browser at http://localhost:9000/bespin
+ブラウザから http://localhost:9000/bespin を開きます。
 
 !images/bespin-browse!
 
