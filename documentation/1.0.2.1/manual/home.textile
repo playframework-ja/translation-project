@@ -2,7 +2,6 @@ h1. Play framework ドキュメント
 
 Play framework ドキュメントへようこそ。このドキュメントは *リリース 1.0.2* を対象としており、以前のバージョンとは大きく異なるかもしれません。"バージョン 1.0.2 リリースノート":releasenotes-1.0.2 を確認してください。
 
-
 p(note). このドキュメントは書きかけです。このドキュメントに書かれていないことに関する質問や、間違いの指摘はお気軽にどうぞ。"ソースコードと同様の方法":faq で、このドキュメントに貢献することもできます。
 
 <div id="searchBox"><form action="http://www.google.com/cse" id="cse-search-box"><div><input type="hidden" name="cx" value="002614023023983855063:jn1mu_7bof0" /><input type="hidden" name="ie" value="UTF-8" /><input type="text" name="q" size="31" style="font-size:14px"/> <input type="submit" name="sa" value="google 検索" style="font-size:14px"/></div></form><script type="text/javascript" src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script></div>
@@ -17,15 +16,14 @@ Play framework のはじめの一歩を学ぶ楽しい 5 分間です。
 # "利便性 - 細部は機能と同様に重要":usability
 # "よくある質問":faq
 # "インストールガイド":install
-# "はじめてのアプリケーション － 'Hello World' チュートリアル":firstapp
+# "はじめてのアプリケーション －‘Hello World’チュートリアル":firstapp
 # "お好みの IDE を設定しよう":ide
 # "サンプルアプリケーション":samples
 
 
 h2. <a name="guide">チュートリアル -- リアルな Play アプリケーションを一歩ずつ作成するガイド</a>
 
-**'Yet Another Blog Engine'** を最初から最後までコーディングすることで Play について学びます。
-各章は Play の更なるクールな機能について学ぶ機会となるでしょう。
+**‘Yet Another Blog Engine’** を最初から最後までコーディングすることで Play について学びます。各章は Play の更なるクールな機能について学ぶ機会となるでしょう。
 
 # "プロジェクトの立ち上げ":guide1
 # "はじめてのモデル":guide2

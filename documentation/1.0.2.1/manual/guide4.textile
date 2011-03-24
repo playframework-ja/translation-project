@@ -2,7 +2,7 @@ h1. コメントの閲覧と投稿
 
 ここまででブログトップページが設置されたので、続けて投稿の詳細ページを書いていきます。このページはその投稿に関するすべてのコメントを表示し、また、新しいコメントを投稿するためのフォームを含みます。
 
-h2. <a>'show' アクションの作成</a>
+h2. <a>‘show’アクションの作成</a>
 
 投稿の詳細ページを表示するためには、Application コントローラに新しいアクションが必要です。これを **show()** アクションと呼びましょう。
 
@@ -11,9 +11,9 @@ bc. public static void show(Long id) {
     render(post);
 }
 
-見ての通り、このアクションはとてもシンプルです。HTTP の **'id'** パラメータを Java の Long オブジェクトとして自動的に検索できるよう、 **id** メソッド引数を宣言します。このパラメータは、クエリ文字列か URL パス、またはリクエストボディから抽出されます。
+見ての通り、このアクションはとてもシンプルです。HTTP の **‘id’** パラメータを Java の Long オブジェクトとして自動的に検索できるよう、 **id** メソッド引数を宣言します。このパラメータは、クエリ文字列か URL パス、またはリクエストボディから抽出されます。
 
-p(note). 妥当な数値でない HTTP パラメータ **id** を送信しようとした場合、変数 id は null になり、play は自動的に **errors** コンテナにバリデーションエラーを追加します。
+p(note). 妥当な数値でない HTTP パラメータ **id** を送信しようとした場合、変数 id は null になり、Play は自動的に **errors** コンテナにバリデーションエラーを追加します。
 
 このアクションは **/yabe/app/views/Application/show.html** テンプレートを表示します:
 
@@ -26,7 +26,7 @@ bc. #{extends 'main.html' /}
 
 h2. <a>詳細ページへのリンクの追加</a>
 
-display タグのすべてのリンクは (# を使うことで) 空のままにしてあります。ここで、これらのリンクが **Application.show** アクションを指すようにします。play ではテンプレートにおいて **@{...} 識別子** を使うことで容易にリンクを構築することができます。この構文は、指定したアクションを呼び出すために必要な URL を、ルータを使って 'リバース' します。
+display タグのすべてのリンクは (# を使うことで) 空のままにしてあります。ここで、これらのリンクが **Application.show** アクションを指すようにします。Play ではテンプレートにおいて **@{...} 識別子** を使うことで容易にリンクを構築することができます。この構文は、指定したアクションを呼び出すために必要な URL を、ルータを使って‘リバース’します。
 
 **/yabe/app/views/tags/display.html** タグを編集しましょう:
 
@@ -58,7 +58,7 @@ h2. <a>より良い URL の指定</a>
 
 bc. /application/show?id=1
 
-これは play が 'catch all' ルートを使ったからです。
+これは Play が‘catch all’ルートを使ったからです。
 
 bc. *       /{controller}/{action}                  {controller}.{action}
 
@@ -139,7 +139,7 @@ bc. <h3>Post a comment</h3>
 
 h2. <a>バリデーションの追加</a>
 
-現状、コメントを作成する前にフォームの内容の妥当性を確認していません。いずれのフィールドも入力必須にしたいと思います。play のバリデーション機能を使って、HTTP パラメータが適切に入力されていることを簡単に保証することができます。 **postComment** アクションに **@Required** アノテーションを追加して、エラーが発生していないことを確認するよう変更します:
+現状、コメントを作成する前にフォームの内容の妥当性を確認していません。いずれのフィールドも入力必須にしたいと思います。Play のバリデーション機能を使って、HTTP パラメータが適切に入力されていることを簡単に保証することができます。 **postComment** アクションに **@Required** アノテーションを追加して、エラーが発生していないことを確認するよう変更します:
 
 bc. public static void postComment(Long postId, @Required String author, @Required String content) {
     Post post = Post.findById(postId);
@@ -179,7 +179,7 @@ bc. <h3>Post a comment</h3>
 
 HTML input の値を設定するために、投稿されたパラメータを再利用していることに注意してください。
 
-投稿者により親切な UI フィードバックを提供するために、エラーが発生した場合には、コメントフォームに自動的にフォーカスする、ちょっとした javascript を追加します。このスクリプトは "JQuery":files/jquery-1.3.2.min.js と "JQuery Tools":files/jquery.tools.min.js を補助ライブラリとして使用するので、これらを include する必要があります。これら 2 つのライブラリを **/yabe/public/javascripts** にダウンロードしたら、これらを include するよう **main.html** を変更してください:
+投稿者により親切な UI フィードバックを提供するために、エラーが発生した場合には、コメントフォームに自動的にフォーカスする、ちょっとした javaScript を追加します。このスクリプトは "JQuery":files/jquery-1.3.2.min.js と "JQuery Tools":files/jquery.tools.min.js を補助ライブラリとして使用するので、これらを include する必要があります。これら 2 つのライブラリを **/yabe/public/javascripts** にダウンロードしたら、これらを include するよう **main.html** を変更してください:
 
 bc. ...
     <script src="@{'/public/javascripts/jquery-1.3.2.min.js'}"></script>

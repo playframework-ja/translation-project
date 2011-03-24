@@ -1,6 +1,6 @@
 h1. ログの設定
 
-play のロガーは組込みの "Log4j":http://logging.apache.org/log4j/1.2/index.html です。ほとんどの Java ライブラリが Log4j か、または Log4j をバックエンドとして使えるラッパを使用するので、アプリケーションに適合するよう、容易にロギングを設定することができます。
+Play のロガーは組込みの "Log4j":http://logging.apache.org/log4j/1.2/index.html です。ほとんどの Java ライブラリが Log4j か、または Log4j をバックエンドとして使えるラッパを使用するので、アプリケーションに適合するよう、容易にロギングを設定することができます。
 
 h2. <a>アプリケーションからのロギング</a>
 
@@ -30,7 +30,7 @@ bc. application.log=INFO
 
 完全に Log4j を制御する必要のある場合は、 **conf/** ディレクトリに **log4j.properties** ファイルを作成します。このディレクトリはクラスパスの最初の要素なので、このファイルは全てのライブラリからデフォルトとして使用されます。
 
-log4j のデフォルト設定は以下のとおりです:
+Log4j のデフォルト設定は以下のとおりです:
 
 bc. log4j.rootLogger=ERROR, Console
  

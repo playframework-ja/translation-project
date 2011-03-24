@@ -3,18 +3,18 @@ h1. お好みの IDE を設定しよう
 
 "Eclipse":#eclipse | "Netbeans":#netbeans | "IntelliJ IDEA":#intellij | "Textmate":#textmate | "Other IDEs":#custom
 
-play と共に作業することは簡単です。play が自動的にソースファイルに加えられた変更をコンパイルしてリフレッシュするので、高性能な IDE を必要としません。 シンプルなテキストエディタを使って簡単に作業することができます。
+Play と共に作業することは簡単です。Play が自動的にソースファイルに加えられた変更をコンパイルしてリフレッシュするので、高性能な IDE を必要としません。 シンプルなテキストエディタを使って簡単に作業することができます。
 
-とは言え、近頃の Java IDE は自動補完、逐次コンパイル、リファクタリングやデバッグのアシストと言ったクールで生産的な機能を提供します。Play は "Netbeans":http://www.netbeans.org, "IntelliJ IDEA":http://www.jetbrains.com/idea/index.html と "Eclipse":http://www.eclipse.org プラットフォームをサポートします。
+とは言え、近頃の Java IDE は自動補完、逐次コンパイル、リファクタリングやデバッグのアシストと言ったクールで生産的な機能を提供します。Play は "NetBeans":http://www.netbeans.org, "IntelliJ IDEA":http://www.jetbrains.com/idea/index.html と "Eclipse":http://www.eclipse.org プラットフォームをサポートします。
 
 
-h2(#eclipse). <a>eclipse 設定ファイルの生成</a>
+h2(#eclipse). <a>Eclipse 設定ファイルの生成</a>
 
 Play は Eclipse の設定を簡易化するコマンドを提供しています。play アプリケーションを動作する Eclipse プロジェクトに変換するには、 **eclipsify** コマンドを使用してください:
 
 bc. # play eclipsify myApp
 
-その後、 **File/Import/General/Existing project...** メニューから Workspace にアプリケーションをインポートする必要があります。
+その後、 **File/Import/General/Existing project…** メニューから Workspace にアプリケーションをインポートする必要があります。
 
 !images/eclipse!
 
@@ -30,11 +30,11 @@ p(note). **チームで作業しているときは eclipse 設定ファイルを
 
 h2(#netbeans). <a>NetBeans 設定ファイルの生成</a>
 
-play は Netbeans の設定を簡易化するコマンドを提供しています。play アプリケーションを妥当な Netbeans プロジェクトに変換するには、 **netbeansify** コマンドを使用してください:
+Play は NetBeans の設定を簡易化するコマンドを提供しています。既存のアプリケーションを妥当な NetBeans プロジェクトに変換するには、 **netbeansify** コマンドを使用してください:
 
 bc. # play netbeansify myApp
 
-その後は、そのアプリケーションをそのまま Netbeans プロジェクトとして開くことができます。
+その後は、そのアプリケーションをそのまま NetBeans プロジェクトとして開くことができます。
 
 !images/netbeans!
 
@@ -44,11 +44,11 @@ classpath の変更のような重要な変更をアプリケーションへ加�
 
 p(note). **チームで作業しているときは nbproject ディレクトリルをコミットしないこと！**
  
-生成した設定ファイルには play フレームワークインストールパスへの絶対参照が含まれています。これはあなた自身のインストール作業に特化したものです。チームで作業するときは、それぞれの開発者は自分の Netbeans 設定ファイルを個人で管理しなければなりません。
+生成した設定ファイルには、フレームワークインストールパスへの絶対参照が含まれています。これはあなた自身のインストール作業に特化したものです。チームで作業するときは、それぞれの開発者は自分の NetBeans 設定ファイルを個人で管理しなければなりません。
 
 h2(#intellij). <a>IntelliJ IDEA 設定ファイルの生成</a>
 
-play は IntelliJ IDEA の設定を簡易化するコマンドを提供しています。play アプリケーションを妥当な IntelliJ IDEA プロジェクトまたはモジュールに変換するには、 **idealize** コマンドを使用してください:
+Play は IntelliJ IDEA の設定を簡易化するコマンドを提供しています。play アプリケーションを妥当な IntelliJ IDEA プロジェクトまたはモジュールに変換するには、 **idealize** コマンドを使用してください:
 
 bc. # play idealize myApp
 
@@ -73,11 +73,11 @@ h2(#textmate). <a>Textmate</a>
 
 h2(#custom). <a>お好みのエディタの手動設定</a>
 
-play アプリケーションは標準的な Java アプリケーションであり、お好みのエディタを使って作業をするためにどんな特定のプラグインも必要としません。ただし、その場合は Play がどのように動作しているかについて、ほんのちょっとの知識を必要とします:
+Play アプリケーションは標準的な Java アプリケーションであり、お好みのエディタを使って作業をするためにどんな特定のプラグインも必要としません。ただし、その場合は Play がどのように動作しているかについて、ほんのちょっとの知識を必要とします:
 
 h3. Classpath 設定
 
-play アプリケーションのクラスパスは以下の通り (この順で) 構築されます:
+Play アプリケーションのクラスパスは以下の通り (この順で) 構築されます:
 
 * **/conf** ディレクトリ
 * **$PLAY_PATH/framework/play.jar**
@@ -91,7 +91,7 @@ p(note). *Tip*
 
 h3. 実行する Main クラス
 
-play アプリケーションを開始するには、 **play.server.Server** クラスを実行するだけです。Play は実行するアプリケーションの場所を見つけるために **"application.path"** システムプロパティを使用します。通常、以下のようにしてこの値を渡します:
+Play アプリケーションを開始するには、 **play.server.Server** クラスを実行するだけです。Play は実行するアプリケーションの場所を見つけるために **"application.path"** システムプロパティを使用します。通常、以下のようにしてこの値を渡します:
 
 bc. java -Dapplication.path="/app/path"...
 

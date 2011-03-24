@@ -1,11 +1,11 @@
 h1. Play でできる 5 つのすごいこと
 
-5 つの例を通して play framework の背後にある哲学を見てみましょう。
+5 つの例を通して Play framework の背後にある哲学を見てみましょう。
 
 
 h2. <a>1. HTTP パラメータの Java メソッド引数への紐付け</a>
 
-play では java のコードから簡単に HTTP パラメータを探すことができます。HTTP パラメータと同じ名前でメソッド引数を宣言するだけです。
+Play では java のコードから簡単に HTTP パラメータを探すことができます。HTTP パラメータと同じ名前でメソッド引数を宣言するだけです。
 
 例えば、このようなリクエスト場合：
 
@@ -43,7 +43,7 @@ bc. <form action="/Directory/add" method="POST">
 
 h2. <a>2. 対応する Java メソッドの実行よるアクションへの Redirect</a>
 
-play には Java Servlet の **forward** コマンドに該当するものは存在しません。しかし、とてもシンプルに別のアクションへリダイレクトすることができます。ただ対応する Java メソッドを実行すれば play は適切な HTTP "Redirect" レスポンスを生成します。
+Play には Java Servlet の **forward** コマンドに該当するものは存在しません。しかし、とてもシンプルに別のアクションへリダイレクトすることができます。ただ対応する Java メソッドを実行すれば Play は適切な HTTP "Redirect" レスポンスを生成します。
 
 bc. public static void show(Long id) {
     Article article = Article.findById(id);
@@ -79,17 +79,17 @@ model.put("article", article);
 model.put("user", user);
 render(model);
 
-play では単純にこのように書くことができます:
+Play では単純にこのように書くことができます:
 
 bc. Article article = Article.findById(id);
 User user = User.getConnected();
 render(article, user);
 
-テンプレートでは Java のローカル名を使ってオブジェクトを参照してください。これで役に立たないコードを省くことができます...
+テンプレートでは Java のローカル名を使ってオブジェクトを参照してください。これで役に立たないコードを省くことができます…
 
 h2. <a>4. 強化された JPA</a>
 
-JPA は間違いなく Java におけるベストな ORM API です。もし JPA を知っているなら、play で JPA がいとも簡単に利用できることに驚くでしょう。なんの設定も無しに play は自動的に JPA のエンティティマネージャを起動し、コードがリロードされたときはまるで魔法のように同期を行います。
+JPA は間違いなく Java におけるベストな ORM API です。もし JPA を知っているなら、Play で JPA がいとも簡単に利用できることに驚くでしょう。なんの設定も無しに Play は自動的に JPA のエンティティマネージャを起動し、コードがリロードされたときはまるで魔法のように同期を行います。
 
 さらに、スーパークラス **play.db.jpa.Model** を使うことでコードをよりきれいにすることもできます。こんな感じです:
 
@@ -104,7 +104,7 @@ bc. public void messages(int page) {
 
 h2. <a>5. 簡単なファイルアップロード管理</a>
 
-play のファイルアップロード管理は非常にシンプルです。
+Play のファイルアップロード管理は非常にシンプルです。
 
 HTML フォームはこんな感じで:
 

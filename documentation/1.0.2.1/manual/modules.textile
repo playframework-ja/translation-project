@@ -1,10 +1,10 @@
-h1. play モジュールの使い方
+h1. Play モジュールの使い方
 
-play アプリケーションはいくつかのアプリケーションモジュールから組み立てることができます。これにより、複数のアプリケーションをまたいでアプリケーションコンポーネントを再利用したり、大きなアプリケーションをいくつかの、より小さなアプリケーションに分割することが可能です。
+Play アプリケーションはいくつかのアプリケーションモジュールから組み立てることができます。これにより、複数のアプリケーションをまたいでアプリケーションコンポーネントを再利用したり、大きなアプリケーションをいくつかの、より小さなアプリケーションに分割することが可能です。
 
 h2. <a>モジュールとは？</a>
 
-モジュールはただの play アプリケーションです; しかし、アプリケーションモジュールのリソースがロードされる方法にいくつかの違いがあります:
+モジュールはただの Play アプリケーションです; しかし、アプリケーションモジュールのリソースがロードされる方法にいくつかの違いがあります:
 
 * モジュールには、 **conf/application.conf** ファイルがありません。
 * モジュールは **conf/routes** ファイルを持つことができますが、これらのルートは自動的にはロードされません。
@@ -22,7 +22,7 @@ h2. <a>アプリケーションからモジュールをロードする方法</a>
 
 bc. # Additional modules
 # ~~~~~
-# A module is another play application. Add a line for each module you want
+# A module is another Play application. Add a line for each module you want
 # to add to your application. Module paths are either absolute or relative to
 # the application root.
 #

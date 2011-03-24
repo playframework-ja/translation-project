@@ -4,13 +4,13 @@ h1. はじめてのモデル
 
 h2. <a>JPA 概論</a>
 
-モデル層は、play アプリケーション (そして、実際のところはよくデザインされたすべてのアプリケーション) において中心的な位置を占めます。モデルは、アプリケーションが操作する情報のドメインに特化した表現です。ここではブログエンジンを作りたいので、モデル層は確実に User, Post そして Comment といったクラスを含むことになるでしょう。
+モデル層は、Play アプリケーション (そして、実際のところはよくデザインされたすべてのアプリケーション) において中心的な位置を占めます。モデルは、アプリケーションが操作する情報のドメインに特化した表現です。ここではブログエンジンを作りたいので、モデル層は確実に User, Post そして Comment といったクラスを含むことになるでしょう。
 
-モデルオブジェクトはアプリケーションを再起動する間も存続する必要があるので、これを永続化データストアに保存しなければなりません。一般的にはリレーショナルデータベースを使うことを選択します。しかしながら Java はオブジェクト指向言語なので、インピーダンスミスマッチの減少を手助けする **'Object Relational Mapper'** を使用します。
+モデルオブジェクトはアプリケーションを再起動する間も存続する必要があるので、これを永続化データストアに保存しなければなりません。一般的にはリレーショナルデータベースを使うことを選択します。しかしながら Java はオブジェクト指向言語なので、インピーダンスミスマッチの減少を手助けする **‘Object Relational Mapper’** を使用します。
 
-JPA は O/R マッピングの標準的な API を定義する Java の仕様です。JPA 実装として、play はよく知られた "Hibernate":http://www.hibernate.org フレームワークを使用します。Hibernate API を通して JPA を使うことの 1 つの利点は、すべての 'mapping' が直接 Java オブジェクトに定義されることです。
+JPA は O/R マッピングの標準的な API を定義する Java の仕様です。JPA 実装として、Play はよく知られた "Hibernate":http://www.hibernate.org フレームワークを使用します。Hibernate API を通して JPA を使うことの 1 つの利点は、すべての‘mapping’が直接 Java オブジェクトに定義されることです。
 
-もし Hibernate か JPA を以前に使ったことがあるなら、play によって追加された簡潔さに驚くことでしょう。なにも設定する必要はありません; JPA は play とともにすぐに使うことができます。
+もし Hibernate か JPA を以前に使ったことがあるなら、Play によって追加された簡潔さに驚くことでしょう。なにも設定する必要はありません; JPA は play とともにすぐに使うことができます。
 
 もし JPA を知らないのであれば、以下を続ける前に "いくつかの簡単なプレゼンテーション":http://java.sun.com/javaee/5/docs/tutorial/doc/bnbpz.html を読むことができます。
 
@@ -45,29 +45,29 @@ public class User extends Model {
 
 p(note). モデルオブジェクトは **play.db.jpa.Model** クラスを継承しなければならないわけではありません。素の JPA を使うこともできます。しかし、このクラスは JPA 周りの多くの部分を簡易にするので、これを継承するのは良い選択です。
 
-もし以前に JPA を使ったことがあるなら、すべての JPA エンティティは **@Id** プロパティを提供しなければならないことを知っているでしょう。ここでは、Model スーパークラスが自動的に生成された数値型の id を提供しており、ほとんどの場合はこれで必要充分です。
+もし以前に JPA を使ったことがあるなら、すべての JPA エンティティは **@Id** プロパティを提供しなければならないことを知っているでしょう。ここでは、Model スーパークラスが自動的に生成された数値型の ID を提供しており、ほとんどの場合はこれで必要充分です。
 
-p(note). **id** フィールドを **機能的な識別子** として考えず、 **技術的な識別子** として考えてください。これらの概念を分けて扱い、自動的に生成された数値型の id を技術的な識別子として保持するのは、一般的に良い考えです。
+p(note). **id** フィールドを **機能的な識別子** として考えず、 **技術的な識別子** として考えてください。これらの概念を分けて扱い、自動的に生成された数値型の ID を技術的な識別子として保持するのは、一般的に良い考えです。
 
-どのような経験があろうと、Java 開発者であれば public 変数を目にした途端に警告サイレンがじゃんじゃん鳴り出すかもしれません。Java においては (他のオブジェクト指向言語と同様に) すべてのフィールドを praive にして、アクセサとミューテータを提供するのを最も良い習慣としています。これは、オブジェクト指向デザインにおいて重要な概念であるカプセル化を促進するためのものです。実際のところ、play はこれに対応しており、getter と setter を自動生成してカプセル化を保護します; これがどのようにして動作するのかについては、このチュートリアルの後半で紹介します。
+どのような経験があろうと、Java 開発者であれば public 変数を目にした途端に警告サイレンがじゃんじゃん鳴り出すかもしれません。Java においては (他のオブジェクト指向言語と同様に) すべてのフィールドを praive にして、アクセサとミューテータを提供するのを最も良い習慣としています。これは、オブジェクト指向デザインにおいて重要な概念であるカプセル化を促進するためのものです。実際のところ、Play はこれに対応しており、getter と setter を自動生成してカプセル化を保護します; これがどのようにして動作するのかについては、このチュートリアルの後半で紹介します。
 
-これでアプリケーションのホームページをリフレッシュして結果を確認することができます。なにか間違いがない限り、実は何の変化もありません: play は User クラスを自動的にコンパイルしてロードしていますが、これはアプリケーションに対して何の新機能も追加しません。
+これでアプリケーションのホームページをリフレッシュして結果を確認することができます。なにか間違いがない限り、実は何の変化もありません: Play は User クラスを自動的にコンパイルしてロードしていますが、これはアプリケーションに対して何の新機能も追加しません。
 
 h2. <a>はじめてのテストを書く</a>
 
 新規に作成した User クラスをテストする良い方法は、JUit テストケースを書くことです。これによりアプリケーションをくり返し仕上げ、すべてがばっちりであることを確信できるようになります。
 
-テストケースを実行するには、アプリケーションを特別な 'test' モードで起動する必要があります。いま実行しているアプリケーションを停止し、コマンドラインを開いて次のようにタイプしてください:
+テストケースを実行するには、アプリケーションを特別な‘test’モードで起動する必要があります。いま実行しているアプリケーションを停止し、コマンドラインを開いて次のようにタイプしてください:
 
 bc. ~$ play test
 
 !images/guide2-0!
 
-**'play test'** コマンドは、ブラウザから直接テストスイートを実行できるテストランナーモジュールをロードすること以外は **'play run'** とほとんど同じです。
+**‘play test’** コマンドは、ブラウザから直接テストスイートを実行できるテストランナーモジュールをロードすること以外は **‘play run’** とほとんど同じです。
 
-p(note). paly アプリケーションを **test モード**で実行すると、play は自動的にフレームワーク id を **test** に切り替え、これに従った **application.conf** ファイルをロードします。詳しくは "このページ":ids を確認してください
+p(note). Play アプリケーションを **test モード**で実行すると、Play は自動的にフレームワーク ID を **test** に切り替え、これに従った **application.conf** ファイルをロードします。詳しくは "このページ":ids を確認してください
 
-ブラウザから "http://localhost:9000/@tests":http://localhost:9000/@tests を開いてテストランナーを見てみてください。すべてのデフォルトテストを選択して実行してみてください; すべてグリーンになるはずです... しかし、これらのデフォルトテストは実際には何もテストしません。
+ブラウザから "http://localhost:9000/@tests":http://localhost:9000/@tests を開いてテストランナーを見てみてください。すべてのデフォルトテストを選択して実行してみてください; すべてグリーンになるはずです… しかし、これらのデフォルトテストは実際には何もテストしません。
 
 !images/guide2-1!
 
@@ -93,8 +93,8 @@ public void createAndRetrieveUser() {
     // Create a new user and save it
     new User("bob@gmail.com", "secret", "Bob").save();
     
-    // Retrieve the user with email address bob@gmail.com
-    User bob = User.find("byEmail", "bob@gmail.com").first();
+    // Retrieve the user with e-mail address bob@gmail.com
+    User bob = User.find("byEmail", "bob@gmail.com").one();
     
     // Test 
     assertNotNull(bob);
@@ -103,7 +103,7 @@ public void createAndRetrieveUser() {
 
 ご覧の通り Model スーパークラスは 2 つの便利なメソッドを提供してくれています : **save()** と **find()** です。
 
-p(note). Model クラスの更なる情報は play と JPA に関する "マニュアルページ":jpa で読むことができます。
+p(note). Model クラスの更なる情報は Play と JPA に関する "マニュアルページ":jpa で読むことができます。
 
 テストランナーで **BasicTests.java** を選択し、スタートをクリックしてすべてがグリーンであることを確認します。
 
@@ -128,7 +128,7 @@ public void tryConnectAsUser() {
     assertNull(User.connect("tom@gmail.com", "secret"));
 }
 
-変更を行うたびに play テストランナーですべてのテストを実行し、なにも壊れていないことを確認することができます。
+変更を行うたびに Play テストランナーですべてのテストを実行し、なにも壊れていないことを確認することができます。
 
 h2. <a>Post クラス</a>
 
@@ -194,7 +194,7 @@ public void createPost() {
     // Test that the post has been created
     assertEquals(1, Post.count());
     
-    // Retrieve all post created by bob
+    // Retrieve all posts created by Bob
     List<Post> bobPosts = Post.find("byAuthor", bob).fetch();
     
     // Tests
@@ -293,7 +293,7 @@ public Post(User author, String title, String content) {
 }
 ...
 
-**mappedBy** 属性を使って、Comment クラスの post フィールドが関連を管理することを、JPA に伝えていることに注意してください。JPA で双方向の関連を定義する場合、どちらの端が関連を管理するかを JPA に伝えるのはとても重要です。この場合、Comments は Post に従属するので、Comment クラスが関連を管理するほうがベターです。
+**mappedBy** 属性を使って、Post クラスが関連を管理することを、JPA に伝えていることに注意してください。JPA で双方向の関連を定義する場合、どちらの端が関連を管理するかを JPA に伝えるのはとても重要です。この場合、Comments は Post に従属するので、Comment クラスが関連を管理するほうがベターです。
 
 **cascade** プロパティを設定して、JPA に Post の削除をコメントにも連鎖するよう告げています。このようにすると、投稿を削除した場合、すべての関連するコメントが同様に削除されます。
 
@@ -380,11 +380,11 @@ public void fullTest() {
     assertNull(User.connect("jeff@gmail.com", "badpassword"));
     assertNull(User.connect("tom@gmail.com", "secret"));
  
-    // Find all bob's posts
+    // Find all of Bob's posts
     List<Post> bobPosts = Post.find("author.email", "bob@gmail.com").fetch();
     assertEquals(2, bobPosts.size());
  
-    // Find all comments related to bob's posts
+    // Find all comments related to Bob's posts
     List<Comment> bobComments = Comment.find("post.author.email", "bob@gmail.com").fetch();
     assertEquals(3, bobComments.size());
  

@@ -1,15 +1,15 @@
 h1. 認証機能の追加
 
-管理機能には何らかの認証プラグインが必要です。幸いなことに、playにはそのためのモジュールがあります。そのモジュールは **Secure** モジュールと呼ばれます。
+管理機能には何らかの認証プラグインが必要です。幸いなことに、Playにはそのためのモジュールがあります。そのモジュールは **Secure** モジュールと呼ばれます。
 
-h2. <a>secure モジュールの有効化</a>
+h2. <a>Secure モジュールの有効化</a>
 
 **yabe/conf/application.conf** ファイルにおいて **SECURE** モジュールを有効化し、アプリケーションを再起動してください。
 
 bc. # Import the secure module
 module.secure=${play.path}/modules/secure
 
-再起動後、play はこのモジュールがロードされたことを告げるはずです。
+再起動後、Play はこのモジュールがロードされたことを告げるはずです。
 
 **Secure** モジュールにはデフォルトルートがひと揃え含まれており、これは **yabe/conf/routes** ファイルで容易に利用することができます (あるいは、独自のルートを定義することも同様に可能です):
 
@@ -20,7 +20,7 @@ h2. <a>admin コントローラの保護</a>
 
 このモジュールは、必要な全てのインターセプタを宣言する **controllers.Secure** コントローラを提供します。もちろん、単にこのコントローラを継承することもできるのですが、Java では単一継承に制限されるので、問題となります。
 
-直接 **Secure** を継承する代わりに、同様に関連するインターセプタを起動するよう play に指示する **@With** アノテーションを使って管理コントローラを注釈することができます。
+直接 **Secure** を継承する代わりに、同様に関連するインターセプタを起動するよう Play に指示する **@With** アノテーションを使って管理コントローラを注釈することができます。
 
 bc. package controllers;
  
@@ -37,7 +37,7 @@ public class Posts extends CRUD {
 
 !images/guide8-1!
 
-実は、このままではどのようなログイン/パスワードのペアも使うことができるのですが、とにかく動作しています。
+実は、このままではどのようなユーザ名/パスワードのペアも使うことができるのですが、とにかく動作しています。
 
 h2. <a>認証プロセスのカスタマイズ</a>
 
@@ -103,7 +103,7 @@ bc. # Administration
 GET     /admin/?                                Admin.index
 *       /admin                                  module:crud
 
-**yabe/app/views/main.html** テンプレートの 'Log in to write something' 文字列から、このコントローラにリンクを貼ってください:
+**yabe/app/views/main.html** テンプレートの‘Log in to write something’文字列から、このコントローラにリンクを貼ってください:
 
 bc. ...
 <ul id="tools">
@@ -156,7 +156,7 @@ bc. <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w
         
         <p id="footer">
             Yabe is a (not so) powerful blog engine built with the 
-            <a href="http://www.playframework.org">play framework</a>
+            <a href="http://www.playframework.org">Play framework</a>
             as a tutorial application.
         </p>
         
@@ -233,8 +233,7 @@ bc. ...
     #{doLayout /} 
 </div>
 ...
-
-どのように **#{secure.check /}** タグを使って、このメニュー部分を **admin** ユーザにのみ表示しているかを確認してください。
+どのように **#{secure.check /}** タグを使って、このメニュー部分を **admin** ユーザにのみ表示しているかに注意してください。
 
 !images/guide8-5!
 
@@ -256,7 +255,7 @@ public class Posts extends CRUD {
 
 h2. <a>CRUD レイアウトのカスタマイズ</a>
 
-楽しくなってきましたが、管理領域の CRUD 部分へ行くと管理用レイアウトが無くなってしまいます。これは CURD モジュールが自身のレイアウトを提供するからです。しかし、もちろんこれをオーバーライドすることができます。以下の play コマンドを使用してください:
+楽しくなってきましたが、管理領域の CRUD 部分へ行くと管理用レイアウトが無くなってしまいます。これは CURD モジュールが自身のレイアウトを提供するからです。しかし、もちろんこれをオーバーライドすることができます。以下の Play コマンドを使用してください:
 
 bc. play crud:ov --layout
 
@@ -295,7 +294,7 @@ bc. #{extends 'admin.html' /}
 
 h2. <a>ログインページのスタイル変更</a>
 
-ここまでで、管理領域は視覚的にほぼ統一されました。スタイルについて最後にすることは、ログインページに対する作業です。いつもどおり、デフォルト css をオーバーライドすることで容易にカスタマイズすることができます:
+ここまでで、管理領域は視覚的にほぼ統一されました。スタイルについて最後にすることは、ログインページに対する作業です。いつもどおり、デフォルト CSS をオーバーライドすることで容易にカスタマイズすることができます:
 
 bc. play secure:ov --css
 

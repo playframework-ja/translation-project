@@ -2,7 +2,7 @@ h1. 組込みテンプレートタグ
 
 以下は、テンプレートエンジンに組み込まれた標準タグです。
 
-p(note). play の標準の Java 拡張を検索したい場合は、"JavaDoc":http://www.playframework.org/@api/play/templates/JavaExtensions.html を見てみてください。
+p(note). Play の標準の Java 拡張を検索したい場合は、"JavaDoc":http://www.playframework.org/@api/play/templates/JavaExtensions.html を見てみてください。
 
 h2. <a>a</a>
 
@@ -14,7 +14,7 @@ bc. #{a @Application.logout()}Disconnect#{/a}
 
 bc. <a href="/application/logout">Disconnect</a>
 
-もし呼び出そうとしているアクションが GET メソッドを使用して起動するどんなルートも持たない場合、play は自動的に、リンクをクリックしたときに javascript を使ってサブミットする隠しフォームを生成します。
+もし呼び出そうとしているアクションが GET メソッドを使用して起動するどんなルートも持たない場合、Play は自動的に、リンクをクリックしたときに JavaScript を使ってサブミットする隠しフォームを生成します。
 
 h2. <a>doLayout</a>
 
@@ -36,10 +36,10 @@ h2. <a>form</a>
 
 **form** タグを挿入します。HTTP メソッドはルートから推測され、デフォルトは POST です。指定した URL に対して GET と POST の両方が設定されている場合、このタグはデフォルトでは最初に routes に定義されているものを使用します。
 
-* オプションの **id** 属性は、form 要素に id を設定します。
-* オプションの **enctype** 属性は、フォームのデータエンコーディングを設定します。デフォルトは 'application/x-www-form-urlencoded' です。
+* オプションの **id** 属性は、form 要素に ID を設定します。
+* オプションの **enctype** 属性は、フォームのデータエンコーディングを設定します。デフォルトは‘application/x-www-form-urlencoded’です。
 
-文字セットエンコーディングは常に ''utf-8'' です。
+文字セットエンコーディングは常に‘utf-8’です。
 
 bc. #{form @Client.create() , id:'creationForm' enctype:'multipart/form-data' }
    ...
@@ -91,7 +91,7 @@ bc. <head>
 
 h2. <a>i18n</a>
 
-ローカライズされた Javascript メッセージを外部化します。ローカライズされたメッセージは **i18n()** 関数を使うことで javascript から利用することができます。
+ローカライズされた JavaScript メッセージを外部化します。ローカライズされたメッセージは **i18n()** 関数を使うことで JavaScript から利用することができます。
 
 **conf/messages** ファイルに訳語を定義してください。
 

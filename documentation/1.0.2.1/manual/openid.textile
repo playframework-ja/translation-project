@@ -4,7 +4,7 @@ h1. OpenID の統合
 
 h2. <a>簡単な OpenID 認証の例</a>
 
-この例では、Play! アプリケーションにおいて OpenID 認証がどのように使われるのかを俯瞰します:
+この例では、Play アプリケーションにおいて OpenID 認証がどのように使われるのかを俯瞰します:
 
 * すべてのリクエストにおいて、ユーザが接続されているかどうか確認します
 * 接続されていない場合、OpenID を投稿することのできるページをを表示します
@@ -63,4 +63,3 @@ bc. #{if flash.error}
 bc. GET   /                     Application.index
 GET   /login                Application.login
 *     /authenticate         Application.authenticate
-

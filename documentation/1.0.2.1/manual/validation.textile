@@ -1,8 +1,8 @@
-h1. play による HTTP データのバリデーション
+h1. Play による HTTP データのバリデーション
 
 バリデーションは、そのデータが妥当な値を持っている、または指定された要件を満たしていることを保証します。バリデーションを使ってデータベースに保存する前にデータが正しいことを確認したり、あるいは HTTP パラメータに直接バリデーションを使用することで簡易なフォームの妥当性を検証することができます。
 
-h2. <a>どのように動作するのでしょうか？</a>
+h2. <a>どのように動作するのでしょうか?</a>
 
 各リクエストは、エラーを集める **Validation** オブジェクトを持ちます。 **validation** 変数を使用することで、コントローラから直接このオブジェクトにアクセスすることができます。 **play.data.validation.Validation** のクラスの static なメソッドを使用することで、この API のサブセットにアクセスすることも可能です。
 
@@ -221,11 +221,11 @@ bc. #{ifErrors}
  
 #{form @Application.hello()}
    <div>
-      Name : <input type="text" name="user.name" value="${flash['user.name']}" />
+      Name: <input type="text" name="user.name" value="${flash['user.name']}" />
       <span class="error">#{error 'user.name' /}</span>
    </div>
    <div>
-      Age : <input type="text" name="user.age" value="${flash['user.age']}" /> 
+      Age: <input type="text" name="user.age" value="${flash['user.age']}" /> 
       <span class="error">#{error 'user.age' /}</span>
    </div>
    <div>
@@ -235,7 +235,7 @@ bc. #{ifErrors}
 
 h2. <a>カスタムバリデーション</a>
 
-**play.data.validation** パッケージに必要なバリデータを見つけることができませんか？自分自身で書いてしまいましょう。総称的な **@CheckWith** アノテーションを使って、独自の **Check** 実装を紐付けることができます。
+**play.data.validation** パッケージに必要なバリデータを見つけることができませんか? 自分自身で書いてしまいましょう。総称的な **@CheckWith** アノテーションを使って、独自の **Check** 実装を紐付けることができます。
 
 例えば、以下のようにします:
 
