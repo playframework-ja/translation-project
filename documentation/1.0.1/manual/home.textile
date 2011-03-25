@@ -14,7 +14,7 @@ play framework のはじめの一歩を学ぶ楽しい 5 分間です。
 # "Play でできる 5 つのすごいこと":5things
 # "よくある質問":faq
 # "インストールガイド":install
-# "はじめてのアプリケーション － 'Hello World' チュートリアル":firstapp
+# "はじめてのアプリケーション − 'Hello World' チュートリアル":firstapp
 # "お好みの IDE を設定しよう":ide
 # "サンプルアプリケーション":samples
 
@@ -109,10 +109,16 @@ h2. <a name="modules">この他に含まれるもの</a>
 # "Bespin エディタ":bespin
 # "Cobertura テストカバレッジ":cobertura
 
+
 h2. <a name="references">リファレンス</a>
 
 日々のハックのための広範囲なリファレンスです。
 
 # "API ドキュメント":http://www.playframework.org/@api/index.html
 # "テンプレートタグとエクステンション":tags
+
+
+
+
+
 

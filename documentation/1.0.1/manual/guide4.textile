@@ -240,4 +240,3 @@ bc. POST    /posts/{postId}/comments                Application.postComment
 これで完了です。いつも通り、このバージョンを bazaar にコミットしてください。
 
 p(note). "次のステップ":guide5 に進みましょう。
-

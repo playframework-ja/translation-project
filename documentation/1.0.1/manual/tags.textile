@@ -214,5 +214,3 @@ bc. <script type="text/javascript">
         $('userDetail').load( showUserAction({id: userId}) )
     }
 </script>
-
-

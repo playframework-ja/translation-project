@@ -69,7 +69,8 @@ p(note). **注意**
 
 h2. <a>デプロイ</a>
 
-アプリケーションを Google のクラウドにデプロイするには、アプリケーションを war にエクスポートし、その後、Google App Engine SDK を使って war をアップロードする必要があります。
+アプリケーションを Google のクラウドにデプロイするには、アプリケーションを war にエクスポートし、
+その後、Google App Engine SDK を使って war をアップロードする必要があります。
 
 bc. # play war test-gae -o test-gae.war
 # appcfg.sh update test-gae.war

@@ -46,4 +46,3 @@ bc. application.mode=dev
 ちなみに、この結果として **play test** は以下と等価になります:
 
 bc. play run --%test
-

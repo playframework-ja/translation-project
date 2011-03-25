@@ -325,4 +325,3 @@ $ bzr add
 $ bzr commit -m 'Home page'
 
 p(note). "次のステップ":guide4 に進みましょう。
-
