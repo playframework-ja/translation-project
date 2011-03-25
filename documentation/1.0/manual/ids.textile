@@ -1,18 +1,18 @@
-h1. Manage application.conf in several environments
+h1. 複数環境用 application.conf の管理
 
-When you work in a team, different developers will use different configuration keys in their **application.conf**. For example, the log level, some database configuration... This generally leads to recurrent conflicts when you commit the file using your VCS. 
+チームで作業をする場合、様々な開発者がそれぞれの **application.conf** で異なる設定キーを使用します。例えば、ログレベルやいくつかのデータベース設定... これは一般的に、使用する VCS にファイルをコミットするときのコンフリクトの再発を招きます。
 
-Furthermore, different deployment environments - e.g. dev, test, staging and production - need different configurations.
+さらに、様々なデプロイ環境 - 例えば、開発、テスト、ステージング、本番環境 - は、それぞれ異なる設定を必要とします。
 
-h2. <a>The framework ID</a>
+h2. <a>フレームワーク ID</a>
 
-To resolve this problem, play allows you to give an **ID** to each framework installation. Use the **id** command of the play tool to define this ID :
+この問題を解決するため、play ではインストールしたフレームワーク毎に **ID** を与えることができます。この ID を定義するためには、play ツールの **id** コマンドを使用してください:
 
 bc. play id
 
 !images/id!
 
-You can then prefix your configuration keys with the framework ID for which the configuration option is intended :
+こうすることで、選択可能にしたい設定項目のキーにフレームワーク ID を接頭辞として付けることができます:
 
 bc. application.name=Cool app
 application.mode=dev

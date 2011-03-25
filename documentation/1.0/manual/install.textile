@@ -1,68 +1,68 @@
-h1. Installation guide
+h1. インストールガイド
 
 
-h2. <a>Prerequisites</a>
+h2. <a>前提条件</a>
 
-To run the play framework, you need "Java 5 or later":http:java.sun.com. If you wish to build play from source, you will need the "Bazaar source control client":http:bazaar-vcs.org/ to fetch the source code and "Ant":http:ant.apache.org/ to build it.
+play framework を実行するには、"Java5 以降":http:java.sun.com が必要です。play をソースからビルドしたいのであれば、ソースコードを取得するために "Bazaar ソースコードクライアント":http:bazaar-vcs.org/ が必要であり、ビルドするために "Ant":http:ant.apache.org/ が必要になります。
 
-The play command line utility uses python. So it should work out of the box on any UNIX system. If you're running Windows, don't worry, a python runtime is bundled with the framework.
+play のコマンドラインユーティリティは python を使用します。ですから、どのような UNIX システムでもそのまま使うことができます。 Windows で実行する場合でも、フレームワークに python ランタイムをバンドルしているので、心配する必要はありません。
 
 
-h2. <a>Download the binary package</a>
+h2. <a>バイナリパッケージのダウンロード</a>
 
-Download the latest "play binary package":http:www.playframework.org/download and extract the archive. For convenience, you should add the framework installation directory to your system PATH. If you're on UNIX, make sure that the _play_ script is runnable (otherwise simply do a **chmod +x play**). That's all.
+最新の "play バイナリパッケージ":http:www.playframework.org/download をダウンロードして、アーカイブを展開してください。利便性のために、フレームワークのインストールディレクトリをシステムの PATH に追加することをお勧めします。UNIX を使用している場合は、 _play_ スクリプトが実行できることを確認してください (もしくは、単純に **chmod +x play** を実行してください) 。これだけです。
 
 p(note). *Tip*
  
-If you need to rebuild the framework for whatever reason, run *ant* from the *$PLAY_HOME/framework* directory.
+もし何かしらの理由でフレームワークのリビルドが必要になった場合は、 *$PLAY_HOME/framework* ディレクトリで *ant* を実行してください。 
 
 
-h2. <a>Build from the latest sources</a>
+h2. <a>最新ソースからのビルド</a>
 
-To benefit from the latest improvements and bug fixes, you may want to compile play from sources. You'll need a "Bazaar client":http:bazaar-vcs.org/Download to fetch the sources and "Ant":http:ant.apache.org/ to build the framework.
+最新の機能やバグ修正の恩恵を得るために、play をソースからコンパイルしたくなるかもしれません。ソースコードを取得するためには "Bazzar クライアント":http:bazaar-vcs.org/Download が必要であり、フレームワークをビルドするためには "Ant":http:ant.apache.org/ が必要です。
 
-From the command line:
+コマンドラインから下記を実行します：
 
 bc. # bzr checkout lp:play
 # cd play/framework
 # ant
 
-The Play framework is ready to use.
+これで play framework を使用する準備が整いました。
 
-p(note). lp:play currently aliases to http:bazaar.launchpad.net/%7Eplay-developers/play/1.0/
+p(note). lp:play は、現在 http:bazaar.launchpad.net/%7Eplay-developers/play/1.0/ のエイリアスです。
 
 
-h2. <a>Using the play command</a>
+h2. <a>play コマンドを使用する</a>
 
-When the framework is correctly installed, open a shell and execute *play*. 
+フレームワークを正しくインストールしたら、シェルを開いて *play* コマンドを実行してください。
 
 bc. $ play
 
-You should see the play default message:
+play のデフォルトメッセージが見えるはずです：
 
 !images/help!
 
-You can get more help on any specific command using *play help any-command-name-here*. For example, try:
+*play help コマンド名* を実行することで、特定のコマンドのより詳細なヘルプを見ることができます。次の例を試してみてください:
 
 bc. # play help run
 
 
-h2. <a>Creating a new application</a>
+h2. <a>新しいアプリケーションの作成</a>
 
-Use the **new** command to create a new application. You must give a non-existent path where the application will be created.
+**new** コマンドを使って新しいアプリケーションを作成してください。アプリケーションの作成先として、存在しないパスを指定する必要があります。 
 
 bc. # play new myApp
 
 !images/guide1-1!
 
-Will create a new application. Start it with:
+新しいアプリケーションが作成されます。以下のコマンドでアプリケーションを開始します： 
 
 bc. # play run myApp
 
-You can then open a browser at "http://localhost:9000":http://localhost:9000 and see the default page for the application.
+ブラウザで "http://localhost:9000":http://localhost:9000 を開いて、アプリケーションのデフォルトページを見ることができます。
 
 !images/guide1-2!
 
-p(note). **Your play environnement is ready**
+p(note). **あなた好みに play を利用する環境が用意されています**
  
-See how to "set up your preferred IDE":ide.
+"お好みの IDE を設定しよう":ide を見てください。 

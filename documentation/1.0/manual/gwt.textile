@@ -1,58 +1,58 @@
-h1. Google Web Toolkit support
+h1. Google Web Toolkit サポート
 
-This module provides a helper to simplify the integration of a GWT UI with Play as an application server.
+このモジュールは、GWT UI と Play の統合をシンプルにするヘルパを、アプリケーションサーバとして提供します。
 
-h2. <a>First, download the GWT SDK</a>
+h2. <a>最初に GWT SDK をダウンロード</a>
 
-p. This module is designed to work with the latest version of GWT. A the time of writing, this is the 1.6.4 version. Before working with the Play GWT module, you have to download the GWT SDK and set the GWT_PATH environment variable.
+p. このモジュールは最新バージョンの GWT で動作するよう設計されています。これを書いている時点ではバージョン 1.6.4 が最新です。Play GWT モジュールを使う前に GWT SDK をダウンロードして、GWT_PATH 環境変数を設定しなければいけません。
 
-h2. <a>Setting up a GWT project</a>
+h2. <a>GWT プロジェクトのセットアップ</a>
 
-Start to create a new application in the classical way. 
+はじめに、いつもの方法で新しいアプリケーションを作ります。
 
 bc. # play new test-gwt
 
-Then edit the conf/application.conf file to enable the GWTmodule :
+そして、conf/application.conf ファイルを編集して GWT モジュールを有効化します :
 
 bc. # Additional modules
-# ~~~~~
+# ‾‾‾‾‾
 # A module is another play! application. Add a line for each module you want
 # to add to your application. Modules path are either absolutes or relative to
 # the application root.
 #
 module.gwt=${play.path}/modules/gwt
 
-Now use the **gwt:init** command to bootstrap your GWT project in the existing Play application:
+ここで **gwt:init** コマンドを使って、既存の Play アプリケーション内で GWT プロジェクトを起動します :
 
 bc. play gwt:init test-gwt
 
-This will add some files and directories to your project : 
+これでプロジェクトにいくつかのファイルとディレクトリが追加されます : 
 
-* A **/gwt-public** directory that will host all the GWT compiled resources. A default **index.html** file has been created to launch the GWT UI. If you don't define any specific route to serve this **staticDir**, the GWT module will automatically map it to the **/app** path; so the GWT will be available at the **http://localhost:9000/app** URL.
-* The **/app/Main.gwt.xml** GWT module descriptor file. It is the main GWT module of your application. By default, it defines the **client.Main** class as entry point.
-* The **/app/client** package that is the default package used by GWT. A **client.Main** class is created for the default entry point.
+* **/gwt-public** ディレクトリは GWT がコンパイルしたすべてのリソースを管理します。GWT UI を起動するためのデフォルトの **index.html** が作成されています。この **静的なディレクトリ** を提供する特別なルートを定義していない場合、GWT モジュールは自動的にこれをパス **/app** にマッピングするので、GWT を URL **http://localhost:9000/app** で利用することができます。
+* **/app/Main.gwt.xml** は、GWT モジュールを定義するファイルです。このファイルがアプリケーションにおける GWT モジュールの中心です。デフォルトで **client.Main** クラスをエントリポイントとして定義しています。
+* **/app/client** パッケージは、GWT が使用するデフォルトのパッケージです。 **client.Main** クラスがデフォルトのエントリポイントとして作成されます。
 
-h2. <a>Using the GWT hosted mode</a>
+h2. <a>GWT hosted モードの使用</a>
 
-First start you Play application.
+まず Play アプリケーションを開始します。
 
 bc. play run test-gwt
 
-The start the GWT hosted mode browser, using the **play gwt:browser** command.
+GWT hosted モードブラウザを開始するためには、 **play gwt:browser** コマンドを使用します
 
 bc. play gwt:browser test-gwt
 
-bq. At the first run, GWT will compile your main module a first time. Now you can make changes in your application and refresh the hosted mode browser to see the result.
+bq. 初回起動時、GWT は最初に主要なモジュールをコンパイルします。それからは、アプリケーションに変更を加え、hosted モードブラウザをリフレッシュして結果を確認することができます。
 
 !images/gwt!
 
-h2. <a>Creating a service using GWT-RPC</a>
+h2. <a>GWT-RPC を使ったサービスの作成</a>
 
-If you follow the GWT manual, it will explain you how to expose a service with GWT-RPC using a **RemoteServiceServlet**. 
+GWT のマニュアルに沿うと、そこには **RemoteServiceServlet** を使った GWT-RPC にてサービスを公開する方法が説明されています。
 
-Exposing a GWT service with Play is almost the same, but since you can't define servlets in a Play application, you have to use the provided support class, **play.modules.gwt.GWTService**.
+Play で GWT サービスを公開するのもほとんど同じですが、Play アプリケーション内にサーブレットを定義できないので、提供されているサポートクラス **play.modules.gwt.GWTService** を使わなければなりません。
 
-For example, to implement this service:
+例えば、以下のようなサービスを実装する場合:
 
 bc. package client;
  
@@ -65,7 +65,7 @@ public interface HelloService extends RemoteService {
     
 }
 
-simply create a class that extends the **play.modules.gwt.GWTService**, and define the service URL path with the **play.modules.gwt.GWTServicePath** annotation. Like this:
+単純に **play.modules.gwt.GWTService** を継承したクラスを作成し、 **play.modules.gwt.GWTServicePath** アノテーションを使ってサービスの URL を定義します。以下のような感じです:
 
 bc. package services;
  
@@ -82,20 +82,19 @@ public class HelloServiceImpl extends GWTService implements HelloService {
  
 }
 
-This is the only difference from the GWT documentation.
+GWT ドキュメントと異なる箇所はここだけです。
 
-h2. <a>Debugging the GWT UI</a>
+h2. <a>GWT UI のデバッグ</a>
 
-When you run the GWT UI in hosted mode, a Java VM simulate the execution of the client **Java code. You must understand** that in this mode, you use 2 Java VM:
+hosted モードで GWT UI を実行するとき、Java VM はクライアントの **Java コード** の実行をシミュレートします。このモードでは 2 つの Java VM が使用されることを **理解しなければなりません** :
 
-* The first one to run your Play application
-* The second one to run the client UI
+* ひとつ目は Play アプリケーションを実行します
+* ふたつ目はクライアント UI を実行します
 
-So if you want to debug all the application you have to attach 2 debugging sessions using JPDA. This is not a problem... For example, using netbeans, create a netbeans project with the **play netbeansify** command:
+そのため、アプリケーション全体をデバッグする場合、JPDA を使って 2 つのデバッグセッションに接続しなければなりません。これは問題になりません... 例えば、netbeans を使っている場合、 **play netbeansify** コマンドで netbeans プロジェクトを作成します:
 
 bc. # play netbeansify test-gwt
 
-Now open the **test-gwt** project in netbeans and use the debug button to attach the 2 debugging session. By default the Play application listens for the debugger on port 8000, and the GWT browser on port 3408. 
+それから netbeans で **test-gwt** プロジェクトを開き、デバッグボタンを使って 2 つのデバッグセッションに接続します。デフォルトでは、Play アプリケーションはデバッグのために 8000 番ポートを、GWT ブラウザは 3408 番ポートをリッスンします。
 
-Now you can set breakpoints either in the server code, or in the client code, and netbeans will automatically break on the correct JPDA session and let you debug the Java code.
-
+これで、サーバ側コードにもクライアント側コードにもブレークポイントを設定することができ、netbeans は適切な JPDA セッション上で自動的にブレークし、Java コードをデバッグできるようになります。

@@ -1,27 +1,27 @@
-h1. Validating HTTP data with play
+h1. play による HTTP データのバリデーション
 
-Validations ensure that the data has certain values or meet specific requirements. You can use validation to verify that your models are correct before saving them to the database, or use them directly on HTTP parameters to validate a simple form.
+バリデーションは、そのデータが妥当な値を持っている、または指定された要件を満たしていることを保証します。バリデーションを使ってデータベースに保存する前にデータが正しいことを確認したり、あるいは HTTP パラメータに直接バリデーションを使用することで簡易なフォームの妥当性を検証することができます。
 
-h2. <a>How does it work?</a>
+h2. <a>どのように動作するのでしょうか?</a>
 
-Each request has it own **Validation** object which collects errors. From a controller, you access it directly using the **validation** variable. You can still access a subset of the API using static methods of the **play.data.validation.Validation** class.
+各リクエストは、エラーを集める **Validation** オブジェクトを持ちます。 **validation** 変数を使用することで、コントローラから直接このオブジェクトにアクセスすることができます。 **play.data.validation.Validation** のクラスの static なメソッドを使用することで、この API のサブセットにアクセスすることも可能です。
 
-The validation object maintains a collection of **play.data.validation.Error** objects. Each error has two properties:
+validation オブジェクトは、 **play.data.validation.Error** オブジェクトのコレクションを保持します。各エラーには、2 つのプロパティがあります:
 
-* The **key**. This helps you to determine which data element caused the error. The key value can be set arbitrarily but when Play! generates errors, it uses default conventions that follow the Java variables names.
+* **key** 。key は、どのデータ要素がエラーを引き起こしたか判断する手助けになります。キーの値は任意に設定できますが、Play! がエラーを生成するときは、Java の変数名規約に従ったデフォルトの規約を使用します。
 
-* The **message**. This contains the textual description of the error. The message can be a plain message or refer to a key from a message bundle (typically for internationalization support).
+* **message** 。message は、エラーのテキスト記述を含みます。message は、平文のメッセージか、または (通常は国際化対応のために) メッセージバンドルを参照する key です。
 
-Let's see how to validate a simple HTTP parameter:
+どのようにして単純な HTTP パラメータの妥当性を検証するか見てみましょう:
 
 bc. public static void hello(String name) {
      validation.required(name);
      ...
 }
 
-This code checks that the name variable is correctly set. If not, the corresponding error is added to the current errors collection.
+このコードは、name 変数が正しく設定されていることをチェックします。正しく設定されていない場合、対応するエラーが現在のエラーコレクションに追加されます。
 
-You can repeat this operation for each validation you need:
+妥当性の検証が必要なだけ、この操作をくり返すことができます:
 
 bc. public static void hello(String name, Integer age) {
      validation.required(name);
@@ -30,9 +30,9 @@ bc. public static void hello(String name, Integer age) {
      ...
 }
 
-h2. <a>Retrieving error messages</a>
+h2. <a>エラーメッセージの取得</a>
 
-At the end of the validation you can check if any errors have been created and display them:
+バリデーションの終了時に、何かエラーが作成されているか、そしてそれらを表示するかどうかをチェックすることができます:
 
 bc. public static void hello(String name, Integer age) {
      validation.required(name);
@@ -46,36 +46,36 @@ bc. public static void hello(String name, Integer age) {
      }
 }
 
-Assuming that name and age are null, this would display:
+name と age が null の場合、以下のように表示されます:
 
 bc. name is required
 age is required
 
-Default messages are keys that refer to the message bundle. So in the **conf/messages** file you will have:
+デフォルトメッセージは、メッセージバンドルを参照するキーです。このため、 **conf/messages** ファイルには次のような記述があります:
 
 bc. validation.required=%s is required
 
-You can change this default message and override it for each language of the application. The **%s** placeholder will be replaced by the error key. You can override using the **error.message(String field)** method.
+アプリケーションがサポートする言語毎にこのデフォルトメッセージを変更して上書きすることができます。 **%s** プレースホルダはエラーのキーに置き換えられます。 **error.message(String field)** メソッドを使用して、これを上書きすることができます。
 
-For example:
+例えば、以下のようにします:
 
 bc. Error error = validation.required(name).error;
 if(error != null) {
     System.out.println(error.message("The name"));
 }
 
-You can also specify a different message for each check:
+チェック毎に異なるメッセージを指定することもできます:
 
 bc. Error error = validation.required(name).message("Fill the name!").error;
 if(error != null) {
     System.out.println(error.message());
 }
 
-h2. <a>Displaying errors in the template</a>
+h2. <a>テンプレートへのエラーの表示</a>
 
-In most cases you want to display the error messages in the view template. You can access them in the template using the **errors** object. Some tags help you to display the errors:
+ほとんどの場合、ビューテンプレートにエラーメッセージを表示したくなると思います。 **errors** オブジェクトを使用することで、テンプレート中でエラーメッセージにアクセスすることができます。いくつかのタグは、エラーを表示する手助けをします:
 
-Let's see a sample:
+サンプルを見てみましょう:
 
 bc. public static void hello(String name, Integer age) {
      validation.required(name);
@@ -84,7 +84,7 @@ bc. public static void hello(String name, Integer age) {
      render(name, age);
 }
 
-and now the template:
+そして、現在のテンプレートは以下のようになります:
 
 bc. #{ifErrors}
  
@@ -101,11 +101,11 @@ bc. #{ifErrors}
  
 #{/else}
 
-But in a real application you want to redisplay the original form. So you will have two actions: one to display the form and another one to handle the POST. 
+しかし、実際のアプリケーションでは、もとのフォームを再表示したくなると思います。これを行うためには、2 つのアクションが存在します: 1 つのアクションではフォームを表示し、もう 1 つのアクションでは POST を扱います。
 
-Of course the validation will occur in the second action and if some error occurs you will have to redirect to the first action. In this case you need a special trick to keep your errors during the redirect. Use the **validation.keep()** method. This will save the errors collection for the next action.
+もちろん、バリデーションは 2 番目のアクションで実行され、ここで何らかのエラーが発生した場合には 1 番目のアクションにリダイレクトしなければなりません。この場合、リダイレクトの間にエラーを保持する特別なトリックが必要になります。 **validation.keep()** メソッドを使用してください。このメソッドは、次のアクションのためにエラーコレクションを保持します。
 
-Let's see a real sample:
+実際のサンプルを見てみましょう:
 
 bc. public class Application extends Controller {
  
@@ -127,7 +127,7 @@ bc. public class Application extends Controller {
  
 }
 
-And the **view/Application/index.html** template:
+そして **view/Application/index.html** テンプレートは以下のようになります:
 
 bc. #{ifErrors}
    <h1>Oops...</h1>
@@ -149,7 +149,7 @@ bc. #{ifErrors}
    </div>
 #{/form}
 
-You can create a better user experience by displaying each error message next to the field that generated the error:
+エラーを生成したフィールドの隣にそれぞれのエラーメッセージを表示することによって、より良いユーザー体験を作成することができます:
 
 bc. #{ifErrors}
    <h1>Oops...</h1>
@@ -170,9 +170,9 @@ bc. #{ifErrors}
 #{/form}
 
 
-h2. <a>Using annotations</a>
+h2. <a>アノテーションの使用</a>
 
-You can use annotations to do the same thing:
+同じことを、アノテーションを使用することで行えます:
 
 bc. public static void hello(@Required String name, @Required @Min(0) Integer age) {
    if(validation.hasErrors()) {
@@ -183,11 +183,11 @@ bc. public static void hello(@Required String name, @Required @Min(0) Integer ag
    render(name, age);
 }
 
-h2. <a>Validating objects</a>
+h2. <a>オブジェクトのバリデーション</a>
 
-Using annotations you can easily add constraints to your model objects. Let's rewrite the previous example using a User class.
+アノテーションを使用することで、モデルオブジェクトに容易に制約を追加することができます。User クラスを使用して前述の例を書き直してみましょう。
 
-First the **User** class:
+はじめに、 **User** クラスは以下のようになります:
 
 bc. package models;
  
@@ -202,7 +202,7 @@ public class User {
  
 }
 
-Then the modified **hello** action:
+次に、 **hello** アクションを以下のように変更します:
 
 bc. public static void hello(@Valid User user) {
    if(validation.hasErrors()) {
@@ -213,7 +213,7 @@ bc. public static void hello(@Valid User user) {
    render(name, age);
 }
 
-And finally the modified form:
+最後に、フォームを以下のように変更します:
 
 bc. #{ifErrors}
    <h1>Oops...</h1>

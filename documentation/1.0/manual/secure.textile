@@ -1,26 +1,26 @@
-h1. Secure module
+h1. Secure モジュール
 
-The simple **Secure** module help you to set up basic authentication and authorization management to your application. It provides a simple **controllers.Secure** controller that defines a set of interceptors that you can easily add to your own controllers using the **@With** annotation.
+このシンプルな **Secure** モジュールは、アプリケーションの基本的な認証および認可管理をセットアップする手助けとなります。このモジュールは、 **@With** アノテーションを使うことで容易にコントローラに追加することのできるインターセプタ一式を定義する、シンプルな **controllers.Secure** コントローラを提供します。
 
-h2. <a>Enable the Secure module for the application</a>
+h2. <a>アプリケーションで Secure モジュールを利用可能にする</a>
 
-In the **/conf/application.conf** file, enable the Secure module by adding this line:
+**/conf/application.conf** ファイルに次の行を追加することで、Secure モジュールを有効にします:
 
 bc. # The secure module
 module.secure=${play.path}/modules/secure
 
-h2. <a>Import default Secure routes</a>
+h2. <a>デフォルトの Secure ルートの取り込み</a>
 
-In the **conf/routes** file, import the default module routes by adding this line:
+**conf/routes** ファイルに次の行を追加することで、モジュールのデフォルトのルートを取り込みます。
 
 bc. # Import Secure routes
 *      /                module:secure
 
-p(note). **Note** that it's not required to use the default routes file. You can also define your own routes, or mix the two.
+p(note). デフォルトのルートファイルの使用は必須ではないことに **注意** してください。独自のルートを定義することも、これら 2 つを混ぜ合わせることも可能です。
 
-h2. <a>Protecting a controller</a>
+h2. <a>コントローラの保護</a>
 
-To protect a controller you just have to annotate it using **@With**. For example:
+コントローラを保護するために必要なのは、 **@With** で注釈することだけです。例えば、以下のようにします:
 
 bc. @With(Secure.class)
 public class Application extends Controller {
@@ -31,11 +31,11 @@ public class Application extends Controller {
     
 }
 
-This controller will be automatically protected with the default authentication page.
+このコントローラは自動的にデフォルトの認証ページで保護されます。
 
-h2. <a>Customize the authentication mechanism</a>
+h2. <a>認証メカニズムのカスタマイズ</a>
 
-By default, the login page will accept any login/password. To customize it your application has to provide a **Security** provider. Just create a class in the **controllers** package that extends the **controllers.Secure.Security** class. Then you can override the **authentify(String username, String password)** method.
+デフォルトでは、このログインページはどのような login/password も受け付けます。これをカスタマイズするには、アプリケーションが **Security** プロパイダを提供する必要があります。まずは **controllers.Secure.Security** クラスを継承するクラスを、 **controllers** パッケージに作成してください。その後、 **authenticate(String username, String password)** メソッドをオーバーライドします。
 
 bc. package controllers;
  
@@ -48,11 +48,11 @@ public class Security extends Secure.Security {
     
 }
 
-p(note). **Note** that you can override other methods as well to customize how the application should react to authentication events (onAuthenticated, onDisconnected).
+p(note). アプリケーションが認証イベント (onAuthenticated, onDisconnected) にどのように反応すべきかカスタマイズするために、他のメソッドも同様にオーバーライドできることを **確認** してください。
 
-h2. <a>Retrieving the connected user</a>
+h2. <a>接続したユーザの検索</a>
 
-From your application code, your can reuse the Security helper that you've just created to retrieve the connected user.
+たった今、作成した Security ヘルパを、接続したユーザを検索するためにアプリケーションコードから再利用することができます。
 
 bc. @With(Secure.class)
 public class Application extends Controller {
@@ -64,11 +64,11 @@ public class Application extends Controller {
     
 }
 
-h2. <a>Adding authorization check</a>
+h2. <a>認証チェックの追加</a>
 
-You can use the **@Check** annotation either on controller classes or action methods to tell the Secure module to check that the connected user has required authorization to call this action.
+Secure モジュールに、接続したユーザがこのアクションをコールするために必要な権限を持っているかチェックすることを伝えるために、 **@Check** アノテーションをコントローラクラスまたはアクションメソッドのどちらにでも使用することができます。
 
-For example:
+例:
 
 bc. @With(Secure.class)
 public class Application extends Controller {
@@ -82,7 +82,7 @@ public class Application extends Controller {
     
 }
 
-By default the secure module will always authorize all checks. You have to customize by overriding one more method in your **Security** class.
+デフォルトでは、secure モジュールは常に全てのチェックを承認します。作成した **Security** クラスでひとつ以上のメソッドをオーバーライドして、カスタマイズしなければなりません。
 
 bc. package controllers;
  
