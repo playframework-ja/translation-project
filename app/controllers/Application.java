@@ -14,6 +14,7 @@ import org.yaml.snakeyaml.*;
 import play.*;
 import play.Logger;
 import play.mvc.*;
+import twitter4j.*;
 
 import com.google.gson.*;
 import com.google.gson.annotations.*;
@@ -131,8 +132,15 @@ public class Application extends Controller {
         render(action, modules);
     }
 
-    public static void about(String action) {
-        render(action);
+    public static void about(String action) throws TwitterException {
+        
+        List<User> translators = new ArrayList<User>();
+        
+        Twitter twitter = new TwitterFactory().getInstance();
+        translators.add(twitter.showUser(5003551));
+        translators.add(twitter.showUser(18828462));
+        
+        render(action, translators);
     }
 
 }

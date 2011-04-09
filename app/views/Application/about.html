@@ -1,5 +1,5 @@
 #{extends 'main.html' /}
-#{set title:'Ecosystem' /}
+#{set title:'About' /}
 
 <div id="top">
     <p class="category">&{'about.01'}</p>
@@ -18,13 +18,29 @@
         
         <h2>&{'about.07'}</h2>
         <p>&{'about.08'}</p>
-        
-        <h2>&{'about.09'}</h2>
-        <p>&{'about.10'}</p>
-        <p>
-            <a href="http://twitter.com/garbagetown"><img src="http://api.dan.co.jp/twicon/garbagetown/normal"/></a>
-            <a href="http://twitter.com/ikeike443"><img src="http://api.dan.co.jp/twicon/ikeike443/normal"/></a>
-        </p>
+        #{list translators, as:'t'}
+        <div class="profile-info">
+            <div class="profile-image-container">
+                <a target="_blank" class="profile-picture" href="http://twitter.com/${t.screenName}">
+                    <img alt="${t.name}" src="${t.profileImageUrl}">
+                </a>
+            </div>
+            <div class="profile-details">
+                <div class="full-name">
+                    <h4>${t.name}</h4>
+                </div>
+                <div class="screen-name-and-location">
+                    <span class="screen-name screen-name-garbagetown pill">
+                        @<a target="_blank" class="profile-picture" href="http://twitter.com/${t.screenName}">${t.screenName}</a>
+                    </span> ${t.location}
+                </div>
+                <div class="bio">${t.description}</div>
+                <div class="url">
+                    <a href="${t.url}" rel="me nofollow" target="_blank">${t.url}</a>
+                </div>
+            </div>
+        </div>
+        #{/list}
     </div>
     
 </div>

@@ -719,3 +719,16 @@ a:hover {
     border-top: 1px solid #fff;
 }
 
+.profile-info {
+	margin-bottom: 2em;
+}
+
+.profile-image-container {
+	float: left;
+}
+
+.profile-details {
+    display: inline-block;
+    margin-left: 15px;
+    width: 500px;
+}
