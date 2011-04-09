@@ -26,7 +26,22 @@
                 <td width="100">${latest.size}M</td>
             </tr>
         </table>
-          
+        
+        #{if upcoming}
+        <h2>新登場</h2>
+        
+        <p>
+            次のバージョンのプレビューとリリース候補です。
+        </p>
+        <table>
+            <tr class="odd">
+                <td><a href="${upcoming.url}">${upcoming.name}</a></td>
+                <td width="200">${upcoming.date.format('dd MMM yyyy', 'us')}</td> 
+                <td width="100">${upcoming.size}M</td>
+            </tr>
+        </table>
+        #{/if}
+        
         <h2>古いバージョン</h2>
         
         <p>

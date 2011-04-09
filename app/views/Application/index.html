@@ -2,6 +2,12 @@
 #{set title:'Home' /}
 #{set body:'home' /}
 
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#event > .date > small").html('<a href="http://www.playframework.org/community/events">すべてのイベントをチェックする</a>');
+});
+</script>
+
 <div id="top">
     <div class="wrapper">
         <div id="side">
@@ -46,6 +52,10 @@
     <div class="wrapper">
         
         <div id="activity">
+            <h1>Twitter つぶやき</h1>
+            ${twitter.raw()}
+            <h1>次回開発者イベント</h1>
+            ${event.raw()}
         </div>
         
         <div id="quickoverview">
