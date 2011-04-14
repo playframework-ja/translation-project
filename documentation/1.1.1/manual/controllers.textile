@@ -285,7 +285,6 @@ bc. public static void update(
 }
 
 この **@As** アノテーションは、これをサポートするすべてのバインダと共に動作します。以下は、 **ListBinder** を使用する例です:
-The **@As** annotation can work with all binders that support it, including your own binder. For example, using the **ListBinder**:
 
 bc. public static void update(@As(",") List<String> items) {
 	...
