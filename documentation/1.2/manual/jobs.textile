@@ -1,10 +1,10 @@
-h1. Asynchronous Jobs
+h1. 非同期ジョブ
 
-Because Play is a web application framework, most of the application logic is done by controllers responding to HTTP requests. 
+Play はウェブアプリケーションフレームワークなので、アプリケーションロジックの大部分は HTTP リクエストに応じるコントローラによって行われます。
 
-But sometimes you will need to execute some application logic outside of any HTTP request. It can be useful for initialization tasks, maintenance tasks or to run long tasks without blocking the HTTP request execution pool.
+しかし、どのような HTTP リクエストとも関係のないところで何らかのアプリケーションロジックを実行しなければならないことも時々あります。初期化タスク、保守タスク、あるいは HTTP リクエストの実行プールをブロックせずに実行する長いタスクなどには、役に立つ場合があります。
 
-Jobs are fully managed by the framework. That means that Play will manage all the database connection stuff, JPA entity manager synchronization and transactions management for you. To create a job you just need to extend the **play.jobs.Job** super class.
+ジョブはフレームワークによって完全に管理されます。これは、Play が JPA エンティティマネージャの同期と、トランザクション管理といったすべてのデータベース接続関連のものを管理することを意味します。ジョブを作成するのに必要なのは、 **play.jobs.Job** スーパークラスを継承することだけです。
 
 bc. package jobs;
  
@@ -18,7 +18,7 @@ public class MyJob extends Job {
     
 }
 
-Sometimes you need to create jobs that return a result. You then override the **doJobWithResult()** method.
+結果を返すジョブを作成しなければならない場合があります。そのときは **doJobWithResult()** メソッドをオーバーライドします。
 
 bc. package jobs;
  
@@ -33,11 +33,11 @@ public class MyJob extends Job<String> {
     
 }
 
-Here the use of **String** is just for the example, of course a job can return any object type.
+この例では **String** を使用しましたが、もちろん、ジョブはどんなオブジェクト型でも返すことができます。
 
-h2. <a name="concepts">Bootstrap jobs</a>
+h2. <a name="concepts">起動時に実行するジョブ</a>
 
-Bootstrap jobs are executed by Play at application start time. To mark your job as a bootstrap job you just need to add the **@OnApplicationStart** annotation.
+ブートストラップジョブはアプリケーション始動時に Play によって実行されます。ブートストラップジョブとしてマークするために必要なのは、 **@OnApplicationStart** アノテーションを追加することだけです。
 
 bc. import play.jobs.*;
  
@@ -53,21 +53,21 @@ public class Bootstrap extends Job {
     
 }
 
-You don’t need to return a result. Even if you do it, the result will be lost.
+結果を返す必要はありません。結果を返しても、それは失われます。
 
-The default is that all jobs annotated with *@OnApplicationStart* will be executed in sequence. When all jobs are finished, your application is ready to start processing incoming requests.
+デフォルトでは、 *@OnApplicationStart* でアノテーションされたすべてのジョブは順番に実行されます。すべてのジョブが完了したところで、アプリケーションはリクエストを受け取り、処理する準備を整えます。
 
-If you want your jobs to start when your application starts, but you want to start processing incoming requests immediately, you can annotate your job like this: *@OnApplicationStart(async=true)*. Then your job will be started in the background when the application starts. All async jobs will be started at the same time.
+アプリケーションの起動時にジョブを開始したいけれど、直ちにリクエストを受け取って処理したい場合、ジョブを *@OnApplicationStart(async=true)* と註釈することができます。これでジョブはアプリケーション起動時にバックグラウンドで開始するようになります。すべての非同期ジョブは同時に開始します。
 
-p(note). **Warning**
+p(note). **警告**
  
-When you run the application in DEV mode, the application waits for the first HTTP request to start. Moreover when you are in DEV mode, the application will sometimes automatically restart when needed. 
+DEV モードでアプリケーションを実行する場合、アプリケーションは最初の HTTP リクエストがあるまで始動を控えます。さらには、DEV モードの場合、アプリケーションは必要に応じて自動的に再起動することがあります。
  
-When you run in PROD mode, the application will start synchronously with the server start.
+PROD モードで実行するとき、アプリケーションはサーバの起動と同時に開始します。
 
-h2. <a name="scheduling">Scheduled jobs</a>
+h2. <a name="scheduling">スケジューリングされたジョブ</a>
 
-Scheduled jobs are run periodically by the framework. You can ask Play to run a job at a specific interval using the **@Every** annotation.
+スケジューリングされたジョブは、フレームワークによって定期的に実行されます。@Every アノテーションを使用することで、特定の間隔でジョブを実行するよう Play に指示することができます。
 
 bc. import play.jobs.*;
  
@@ -83,7 +83,7 @@ public class Bootstrap extends Job {
     
 }
 
-If the **@Every** annotation is not enough you can use the **@On** annotation to run your jobs using a CRON expression.
+@Every アノテーションで事足りない場合は、CRON 式を使用してジョブを実行する @On アノテーションを使用することができます。
 
 bc. import play.jobs.*;
  
@@ -100,21 +100,21 @@ public class Bootstrap extends Job {
 
 p(note). **Tip**
  
-We use the CRON expression parser from the "Quartz library":http://www.opensymphony.com/quartz/wikidocs/CronTriggers%20Tutorial.html.
+Play は "Quartz ライブラリ":http://www.opensymphony.com/quartz/wikidocs/CronTriggers%20Tutorial.html の CRON 式パーサを使用します。
 
-You don’t need to return a result. Even if you do it, the result will be lost.
+結果を返す必要はありません。結果を返しても、それは失われます。
 
 h2. <a name="tasks">Triggering task jobs</a>
 
-You can also trigger a Job at any time to perform a specific task by simply calling @now()@ on a Job instance. Then this job will be run immediately in a non blocking way. 
+Job インスタンスにおいて単に @now()@ をコールすることで、特別なタスクを執り行うジョブをトリガーすることもできます。こうすると、ジョブは何もブロックせずに、速やかに実行されます。
 
 bc. public static void encodeVideo(Long videoId) {
     new VideoEncoder(videoId).now();
     renderText("Encoding started");
 }
 
-Calling @now()@ on a Job returns a @Promise@ value that you can use to retrieve the task result once finished.
+Job において @now()@ をコールすると、そのタスクの終了後に結果を読み出すために使用できる @Promise@ を返します。
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
 
-Let's see how to combine Jobs with more powerfull %(next)"Asynchronous programming with HTTP":asynchronous%.
+より強力な %(next)"HTTP による非同期プログラミング":asynchronous% とジョブを組み合わせる方法について学びましょう。

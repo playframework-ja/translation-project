@@ -1,43 +1,43 @@
-h1. Built-in template tags 
+h1. 組込みテンプレートタグ
 
-These are the built-in tags that are available in addition to the core "template engine syntax":templates#syntax.
+以下は、中心となる "テンプレートエンジン構文":templates#syntax に従うことで利用できる、組み込みのタグです。
 
-p(note). There is a separate %(next)"Java extensions":javaextensions% manual page.
+p(note). こことは別に %(next)"Java エクステンション":javaextensions% マニュアルページがあります。
 
 
 h2. <a name="a">a</a>
 
-The **a** tag inserts an HTML link to a controller action.
+**a** タグはコントローラのアクションへの HTML リンクを挿入します。
 
 bc. #{a @Application.logout()}Disconnect#{/a}
 
-Rendered as:
+以下のようにレンダリングされます:
 
 bc. <a href="/application/logout">Disconnect</a>
 
-If the action you try to call does not have any route able to invoke it using a GET method, Play will automatically generate a hidden form that will be submitted on link click using JavaScript.
+もし呼び出そうとしているアクションが GET メソッドを使用して起動するどんなルートも持たない場合、Play は自動的に、リンクをクリックしたときに JavaScript を使ってサブミットする隠しフォームを生成します。
 
 
 h2. <a name="authenticityToken">authenticityToken</a>
 
-Renders a hidden input field containing a generated token that you can use in any form. See the "Cross-Site Request Forgery":security#csrf section.
+どのフォームでも使用できる、生成されたトークンを含む hidden input フィールドをレンダリングします。"クロスサイトリクエストフォージェリ":security#csrf の段落を参照してください。
 
 bc. #{authenticityToken /}
 
-Rendered as:
+以下のようにレンダリングされます:
 
 bc. <input type="hidden" name="authenticityToken" value="1c6d92fed96200347f06b7c5e1a3a28fa258ef7c">
 
 
 h2. <a name="cache">cache</a>
 
-Caches the tag body using the **play.cache.Cache** API, for the cache key specified by the tag parameter.
+タグパラメータにキャッシュのキーを指定し、 **play.cache.Cache** API を使ってタグの内容をキャッシュします。
 
 bc. #{cache 'startTime'}
    ${new java.util.Date()}
 #{/cache}
 
-The body is cached indefinitely by default, but you can specify an expiration duration with the **for** parameter.
+デフォルトでは、タグの内容は永久にキャッシュされますが、 **for** パラメータで有効期間を指定することができます。
 
 bc. #{cache 'currentTime', for:'3s'}
    ${new java.util.Date()}
@@ -46,7 +46,7 @@ bc. #{cache 'currentTime', for:'3s'}
 
 h2. <a name="dolayout">doLayout</a>
 
-Used with template inheritance, this tag inserts the evaluated sub-template’s contents.
+このタグは、テンプレート継承と共に使用し、評価された子テンプレートの内容を挿入します。
 
 bc. <!-- common header here -->
 <div id="content">
@@ -57,7 +57,7 @@ bc. <!-- common header here -->
 
 h2. <a name="else">else</a>
 
-Of course used with the **if** tag.
+当然、 **if** タグと共に使用されます。
 
 bc. #{if user}
     Connected user is ${user}
@@ -66,11 +66,11 @@ bc. #{if user}
     Please log in
 #{/else}
 
-However, you can also use it with the **list** tag and it will be executed if the list is empty.
+一方で、 **list** タグと共に使用することも可能であり、list が空の場合に実行されます。
 
 bc. #{list items:task, as:'task'}
     <li>${task}</li>
-#{/list}
+#{/li}
  
 #{else}
     Nothing to do...
@@ -91,16 +91,16 @@ bc. #{if tasks.size() > 1}
     Nothing to do
 #{/else}
 
-As for **else**, you can use it with the **list** tag.
+**else** と同様に、 **list**タグと共に使用することも可能です。
 
 
 h2. <a name="error">error</a>
 
-Outputs the validation error message, if present, for the field specified by the tag parameter.
+入力エラーが存在する場合に、タグパラメータでフィールドを指定して、エラーメッセージを出力します。
 
 bc. #{error 'user.name'/}
 
-You can use the optional **field** parameter to use a different field’s error message. This is useful when you want several fields to share a common error message.
+オプションの **field** パラメータを使って、違うフィールドのエラーメッセージを使用することができます。これは、複数のフィールドで共通のエラーメッセージを共有する場合に便利です。
 
 bc. #{error 'contact.street',  field:'contact.address'/}
 #{error 'contact.city',    field:'contact.address'/}
@@ -109,18 +109,18 @@ bc. #{error 'contact.street',  field:'contact.address'/}
 
 h2. <a name="errorClass">errorClass</a>
 
-Outputs the text **hasError** if there is a validation error for the field specified by the tag parameter. This is useful for setting a CSS class for input fields with errors:
+タグパラメータで指定したフィールドに入力エラーがある場合に **hasError** という文字列を出力します。これは、エラーがある入力フィールドに対する CSS クラスを設定する場合に便利です。
 
 bc. <input name="name" class="#{errorClass 'name'/}">
 
-which is equivalent to:
+これは、以下と等価です:
 
 bc. <input name="name" class="${errors.forKey('name') ? 'hasError' : ''}">
 
 
 h2. <a name="errors">errors</a>
 
-Iterates over the current validation errors.
+現在のバリデーションエラーをくり返します。
 
 bc. <ul>
 #{errors}
@@ -128,13 +128,13 @@ bc. <ul>
 #{/errors}
 </ul>
 
-The tag defines implicit variables in its body.
+このタグはボディに暗黙的な変数を定義します。
 
-* **error**, the error
-* **error_index**, the error’s index, starting at 1
-* **error_isLast**, true for the last element
-* **error_isFirst**, true for the first element
-* **error_parity**, alternates between **odd** and **even**
+* **error**, エラーです
+* **error_index**, エラーの index で、1 から始まります
+* **error_isLast**, 最後の要素の場合に true になります
+* **error_isFirst**, 最初の要素の場合に true になります
+* **error_parity**, **odd** と **even** が交互に値になります
 
 bc. <table>
 <tr><th>#</th><th>Error</th></tr>
@@ -143,7 +143,7 @@ bc. <table>
 #{/errors}
 </table>
 
-You can also use the optional field parameter, or just the default parameter, to filter only the errors belonging to a certain field.
+あるフィールドに関連するエラーのみをフィルタリングするためにオプションのフィールドパラメータを使用することも、あるいはデフォルトのパラメータを使用することもできます。
 
 bc. <ul>
 #{errors 'myField'}
@@ -155,16 +155,16 @@ bc. <ul>
 
 h2. <a name="extends">extends</a>
 
-Makes the template inherit another template.
+そのテンプレートに、他のテンプレートを継承させます。
 
 bc. #{extends 'main.html' /}
 
 
 h2. <a name="field">field</a>
 
-The field tag is a helper, based on the spirit of the Don’t Repeat Yourself. It works this way:
+field タグは Don't Repeat Yourself の精神に基づいたヘルパです。このタグは次のようにして動作します:
 
-Instead of writing this:
+以下のように書く代わりに:
 
 bc. <p>
   <label>&{'user.name'}</label>
@@ -172,7 +172,7 @@ bc. <p>
   <span class="error">${errors.forKey('user.name')}</span>
 </p>
 
-You can just write:
+以下のように書くことができます:
 
 bc. #{field 'user.name'}
 <p>
@@ -182,63 +182,63 @@ bc. #{field 'user.name'}
 </p>
 #{/}
 
-So you don’t repeat **user.name** again and again.
+何度も何度も **user.name** をくり返してはいけません。
 
 
 h2. <a name="form">form</a>
 
-Inserts a **form** tag. Play will guess the HTTP method from the route, with POST as the default. If there are both GET and POST routes configured for the URL, the tag will default to using the first route defined in routes.
+**form** タグを挿入します。Play はデフォルトを POST として route ファイルから HTTP メソッドを推測します。URL に対して GET と POST の両方のルートが設定されている場合、このタグは、デフォルトでは定義されたルートのうち最初のルートを使用します。
 
-* Optional **method** either POST or GET.
-* Optional **id** attribute sets an ID to the form element.
-* Optional **enctype** attribute sets the form’s data encoding. it defaults to ‘application/x-www-form-urlencoded’.
+* オプションの **method** は POST または GET です。
+* オプションの **id** 属性は form 要素に ID を設定します。
+* オプションの **enctype** 属性は form のデータエンコーディングを設定します。デフォルトは‘application/x-www-form-urlencoded’です。
 
-Charset encoding is always **utf-8**.
+文字コードは常に **utf-8** です。
 
 bc. #{form @Client.create(), method:'POST', id:'creationForm',
        enctype:'multipart/form-data' }
    ...
 #{/form}
 
-Rendered as:
+は以下のようにレンダリングされます:
 
 bc. <form action="/client/create" id="creationForm" method="POST"
       accept-charset="utf-8" enctype="multipart/form-data">
  ...
 </form>
 
-You can also specify a target entity as part of the action method:
+アクションメソッドの一部として対象のエンティティを指定することもできます:
 
 bc. #{form @Client.update(client.id)}
    ...
 #{/form}
 
-The HTTP parameter name name is detected from what you declared in your action method.
+HTTP パラメータの名前はアクションメソッドに定義した名前から検出されます。
 
 bc. public static void update(String clientId){
        // ...
 }
 
-Play will create an action URL with clientId:
+Play は clientId を含むアクション URL を生成します:
 
 bc. <form action="/client/update?clientId=3442" method="POST"
       accept-charset="utf-8" enctype="multipart/form-data">
  ...
 </form>
 
-If your form updates a resource on the server-side, you _should_ use the **POST** method. If your form is used to filter data and does not update your domain, you can use a GET. Please read about "idempotence":http://en.wikipedia.org/wiki/Idempotence. POST is not idempotent, whereas GET, PUT and DELETE are.
+もしフォームがサーバサイドのリソースを更新するのであれば、 **POST** メソッドを使用する _べき_ です。もしフォームがデータをフィルタするために使用され、ドメインを更新しないのであれば GET を使用することができます。 "等べき":http://en.wikipedia.org/wiki/Idempotence を参照してください。GET, PUT そして DELETE が等べきである一方、POST は等べきではありません。
 
 
 
 h2. <a name="get">get</a>
 
-Retrieves a value defined with a **set** tag. You may use  the get/set mechanism to exchange values between templates, layouts and sub-templates.
+**set** タグで定義された値を検索します。get/set メカニズムを使うことで、テンプレート間、すなわちレイアウトと子テンプレート間で値をやり取りすることができます。
 
 bc. <head>
     <title>#{get 'title' /}
 </head>
 
-You can also use the get tag in the following way, which will display "Homepage" if title has not been specified.
+以下のように、title が指定されていない場合には "Homepage" を表示するような方法で、このタグを使用することもできます。
 
 bc. <head>
     <title>#{get 'title'}Homepage #{/} 
@@ -246,35 +246,35 @@ bc. <head>
 
 h2. <a name="i18n">i18n</a>
 
-Exports localized messages in JavaScript. Localized messages are available from your JavaScript code using the **i18n()** function.
+ローカライズされた Javascript メッセージを外部化します。ローカライズされたメッセージは **i18n()** 関数を使うことで JavaScript から利用することができます。
 
-Define your translations in the **conf/messages** file.
+**conf/messages** ファイルに訳語を定義してください。
 
 bc. hello_world=Hello, World !
 hello_someone=Hello %s !
 
-Include the messages in your template (or layout) page:
+テンプレート (またはレイアウト) ページにメッセージを取り込んでください:
 
 bc. #{i18n /}
 
-And retrieve keys from JavaScript:
+そして JavaScript からキーを使って検索してください:
 
 bc. alert(i18n('hello_world'));
 alert(i18n('hello_someone', 'John'));
 
-Optionally, you can restrict the tag to only some messages. The wildcard character is accepted at the end:
+オプションとして、このタグをいくつかのメッセージのみに制限することができます。ワイルドカードは末尾に指定することができます:
 
 bc. #{i18n keys:['title', 'menu.*'] /}
 
 h2. <a name="if">if</a>
 
-Evaluates the given test, and if true, evaluates the tag body.
+指定された条件を評価し、true の場合はタグボディを評価します。
 
 bc. #{if user.countryCode == 'en"' }
     Connected user is ${user}
 #{/if}
 
-Using composite conditions:
+条件を組み合わせて使用する場合は、以下のようにします:
 
 bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
     You are admin, allowed to administer.
@@ -283,7 +283,7 @@ bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
 
 h2. <a name="iferror">ifError</a>
 
-Renders the tag body if there is a validation error for the input field field named by the tag parameter.
+対応する入力項目がエラーである場合、タグの内容がレンダリングされます。
 
 bc. #{ifError 'user.name'}
   <p>
@@ -294,7 +294,7 @@ bc. #{ifError 'user.name'}
 
 h2. <a name="iferrors">ifErrors</a>
 
-Renders the tag body if any field has a validation error.
+バリデーションエラーが発生している場合、タグの内容がレンダリングされます。
 
 bc. #{ifErrors}
   <p>Error(s) found!</p>
@@ -302,7 +302,7 @@ bc. #{ifErrors}
 
 h2. <a name="ifnot">ifnot</a>
 
-Cleaner alternative to #{if !condition}
+きれいに #{if !condition} を書き換えます。
 
 bc. #{ifnot tasks}
     No tasks today
@@ -311,7 +311,7 @@ bc. #{ifnot tasks}
 
 h2. <a name="include">include</a>
 
-Includes another template. All of the current template’s variables are directly available in the included template.
+別のテンプレートを取り込みます。取り込み側のテンプレート上の全ての変数は、取り込んだ側のテンプレートにて直接利用することができます。
 
 bc. <div id="tree">
     #{include 'tree.html' /}
@@ -320,13 +320,13 @@ bc. <div id="tree">
 
 h2. <a name="jsaction">jsAction</a>
 
-The #{jsAction /} tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.
+この #{jsAction /} タグは、サーバアクションに基づいた URL と自由な変数から成る JavaScript 関数を返却します。この関数では AJAX リクエストを行わないので、返却された URL を使って手作業で Ajax リクエストを実行する必要があります。
 
-Let’s see an example:
+例を見てみましょう:
 
 bc. GET     /users/{id}        Users.show
 
-Now you can import this route client side:
+クライアント側でこのルートをインポートすることができます:
 
 bc. <script type="text/javascript">
     var showUserAction = #{jsAction @Users.show(':id') /}
@@ -339,7 +339,7 @@ bc. <script type="text/javascript">
 
 h2. <a name="list">list</a>
 
-Iterates over an object collection.
+オブジェクトのコレクションをくり返します。
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -347,12 +347,12 @@ bc. <ul>
 #{/list}
 </ul>
 
-The tag defines implicit variables in its body. The variable names are prefixed with the loop variable name.
+このタグは、ボディに暗黙的な変数を定義します。変数名には、接頭辞としてループ変数名が付きます。
 
-* **name_index**, the item’s index, starting at 1
-* **name_isLast**, true for the last element
-* **name_isFirst**, true for the first element
-* **name_parity**, alternates between **odd** and **even**
+* **name_index**, アイテムの index で、1 から始まります
+* **name_isLast**, 最後の要素の場合に true になります
+* **name_isFirst**, 最初の要素の場合に true になります
+* **name_parity**, **odd** と **even** が交互に値になります
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -361,21 +361,21 @@ bc. <ul>
 #{/list}
 </ul>
 
-The **items** parameter is optional and can be replaced by the default **arg** argument.
+**items** パラメータはオプションであり、デフォルトの **arg** 引数で置き換えることが可能です。
 
-So you can rewrite:
+このため:
 
 bc. #{list items:users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-as:
+を、以下のように書き換えることができます:
 
 bc. #{list users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-**for** loops are easy to create using Groovy **range** object:
+Groovy の **range** オブジェクトを使うことで、容易に **for** ループを作ることができます:
 
 bc. #{list items:0..10, as:'i'}
     ${i}
@@ -385,7 +385,7 @@ bc. #{list items:'a'..'z', as:'letter'}
     ${letter} ${letter_isLast ? '' : '|' }
 #{/list}
 
-The **as** parameter is optional as well. It uses **_** as default variable name:
+**as** パラメータもまたオプションです。デフォルト変数名として **_** を使用します:
 
 bc. #{list users}
     <li>${_}</li>
@@ -394,25 +394,25 @@ bc. #{list users}
 
 h2. <a name="option">option</a>
 
-Insert an **option** tag in the template.
+テンプレートに **option** タグを挿入します。
 
-* **value** - option's value
+* **value** - option の値
 
 bc. #{option user.id} ${user.name} #{/option}
 
-Will output:
+これは、以下のように出力されるでしょう:
 
 bc. <option value="42">jto</option>
 
 h2. <a name="script">script</a>
 
-Inserts a **script** tag in the template. By convention, the tag refers to a script in **/public/javascripts**
+テンプレートに **script** タグを挿入します。利便性のため、このタグは **/public/javascripts** 内のスクリプトを参照します。
 
-* **src** (required) - script file name, without the leading path **/public/javascripts**
-* **id** (optional) - an **id** attribute value for the generated **script** tag
-* **charset** (optional) - sets source encoding - defaults to UTF-8
+* **src** (必須) - **/public/javascripts** パスを含まないスクリプトファイル名
+* **id** (オプション) - 生成された **script** タグの **id** 属性の値
+* **charset** (オプション) - ソースのエンコーディングを設定します - デフォルトは UTF-8 です
 
-The **src** parameter can be replaced by the default **arg** argument.
+**src** パラメータはデフォルトの **arg** 引数に置き換えることもできます。
 
 bc. #{script 'jquery-1.4.2.min.js' /}
 #{script id:'datepicker' , src:'ui/ui.datepicker.js', charset:'utf-8' /}
@@ -420,18 +420,18 @@ bc. #{script 'jquery-1.4.2.min.js' /}
 
 h2. <a name="render">render</a>
 
-Renders the template specified by the path in the tag parameter. The path is either absolute, or relative to **/app/views**
+タグパラメータでパスを指定してテンプレートをレンダリングします。パスは絶対パスか、または **/app/views** に対する相対パスです。
 
 bc. #{render 'Application/other.html'/}
 
 
 h2. <a name="select">select</a>
 
-Insert a **select** tag in the template.
+テンプレートに **select** タグを挿入します。
 
-* **name** (required) - attribute sets a name to the select element.
+* **name** (必須) - select 要素に name 属性を設定する
 
-Any unknow attribute will be considered as an HTML attribute, and rendered "as is"
+不明な属性はすべて HTML 要素として取り扱われ、"そのまま" レンダリングされます。
 
 bc. #{select 'booking.beds', value:2, id:'select1'}
 	#{option 1}One king-size bed#{/option}
@@ -439,7 +439,7 @@ bc. #{select 'booking.beds', value:2, id:'select1'}
 	#{option 3}Three beds#{/option}
 #{/select}
 
-Will output:
+これは、以下のように出力されるでしょう:
 
 bc. <select name="booking.beds" size="1" id="select1" >
   <option value="1">One king-size bed</option>
@@ -448,20 +448,20 @@ bc. <select name="booking.beds" size="1" id="select1" >
 </select>
 
 
-This tag can generate options using **items** attribute.
+このタグは **items** 属性を使って options を生成することもできます。
 
-* **items** (optional) - list of objects, used to create **options**
-* **value** (optional) - selected element in **items**
-* **labelProperty** (optional) - for each item, attribute used as option's label 
-* **valueProperty** (optional) - for each item, attribute used as option's value. **id** is used by default
+* **items** (オプション) - **options** を作成するために使われるオブジェクトのリスト
+* **value** (オプション) - **items** の中の選択された要素
+* **labelProperty** (オプション) - それぞれのアイテムについて option のラベルとして使用される属性 
+* **valueProperty** (オプション) - それぞれのアイテムについて option の値として使用される属性。デフォルトでは **id** が使用される
 
-p(note). The **labelProperty** and **valueProperty** shouldn't be primitives value. So, for example, instead of using **int** or **long** use an **Integer** or **Long** variable.
+p(note). **labelProperty** と **valueProperty** はプリミティブ値であってはなりません。そのため、例えば **int** や **long** を使わずに、 **Integer** や **Long** 変数を使ってください。
 
-For example, giving a list of User, each having a name attribute:
+例えば、それぞれが name 属性を持つ User のリストを与えられた場合:
 
 bc. #{select 'users', items:users, valueProperty:'id', labelProperty:'name', value:5, class:'test', id:'select2' /}
 
-Will output:
+これは、以下のように出力されるでしょう:
 
 bc. <select name="users" size="1" class="test" id="select2" >
   <option value="0" >User-0</option>
@@ -474,16 +474,16 @@ bc. <select name="users" size="1" class="test" id="select2" >
 
 h2. <a name="set">set</a>
 
-Define a value which can be retrieved in the same template or any layout with the **get** tag.
+同じテンプレートかレイアウトにおいて **get** タグを使って検索できる値を定義します。
 
 bc. #{set title:'Admin' /}
 #{set style:'2columns' /}
 
-You can also use variables:
+変数を使用することも可能です:
 
 bc. #{set title:'Profile of ' + user.login /}
 
-You can define the value of variables in the body:
+変数の値をボディ内で定義することも可能です:
 
 bc. #{set 'title'}
     Profile of ${user.login}
@@ -492,14 +492,14 @@ bc. #{set 'title'}
 
 h2. <a name="stylesheet">stylesheet</a>
 
-Inserts a **link** tag in the template. By convention, the tag refers to a CSS file in **/public/stylesheets**
+テンプレートに **link** タグを挿入します。利便性のため、このタグは **/public/stylesheets** 内の CSS ファイルを参照します。
 
-* **src** (required) - file name, without the leading path **/public/stylesheets**
-* **id** (optional) - an **id** attribute value for the generated **link** tag
-* **media** (optional) - a **media** attribute value: screen, print, aural, projection…
-* **title** (optional) - **title** attribute value (or description)
+* **src** (必須) - **/public/stylesheets** パスを含まないファイル名
+* **id** (オプション) - 生成された **link** タグの **id** 属性の値
+* **media** (オプション) - **media** 属性の値: screen, print, aural, projection…
+* **title** (オプション) - **title** 属性の値 (または説明)
 
-The **src** parameter can be replaced by the default **arg** argument.
+**src** パラメータはデフォルトの **arg** 引数に置き換えることもできます。
 
 bc. #{stylesheet 'default.css' /}
 #{stylesheet id:'main', media:'print', src:'print.css', title:'Print stylesheet' /}
@@ -507,11 +507,10 @@ bc. #{stylesheet 'default.css' /}
 
 h2. <a name="verbatim">verbatim</a>
 
-Disables HTML escaping in template output, like the "raw()":javaextensions#arawa Java extension, but for the whole tag body.
+Java 拡張の "raw()":javaextensions#arawa のように、しかしタグボティ全体のテンプレート出力における HTML エスケープを無効にします。
 
 bc. ${'&amp;'}
 #{verbatim}${'&amp;'}#{/verbatim}
 
-In this example, the first line outputs **&amp;** while the second line outputs an ampersand. 
-
+この例の場合、最初の行は **&amp;** を出力しますが、二番目の行はアンパサンドを出力します。
 

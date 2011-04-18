@@ -1,103 +1,103 @@
-h1. Play modules
+h1. Play モジュール
 
-A Play application can be assembled from several application modules. This allows you to reuse application components across several applications or split a large application into several smaller applications.
+Play アプリケーションは、いくつかのアプリケーションモジュールから組み立てることができます。これにより、複数のアプリケーションをまたいでアプリケーションコンポーネントを再利用したり、大きなアプリケーションをいくつかの、より小さなアプリケーションに分割することが可能です。
 
-h2. <a name="what">What is a module?</a>
+h2. <a name="what">モジュールとは?</a>
 
-A module is just another Play application; however some differences exist in the way resources are loaded for an application module:
+モジュールは、ただの play アプリケーションです; しかし、アプリケーションモジュールのリソースがロードされる方法にいくつかの違いがあります:
 
-* A module does not have a **conf/application.conf** file.
-* A module can have a **conf/routes** file, but these routes will not be  loaded automatically.
-* All files are first searched for in the main application path, then in all loaded modules.
-* A module can contain plain Java code packaged as a JAR file in the module/lib directory.
-* A module can include a documentation page.
-* Everything in a module is optional.
+* モジュールには **conf/application.conf** ファイルがありません。
+* モジュールは **conf/routes** ファイルを持つことができますが、これらのルートは自動的にはロードされません。
+* すべてのファイルは、まずメインのアプリケーションパスから検索され、その後、すべてのロードされたモジュールから検索されます。
+* モジュールは module/lib ディレクトリ に JAR ファイルとしてパッケージされたピュア Java コードを含むことができます。
+* モジュールはドキュメントを含むことができます。
+* モジュールにおいて、すべてが任意です。
 
-You can create a module with the **play new-module** command.
+**play new-module** コマンドでモジュールを作成することができます。
 
-h2. <a name="loading">How to load a module from an application</a>
+h2. <a name="loading">アプリケーションからモジュールをロードするには</a>
 
-Modules are automatically loaded from the */modules* directory of the application. You can use the "dependencies management system":dependency to automatically manage your application modules.
+モジュールは、アプリケーションの */modules* ディレクトリから自動的にロードされます。"依存性管理システム":dependency を使って自動的にアプリケーションのモジュールを管理することができます。
 
-h2. <a name="routes">Load default routes from modules</a>
+h2. <a name="routes">モジュールからデフォルトルートをロードする</a>
 
-A module can provide a default routes file. You can load it in the main application routes file, using a special route declaration:
+モジュールはデフォルトルートファイルを提供することができます。特別なルート宣言を使用することで、メインアプリケーションの routes ファイルにこれをロードすることができます:
 
 bc. # Import the default CRUD routes
 GET     /admin	     module:crud
 
-You can even load routes from all available modules:
+すべての利用可能なモジュールからルートをロードすることもできます:
 
 bc. GET     /	     module:*
 
-h2. <a name="documentation">Add documentation to a module</a>
+h2. <a name="documentation">モジュールにドキュメントを追加する/a>
 
-You can add a documentation page to a module simply by adding a the file **documentation/manual/home.textile** to the module. Use the same Textile syntax as the Play documentation itself, in **${play.path}/documentation/manual/**.
+モジュールに **documentation/manual/home.textile** ファイルを追加するだけで、モジュールにドキュメントを追加することができます。 **${play.path}/documentation/manual/** にある Play 自身のドキュメントと同じ Textile 文法を使ってください。
 
-If you are running a Play application that uses one or more modules with documentation, then the local Play documentation at "http://localhost:9000/@documentation":http://localhost:9000/@documentation will include links to their documentation pages under *Installed Modules* in the side bar.
+ドキュメントを持つひとつまたはそれ以上のモジュールを使って Play アプリケーションを実行している場合、 "http://localhost:9000/@documentation":http://localhost:9000/@documentation にあるローカルの Play ドキュメントは、サイドバーの *Installed Modules* の下にそれらドキュメントへのリンクを含みます。
 
-h2. <a name="repository">Using the module repository</a>
+h2. <a name="repository">モジュールリポジトリの使用</a>
 
-The "module repository":http://www.playframework.org/modules identifies all modules contributed by the community. A module can have several versions. You have to check the module’s documentation for which version you need to use for your framework version.
+"モジュールリポジトリ":http://www.playframework.org/modules は、コミュニティによって寄付されたすべてのモジュールを識別します。モジュールはいくつかのバージョンを持つことができます。使用するフレームワークのバージョンに必要なのはどのバージョンのモジュールなのか、モジュールのドキュメントをチェックする必要があります。
 
-You can also browse the module repository using the **play list-modules** command. 
+**play list-modules** コマンドを使ってモジュールリポジトリを閲覧することもできます。
 
-bc. gbo-mac:~ guillaume$ play list-modules
-~        _            _ 
-~  _ __ | | __ _ _  _| |
-~ | '_ \| |/ _' | || |_|
-~ |  __/|_|\____|\__ (_)
-~ |_|            |__/   
-~
-~ play! 1.2, http://www.playframework.org
-~
-~ You can also browse this list online at http://www.playframework.org/modules
-~
-~ [bespin]
-~   Bespin online editor
-~   http://www.playframework.org/modules/bespin
-~   Versions: 1.0, 1.0.1
-~
-~ [cobertura]
-~   Cobertura
-~   http://www.playframework.org/modules/cobertura
-~   Versions: 1.0
+bc. gbo-mac:‾ guillaume$ play list-modules
+‾        _            _ 
+‾  _ __ | | __ _ _  _| |
+‾ | '_ ¥| |/ _' | || |_|
+‾ |  __/|_|¥____|¥__ (_)
+‾ |_|            |__/   
+‾
+‾ play! 1.2, http://www.playframework.org
+‾
+‾ You can also browse this list online at http://www.playframework.org/modules
+‾
+‾ [bespin]
+‾   Bespin online editor
+‾   http://www.playframework.org/modules/bespin
+‾   Versions: 1.0, 1.0.1
+‾
+‾ [cobertura]
+‾   Cobertura
+‾   http://www.playframework.org/modules/cobertura
+‾   Versions: 1.0
 ...
 
-You can install a module locally using the **play install {module}-{version}** command. Installing a module locally allow to use it from several application without having to install a different copy in each application. It is useful for large modules that are more framework extensions than your application extension. 
+**play install {module}-{version}** コマンドを使ってローカルにモジュールをインストールすることができます。ローカルにモジュールをインストールすると、いくつかのアプリケーションがそれぞれ個別のコピーをインストールすることなく、このモジュールを使えるようになります。これは、アプリケーションの拡張というよりも、フレームワークを拡張するような大きなモジュールについて有効です。
 
-For example, to install the Scala support to the framework, use:
+例えば、フレームワークに Scala サポートをインストールする場合、以下を使います:
 
 bc. play install scala-head
 
-By convention the **head** version is the unstable version of the module. You can also install the default version of a module by omitting the version information. For example:
+規約では、 **head** バージョンのモジュールは不安定です。バージョン情報を省略することで、デフォルトバージョンのモジュールをインストールすることもできます。例えば、以下のようにします:
 
 bc. play install scala
 
-Modules installed this way are downloaded to the **/modules** directory of your framework installation. 
+この方法の場合、モジュールはフレームワークをインストールした場所の **/modules** ディレクトリにインストールされます。
 
-You can change the installation path using the **--path** option:
+**--path** オプションを使ってこのインストールパスを変更することができます:
 
 bc. play install gwt --path=my-project
 
-h2. <a name="contributing">Contributing a new module to the module repository</a>
+h2. <a name="contributing">モジュールリポジトリに新しいモジュールを寄付する</a>
 
-First you need to have an OpenID. It will help us to authenticate you as author of your modules. Then send us a module registration request on the Google Group.
+まず最初に、OpenID が必要です。OpenID は、あなたをモジュールの作者として認証する手助けになります。その後、Google Group でモジュール登録のリクエストを送ってください。
 
-Please tell us:
+以下を連絡してください:
 
-* More about your module. What is it?
-* Your module name. It must match the [a-zA-Z]+ regular expression.
-* A short description of the module.
-* Your project home page.
-* Your OpenID.
-* Your module must be hosted somewhere with the source code available and a way to report bugs. If you don’t have any idea, github, Google Code and Launchpad are good choices. 
+* モジュールに関する詳しい情報。どのようなモジュールですか?
+* モジュールの名前。[a-zA-Z]+ の正規表現にマッチしなければなりません。
+* モジュールの短い概要
+* プロジェクトホームページ
+* OpenID
+* モジュールは、ソースコードが利用可能で、かつバグを報告できるどこかで管理されていなければなりません。適当な場所を知らないのであれば、github、Google Code、または launchpad が良い選択肢です。
 
-To release your module, simply use the play build-module command. Then connect to the module repository and upload the generated package.
+モジュールをリリースするには、単に play build-module コマンドを使用してください。そして、モジュールリポジトリに接続して、生成されたパッケージをアップロードしてください。
 
-You can of course use the offical Google Group to provide help and share information about your work.
+もちろん、ヘルプを提供したり情報を共有するために公式の Google Group を使用することができます。
 
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
  
-Learn how efficiently manage your modules using %(next)"Dependencies management":dependency%.
+%(next)"依存性管理":dependency% を使ってモジュールを効率的に管理する方法を学びましょう。
