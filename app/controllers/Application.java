@@ -133,14 +133,7 @@ public class Application extends Controller {
     }
 
     public static void about(String action) throws TwitterException {
-        
-        List<User> translators = new ArrayList<User>();
-        
-        Twitter twitter = new TwitterFactory().getInstance();
-        translators.add(twitter.showUser(5003551));
-        translators.add(twitter.showUser(18828462));
-        
-        render(action, translators);
+        render(action);
     }
 
 }
