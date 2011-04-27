@@ -1,25 +1,25 @@
-h1. Managing database evolutions
+h1. データベースエボリューションの管理
 
-When you use a relational database, you need a way to track and organize your database schema evolutions. Typically there are several situation where you need a more sophisticated way to track your database schema changes:
+リレーショナルデータベースを使用する場合、データベーススキーマの進展を追跡し、管理する方法が必要になります。データベーススキーマの変更を追跡する、より洗練された方法が必要になるいくつかのシチュエーションがあります。
 
-* When you work within a team of developers, each person needs to know about any schema change.
-* When you deploy on a production server, you need to have a robust way to upgrade your database schema.
-* If you work on several machines, you need to keep all database schemas synchronized.
+* 開発チームの中で作業をしていて、すべての人があらゆるスキーマの変更を知る必要があるとき。
+* 本番サーバにデプロイをしていて、データベーススキーマを更新する強固な方法が必要なとき。
+* 複数のマシンで作業をしていて、すべてのデータベーススキーマを同期する必要があるとき。
 
-p(note). If you work with JPA, Hibernate can handle database evolutions for you automatically. Evolutions are useful if you don't use JPA or if you prefer to manually take care of your database schema for finer tuning. 
+p(note). もし JPA を使って作業しているのであれば、Hibernate が自動的にデータベースの変更を取り扱います。JPA を使わない場合、またはより良いチューニングのために手動でデータベーススキーマの面倒を見ることを好む場合、エボリューションが便利です。
 
-h2. <a name="script">Evolutions scripts</a>
+h2. <a name="script">エボリューションスクリプト</a>
 
-Play tracks your database evolutions using several **evolutions script**. These scripts are written in plain old SQL and should be located in the **db/evolutions** directory of your application.
+Play はいくつかの **エボリューションスクリプト** を使ってデータベースの進展を追跡します。これらのスクリプトは古くて平易な SQL で書かれており、アプリケーションの **db/evolutions** ディレクトリに配置されることになっています。
 
-The first script is named **1.sql**, the second script **2.sql**, and so on…
+最初のスクリプトは **1.sql**, 二番目のスクリプトは **2.sql**, そしてその次は… と命名されます。
 
-Each script contains two parts:
+いずれのスクリプトもふたつの部分を含みます:
 
-* The *Ups* part the describe the required transformations.
-* The *Downs* part that describe how to revert them.
+* 変更の要件を定義する *Ups* パート。
+* 変更を取り消す方法を定義する *Downs* パート。
 
-For example, take a look at this first evolution script that bootstrap a basic application:
+例えば、基本的なアプリケーションを立ち上げる最初のエボリューションスクリプトを見てみましょう:
 
 bc. # Users schema
  
@@ -38,19 +38,19 @@ CREATE TABLE User (
  
 DROP TABLE User; 
 
-As you see you have to delimitate the both *Ups* and *Downs* section by using comments in your SQL script.
+見てのとおり、SQL スクリプトはコメントを使って *UPs* 節と *Downs* 節に分けなければいけません。
 
-When **evolutions** are activated, Play will check your database schema state before each request in DEV mode, or before starting the application in PROD mode. In DEV mode, if your database schema is not up to date, an error page will suggest that you to synchronize your database schema by running the appropriate SQL script.
+**エボリューション** が活性化すると、DEV モードの場合はあらゆるリクエストの前に、あるいは PROD モードの場合はアプリケーションを起動する前に Play はデータベーススキーマの状態を確認します。DEV モードにおいてデータベーススキーマが更新されていない場合、適切な SQL スクリプトを実行してデータベーススキーマを同期することをエラーページが提示します。
 
 !images/evolutions!
 
-If you agree with the SQL script, you can apply it directly by clicking on the 'Apply evolutions' button.
+この SQL に同意する場合、'Apply evolutions' ボタンをクリックして直接これを適用することができます。
 
-p(note). If you use an in-memory database (*db=mem*), Play will automatically run all evolutions scripts if your database is empty.
+p(note). インメモりデータベース (*db=mem*) を使っていてデータベースが空の場合、Play はすべてのエボリューションスクリプトを自動的に実行します。
 
-h2. Synchronizing concurrent changes
+h2. 同時変更の同期
 
-Now let's imagine that we have two developers working on this project. Developer A will work on a feature that require a new database table. So it will create the following **2.sql** evolution script:
+さて、ここで二人の開発者が作業するプロジェクトを想像してみましょう。開発者 A は新しいデータベーステーブルが必要な機能に取り掛かっています。そのため、以下のような **2.sql** エボリューションスクリプトを作成するでしょう:
 
 bc. # Add Post
  
@@ -68,9 +68,9 @@ CREATE TABLE Post (
 # --- !Downs
 DROP TABLE Post;
 
-Play will apply this evolution script to Developer A’s database.
+Play は開発者 A のデータベースにこのエボリューションスクリプトを適用します。
 
-On the other hand, developer B will work on a feature that require to alter the User table. So it will also create the following **2.sql** evolution script:
+一方で、開発者 B は User テーブルの変更が必要な機能に取り掛かっています。そのため、やはり以下のような **2.sql** エボリューションスクリプトを作成するでしょう:
 
 bc. # Update User
  
@@ -80,13 +80,13 @@ ALTER TABLE User ADD age INT;
 # --- !Downs
 ALTER TABLE User DROP age;
 
-Developer B finishes his feature and commit (let's say they are using Git). Now developer A has to merge the work of his colleague before continuing, so it run **git pull**, and the merge has a conflict, like:
+開発者 B は機能を終えてコミットします (Git を使っていることにしましょう) 。 ここで開発者 A は作業を続ける前に同僚の成果をマージしなければならないので **git pull** を実行しますが、このマージでは以下のようなコンフリクトが発生します:
 
 bc. Auto-merging db/evolutions/2.sql
 CONFLICT (add/add): Merge conflict in db/evolutions/2.sql
 Automatic merge failed; fix conflicts and then commit the result.
 
-Each developer has created a **2.sql** evolution script. So developer A needs to merge the content of this file:
+いずれの開発者も **2.sql** エボリューションスクリプトを作成しました。そのため開発者 A はこのファイルの内容をマージする必要があります:
 
 bc. <<<<<<< HEAD
 # Add Post
@@ -114,7 +114,7 @@ ALTER TABLE User ADD age INT;
 ALTER TABLE User DROP age;
 >>>>>>> devB
 
-The merge is really easy to do:
+このマージは実に簡単に行えます:
 
 bc. # Add Post and update User
  
@@ -136,17 +136,17 @@ ALTER TABLE User DROP age;
  
 DROP TABLE Post;
 
-This evolution script represents the new **revision 2** of the database, that is different of the previous revision 2 that developer A has already applied. 
+このエボリューションスクリプトは、開発者 A が既に適用した以前のリビジョン 2 とは違う、このデータベースの新しい **リビジョン 2** を表現しています。
 
-So Play will detect it and ask developer A to synchronize his database by first reverting the old revision 2 already applied, and by applying the new revision 2 script:
+このため Play はこれを検知し、まず古いリビジョン 2 を取り消し、新しいリビジョン 2 スクリプトを適用してデータベースを同期するよう開発者 A に依頼します:
 
 !images/evolutions-conflict!
 
-h2. Inconsistent states
+h2. 矛盾した状態
 
-Sometimes you will make a mistake in your evolution scripts, and they will fail. In this case, Play will mark your database schema as being in an inconsistent state and will ask you to manually resolve the problem before continuing.
+エボリューションスクリプトを間違えて、エボリューションが失敗することもあるでしょう。この場合、Play はデータベーススキーマを矛盾した状態にあると印付け、作業を続ける前にこの問題を手動で解決するよう依頼します。
 
-For example, the **Ups** script of this evolution has an error:
+例えば、このエボリューションの **Ups** スクリプトにはエラーがあります:
 
 bc. # Add another column to User
   
@@ -156,17 +156,17 @@ ALTER TABLE Userxxx ADD company varchar(255);
 # --- !Downs
 ALTER TABLE User DROP company;
 
-So trying to apply this evolution will fail, and Play will mark your database schema as inconsistent:
+このため、このエボリューションを適用すると失敗し、Play はデータベーススキーマを矛盾していると印付けます:
 
 !images/evolutions-inconsistent!
 
-Now before continuing you have to fix this inconsistency. So you run the fixed SQL command:
+さて、作業を続ける前にこの矛盾を解決しなければなりません。そこで、修正した SQL コマンドを実行します:
 
 bc. ALTER TABLE User ADD company varchar(255);
 
-… and then mark this problem as manually resolved by clicking on the button.
+その後、ボタンをクリックすることで、この問題は手動で解決したと印付けます。
 
-But because you evolution script has error, you probably want to fix it. So you modify the **3.sql** script:
+しかし、エボリューションスクリプトにはエラーがあるので、これを直したいはずです。そこで **3.sql** スクリプトを修正します:
 
 bc. # Add another column to User
   
@@ -176,19 +176,19 @@ ALTER TABLE User ADD company varchar(255);
 # --- !Downs
 ALTER TABLE User DROP company;
 
-Play detects this new evolution that replaces the previous *3* one, and will run the following script:
+Play は以前の *3* を置き換えるこの新しいエボリューションを検知し、以下のスクリプトを実行します:
 
 !images/evolutions-resolve!
 
-Now everything is fixed, and you can continue to work.
+これですべてが解決し、作業を続けることができます。
 
-p(note). In developement mode however it is often simpler to simply trash your developement database and reapply all evolutions from the beginning.
+p(note). とは言え、開発モードにおいては、単に開発データベースを捨てて最初からすべてのエボリューションを再度適用するほうが簡単な場合がしばしばあります。
 
-h2. Evolutions commands
+h2. エボリューションコマンド
 
-The evolutions run interactively in DEV mode. However in PROD mode you will have to use the **evolutions** command to fix your database schema before running your application.
+DEV モードでは対話的にエボリューションを実行します。しかし PROD モードではアプリケーションを実行する前に **evolutions** コマンドを使ってデータベーススキーマを確定しなければいけません。
 
-If you try to run a application in production mode on a database that is not up to date, the application will not start.
+本番モードのアプリケーションを更新されていないデータベースで実行しようとした場合、アプリケーションは起動しません。
 
 bc. ~        _            _ 
 ~  _ __ | | __ _ _  _| |
@@ -228,7 +228,7 @@ Exception in thread "main" play.db.Evolutions$InvalidDatabaseRevision
 	at play.Play.init(Play.java:298)
 	at play.server.Server.main(Server.java:141)
 
-The error message ask you to run the @play evolutions@ command:
+エラーメッセージは @play evolutions@ コマンドを実行するよう依頼しています:
 
 bc. $ play evolutions
 ~        _            _ 
@@ -281,18 +281,18 @@ ALTER TABLE User ADD company varchar(255);
 ~ or apply it yourself and mark it done using `play evolutions:markApplied`
 ~
 
-If you want Play to automatically run this evolution for you, then run:
+このエボリューションを Play が自動的に実行するようにしたい場合は、以下を実行します:
 
 bc. $ play evolutions:apply
 
-If you prefer running this script manually on your production database, you need to tell Play that you database is up-to-date by running:
+本番データベースにおいて、このスクリプトを手動で実行したい場合は、次のコマンドを実行してデータベースが更新されたことを Play に伝える必要があります:
 
 bc. $ play evolutions:markApplied
 
-If there are any errors while automatically running the evolutions scripts, as in DEV mode, you need to manually resolve them, and mark your database schema a fixed by running:
+エボリューションスクリプトの自動実行中になんらかのエラーが発生した場合、DEV モードにおいては、それらを手動で解決し、次のコマンドを実行することでデータベーススキーマが修正されたと印付ける必要があります:
 
 bc. $ play evolutions:resolve
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
 
-Learn how to configure %(next)"Logging":logs%.
+%(next)"ロギング":logs% の設定方法を学びましょう。
