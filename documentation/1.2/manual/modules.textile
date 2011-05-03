@@ -30,7 +30,7 @@ GET     /admin	     module:crud
 
 bc. GET     /	     module:*
 
-h2. <a name="documentation">モジュールにドキュメントを追加する/a>
+h2. <a name="documentation">モジュールにドキュメントを追加する</a>
 
 モジュールに **documentation/manual/home.textile** ファイルを追加するだけで、モジュールにドキュメントを追加することができます。 **${play.path}/documentation/manual/** にある Play 自身のドキュメントと同じ Textile 文法を使ってください。
 
