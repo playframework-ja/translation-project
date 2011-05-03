@@ -1,0 +1,45 @@
+For exec mannualy:
+curl -X POST http://127.0.0.1:8091/mapred -H "Content-Type: application/json" -d @-
+control-d for exec
+
+
+See http://siculars.posterous.com/using-riaks-mapreduce-for-sorting
+for clear example
+
+{"inputs":"MusicBand",
+  "query":[{"map":{"language":"javascript",
+                   "name":"Riak.mapValuesJson",
+                   "keep":true}}
+          ]
+}
+
+
+// Desc order by Creation date
+{"inputs":"MusicBand",
+  "query":[
+  			{"map":{"language":"javascript",
+                   "source":"function(v, keydata, args) { if (v.values) { var ret = []; o = Riak.mapValuesJson(v)[0];o.lastModifiedParsed = Date.parse(v['values'][0]['metadata']['X-Riak-Last-Modified']);o.key = v['key'];ret.push(o);return ret;} else {return [];}}"
+                   }
+           	},
+           	{"reduce":
+				{"language":"javascript", 
+           			"source":"function ( v , args ) { v.sort ( function(a,b) { return b['lastModifiedParsed'] - a['lastModifiedParsed'] } ); return v}"
+           		}
+           	}
+          ]
+}
+
+// Asc order by Creation date
+{"inputs":"MusicBand",
+  "query":[
+  			{"map":{"language":"javascript",
+                   "source":"function(v, keydata, args) { if (v.values) { var ret = []; o = Riak.mapValuesJson(v)[0];o.lastModifiedParsed = Date.parse(v['values'][0]['metadata']['X-Riak-Last-Modified']);o.key = v['key'];ret.push(o);return ret;} else {return [];}}"
+                   }
+           	},
+           	{"reduce":
+				{"language":"javascript", 
+           			"source":"function ( v , args ) { v.sort ( function(a,b) { return a['lastModifiedParsed'] - b['lastModifiedParsed'] } ); return v}"
+           		}
+           	}
+          ]
+}

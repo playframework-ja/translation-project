@@ -1,0 +1,56 @@
+h1. HTML5 Validation
+
+p. The HTML5 validation module provides a simple @#{input /}@ tag which can be used as a drop-in replacement for existing HTML @<input>@ elements. The @#{input /}@  tag will try to map existing data validation annotations from your Play! model to the HTML input element and thus provide near codeless client-side validation without even using JavaScript. On top of that it supports all available attributes from the original HTML input element and autofills the @name@ attribute by default.
+
+
+h2. <a>Enable the HTML5 validation module</a>
+
+p. In the */conf/application.conf* file, enable the HTML5 validation module by adding this line:
+
+bc. # The HTML5 validation module
+module.html5validation=${play.path}/modules/html5validation-1.2
+
+
+h2. <a>Usage</a>
+
+p. To use this module, simply replace those @<input>@ elements which need validation with the @#{input /}@ tag and specify the field from the corresponding model class using the @for@ attribute. All other attributes can just be copied from the existing @<input>@ element using the default Groovy syntax.
+
+
+h2. Example
+
+p. Suppose you have a Model class called @User@ which has a field called @name@ declared as
+
+
+bq. @Required
+@MaxSize(8)
+@Match("[a-z]*")
+public String name;
+
+p. you can replace your existing @<input>@ element with the following:
+
+pre. #{input for:'user.name', id:'YourID', class:'class1 class2' /}
+
+The tag will then output the following HTML code:
+
+pre. <input name="user.name" value="${user?.name}" id="YourID" class="class1 class2" required maxlength="8" pattern="[a-z]*">
+
+p. Note: @${user?.name}@ will actually be resolved to its current value.
+
+
+h2. <a>Supported Annotations</a>
+
+p. The module currently supports the following annotations:
+
+* "Required":http://www.playframework.org/documentation/1.1/validation-builtin#required 
+* "Email":http://www.playframework.org/documentation/1.1/validation-builtin#email 
+* "Min":http://www.playframework.org/documentation/1.1/validation-builtin#min 
+* "Max":http://www.playframework.org/documentation/1.1/validation-builtin#max 
+* "Range":http://www.playframework.org/documentation/1.1/validation-builtin#range 
+* "MaxSize":http://www.playframework.org/documentation/1.1/validation-builtin#maxSize 
+* "URL":http://www.playframework.org/documentation/1.1/validation-builtin#url 
+* "Match":http://www.playframework.org/documentation/1.1/validation-builtin#match 
+
+
+h2. <a>Issue tracking</a>
+
+p. If you want to report a bug or wish for a new feature, please use the "issue tracker":https://github.com/oasits/play-html5-validation/issues

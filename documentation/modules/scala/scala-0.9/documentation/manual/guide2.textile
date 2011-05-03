@@ -1,0 +1,457 @@
+h1. A first iteration for the data model
+
+Here we will start to write the model for our blog engine.
+
+h2. <a>Introduction to Anorm</a>
+
+The model layer has a central position in a Play application (and in fact in all well-designed applications). It is the domain-specific representation of the information on which the application operates. As we want to create a blog engine, the model layer will certainly contain classes like User, Post and Comment.
+
+Because most model objects need to survive between application restarts, we have to save them in a persistent datastore. A common choice is to use a relational database. 
+
+The Scala module includes a brand new data access layer called "Anorm":anorm that uses plain SQL to make your database requests and provides several API to parse and transform the resulting dataset. 
+
+There are several ways to use *Anorm*, depending of your needs. In this tutorial we will use the most advanced one where we will automatically map the result of our SQL queries to a set of *case classes* representing our data.
+
+h2. <a>The User model</a>
+
+We will start to code the blog engine by creating the User model.
+
+First we need to create the *User* table in the database. We will use the Play *evolutions* feature to organize our SQL schema modification: create a new evolution file *db/evolutions/1.sql* that contains the following SQL script:
+
+bc. # Users schema
+ 
+# --- !Ups
+ 
+CREATE TABLE User (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    email varchar(255) NOT NULL,
+    password varchar(255) NOT NULL,
+    fullname varchar(255) NOT NULL,
+    isAdmin boolean NOT NULL,
+    PRIMARY KEY (id)
+);
+ 
+# --- !Downs
+ 
+DROP TABLE User; 
+
+Refresh the home page of your application to make Play detect and apply this evolution.
+
+p(note). As we use an in-memory database here, and because it is empty, Play will automatically apply this evolution without warning. Check for the following log statement in your console:
+ 
+@INFO  ~ Automatically applying evolutions in in-memory database@
+
+Now we need to write the Scala representation of the User model. Create a new file **/yabe/app/models.scala**, and declare a first implementation of the *User* class:
+
+bc. package models
+ 
+import play.db.anorm._
+import play.db.anorm.SqlParser._
+ 
+// User
+ 
+case class User(
+    id: Pk[Long], 
+    email: String, password: String, fullname: String, isAdmin: Boolean
+)
+
+As you see, this User *case class* match our User table definition; it will help us to parse the result of our SQL queries involving the User table.
+
+Now we will also define a *companion object* for the User class:
+
+bc. object User extends Magic[User]
+
+p(note). You also need to import @play.db.anorm.defaults._@ to have access to the @Magic@ type.
+
+This *User* object inherits *Magic* that analyses the type it is parametrized by, and then offers a set of functionalities for parsing and running SQL queries. 
+
+You can now refresh the application home page to see the result. In fact, unless you made a mistake, you should not see any change: Play has automatically compiled and loaded the User class, but this has not added any new feature to the application.
+
+h2. <a>Writing the first test</a>
+
+A good way to test the newly created User class is to write a test case. It will allows you to incrementally complete the application model and ensure that all is fine.
+
+To run a test case, you need to start the application in a special “test” mode. Stop the currently running application, open a command line and type:
+
+bc. ~$ play test
+
+The **play test** command is almost the same as **play run**, except that it loads a test runner module that allows you to run test suites directly from a browser. 
+
+p(note). When you run a Play application in **test mode**, Play will automatically switch to the **test** framework ID and load the **application.conf** file accordingly. Check the "framework ID documentation":ids for more information.
+
+Open a browser to the "http://localhost:9000/@tests":http://localhost:9000/@tests URL to see the test runner. Try to select all the default tests and run them; all should be green… But these default tests don’t really test anything.
+
+!images/guide2-1!
+
+The scala module is bundled with the "scalatest":http://www.scalatest.org framework.
+
+To test the model part of the application we will use a behavior driven test. As you can see, a default **Tests.scala** file already exists, so let’s open it (**/yabe/test/Tests.scala**):
+
+bc. import play._
+import play.test._
+ 
+import org.scalatest._
+import org.scalatest.junit._
+import org.scalatest.matchers._
+ 
+class BasicTests extends UnitFlatSpec with ShouldMatchers {
+    
+    it should "run this dumb test" in {
+        
+        (1 + 1) should be (2)
+        
+    }
+ 
+}
+
+Remove the useless default test (**it should "run this dumb test"**) and create a test that tries to create a new user and retrieve it:
+
+bc. import models._    
+import play.db.anorm._
+    
+it should "create and retrieve a User" in {
+    
+    User.create(User(NotAssigned, "bob@gmail.com", "secret", "Bob", false))
+   
+    val bob = User.find(
+        "email={email}").on("email" -> "bob@gmail.com"
+    ).first()
+   
+    bob should not be (None)
+    bob.get.fullname should be ("Bob")
+   
+}
+
+As you can see, the User companion object gives us the @create(u:User)@ and @find(sql:String)@ methods. 
+
+Note also that we use @NotAssigned@ as id value because the User table declare the *id* column as auto-generated.
+
+p(note). You can read more about the Magic methods in the Play manual’s "Anorm":anorm chapter.
+
+Select the **BasicTests** in the test runner, click start and check that all is green. 
+
+We will need a method on the User class that checks if a user with a specified username and password exists. Let’s write it and test it.
+
+In the **models.scala** source file, add the **connect()** method to the @User@ object:
+
+bc. object User extends Magic[User] {
+    
+    def connect(email: String, password: String) = {
+        User.find("email = {email} and password = {password}")
+            .on("email" -> email, "password" -> password)
+            .first()
+    }
+    
+}
+
+And now the test case:
+
+bc. it should "connect a User" in {
+    
+    User.create(User(NotAssigned, "bob@gmail.com", "secret", "Bob", false))
+    
+    User.connect("bob@gmail.com", "secret") should not be (None)
+    User.connect("bob@gmail.com", "badpassword") should be (None)
+    User.connect("tom@gmail.com", "secret") should be (None)
+    
+}
+
+Each time you make a modification you can run all the tests from the Play test runner to make sure you didn’t break anything. 
+
+h2. <a>The Post model</a>
+
+The **Post** model will represent blog posts. 
+
+As for User, we need to create the Post table in the database. It will be our second database evolution. So create the *db/evolutions/2.sql* with the following script:
+
+bc. # --- !Ups
+ 
+CREATE TABLE Post (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    title varchar(255) NOT NULL,
+    content text NOT NULL,
+    postedAt date NOT NULL,
+    author_id bigint(20) NOT NULL,
+    FOREIGN KEY (author_id) REFERENCES User(id),
+    PRIMARY KEY (id)
+);
+ 
+# --- !Downs
+ 
+DROP TABLE Post;
+
+This time, as our database is not empty anymore, Play will ask you before applying this evolution:
+
+!images/guide2-12!
+
+Now, we will map this table to a Scala class:
+
+bc. case class Post(
+    id: Pk[Long], 
+    title: String, content: String, postedAt: Date, author_id: Long
+)
+ 
+object Post extends Magic[Post]
+
+p(note). As the @Post@ class use it, you need to import @java.util.Date@ in the scope:
+ 
+@import java.util.{Date}@
+
+We will write a new test case to check that the **Post** model works as expected. But before writing more tests, we need to do something in our test. In the current test, the database content is never deleted, so each new run creates more and more objects. This will soon become problematic, when more advanced tests will count objects to check that all is fine.
+
+So we need to delete the database before each test. Mix your test class with the @BeforeAndAfterEach@ trait, and override the @beforeEach@ method definition:
+
+bc. … extends UnitFlatSpec with ShouldMatchers with BeforeAndAfterEach {
+    
+    import models._    
+    import play.db.anorm._
+    
+    override def beforeEach() {
+        Fixtures.deleteDatabase()
+    }
+    
+    …
+
+As you can see, the **Fixtures** class is a helper to deal with your database during tests. Run the test again to check that you haven’t broken anything, and start to write the next test:
+
+bc. it should "create a Post" in {
+    
+    User.create(User(Id(1), "bob@gmail.com", "secret", "Bob", false))     
+    Post.create(Post(NotAssigned, "My first post", "Hello!", new Date, 1))
+    
+    Post.count().single() should be (1)
+    
+    val posts = Post.find("author_id={id}").on("id" -> 1).as(Post*)
+    
+    posts.length should be (1)
+    
+    val firstPost = posts.headOption
+    
+    firstPost should not be (None)
+    firstPost.get.author_id should be (1)
+    firstPost.get.title should be ("My first post")
+    firstPost.get.content should be ("Hello!")
+    
+}
+
+Now if we think about our use case we probably want to fetch each post with his author to be able to display this information on the home page. So let's create a new method in the *Post* object that allows to fetch Post and corresponding User objects in a single query.
+
+First, here is the SQL query we need:
+
+bc. select * from Post p 
+join User u on p.author_id = u.id 
+order by p.postedAt desc
+
+It is a simple join on the *author_id* column.
+
+p(note). If you want to test SQL statements, you can open "http://localhost:9000/@db":http://localhost:9000/@db to access the SQL console.
+
+Let's add a Scala method that executes this query to the @Post@ object:
+
+bc. def allWithAuthor:List[(Post,User)] = 
+    SQL(
+        """
+            select * from Post p 
+            join User u on p.author_id = u.id 
+            order by p.postedAt desc
+        """
+    ).as( Post ~< User ^^ flatten * )
+
+Here we use a *parser* to parse and transform the JDBC result set as a @List[(Post,User)]@ structure. The parser here is pretty simple:
+
+* For each row it parses a @Post@ followed by a @User@
+* @flatten@ transforms @Post~User@ into a simpler @(Post,User)@ structure (it will be simpler to use in our templates)
+* We repeat this for each row using @*@
+
+The final parser is written @Post ~< User ^^ flatten *@.
+
+Finally let's add the corresponding test:
+
+bc. it should "retrieve Posts with author" in {
+    
+    User.create(User(Id(1), "bob@gmail.com", "secret", "Bob", false)) 
+    Post.create(Post(NotAssigned, "My 1st post", "Hello world", new Date, 1))
+    
+    val posts = Post.allWithAuthor
+    
+    posts.length should be (1)
+    
+    val (post,author) = posts.head
+    
+    post.title should be ("My 1st post")
+    author.fullname should be ("Bob")
+}
+
+h2. <a>Adding Comments</a>
+
+The last thing that we need to add to this first model draft is the ability to attach comments to posts.
+
+As usual, create an evolution script to update your database schema, *db/evolutions/3.sql*:
+
+bc. # --- !Ups
+ 
+CREATE TABLE Comment (
+    id bigint(20) NOT NULL AUTO_INCREMENT,
+    author varchar(255) NOT NULL,
+    content text NOT NULL,
+    postedAt date NOT NULL,
+    post_id bigint(20) NOT NULL,
+    FOREIGN KEY (post_id) REFERENCES Post(id) ON DELETE CASCADE,
+    PRIMARY KEY (id)
+);
+ 
+# --- !Downs
+ 
+DROP TABLE Comment;
+
+Reload, and apply the evolution. Now create the corresponding Scala structure:
+
+bc. case class Comment(
+    id: Pk[Long], 
+    author: String, content: String, postedAt: Date, post_id: Long
+) 
+ 
+object Comment extends Magic[Comment]
+
+We will also add new methods to the *Post* object, to retrieve posts with the corresponding comment collection. First the method that retrieves all posts:
+
+bc. def allWithAuthorAndComments:List[(Post,User,List[Comment])] = 
+    SQL(
+        """
+            select * from Post p 
+            join User u on p.author_id = u.id 
+            left join Comment c on c.post_id = p.id 
+            order by p.postedAt desc
+        """
+    ).as( Post ~< User ~< Post.spanM( Comment ) ^^ flatten * )
+
+Here our parser it a bit more complicated. @Post.spanM( Comment )@ will span several rows and extract the comments list for each post.
+
+And then another method that returns an @Option[(Post,User,List[Comment])]@ from a Post id:
+
+bc. def byIdWithAuthorAndComments(id: Long):Option[(Post,User,List[Comment])] = 
+    SQL(
+        """
+            select * from Post p 
+            join User u on p.author_id = u.id 
+            left join Comment c on c.post_id = p.id 
+            where p.id = {id}
+        """
+    ).on("id" -> id).as( Post ~< User ~< Post.spanM( Comment ) ^^ flatten ? )
+
+Now it's time to test these new methods by writing a test case:
+
+bc. it should "support Comments" in {
+    
+    User.create(User(Id(1), "bob@gmail.com", "secret", "Bob", false))  
+    Post.create(Post(Id(1), "My first post", "Hello world", new Date, 1))
+    Comment.create(Comment(NotAssigned, "Jeff", "Nice post", new Date, 1))
+    Comment.create(Comment(NotAssigned, "Tom", "I knew that !", new Date, 1))
+    
+    User.count().single() should be (1)
+    Post.count().single() should be (1)
+    Comment.count().single() should be (2)
+    
+    val Some( (post,author,comments) ) = Post.byIdWithAuthorAndComments(1)
+    
+    post.title should be ("My first post")
+    author.fullname should be ("Bob")
+    comments.length should be (2)
+    comments(0).author should be ("Jeff")
+    comments(1).author should be ("Tom")
+    
+}
+
+Is it green?
+
+Finally, we will add a helper method to the **Comment** object to simplify adding comments:
+
+bc. object Comment extends Magic[Comment] {
+    
+    def apply(post_id: Long, author: String, content: String) = {
+        new Comment(NotAssigned, author, content, new Date(), post_id)
+    }
+    
+}
+
+h2. <a>Using Fixtures to write more complicated tests</a>
+
+When you start to write more complex tests, you often need a set of data to test on. Fixtures let you describe your model in a "YAML":http://en.wikipedia.org/wiki/Yaml file and load it at any time before a test.
+
+Edit the **/yabe/test/data.yml** file and start to describe a User:
+
+bc. 
+- !!models.User
+    id:             !!Id[Long] 1
+    email:          bob@gmail.com
+    password:       secret
+    fullname:       Bob
+    isAdmin:        true
+ 
+...
+
+Well, because the **data.yml** file is a litle big, you can "download it here":files/data.yml.
+
+Loading this Yaml file is pretty easy:
+
+bc. Yaml[List[Any]]("data.yml").foreach { 
+    _ match {
+        case u:User => User.create(u)
+        case p:Post => Post.create(p)
+        case c:Comment => Comment.create(c)
+    }
+}
+
+The @Yaml@ helper transforms the Yaml data into class instances, and we use than the @Magic@ objects to insert these instances into the database.
+
+Now we create a test case that loads these data and runs some assertions over it:
+
+bc. it should "load a complex graph from Yaml" in {
+    
+    Yaml[List[Any]]("data.yml").foreach { 
+        _ match {
+            case u:User => User.create(u)
+            case p:Post => Post.create(p)
+            case c:Comment => Comment.create(c)
+        }
+    }
+    
+    User.count().single() should be (2)
+    Post.count().single() should be (3)
+    Comment.count().single() should be (3)
+    
+    User.connect("bob@gmail.com", "secret") should not be (None)
+    User.connect("jeff@gmail.com", "secret") should not be (None)
+    User.connect("jeff@gmail.com", "badpassword") should be (None)
+    User.connect("tom@gmail.com", "secret") should be (None)
+    
+    val allPostsWithAuthorAndComments = Post.allWithAuthorAndComments
+    
+    allPostsWithAuthorAndComments.length should be (3) 
+    
+    val (post,author,comments) = allPostsWithAuthorAndComments(2)
+    post.title should be ("About the model layer")
+    author.fullname should be ("Bob")
+    comments.length should be (2)
+    
+    // We have a referential integrity error error
+    User.delete("email={email}")
+        .on("email"->"bob@gmail.com").executeUpdate().isLeft should be (true)
+    
+    Post.delete("author_id={id}")
+        .on("id"->1).executeUpdate().isRight should be (true)
+        
+    User.delete("email={email}")
+        .on("email"->"bob@gmail.com").executeUpdate().isRight should be (true)
+    
+    User.count().single() should be (1)
+    Post.count().single() should be (1)
+    Comment.count().single() should be (0)
+    
+}
+
+<hr>
+
+We have now finished a huge part of the blog engine. Now that we have created and tested all these things, we can start to develop the web application itself.
+
+p(note). Go to the %(next)"Building the first screen":guide3%. 

@@ -1,0 +1,62 @@
+h1. Content Negotiation Module
+
+p. The content negotiation module helps using custom media types in your Play! application. For this it uses annotations to express which media type a controller method can produce.
+
+
+h2. <a>Enable the content negotiation module</a>
+
+p. For applications running Play! < 1.2 change the */conf/application.conf* file and enable the content negotiation module by adding this line:
+
+bc. # The content negotiation module
+module.cnm=${play.path}/modules/cnm-2.0
+
+p. For applications running Play! >= 1.2 change the */conf/dependencies.yml* file and enable the content negotiation module by adding this line:
+
+bc. 
+    - play -> cnm 2.0
+
+
+h2. <a>Usage</a>
+
+p. Annotate all controller methods which may return a custom media type not supported by the Play! framework directly with the @Supports@ annotation. Inside the @Supports@ annotation list all supported media types by using the @MediaType@ annotation.
+
+
+h3. <a>Example</a>
+
+p. Suppose you have a method like the following:
+
+bc. 
+public static void index() {
+    render();
+}
+
+p. And you wish to support the *application/vnd.com.example.play+xml* media type by mapping it to the *.play* template format. To do so simply add the following line to the method:
+
+bc. 
+@Supports(@MediaType(accept="application/vnd.com.example.play+xml", format="play"))
+public static void index() {
+    render();
+}
+
+p. Multiple types are supported as well:
+
+bc. 
+@Supports(@MediaType(accept="application/vnd.com.example.play+xml", format="play"),
+          @MediaType(accept="text/x-vcard", format="vcard"))
+public static void index() {
+    render();
+}
+
+
+h2. <a>Request a specific content type</a>
+
+p. Besides defining your own content type and the corresponding template format, you may want at some point to actually use it. To do so change the *Accept* header of your HTTP request to be exactly like the content type you want. Multiple entries, each with different q-values are supported as well.
+
+bc. Accept: application/vnd.com.example.play+xml
+
+bc. Accept: application/vnd.com.example.play+xml;q=1.0, application/vnd.com.example.play+json;q=0.9
+
+
+h2. <a>Issue tracking</a>
+
+p. If you wish to report a bug or wish for a new feature, please use the "issue tracker":http://github.com/oasits/play-content-negotiation/issues

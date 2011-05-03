@@ -47,21 +47,12 @@
         
         <p>${module.description.raw()}</p>
         
-        <p><a href="${module.url}">${module.url}</a>, 作成者 ${module.author}</p>
+        <p><a href="${module.url}">${module.url}</a></p>
+        <p>作成者 ${module.author}</p>
         
         <h2><a>公開されたリリース</a></h2>
         
         #{if versions}
-        <p>
-            このモジュールをインストールするには <strong>install</strong> コマンドを使用してください:
-        </p>
-        
-        <pre><code>play install ${module.id}-{version}</code></pre>  
-        
-        <p>
-            バージョン互換性を確認するために各リリースのドキュメントを確認してください。
-        </p>
-        
         <table>
         #{list items:versions, as:'item'}
             <tr>
@@ -69,12 +60,26 @@
                 <td>${item.publishedAt}</td>
 
                 <td><a href="/modules/${module.id}-${item.version}/home">ドキュメント</a></td>
-                <td style="text-align:right"
+                <td style="text-align:right">
                     <a href="http://www.playframework.org/modules/${module.id}-${item.version}.zip">ダウンロード</a>
                 </td>
             </tr>
         #{/list}
         </table>
+
+        <p>
+            このモジュールをインストールするには <strong>install</strong> コマンドを使用してください:
+        </p>        
+        <pre><code>play install ${module.id}-{version}</code></pre>  
+
+        <p>
+            このモジュールをアプリケーションの依存性としてインストールするには、このモジュールを dependencies.yml ファイルに追加してください: 
+        </p>
+        <pre><code>require:
+    - play -> ${module.id} {version}</code></pre>  
+        <p>
+            バージョン互換性を確認するために各リリースのドキュメントを確認してください。
+        </p>
         #{/if}
         #{else}
         <p>

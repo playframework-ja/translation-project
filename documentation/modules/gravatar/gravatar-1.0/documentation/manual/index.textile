@@ -1,0 +1,43 @@
+h1. play-gravatar
+
+Integrate "Gravatar":http://www.gravatar.com into your Play application.
+
+h2. Installation
+
+h3. Module installation
+
+Install the gravatar module from the modules repository:
+
+bc. play install gravatar
+
+h3. Enable the module
+
+After installing the module, add the following to your @application.conf@ to enable it:
+
+bc. module.gravatar=${play.path}/modules/gravatar
+
+h3. Using gravatar tag
+
+Gravatar module 
+After installation you can use _gravatar.img_ tag in your templates to generate an html img tag with the correct url for the email provided:
+
+pre. #{gravatar.img 'john@example.org'/}
+
+renders to:
+
+pre. <img src="http://www.gravatar.com/avatar/08aff750c4586c34375a0ebd987c1a7e"></img>
+
+Or you can use _gravatar.url_ to generate a String with the correct url:
+
+pre. #{gravatar.url 'john@example.org'/}
+
+renders to:
+
+pre. http://www.gravatar.com/avatar/08aff750c4586c34375a0ebd987c1a7e
+
+h3. Parameters
+
+_Size_,_default_,_rating_ and _secure_ parameters explained "here":http://www.gravatar.com/site/implement/images/
+are available.
+
+pre. #{gravatar.url 'john@example.org', size:50, default:'mm', rating:'pg', secure:true /}

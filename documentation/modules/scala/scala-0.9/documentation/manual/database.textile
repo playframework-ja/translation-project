@@ -1,0 +1,182 @@
+h1. Database access options
+
+Most of your applications will need to access to a database. This page describe options you have to manage an SQL database from a Play Scala application.
+
+h2. Using Anorm
+
+The Scala module includes a brand new data access layer called *Anorm* that uses plain SQL to make your database request and provides several API to parse and transform the resulting dataset. 
+
+We believe that it is the best way to access your relational databases from Scala and this component will be encouraged and fully integrated with the rest of the Play Scala stack.
+
+Please check the "complete manual":anorm for more information.
+
+h2. Using JPA
+
+JPA (using Hibernate as implementation) is the default way to access and manage an SQL database in a standard Play Java application. It is still possible to use JPA from a Play Scala application, but **it is probably not the best way, and it should be considered as legacy and deprecated**.
+
+There are several problematic points when you want to use JPA with Scala:
+
+* JPA forces you to use the Java collection library to set up entities relations. Of course you can import some Java to Scala implicit conversion in your scope, but it is not ideal.
+* Some of your database columns can be nullable. And as a seasoned Scala developer you probably want to map them as @Option@ types. Unfortunately this is not possible at all.
+* JPA relies a lot on Java annotations. And there are several semantic differences that make Java and Scala annotations not really compatibles.
+
+But the most important point is: do you really need a Relationnal to Objects mapper when you have the power of a functional language? Probably not. JPA is a convenient way to abstract the Java's lack of power in data transformation, but it really feels wrong when you start to use it from Scala.
+
+Anyway, if you really want to use JPA from a Play Scala application here is how to define a @play.db.jpa.Model@ class with its corresponding companion object:
+
+bc. import play.db.jpa._
+ 
+import java.util.{List -> JList}
+import javax.persistence._
+ 
+@Entity class User extends Model {
+    
+    var name:String
+    var email:String
+    
+    @OneToMany var posts:JList[Post]
+    
+}
+ 
+object User extends QueryOn[User]
+
+Look at the User class and its companion object, and note these important points:
+
+* You need to declare a standard @class@ and not a @case class@.
+* Let you class with an empty constructor.
+* Always declare JPA annotation on fields, not into the constructor.
+* Use @var@ instead of @val@ for persistent fields, as they need to be mutable.
+* Use the @java.util.Collection@ API to express entities relations.
+* The entity class will not have @find@ or any other factory methods. For that you need to create a companion object that extends the @QueryOn[T]@ Trait.
+
+And here a few examples about using the @QueryOn[T]@ API to access your entities:
+
+bc. val mayBeUser:Option[User] = User.findById(5)
+val totoUsers:List[User] = User.find("byName", "Toto").fetch()
+User.all().fetch().each { _.delete() }
+
+h2. Integrating other existing Database access librairies
+
+Perhaps you already use another existing Database access library for Scala and you want to keep using it from your Play application. Basically a Play application manage the JDBC connection for you, and provide your application with a simple @java.sql.Connection@ object that you can use to integrate any other existing framework you want.
+
+For example, here are the few steps need to integrate "ScalaQuery":http://scalaquery.org/ with your Play application.
+
+h3. 1. Add ScalaQuery to your dependencies.yml file
+
+"ScalaQuery":http://scalaquery.org/download.html is available from the "Scala Tools repository":http://scala-tools.org/repo-releases/org/scalaquery/. So open your application **conf/depenencies.yml** file, and add the following content:
+
+bc. # Application dependencies
+ 
+require:
+    - play
+    - play -> scala 0.9
+    - org.scalaquery -> scalaquery_2.8.1 0.9.1:
+        transitive:     false
+    
+repositories:
+    
+    - Scala Tools:
+        type:       iBiblio
+        root:       http://scala-tools.org/repo-releases
+        contains:   
+            - org.scalaquery -> *
+
+Now run:
+
+bc. $ play dependencies
+
+To resolve and install the required jars.
+
+h3. 2. Configure a Datasource for your application
+
+In the **conf/application.conf** file of your Play application, uncomment this line to enable an in memory database:
+
+bc. # To quickly set up a development database, use either:
+#   - mem : for a transient in memory database (H2 in memory)
+#   - fs  : for a simple file written database (H2 file stored)
+db=mem
+
+h3. 3. Create an SQL evolution Script to initialize your database
+
+Create the **db/evolutions** directory structure in your application if it doesn't already exists, and add a first evolution script **1.sql**:
+
+bc. # Users schema
+ 
+# --- !Ups
+ 
+CREATE TABLE MEMBERS (
+    ID bigint(20) NOT NULL,
+    NAME varchar(255) NOT NULL,
+    EMAIL varchar(255),
+    PRIMARY KEY (ID)
+);
+ 
+INSERT INTO members VALUES (1, 'Guillaume', 'gbo@zenexity.com');
+INSERT INTO members VALUES (2, 'Sadek', NULL);
+ 
+# --- !Downs
+ 
+DROP TABLE MEMBERS;
+
+This first script will be automatically applied since your database is empty and you run an in-memory database. Check this log:
+
+bc. …
+13:31:50,674 INFO  ~ Connected to jdbc:h2:mem:play;MODE=MYSQL
+13:31:50,752 INFO  ~ Application 'myScalaQueryApp' is now started !
+13:31:51,064 INFO  ~ Automatically applying evolutions in in-memory database
+…
+
+h3. Use ScalaQuery in your code
+
+Now let's write a simple action method that queries all the **Members** registred in our database:
+
+bc. import play.mvc._
+ 
+import org.scalaquery.session._
+import org.scalaquery.session.Database.threadLocalSession
+import org.scalaquery.ql.basic.BasicDriver.Implicit._
+import org.scalaquery.ql.basic.{BasicTable => Table}
+import org.scalaquery.ql.TypeMapper._
+import org.scalaquery.ql._
+ 
+package models {
+ 
+    object Members extends Table[(Int, String, Option[String])]("MEMBERS") {
+        def id = column[Int]("ID")
+        def name = column[String]("NAME")
+        def email = column[Option[String]]("EMAIL")
+        def * = id ~ name ~ email
+        
+        def all = (for(m <- Members) yield m.name ~ m.email).list
+    }
+ 
+}
+ 
+package controllers {
+  
+    object Application extends Controller { 
+ 
+        val db = Database.forDataSource(play.db.DB.datasource)
+        
+        def index = {     
+            
+            db withSession {
+                
+                import models._
+            
+                Template('members -> Members.all)
+            
+            }
+    
+        }
+ 
+    }
+ 
+}
+
+
+You see that we simply link **ScalaQuery** with the **Play** managed datasource, with this line:
+
+bc. val db = Database.forDataSource(play.db.DB.datasource)
+
+That's all! You can probably adapt this short tutorial to any other Scala data access library.

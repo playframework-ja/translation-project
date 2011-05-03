@@ -1,0 +1,351 @@
+h1. Anorm, SQL data access with Play Scala
+
+The Scala module includes a brand new data access layer called *Anorm* that uses plain SQL to make your database request and provides several API to parse and transform the resulting dataset. 
+
+bq. *Anorm is Not a Object Relational Mapper*
+
+p(note). In the following documentation, we will use the "MySQL world sample database":http://dev.mysql.com/doc/world-setup/en/world-setup.html. 
+ 
+If you want to enable it for your application, follow the MySQL website instruction, and enable it for your application by adding the following configuration line in your **conf/application.conf** file:
+ 
+**db=mysql:root@world**
+
+h2. Overview
+
+It can feel strange to fallback to plain old SQL to access an SQL Database these days. In particular for Java developers that are accustomed to use high level Object Relational Mapper like Hibernate to completely hide this aspect. 
+
+Now if we agree that these tools are almost required in Java, we think that they are not needed at all wehen you have the power of a higher level programming language like Scala, and in the contrary they will quickly become counter productive.
+
+h3. Using JDBC is a pain, but we provide a better API
+
+bq. We agree, using directly the JDBC API is tedious. Particularly in Java. You have to deal everywhere with checked exceptions and iterate over and over around the ResultSet to transform this raw dataset into your own data structure.
+ 
+But we provide a simpler API for JDBC, using Scala you don't need to bother with exceptions, and transforming data is really easy with a functional language; in fact it is the point of the Play Scala SQL access layer to provide several API to effectively transform JDBC data into other Scala structures.
+
+h3. You don't need another DSL to access relational Database
+
+bq. SQL is already the best DSL to access relational Databases. We don't need to invent something new. Moreover the SQL syntax and features can differ from one database vendor to another. 
+    
+If you try to abstract this point with another proprietary SQL like DSL you will have to deal with several 'dialects' dedicated for each vendor (like Hibernate ones), and limit yourself of using interesting features of a particular Database.
+    
+Sometimes we will provide you with prefilled SQL statements. But the idea is not to hide you the fact that we use SQL under the hood. Just save a bunch of characters to type for trivial queries, and you can always fallback to plain old SQL.
+
+h3. A type safe DSL to generate SQL is a mistake
+
+bq. Some argue that a type safe DSL is better since all your queries are checked by the compiler. Unfortunately the compiler check your queries based on a MetaModel definition that you often write yourself by 'mapping' your data structure to the database schema. 
+    
+And there are no guarantees at all that this MetaModel is correct. Even if the compiler says that you code and your queries are correctly typed, it can still miserably fail at runtime because of a mismatch in your actual database definition.
+
+h3. Take Control of your SQL code
+
+bq. Object Relationnal Mapper work well for trivial cases. But when you have to deal with complex schemas or existing databases, you will spend most of your time to fighting with your ORM to make it generate the SQL queries you want.
+    
+Writing yourself SQL queries can be tedious for a simple 'Hello World' application, but for any real life application, you will eventually save time and simplify your code by taking the full control of your SQL code.
+
+Now, let's see of to manage an SQL database with Play Scala.
+
+h2. Executing SQL requests
+
+To start you need to learn how to execute SQL requests. 
+
+Well, import @play.db.anorm._@, and then simply use the @SQL@ object to create queries.
+
+bc. import play.db.anorm._ 
+ 
+val result:Boolean = SQL("Select 1").execute()
+
+The @execute()@ method returns a @Boolean@ value indicating if the execution was succesful. 
+
+To execute an update query, you can use @executeUpdate()@ that returns a @MayErr[IntegrityConstraintViolation,Int]@ value: 
+
+bc. val result = SQL("delete from City where id = 99").executeUpdate().fold( 
+    e => "Oops, there was an error" , 
+    c => c + " rows were updated!"
+)
+
+Since Scala supports multiline String, feel free to use them for complex SQL statements:
+
+bc. var sqlQuery = SQL(
+    """
+        select * from Country c 
+        join CountryLanguage l on l.CountryCode = c.Code 
+        where c.code = 'FRA';
+    """
+)
+
+If your SQL query needs dynamic parameters, you can declare placeholders like @{name}@ in the query String, and assign them later to any value:
+
+bc. SQL(
+    """
+        select * from Country c 
+        join CountryLanguage l on l.CountryCode = c.Code 
+        where c.code = {countryCode};
+    """
+).on("countryCode" -> "FRA")
+
+Another variant is to fill them by position:
+
+bc. SQL(
+    """
+        select * from Country c 
+        join CountryLanguage l on l.CountryCode = c.Code 
+        where c.code = {countryCode};
+    """
+).onParams("FRA")
+
+h2. Retrieving data using the Stream API
+
+The first way to access data coming from a **Select** query, is to use the Stream API. 
+
+When you call @apply()@ on any SQL statement, you will receive a lazy @Stream@ of @Row@, where each row can be seen as a dictionary:
+
+bc. // Create an SQL query
+val selectCountries = SQL("Select * from Country")
+ 
+// Transform the resulting Stream[Row] as a List[(String,String)]
+val countries = selectCountries().map(row => 
+    row[String]("code") -> row[String]("name")
+).toList
+
+In the following example we will count the number of Country in the database. So the resultSet will be a single row with a single column:
+
+bc. // First retrieve the first row
+val firstRow = SQL("Select count(*) as c from Country").apply().head
+ 
+// Next get the content of the 'c' column as Long
+val countryCount = firstRow[Long]("c")
+
+h2. Using Pattern Matching
+
+You can also use Pattern Matching to match and extract the @Row@ content. In this case the column name doesn't matter. Only the order and the type of the parameters is used to match. 
+
+The following example transform each row to the correct Scala type:
+
+bc. case class SmallCountry(name:String) 
+case class BigCountry(name:String) 
+case class France
+ 
+val countries = SQL("Select name,population from Country")().collect {
+    case Row("France", _) => France()
+    case Row(name:String, pop:Int) if(pop > 1000000) => BigCountry(name)
+    case Row(name:String, _) => SmallCountry(name)      
+}
+
+Note that since @collect(…)@ ignore the cases where the partial function isn't defined, it allow your code to safely ignore rows that you don't expect.
+
+h2. Dealing with Nullable columns
+
+If a column can contain **Null** values in the database schema, you need to manipulate it as an @Option@ type.
+
+For example, the **indepYear** of the **Country** table being nullable, you need to match it as @Option[Short]@:
+
+bc. SQL("Select name,indepYear from Country")().collect {
+    case Row(name:String, Some(year:Short)) => name -> year
+}
+
+If you try to match this column as @Short@ it won't be able to parse @Null@ cases. If you try to retrieve the column content as @Short@ directly from the dictionnary:
+
+bc. SQL("Select name,indepYear from Country")().map { row =>
+    row[String]("name") -> row[Short]("indepYear")
+}
+
+It will produce an @UnexpectedNullableFound(COUNTRY.INDEPYEAR)@ exception if it encounter a null value. So you need to map it properly to an @Option[Short]@, as:
+
+bc. SQL("Select name,indepYear from Country")().map { row =>
+    row[String]("name") -> row[Option[Short]]("indepYear")
+}
+
+This rule is also true for the parser API we will just see.
+
+h2. Using the Parser combinator API
+
+The "Scala Parsers API":http://www.scala-lang.org/api/current/scala/util/parsing/combinator/Parsers.html provides generic parser combinators. Play Scala can use them to parse the result of any Select query.
+
+p(note). First you need to import @play.db.anorm.SqlParser._@.
+
+Use the @as(…)@ method of the SQL statement to specify the parser you want to use. For example @scalar[Long]@ is a simple parser that knows how to parse a single column row as @Long@:
+
+bc. val count:Long = SQL("select count(*) from Country").as(scalar[Long])
+
+Let's write a more complicated parser:
+
+@str("name") ~< int("population") *@, will parse the content of the **name** column as String, then the content of the **population** column as @Int@, and will repeat for each row. Here we use **~<** to combine several parsers that read the same row.
+
+bc. val populations:List[String~Int] = {
+    SQL("select * from Country").as( str("name") ~< int("population") * ) 
+}
+
+As you see, the result type of this query is a @List[String~Int]@, so a list of country name and population items.
+
+You can also, use @Symbol@ and rewrite the same code as:
+
+bc. val populations:List[String~Int] = {
+    SQL("select * from Country").as('name.of[String]~<'population.of[Int]*) 
+}
+
+Or even as:
+
+bc. val populations:List[String~Int] = {
+    SQL("select * from Country").as( 
+        get[String]("name") ~< get[Int]("population") *
+    ) 
+}
+
+When you parse a *ResultSet* using @as(…)@ it must consume all the input. If your parser doesn't consume all the available input, an error will be thrown. It avoids to have your parser fails silently.
+
+If you want to parse only a small part of the input, you can use @parse(…)@ instead of @as(…)@. However use it with caution, as it make it more difficult to detect errors in your code:
+
+bc. val onePopulation:String~Int = {
+    SQL("select * from Country").parse( 
+        str("name") ~< int("population")
+    )
+}
+
+Now let's try with a more complicated example. How to parse the result of the following query?
+
+bc. select c.name, c.code, l.language from Country c 
+    join CountryLanguage l on l.CountryCode = c.Code 
+    where c.code = 'FRA'
+
+As this query uses a **join**, our parser will need to span several rows of the ResultSet to generate a single item. We will use the @spanM@ combinator to construct this parser:
+
+bc. str("name") ~< spanM(by=str("code"), str("language"))
+
+Now let's use this parser to create a function that gives us all languages spoken in a country:
+
+bc. case class SpokenLanguages(country:String, languages:Seq[String])
+ 
+def spokenLanguages(countryCode:String):Option[SpokenLanguages] = {
+    SQL(
+        """
+            select c.name, c.code, l.language from Country c 
+            join CountryLanguage l on l.CountryCode = c.Code 
+            where c.code = {code};
+        """
+    )
+    .on("code" -> countryCode)
+    .as(
+        str("name") ~< spanM(by=str("code"), str("language")) ^^ { 
+            case country~languages => SpokenLanguages(country, languages)
+        } ?
+    )
+    
+}
+
+Finally, let's complicate our example to separate the official language and the other ones:
+
+bc. case class SpokenLanguages(
+    country:String, 
+    officialLanguage: Option[String], 
+    otherLanguages:Seq[String]
+)
+ 
+def spokenLanguages(countryCode:String):Option[SpokenLanguages] = {
+    SQL(
+        """
+            select * from Country c 
+            join CountryLanguage l on l.CountryCode = c.Code 
+            where c.code = 'FRA';
+        """
+    ).as(
+        str("name") ~< spanM(
+            by=str("code"), str("language") ~< str("isOfficial") 
+        ) ^^ { 
+            case country~languages => 
+                SpokenLanguages(
+                    country,
+                    languages.collect { case lang~"T" => lang } headOption,
+                    languages.collect { case lang~"F" => lang }
+                )
+        } ?
+    )
+    
+}
+
+If you try this on the **world** sample database, you will get:
+
+bc. $ spokenLanguages("FRA")
+> Some(
+    SpokenLanguages(France,Some(French),List(
+        Arabic, Italian, Portuguese, Spanish, Turkish
+    ))
+)
+
+h2. Adding some Magic[T]
+
+Based on all these concepts, Play provides a **Magic** helper that will help you to write parsers. The idea is that if you define a @case class@ that match a database table, Play Scala will generate a parser for you.
+
+p(note). The @Magic@ parsers need a convention to map you Scala structures to your database scheme. In this example we will use the default convention that map Scala case classes to Tables using exactly the class names as table name, and the field names as column names. 
+ 
+So before continuing, you need to import:
+ 
+@import play.db.anorm.defaults._@
+
+Let's try by defining a first @Country@ case class that describes the **Country** table:
+
+bc. case class Country(
+    code:Id[String], name:String, population:Int, headOfState:Option[String]
+)
+
+Note that we are not required to specify every existing table column in the case class. Only a subset is enough.
+
+Now let's create an object that extends @Magic@ to automatically get a parser of @Country@:
+
+bc. object Country extends Magic[Country]
+
+p(note). If you want to break the convention here and use a different table name to for the @Country@ case class, you can specify it:
+ 
+@object Country extends Magic[Country]().using("Countries")@
+
+And we can simply use **Country** as @Country@ parser:
+
+bc. val countries:List[Country] = SQL("select * from Country").as(Country*)
+
+@Magic@ provides automatically a set of methods that can generate basic SQL queries:
+
+bc. val c:Long = Country.count().single()
+val c:Long = Country.count("population > 1000000").single()
+val c:List[Country] = Country.find().list()
+val c:List[Country] = Country.find("population > 1000000").list()
+val c:Option[Country] = Country.find("code = {c}").on("c" -> "FRA").first()
+
+@Magic@ also provides the @update@ and @insert@ methods. For example:
+
+bc. Country.update(Country(Id("FRA"), "France", 59225700, Some("Nicolas S.")))
+
+Finally, let's write the missing @City@ and @CountryLanguage@ case classes, and make a more complex query:
+
+bc. case class Country(
+    code:Id[String], name:String, population:Int, headOfState:Option[String]
+)
+ 
+case class City(
+    id:Pk[Int], name: String
+)
+ 
+case class CountryLanguage(
+    language:String, isOfficial:String
+)
+ 
+object Country extends Magic[Country]
+object CountryLanguage extends Magic[CountryLanguage]
+object City extends Magic[City]
+ 
+val Some(country~languages~capital) = SQL(
+    """
+        select * from Country c 
+        join CountryLanguage l on l.CountryCode = c.Code 
+        join City v on v.id = c.capital 
+        where c.code = {code}
+    """
+)
+.on("code" -> "FRA")
+.as( Country.span( CountryLanguage * ) ~< City ? )
+ 
+val countryName = country.name
+val capitalName = capital.name
+val headOfState = country.headOfState.getOrElse("No one?")
+ 
+val officialLanguage = languages.collect { 
+                           case CountryLanguage(lang, "T") => lang 
+                       }.headOption.getOrElse("No language?")

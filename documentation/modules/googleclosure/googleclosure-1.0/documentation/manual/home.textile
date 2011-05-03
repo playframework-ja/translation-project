@@ -1,0 +1,99 @@
+p(note). the module project is hosted by google code at "mandubian-play-google-closure":http://code.google.com/p/mandubian-play-google-closure under MIT license
+
+h1. Google Closure Play! module How-to
+
+**This module is aimed at integrating Google Closure tools with play!. For the time being, it ONLY provides javascript client templating based on "Google Closure Templates":http://code.google.com/closure/templates/ .** 
+**Other tools from Google Closure will be added later but don't hesitate to ask if you need something first.** 
+ 
+With this module, any SOY template files in your app/** directory is automatically compiled into JS at runtime by the Play! enhancing mechanism.
+Then you call the JS from client side and you can template into HTML any JSON objects without writing boring JS code.
+
+
+h2. <a>Install GoogleClosure module</a>
+
+bc.. play install googleclosure
+
+
+h2. <a>Create a SOY template file in app/... directories</a>
+
+p(note). **Note:** the SOY syntax is described "here":http://code.google.com/closure/templates/docs/overview.html
+
+For example, create app/views/soy/helloworld.soy:
+
+bc.. {namespace examples.simple}
+
+/**
+ * Says hello to the world.
+ */
+{template .helloWorld}
+  Hello world!Then you call the JS from client side and you can template into HTML any JSON objects for example
+{/template}
+
+/**
+ * Greets a person using "Hello" by default.
+ * @param name The name of the person.
+ * @param? greetingWord Optional greeting word to use instead of "Hello".
+ */
+{template .helloName}
+  {if not $greetingWord}
+    Hello {$name}!
+  {else}
+    {$greetingWord} {$name}!
+  {/if}
+{/template}
+
+
+p. Reload your web page and have a look at directory public/javascripts.
+You should see a "helloworld.js" file.
+
+bc.. // This file was automatically generated from helloworld.soy.
+// Please don't edit this file by hand.
+
+if (typeof examples == 'undefined') { var examples = {}; }
+if (typeof examples.simple == 'undefined') { examples.simple = {}; }
+
+
+examples.simple.helloWorld = function(opt_data, opt_sb) {
+  var output = opt_sb || new soy.StringBuilder();
+  output.append('Hello world!');
+  if (!opt_sb) return output.toString();
+};
+
+
+examples.simple.helloName = function(opt_data, opt_sb) {
+  var output = opt_sb || new soy.StringBuilder();
+  output.append((! opt_data.greetingWord) ? 'Hello ' + soy.$$escapeHtml(opt_data.name) + '!' : soy.$$escapeHtml(opt_data.greetingWord) + ' ' + soy.$$escapeHtml(opt_data.name) + '!');
+  if (!opt_sb) return output.toString();
+};
+
+
+
+h2. <a>Use this template in your Play view</a>
+
+p(note). **Note:** Don't forget to import soyutils.js an helloworld.js
+
+For example, in app/views/Application/index.html:
+
+bc.. #{extends 'main.html' /}
+#{set title:'Home' /}
+
+*{ #{welcome /} }*
+#{set 'moreScripts'}
+	<script src="@{'/public/javascripts/soyutils.js'}" type="text/javascript" charset="utf-8"></script>
+	<script src="@{'/public/javascripts/helloworld.js'}" type="text/javascript" charset="utf-8"></script>
+#{/set}
+<script type="text/javascript">
+	//Exercise the .helloWorld template
+	document.write(examples.simple.helloName({"name": "Bob", "greetingWord":"Coucou"}));
+</script>
+
+p. Reload your web page and you should see
+**Coucou Bob!** 
+
+
+h2. <a>Modify helloworld.soy and reload immediately</a>
+
+The Play enhancer detects a modification on this file and recompiles it immediately.
+You can reload your webpage and see modifications.
+
+p(note). **Note:** I tested it with greenscript and it seems to work fine!

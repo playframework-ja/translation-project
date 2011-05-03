@@ -1,0 +1,80 @@
+h1. Router Annotations
+
+h2. <a>Supported annotations</a>
+
+The router module allows you to embed your "routes":http://www.playframework.org/documentation/1.2/routes inside the controller. It provides a set of annotations to declare your "routes":http://www.playframework.org/documentation/1.2/routes next to your controller methods.
+
+The following annotations are supported at method level:
+
+* **@Post**
+* **@Put**
+* **@Get**
+* **@Delete**
+* **@Head**
+* **@WS**
+* **@Any**
+
+These annotations have the following attributes:
+
+* **value**: the path to access your controller's method
+* **priority** (optional): the priority of the route (lower number is higher priority)
+* **accept** (optional)
+* **format** (optional)
+
+**@Any** matches all the above HTTP methods.
+
+p(note). Note that the path uses the same format described in "HTTP routing":http://www.playframework.org/documentation/1.2/routes
+
+Examples:
+
+bc. @Get("/emails/{<.*>folderNames}/{messageId}")
+public static void email(@Bind(separator = "/")String[] folderNames, int messageId) throws Exception {
+   ...
+}
+
+bc.  @Post("/login")
+public static void authenticate(String username, String password) throws Exception {
+   ...
+}
+
+The following annotations are supported at class level:
+
+* **@ServeStatic**
+* **@StaticRoutes**
+
+@ServeStatic indicates content that need to be served statically. It has the following attributes:
+
+* **value**: The path to access the content
+* **directory**: the directory you want to access inside the Play! application
+* **priority** (optional): the priority of the route (lower number is higher priority)
+
+@StaticRoutes allows to define multiple @ServeStatic routes.
+
+Examples:
+
+bc. @ServeStatic(value = "/public/", directory = "public")
+public class Application extends Controller { 
+   ...
+}
+
+bc. @StaticRoutes({
+    @ServeStatic(value = "/public/", directory = "public"),
+    @ServeStatic(value = "/images/", directory = "images")
+})
+public class Application extends Controller { 
+   ...
+}
+
+
+p(note). Be sure to empty the "routes" file to avoid any conflicting routes.
+
+h2. <a>Enable the router module for the application</a>
+
+In the **/conf/dependencies.yml** file, enable the router module by adding this line:
+
+bc. # The router module
+- play -> router head
+
+h2. <a>Issue tracking</a>
+
+If you wish to report a bug or wish for a new feature, please use the "issue tracker":https://github.com/digiPlant/play-router-annotations/issues

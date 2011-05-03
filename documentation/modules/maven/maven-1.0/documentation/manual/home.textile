@@ -1,0 +1,41 @@
+h1. Maven support
+
+This module lets you manage your dependencies with "Maven":http://maven.apache.org/
+
+h3. Getting Started
+
+first you need to download and install "apache maven":http://maven.apache.org/download.html
+
+finally, you need to install the play-maven module  
+
+bc. play install maven
+
+
+h3. Activate module 
+
+h4. *NOTE: due to this reported bug: "commands.py loading breaks if more than one module":https://bugs.launchpad.net/play/+bug/560852 , this module does not work together with ivy module, or maybe other modules.*
+
+for existing projects, you can add the following line to your conf/application.conf:
+
+bc. module.maven=${play.path}/modules/maven
+
+if you start from scratch, you can create an ivy project with *play new myapp --with maven* command, which will active the module and execute play mvn:init.
+
+
+h3. play-maven specific commands 
+
+bc. play mvn:init
+
+installs play-parent project (a Maven pom project) into local Maven repository. Then creates the appropriate *pom.xml*. After this step, you can add your dependencies to pom.xml 
+
+bc. play mvn:update // or play mvn:up
+
+retrieves all defined dependencies and then it copies them into your app/lib folder
+
+bc. play mvn:refresh // or play mvn:re
+
+clears your app/lib folder first, then it executes play mvn:up 
+
+bc. play mvn:source // or play mvn:src
+
+retrieves all sources (if available) of defined dependencies and then it copies them into app/lib folder

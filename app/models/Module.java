@@ -34,6 +34,7 @@ public class Module implements Comparable<Module> {
                                 (String) version.get("publishedAt"),
                                 (Boolean) version.get("isDefault")));
             }
+            Collections.sort(versions);
         }
     }
 
