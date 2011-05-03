@@ -1,16 +1,11 @@
 package controllers;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.*;
 
-import org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
-import org.eclipse.mylyn.wikitext.textile.core.TextileLanguage;
-
-import play.Play;
-import play.libs.IO;
-import play.mvc.Controller;
-import util.Textile;
+import play.*;
+import play.libs.*;
+import play.mvc.*;
+import util.*;
 
 public class Documentation extends Controller {
 

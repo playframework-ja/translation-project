@@ -1,16 +1,8 @@
 package models;
 
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
-import org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
-import org.eclipse.mylyn.wikitext.textile.core.TextileLanguage;
-
-import util.Textile;
-
-import controllers.Documentation;
+import util.*;
 
 public class Module implements Comparable<Module> {
 
