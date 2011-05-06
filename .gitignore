@@ -2,6 +2,7 @@
 *.swp
 .classpath
 .project
+.redcar/*
 .settings/*
 .DS_Store
 eclipse/*
