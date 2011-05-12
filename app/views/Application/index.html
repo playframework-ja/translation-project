@@ -52,10 +52,14 @@ $(document).ready(function() {
     <div class="wrapper">
         
         <div id="activity">
+            #{if twitter}
             <h1>Twitter つぶやき</h1>
             ${twitter.raw()}
+            #{/if}
+            #{if event}
             <h1>次回開発者イベント</h1>
-            ${event.raw()}
+            ${event.raw()}                
+            #{/if}
         </div>
         
         <div id="quickoverview">

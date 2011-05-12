@@ -26,8 +26,10 @@ public class Application extends Controller {
         String action = "index";
 
         Source source = new Source(new URL("http://www.playframework.org/"));
-        String twitter = source.getElementById("twitter").toString();
-        String event = source.getElementById("event").toString();
+        Element tElem = source.getElementById("twitter");
+        Element eElem = source.getElementById("event"); 
+        String twitter = tElem != null ? tElem.toString() : "";
+        String event = eElem != null ? eElem.toString() : "";
 
         render(action, twitter, event);
     }
