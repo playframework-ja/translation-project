@@ -1,11 +1,11 @@
-h1. Mongo module
+h1. Mongoモジュール
 
-p. The mongo module adds "MongoDB":http://www.mongodb.org support for the Play! framework.
+p. mongoモジュールは、"MongoDB":http://www.mongodb.org サポートをPlay! frameworkに追加します。
 
 
-h2. <a>Enable the Mongo module for the application</a>
+h2. <a>アプリケーションでMongoモジュールを有効にする</a>
 
-p. In the **/conf/application.conf** file, enable the Mongo module by adding this line:
+p. **/conf/application.conf**ファイルに以下の行を追加すれば、Mongoモジュールが有効になります。
 
 bc.. # The mongo module
 module.mongo=${play.path}/modules/mongo
@@ -18,11 +18,9 @@ mongo.database=play
 mongo.username=test
 mongo.password=test123
 
-h2. <a>Defining your models</a>
+h2. <a>モデルの定義</a>
 
-p. Creating models to be stored in your Mongo database is very similar to the method of creating
-models in the Play! framework for storage in an SQL database. Provide them with an annotation 
-and have them inherit from a base class, as follows:
+p. Mongoデータベースに保存するモデルは、Play! frameworkでSQLデータベースに保存するためのモデルとよく似た方法で生成します。以下のように、アノテーションを付けて、ベースクラスから継承します。
 
 bc.. @MongoEntity("collectionName")
 public class Car extends MongoModel {
@@ -33,93 +31,91 @@ public class Car extends MongoModel {
 	
 }
 
-p. If collectionName is not supplied as a value to the annotation, the collection name will be the 
-same as the class name.
+p. アノテーションに値としてcollectionNameが渡されなかった場合、コレクション名はクラス名と同じになります。
 
-h2. <a>Using your models</a>
+h2. <a>モデルの利用</a>
 
-p. After defining your models, you can use them in the same way as you would a standard SQL based
-model in Play! framework. The examples below describe how you might use your Mongo based models in a controller.
+p. モデルを定義したら、それらはPlay! frameworkの標準的なSQLベースのモデルと同じように使うことができます。以下の例を見れば、コントローラでMongoベースのモデルの使い方が分かるでしょう。
 
-h3. Saving
+h3. 保存
 
-p. Saving is simple.
+p. 保存は簡単です。
 
 bc.. Car myCar = new Car("Toyota", "white", 150);
 myCar.save();
 
-h3. Finding
+h3. 検索
 
-p. There are a number of ways to find your models.
+p. モデルの検索方法はいくつかあります。
 
-bc.. //get all cars
+bc.. //全ての Carの取得
 List<Car> allCars = Car.find().fetch();
 
-//get any five cars
+//任意の5つのCarの取得
 List<Car> fiveCars = Car.find().fetch(5);
 
-//get any two cars with offset of 3
+//オフセット3から2台のCarの取得
 List<Car> offsetCars = Car.find().from(3).fetch(2);
 
-//get the third page of 20 cars
+//20台のCarからなるページの3ページ目を取得
 List<Car> pageOfCars = Car.find().fetch(3,20);
 
-//get only one car
+//1つのCarを取得
 Car c = Car.find().first();
 
-h3. Query Strings
+h3. クエリ文字列
 
-p. You can pass query strings when using the find method like so:
+p. findメソッドを使用する際には、クエリ文字列を以下のように渡すことができます。
 
 bc.. List<Car> toyotas = Car.find("byName", "Toyota").fetch();
 
 List<Car> whiteToyotas = Car.find("byNameAndColour", "Toyota", "white").fetch();
 
-p. Currently the Mongo module only supports the 'And' query operator.
+p. 現時点では、Mongoモジュールがクエリ演算子としてサポートしているのは'And'のみです。
 
-h3. Ordering
+h3. 順序の指定
 
-p. Ordering your results is very simple, allowing the use of a query very similar to the find.
+p. 結果の順序を指定するのは非常に単純で、その場合のクエリの使い方はfindととてもよく似ています。
 
 bc.. List<Car> ascendingNameCars = Car.find().order("byName").fetch();
 
-// to perform a descending order, prefix the field with '-'
+// 降順を指定するには、フィールドの前に'-'を加えます。
 List<Car> descendingNameCars = Car.find().order("by-Name").fetch();
 
-h3. Counting your models
+h3. モデルの数を数える
 
-p. Counting your models is again, simple.
+p. モデルの数を数えるのも、やはり簡単です。
 
 bc.. long count = Car.count()
 
-// alternatively, pass a query string
+// あるいは、クエリ文字列を渡すこともできます。
 long toyotaCount = Car.count("byName", "Toyota");
 
-h3. Deleting
+h3. 削除
 
-p. Deleting can be done at the model level, or against the entire collection.
+p. 削除はモデルのレベルで行うこともできますし、コレクション全体を削除してしまうこともできます。
 
 bc.. Car c = Car.find().first();
 c.delete();
 
-// or to delete using a query string
+// あるいはクエリ文字列を使って削除したり
 Car.delete("byName","Toyota");
 
-// or just delete everything
+// あるいは単純に全部削除することもできます。
 Car.deleteAll();
 
-h3. Inner Models
+h3. インナーモデル
 
-p. Mongo module does not yet support any relationships between models. If you need to model complex relationships then Mongo might not be the correct solution for you.
+p. Mongoモジュールは、今のところモデル間のリレーションシップはサポートしていません。複雑なリレーションシップをモデル化する必要がある場合は、このMongoモジュールは適切な選択肢ではないかも知れません。
 
-p. However, Mongo module does support inner models or POJOs within your MongoModel classes. It even supports arrays of both primitive types or POJOs. Unfortunately, only collections of primitive types are currently supported. This is due to runtime erasure of generic types. 
+p. とはいえ、Mongoモジュールは、インナーモデルやMongoModelクラス中のPOJOをサポートしています。 加えて、プリミティブ型やPOJOのどちらの配列もサポートしています。残念ながら、コレクションでサポートされているのは今のところプリミティブ型のみです。これは、実行時にジェネリック型が消失してしまうためです。 
 
-bc.. //As of version 1.1 you no longer require special annotations for inner POJOs.
+bc.. //バージョン1.1では、インナーPOJOのために特別なアノテーションは必要なくなった。
 public class Driver {
 	public String name;
 }
 
-// and declare this object a member of your model class
+// そして、このオブジェクトがモデルクラスのメンバーであることを宣言する
 @MongoEntity("cars")
 public class Car extends MongoModel {
 
@@ -127,24 +123,24 @@ public class Car extends MongoModel {
 	public String colour;
 	public int topSpeed;
 
-	// the mongo object
+	// mongoオブジェクト
 	public Driver driver;
 	
 }
 
-p. Now when we save our MongoModel to a mongo database, the MongoObject is stored as an inner JSON document. This gives us the ability to access its properties via its parent model in view templates:
+p. これで、MongoModelをmongoのデータベースに保存すれば、MongoObjectはインナーJSONオブジェクトとして保存される。こうすれば、viewテンプレートで、親のモデルを通じて子のオブジェクトのプロパティにアクセスできるようになる。
 
 bc.. <p> Driver Name: ${car.driver.name} </p>
 
-p. Or use properties of the inner model as part of our query strings:
+p. また、インナーモデルのプロパティは、クエリ文字列の一部としても使うことができる。
 
 bc.. Car andrewCar = Car.find(byDriver.name,"Andrew").first();
 
-h2. <a>Mongo specific functionality</a>
+h2. <a>Mongoモジュールの独自機能</a>
 
-h3. Mongo Information
+h3. Mongo情報
 
-p. Models are automatically saved with a Mongo ObjectId to the specified collection. Both the ObjectId and collection name can be accessed from the model.
+p. モデルは、自動的にMongo ObjectIdを割り当てられ、指定されたコレクションに保存される。ObjectIdとコレクション名は、どちらもモデルからアクセスできる。
 
 bc.. Car myCar = new Car("Toyota", "white", 150);
 myCar.save();
@@ -152,60 +148,60 @@ myCar.save();
 ObjectId id = myCar.get_id();
 String colName = myCar.getCollectionName();
 
-h3. Mongo indexes
+h3. Mongoインデックス
 
-p. It is possible to create indexes against your models.
+p. モデルに対しては、インデックスを作成できる。
 
-bc.. // index the name field of Car
+bc.. // Carのnameフィールドにインデックスを付ける
 Car.index("onName");
 
-// create a descending index by prepending the '-' character
+// '-'を前に付けることで、降順インデックスを生成する
 Car.index("on-Name");
 
-// create a composite index by combining field names
+// 複合インデックスを生成するには、フィールド名を組み合わせる
 Car.index("onNameAndColour");
 
-// remove an index
+// インデックスの削除
 Car.dropIndex("onName);
 
-// remove all indexes (except the mandatory mongo index on _id)
+// 全てのインデックスの削除(必須のmongo index on _idを除く)
 Car.dropIndexes();
 
-// get the names of all the existing indexes
+// 既存の全インデックス名を取得
 String [] indexNames = Car.getIndexes();
 
-p. Due to the schemaless nature of mongo, it is possible to create an index on a field which does not exist because a document containing that field may be inserted in the future. Ensure you spell your field names correctly.
+p. mongoはスキーマレスなので、存在しないフィールドに対してインデックスを生成することができます。これは、そのフィールドを含むドキュメントが、将来インサートされるかも知れないからです。フィールド名が正しく書かれているか、しっかり確認してください。
 
-h3. Authentication and Security
+h3. 認証とセキュリティ
 
-p. It is possible to run your mongo database in a secure mode, ensuring that a user must authenticate prior to performing operations on secure data. More information on setting up a secure mongo instance can be found on the Mongo website under "Security and Authentication":http://www.mongodb.org/display/DOCS/Security+and+Authentication.
+p. mongoデータベースをセキュアモードで実行し、保護されたデータに対する操作を実行する場合には、ユーザーが認証を受けなければならないようにする事ができます。セキュアなmongoインスタンスを設定する情報がもっと必要な場合は、Mongoのウェブサイトの"Security and Authentication":http://www.mongodb.org/display/DOCS/Security+and+Authenticationを参照してください。
 
-p. Assuming you have setup your database correctly, you can leverage the authentication functionality of the mongo module as follows:
+p. データベースを正しく設定できたら、以下のようにmongoモジュールの認証機能を活用できます。
 
-bc.. # ensure you set the necessary configuration parameters to match authentication details on your database
+bc.. # 必要なデータベースの認証設定のパラメータが、正しく設定できていることを確認する
 mongo.username=test
 mongo.password=test123
 
-p. Now you can perform the following operations in your controllers.
+p. これで、コントローラで以下のような操作が行えるようになる。
 
-bc.. //add a user - with read only access
+bc.. //ユーザーの追加 - アクセスはリードオンリーで
 MongoDB.addUser("username","password", true);
 
-// or write access
+// あるいは書き込み可能なアクセス
 MongoDB.addUser("username2","password2", false);
 
-// authenticate as a user
+// ユーザーとして認証を受ける
 boolean success = MongoDB.authenticate("username","password");
 
-// remove a user
+// ユーザーの削除
 MongoDB.removeUser("username");
 
-p. Please note that readOnly restrictions will only apply on mongo versions 1.3.2+
+p. readOnlyの制約が適用できるのは、mongoのversions 1.3.2以降のみということに注意してください。
 
-h2. <a>Test Application</a>
+h2. <a>テストアプリケーション</a>
 
-p. Included in the module distribution is a play-mongo-test directory. This is a play framework application that runs the code shown in the documentation above. The best to run this is to create a new play framework application and to copy the contents of the play-mongo-test directory there. Be sure to update the path to the mongo module as shown above. 
+p. 子のモジュールのディストリビューションには、play-mongo-testディレクトリがあります。このplay frameworkのアプリケーションは、このドキュメンテーションでここまで取り上げたコードを実行します。このアプリケーションを実行する最も良い方法は、play frameworkのアプリケーションを新しく生成し、play-mongo-testディレクトリの中身をそこにコピーしてやることです。先に示した通り、mongoモジュールへのパスを更新するのを忘れないようにしてください。 
 
-h2. <a>What's Next?</a>
+h2. <a>この先は?</a>
 
-p. The next step for play-mongo will to be update the module to use the new JPA features provided in version 1.1 of the framework.
+p. play-mongoの次のステップは、このモジュールを更新して、play framework 1.1で提供された新しいJPAの機能を使えるようにすることです。
