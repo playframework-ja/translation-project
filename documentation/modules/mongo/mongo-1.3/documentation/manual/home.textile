@@ -1,16 +1,16 @@
-h1. Mongoモジュール
+h1. Mongo モジュール
 
-p. mongoモジュールは、"MongoDB":http://www.mongodb.org サポートをPlay! frameworkに追加します。
+p. mongo モジュールは、"MongoDB":http://www.mongodb.org サポートを Play! framework に追加します。
 
 
-h2. <a>アプリケーションでMongoモジュールを有効にする</a>
+h2. <a>アプリケーションで Mongo モジュールを有効にする</a>
 
-p. **/conf/application.conf**ファイルに以下の行を追加すれば、Mongoモジュールが有効になります。
+p. **/conf/application.conf** ファイルに以下の行を追加すれば、Mongo モジュールが有効になります。
 
-bc.. # The mongo module
+bc.. # mongo モジュール
 module.mongo=${play.path}/modules/mongo
 
-# mongodb connection details
+# mongodb への接続の詳細
 mongo.host=localhost
 mongo.port=27017
 mongo.database=play
@@ -20,7 +20,7 @@ mongo.password=test123
 
 h2. <a>モデルの定義</a>
 
-p. Mongoデータベースに保存するモデルは、Play! frameworkでSQLデータベースに保存するためのモデルとよく似た方法で生成します。以下のように、アノテーションを付けて、ベースクラスから継承します。
+p. Mongo データベースに保存するモデルは、Play! framework で SQL データベースに保存するためのモデルとよく似た方法で生成します。以下のように、アノテーションを付けて、ベースクラスから継承します。
 
 bc.. @MongoEntity("collectionName")
 public class Car extends MongoModel {
@@ -31,11 +31,11 @@ public class Car extends MongoModel {
 	
 }
 
-p. アノテーションに値としてcollectionNameが渡されなかった場合、コレクション名はクラス名と同じになります。
+p. アノテーションに値として collectionName が渡されなかった場合、コレクション名はクラス名と同じになります。
 
 h2. <a>モデルの利用</a>
 
-p. モデルを定義したら、それらはPlay! frameworkの標準的なSQLベースのモデルと同じように使うことができます。以下の例を見れば、コントローラでMongoベースのモデルの使い方が分かるでしょう。
+p. モデルを定義したら、それらは Play! framework の標準的な SQL ベースのモデルと同じように使うことができます。以下の例を見れば、コントローラで Mongo ベースのモデルの使い方が分かるでしょう。
 
 h3. 保存
 
@@ -48,38 +48,38 @@ h3. 検索
 
 p. モデルの検索方法はいくつかあります。
 
-bc.. //全ての Carの取得
+bc.. //全ての Car の取得
 List<Car> allCars = Car.find().fetch();
 
-//任意の5つのCarの取得
+//任意の5つの Car の取得
 List<Car> fiveCars = Car.find().fetch(5);
 
-//オフセット3から2台のCarの取得
+//オフセット3から2台の Car の取得
 List<Car> offsetCars = Car.find().from(3).fetch(2);
 
-//20台のCarからなるページの3ページ目を取得
+//20台の Car からなるページの3ページ目を取得
 List<Car> pageOfCars = Car.find().fetch(3,20);
 
-//1つのCarを取得
+//1つの Car を取得
 Car c = Car.find().first();
 
 h3. クエリ文字列
 
-p. findメソッドを使用する際には、クエリ文字列を以下のように渡すことができます。
+p. find メソッドを使用する際には、クエリ文字列を以下のように渡すことができます。
 
 bc.. List<Car> toyotas = Car.find("byName", "Toyota").fetch();
 
 List<Car> whiteToyotas = Car.find("byNameAndColour", "Toyota", "white").fetch();
 
-p. 現時点では、Mongoモジュールがクエリ演算子としてサポートしているのは'And'のみです。
+p. 現時点では、Mongo モジュールがクエリ演算子としてサポートしているのは 'And' のみです。
 
 h3. 順序の指定
 
-p. 結果の順序を指定するのは非常に単純で、その場合のクエリの使い方はfindととてもよく似ています。
+p. 結果の順序を指定するのは非常に単純で、その場合のクエリの使い方は find ととてもよく似ています。
 
 bc.. List<Car> ascendingNameCars = Car.find().order("byName").fetch();
 
-// 降順を指定するには、フィールドの前に'-'を加えます。
+// 降順を指定するには、フィールドの前に '-' を加えます。
 List<Car> descendingNameCars = Car.find().order("by-Name").fetch();
 
 h3. モデルの数を数える
@@ -106,11 +106,11 @@ Car.deleteAll();
 
 h3. インナーモデル
 
-p. Mongoモジュールは、今のところモデル間のリレーションシップはサポートしていません。複雑なリレーションシップをモデル化する必要がある場合は、このMongoモジュールは適切な選択肢ではないかも知れません。
+p. Mongo モジュールは、今のところモデル間のリレーションシップはサポートしていません。複雑なリレーションシップをモデル化する必要がある場合は、この Mongo モジュールは適切な選択肢ではないかも知れません。
 
-p. とはいえ、Mongoモジュールは、インナーモデルやMongoModelクラス中のPOJOをサポートしています。 加えて、プリミティブ型やPOJOのどちらの配列もサポートしています。残念ながら、コレクションでサポートされているのは今のところプリミティブ型のみです。これは、実行時にジェネリック型が消失してしまうためです。 
+p. とはいえ、Mongo モジュールは、インナーモデルや MongoModel クラス中の POJO をサポートしています。 加えて、プリミティブ型や POJO のどちらの配列もサポートしています。残念ながら、コレクションでサポートされているのは今のところプリミティブ型のみです。これは、実行時にジェネリック型が消失してしまうためです。 
 
-bc.. //バージョン1.1では、インナーPOJOのために特別なアノテーションは必要なくなった。
+bc.. //バージョン1.1では、インナー POJO のために特別なアノテーションは必要なくなった。
 public class Driver {
 	public String name;
 }
@@ -128,19 +128,19 @@ public class Car extends MongoModel {
 	
 }
 
-p. これで、MongoModelをmongoのデータベースに保存すれば、MongoObjectはインナーJSONオブジェクトとして保存される。こうすれば、viewテンプレートで、親のモデルを通じて子のオブジェクトのプロパティにアクセスできるようになる。
+p. これで、MongoModel を mongo のデータベースに保存すれば、 MongoObject はインナー JSON オブジェクトとして保存されます。こうすれば、 view テンプレートで、親のモデルを通じて子のオブジェクトのプロパティにアクセスできるようになります。
 
 bc.. <p> Driver Name: ${car.driver.name} </p>
 
-p. また、インナーモデルのプロパティは、クエリ文字列の一部としても使うことができる。
+p. また、インナーモデルのプロパティは、クエリ文字列の一部としても使うことができます。
 
 bc.. Car andrewCar = Car.find(byDriver.name,"Andrew").first();
 
-h2. <a>Mongoモジュールの独自機能</a>
+h2. <a>Mongo モジュールの独自機能</a>
 
-h3. Mongo情報
+h3. Mongo 情報
 
-p. モデルは、自動的にMongo ObjectIdを割り当てられ、指定されたコレクションに保存される。ObjectIdとコレクション名は、どちらもモデルからアクセスできる。
+p. モデルは、自動的に Mongo ObjectId を割り当てられ、指定されたコレクションに保存されます。 ObjectId とコレクション名は、どちらもモデルからアクセスできます。
 
 bc.. Car myCar = new Car("Toyota", "white", 150);
 myCar.save();
@@ -148,14 +148,14 @@ myCar.save();
 ObjectId id = myCar.get_id();
 String colName = myCar.getCollectionName();
 
-h3. Mongoインデックス
+h3. Mongo インデックス
 
-p. モデルに対しては、インデックスを作成できる。
+p. モデルに対しては、インデックスを作成できます。
 
-bc.. // Carのnameフィールドにインデックスを付ける
+bc.. // Car の name フィールドにインデックスを付ける
 Car.index("onName");
 
-// '-'を前に付けることで、降順インデックスを生成する
+// '-' を前に付けることで、降順インデックスを生成する
 Car.index("on-Name");
 
 // 複合インデックスを生成するには、フィールド名を組み合わせる
@@ -164,25 +164,25 @@ Car.index("onNameAndColour");
 // インデックスの削除
 Car.dropIndex("onName);
 
-// 全てのインデックスの削除(必須のmongo index on _idを除く)
+// 全てのインデックスの削除(必須の mongo index on _id を除く)
 Car.dropIndexes();
 
 // 既存の全インデックス名を取得
 String [] indexNames = Car.getIndexes();
 
-p. mongoはスキーマレスなので、存在しないフィールドに対してインデックスを生成することができます。これは、そのフィールドを含むドキュメントが、将来インサートされるかも知れないからです。フィールド名が正しく書かれているか、しっかり確認してください。
+p. mongo はスキーマレスなので、存在しないフィールドに対してインデックスを生成することができます。これは、そのフィールドを含むドキュメントが、将来インサートされるかも知れないからです。フィールド名が正しく書かれているか、しっかり確認してください。
 
 h3. 認証とセキュリティ
 
-p. mongoデータベースをセキュアモードで実行し、保護されたデータに対する操作を実行する場合には、ユーザーが認証を受けなければならないようにする事ができます。セキュアなmongoインスタンスを設定する情報がもっと必要な場合は、Mongoのウェブサイトの"Security and Authentication":http://www.mongodb.org/display/DOCS/Security+and+Authenticationを参照してください。
+p. mongo データベースをセキュアモードで実行し、保護されたデータに対する操作を実行する場合には、ユーザーが認証を受けなければならないようにする事ができます。セキュアな mongo インスタンスを設定する情報がもっと必要な場合は、 Mongo のウェブサイトの "Security and Authentication":http://www.mongodb.org/display/DOCS/Security+and+Authentication を参照してください。
 
-p. データベースを正しく設定できたら、以下のようにmongoモジュールの認証機能を活用できます。
+p. データベースを正しく設定できたら、以下のように mongo モジュールの認証機能を活用できます。
 
 bc.. # 必要なデータベースの認証設定のパラメータが、正しく設定できていることを確認する
 mongo.username=test
 mongo.password=test123
 
-p. これで、コントローラで以下のような操作が行えるようになる。
+p. これで、コントローラで以下のような操作が行えるようになります。
 
 bc.. //ユーザーの追加 - アクセスはリードオンリーで
 MongoDB.addUser("username","password", true);
@@ -196,12 +196,12 @@ boolean success = MongoDB.authenticate("username","password");
 // ユーザーの削除
 MongoDB.removeUser("username");
 
-p. readOnlyの制約が適用できるのは、mongoのversions 1.3.2以降のみということに注意してください。
+p. readOnly の制約が適用できるのは、 mongo の versions 1.3.2 以降のみということに注意してください。
 
 h2. <a>テストアプリケーション</a>
 
-p. 子のモジュールのディストリビューションには、play-mongo-testディレクトリがあります。このplay frameworkのアプリケーションは、このドキュメンテーションでここまで取り上げたコードを実行します。このアプリケーションを実行する最も良い方法は、play frameworkのアプリケーションを新しく生成し、play-mongo-testディレクトリの中身をそこにコピーしてやることです。先に示した通り、mongoモジュールへのパスを更新するのを忘れないようにしてください。 
+p. このモジュールのディストリビューションには、 play-mongo-test ディレクトリがあります。この play framework のアプリケーションは、このドキュメンテーションでここまで取り上げたコードを実行します。このアプリケーションを実行する最も良い方法は、 play framework のアプリケーションを新しく生成し、 play-mongo-test ディレクトリの中身をそこにコピーしてやることです。先に示した通り、 mongo モジュールへのパスを更新するのを忘れないようにしてください。 
 
 h2. <a>この先は?</a>
 
-p. play-mongoの次のステップは、このモジュールを更新して、play framework 1.1で提供された新しいJPAの機能を使えるようにすることです。
+p. play-mongo の次のステップは、このモジュールを更新して、 play framework 1.1 で提供された新しい JPA の機能を使えるようにすることです。
