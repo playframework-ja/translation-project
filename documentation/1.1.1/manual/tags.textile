@@ -17,6 +17,7 @@ bc. <a href="/application/logout">Disconnect</a>
 
 もし呼び出そうとしているアクションが GET メソッドを使用して起動するどんなルートも持たない場合、Play は自動的に、リンクをクリックしたときに JavaScript を使ってサブミットする隠しフォームを生成します。
 
+
 h2. <a name="authenticityToken">authenticityToken</a>
 
 どのフォームでも使用できる、生成されたトークンを含む hidden input フィールドをレンダリングします。"クロスサイトリクエストフォージェリ":security#csrf の段落を参照してください。
@@ -129,6 +130,7 @@ bc. <ul>
 
 このタグはボディに暗黙的な変数を定義します。
 
+* **error**, エラーです
 * **error_index**, エラーの index で、1 から始まります
 * **error_isLast**, 最後の要素の場合に true になります
 * **error_isFirst**, 最初の要素の場合に true になります
@@ -192,6 +194,7 @@ bc. <form action="/client/create" id="creationForm" method="POST" accept-charset
  ...
 </form>d
 
+
 h2. <a name="get">get</a>
 
 **set** タグで定義された値を検索します。get/set メカニズムを使うことで、テンプレート間、すなわちレイアウトと子テンプレート間で値をやり取りすることができます。
@@ -205,7 +208,6 @@ bc. <head>
 bc. <head>
     <title>#{get 'title'}Homepage #{/} 
 </head>
-
 
 h2. <a name="i18n">i18n</a>
 
@@ -245,8 +247,6 @@ h2. <a name="iferror">ifError</a>
 
 対応する入力項目がエラーである場合、タグの内容がレンダリングされます。
 
-* **arg** (required) - input's name
-
 bc. #{ifError 'user.name'}
   <p>
     User name is invalid: 
@@ -261,7 +261,6 @@ h2. <a name="iferrors">ifErrors</a>
 bc. #{ifErrors}
   <p>Error(s) found!</p>
 #{/ifErrors}
-
 
 h2. <a name="ifnot">ifnot</a>
 
@@ -367,16 +366,6 @@ bc. #{option user.id} ${user.name} #{/option}
 
 bc. <option value="42">jto</option>h2. <a name="script">script</a>
 
-
-h2. <a name="render">render</a>
-
-タグパラメータでパスを指定してテンプレートをレンダリングします。パスは絶対パスか、または **/app/views** に対する相対パスです。
-
-bc. #{render 'Application/other.html'/}
-
-
-h2. <a name="script">script</a>
-
 テンプレートに **script** タグを挿入します。利便性のため、このタグは **/public/javascripts** 内のスクリプトを参照します。
 
 * **src** (必須) - **/public/javascripts** パスを含まないスクリプトファイル名
@@ -387,6 +376,13 @@ h2. <a name="script">script</a>
 
 bc. #{script 'jquery-1.4.2.min.js' /}
 #{script id:'datepicker' , src:'ui/ui.datepicker.js', charset:'utf-8' /}
+
+
+h2. <a name="render">render</a>
+
+タグパラメータでパスを指定してテンプレートをレンダリングします。パスは絶対パスか、または **/app/views** に対する相対パスです。
+
+bc. #{render 'Application/other.html'/}
 
 
 h2. <a name="select">select</a>
@@ -434,7 +430,6 @@ bc. <select name="users" size="1" class="test" id="select2" >
   <option value="5" selected="selected">User-5</option>
 </select>
 
-
 h2. <a name="set">set</a>
 
 同じテンプレートかレイアウトにおいて **get** タグを使って検索できる値を定義します。
@@ -476,5 +471,4 @@ bc. ${'&amp;'}
 #{verbatim}${'&amp;'}#{/verbatim}
 
 この例の場合、最初の行は **&amp;** を出力しますが、二番目の行はアンパサンドを出力します。
-
 
