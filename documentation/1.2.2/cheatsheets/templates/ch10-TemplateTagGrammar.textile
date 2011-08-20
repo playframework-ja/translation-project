@@ -21,7 +21,7 @@ client が null でなければ client.name を表示します。
 *==&{ message.key }==*
 メッセージは conf/messages で管理され、多言語対応しています。
 
-*==&lowast;{ this is a comment }&lowast;==*
+*==&lowast;{ これはコメントです }&lowast;==*
 これ以上何を言えばいい?
 
 *==%{ out.print("HelloWorld") }%==*

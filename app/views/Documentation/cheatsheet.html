@@ -1,0 +1,63 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+        "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+  <title>Play manual - ${title}</title>
+  <link rel="stylesheet" href="/public/stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="/public/stylesheets/wiki.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" src="/public/javascripts/jquery-1.4.2.min.js"></script>
+  <link rel="stylesheet" href="/public/stylesheets/cheat-sheet.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="/public/stylesheets/cheat-sheet-print.css" type="text/css" media="print"
+        charset="utf-8">
+</head>
+<body>
+<div class="cs-wrapper">
+  <div id="docTopbar">
+    <div id="backToToc">
+      <span>Back to </span><a href="/documentation?version=${version}">Table of contents</a>
+    </div>
+    <div id="searchBar">
+      <span>Get help with Google:</span>
+
+      <div id="searchBox">
+        <form action="http://www.google.com/cse" id="cse-search-box">
+          <div>
+            <input type="hidden" name="cx" value="002614023023983855063:jn1mu_7bof0"/>
+            <input type="hidden" name="ie" value="UTF-8"/>
+            <input type="text" name="q" size="28" style="font-size:14px"/>
+          </div>
+        </form>
+        <script type="text/javascript"
+                src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=en"></script>
+      </div>
+    </div>
+    <div class="titlebar">
+      <h1>${title}</h1>
+    </div>
+    <div class="titlebar links">
+      #{if id == 'commandLine'}Command Line#{/if}#{else}<a href="/documentation/${version}/cheatsheet/commandLine">Command
+      Line</a>#{/else}&nbsp;
+      #{if id == 'controllers'}Controllers#{/if}#{else}<a href="/documentation/${version}/cheatsheet/controllers">Controllers</a>#{/else}&nbsp;
+      #{if id == 'model'}Model#{/if}#{else}<a href="/documentation/${version}/cheatsheet/model">Model</a>#{/else}&nbsp;
+      #{if id == 'multiEnvironment'}Multi Environment#{/if}#{else}<a
+            href="/documentation/${version}/cheatsheet/multiEnvironment">Multi Environment</a>#{/else}&nbsp;
+      #{if id == 'templates'}Templates#{/if}#{else}<a
+            href="/documentation/${version}/cheatsheet/templates">Templates</a>#{/else}&nbsp;
+      #{if id == 'tests'}Tests#{/if}#{else}<a href="/documentation/${version}/cheatsheet/tests">Tests</a>#{/else}&nbsp;
+    </div>
+    <div id="logobar">
+      <img src="/public/images/logo-manual.png">
+
+      <h2 id="version">Play 1.2.1</h2>
+    </div>
+  </div>
+  <div id="content" class="wikistyle">
+    %{htmls.eachWithIndex {html, i ->
+      style = "odd"
+      if ((i + 1) % 2 == 0) style = "even"
+    }%<div class="cs ${style}">${html.raw()}</div>
+    %{}}%
+  </div>
+</div>
+</body>
+</html>

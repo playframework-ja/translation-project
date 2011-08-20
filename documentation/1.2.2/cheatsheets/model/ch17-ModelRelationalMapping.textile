@@ -7,7 +7,6 @@ h2. Model - Relational mapping
 ID となるフィールドを定義します。
 
 *==@Version==*
-Defines this field as storing the version for the class
 バージョンを保持しているフィールドを定義します。
 
 *==@Basic==*

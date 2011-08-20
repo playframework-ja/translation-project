@@ -20,10 +20,10 @@ blue
 
 *==${new Date(1275910970000).format('dd MMMM yyyy==*
 *==hh:mm:ss')}==*
-2010 年 6 月 7 日 01:42:50
+07 June 2010 01:42:50
 
 *==${ 1275910970000.asdate('dd MMMM yyyy hh:mm:ss') }==*
-2010 年 6 月 7 日 01:42:50
+07 June 2010 01:42:50
 
 *==${726016L.formatSize()}==*
 709KB

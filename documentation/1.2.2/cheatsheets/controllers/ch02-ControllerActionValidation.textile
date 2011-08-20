@@ -24,5 +24,4 @@ Relaxed phone validation
 電話番号の緩やかな検証
 
 *==@Valid Person person==*
-JavaBean (POJO) validation - class Person needs validation annotations
 JavaBean (POJO) 検証 - Person クラスは検証のアノテーションが必要です。
