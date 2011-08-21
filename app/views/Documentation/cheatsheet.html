@@ -2,19 +2,18 @@
         "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-  <title>Play manual - ${title}</title>
-  <link rel="stylesheet" href="/public/stylesheets/main.css" type="text/css" media="screen" charset="utf-8">
-  <link rel="stylesheet" href="/public/stylesheets/wiki.css" type="text/css" media="screen" charset="utf-8">
-  <script type="text/javascript" src="/public/javascripts/jquery-1.4.2.min.js"></script>
-  <link rel="stylesheet" href="/public/stylesheets/cheat-sheet.css" type="text/css" media="screen" charset="utf-8">
-  <link rel="stylesheet" href="/public/stylesheets/cheat-sheet-print.css" type="text/css" media="print"
-        charset="utf-8">
+  <title>Play manual - Cheat Sheet</title>
+  #{stylesheet src:"main.css" /}
+  #{stylesheet src:"wiki.css" /}
+  #{stylesheet src:"cheat-sheet.css" /}
+  #{stylesheet src:"cheat-sheet-print.css", media:"print" /}
+  #{script src:"jquery-1.4.2.min.js" /}
 </head>
 <body>
 <div class="cs-wrapper">
   <div id="docTopbar">
     <div id="backToToc">
-      <span>Back to </span><a href="/documentation?version=${version}">Table of contents</a>
+      <span>Back to </span><a href="/documentation?version=${version}">Table of contents </a>
     </div>
     <div id="searchBar">
       <span>Get help with Google:</span>
@@ -35,20 +34,17 @@
       <h1>${title}</h1>
     </div>
     <div class="titlebar links">
-      #{if id == 'commandLine'}Command Line#{/if}#{else}<a href="/documentation/${version}/cheatsheet/commandLine">Command
-      Line</a>#{/else}&nbsp;
+      #{if id == 'commandLine'}Command Line#{/if}#{else}<a href="/documentation/${version}/cheatsheet/commandLine">Command Line</a>#{/else}&nbsp;
       #{if id == 'controllers'}Controllers#{/if}#{else}<a href="/documentation/${version}/cheatsheet/controllers">Controllers</a>#{/else}&nbsp;
       #{if id == 'model'}Model#{/if}#{else}<a href="/documentation/${version}/cheatsheet/model">Model</a>#{/else}&nbsp;
-      #{if id == 'multiEnvironment'}Multi Environment#{/if}#{else}<a
-            href="/documentation/${version}/cheatsheet/multiEnvironment">Multi Environment</a>#{/else}&nbsp;
-      #{if id == 'templates'}Templates#{/if}#{else}<a
-            href="/documentation/${version}/cheatsheet/templates">Templates</a>#{/else}&nbsp;
+      #{if id == 'multiEnvironment'}Multi Environment#{/if}#{else}<a href="/documentation/${version}/cheatsheet/multiEnvironment">Multi Environment</a>#{/else}&nbsp;
+      #{if id == 'templates'}Templates#{/if}#{else}<a href="/documentation/${version}/cheatsheet/templates">Templates</a>#{/else}&nbsp;
       #{if id == 'tests'}Tests#{/if}#{else}<a href="/documentation/${version}/cheatsheet/tests">Tests</a>#{/else}&nbsp;
     </div>
     <div id="logobar">
       <img src="/public/images/logo-manual.png">
 
-      <h2 id="version">Play 1.2.1</h2>
+      <h2 id="version">${version}</h2>
     </div>
   </div>
   <div id="content" class="wikistyle">
