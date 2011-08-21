@@ -3,7 +3,7 @@ package controllers;
 import play.Play;
 import play.libs.IO;
 import play.mvc.Controller;
-import util.Textile;
+import util.*;
 
 import java.io.File;
 import java.util.Arrays;
@@ -70,39 +70,12 @@ public class Documentation extends Controller {
 
         File[] files = dir.listFiles();
         Arrays.sort(files);
-        StringBuilder sb = new StringBuilder();
         String[] htmls = new String[files.length];
         for (int i = 0; i<files.length; i++){
             htmls[i] = Textile.toHTML(IO.readContentAsString(files[i]));
         }
-        String title = humanize(id);
+        String title = StringUtils.humanize(id);
 
         render(action, version, id, htmls, title);
     }
-
-    static String humanize(String camelCase) {
-        char[] chars = camelCase.toCharArray();
-        StringBuilder sb = new StringBuilder();
-        sb.append(toUpper(chars[0]));
-        for (int i = 1; i < chars.length; i++) {
-            if (isUpperCase(chars[i])) {
-                sb.append(' ');
-            }
-            sb.append(chars[i]);
-        }
-        return sb.toString();
-    }
-
-    private static boolean isLowerCase(char c) {
-        return c >= 'a' && c <= 'z' ? true : false;
-    }
-
-    private static boolean isUpperCase(char c) {
-        return c >= 'A' && c <= 'Z' ? true : false;
-    }
-
-    private static char toUpper(char c) {
-        return isLowerCase(c) ? (char) (c - 0x20) : c;
-    }
-
 }
