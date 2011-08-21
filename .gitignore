@@ -10,3 +10,4 @@ eclipse/classes/*
 precompiled/*
 tmp/*
 tmp/bytecode/*
+test-result/*
