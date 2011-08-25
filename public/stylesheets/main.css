@@ -10,7 +10,7 @@ html, body {
     font-family: 'Lucida Grande', Helvetica, Arial, sans-serif;
     font-size: 14px;
     line-height: 1.5em !important;
-    text-shadow: #fff 1px 1px 0px; 
+    text-shadow: #fff 1px 1px 0px;
 }
 h1, h2, h3, h4, h5 {
     color: #333;
@@ -23,10 +23,22 @@ a:hover {
     text-decoration: none;
 }
 
+#important_notice {
+    background: -moz-linear-gradient(-90deg, #E9554A, #C4473E) repeat scroll 0 0 transparent;
+    border-bottom: 1px solid #62221E;
+    color: #FFFFFF;
+    font-size: 13px;
+    padding: 3px;
+    text-shadow: -1px -1px 0 #444444;
+}
+#important_notice a {
+    color: #EEEEEE;
+}
+
 .wrapper {
     width: 900px;
     margin: auto;
-    position: relative; 
+    position: relative;
 }
 .wrapper:after {
     content: " ";
@@ -238,7 +250,7 @@ a:hover {
 /*#introduction {
     width: 600px;
     color: #1e4432;
-    text-shadow: rgba(255, 255, 255, 0.4) 1px 1px 0px; 
+    text-shadow: rgba(255, 255, 255, 0.4) 1px 1px 0px;
 }
 
 #introduction h2 {
@@ -321,7 +333,7 @@ a:hover {
 #quickoverview h1 {
     font-size: 18px;
     margin-bottom: 15px;
-    text-shadow: #fff 1px 1px 0px; 
+    text-shadow: #fff 1px 1px 0px;
 }
 
 #quickoverview p {
@@ -578,7 +590,7 @@ a:hover {
     background: #777;
     background: -webkit-gradient(linear, left top, left bottom, from(#555), to(#777));;
     color: #ccc;
-    text-shadow: #444 -1px -1px 0px; 
+    text-shadow: #444 -1px -1px 0px;
     padding: 10px;
     margin-bottom: 5px;
     line-height: 1.2em;
