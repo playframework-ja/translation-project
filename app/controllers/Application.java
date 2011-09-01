@@ -9,6 +9,7 @@ import net.htmlparser.jericho.*;
 
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.methods.*;
+import org.apache.commons.lang.*;
 import org.yaml.snakeyaml.*;
 
 import play.*;
@@ -21,13 +22,27 @@ import com.google.gson.annotations.*;
 
 public class Application extends Controller {
 
+    static {
+
+        String hostKey = "http.proxyHost";
+        String portKey = "http.proxyPort";
+
+        String host = Play.configuration.getProperty(hostKey);
+        String port = Play.configuration.getProperty(portKey);
+
+        if (StringUtils.isNotEmpty(host) && StringUtils.isNotEmpty(port)) {
+            System.setProperty(hostKey, host);
+            System.setProperty(portKey, port);
+        }
+    }
+
     public static void index() throws MalformedURLException, IOException {
 
         String action = "index";
 
         Source source = new Source(new URL("http://www.playframework.org/"));
         Element tElem = source.getElementById("twitter");
-        Element eElem = source.getElementById("event"); 
+        Element eElem = source.getElementById("event");
         String twitter = tElem != null ? tElem.toString() : "";
         String event = eElem != null ? eElem.toString() : "";
 
@@ -137,5 +152,4 @@ public class Application extends Controller {
     public static void about(String action) throws TwitterException {
         render(action);
     }
-
 }
