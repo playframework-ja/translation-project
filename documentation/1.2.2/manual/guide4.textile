@@ -186,7 +186,7 @@ bc. ...
     <script src="@{'/public/javascripts/jquery.tools-1.2.5.toolbox.expose.min.js'}"></script>
 </head>
 
-Now you can add this script to the **show.html** template (add it at the end of the page):
+これで以下のスクリプトを **show.html** テンプレートに追加することが出来ます。 (ページの最後に追加してください):
 
 bc. <script type="text/javascript" charset="utf-8">
     $(function() {         
@@ -205,11 +205,11 @@ bc. <script type="text/javascript" charset="utf-8">
 
 !images/guide4-2!
 
-The comment form looks pretty cool now. We will add two more things.
+コメントフォームがずいぶんクールになりました。あと二つ追加しましょう。
 
-First, we will display a success message after a comment is successfully posted. For that, we use the flash scope that allows us to pass messages from one action call to the next one.
+最初に、コメントが正常に投稿されたら成功メッセージを表示するようにします。これをするために、ひとつのアクション呼び出しから次の呼び出しにメッセージを引き渡すことができる flash スコープを使います。
 
-Modify the **postComment** action to add a success message:
+成功メッセージを追加するように **postComment** アクションを修正します:
 
 bc. public static void postComment(Long postId, @Required String author, @Required String content) {
     Post post = Post.findById(postId);
@@ -221,7 +221,7 @@ bc. public static void postComment(Long postId, @Required String author, @Requir
     show(postId);
 }
 
-and display the success message in **show.html** if present (add it at the top the page):
+そして、もし成功メッセージが存在する場合は **show.html** にこれを表示します (ページの最上部に追加します) 。
 
 bc. ...
 #{if flash.success}
@@ -233,11 +233,11 @@ bc. ...
 
 !images/guide4-3!
 
-The last thing we will adjust in this form is the URL used for the **postComment** action. As always, it uses the default catch-all route because we didn’t define any specific route. So add this route to the application routes file:
+最後は **postComment** アクションに使われる URL を整えます。特にルートを定義していないので、このアクションはいつもどおり全てをキャッチするルートを使用します。そこで、以下のルートをアプリケーションのルートファイルに追加します:
 
 bc. POST    /posts/{postId}/comments                Application.postComment
 
-That’s done. As always, commit the version to bazaar.
+以上です。いつものようにこのバージョンを bazaar にコミットします。
 
-p(note). Next: %(next)"Setting up a Captcha":guide5%. 
+p(note). 次: %(next)"キャプチャの設定":guide5%. 
 
