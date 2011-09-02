@@ -6,21 +6,40 @@ import play.mvc.Controller;
 import util.*;
 
 import java.io.File;
-import java.util.Arrays;
+import java.util.*;
 
 public class Documentation extends Controller {
-    private static final String LATEST = Play.configuration.getProperty("version.latest");
+
+    private static List<String> versions;
+
+    private static String latestVersion;
+
+    static {
+        versions = new ArrayList<String>();
+        String[] dirNames = new File(Play.applicationPath, "documentation/").list();
+        for (String name : dirNames) {
+            if (name.equals("modules")) {
+                continue;
+            }
+            versions.add(name);
+        }
+        Collections.reverse(versions);
+        latestVersion = Play.configuration.getProperty("version.latest");
+    }
 
     public static void page(String version, String id) throws Exception {
-        final String action = "documentation";
+
+        List<String> versions = Documentation.versions;
+
+        String action = "documentation";
 
         File page = new File(
                 Play.applicationPath,
                 "documentation/" + version + "/manual/" + id + ".textile");
 
         if (!page.exists()) {
-            if (!version.equals(LATEST)) {
-                page(LATEST, id);
+            if (!version.equals(latestVersion)) {
+                page(latestVersion, id);
             }
             notFound(page.getPath());
         }
@@ -29,7 +48,7 @@ public class Documentation extends Controller {
         String html = Textile.toHTML(textile);
         String title = getTitle(textile);
 
-        render(action, version, id, html, title);
+        render(action, versions, version, id, html, title);
     }
 
     public static void image(String version, String name) {
@@ -62,8 +81,8 @@ public class Documentation extends Controller {
                 String.format("documentation/%s/cheatsheets/%s", version, id));
 
         if (!dir.exists()) {
-            if (!version.equals(LATEST)) {
-                cheatsheet(LATEST, id);
+            if (!version.equals(latestVersion)) {
+                cheatsheet(latestVersion, id);
             }
             notFound(dir.getPath());
         }

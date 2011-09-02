@@ -14,41 +14,35 @@
         <ul>
             <li id="gotoc"><a href="home">目次</a></li>
         </ul>
-        
+
         <h2>内容</h2>
         <div id="toc"></div>
-        
+
         <h2>バージョン選択</h2>
         <div id="bc">
             <ul>
-                <li><a class="#{if version == '1.2.2'}selected#{/if}" href="/documentation?version=1.2.2">1.2.2</a> #{if version == '1.2.2'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.2.1'}selected#{/if}" href="/documentation?version=1.2.1">1.2.1</a> #{if version == '1.2.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.2'}selected#{/if}" href="/documentation?version=1.2">1.2</a> #{if version == '1.2'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.1.1'}selected#{/if}" href="/documentation?version=1.1.1">1.1.1</a> #{if version == '1.1.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.1'}selected#{/if}" href="/documentation?version=1.1">1.1</a> #{if version == '1.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0.3.2'}selected#{/if}" href="/documentation?version=1.0.3.2">1.0.3.2</a> #{if version == '1.0.3.2'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0.2.1'}selected#{/if}" href="/documentation?version=1.0.2.1">1.0.2.1</a> #{if version == '1.0.2.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0.1'}selected#{/if}" href="/documentation?version=1.0.1">1.0.1</a> #{if version == '1.0.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0'}selected#{/if}" href="/documentation?version=1.0">1.0</a> #{if version == '1.0'}⬅#{/if}</li>
+            #{list items:versions, as:'item'}
+                <li><a class="#{if version == item}selected#{/if}" href="/documentation?version=${item}">${item}</a> #{if version == item}⬅#{/if}</li>
+            #{/list}
             </ul>
         </div>
-        
+
     </div>
-    
+
     <div id="pageContent">
-        
+
         <div class="wikistyle">${html.raw()}</div>
-        
+
         <div id="comments">
             <h2><a name="comments">コメント</a></h2>
-            
+
             <p>
                 このフォームを使用して、このページのドキュメントに関する修正や追記、提案を追加してください。
                 質問はここには書かず、play-framework グループに質問してください。
                 サポート要求、バグレポート、趣旨に沿わないコメントは警告無しに削除されます。
             </p>
         </div>
-        
+
         <div id="disqus_thread"></div>
         <script type="text/javascript">
           var disqus_identifier = '${id}';
@@ -62,10 +56,10 @@
           })();
         </script>
     </div>
-    
+
     <script type="text/javascript" charset="utf-8">
         // Fix @API link
         $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/1.1/index.html")
     </script>
-    
+
 </div>
