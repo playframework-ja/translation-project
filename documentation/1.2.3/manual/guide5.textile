@@ -1,49 +1,49 @@
-h1. Setting up a captcha
+h1. キャプチャの設定
 
-Because anyone can post a comment to our blog engine, we should protect it a little to avoid automated spam. A simple way to protect a form from this is to add a "captcha":http://en.wikipedia.org/wiki/Captcha image.
+我々のブログエンジンは誰でもコメントを投稿することができるので、自動化されたスパムを避けるためにちょっと保護してあげるべきです。スパムからフォームを守るシンプルな方法は、"captcha":http://en.wikipedia.org/wiki/Captcha 画像を追加することです。
 
-h2. <a>Generating the captcha image</a>
+h2. <a>キャプチャ画像の生成</a>
 
-We’ll start to see how we can easily generate a captcha image using Play. Basically we will just use another action, except that it will return a binary stream instead of the HTML responses like we’ve returned so far.
+Play を使うと、どれだけ簡単にキャプチャ画像を生成できるかを見るところから始めましょう。これまでのように HTML レスポンスを返す代わりに、バイナリストリームを返すことを除けば、新たに別のアクションを使用するだけです。
 
-Since Play is a **full-stack** web framework, we try to include built-in constructs for web applications’ most typical needs; generating a captcha is one of them. We can use the @play.libs.Images@ utility to simply generate a captcha image, and then write it to the HTTP response. 
+Play は **フルスタック** な web フレームワークなので、web アプリケーションで一般的に必要なものは組込みで含めています; キャプチャの生成はそのうちの 1 つです。 @play.libs.Images@ ユーティリティを使って容易にキャプチャ画像を生成することが可能であり、その後、HTTP レスポンスにそれを書き出します。
 
-As usual, we will start with a simple implementation. Add the @captcha@ action to the @Application@ controller:
+いつも通り、シンプルな実装から始めましょう。 @Application@ コントローラに @captcha@ アクションを追加してください:
 
 bc. public static void captcha() {
     Images.Captcha captcha = Images.captcha();
     renderBinary(captcha);
 }
 
-Note that we can pass the captcha object directly to the renderBinary() method because the Images.Captcha class implements java.io.InputStream. 
+Images.Captcha クラスは java.io.InputStream を実装するため、キャプチャオブジェクトを直接 renderBinary() メソッドに渡せることに注意してください。
 
-p(note). **Don’t forget** to import @play.libs.*@.
+p(note). @play.libs.*@ をインポートすることを **忘れないでください** 。
 
-Now add a new route to the @/yabe/conf/routes@ file:
+ここで、 @/yabe/conf/routes@ ファイルに新しいルートを追加します:
 
 bc. GET     /captcha                                Application.captcha
 
-And try the @captcha@ action by opening "http://localhost:9000/captcha":http://localhost:9000/captcha.
+そして、"http://localhost:9000/captcha":http://localhost:9000/captcha を開いて @captcha@ アクションを試してください。
 
 !images/guide5-1!
 
-It should generate a random text for each refresh.
+画面をリフレッシュする度に、ランダムな文字列を生成するはずです。
 
-h2. <a>How do we manage the state?</a>
+h2. <a>状態を管理する方法</a>
 
-Until now it was easy, but the most complicated part is coming. To validate the captcha we need to save the random text written to the captcha image somewhere and then check it at the form submission time. 
+これまでは簡単でしたが、もっとも複雑な部分がやって来ます。キャプチャの妥当性を検証するためには、キャプチャ画像に書き込まれたランダム文字列をどこかに保存して、フォームが投稿されたタイミングでこの文字列を確認する必要があります。
 
-Of course we could just put the text to the user session at the image generation time and then retrieve it later. But this solution has two drawbacks:
+もちろん、単純に画像を生成するときに文字列をユーザセッションに設定し、あとから検索することも可能です。しかし、この方法には 2 つの欠点があります:
 
-**First**, the Play session is stored as a cookie. It solves a lot of problems in terms of architecture but has a lot of implications. Data written to the session cookie are signed (so the user can’t modify them) but not encrypted. If we write the captcha code to the session anybody could easily resolve it by reading the session cookie.
+**はじめに** 、Play のセッションは cookie として保存されます。これはアーキテクチャ上の多くの問題を解決しますが、様々な影響も及ぼします。cookie に書き込まれたデータは、署名はされています (そのため、ユーザはこれを変更できません) が、暗号化はされていません。キャプチャのコードをセッションに書き込んでしまうと、セッション cookie を読むことで誰でも簡単にこれを解読することができてしまいます。
 
-**Second**, remember that Play is a **stateless** framework. We want to manage things in a purely stateless way. Typically, what happens if a user simultaneously opens two different blog pages with two different captcha images? We have to track the captcha code for each form.
+**続いて** 、Play が **ステートレス** なフレームワークであることを思い出してください。Play は、物事を純粋にステートレスな方法で管理します。典型的な例としては、もしユーザが同時に 2 つの異なるキャプチャを持つ 2 つの異なるブログページを開いた場合、何が起こるでしょうか? フォームごとにキャプチャコードを追跡しなければならなくなります。
 
-So to resolve the problem we need two things. We will store the captcha secret key on the server side. Because it is transient data we can easily use the Play **Cache**. Moreover because cached data have a limited life time it will add one more security mechanism (let’s say that a captcha code will be available for only 10mn). Then to resolve the code later we need to generate a **unique ID**. This unique ID will be added to each form as an hidden field and implicitly references a generated captcha code.
+このため、この問題を解決するために 2 つのことをしなければなりません。キャプチャの秘密鍵をサーバ側に保存します。これは一時的なデータなので、Play **キャッシュ** を容易に使用することができます。さらに、キャッシュされたデータの生存期間は限られているので、セキュリティ機能が 1 つ追加されることになります (キャプチャコードは 10 分間のみ有効になるようにしましょう) 。そして、このコードを後から解決するために、 **ユニーク ID** を生成する必要があります。このユニーク ID は、それぞれのフォームに hidden フィールドとして追加され、生成されたキャプチャコードを暗黙的に参照します。
 
-This way we elegantly solve our state problem.
+この方法で、状態に関する問題をエレガントに解決することができます。
 
-Modify the @captcha@ action as is:
+@captcha@ アクションを以下のように変更してください:
 
 bc. public static void captcha(String id) {
     Images.Captcha captcha = Images.captcha();
@@ -52,15 +52,15 @@ bc. public static void captcha(String id) {
     renderBinary(captcha);
 }
 
-Note that the @getText()@ method takes any color as parameter. It will use this color to draw the text.
+@getText()@ メソッドがどのような色でも引数として受け取ることに注意してください。この色は文字列を描画するのに使用されます。
 
-p(note). **Don’t forget** to import @play.cache.*@.
+p(note). @play.cache.*@ をインポートするのを **忘れないでください** 。
 
-h2. <a>Adding the captcha image to the comment form</a>
+h2. <a>コメントフォームへのキャプチャ画像の追加</a>
 
-Now, before displaying a comment form we will generate a unique ID. Then we will modify the HTML form to integrate a captcha image using this ID, and add the ID to another hidden field.
+それでは、コメントフォームを表示する前にユニーク ID を生成しましょう。その後、この ID を使ってキャプチャ画像を統合するよう HTML フォームを変更し、ID は別の hidden フィールドに追加します。
 
-Let’s rewrite the @Application.show@ action:
+@Application.show@ アクションを書き換えましょう:
 
 bc. public static void show(Long id) {
     Post post = Post.findById(id);
@@ -68,9 +68,9 @@ bc. public static void show(Long id) {
     render(post, randomID);
 }
 
-And now the form in the @/yable/app/views/Application/show.html@ template:
+@/yable/app/views/Application/show.html@ テンプレートに含まれるフォームは、以下のようになります:
 
-bc. …
+bc. ...
 <p>
     <label for="content">Your message: </label>
     <textarea name="content" id="content">${params.content}</textarea>
@@ -85,17 +85,17 @@ bc. …
 <p>
     <input type="submit" value="Submit your comment" />
 </p>
-…
+...
 
-Good start. The comment form now has a captcha image.
+よいスタートです。これでコメントフォームにキャプチャ画像が付きました。
 
 !images/guide5-2!
 
-h2. <a>Validating the captcha</a>
+h2. <a>キャプチャのバリデーション</a>
 
-Now we just have to validate the captcha. We have added the @randomID@ as an hidden field right? So we can retrieve it in the @postComment@ action, then retrieve the actual code from Cache and finally compare it to the submitted code.
+あとはキャプチャの妥当性を検証するだけです。 @randomID@ を hidden フィールドとして追加しましたよね? このため、 @postComment@ アクションからこれを検索して、その後 Cache から実際のコードを検索して、これを投稿されたコードと最終的に比較することができます。
 
-Not that difficult. Let’s modify the @postComment@ action.
+そんなに難しくありません。 @postComment@ アクションを変更しましょう。
 
 bc. public static void postComment(
         Long postId, 
@@ -117,7 +117,7 @@ bc. public static void postComment(
     show(postId);
 }
 
-Because we now have more error messages, modify the way we display errors in the @show.html@ template (yes we will just display the first error, it’s good enough):
+エラーメッセージが増えたので、 @show.html@ テンプレートへのエラー表示方法を変更してください (ええ、今のところ最初のエラーだけを表示します。これで充分です):
 
 bc. .. 
 #{ifErrors}
@@ -125,14 +125,14 @@ bc. ..
         ${errors[0]}
     </p>
 #{/ifErrors}
-…
+...
 
-p(note). Typically for more complex forms, error messages are not managed this way but externalized in the @messages@ file and each error is printed inside the corresponding field.
+p(note). 一般的に、もっと複雑なフォームの場合、エラーメッセージはこのようなやり方では管理されず、 @messages@ ファイルに外出しにされ、それぞれのエラーは関連するフィールドの隣に出力されます。
 
-Check that the captcha is now fully functional.
+今や完全に機能するキャプチャを確認してください。
 
 !images/guide5-3!
 
-Great!
+いいですね!
 
-p(note). Next: %(next)"Add tagging support":guide6%. 
+p(note). 次: %(next)"タグ機能のサポート":guide6%
