@@ -727,15 +727,28 @@ a:hover {
 }
 
 .profile-info {
-    margin-bottom: 2em;
+	margin-bottom: 2em;
 }
 
 .profile-image-container {
-    float: left;
+	float: left;
 }
 
 .profile-details {
     display: inline-block;
     margin-left: 15px;
     width: 500px;
+}
+
+div#original_link {
+	background: url("../images/logo-small.png") no-repeat scroll left top #ffffff;
+	height: 30px;
+	width: 30px;
+	border:	solid 5px #ffffff;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+	position: fixed;
+	right: 0;
+	cursor: pointer;
+	z-index: 100;
 }

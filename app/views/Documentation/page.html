@@ -62,10 +62,20 @@
           })();
         </script>
     </div>
-    
-    <script type="text/javascript" charset="utf-8">
+
+    <script type="text/javascript">
+    $(document).ready(function() {
         // Fix @API link
-        $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/1.1/index.html")
+        $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/${version}/index.html");
+        
+        var top  = Math.floor(($(window).height() - $("#original_link").height()) / 2);
+        $("#original_link").css('top', top);
+        $("#original_link").click(function() {
+        	window.open('http://www.playframework.org/documentation/${version}/${id}', '_blank');
+        	return false;
+        });
+    });    
     </script>
-    
+
 </div>
+<div id="original_link"></div>
