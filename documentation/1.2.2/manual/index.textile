@@ -1,8 +1,8 @@
-h1. Index
+h1. インデックス
 
-Use this page to navigate quickly to a specific Play framework function.
+Play framework の特定の機能を素早く見つけるためにこのページを使ってください。
 
-h2. Implicit template variables
+h2. テンプレート中で暗黙的に使用できる変数
 
 <div class="index">
 # "errors":/@api/play/data/validation/Validation.html#errors%28%29
@@ -16,7 +16,7 @@ h2. Implicit template variables
 # "session":/@api/play/mvc/Scope.Session.html
 </div>
 
-h2. Built-in tags
+h2. 組み込みタグ
 
 <div class="index">
 # "a":tags#a
@@ -49,7 +49,7 @@ h2. Built-in tags
 # "verbatim":tags#verbatim
 </div>
 
-h2. Built-in Java Extensions
+h2. 組み込み Java エクステンション
 
 <div class="index">
 # "Collection extensions":javaextensions#collection
@@ -105,7 +105,7 @@ h2. Built-in Java Extensions
 # "remove(string) ":javaextensions#remove
 </div>
 
-h2. Built-in validation
+h2. 組み込みバリデーション
 
 <div class="index">
 # "email":validation-builtin#email
