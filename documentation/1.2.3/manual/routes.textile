@@ -1,53 +1,53 @@
-h1. HTTP routing
+h1. HTTP ルーティング
 
-The router is the component in charge of translating incoming HTTP Requests into action calls (a static, public method of a Controller).
+Router は、送り込まれた HTTP リクエストをアクション (コントローラの static で public なメソッド) の呼び出しに対応付けるコンポーネントです。
 
-An HTTP request is seen as an event by the MVC framework. The event contains two major pieces of information:
+HTTP リクエストは MVC フレームワークにおいてイベントと見なされます。このイベントは 2 つの主要な情報を含んでいます:
 
-* The Request path (such as @/clients/1542@, @/photos/list@), including the query string.
-* The HTTP method (GET, POST, PUT, DELETE)
+* クエリ文字列を含んだ (@/clients/1542@ や @/photos/list@ のような) リクエストパス
+* HTTP メソッド (GET, POST, PUT, DELETE)
 
-h2. <a name="rest">About REST</a>
+h2. <a>REST について</a>
 
-Representational state transfer (REST) is a style of software architecture for distributed hypermedia systems such as the World Wide Web.
+REST (Representational state transfer) は、World Wide Web などの分散ハイパーメディアシステムのためのソフトウェアアーキテクチャスタイルです。
 
-REST states a few key design principles:
+REST が述べるいくつかの主要な設計原理は以下の通りです:
 
-* Application functionality is divided into resources
-* Every resource is uniquely addressable using a URI
-* All resources share a uniform interface for the transfer of state between client and resource. 
+* アプリケーションの機能はリソースに分割される
+* あらゆるリソースは URI を使用することで一意にアドレス付けられる
+* すべてのリソースはクライアントとリソースの間で状態を転送するために統一インタフェースを共有する
 
-If you’re using HTTP, these interfaces are defined by the set of available HTTP methods. The protocol used to access the resource state is:
+HTTP を使用する場合は、インタフェースは利用可能な HTTP メソッドのセットとして定義されます。 リソース状態にアクセスするために使用されるプロトコルは、以下の通りです:
 
-* Client-server
-* Stateless
-* Cacheable
-* Layered
+* クライアント-サーバ
+* ステートレス
+* キャッシュ可能
+* 階層化
 
-If an application follows the main REST design principles, the application is RESTful. The Play framework makes it easy to build RESTful applications:
+アプリケーションが主な REST 設計原理に従うなら、そのアプリケーションは RESTful です。Play フレームワークを使うと、容易に RESTful アプリケーションを構築することができます:
 
-* The Play router interprets both URI and HTTP methods to route a request to a Java call. Regular expressions-based URI patterns give you even more flexibility. 
-* The protocol is stateless. This means you can’t save any state on the server between two successive requests.
-* Play considers HTTP as a key feature, thus the framework gives you full access to HTTP information.
+* Play の router は Java の呼び出しにリクエストを転送するために URI と HTTP メソッドの両方を解釈します。正規表現ベースの URI パターンは高い柔軟性を提供します。
+* プロトコルはステートレスです。これは、2 つの連続したリクエスト間において、どのような状態もサーバに保存できないことを意味します。
+* Play は HTTP を重要な特徴と見なすので、HTTP に含まれる情報への完全なアクセスを提供します。
 
-h2. <a name="syntax">The routes file syntax</a>
+h2. <a name="syntax">routes ファイルの構文</a>
 
-The @conf/routes@ file is the configuration file used by the Router. This file lists all the routes needed by the application. Each route consists of an HTTP method + URI pattern associated with a Java call.
+@conf/routes@ ファイルは、Router が使用する設定ファイルです。このファイルはアプリケーションに必要なすべてのルートを記載します。各ルートは Java 呼び出しに関連付けられた HTTP メソッド + URI パターンで構成されます。
 
-Let’s see what a route definition looks like:
+ルート定義がどのようなものか見てみましょう:
 
 bc. GET    /clients/{id}             Clients.show           
 
-Each route starts with the HTTP method, followed by the URI pattern. The last element of a route is the Java call definition.
+各ルートは HTTP メソッドから始まり、URI パターンが続きます。ルーティングの最後の要素は Java 呼び出しの定義です。
 
-You can add a comment to the route file, with the @#@ character.
+@#@ 文字でルートファイルにコメントを追加できます。
 
 bc. # Display a client
 GET    /clients/{id}             Clients.show           
 
-h3. The HTTP method
+h3. HTTP メソッド
 
-The HTTP method can be any of the valid methods supported by HTTP:
+HTTPによってサポートされてる有効なメソッドのうち、いずれかひとつをルートの HTTP メソッドに指定することができます:
 
 * **GET**
 * **POST**
@@ -55,107 +55,107 @@ The HTTP method can be any of the valid methods supported by HTTP:
 * **DELETE**
 * **HEAD**
 
-It also supports @WS@ as action method to indicate a "WebSocket":asynchronous#UsingWebSockets request.
+Moreover it supports @WS@ as action method to indicate a "WebSocket":asynchronous#UsingWebSockets request.
 
-If you specify @*@ as the method, this route will match the HTTP Request for any method.
+HTTP メソッドに * を指定した場合、このルートはどのようなメソッドの HTTP リクエストにもマッチします。
 
 bc. *   /clients/{id}             Clients.show           
 
-This route will accept both of:
+このルートは以下のいずれにも適合します:
 
 bc. GET /clients/1541
 PUT /clients/1212
 
 
-h3. The URI Pattern
+h3. URI パターン
 
-The URI pattern defines the route’s request path. Some parts of the request path can be dynamic. Any dynamic part must be specified within braces {…}.
-
-bc. /clients/all
-
-exactly matches:
+URI パターンはルートのリクエストパスを定義します。ルートの一部を動的に定義することが可能です。動的部分はすべて 中括弧 {…} の中に指定しなければいけません。
 
 bc. /clients/all
 
-but…
+完全にマッチします:
+
+bc. /clients/all
+
+しかし …
 
 bc. /clients/{id}
 
-matches both:
+これらについてもそれぞれマッチします:
 
 bc. /clients/12121
 /clients/toto
 
-A URI pattern may have more than one dynamic part:
+URI パターンにはより多くの動的な部分があるかもしれません:
 
 bc. /clients/{id}/accounts/{accountId}
 
-The default matching strategy for a dynamic part is defined by the regular expression @/[^/]+/@. You can define your own regular expression for a dynamic part.
+動的部分のデフォルトのマッチング方式は、正規表現  @/[^/]+/@ として定義されています。動的部分の正規表現を独自に定義することができます。
 
-This regex will only accept numerical values as id:
+この正規表現は id に数値のみを許可します:
 
 bc. /clients/{<[0-9]+>id}
 
-This one will ensure id is a word containing between 4 and 10 lower case characters only:
+これは id が 4～10 文字の小文字だけを含む単語であることを保証します:
 
 bc. /clients/{<[a-z]{4,10}>id}
 
-Any valid regular expression can be used here.
+ここではどのような正規表現も使用することができます。
 
-p(note). **Note**
+p(note). **注意**
  
-Dynamic parts are named. The Controller can later retrieve the dynamic parts from the HTTP params map.
+動的部分には名前が付けられます。コントローラは後から HTTP パラメータの Map から動的部分を検索することができます。
 
-By default Play considers the trailing URL slash as important. For example, this route:
+デフォルトで、Play は URL のあとに続くスラッシュを重要視します。例えば次のようなルートの場合:
 
 bc. GET     /clients         Clients.index
 
-will match the */clients* URL but not */clients/*. You can tell Play that you want to match both URLs by adding a question mark after the trailing slash. For example:
+*/clients* という URL にはマッチしますが、 */clients/* にはマッチしません。スラッシュの後にクエスチョンマークを追加することで、Play に両方の URL にマッチするよう伝えることができます。例えば、次のようにします:
 
 bc. GET     /clients/?       Clients.index
 
-p(note). The URI pattern cannot have any optional part except for that trailing slash.
+p(note). この URI パターンは、最後のスラッシュ以外にはどのような追加部分も持つことはできません。
 
-h3. Java call definition
+h3. Java の呼び出し定義
 
-The last part of a route definition is the Java call. This part is defined by the fully-qualified name of an action method. The action method must be a @public static void@ method of a Controller class. A Controller class must be defined in the @controllers@ package and must be a subclass of @play.mvc.Controller@.
+ルート定義の最後の部分は Java 呼び出しです。この部分はアクションメソッドの完全修飾名で定義されます。アクションメソッドは Controller クラスの @public static void@ なメソッドでなければいけません。Controller クラスは @controllers@ パッケージに定義しなければならず、また、 @play.mvc.Controller@ のサブクラスでなければいけません。
 
-You can add a Java package before the Controller class name if it isn’t defined directly under the controllers package. The @controllers@ package itself is implicit, so you don’t need to specify it. 
+コントローラが controllers パッケージの直下に定義されていない場合は、クラス名の前に Java パッケージ名を追記することができます。 @controllers@ パッケージ自体は暗黙的なので、特に指定する必要はありません。
 
 bc. GET    /admin             admin.Dashboard.index           
 
-h3. 404 as action
+h3. 404 アクション
 
-You can also directly use @404@ as a route action to mark a URL path that must be ignored by your application. For example:
+アプリケーションにおいて無視されなければならない URL パスを印付けるために、 @404@ をアクションルートとして直接使用することができます。例えば:
 
 bc. # Ignore favicon requests
 GET     /favicon.ico            404
 
-h3. Assign static args
+h3. 静的引数の割り当て
 
-In some cases, you want to reuse an existing action but define a more specific route based on the values of some of the arguments.
+ある場合においては、アクションは再利用しても、いくつかの引数の値に基づいてより特別なルートを定義したいことがあります。
 
-Let’s see how in this example:
+これがどのようなものか、以下の例を見てみましょう:
 
 bc. public static void page(String id) {
     Page page = Page.findById(id);
     render(page);
 }
 
-With the corresponding route:
+対応するルートは次のとおりです:
 
 bc. GET    /pages/{id}        Application.page
 
-Now, I want to define a URL alias for the page with ID ‘home’. I can define another route with a static argument:
+ここで、このページに 'home' という ID で別名を定義したいと思います。静的引数を使って別のルートを定義することができます:
 
 bc. GET    /home              Application.page(id:'home')
 GET    /pages/{id}        Application.page
 
-The first route is equivalent to the second one when the page ID is ‘home’. However, since it has higher priority, this route will be used as the default for the call to Application.page with ID ‘home’.
+最初のルートは、ページの id が 'home' である場合、2 番目のルートと等価です。しかし、最初のルートはより高い優先度を持つので、id が 'home' である Application.page 呼び出しのデフォルト定義として使用されます。
 
-h3. Variables and scripts
+h3. 変数とスクリプト
 
-You can also use the @${…}@ syntax for variables, and the @%{…}@ syntax for scripts in the @routes@ file, as you can in templates. For example:
+テンプレートと同様、 @routes@ ファイルにおいても変数に @${ … }@ 構文を、式に @%{ … }@ 構文を使うことができます。例えば:
 
 bc. %{ context = play.configuration.getProperty('context', '') }%
  
@@ -163,116 +163,116 @@ bc. %{ context = play.configuration.getProperty('context', '') }%
 GET    ${context}         Secure.login
 GET    ${context}/        Secure.login
 
-Another example is the CRUD module’s @routes@ file, which uses the @crud.types@ tag to loop over model types to generate controller route definitions for each type.
+別の例として、すべての型についてコントローラルート定義を生成するために @crud.types@ タグを使ってモデルの型全体をループする CRUD モジュールの @routes@ ファイルがあります。
 
 
-h2. <a name="priority">Routes priority</a>
+h2. <a name="priority">ルーティングの優先順位</a>
 
-Many routes can match the same request. If there is any conflict, the first route (following the declaration order) is used.
+複数のルートが同じリクエストにマッチすることができます。競合がある場合は、(宣言した順番に従い) 最初のルートが使用されます。
 
-For example:
+例えば:
 
 bc. GET    /clients/all       Clients.listAll
 GET    /clients/{id}      Clients.show
 
-With these definitions, the URI:
+これらの定義において、URI が次のとおりである場合:
 
 bc. /clients/all
 
-will be intercepted by the first route and will call Clients.listAll (even if the second route matched the request too).
+(2 番目のルートもリクエストにマッチするとしても) 最初のルートが適用されて、Clients.listAll をコールします。
 
 
-h2. <a name="static">Serving static resources</a>
+h2. <a name="static">静的リソースの配信</a>
 
-h3. staticDir: mapping
+h3. staticDir: マッピング
 
-Use the special action @staticDir@, to point to each folder you wish to publish as a static resources container.
+静的なリソースのコンテナとして公開したい場合、各フォルダを特別なアクション @staticDir@ を使って示してください。
 
-For example:
+例えば:
 
 bc. GET    /public/           staticDir:public
 
-When supplied with a request for a @/public/*@ path, Play will serve your files from the application /public folder.
+@/public/*@ パスに対するリクエストがあった場合、Play はアプリケーションの /public フォルダからファイルを配信します。
 
-Priorities are applied as for standard routes.
+優先度は通常のルートと同じように適用されます。
 
-h3. staticFile: mapping
+h3. staticFile: マッピング
 
-You can also directly map a URL path to a static file rendering.
+URL パスをレンダリングする静的なファイルに直接マッピングすることもできます。
 
 bc. # Serve index.html static file for home requests
 GET     /home                   staticFile:/public/html/index.html
 
 
-h2. <a name="reverse">Reverse routing: generate some URL</a>
+h2. <a name="reverse">リバースルーティング : URL の生成</a>
 
-The Router can be used to generate a URL from within a Java call. So you’re able to centralize in one only configuration file all your URI patterns, and then be more confident when refactoring your application.
+Java 呼び出し中に URL を生成するのに Router が使用できます。このため、すべての URI をただひとつの設定ファイルに集約することが可能であり、より自信をもってアプリケーションをリファクタリングすることができます。
 
-For example, with this route definition:
+例えば、次のようなルート定義において:
 
 bc. GET    /clients/{id}      Clients.show
 
-From your code, you can generate the URL able to invoke Clients.show:
+Clients.show を起動することができる URL を、コードから生成することができます:
 
 bc. map.put("id", 1541);
 String url = Router.reverse("Clients.show", map).url;// GET /clients/1541
 
-p(note). The URL generation is integrated into many of the framework’s components. You never should use the Router.reverse operation directly.
+p(note). この URL 生成機能はフレームワークの様々なコンポーネントに統合されています。決して Router.reverse を直接使用するべきではありません。
 
-If you add parameters that are not included in the URI pattern, these parameters will be added to the query string:
+URI パターンに含まれていないパラメタを加えると、これらのパラメタはクエリストリングに追加されます:
 
 bc. map.put("id", 1541);
 map.put("display", "full");
 // GET /clients/1541?display=full
 String url = Router.reverse("Clients.show", map).url;
 
-The priority order is again used to find the most specific Route able to generate the URL.
+URL を生成するもっとも特別なルートを見つけるため、優先順位が再度使用されます。
 
 
-h2. <a name="content-types">Setting content types</a>
+h2. <a name="content-types">content type の設定</a>
 
-Play selects a "media type":http://en.wikipedia.org/wiki/Internet_media_type for the HTTP response according to the value of @request.format@. This value determines which view template file to use, by file extension, and also sets the response @Content-type@ to the media type that Play's @mime-types.properties@ file maps the format to. 
+Play は @request.format@ に従って HTTP レスポンスの "メディアタイプ":http://en.wikipedia.org/wiki/Internet_media_type を選択します。この値は、どの view テンプレートを使用するかをファイル拡張子によって決定し、また Play の @mime-types.properties@ ファイルがこのフォーマットにマッピングするメディアタイプを、レスポンスの @Content-type@ に設定します。
 
-The default format for a Play request is @html@. The default template for the @index()@ controller method (and @html@ format) is therefore the file @index.html@. If you specify a different format, in one of several ways, you can select an alternate template. 
+Play に対するリクエストのデフォルトフォーマットは @html@ です。そのため、コントローラの @index()@ メソッド (そして @html@ フォーマット) に対するデフォルトのテンプレートは @index.html@ です。もし違うフォーマットを指定する場合、いくつかある方法のひとつとして、代替テンプレートを選択することができます。
 
-You can set the format programmatically before calling the @render@ method. For example, to serve a Cascading Style Sheet with media type @text/css@, you can do:
+@render@ メソッドを呼び出す前に、このフォーマットをプログラム上から設定することができます。例えば、 @text/css@ メディアタイプと共に CSS を提供する場合、次のように設定します:
 
 bc. request.format = "css";  
 
-However, a cleaner approach is to use the URL to specify the format in the @routes@ file. You can add formats as specific routes, by specifying the format for the controller method. For example, the following route will handle a request for @/index.xml@, setting the format to @xml@ and rendering the @index.xml@ template. 
+一方、 @routes@ ファイルにおいて URL を使ってフォーマットを指定する、よりきれいなアプローチもあります。コントローラのメソッドにフォーマットを指定することで、特定のルートにフォーマットを追加することができます。例えば、以下のルートは @/index.xml@ に対するリクエストをハンドリングし、フォーマットを @xml@ に設定し、 @index.xml@ テンプレートをレンダリングします。
 
 bc. GET    /index.xml         Application.index(format:'xml')  
 
-Similarly:
+同様に:
 
 bc. GET    /stylesheets/dynamic_css   css.SiteCSS(format:'css')
 
-Play can also extract the format directly from the URL, with a route such as the following. 
+Play は、以下のルートのように、URL から直接フォーマットを抽出することもできます。
 
 bc. GET    /index.{format}    Application.index 
 
-With this route, a request for @/index.xml@ will set the format to @xml@ and render the XML template, while @/index.txt@ will render the plain text template. 
+このルートでは、 @index.xml@ に対するリクエストには @xml@ がフォーマットに設定されて XML テンプレートがレンダリングされますが、 @index.txt@ に対するリクエストにはプレーンテキストのテンプレートがレンダリングされます。
 
-Play can also set the format automatically using HTTP content negotiation.
+Play は HTTP コンテントネゴシエーションを使って自動的にフォーマットを設定することもできます。
 
 
-h2. <a name="content-negotiation">HTTP content negotiation</a>
+h2. <a name="content-negotiation">HTTP コンテントネゴシエーション</a>
 
-One thing that Play has in common with other RESTful architectures is the direct use of HTTP functionality, instead of trying to hide HTTP or put an abstraction layer on top of it. "Content negotiation":http://en.wikipedia.org/wiki/Content_negotiation is an HTTP feature that allows an HTTP server to serve different "media types":http://en.wikipedia.org/wiki/Internet_media_type for the same URL, according to which media types are requested by the HTTP client. The client specifies acceptable content types using media types in the @Accept@ header, such as requiring an XML response with: 
+Play が他の RESTful アーキテクチャと共通していることのうちのひとつは、HTTP を隠そうとしたり、HTTP の上に抽象層を置こうとしたりせず、HTTP の機能を直接使用するということです。"コンテントネゴシエーション":http://en.wikipedia.org/wiki/Content_negotiation は、HTTP サーバが、HTTP クライアントによりリクエストされたメディアタイプに従って、同じ URL に対して異なる "メディアタイプ":http://en.wikipedia.org/wiki/Internet_media_type を提供できるようにする HTTP の機能です。クライアントは、例えば XML レスポンスを要求する場合、以下のように @Accept@ ヘッダを使って受信できるコンテントタイプを指定します: 
 
 bc. Accept: application/xml
 
-A client may specify more than one media type, and also specify that any media type is acceptable with a catch-all wild-card media type (@*/*@): 
+クライアントはひとつ以上のメディアタイプを指定するかもしれませんし、ワイルドカード (@*/*@) を使用して、どのようなメディアタイプも受信できると指定するかもしれません:
 
 bc. Accept: application/xml, image/png, */*
 
-Conventional web browsers always include the wild-card value in the @Accept@ header: they will accept any media type, and Play will serve HTML - the default 'format'. Content negotiation is more likely to be used by custom clients, such as an Ajax request that requires a JSON response, or an e-book reader that requires a PDF or EPUB version of a document. 
+古臭い web ブラウザは、どのようなメディアタイプでも受信しようと @Accept@ ヘッダにいつでもワイルドカードを含めます: そして Play は HTML を - デフォルトの 'フォーマット' として提供します。コンテントネゴシエーションは JSON レスポンスを要求する Ajax リクエストや、PDF や EPUB バージョンのドキュメントを要求する e-book リーダのような、カスタマイズされたクライアントにおいて、より頻繁に利用されるでしょう。
 
-h3. Setting the content type from HTTP headers 
+h3. HTTP ヘッダによるコンテントタイプの設定
 
-Play selects its default request format, @html@, if the @Accept@ header contains @text/html@ or @application/xhtml@, or as a result of the wildcard @*/*@ value. The default format is not selected if the wildcard value is not present.
+@Accept@ ヘッダに @text/html@ か @application/xhtml@ が含まれる場合、または ワイルドカード @*/*@ が指定されている場合、Play はデフォルトのリクエストフォーマットである @html@ を選択します。ワイルドカード値が存在しない場合はデフォルトフォーマットは選択されません。
 
-Play has built-in support for a few formats: @html@, @txt@, @json@ and @xml@. For example, define a controller method that renders some data: 
+Play はいくつかのフォーマット: @html@, @txt@, @json@ と @xml@ を組み込みでサポートします。例えば、いくつかのデータをレンダリングするコントローラメソッドを定義します:
 
 bc. public static void index() { 
    final String name = "Peter Hilton"; 
@@ -281,9 +281,9 @@ bc. public static void index() {
    render(name, organisation, url); 
 } 
 
-If you request a URL that is mapped to this method (@http://localhost:9000/@ in a new Play application) in a web browser, then play will render the @index.html@ template, because web browsers send an @Accept@ header that includes the value @text/html@. 
+このメソッドにマッピングされた URL (新しい Play アプリケーションの場合は @http://localhost:9000/@) を web ブラウザからリクエストすると、web ブラウザは値に @text/html@ を含む @Accept@ ヘッダを送信するので、Play は @index.html@ テンプレートをレンダリングします。
 
-Play responds to a request with the header @Accept: text/xml@ by setting the request format to @xml@ and rendering an @index.xml@ template, such as: 
+Play は、リクエストフォーマットに @xml@ を設定し、例えば以下のような @index.xml@ テンプレートをレンダリングすることで、 @Accept: text/xml@ ヘッダを含むリクエストに応答します:
 
 bc. <?xml version="1.0"?> 
 <contact> 
@@ -292,24 +292,24 @@ bc. <?xml version="1.0"?>
 <url>${url}</url> 
 </contact> 
 
-The built in @Accept@ header format mappings work as follows, for an @index()@ controller method: the accept header contains a media type that Play maps to a format, which is in turn mapped to a template file. 
+@index()@ コントローラメソッドに対する組み込みの @Accept@ ヘッダとフォーマットのマッピングは下記のように動作します: accept ヘッダは、Play がやがてはテンプレートファイルに紐付けられることになるフォーマットにマッピングしたメディアタイプを含みます。
 
 |_. Accept header |_. Format |_. Template file name |_. Mapping | 
-| null | null | index.html | Default template extension for null format | 
-| image/png | null | index.html | Media type not mapped to a format | 
-| ==*/*==, image/png | html | index.html | Default media type mapped to html format | 
-| text/html | html | index.html | Built-in format | 
-| application/xhtml | html | index.html | Built-in format | 
-| text/xml | xml | index.xml | Built-in format | 
-| application/xml | xml | index.xml | Built-in format | 
-| text/plain | txt | index.txt | Built-in format | 
-| text/javascript | json | index.json | Built-in format | 
-| application/json, ==*/*== | json | index.json | Built-in format, default media type ignored | 
+| null | null | index.html | null フォーマットに対するデフォルトのテンプレート拡張 | 
+| image/png | null | index.html | フォーマットにマッピングされないメディアタイプ | 
+| ==*/*==, image/png | html | index.html | html フォーマットにマッピングされるデフォルトのメディアタイプ | 
+| text/html | html | index.html | 組み込みフォーマット | 
+| application/xhtml | html | index.html | 組み込みフォーマット | 
+| text/xml | xml | index.xml | 組み込みフォーマット | 
+| application/xml | xml | index.xml | 組み込みフォーマット | 
+| text/plain | txt | index.txt | 組み込みフォーマット | 
+| text/javascript | json | index.json | 組み込みフォーマット | 
+| application/json, ==*/*== | json | index.json | デフォルトのメディアタイプを無視する組み込みフォーマット | 
 
 
-h3. Custom formats 
+h3. カスタムフォーマット
 
-You can add content negotiation for your own custom types by inspecting the request headers and setting the format accordingly, so that you only set that format when the HTTP request selects the corresponding media type. For example, to serve a "vCard":http://en.wikipedia.org/wiki/Vcard with media type @text/x-vcard@, in your controller, check for your custom format before all requests: 
+HTTP リクエストが対応するメディアタイプを選択する場合にのみ、リクエストヘッダを調査し、それに従ってフォーマットを設定し、独自のメディアタイプについてコンテントネゴシエーションを追加することができます。例えば、"vCard":http://en.wikipedia.org/wiki/Vcard を @text/x-vcard@ メディアタイプと共に提供するには、コントローラにて全てのリクエストの前に独自のフォーマッとチェックを行います: 
 
 bc. @Before 
 static void setFormat() { 
@@ -318,7 +318,7 @@ static void setFormat() {
 	} 
 } 
 
-Now, a request with an @Accept: text/x-vcard@ header will render an @index.vcf@ template, such as: 
+これで、 @Accept: text/x-vcard@ を含むリクエストは、以下のような @index.vcf@ テンプレートをレンダリングするようになります:
 
 bc. BEGIN:VCARD 
 VERSION:3.0 
@@ -329,7 +329,6 @@ URL:${url}
 END:VCARD  
 
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
  
-When the Router has determined which Java call to invoke for the received HTTP Request, the Play framework then invokes that Java call. Let’s see how %(next)"Controllers":controllers% work.
-
+Router が受け取った HTTP リクエストによって起動する Java 呼び出しを決定したら、Play フレームワークはその Java 呼び出しを起動します。 %(next)"コントローラ":controllers% がどのように動作するのかを見てみましょう。
