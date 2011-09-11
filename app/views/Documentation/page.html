@@ -14,10 +14,10 @@
         <ul>
             <li id="gotoc"><a href="home">目次</a></li>
         </ul>
-        
+
         <h2>内容</h2>
         <div id="toc"></div>
-        
+
         <h2>バージョン選択</h2>
         <div id="bc">
             <ul>
@@ -32,23 +32,34 @@
                 <li><a class="#{if version == '1.0'}selected#{/if}" href="/documentation?version=1.0">1.0</a> #{if version == '1.0'}⬅#{/if}</li>
             </ul>
         </div>
-        
+
+        <h2>書籍</h2>
+
+        <div id="books">
+            <a href="http://www.packtpub.com/play-framework-cookbook/book">
+                <img src="/public/images/Cookbook_Frontcover.jpg" />
+            </a>
+
+            <a href="http://www.the-play-book.co.uk/">
+                <img src="/public/images/introducing_play.gif" />
+            </a>
+        </div>
     </div>
-    
+
     <div id="pageContent">
-        
+
         <div class="wikistyle">${html.raw()}</div>
-        
+
         <div id="comments">
             <h2><a name="comments">コメント</a></h2>
-            
+
             <p>
                 このフォームを使用して、このページのドキュメントに関する修正や追記、提案を追加してください。
                 質問はここには書かず、play-framework グループに質問してください。
                 サポート要求、バグレポート、趣旨に沿わないコメントは警告無しに削除されます。
             </p>
         </div>
-        
+
         <div id="disqus_thread"></div>
         <script type="text/javascript">
           var disqus_identifier = '${id}';
@@ -67,14 +78,14 @@
     $(document).ready(function() {
         // Fix @API link
         $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/${version}/index.html");
-        
-        var top  = Math.floor(($(window).height() - $("#original_link").height()) / 2);
+
+        var top = Math.floor(($(window).height() - $("#original_link").height()) / 2);
         $("#original_link").css('top', top);
         $("#original_link").click(function() {
-        	window.open('http://www.playframework.org/documentation/${version}/${id}', '_blank');
-        	return false;
+            window.open('http://www.playframework.org/documentation/${version}/${id}', '_blank');
+            return false;
         });
-    });    
+    });
     </script>
 
 </div>

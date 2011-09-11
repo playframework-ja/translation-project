@@ -458,6 +458,12 @@ a:hover {
     color: #568C00;
 }
 
+#books img {
+    display: inline-block;
+    border: 4px solid #E0E0E0!important;
+    margin: 5px 0;
+}
+
 #dsq-global-toolbar {
     display: none !important;
 }
