@@ -23,13 +23,13 @@
 		</header>
 		<div id="announcement">
 			<div id="description">
-				<h1>Working on Play 2.0</h1>
+				<h1>Play 2.0 への取り組み</h1>
 
-				<p>It's time to move on! We are working on the next major version of Play framework, integrating a brand new build system and awesome asynchronous features all with native Java and Scala support.</p>
-				<p>Play 2.0 is still under heavy development and APIs are likely to change, but you can already have a look and download the preview version.</p>
+				<p>前に進むときが来ました！私たちは Java と Scala の完全なサポートと共に、新しいビルドシステムと驚くべき非同期機能を統合しながら、Play framework の次のメジャーバージョンに取り組んでいます。</p>
+				<p>Play 2.0 は、まだまだ開発が進められている最中であり、API の変更も行われることになりますが、もうすでにプレビューバージョンをご覧いただくことが可能です。</p>
 				<dl id="download">
-					<dt><a href="http://download.playframework.org/releases/play-2.0-preview.zip">Download Play-2.0-preview</a></dt>
-					<dd><a href="http://github.com/playframework/play20">Check the source on Github</a></dd>
+					<dt><a href="http://download.playframework.org/releases/play-2.0-preview.zip">Play-2.0-preview ダウンロード</a></dt>
+					<dd><a href="http://github.com/playframework/play20">Github でソースコードを確認する</a></dd>
 				</dl>
 			</div>
 
@@ -62,7 +62,7 @@
 
 			<article id="changes">
 				<header>
-					<h1>Introducing Play 2.0</h1>
+					<h1>Play 2.0 の紹介</h1>
 
 					<p>by Guillaume Bort, Play project’s lead developer.</p>
 				</header>
@@ -141,7 +141,7 @@
     				</div>
 
                 </div>
-				<a href="#" class="link">Read the whole announcement and discover the roadmap.</a>
+				<a href="#" class="link">すべての発表を読み、ロードマップを見る</a>
 			</article>
 
 			<div class="tweet">
@@ -306,53 +306,60 @@
 				<div class="details">
 					<div id="differencies">
 						<div class="bloc">
-						<h3>I want to create a new project using Play. Should I start with Play 2.0?</h3>
-						<p>Play 2.0 is still under heavy development. APIs are incomplete and likely to change.
-						Currently, Play 1.2.3 is still the best way to write Web applications in Java, and will continue to be maintained and
-						developed by the core team and contributors even after the 2.0 release.
+						<h3>Play を使って新しいプロジェクトを作りたいのですが、Play 2.0 で始めるべきでしょうか?</h3>
+						<p>
+							Play 2.0 はまだまだ開発途中です。API は未完成で、変更されることになると思います。
+							いまのところ Play 1.2.3 は Java で Web アプリケーションを書く最善の方法であり、
+							2.0 のリリースのあとも引き続きコアチームと貢献者たちによって保守、開発されていきます。</p>
+						</div>
+
+						<div class="bloc">
+						<h3>Play 2.0 が楽しみ! いつから自分のプロジェクトに利用できますか?</h3>
+						<p>
+							今年の終わりに向けて利用可能なベータバージョンをリリースする予定です。
+							それまでは、アルファバージョンを試したり、
+							上記のプログレスバーと Lighthouse でチームの作業を追いかけることができます。</p>
+						</div>
+
+						<div class="bloc">
+						<h3>新しい機能はどれもこれもフレームワークを遅くしませんか?</h3>
+						<p>
+							Play 2.0 では、ほとんどすべてをコンパイル時に解決することによって、重要なパフォーマンスを改善する予定です。
+							複雑なビルドシステムの導入は開発時におけるビルドのパフォーマンスを僅かながら劣化させるかもしれませんが、
+							dev と prod モードのより良い分離のおかげで、実行時に影響を及ぼすことはないでしょう。
+						</p>
+
+						</div>
+
+						<div class="bloc">
+						<h3>なぜ Scala なのですか? 代わりに X 言語をサポートしてほしいのですが</h3>
+						<p>
+							私たちは、アプリケーションの可能な部分がほとんどコンパイラによってチェックされる、タイプセーフアプローチにフォーカスしていきたいと思っています。
+							私たちは、Scala がタイプセーフな JVM 言語として、これからも勢いを増していくと信じています。
 						</p>
 						</div>
 
 						<div class="bloc">
-
-						<h3>Play 2.0 is exciting! When can I use it in my projects?</h3>
-						<p>We expect to release a usable beta towards the end of the year. In the meantime, you can try out the alpha
-						and check the progress bars above and Lighthouse to follow the team's work.</p>
+						<h3>機能 X はリリース 2.0 に含まれますか?</h3>
+						<p>
+							私たちは既に多数の変更をこのリリースに含めることを予定しており、
+							<a href="http://en.wikipedia.org/wiki/Second-system_effect">Second System effect</a> は避けたいと思っています。
+							しかし、私たちが何か本当に重要なことを見落としていると思ったら、気軽にメーリングリストで議論を始めてください。
+						</p>
 						</div>
 
 						<div class="bloc">
-						<h3>Will all these new features slow down the framework?</h3>
-						<p>We expect important performance improvements in Play 2.0, mostly because almost everything will be resolved
-						at compilation time.
-						Having a more complex build system may slightly slow down build performance at development time, but thanks to a
-						better separation between dev and prod mode, it will not impact performance at runtime.</p>
-
-						</div>
-
-						<div class="bloc">
-						<h3>Why Scala? I would prefer support for language X instead.</h3>
-						<p>We want to continue to focus on a type safe approach where as most as possible parts of your application are
-						checked by a compiler. We strongly believe Scala will continue to gain momentum as a type safe JVM language.</p>
-						</div>
-
-						<div class="bloc">
-						<h3>Can we have feature X in the 2.0 release?</h3>
-
-						<p>We have already planned a lot of changes in this release, and we want to avoid the
-						<a href="http://en.wikipedia.org/wiki/Second-system_effect">Second System effect</a>.
-						However if you think we missed something really important, you are free to open a discussion on the mailing list.</p>
-						</div>
-
-						<div class="bloc">
-						<h3>I want to help, how can I contribute to Play 2.0?</h3>
-						<p>We are currently working hard to lay the project foundations: the build system, compilers, base API etc.
-						This low level work is being led by Play's team of core contributors.
-						To get involved, please follow the development mailing list and issue tracker.</p>
+						<h3>お手伝いがしたいのですが、Play 2.0 に貢献するにはどうしたらいいですか?</h3>
+						<p>
+							現在、私たちはプロジェクトの基盤：ビルドシステム、コンパイラ、基盤 API などを構築するために一所懸命作業しています。
+							これら低レイヤの作業は、Play の主要な貢献者チームによってリードされています。
+							これに参加するためには、開発のメーリングリストや課題管理システムを追いかけてください。
+						</p>
 						</div>
 
 					</div>
 				</div>
-				<a href="https://groups.google.com/forum/#!forum/play-framework" class="link">Other questions? Ask us on Play’s mailing list.</a>
+				<a href="https://groups.google.com/forum/#!forum/play-framework" class="link">他に質問はありますか? Play メーリングリストで質問してください。</a>
 			</article>
 
 			<div class="tweet">
