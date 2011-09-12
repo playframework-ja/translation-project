@@ -1,31 +1,31 @@
-h1. Validating HTTP data with Play
+h1. Play による HTTP データのバリデーション
 
-Validations ensure that the data has certain values or meets specific requirements. You can use validation to verify that your models are correct before saving them to the database, or use them directly on HTTP parameters to validate a simple form.
+バリデーションは、そのデータが妥当な値を持っている、または指定された要件を満たしていることを保証します。バリデーションを使ってデータベースに保存する前にデータが正しいことを確認したり、あるいは HTTP パラメータに直接バリデーションを使用することで簡易なフォームの妥当性を検証することができます。
 
-h2. <a name="how">How validation works in Play</a>
+h2. <a name="how">Play のバリデーションはどのように動作するのでしょうか?</a>
 
-Each request has it own @Validation@ object which collects errors. There are three ways to define validations.
+各リクエストは、エラーを集める @Validation@ オブジェクトを持ちます。 バリデーションを定義する方法は三つあります。
 
-# <span>In a controller method, call methods on the controller's @validation@ field directly. You can also access a subset of the API using the @play.data.validation.Validation@ class’ static methods.</span> 
-# <span>Add validation annotations to the controller method's parameter declarations.</span>
-# <span>Add the <code>@Valid</code> annotation to action methods’ POJO parameters, and add validation annotations to the POJO properties.</span> 
+# <span>コントローラのメソッドの中から、コントローラの @validation@ フィールドにあるメソッドを直接呼び出します。 @play.data.validation.Validation@ のクラスの static なメソッドを使用することで、この API のサブセットにアクセスすることも可能です。</span>
+# <span>コントローラのメソッド引数の宣言部分にバリデーション用のアノテーションを追加します。</span>
+# <span>アクションメソッドの POJO 引数に <code>@Valid</code> アノテーションを追加し、この POJO のプロパティにバリデーション用のアノテーションを追加します。</span>
 
-The validation object maintains a collection of @play.data.validation.Error@ objects. Each error has two properties:
+validation オブジェクトは、 @play.data.validation.Error@ オブジェクトのコレクションを保持します。各エラーには、2 つのプロパティがあります:
 
-* The @key@. This helps you to determine which data element caused the error. The key value can be set arbitrarily but when Play generates errors, it uses default conventions that follow the Java variables’ names.
+* @key@ 。key は、どのデータ要素がエラーを引き起こしたか判断する手助けになります。キーの値は任意に設定できますが、Play がエラーを生成するときは、Java の変数名に従ったデフォルトの規約を使用します。
 
-* The @message@. This contains the error’s textual description. The message can be a plain message or refer to a key from a message bundle (typically for internationalization support).
+* @message@ 。message は、エラーのテキスト記述を含みます。message は、平文のメッセージか、または (通常は国際化対応のために) メッセージバンドルの key を参照します。
 
-Using the first approach, let’s see how to validate a simple HTTP parameter:
+最初の方法を使って、単純な HTTP パラメータの妥当性を検証するやり方を見てみましょう:
 
 bc. public static void hello(String name) {
      validation.required(name);
      …
 }
 
-This code checks that the name variable is correctly set. If not, the corresponding error is added to the current errors collection.
+このコードは、name 変数が正しく設定されていることをチェックします。正しく設定されていない場合、対応するエラーが現在のエラーコレクションに追加されます。
 
-You can repeat this operation for each validation you need:
+妥当性の検証が必要なだけ、この操作をくり返すことができます:
 
 bc. public static void hello(String name, Integer age) {
      validation.required(name);
@@ -34,9 +34,9 @@ bc. public static void hello(String name, Integer age) {
      …
 }
 
-h2. <a name="messages">Validation error messages</a>
+h2. <a name="messages">バリデーションエラーメッセージ</a>
 
-At the end of the validation you can check if any errors have been created and display them:
+バリデーションの終了時に、何かエラーが作成されているか、そしてそれらを表示するかどうかをチェックすることができます:
 
 bc. public static void hello(String name, Integer age) {
      validation.required(name);
@@ -50,88 +50,88 @@ bc. public static void hello(String name, Integer age) {
      }
 }
 
-Assuming that name and age are @null@, this would display:
+name と age が @null@ の場合、以下のように表示されます:
 
 bc. Required
 Required
 
-This is because the default message, defined in @$PLAY_HOME/resources/messages@, is:
+これは、 @$PLAY_HOME/resources/messages@ に定義されたデフォルトのメッセージが以下の通りであるためです:
 
 bc. validation.required=Required
 
-There are three ways to customise the validation message. 
+このバリデーションメッセージをカスタマイズする方法が三つあります。
 
-# <span>Override the default message, by redefining the message in your application’s @messages@ file.</span> 
-# <span>Provide a custom message as an additional validation parameter.</span>
-# <span>Provide a message key for a localised message as an additional validation parameter.</span> 
+# <span>アプリケーションの @messages@ ファイルでメッセージを再定義することにより、デフォルトメッセージを上書きする。</span> 
+# <span>追加のバリデーション引数として、カスタマイズしたメッセージを提供する。</span>
+# <span>追加のバリデーション引数として、国際化したメッセージへのキーを提供する。</span> 
 
-h3. Localised validation messages 
+h3. バリデーションメッセージの国際化
 
-The simplest way to override these messages is to use the same message key for a message in your application’s @conf/messages@ file. For example:
+これらのメッセージを上書きするもっとも単純な方法は、アプリケーションの @conf/messages@ ファイルにおいて同じメッセージキーを使用することです。例えば、以下のようにします:
 
 bc. validation.required = Please enter a value 
 
-You can also provide localisations in other languages, as described in "Internationalization":i18n. 
+"国際化":i18n で述べられているように、他の言語による地域化されたメッセージを提供することもできます。
 
-h3. Validation message parameters 
+h3. バリデーションメッセージの引数
 
-You can use a placeholder in the message for the error key: 
+メッセージの中で、エラーのキー文字列のためのプレースホルダを使うことができます。
 
 bc. validation.required=%s is required
 
-This changes the output to:
+この出力結果は以下のように変わります:
 
 bc. name is required
 age is required
 
-p(note). *Limitation*: Play cannot determine the correct parameter name when more than one required-field validation using the @validation.required(age)@ syntax fails. In this case, you must specify the field name directly, i.e. @validation.required("age", age)@.
+p(note). *制限事項*: この @validation.required(age)@ 構文を使った必須フィールドのバリデーションがひとつ以上失敗した場合、Play は正しいパラメータ名を判断することができます。この場合、フィールド名を直接、すなわち @validation.required("age", age)@ のように指定しなければなりません。
 
-This error key defaults to the parameter name, and is itself used to look up a message. For example, the @name@ parameter in the @hello@ action method above could be localised with: 
+このエラーキーはデフォルトではパラメータ名であり、パラメータそのものをメッセージ検索に使用します。例えば、 @hello@ アクションメソッド 上の @name@ 引数は以下のようにして地域化することができます:
 
 bc. name = Customer name
 
-This would result in the output:
+この結果、出力は以下のようになります:
 
 bc. Customer name is required
 age is required
 
-You can change also override the error key using the @error.message(String key)@ method. For example:
+@error.message(String key)@ メソッドを使ってエラーキーを変更することもできます。例えば:
 
 bc. Error error = validation.required(name).error;
 if(error != null) {
     System.out.println(error.message("Customer name"));
 }
 
-Several of the built-in validations define additional message parameters that correspond to the validation parameters. For example, the 'match' validation defines a second @String@ parameter for the specified regular expression, which differs from the @%s@ placeholder above in that it specifies the parameter index ‘2’: 
+いくつかの組み込みのバリデータにはバリデーション引数に対応した追加のメッセージ引数が定義されています。例えば、'match' バリデーションは正規表現を指定するために、前述の @%s@ プレースホルダとはパラメータインデックスに‘2’を指定する点で異なる @String@ 型の第二引数を定義します: 
 
 bc. validation.match=Must match %2$s 
 
-Similarly, the 'range' validation defines two additional numeric parameters, with indices 2 and 3: 
+同様に、'range' バリデーションは 2 および 3 でインデックス付けされた二つの数値型の追加パラメータを定義します: 
 
 bc. validation.range=Not in the range %2$d through %3$d 
 
-Look in the file @$PLAY_HOME/resources/messages@ to see which other validations have parameters. 
+その他のバリデーションがどのようなパラメータを持つか確認するには @$PLAY_HOME/resources/messages@ を見てみてください。
 
-h3. Custom localised validation messages 
+h3. 地域化されたバリデーションメッセージのカスタマイズ 
 
-The validation messages in @$PLAY_HOME/resources/messages@ use the default message key for each of Play’s "built-in validations":validation-builtin. You can specify a different message key. For example: 
+@$PLAY_HOME/resources/messages@ のバリデーションメッセージは、Play の "組み込みバリデーション":validation-builtin それぞれに用意されたデフォルトのメッセージキーを使用します。例えば、以下のようにして異なるメッセージキーを指定することができます:
 
 bc. validation.required.em = You must enter the %s! 
 
 
-Use this new message key for the message, for manual validation in the action method: 
+アクションメソッド中の手動バリデーションで、このメッセージキーを使用します:
 
 bc. validation.required(manualKey).message("validation.required.em"); 
 
 
-Alternatively, use the key in the annotation’s @message@ parameter: 
+あるいは、このキーをアノテーションの @message@ パラメータで使用します:
 
 bc. public static void hello(@Required(message="validation.required.em") String name) { 
    …
 } 
 
 
-You can use the same technique with validation annotations on JavaBean properties: 
+このバリデーション用アノテーションと同じテクニックを JavaBean プロパティに使用することができます:
 
 bc. public static void hello(@Valid Person person) { 
    …
@@ -140,22 +140,22 @@ bc. public static void hello(@Valid Person person) {
 public class Person extends Model { 
    @Required(message = "validation.required.emphasis")
    public String name; 
-   … 
+   …
 } 
 
-h3. Custom literal (non-localised) validation messages 
+h3. (地域化されない) 文字列バリデーションメッセージのカスタマイズ
 
-The Play message look-up just returns the message key if there is no message defined for the key, which means you can also just use a literal message instead of the message key if you prefer. Using the same examples as above, for manual validation: 
+Play のメッセージ検索は、キーに対応するメッセージが定義されていない場合、単にそのメッセージキーを返すので、必要があればメッセージキーの替わりに文字列のメッセージそのものを使用することもできます。手動バリデーションにおいて、上の例と同様にこれを使用します:
 
 bc. validation.required(manualKey).message("Give us a name!"); 
 
-For action method parameter annotations: 
+以下のようにして、アクションメソッドパラメータに使用します:
 
 bc. public static void save(@Required(message = "Give us a name!") String name) { 
    …
 } 
 
-For JavaBean property annotations: 
+以下のようにして、JavaBean プロパティのアノテーションに使用します:
 
 bc. public static void save(@Valid Person person) { 
    …
@@ -170,11 +170,11 @@ public class Person extends Model {
 
 
 
-h2. <a name="display">Displaying validation errors in the template</a>
+h2. <a name="display">テンプレートへのエラーの表示</a>
 
-In most cases you want to display the error messages in the view template. You can access them in the template using the @errors@ object. Some tags help you to display the errors:
+ほとんどの場合、ビューテンプレートにエラーメッセージを表示したくなると思います。 @errors@ オブジェクトを使用することで、テンプレート中でエラーメッセージにアクセスすることができます。いくつかのタグは、エラーを表示する手助けをします:
 
-Let’s see a sample:
+サンプルを見てみましょう:
 
 bc. public static void hello(String name, Integer age) {
    validation.required(name);
@@ -183,7 +183,7 @@ bc. public static void hello(String name, Integer age) {
    render(name, age);
 }
 
-and now the template:
+そして、現在のテンプレートは以下のようになります:
 
 bc. #{ifErrors}
  
@@ -200,11 +200,11 @@ bc. #{ifErrors}
  
 #{/else}
 
-But in a real application you want to redisplay the original form. So you will have two actions: one to display the form and another one to handle the POST. 
+しかし、実際のアプリケーションでは、もとのフォームを再表示したくなると思います。これを行うためには、2 つのアクションが存在します: 1 つのアクションではフォームを表示し、もう 1 つのアクションでは POST を扱います。
 
-Of course the validation will occur in the second action and if some error occurs you will have to redirect to the first action. In this case you need a special trick to keep your errors during the redirect. Use the @validation.keep()@ method. This will save the errors collection for the next action.
+もちろん、バリデーションは 2 番目のアクションで実行され、ここで何らかのエラーが発生した場合には 1 番目のアクションにリダイレクトしなければなりません。この場合、リダイレクトの間にエラーを保持する特別なトリックが必要になります。 @validation.keep()@ メソッドを使用してください。このメソッドは、次のアクションのためにエラーコレクションを保持します。
 
-Let’s see a real sample:
+実際のサンプルを見てみましょう:
 
 bc. public class Application extends Controller {
  
@@ -226,7 +226,7 @@ bc. public class Application extends Controller {
  
 }
 
-And the @view/Application/index.html@ template:
+そして @view/Application/index.html@ テンプレートは以下のようになります:
 
 bc. #{ifErrors}
    <h1>Oops…</h1>
@@ -248,7 +248,7 @@ bc. #{ifErrors}
    </div>
 #{/form}
 
-You can create a better user experience by displaying each error message next to the field that generated the error:
+エラーを生成したフィールドの隣にそれぞれのエラーメッセージを表示することによって、より良いユーザー体験を作成することができます:
 
 bc. #{ifErrors}
    <h1>Oops…</h1>
@@ -269,9 +269,9 @@ bc. #{ifErrors}
 #{/form}
 
 
-h2. <a name="annotations">Validation annotations</a>
+h2. <a name="annotations">アノテーションによるバリデーション</a>
 
-The annotations in the @play.data.validation@ package provide an alternative and more concise way to specify validation constraints, with an annotation that corresponds to each @Validation@ object method. To use the validation annotations, just annotate the controller method parameters:
+@play.data.validation@ パッケージ内のアノテーションは、 @Validation@ オブジェクトのそれぞれのメソッドに対応したアノテーションによって入力チェック制約を指定する、もっと簡単な代替手段を提供します。この入力チェック用アノテーションは、コントローラのメソッド引数を注釈するだけで使用することができます:
 
 bc. public static void hello(@Required String name, @Required @Min(0) Integer age) {
    if(validation.hasErrors()) {
@@ -282,11 +282,11 @@ bc. public static void hello(@Required String name, @Required @Min(0) Integer ag
    render(name, age);
 }
 
-h2. <a name="objects">Validating complex objects</a>
+h2. <a name="objects">複雑なオブジェクトのバリデーション</a>
 
-You can also use the validation annotations to easily add constraints to your model object’s properties, and then in the controller specify that all properties must be valid. Let’s rewrite the previous example using a User class.
+アノテーションを使用して、モデルオブジェクトに容易に制約を追加することができ、コントローラではすべてのプロパティが妥当でなければならないことを指定します。User クラスを使用して前述の例を書き直してみましょう。
 
-First the @User@ class, with validation annotations on the properties:
+はじめは、プロパティにバリデーション用のアノテーションを設定した @User@ クラスです:
 
 bc. package models;
  
@@ -300,7 +300,7 @@ public class User {
     public Integer age;
 }
 
-Then the modified @hello@ action, which uses the <code>@Valid</code> annotation to specify that all of the @User@ object’s properties must be valid:
+次は、 @User@ オブジェクトのプロパティが妥当でなければならないことを指定する <code>@Valid</code> アノテーションを設定した @hello@ アクションを以下のように変更します:
 
 bc. public static void hello(@Valid User user) {
    if(validation.hasErrors()) {
@@ -311,7 +311,7 @@ bc. public static void hello(@Valid User user) {
    render(name, age);
 }
 
-And finally the modified form:
+最後に、フォームを以下のように変更します:
 
 bc. #{ifErrors}
    <h1>Oops…</h1>
@@ -331,15 +331,15 @@ bc. #{ifErrors}
    </div>
 #{/form}
 
-h2. <a name="builtin">Built-in validations</a>
+h2. <a name="builtin">組み込みのバリデーション</a>
 
-The @play.data.validation@ package contains several "built-in validations":validation-builtin that you can use on the @Validation@ object or with annotations.
+@play.data.validation@ パッケージには、 @Validation@ オブジェクトにおいて、またはアノテーションとして使用できる、いくつかの "組み込みのバリデーション":validation-builtin が含まれています。
 
-h2. <a name="custom">Custom validation using @CheckWith</a>
+h2. <a name="custom">@CheckWith を使ったカスタムバリデーション</a>
 
-Can’t find the validator you need in the @play.data.validation@ package? Write your own. You can use the generic <code>@CheckWith</code> annotation to bind your own @Check@ implementation.
+@play.data.validation@ パッケージに必要なバリデータを見つけることができませんか? 自分で書いてしまいましょう。総称的な <code>@CheckWith</code> アノテーションを使って、独自の @Check@ 実装を紐付けることができます。
 
-For example:
+例えば、以下のようにします:
 
 bc. public class User {
     
@@ -355,7 +355,7 @@ bc. public class User {
     }
 }
 
-The default validation error message key is @validation.invalid@. To use a different key, call @Check.setMessage@ with a message key and message parameters.
+デフォルトのバリデーションエラーメッセージキーは @validation.invalid@ です。デフォルトのキーを使用するためには、メッセージのキーとパラメータを使って @Check.setMessage@ をコールします。
 
 bc. static class MyPasswordCheck extends Check {
  
@@ -366,23 +366,23 @@ bc. static class MyPasswordCheck extends Check {
     }
 }
 
-The message look up always has the field name as the first parameter, and your message parameters as subsequent parameters. So, for the example above, you could define the message like:
+メッセージ検索は、常に第一引数としてフィールド名を持ち、後続のパラメータとしてメッセージパラメータを持ちます。このため、上記の例では以下のようにメッセージを定義することができます:
 
 bc. validation.used = &{%1$s} already used on date %2$s
 user.password = Password
 
-where @&{%1$s}@ uses the message argument with index 1 (the field name) as the message key for another message look-up, and @%2$s@ is the second message argument (the formatted date).
+@&{%1$s}@ では、1 というインデックス (フィールド名) でメッセージ引数を別のメッセージ検索のためのメッセージキーとして使用しており、また @%2$s@ はメッセージの第二引数 (フォーマットされた日付) です。
 
-p(note). The message syntax - @%s@, @%s2$s@ and @&{…}@ - is explained in the section on how to "Retrieve localized messages":i18n#retrieve.
+p(note). このメッセージ構文 - @%s@, @%s2$s@ と @&{…}@ - は "ローカライズされたメッセージの検索":i18n#retrieve 方法の章に説明があります。
 
 
-h2. <a name="customannotations">Custom annotations</a>
+h2. <a name="customannotations">カスタムアノテーション</a>
 
-You can also write your own annotation validations, which is more complex but makes your model code cleaner and allows you to introduce validator parameters.
+より複雑ですが、モデルのコードをクリーンにし、バリデータのパラメータを案内することのできる、独自のアノテーションによるバリデーションを書くこともできます。
 
-For example, suppose we want a less restrictive version of the "@URL":validation-builtin#url validation, so we can allow URLs with any scheme such as a @file://@ URL, and with a parameter that lets us specify exactly which schemes are allowed.
+例えば、 "@URL":validation-builtin#url バリデーションの限定的なバージョンが必要だとすると、 @file://@ URL などのようなスキーマの URL でも認めますし、どのスキーマを認めるかパラメータにて正確に指定します。
 
-First, we write a custom validation annotation, with a parameter for overriding the default message:
+まず始めに、デフォルトのメッセージをオーバーライドするためのパラメータと共に、独自のバリデーションアノテーションを書きます:
 
 bc. import net.sf.oval.configuration.annotation.Constraint;
 import java.lang.annotation.*;
@@ -394,7 +394,7 @@ public @interface URI {
     String message() default URICheck.message;
 }
 
-This annotation refers to an implementation of @net.sf.oval.configuration.annotation.AbstractAnnotationCheck@.
+このアノテーションは @net.sf.oval.configuration.annotation.AbstractAnnotationCheck@ の実装を参照します。
 
 bc. public class URICheck extends AbstractAnnotationCheck<URI> {
  
@@ -436,9 +436,9 @@ bc. public class URICheck extends AbstractAnnotationCheck<URI> {
     }
 }
 
-The @isSatisfied@ method calls @requireMessageVariablesRecreation()@ to instruct OVal to call @createMessageVariables()@ before rendering the message. This returns an ordered map of variables that are passed to the message formatter. The map keys are not used; the @"2"@ in this example indicates the message parameter index. As before, the first parameter is the field name.
+この @isSatisfied@ メソッドは、メッセージをレンダリングする前に @createMessageVariables()@ をコールするよう Oval に指示するために、 @requireMessageVariablesRecreation()@ をコールします。これは、メッセージフォーマッタに引き渡された変数の順序付けられたマップを返します。このマップのキーは使用されません; この例にある @"2"@ はメッセージパラメータのインデックスを示しています。先ほどと同様、最初の引数はフィールド名です。
 
-To use this use the annotation on a model property.
+これを使うためには、モデルのプロパティにこのアノテーションを使用します。
 
 bc. public class User {
     
@@ -446,13 +446,13 @@ bc. public class User {
     public String profile;
 }
 
-We can define the messages like this:
+以下のようにメッセージを定義することができます:
 
 bc. validation.uri = Not a valid URI
 validation.uri.schemes = &{%1$s} is not a valid URI - allowed schemes are %2$s
 
 
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
  
-The last layer of a Play application: %(next)"Domain object model":model%.
+Play アプリケーションの最後の層は %(next)"ドメインオブジェクトモデル":model% です:
