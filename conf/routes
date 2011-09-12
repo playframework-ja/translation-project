@@ -4,6 +4,7 @@
 
 # Home page
 GET     /                                       Application.index
+GET     /2.0                                    Application.introduce20
 GET     /favicon.ico                            staticFile:public/images/favicon.png
 GET     /{action}                               Application.{action}
 

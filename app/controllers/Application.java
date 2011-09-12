@@ -152,4 +152,8 @@ public class Application extends Controller {
     public static void about(String action) throws TwitterException {
         render(action);
     }
+    
+    public static void introduce20() {
+        render();
+    }
 }
