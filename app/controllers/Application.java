@@ -153,7 +153,14 @@ public class Application extends Controller {
         render(action);
     }
     
-    public static void introduce20() {
-        render();
+    public static void introduce20() throws MalformedURLException, IOException {
+        
+        Source source = new Source(new URL("http://www.playframework.org/2.0"));
+        
+        Element tElem = source.getElementById("share").getChildElements().get(0);
+
+        String twitter = tElem != null ? tElem.toString() : "";
+        
+        render(twitter);
     }
 }
