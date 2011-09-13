@@ -160,129 +160,14 @@
 					<h1>進捗確認</h1>
 					<p>そして Play 2.0 新機能の発見</p>
 				</header>
-				<ul class="list">
-					<li class="active">
-						<h2><a href="#build">Build system</a></h2>
-
-						<p class="progress"><span style="width:84%"></span><span class="done" style="width:53%"></p>
-						<p class="stats"><span>11</span>/13</p>
-					</li>
-					<li>
-						<h2><a href="#mvc">HTTP, Server and MVC</a></h2>
-						<p class="progress"><span style="width:77%"></span></p>
-						<p class="stats"><span>7</span>/9</p>
-
-					</li>
-					<li>
-						<h2><a  href="#apis">Java and Scala API</a></h2>
-						<p class="progress"><span style="width:22%"></span></p>
-						<p class="stats"><span>2</span>/9</p>
-					</li>
-					<li>
-
-						<h2><a href="#datastore">Datastores bindings</a></h2>
-						<p class="progress"></p>
-						<p class="stats"><span>0</span>/2</p>
-					</li>
-					<li>
-						<h2><a href="#testing">Test environment</a></h2>
-						<p class="progress"></p>
-
-						<p class="stats"><span>0</span>/0</p>
-					</li>
-					<li>
-						<h2><a href="#documentation">Documentation and samples</a></h2>
-						<p class="progress"></p>
-						<p class="stats"><span>0</span>/0</p>
-
-					</li>
-				</ul>
+				${list.raw()}
 				<div class="details">
-					<div id="build" class="detail active">
-						<h3>Related tickets on lighthouse</h3>
-						<div class="benefits">
-							<ul>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/12" class="">#12 Support multiple routes file and inclusion</a></li>
-
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/7" class="">#7 Play console</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/13" class="">#13 Multi projects support</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/11" class="closed">#11 Compile routes file</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/10" class="closed">#10 Compile Play templates</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/9" class="closed">#9 Report compilation and execution errors in Web browser</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/8" class="">#8 WAR packaging</a></li>
-
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/6" class="">#6 Allow to package and publish Play application</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/5" class="closed">#5 Create a Play SBT plugin</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/2" class="closed">#2 Live compilation and reloading for both Java and Scala</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/3" class="">#3 Improve Java compilation error messages</a></li>
-																							</ul>
-						</div>
+					#{list items:details, as:'item'}
+					<div id="${item.get('id')}" class="detail #{if item_index == 1}active#{/if}">
+						<h3>lighthouse 上の関連するチケット</h3>
+						${item.get('benefits').raw()}
 					</div>
-
-					<div id="mvc" class="detail">
-						<h3>Related tickets on lighthouse</h3>
-						<div class="benefits">
-							<ul>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/22">#22 HTTP requests body parsing and binding</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/21">#21 Routing, reverse routing and URL variables binding</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/20">#20 Servlet 3.0 based HTTP server</a></li>
-
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/17">#17 MVC API for Scala</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/16">#16 MVC API for Java</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/19">#19 Support for WebSockets</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/18">#18 Support for asynchronous result types</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/15">#15 Internal HTTP to MVC invoker</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/14">#14 Netty based HTTP server </a></li>
-
-																							</ul>
-						</div>
-					</div>
-					<div id="apis" class="detail">
-						<h3>Related tickets on lighthouse</h3>
-						<div class="benefits">
-							<ul>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/33">#33 Database connection pool</a></li>
-
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/32">#32 Configuration engine</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/26">#26 i18n framework</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/31">#31 Java Cache</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/30">#30 Scala Cache</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/29">#29 OAuth 2.0 client</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/28">#28 OAuth 1.0 client</a></li>
-
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/27">#27 OpenID client</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/23">#23 WS client API for both Java and Scala</a></li>
-																							</ul>
-						</div>
-					</div>
-					<div id="datastore" class="detail">
-						<h3>Related tickets on lighthouse</h3>
-
-						<div class="benefits">
-							<ul>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/25">#25 EBean integration</a></li>
-																	<li><a href="http://play.lighthouseapp.com/projects/82401/tickets/24">#24 Backend connections pooling/management</a></li>
-																							</ul>
-						</div>
-					</div>
-					<div id="testing" class="detail">
-
-						<h3>Related tickets on lighthouse</h3>
-						<div class="benefits">
-							<ul>
-																									<p><em>No tickets assigned yet. Don't worry, first things first, we will soon start working on this part.</em></p>
-															</ul>
-						</div>
-					</div>
-					<div id="documentation" class="detail">
-
-						<h3>Related tickets on lighthouse</h3>
-						<div class="benefits">
-							<ul>
-																									<p><em>No tickets assigned yet. Don't worry, first things first, we will soon start working on this part.</em></p>
-															</ul>
-						</div>
-					</div>
+					#{/list}
 				</div>
 
 			</article>

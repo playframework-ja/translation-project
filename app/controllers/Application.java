@@ -41,10 +41,8 @@ public class Application extends Controller {
         String action = "index";
 
         Source source = new Source(new URL("http://www.playframework.org/"));
-        Element tElem = source.getElementById("twitter");
-        Element eElem = source.getElementById("event");
-        String twitter = tElem != null ? tElem.toString() : "";
-        String event = eElem != null ? eElem.toString() : "";
+        String twitter = getString(source.getElementById("twitter"));
+        String event = getString(source.getElementById("event"));
 
         render(action, twitter, event);
     }
@@ -156,11 +154,33 @@ public class Application extends Controller {
     public static void introduce20() throws MalformedURLException, IOException {
         
         Source source = new Source(new URL("http://www.playframework.org/2.0"));
-        
-        Element tElem = source.getElementById("share").getChildElements().get(0);
 
-        String twitter = tElem != null ? tElem.toString() : "";
+        String list = getString(source.getElementById("features").getChildElements().get(1));
         
-        render(twitter);
+        List<Map<String, String>> details = new ArrayList<Map<String,String>>();
+        details.add(getMap(source, "build"));
+        details.add(getMap(source, "mvc"));
+        details.add(getMap(source, "apis"));
+        details.add(getMap(source, "datastore"));
+        details.add(getMap(source, "testing"));
+        details.add(getMap(source, "documentation"));
+
+        String twitter = getString(source.getElementById("share").getChildElements().get(0));
+        
+        render(list, details, twitter);
+    }
+    
+    private static Map<String, String> getMap(Source source, String id) {
+        
+        Map<String, String> map = new HashMap<String, String>();
+        
+        map.put("id", id);
+        map.put("benefits", getString(source.getElementById(id).getChildElements().get(1)));
+        
+        return map;
+    }
+    
+    private static String getString(Element elem) {
+        return elem != null ? elem.toString() : "";
     }
 }
