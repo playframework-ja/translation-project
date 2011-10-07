@@ -20,28 +20,28 @@
                 <h1 id="logo"><a href="/">Playframework</a></h1>
                 <ul id="menu">
                     <li class="#{if action == 'index'}selected#{/if}">
-                        <a href="/">Home</a><span>&gt;</span>
+                        <a href="/">&{'main.header.home'}</a><span>&gt;</span>
                     </li>
                     <li class="#{if action == 'documentation'}selected#{/if}">
-                        <a href="/documentation">Learn</a><span>&gt;</span>
+                        <a href="/documentation">&{'main.header.learn'}</a><span>&gt;</span>
                     </li>
                     <li class="#{if action == 'download'}selected#{/if}">
-                        <a href="/download">Download</a><span>&gt;</span>
+                        <a href="/download">&{'main.header.download'}</a><span>&gt;</span>
                     </li>
                     <li class="#{if action == 'community'}selected#{/if}">
-                        <a href="http://www.playframework.org/community" target="_blank">Community</a><span>&gt;</span>
+                        <a href="http://www.playframework.org/community" target="_blank">&{'main.header.community'}</a><span>&gt;</span>
                     </li>
                     <li class="#{if action == 'code'}selected#{/if}">
-                        <a href="/code">Code</a><span>&gt;</span>
+                        <a href="/code">&{'main.header.code'}</a><span>&gt;</span>
                     </li>
                     <li class="#{if action == 'ecosystem'}selected#{/if}">
-                        <a href="/ecosystem">Ecosystem</a><span>&gt;</span>
+                        <a href="/ecosystem">&{'main.header.ecosystem'}</a><span>&gt;</span>
                     </li>
                     <li class="#{if action == 'modules'}selected#{/if}">
-                        <a href="/modules">Modules</a><span>&gt;</span>
+                        <a href="/modules">&{'main.header.modules'}</a><span>&gt;</span>
                     </li>
                     <li class="#{if action == 'about'}selected#{/if}">
-                        <a href="/about">About</a><span>&gt;</span>
+                        <a href="/about">&{'main.header.about'}</a><span>&gt;</span>
                     </li>
                 </ul>
             </div>
@@ -52,37 +52,37 @@
         <div id="footer">
             <div class="wrapper">
                 <ul>
-                    <li><h5><a href="/documentation">Learn</a></h5></li>
-                    <li><a href="/documentation/latest/overview">Overview</a></li>
-                    <li><a href="/documentation/latest/firstapp">Your first application</a></li>
-                    <li><a href="/documentation/latest/guide1">Tutorial</a></li>
-                    <li><a href="/documentation/latest/main">The manual</a></li>
+                    <li><h5><a href="/documentation">&{'main.footer.learn'}</a></h5></li>
+                    <li><a href="/documentation/latest/overview">&{'main.footer.overview'}</a></li>
+                    <li><a href="/documentation/latest/firstapp">&{'main.footer.firstApp'}</a></li>
+                    <li><a href="/documentation/latest/guide1">&{'main.footer.tutorial'}</a></li>
+                    <li><a href="/documentation/latest/main">&{'main.footer.manual'}</a></li>
                 </ul>
                 <ul>
-                    <li><h5><a href="http://www.playframework.org/community">Community</a></h5></li>
+                    <li><h5><a href="http://www.playframework.org/community">&{'main.footer.community'}</a></h5></li>
                     <li><a href="http://twitter.com/playframework">@playframework</a></li>
-                    <li><a href="http://groups.google.com/group/play-framework">Google group</a></li>
-                    <li><a href="http://www.playframework.org/community/planet">Planet &hearts; Play</a></li>
-                    <li><a href="http://www.playframework.org/community/snippets">Code snippets</a></li>
+                    <li><a href="http://groups.google.com/group/play-framework">&{'main.footer.googleGroup'}</a></li>
+                    <li><a href="http://www.playframework.org/community/planet">&{'main.footer.planetPlay'}</a></li>
+                    <li><a href="http://www.playframework.org/community/snippets">&{'main.footer.codeSnippets'}</a></li>
                 </ul>
                 <ul>
-                    <li><h5><a href="http://www.playframework.org/code">Contribute</a></h5></li>
-                    <li><a href="http://github.com/playframework/play">Source code</a></li>
-                    <li><a href="http://play.lighthouseapp.com/">Bug tracking</a></li>
-                    <li><a href="http://github.com/playframework/play/contributors">Contributors</a></li>
-                    <li><a href="http://integration.playframework.org/">Integration server</a></li>
+                    <li><h5><a href="http://www.playframework.org/code">&{'main.footer.contribute'}</a></h5></li>
+                    <li><a href="http://github.com/playframework/play">&{'main.footer.sourceCode'}</a></li>
+                    <li><a href="http://play.lighthouseapp.com/">&{'main.footer.bugTracking'}</a></li>
+                    <li><a href="http://github.com/playframework/play/contributors">&{'main.footer.contributors'}</a></li>
+                    <li><a href="http://integration.playframework.org/">&{'main.footer.integrationServer'}</a></li>
                 </ul>
                 <ul>
-                    <li><h5><a href="http://download.playframework.org/">Download</a></h5></li>
-                    <li><a href="http://download.playframework.org/releases">Releases</a></li>
-                    <li><a href="http://download.playframework.org/1.1-nightly/">Nightly builds</a></li>
-                    <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a></li>
+                    <li><h5><a href="http://download.playframework.org/">&{'main.footer.download'}</a></h5></li>
+                    <li><a href="http://download.playframework.org/releases">&{'main.footer.releases'}</a></li>
+                    <li><a href="http://download.playframework.org/1.1-nightly/">&{'main.footer.nightly'}</a></li>
+                    <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">&{'main.footer.license'}</a></li>
                 </ul>
                 <hr>
                 <a class="zenexity" href="http://www.zenexity.com/"><img src="/public/images/zenexity.png" alt="zenexity - web oriented architecture"></a>
                 <p class="licence">
-                    Play! is brought to you by <a href="http://guillaume.bort.fr/">guillaume bort</a> &amp; <a href="http://www.zenexity.com/">zenexity</a>
-                    Distributed under apache 2 licence - Hosted on <a href="http://www.playapps.net/">playapps.net</a>
+                    &{'main.footer.message.authors'}
+                    &{'main.footer.message.license'} - &{'main.footer.message.hosting'}
                 </p>
             </div>
         </div>
