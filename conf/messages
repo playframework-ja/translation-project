@@ -9,3 +9,78 @@ about.05=This project IS NOT made by <a href="http://www.playframework.org/">pla
 about.06=Please do not make any question about the contents of this project to playframework.org. 
 about.07=Translators
 about.08=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
+
+### index.html
+
+# main panel, introduction section
+index.introduction.title=The Play framework makes it easier to build Web applications with Java and <a href="http://scala.playframework.org/">Scala</a>
+index.introduction.content=Finally a Java Web framework made by Web developers. Discover a clean alternative to bloated enterprise Java stacks. Play focuses on developer productivity and targets RESTful architectures.
+
+# overview panel (features)
+
+index.features.title=Quick overview
+
+index.features.refresh=Fix the bug and hit reload!
+index.features.refresh.content=Edit your Java files, save, refresh your browser and see the results immediately! No need to compile, deploy or restart the server.
+
+index.features.stateless=Stateless model
+index.features.stateless.content=Play is a real "Share nothing" system. Ready for REST, it is easily scaled by running multiple instances of the same application on several servers.
+
+index.features.template=Efficient template system
+index.features.template.content=A clean template system based on Groovy as an expression language. It provides template inheritence, includes and tags.
+
+index.features.async=Asynchronous
+index.features.async.content=Based on an Non blocking IO model, it allows to create modern web applications based on long polling and WebSockets
+
+index.features.fullStack=Full stack
+index.features.fullStack.content=All you need to create a cool web application Provides integration with Hibernate, OpenID, Memcached... And a plugin system.
+
+index.features.java=Pure Java
+index.features.java.content=Code with Java, use any Java library and develop with your preferred IDE. Integrates nicely with eclipse or netbeans.
+
+index.features.fixErrors=Resolve errors quickly
+index.features.fixErrors.content=When an error occurs, play shows you the source code and the exact line containing the problem. Even in templates.
+
+index.features.fun=Fun & Productive
+index.features.fun.content=Cut out the time you spend waiting for your Java application to restart, increase your productivity and complete your projects faster.
+
+# right panel download section
+index.download.title=Get it now!
+index.download.latest=Download %s, the latest production ready release.
+index.download.others=Or list 
+index.download.othersLink=other versions of the framework
+
+# right panel learn section
+index.learn.title=Learn
+# params: Play framework overview, the tutorial, documentation
+index.learn.content=Read the &{index.learn.overview}.
+
+index.learn.content=Read the <a href="/documentation/latest/overview">&{index.learn.overview}</a>, work through the <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, and browse the <a href="/documentation">&{index.learn.documentation}</a>.
+index.learn.overview=Play framework overview
+index.learn.tutorial=tutorial
+index.learn.documentation=documentation
+
+
+# right panel get help section
+index.help.title=Get help
+index.help.content=Join the <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a> to discuss, get help on <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, share <a href="/community/snippets">&{index.help.code}</a> with the community, and <a href="/community/events">&{index.help.meet}</a> other developers.
+
+index.help.googleGroup=Google group
+index.help.stackOverflow=Stackoverflow
+index.help.code=code snippets
+index.help.meet=meet
+
+# right panel contribute section
+index.contribute.title=Contribute
+index.contribute.content=File <a href="http://play.lighthouseapp.com/" target="_blank">&{index.contribute.bugReports}</a>, check out the <a href="http://github.com/playframework/play" target="_blank">&{index.contribute.source}</a>, and <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide" target="_blank">&{index.contribute.contributeBack}</a> to the project.
+
+index.contribute.bugReports=bug reports
+index.contribute.source=source code on github
+index.contribute.contributeBack=contribute back
+
+# right panel twitter section
+index.twitter.title=Twitter buzz
+
+# right panel events section
+index.events.title=Next developers event
+index.events.checkAll=Check all events

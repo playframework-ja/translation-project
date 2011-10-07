@@ -4,7 +4,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $("#event > .date > small").html('<a href="http://www.playframework.org/community/events">すべてのイベントをチェックする</a>');
+  $("#event > .date > small").html('<a href="http://www.playframework.org/community/events">&{'index.events.checkAll'}</a>');
 });
 </script>
 
@@ -12,34 +12,30 @@ $(document).ready(function() {
     <div class="wrapper">
         <div id="side">
             <div id="quicklinks">
-                <h3>はじめよう！</h3>
+                <h3>&{'index.download.title'}</h3>
                 <p>
-                    最新の安定版リリース <a href="http://download.playframework.org/releases/play-1.2.3.zip">Play-1.2.3</a> をダウンロード。
-                    <small><a href="/download">その他のバージョン</a> の一覧はこちら。</small>
+                    &{'index.download.latest', ' <a href="http://download.playframework.org/releases/play-1.2.3.zip">Play-1.2.3</a>'}
+                    <small>&{'index.download.others'}<a href="/download">&{'index.download.othersLink'}</a></small>
                 </p>
-                <h3>学習</h3>
+                <h3>&{'index.learn.title'}</h3>
                 <p>
-                    <a href="http://www.playframework.org/documentation/latest/overview">Play framework の概要</a> を読み、<a href="http://www.playframework.org/documentation/latest/guide1">チュートリアル</a> をひと通り試して、<a href="http://www.playframework.org/documentation">ドキュメント</a> を参照しましょう。
+                	&{'index.learn.content'}
                 </p>
-                <h3>ヘルプ</h3>
+                <h3>&{'index.help.title'}</h3>
                 <p>
-                    <a href="http://groups.google.com/group/play-framework" target="_blank">Google group</a> に参加して話し合ったり、
-                    <a href="http://stackoverflow.com/tags/playframework" target="_blank">Stackoverflow</a> で助けてもらったり、
-                    コミュニティと <a href="http://www.playframework.org/community/snippets">ちょっとしたコード</a> を共有したり、
-                    他の開発者と <a href="http://www.playframework.org/community/events">出会う</a> ことができます。
+                	&{'index.help.content'}
                 </p>
-                <h3>協力</h3>
+                <h3>&{'index.contribute.title'}</h3>
                 <p>
-                    <a href="http://play.lighthouseapp.com/" target="_blank">バグを報告</a> したり、<a href="http://github.com/playframework/play" target="_blank">github のソースコード</a> をチェックアウトしたり、プロジェクトに <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide" target="_blank">貢献</a> することができます。
+                	&{'index.contribute.content'}
                 </p>
+
             </div>
         </div>
         <div id="introduction">
-            <h2>Play framework で Java と <a href="http://playscalaja.appspot.com">Scala</a> の Web アプリケーション開発をもっと簡単に</h2>
+            <h2>&{'index.introduction.title'}</h2>
             <p>
-                ついに Web デベロッパによって Java フレームワークが開発されました。
-                肥大化したエンタープライズ Java スタックを置き換える洗練された選択肢があります。
-                Play は開発者の生産性に注目し、RESTful アーキテクチャを目指します。
+            	&{'index.introduction.content'}
             </p>
             <div id="video">
                 <iframe src="http://player.vimeo.com/video/7087610?title=0&amp;byline=0&amp;portrait=0" width="600" height="337" frameborder="0"></iframe>
@@ -53,63 +49,63 @@ $(document).ready(function() {
 
         <div id="activity">
             #{if twitter}
-            <h1>Twitter つぶやき</h1>
+            <h1>&{'index.twitter.title'}</h1>
             ${twitter.raw()}
             #{/if}
             #{if event}
-            <h1>次回開発者イベント</h1>
+            <h1>&{'index.events.title'}</h1>
             ${event.raw()}
             #{/if}
         </div>
 
         <div id="quickoverview">
-            <h1>概要</h1>
+            <h1>&{'index.features.title'}</h1>
             <div class="feature clear">
-                <h2><img src="/public/images/refresh.png">バグを直してリロード！</h2>
+                <h2><img src="/public/images/refresh.png">&{'index.features.refresh'}</h2>
                 <p>
-                    Java ファイルを修正して、保存して、ブラウザをリロードすれば、すぐに結果を見ることができます！コンパイルもデプロイもサーバの再起動も必要ありません。
+                    &{'index.features.refresh.content'}
                 </p>
             </div>
             <div class="feature">
-                <h2><img src="/public/images/stateless.png">ステートレスモデル</h2>
+                <h2><img src="/public/images/refresh.png">&{'index.features.stateless'}</h2>
                 <p>
-                    Play は "Share nothing" なシステムです。同じアプリケーションの多数のインスタンスを複数台のサーバ上で動作させることで容易にスケールし、REST に適しています。
+                    &{'index.features.stateless.content'}
                 </p>
             </div>
             <div class="feature clear">
-                <h2><img src="/public/images/magic.png">効率的なテンプレートシステム</h2>
+                <h2><img src="/public/images/magic.png">&{'index.features.template'}</h2>
                 <p>
-                    拡張言語としての Groovy に基づいたクリーンなテンプレートシステムです。テンプレートの継承、包含、そしてタグ機能を提供します。
+                    &{'index.features.template.content'}
                 </p>
             </div>
             <div class="feature">
-                <h2><img src="/public/images/exchange.png">非同期</h2>
+                <h2><img src="/public/images/exchange.png">&{'index.features.async'}</h2>
                 <p>
-                    ノンブロッキング IO モデルに基づくことで、情報ストリームに基づいたモダンな web アプリケーションを作成できます。
+                    &{'index.features.async.content'}
                 </p>
             </div>
             <div class="feature clear">
-                <h2><img src="/public/images/application.png">フルスタック</h2>
+                <h2><img src="/public/images/application.png">&{'index.features.fullStack'}</h2>
                 <p>
-                    クールな web アプリケーションを作成するために必要な Hibernate, OpenID, Memcached 等との統合やプラグインシステムを提供します。
+                    &{'index.features.fullStack.content'}
                 </p>
             </div>
             <div class="feature">
-                <h2><img src="/public/images/java.png">ピュア Java</h2>
+                <h2><img src="/public/images/java.png">&{'index.features.java'}</h2>
                 <p>
-                    Java でコーディングします。どんな Java ライブラリでも使用できますし、お好みの IDE で開発ができます。eclipse と netbeans は特によく統合されています。
+                    &{'index.features.java.content'}
                 </p>
             </div>
             <div class="feature clear">
-                <h2><img src="/public/images/bug.png">素早くエラー解決</h2>
+                <h2><img src="/public/images/bug.png">&{'index.features.fixErrors'}</h2>
                 <p>
-                    エラーが発生すると、play はソースコードと問題のある行を表示します。テンプレートについても同様です。
+                    &{'index.features.fixErrors.content'}
                 </p>
             </div>
             <div class="feature">
-                <h2><img src="/public/images/fast.png">楽しく、かつ生産的</h2>
+                <h2><img src="/public/images/fast.png">&{'index.features.fun'}</h2>
                 <p>
-                    Java アプリケーションの再起動を待つ時間を削減し、生産性を高め、プロジェクトをより速く完了します。
+                    &{'index.features.fun.content'}
                 </p>
             </div>
         </div>
