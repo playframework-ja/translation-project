@@ -1,14 +1,59 @@
 # You can specialize this file for each language.
 # For example, for French create a messages.fr file
 #
-about.01=About this site
-about.02=Welcome to playdocja
-about.03=Welcome to the Play framework document translation site. Information on this site is shown below. 
-about.04=It is not an official site. 
-about.05=This project IS NOT made by <a href="http://www.playframework.org/">playframework.org</a>.
-about.06=Please do not make any question about the contents of this project to playframework.org. 
-about.07=Translators
-about.08=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
+
+about.title=About this site
+about.welcome=Welcome to playdoces
+about.welcome.text=Welcome to the Play framework site for spanish speaking community. Information on this site is shown below. 
+about.disclaimer=This is not an official play framework site. 
+about.disclaimer.text=This project IS NOT made by <a href="http://www.playframework.org/">playframework.org</a>.
+about.disclaimer.text2=Please do not make any question about the contents of this project to playframework.org.
+about.acknowledment=Acknowledgments
+about.acknowledment.text=Based on %s, developed and maintained by %s.
+about.translators=Translators
+about.translators.text=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
+
+### main.html
+
+main.header.home=Home
+main.header.learn=Learn
+main.header.download=Download
+main.header.community=Community
+main.header.code=Code
+main.header.ecosystem=Ecosystem
+main.header.modules=Modules
+main.header.about=About
+
+# footer.learn
+main.footer.learn=Learn
+main.footer.overview=Overview
+main.footer.firstApp=Your first application
+main.footer.tutorial=Tutorial
+main.footer.manual=The manual
+
+# footer.community
+main.footer.community=Community
+main.footer.googleGroup=Google group
+main.footer.planetPlay=Planet &hearts; Play
+main.footer.codeSnippets=Code Snippets
+
+# footer.contribute
+main.footer.contribute=Contribute
+main.footer.sourceCode=Source Code
+main.footer.bugTracking=Bug Tracking
+main.footer.contributors=Contributors
+main.footer.integrationServer=Integration Server
+
+# footer.download
+main.footer.download=Download
+main.footer.releases=Releases
+main.footer.nightly=Nightly Builds
+main.footer.license=Apache 2 license
+
+# footer message
+main.footer.message.authors=Play! is brought to you by <a href="http://guillaume.bort.fr/">guillaume bort</a> &amp; <a href="http://www.zenexity.com/">zenexity</a>
+main.footer.message.license=Distributed under apache 2 licence
+main.footer.message.hosting=Hosted on <a href="http://www.playapps.net/">playapps.net</a>
 
 ### index.html
 
@@ -55,7 +100,11 @@ index.learn.title=Learn
 # params: Play framework overview, the tutorial, documentation
 index.learn.content=Read the &{index.learn.overview}.
 
-index.learn.content=Read the <a href="/documentation/latest/overview">&{index.learn.overview}</a>, work through the <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, and browse the <a href="/documentation">&{index.learn.documentation}</a>.
+index.learn.content=\
+  Read the <a href="/documentation/latest/overview">&{index.learn.overview}</a>, \
+  work through the <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, \
+  and browse the <a href="/documentation">&{index.learn.documentation}</a>.
+
 index.learn.overview=Play framework overview
 index.learn.tutorial=tutorial
 index.learn.documentation=documentation
@@ -63,7 +112,11 @@ index.learn.documentation=documentation
 
 # right panel get help section
 index.help.title=Get help
-index.help.content=Join the <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a> to discuss, get help on <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, share <a href="/community/snippets">&{index.help.code}</a> with the community, and <a href="/community/events">&{index.help.meet}</a> other developers.
+index.help.content=\
+  Join the <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a> to discuss, \
+  get help on <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, \
+  share <a href="/community/snippets">&{index.help.code}</a> with the community, \
+  and <a href="/community/events">&{index.help.meet}</a> other developers.
 
 index.help.googleGroup=Google group
 index.help.stackOverflow=Stackoverflow
