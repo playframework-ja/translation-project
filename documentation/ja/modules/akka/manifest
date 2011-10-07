@@ -1,0 +1,15 @@
+id: akka
+
+name: akka support
+
+description: >
+  akka (http://akkasource.org) はシンプルで正確で耐障害性に優れ、並列でスケーラブルなアプリケーションを構築できる JVM のためのプラットフォームです。このモジュールは akka の設定を Play! フレームワークの conf/application.conf ファイルを通して設定できるようにします。あなたのアプリケーションの起動時に akka を起動するための幾つかのコマンドラインスクリプトと幾つかのサンプルを提供します。
+
+url: http://github.com/dwhitney/akka
+
+author: Dustin Whitney
+
+versions:
+- version: "head"
+  publishedAt: Jul 10, 2010
+  isDefault: true

@@ -1,0 +1,46 @@
+h1. Cobertura テストカバレッジ
+
+この Play! フレームワーク用のモジュールは Cobertura テストカバレッジツールのサポートを提供します。
+
+Cobertura はテストがアクセスしたコードのパーセンテージを計測するフリーの Java ツールです。Cobertura は、Java プログラムのどの部分のテストが足りていないかを特定するために使用することができます。Cobertura は jcoverage に基づいています。 
+
+詳細は "http://cobertura.sourceforge.net/":http://cobertura.sourceforge.net/ を参照してください。
+
+簡単な使用例を見てみましょう。
+
+h2. <a>アプリケーションで Cobertura モジュールを有効にする</a>
+
+**/conf/application.conf** ファイルに以下の行を追加して、Cobertura モジュールを有効にしてください:
+
+bc. # The cobertura test coverage module
+module.cobertura=${play.path}/modules/cobertura
+
+このプラグインは 'test' モードで使用されることを意図していて、他のモードでは黙って何もしません。このため、他のモードで実行する際に、このモジュールを活性化したままにしても問題はありません。
+
+h2. <a>テストの実行</a>
+
+例えば以下のようにして、いつもの通りテストを実行してください:
+
+bc. $ play test
+
+または、以下のようにします。
+
+bc. $ play auto-test
+
+コードカバレッジは、テスト実行時に直接計算されます - 実行するテストはいずれも Java ファイルにカバレッジを追加します。そのため、この段階でカバレッジ状況を分析するテストをすべて実行することが重要です。
+
+h2. <a>感嘆すべき結果です！</a>
+
+テストの実行が終わった時点で Play! フレームワークを停止してください。cobertura モジュールは、プロジェクトホーム の *test-result/code-coverage/* という名前のディレクトリに、自動的に HTML レポートを生成します 。
+
+bc. [...] INFO  - Cobertura plugin: generating test coverage report
+[...]
+[...] INFO  - Test coverage report has been generated: file:/path/to/test-result/code-coverage/index.html
+
+モジュールは、このレポートを閲覧するための URL をコンソールに出力します。"file:/path/to/your/application/test-result/code-coverage/":file:/path/to/your/application/test-result/code-coverage/ のような URL によって、ブラウザからこのレポートを見ることができます。
+
+!images/cobertura1!
+
+h2. <a>継続的統合</a>
+
+"Hudson":http://hudson.dev.java.net/ のような CI ツールは、テストカバレッジをグラフ化するためにしばしば Cobertura の結果を使用します。この目的のため、Cobertura モジュールは *test-result/code-coverage/coverage.xml* に XML フォーマットのレポートも生成します。

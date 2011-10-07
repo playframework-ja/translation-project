@@ -1,24 +1,27 @@
 #{extends 'main.html' /}
 #{set title:'Documentation' /}
 #{script src="navigation.js" /}
+<script type="text/javascript">
+intlDocumentationNext = "&{'documentation.next'}";
+</script>
 
 <div id="top">
     <p class="category">
-        マニュアル、チュートリアルとリファレンス
+        &{'documentation.title'}
     </p>
 </div>
 
 <div class="wrapper">
     <div id="docSidebar">
-        <h2>閲覧</h2>
+        <h2>&{'documentation.browse'}</h2>
         <ul>
-            <li id="gotoc"><a href="home">目次</a></li>
+            <li id="gotoc"><a href="home">&{'documentation.contentsTable'}</a></li>
         </ul>
 
-        <h2>内容</h2>
+        <h2>&{'documentation.contents'}</h2>
         <div id="toc"></div>
 
-        <h2>バージョン選択</h2>
+        <h2>&{'documentation.versions'}</h2>
         <div id="bc">
             <ul>
                 <li><a class="#{if version == '1.2.2'}selected#{/if}" href="/documentation?version=1.2.2">1.2.2</a> #{if version == '1.2.2'}⬅#{/if}</li>
@@ -33,17 +36,21 @@
             </ul>
         </div>
 
-        <h2>検索</h2> 
-        <p>Google で検索</p> 
-        <div id="searchBox"><form name="cse" id="cse-search-box" action="http://www.google.com/cse">
-            <input type="hidden" name="cx" value="016150910488704478090:uth5if04-bu" />
-            <input type="hidden" name="ie" value="utf-8" />
-            <input type="hidden" name="hl" value="ja" />
-            <input type="text" name="q" size="28" style="font-size:14px" />
-        </form>
-        <script type="text/javascript" src="http://www.google.com/cse/tools/onthefly?form=cse-search-box&lang=ja"></script></div>
+        <h2>&{'documentation.search'}</h2> 
+        <p>&{'documentation.search.help'}</p> 
+        <div id="searchBox">
+        	<form name="cse" id="cse-search-box" action="http://www.google.com/cse">
+	            <input type="hidden" name="cx" value="016150910488704478090:uth5if04-bu" />
+	            <input type="hidden" name="ie" value="utf-8" />
+	            <input type="hidden" name="hl" value="${lang}" />
+				<input type="text" 
+					style="font-size: 14px; background: url('http://www.google.com/cse/intl/en/images/google_custom_search_watermark.gif') no-repeat scroll left center rgb(255, 255, 255);" 
+					size="28" name="q">            
+	        </form>
+    	    <script src="http://www.google.com/coop/cse/brand?form=cse-search-box&lang=${lang}" type="text/javascript"></script>
+        </div>
 
-        <h2>書籍</h2>
+        <h2>&{'documentation.books'}</h2>
 
         <div id="books">
             <a href="http://www.packtpub.com/play-framework-cookbook/book">
@@ -61,12 +68,10 @@
         <div class="wikistyle">${html.raw()}</div>
 
         <div id="comments">
-            <h2><a name="comments">コメント</a></h2>
+            <h2><a name="comments">&{'documentation.comments'}</h2>
 
             <p>
-                このフォームを使用して、このページのドキュメントに関する修正や追記、提案を追加してください。
-                質問はここには書かず、play-framework グループに質問してください。
-                サポート要求、バグレポート、趣旨に沿わないコメントは警告無しに削除されます。
+            	&{'documentation.comments.text'}
             </p>
         </div>
 
@@ -78,7 +83,7 @@
             var dsq = document.createElement('script');
             dsq.type = 'text/javascript';
             dsq.async = true;
-            dsq.src = 'http://playdocja.disqus.com/embed.js';
+            dsq.src = 'http://playdoces.disqus.com/embed.js';
             (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
           })();
         </script>

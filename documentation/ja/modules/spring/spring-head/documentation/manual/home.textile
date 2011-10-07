@@ -1,0 +1,59 @@
+h1. Spring module
+
+The spring support module help you to integrate Spring managed beans with a play application.
+
+h2. <a>Enable the Spring module for the application</a>
+
+In the **/conf/application.conf** file, enable the Spring module by adding this line:
+
+bc. # The spring module
+module.spring=${play.path}/modules/spring
+
+h2. <a>Define an application-context.xml registry</a>
+
+In the **conf/** directory of the application you can then create a **application-context.xml** file and define some beans.
+
+For example:
+
+bc. <?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springsource.org/dtd/spring-beans-2.0.dtd">
+<beans>
+    
+    <bean id="test" class="utils.Test" />
+    
+</beans>
+
+h2. <a>Retrieve beans from application code</a>
+
+You can obtain bean instances from the application code, using the **play.modules.spring.Spring** helper.
+
+bc. public Application extends Controller {
+    
+    public static void index() {
+        Test test = Spring.getBeanOfType(Test.class);
+        ...
+    }
+    
+}
+
+h2. <a>@javax.inject.Inject support</a>
+
+Not implemented yet.
+
+h2. <a>Automatic Component Scanning</a>
+
+Spring 2.5 and later supports auto-wiring and component identification using annotations, obviating the need to define beans explicitly in XML.
+
+To enable component scanning, add this line to the **/conf/application.conf** file:
+
+bc. play.spring.component-scan=true
+
+Note that enabling this scans for @org.springframework.stereotype.Component, @org.springframework.stereotype.Repository, @org.springframework.stereotype.Service to identify Spring beans.  Additionally, running the component scan enables support for annotation based configuration (i.e., @org.springframework.beans.factory.annotation.Autowired, etc). 
+
+h3. Limited Scanning
+
+You can limit the classes scanned to specific packages or canonical class names with this line in the **/conf/application.conf** file:
+
+bc. play.spring.component-scan.base-packages=controllers.beans,services
+ 
+In this example, only classes whose canonical name start with either 'controllers.beans' or 'services' will be scanned and identified as beans.

@@ -156,3 +156,25 @@ index.twitter.title=¿Qué dicen en twitter?
 # right panel events section
 index.events.title=Próximos eventos
 index.events.checkAll=Ver todos los eventos
+
+### documentation/page.html
+
+documentation.title=Manuales, tutoriales & referencias
+documentation.browse=Consulte
+documentation.contentsTable=Contenidos
+documentation.contents=Contenidos
+documentation.next=Próximo
+documentation.versions=Elija la versión
+
+documentation.search=Buscar
+documentation.search.help=Busque con google
+
+documentation.books=Libros
+
+documentation.comments=Comentarios
+documentation.comments.text=
+Utilice este formulario para enviar correcciones y sugerencias acerca de la documentación de esta página. \ 
+  Por favor, envíe las preguntas acerca del framework a \
+  la <a href="http://groups.google.com/group/play-latam?hl=es">lista de discusión en español</a> o al \
+  la <a href="http://groups.google.com/group/play-framework?hl=es">lista de discusión en inglés</a>. \
+  Pedidos de soporte, informe de errores y comentarios fuera de tema serán eliminados sin previo aviso.

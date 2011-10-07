@@ -1,0 +1,54 @@
+h1. paginate
+
+paginate (http://github.com/lmcalpin/Play--Paginate) は Play! の標準的な #{list/} タグを置き換えるものです。
+
+h2. はじめに
+
+既存のプロジェクトに paginate を含めるには **conf/application.conf** ファイルに以下の行を追加します。
+
+bc. 
+module.paginate=${play.path}/modules/paginate-head
+
+h2. paginate を使う
+
+Paginator オブジェクトのインスタンスを作成することで paginate を使うことができます。二つの Paginator が提供されていますが、いつでも独自の Paginator を作成することができます:
+
+**play.modules.paginate.ModelPaginator** は Play! の標準的な JPA ベースのモデルをページングするために使用されます。
+
+bc. public static void index() {
+      ModelPaginator paginator = new ModelPaginator(TheModel.class);
+      render(paginator);
+    }
+
+**play.modules.paginate.ValuePaginator** は既存のあらゆるリストをラップするために使用されます。
+
+bc. public static void index() {
+      List<T> realList = ...;
+      ValuePaginator paginator = new ValuePaginator(realList);
+      render(paginator);
+    }
+
+ビューにページングされたリストとコントロールを取り込みます:
+
+bc. #{paginate.list items:records, as:'r'} 
+    ... ${r} // or whatever 
+    #{/paginate.list} 
+    #{paginate.controls items:records /} 
+
+デフォルトのスタイルシートを使用したい場合は、レイアウトのどこかで以下を取り込みます:
+
+bc. <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/play-pagination.css'}"> 
+
+
+h2. カスタマイズ
+
+デフォルトでは、"page" というリクエストパラメータはページングされたリストのどのページを閲覧しようとしているかを決定するために使用されます。もし違う名前を使いたい場合、 **conf/application.conf** ファイルでカスタマイズすることができます。
+
+bc. paginator.parameter.name=__page
+
+また、Paginator クラスは、コントローラがどのように表示されるのか、ページごとにいくつのアイテムを表示するのかを決定するために使用できるプロパティを公開します。
+
+- get/setBoundaryControlsEnabled: 最初と最後のボタンを表示するかどうかを決定します
+- get/setPagesDisplayed: 前へ/次へ コントロールの間に表示するページ数をカスタマイズします
+- get/setPageSize: ページごとに表示する行数を決定します
+- get/setRowCountSummaryEnabled: 行数カウントの合計をビューテンプレートに表示するかどうかを決定します。デフォルトでは、この領域にメッセージ: "Z レコード中 X 行から Y 行を表示しています" を表示します

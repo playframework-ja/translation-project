@@ -1,0 +1,27 @@
+h1. Excel module
+
+The Excel module allows you to render Excel document. It is rather simple to use as it only requires to import a static file.
+
+h2. <a>Enable the Excel module for the application</a>
+
+In the **/conf/application.conf** file, enable the Excel module by adding this line:
+
+bc. # The Excel module
+module.Excel=${play.path}/modules/Excel
+excel.template.root=app/views
+
+note, please change the excel.template.root from app/views to some where else when you use excel module with Play version 1.02 or before. Otherwise your application will not be able to startup on product mode.
+
+h2. <a>Using the Excel module</a>
+
+h3. <a>The renderExcel() method</a>:
+
+bc. import static play.modules.excel.Excel.*;
+
+And then use the renderExcel() method as you would use the render() method.
+
+The renderExcel() behavior is almost the same as that of render() except the following differences:
+# the template should be an excel file with ".xls" suffix rather than a text file with ".html"
+# You can use renderArgs.put("fileName", "your-file.xls") to indicate the name of the excel file to be generated
+
+Please refer to the sample for an example.

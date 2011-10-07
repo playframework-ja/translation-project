@@ -1,0 +1,18 @@
+id: ecss
+
+name: Extended CSS
+
+description: >
+  このモジュールは CSS ファイルで定数を使えるようにします。大きな CSS ファイルを扱うときに、文字色やフォントなどのくり返しを避けることに役立ちます。
+  
+  
+  p(note). このモジュールはもうメンテナンスされていません。sass モジュールを確認してください。
+  
+url: http://github.com/guillaumebort/play-ecss
+
+author: Guillaume Bort
+
+versions:
+- version: "1.0"
+  publishedAt: Jan 12, 2010
+  isDefault: true

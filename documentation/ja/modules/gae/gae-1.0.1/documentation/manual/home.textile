@@ -1,0 +1,100 @@
+h1. Google App Engine サポート
+
+GAE モジュールは、アプリケーションの Google App Engine サポートを有効にします。GAE モジュールは、可能な場合はいつでも GAE のサービスを play の基本的なサービス (ロギング、メール、キャッシュ...) にラップし、その他の Google の特別なサービス (ユーザサービス、データストア...) を直接アクセスできるようにします。
+
+さらに、このモジュールは play 開発サーバ内に GAE 開発環境をセットアップするので、Ggoogle App Engine SDK 内で直接開発する必要はありません (ただし、GAE SDK 内での直接開発もサポートしています) 。
+
+h2. <a>何がサポートされていますか?</a>
+
+* アプリケーションのレイアウトは完全にいつもと同じです。
+* 自動リロードは期待通りに動作します。
+* このモジュールが有効な場合、ロギングは java.util.logging に正しくディスパッチされます。
+* GAE のファイルシステムに書き込みを行うことはできないので、tmp フォルダは無効になります。
+* データストアへの直接アクセスは完全にサポートされます。
+* JPA サポートを有効にすることもできますが、やはり GAE の JPA 制限には依存し、play の JPASuppor を継承することはできません。
+* キャッシュは GAE の memcached インスタンスに正しくラップされます。
+* メールは GAE のメールサービスに正しくラップされます。
+* ユーザサービスは、開発サーバ内の 'サインイン' ページと共に利用することができます。
+* これまで通り、アプリケーションを複数のモジュールに分割することができます。
+* GAE 本番環境で実行されるアプリケーションは、強制的に PROD モードになります。
+
+h2. <a>GAE モジュールのセットアップ</a>
+
+標準的な方法でアプリケーションを作成するところから始めましょう。
+
+bc. # play new test-gae
+
+そして **conf/application.conf** を編集して GAE モジュールを有効にします:
+
+bc. # Additional modules
+# ~~~~~
+# A module is another play! application. Add a line for each module you want
+# to add to your application. Module paths are either absolutes or relative to
+# the application root.
+#
+module.gae=${play.path}/modules/gae
+
+ここでアプリケーションを開始すると、play は GAE 開発環境を起動します:
+
+bc. # play run test-gae
+ 
+~        _            _ 
+~  _ __ | | __ _ _  _| |
+~ | '_ \| |/ _' | || |_|
+~ |  __/|_|\____|\__ (_)
+~ |_|            |__/   
+~
+~ play! 1.0-stable5-localbuild, http://www.playframework.org
+~
+~ Ctrl+C to stop
+~ 
+11:37:02,228 INFO  ~ Starting /Volumes/Data/Desktop/test-gae
+11:37:02,240 INFO  ~ Module gae is available (/Volumes/Data/Desktop/play/modules/gae)
+11:37:02,350 WARN  ~ 
+11:37:02,351 WARN  ~ Google App Engine module
+11:37:02,351 WARN  ~ ~~~~~~~~~~~~~~~~~~~~~~~
+11:37:02,351 WARN  ~ No Google App Engine environment found. Setting up a development environment
+11:37:02,379 WARN  ~ Don't forget to define your GAE application id in the 'war/WEB-INF/appengine-web.xml' file
+11:37:02,379 WARN  ~ 
+11:37:02,380 WARN  ~ You're running play in DEV mode
+11:37:02,381 INFO  ~ Application 'Test of GAE' is ready !
+11:37:02,529 INFO  ~ Listening for HTTP on port 9000 ...
+11:37:02,529 INFO  ~ 
+
+空の **appengine-web.xml** が **war/WEB-INF** ディレクトリに作成されます。GAE SDK 上で実行する前に、正しい GAE アプリケーション id を設定することを忘れないでください。
+
+p(note). **注意**
+ 
+**war** ディレクトリの内容は war export コマンドの実行中にマージされます。これは GAE モジュールに限ったことではありません。
+
+h2. <a>デプロイ</a>
+
+アプリケーションを Google のクラウドにデプロイするには、アプリケーションを war にエクスポートし、その後、Google App Engine SDK を使って war をアップロードする必要があります。
+
+bc. # play war test-gae -o test-gae.war
+# appcfg.sh update test-gae.war
+
+'war/WEB-INF/appengine-web.xml' ファイルにGAE アプリケーション id を 指定していることを確認してください。
+
+appengine へアップロードするローカルキャッシュを生成するために、war を作成する前に **play precompile** を実行するべきです。
+
+h2. <a>JPA について</a>
+
+Play は JPASupport/Model クラスを通じて、JPA のクールな抽象化を提供します。しかし、これらのクラスを GAE で使用すると様々な問題が起こります。これは GAE における JPA サポートが、Hibernate とリレーショナルデータベースの組み合わせから大きく異なることが原因です。
+
+Google App Engine 上で JPA を使用する理由が二つあります。
+
+* アプリケーションを GAE へ/から、透過的に移動したい
+* すでに JPA API をよく知っていて、この知識を再利用したい
+
+しかし、この二つの理由は役に立ちません。GAE における JPA サポートは大きく異なるため、これを透過的な方法で使用することはできません。JPA サポートは関連を持たない単一のシンプルなエンティティに対してのみ動作します。シンプルな関連を持つ場合ですら、Google の特別なクラスに依存します。このように JPA サポートが大きく異なるため、これまでのやり方は通用しません。
+
+これが、Google App Engine 上で JPA を使わないことを勧める理由です。もし本当に JPA を使用したいのであれば、JPASupport/Model ヘルパを使わずに、Google が提供する JPA のシンプルな使用例を頼りにすべきです。
+
+代わりの永続化マネージャとして "Siena":siena と呼ばれるモジュールを提供しています。こちらのほうがより良く適合し、JPA を使う場合よりコードもシンプルになります。
+
+h2. <a>サンプルアプリケーション</a>
+
+Google App Engine アプリケーションの実際のサンプルとして、 **samples-and-tests/lists-with-gae** を調べてみることができます。
+
+p(note). **このアプリケーションは** "http://play-lists.appspot.com":http://play-lists.appspot.com. から **オンラインで利用することができます。**

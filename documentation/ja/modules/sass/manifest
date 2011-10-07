@@ -1,0 +1,24 @@
+id: sass
+
+name: Syntactically Awesome Stylesheets
+
+description: >
+  **{属性を持つスタイル}** - Sass は CSS をもう一度楽しくします。Sass は、組込みのルール、変数、ミックスインなどを可読性の高い構文で追加した CSS です。
+  
+  
+  詳細は http://sass-lang.com
+  
+url: http://github.com/guillaumebort/play-sass
+
+author: Guillaume Bort
+
+versions:
+- version: "head"
+  publishedAt: Oct 29, 2010
+
+- version: "0.1"
+  publishedAt: Jul 28, 2010
+
+- version: "1.0"
+  publishedAt: Oct 29, 2010
+  isDefault: true

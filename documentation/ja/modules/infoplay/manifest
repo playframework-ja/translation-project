@@ -1,0 +1,12 @@
+id: infoplay
+
+name: InfoPlay
+
+description: >
+  InfoPlay は PHP で言うところの infophp のように、多くの情報を出力することのできるモジュールです。アプリケーションの稼働状況や、フレームワーク、 VM 、OS に関する有用な情報を出力します。
+ 
+url: http://code.google.com/p/infoplay/
+
+author: BLR
+
+versions:

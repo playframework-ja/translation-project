@@ -137,3 +137,20 @@ index.twitter.title=Twitter buzz
 # right panel events section
 index.events.title=Next developers event
 index.events.checkAll=Check all events
+
+### documentation/page.html
+
+documentation.title=Manual, tutorials & references
+documentation.browse=Browse
+documentation.contentsTable=Table of contents
+documentation.contents=Contents
+documentation.next=Next
+documentation.versions=Select the version
+
+documentation.search=Search
+documentation.search.help=Get help with google
+
+documentation.books=Books
+
+documentation.comments=Comments
+documentation.comments.text=Use this form to add corrections, additions and suggestions about the documentation on this page. Please ask questions on the play-framework group instead. Support requests, bug reports, and off-topic comments will be deleted without warning. 

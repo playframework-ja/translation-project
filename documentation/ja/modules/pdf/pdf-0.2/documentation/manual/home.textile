@@ -1,0 +1,72 @@
+h1. PDF module
+
+The PDF module allows you to render PDF document. It is rather simple to use as it only requires to import a static file.
+
+h2. <a>Enable the PDF module for the application</a>
+
+In the **/conf/application.conf** file, enable the PDF module by adding this line:
+
+bc. # The PDF module
+module.pdf=${play.path}/modules/pdf
+
+h2. <a>Using the PDF module</a>
+
+h3. <a>The renderPDF() method</a>:
+
+bc. import static play.modules.pdf.PDF.*;
+
+And then use the renderPDF() method as you would use the render() method.
+
+The renderPDF will first look for a .pdf template. If there are none, it will fall back to the .html template. You can use a media="print" css to customize the PDF to render. The result is a PDF file. The render method uses the same template as for rendering HTML.
+
+Please refer to the samples-and-test for an example.
+
+h3. Rendering multiple documents
+
+You can render multiple documents which will be concatenated for you. For this you must pass an instance
+of @MultiPDFDocuments@ as first argument, which contains a file name and a list of @PDFDocument@
+which each contain a template path and @Options@.
+
+h3. Passing options
+
+If one of your parameters to renderPDF() is an instance of PDF.Options you can specify the following options:
+
+|Option|Type|Description|Default|
+|FOOTER|String|Footer content|None|
+|FOOTER_TEMPLATE|String|Path to a template used to produce the footer content|None|
+|HEADER|String|Header content|None|
+|HEADER_TEMPLATE|String|Path to a template used to produce the header content|None|
+|filename|String|The name of the PDF file to produce|templateName + ".pdf"|
+|pageSize|IHtmlToPdfTransformer.PageSize|The page size and margins|IHtmlToPdfTransformer.A4P|
+
+If one of your parameters to renderPDF() is a constant String (not passed by a local variable) that represents
+the path to the template to render instead of one deduced from the current action name.
+
+Note that the IHtmlToPdfTransformer.A4 sizes are wrong, so you should probably make your own sizes to correct them.
+
+Note that if you use templates for headers and footers you have to include the CSS inline rules in the templates, since
+the ones from the main document template will not be applied.
+
+h3. About CSS
+
+You can define CSS in your pages as follows:
+
+Import:
+
+bc. <link media="print" type="text/css" rel="stylesheet" href="/public/stylesheets/foo.css"/>
+
+Or inline:
+
+bc. <style media="print"><!-- foo { bar: gee; } --> </style>
+
+See the "CSS specs":http://www.w3.org/TR/CSS2/page.html for options relative to page sizes, margins and breaks.
+
+Note that there's a special rule inserted by the PDF renderer that sets the page margins to those specified in the page size
+option. If you wish to override it you can use the !important flag on every CSS margin or padding value.
+
+h4. Paging tables
+
+If you want your table headers to follow on page breaks, use the thead element for your header rows and the following
+special CSS attribute on your table:
+
+bc. -fs-table-paginate: paginate;

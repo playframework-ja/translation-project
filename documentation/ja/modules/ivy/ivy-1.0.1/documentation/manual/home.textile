@@ -1,0 +1,40 @@
+h1. Ivy support
+
+このモジュールは "apache ivy":http://ant.apache.org/ivy/ による依存関係の管理を可能にします。
+
+h3. はじめに
+
+まずはじめに "apache ant":http://ant.apache.org/bindownload.cgi をインストールして下さい。
+
+次に ivy を "ダウンロード":http://ant.apache.org/ivy/download.html して、 *ivy-XXX.jar* を *$ANT_HOME/lib* にコピーしてください。
+
+最後に play-ivy モジュールをインストールして下さい。
+
+bc. play install ivy
+
+
+h3. モジュールの有効化
+
+既にプロジェクトが存在しているのであれば、 conf/application.conf に下記のように追記してください。
+
+bc. module.ivy=${play.path}/modules/ivy
+
+プロジェクトを一から作成し始めるのであれば、 *play new myapp --with ivy* コマンドで ivy プロジェクトを作成することが出来ます。これによってモジュールが有効化され、 play ivy:init が実行されることになります。
+
+h3. play-ivy 特有のコマンド 
+
+bc. play ivy:init
+
+適切な *ivy.xml* と *build.xml* を作成します。その後、 ivy.xml に依存関係を追記することができるようになります。	
+
+bc. play ivy:update // or play ivy:up
+
+定義された全ての依存関係を抽出して、 app/lib フォルダにコピーします。
+
+bc. play ivy:refresh // or play ivy:re
+
+まず最初に app/lib フォルダをクリアした後、 play ivy:up を実行します。
+
+bc. play ivy:dependencies // or play ivy:dep
+
+コアとモジュール、およびアプリケーション固有の jar を一覧します。

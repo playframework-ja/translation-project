@@ -1,0 +1,24 @@
+id: db
+
+name: Database module
+
+description: >
+  このモジュールは Play! のドメインモデルから DDL ファイルをエクスポートすることと、データベースから Play! のドメインモデルを生成することが出来ます。詳細はドキュメントを参照してください。バージョン 1.1 は Play! 1.1 に対応し、 1.0 は Play! 1.0 に対応します。
+  
+url: http://github.com/pepite/play--database
+
+author: Nicolas Leroux
+
+versions:
+- version: "1.1"
+  publishedAt: May 16, 2010
+
+- version: "1.0"
+  publishedAt: May 16, 2010
+
+- version: "1.0.1"
+  publishedAt: Jul 24, 2010
+  isDefault: true
+
+- version: "1.1.1"
+  publishedAt: Jul 24, 2010

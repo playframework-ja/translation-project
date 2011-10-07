@@ -1,0 +1,101 @@
+h1. Testing your application
+
+Play Scala comes with "ScalaTest":http://www.scalatest.org/, that natively provide different styles of testing. 
+
+As in Play Java, you must place your test dedicated Scala sources into the **test** directory, and run the application using @play test@ to enable the integrated Test runner.
+
+Please check the complete "ScalaTest reference":http://www.scalatest.org/user_guide for more information.
+
+h2. JUnit Style
+
+In this style you need to annotate any test method with the ==<code>@Test</code>== annotation.
+
+bc. class JUnitStyle extends UnitTestCase with AssertionsForJUnit {
+    
+    @Before def setUp = Fixtures.deleteAll()
+    
+    @Test def verifyEasy {
+        assert("A" == "A")
+        intercept[StringIndexOutOfBoundsException] {
+            "concise".charAt(-1)
+        }
+    }
+    
+}
+
+h2. JUnit Style with Should matchers
+
+The @ShouldMatchers@ trait provides a domain specific language (DSL) for expressing assertions in tests using the word should.
+
+bc. class JUnitStyleWithShould extends UnitTestCase with ShouldMatchersForJUnit {
+    
+    @Before def setUp = Fixtures.deleteAll()
+    
+    @Test def verifyEasy {        
+        val name = "Guillaume"        
+        name should be ("Guillaume")       
+        evaluating { 
+            "name".charAt(-1) 
+        } should produce [StringIndexOutOfBoundsException]       
+        name should have length (9)       
+        name should include ("i")       
+        name.length should not be < (8)       
+        name should not startWith ("Hello")
+    }
+    
+}
+
+h2. Functional suite Style
+
+Here you will create a function for each test.
+
+bc. class FunctionsSuiteStyle extends UnitFunSuite with ShouldMatchers {
+    
+    Fixtures.deleteAll()
+    
+    test("Hello...") (pending)
+    
+    test("1 + 1") {        
+        (1 + 1) should be (2)        
+    }
+    
+    test("Something") {
+        "Guillaume" should not include ("X")
+    }
+    
+    test("1 + 1 again") {        
+        (1 + 1) should be (2)   
+    }
+    
+}
+
+h2. Specification Style
+
+This style provides a “behavior-driven” style of development (BDD), in which tests are combined with text that specifies the behavior the tests verify.
+
+bc. class SpecStyle extends UnitFlatSpec with ShouldMatchers {
+ 
+    val name = "Hello World"
+ 
+    "'Hello World'" should "not contain the X letter" in {
+        name should not include ("X")
+    }
+ 
+    it should "have 11 chars" in {
+        name should have length (11)      
+    }
+    
+}
+
+h2. Features list Style
+
+A suite of tests in which each test represents one scenario of a feature.
+
+bc. class FeatureStyle extends UnitFeatureSpec { 
+ 
+    feature("The user can pop an element off the top of the stack") { 
+        scenario("pop is invoked on a non-empty stack") (pending)
+        scenario("pop is invoked on an empty stack") (pending)
+    }
+  
+}

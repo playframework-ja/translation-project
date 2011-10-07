@@ -1,0 +1,16 @@
+h1. Roadmap to Play Scala 1.0
+
+This version is still in beta but can already be used to create complete Play applications using Scala as main language. Most of the API is stabilized and future versions will just improve compatibility with the existing Play features.
+
+h2. Missing features
+
+Before completing the *1.0* version of Play Scala we need to work on the following aspects:
+
+* Add proper *JSON support* — Probably using "Lift JSON":https://github.com/lift/lift/tree/master/framework/lift-base/lift-json/
+* Provide an API to work with the Play *async* features.
+* Integrate "Akka actors":http://www.akka.io
+* Provide a type safe way to express routes directly in Scala
+* Improve the incremental compilation process using the latest features of the *Scala 2.9 compiler*.
+* So probably move to *Scala 2.9*.
+
+p(note). Any help on these subjects is welcome.

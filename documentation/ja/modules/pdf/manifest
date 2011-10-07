@@ -1,0 +1,15 @@
+id: pdf
+
+name: PDF module
+
+description: >
+  HTML テンプレートから PDF ドキュメントをレンダリングできるようにするモジュールです。PDF ライブラリは YaHP Converter ライブラリ - http://www.allcolor.org/YaHPConverter/ - に基づいています。
+  
+url: http://github.com/pepite/play--pdf
+
+author: Nicolas Leroux
+
+versions:
+- version: "head"
+  publishedAt: Mar 29, 2010
+  isDefault: true

@@ -1,0 +1,30 @@
+id: gae
+
+name: Google App Engine
+
+description: >
+  Google App Engine プラットフォーム向けの play アプリケーションを作成します。
+  
+url: http://github.com/guillaumebort/play-gae
+
+author: Guillaume Bort
+
+versions:
+- version: "1.0"
+  publishedAt: Jan 30, 2010
+
+- version: "1.0.1"
+  publishedAt: Feb 07, 2010
+
+- version: "1.0.2"
+  publishedAt: Mar 17, 2010
+
+- version: "1.0.3"
+  publishedAt: Sep 05, 2010
+
+- version: "1.1"
+  publishedAt: Oct 29, 2010
+
+- version: "1.4"
+  publishedAt: Dec 08, 2010
+  isDefault: true

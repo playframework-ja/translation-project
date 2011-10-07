@@ -1,0 +1,95 @@
+h1. Riak module
+
+The Riak module allow to use <a href="http://hg.basho.com/riak-java-client/">riak-java-client</a> in play way. All java properties is encode in JSON and save in riak with bucket and key declare in Annotation 
+
+h2. <a>Usage</a>
+
+h3. <a>Configuration</a>
+
+bc. riak.url = http://127.0.0.1:8091/riak
+
+At startup the module check {riak.url}/stats for assure the right status of your Riak cluster 
+
+h3. <a>Create Model</a>
+
+bc.. @RiakEntity(key="name")
+public class MusicBand extends RiakModel{
+
+	public String name;
+	public String description;
+	
+	public MusicBand(String name, String description) {
+		super();
+		this.name = name;
+		this.description = description;
+	}		
+}
+
+p. Your model must extends RiakModel and annotating with @RiakEntity.  
+@RiakEntity contains two properties: bucket and key like {riak.url}/[bucket]/[key]
+ 
+
+
+h3. <a>Usage sample</a>
+
+h4. <a>Create</a>
+
+bc.. MusicBand m = new Album("Arcade Fire", "Rock band from Montreal");
+m.save();
+		
+p. In database view that means:
+
+bc.. curl http://127.0.0.1:8091/riak/MusicBand/ArcadeFire
+{"name":"ArcadeFire","description":"Rock band from Montreal"}   
+
+h4. <a> Misc posibility </a>
+
+h5. <a>Basic example :</a>
+
+bc.. // retrieve all element
+List<MusicBand> list = MusicBand.findAll(MusicBand.class);
+
+// find one element with that key
+MusicBand m = MusicBand.find(MusicBand.class, "key");
+m.save();
+
+// use raw riak object
+RiakObject riakObject = m.getObj();
+
+//delete one element
+m.delete();
+
+// find all keys for one bucket
+Collection<String> allKeys = MusicBand.findKeys(MusicBand.class);
+
+h5. <a> Link example :</a>
+
+bc.. // add link
+m.addLink(Album.class, "key", "tag");
+
+// simple link walking
+List<RiakModel> links = m.getLink();
+
+h5. <a> Map/reduce example :</a>
+
+bc.. // count element with map/reduce query
+long nbElement = RiakMP.count(MusicBand.class);
+
+// retrieve order element by field 
+Type listType = new TypeToken<List<MusicBand>>() {}.getType();
+List<MusicBand> orderList = MusicBand.orderBy(MusicBand.class, "name", true, listType);
+
+// find element order by last edit date
+List<MusicBand> orderByDateList = MusicBand.findOrderByDate(MusicBand.class, listType);
+
+h2. TODO List
+
+* more elegant map/reduce implementation
+* best link implementation
+* pool configuration
+* better encoding mechanism 
+* create annotation for use links like @OneToMany in JPA
+* create batch request
+* use key generation purpose by Riak
+* riak search
+* sibling

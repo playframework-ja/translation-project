@@ -1,27 +1,27 @@
-h1. Play 1.0.3 — リリースノート
+h1. Play 1.0.3 -- Release notes
 
-**Play 1.0.3** は Play 1.0 ブランチのメンテナンスリリースです。現在、開発はバージョン 1.1 に注力しているため、主要な新機能はありません。ドキュメントはこれまで見当たらなかったリファレンスと共に更新され、yabe チュートリアルには "国際化と地域化":guide12 に関する新しい章が含められ、そして新しいサンプルアプリケーションが追加されました。
+**Play 1.0.3** is a maintenance release of the Play 1.0 branch. There is no new major feature in this version, as the development focus is now set to the 1.1 version. The documentation has been updated with missing references, the yabe tutorial now includes a new chapter about "Internationalisation and localisation":guide12, and a new sample application has been added.
 
-p(note). **Play 1.0.3** はメンテナンスリリースであり、バージョン 1.0 シリーズとの完全な互換性があります。何か問題にぶつかったら "Google Group":http://groups.google.com/group/play-framework にて質問してください。
+p(note). **Play 1.0.3** is a maintenance release and is fully compatible with the 1.0 series. If you encounter any problems please ask us on the "Google Group":http://groups.google.com/group/play-framework.
 
-"1.0.3 ロードマップページ":http://www.playframework.org/roadmap/1.0.3 にて、修正されたバグについて読むことができます。もっとも重要な変更は、このページにてハイライトされています。
+You can read about the fixed bugs on the "1.0.3 road map page":http://www.playframework.org/roadmap/1.0.3. The most important changes are highlighted on this page.
 
-h2. <a>新しいサンプルアプリケーション: validation</a>
+h2. <a>New sample application: validation</a>
 
-新しいサンプルアプリケーションが追加されました。このサンプルは、Play のバリデーションをサポートするフォームの様々な作り方を実演します。
+A new sample application has been added. It demonstrates the different ways to create a form with the Play validation support.
 
 !images/validation!
 
-h2. <a>yabe チュートリアルの新しい章</a>
+h2. <a>New yabe tutorial chapter</a>
 
-すでにある yabe チュートリアルはアプリケーションの "国際化と地域化":guide12 によって完成します。初めからアプリケーションを国際化することもできますが、アプリケーションの最初のバージョンは単一の言語で作成し、後から複数の言語を追加するほうが、より現実的です。
+"Internationalisation and localisation":guide12 completes the existing yabe tutorial with application. Although we could have done this from the start, it is more realistic to build the first version of an application in a single language, and add multiple languages later.
 
-"新しい章を読んでください":guide12
+"Read the new chapter":guide12
 
-h2. <a>playapps.net サポート</a>
+h2. <a>playapps.net support</a>
 
-リリース 1.0.3 は、クラウドプラットフォーム上の新しい "http://www.playapps.net":http://www.playapps.net でサポートされる最初のバージョンです。
+The 1.0.3 release is the first one to be officially supported by the new "http://www.playapps.net":http://www.playapps.net on the cloud-hosting platform.
 
 !images/dashboard_preview!
 
-p(note). 次のリリース: %(next)"Play 1.1 リリースノート":releasenotes-1.1%
+p(note). Next release: %(next)"Play 1.1 release notes":releasenotes-1.1%

@@ -1,0 +1,38 @@
+h1. Dealing with Scala types in Play templates
+
+By default, Play Scala uses the same templating engine than Java. However the Scala plugin automatically enhances it to support natively some Scala specific features.
+
+h2. Boolean operations on @Option@ and @Seq@ types
+
+You can safely use @Option@ and @Seq@ types in every boolean operations:
+
+# A @None@ value is evaluated as @false@
+# A @Some@ value is evaluated as @true@
+# An empty @Seq@ is evaluated as @false@
+# A non empty @Seq@ is evaluated as @true@
+
+So you can for example safely use the @?:@ operator with an @Option@ type:
+
+bc. Hello ${name ?: 'Guest'} 
+
+h2. Safe navigation for @Option@ types
+
+When you need to navigate more deeply into members contained in an @Option@ type, you can use the @?.@ operator to automatically unwrap @Some@ values and ignore @None@ values.
+
+For example, here the @user@ variable reference an @Option[User]@ type:
+
+bc. ${user?.name?.toUpperCase()}
+
+If the @user@ variable contains a @None@ value, no error will be thrown and an empty string will be displayed.
+
+Also, when you display an @Option@ value using an expression (like @${user}@), the contained value is displayed, or an empty string if the value is @None@.
+
+h2. Litteral access to elements of a @Seq@
+
+You can use the litteral way to access any value from of Scala @Seq@ in a template:
+
+bc. def index = Template('items -> List(1,2,3))
+ 
+---- index.html
+ 
+<h1>${items[1]}</h1>

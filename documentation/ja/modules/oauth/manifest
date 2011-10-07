@@ -1,0 +1,15 @@
+id: oauth
+
+name: OAuth Client
+
+description: >
+  このモジュールは、Twitter や Google のような OAuth プロバイダに接続するためのツールを提供します。
+  
+url: http://github.com/erwan/playoauthclient
+
+author: Erwan Loisant
+
+versions:
+- version: "1.0"
+  publishedAt: Feb 24, 2010
+  isDefault: true

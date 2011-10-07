@@ -1,0 +1,43 @@
+id: scala
+
+name: Scala
+
+description: >
+  Using the scala module you can write all or parts of your play application using scala language. You can of course mix it with Java. 
+
+url: http://github.com/guillaumebort/play-scala
+
+author: Guillaume Bort, Peter Hausel
+
+versions:
+- version: "head"
+  publishedAt: Oct 17, 2010
+  
+- version: "0.1"
+  publishedAt: Mar 02, 2010
+  
+- version: "0.2"
+  publishedAt: Apr 09, 2010
+  
+- version: "0.3"
+  publishedAt: Apr 19, 2010
+  
+- version: "0.6"
+  publishedAt: May 17, 2010
+  
+- version: "0.7"
+  publishedAt: Jul 12, 2010
+  
+- version: "0.7.1"
+  publishedAt: Jul 15, 2010
+  
+- version: "0.7.2"
+  publishedAt: Jul 22, 2010
+  
+- version: "0.7.3"
+  publishedAt: Aug 13, 2010
+  
+- version: "0.8"
+  publishedAt: Nov 01, 2010
+  isDefault: true
+  

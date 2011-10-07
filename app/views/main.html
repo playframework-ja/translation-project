@@ -1,8 +1,13 @@
+%{
+messages = play.i18n.Messages;
+lang = play.i18n.Lang.get();
+%}
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta name="keywords" content="play,playframework,Play!,Play!framework,Play! framework,playdocja">
+	<head>
+        <meta name="keywords" content="play,playframework,Play!,Play!framework,Play! framework,playdoces">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Language" content="${lang}">
         <title>Play framework - #{get 'title' /}</title>
         #{stylesheet src="main.css" /}
         #{stylesheet src="wiki.css" /}

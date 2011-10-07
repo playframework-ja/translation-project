@@ -56,7 +56,7 @@ $(document).ready(function(){
 	// Next link
 	var nextLink = $('.next a')
     if(nextLink && nextLink.size()) {
-        $('#gotoc').after('<li><a href="' + $(nextLink).attr('href') + '">次: ' + $(nextLink).text() + '</a></li>')
+        $('#gotoc').after('<li><a href="' + $(nextLink).attr('href') + '">' + intlDocumentationNext + ': ' + $(nextLink).text() + '</a></li>')
     }
     
 });

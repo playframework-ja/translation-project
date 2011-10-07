@@ -1,32 +1,35 @@
-h1. CRUD: 管理機能ジェネレータ
+h1. CRUD: Administration generator
 
-CRUD (Create, Read, Update, Delete) モジュールは、JPA モデルオブジェクト用の完全に利用可能な web インタフェースを生成します。
+The CRUD (Create, Read, Update, Delete) module generates a fully usable web interface for your JPA Model objects.
 
-h2. <a name="usage">CRUD モジュールの使い方</a>
+h2. <a name="usage">Using the CRUD module</a>
 
-CRUD モジュールを使ってデータを管理するシンプルな例を見てみましょう。
+Let’s see a simple example of using the CRUD module to manage user data.
 
-h3. <a name="enable">アプリケーションで CRUD モジュールを利用可能にする</a>
+h3. <a name="enable">Enable the CRUD module for the application</a>
 
-@/conf/dependencies.yml@ ファイルの @require:@ の後に次の行を追加することで、CRUD モジュールを有効にします:
+In the @/conf/dependencies.yml@ file, enable the CRUD module by adding a line after @require:@
 
 bc. require:
     - play -> crud
 
-h3. <a name="routes">デフォルトの CRUD ルートの取り込み</a>
+Now run the @play dependencies@ command to resolve the new module dependency.
 
-@conf/routes@ ファイルに次の行を追加することで、モジュールのデフォルトのルートを取り込みます:
+
+h3. <a name="routes">Import default CRUD routes</a>
+
+In the @conf/routes@ file, import the default module routes by adding this line:
 
 bc. # Import CRUD routes
 *     /admin           module:crud
 
-この設定は、このあとに追加することになるいくつかのルートを、それぞれの CRUD コントローラに追加します。
+This adds several routes for each of your CRUD controllers, which you will add below.
 
-p(note). デフォルトのルートファイルの使用は必須ではないことに **注意** してください。独自のルートを定義することも、これら 2 つを混ぜ合わせることも可能です。
+p(note). **Note** that using the default routes file is not required. You can also define your own routes, or mix the two.
 
-h3. <a name="model">User クラスの作成</a>
+h3. <a name="model">Create a User class</a>
 
-CRUD モジュールはアプリケーションのモデルクラスにユーザインタフェースを提供します。 "JPA":jpa エンティティである User モデルクラスの作成から始めましょう。
+The CRUD module provides a user-interface for your application’s model classes. We will start by creating a User model class, which is a "JPA":jpa entity:
 
 bc. package models;
  
@@ -45,9 +48,9 @@ public class User extends Model {
  	
 }
 
-h3. <a name="controller">Users コントローラの作成</a>
+h3. <a name="controller">Create the Users controller</a>
 
-次に、CRUD コントローラを継承するだけのシンプルなコントローラを作成します。これは CRUD モジュールがルートを生成するために使用するある種の ‘マーカー’ です。
+Next, we create a simple controller that just inherits the CRUD controller. This is a kind of ‘marker’ that the CRUD module uses for generating routes.
 
 bc. package controllers;
  
@@ -55,11 +58,11 @@ public class Users extends CRUD {
    
 }
 
-ここで "http://localhost:9000/admin":http://localhost:9000/admin を開くと、User 管理画面が見えるはずです。
+Now open "http://localhost:9000/admin":http://localhost:9000/admin and you should see the User admin area.
 
 !images/crud1!
 
-コントローラクラスの名前は、モデルクラス名の最後に ‘s’ を付けたものでなければなりません。違う名前を付けたい場合は、アノテーションを使うことができます。
+The controller’s class name has to be the model class name with a final ‘s’. If you want to name it differently, you can do it using an annotation.
 
 bc. package controllers;
  
@@ -70,13 +73,13 @@ public class AdminUsers extends CRUD {
    
 }
 
-h3. <a name="view">User フォーム</a>
+h3. <a name="view">The User form</a>
 
-**Add** ボタンをクリックすると、User フォームが表示されるはずです。
+Click the **Add** button, and you should see the User form.
 
 !images/crud2!
 
-User クラスにいくつかバリデーションルールを追加することができます:
+Now we can add some validation rules to the User class:
 
 bc. package models;
  
@@ -110,37 +113,37 @@ public class User extends Model {
 }
 
 
-User フォームを更新すれば、バリデーションが自動的に適用されていることを確認できるでしょう。
+Refresh the User form and you will see that the validation is automatically applied.
 
 !images/crud3!
 
-h3. <a name="labels">フォームラベルの変更</a>
+h3. <a name="labels">Change the form label</a>
 
-アプリケーションの @conf/messages@ ファイルに以下の行を追加してください:
+Add these lines to the @conf/messages@ file in your application:
 
 bc. name=Name
 email=Email address
 address=Postal address
 
-そして、User フォームを更新してください:
+and refresh the User form:
 
 !images/crud4!
 
-h3. <a name="list">User の作成とリストビューのカスタマイズ</a>
+h3. <a name="list">Create a User and customize the list view</a>
 
-デフォルトのリストビューは、オブジェクトの @toString()@ メソッドの結果を含むただひとつの列を使用します。
+The default list view uses only one column containing the result of the object’s @toString()@ method.
 
 !images/crud5!
 
-このビューをカスタマイズするには、アプリケーションに @/app/views/Users/list.html@ テンプレートを作成する必要があります。
+To customize this view, we need to create the @/app/views/Users/list.html@ template in the application.
 
-シェルを開いてアプリケーションディレクトリに移動したら、以下をタイプします:
+Open a shell, go the application directory and type:
 
 bc. play crud:ov --template Users/list
 
-このコマンドは、CRUD のデフォルトの @list.html@ テンプレートを、アプリケーションの @Users/list.html@ にコピーしますが、もしこのファイルが存在すれば上書きします。
+This will copy the default CRUD @list.html@ template to the @Users/list.html@ template in your application, overwriting it if present.
 
-このテンプレートを以下のように編集してください:
+Edit the template like this:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -165,16 +168,16 @@ bc. #{extends 'CRUD/layout.html' /}
 	</p>
 </div>
 
-そして、リストを更新してください。
+and refresh the list.
 
 !images/crud6!
 
 
-h3. <a name="custom">フィールドレンダリングのカスタマイズ: crud.custom タグ</a>
+h3. <a name="custom">Custom field rendering: the crud.custom tag</a>
 
-それぞれの @User@ エンティティの、リストやフォームビューにおける表示のされ方をカスタマイズすることで、ちょっと前進することができます。
+You can go a bit further by customizing the way each field of your @User@ entity is displayed in the list and form views.
 
-フィールドをカスタマイズするには、 @#{crud.custom}@ タグを使用します:
+To customize a field, use the @#{crud.custom}@ tag:
 
 bc. #{crud.table fields:['name', 'company']}
  
@@ -186,7 +189,7 @@ bc. #{crud.table fields:['name', 'company']}
  
 #{/crud.table}
 
-カスタムハンドラを定義することで、追加の列や入力フォームを表示することもできます:
+You can also display additional columns or form inputs by defining custom handlers:
 
 bc. #{crud.table fields:['name', 'company', 'edit']}
  
@@ -201,9 +204,9 @@ bc. #{crud.table fields:['name', 'company', 'edit']}
 #{/crud.table}
 
 
-h2. <a name="collections">文字列のリストと列挙型のリスト</a>
+h2. <a name="collections">List of String and List of enumeration</a>
 
-CRUD モジュールはフィールドを文字として表示します。この文字フィールドにおいて、リストはカンマで区切られた文字列として表示されます。例えば:
+The CRUD module is showing them as a text field. In this text field, the list is represented by a comma separated list of String. For example:
 
 bc. @Entity
 public class Account extends Model {
@@ -220,18 +223,18 @@ public class Account extends Model {
       }
 }
 
-これは、次のように表示されます: contentTypes は "myEnumId1","myEnumId2" と表示され、usernames は "string1","string2" と表示されます。それぞれの定義において、これが CRUD モジュールで行うべき最初のカスタマイズです。
+This is shown as: "myEnumId1","myEnumId2" for the contentTypes and "string1","string2" for the user names. By definition, this is what you should first customize in your CRUD module.
 
-h2. <a name="objecttype">_show_ と _blank_ ビューの一般的なカスタマイズ方法</a>
+h2. <a name="objecttype">Customize the _show_ and _blank_ views in a generic way</a>
 
-CRUD ビューの振る舞いに主に影響するのは、それぞれの列の @ObjectType@ です。このため、
-例えば <code>@Version</code> アノテーションの付いたフィールドを隠すと言ったように、 CRUD モジュールの振る舞いを一般的な方法で変更したい場合、独自の @ObjectType@ クラスを作成することができます。コントローラまたはコントローラのスーパークラスに static メソッドを宣言しなければなりません。
+A central influence on the behavior of CRUD views is the @ObjectType@ for each field. So if you want to 
+change the CRUD module’s behaviour in a generic way, for example to hide fields with the <code>@Version</code> annotation, you can create you own @ObjectType@ class. You must also declare a static method in your controller or a superclass of your controller.
 
 bc. protected static ObjectType createObjectType(Class<? extends Model> type) {
    return new VersionObjectType(type);
 } 
 
-以下に完全な例を示します:
+Here is a complete example:
 
 bc.   public class CustomAdminCompany extends CRUD {
    protected static ObjectType createObjectType(Class<? extends Model> type) {
@@ -277,26 +280,26 @@ bc.   public class CustomAdminCompany extends CRUD {
    }   
 }
 
-これで終わりではありません; @findPage@ やその他のメソッドをカスタマイズすることもできます。ソースコードを覗いてみてください。
+This is not the end; you can also customize @findPage@ and other methods. Have a look at the source code.
 
-h2. <a name="commands">コマンド</a>
+h2. <a name="commands">Commands</a>
 
-CRUD モジュールは、コマンドラインから使って、デフォルトのテンプレートを上書きする *crud:override* コマンドを提供します。これが機能するのは、CRUD モジュールはアプリケーションのテンプレートが存在する場合に、自身のテンプレートではなく、アプリケーションのものをロードするためです。 @crud:override@ の代わりに @crud:ov@ を使用することもできます。
+The CRUD module provides a *crud:override* command that you use on the command line to override the default templates. This works because the CRUD module loads templates from your application if they are present, instead of its own. You can also use @crud:ov@ instead of @crud:override@.
 
 h3. play crud:override --template [path]
 
-例えば @Users/list@ のようにパスで指定したテンプレートを、アプリケーションの @app/views/CRUD@ ディレクトリにコピーします。 @--template@ の代わりに @-t@ を使用することもできます。
+Copies the template specified by the path, e.g. @Users/list@, to your application’s @app/views/CRUD/@ directory. You can also use @-t@ instead of @--template@.
 
 h3. play crud:override --layout
 
-メインのレイアウトテンプレートである @layout.html@ を上書きします。
+Overrides the main page layout template, @layout.html@.
 
 h3. play crud:override --css
 
-スタイルシート @crud.css@ を @public/stylesheets/@ ディレクトリにコピーして上書きします。
+Overrides the style sheet, @crud.css@, copying it to your the @public/stylesheets/@ directory.
 
 
 
-h2. <a name="limitation">制限事項</a>
+h2. <a name="limitation">Limitation</a>
 
-CRUD モジュールは、双方向の関連を持つふたつのエンティティのうち、ひとつのみ: @mappedBy@ 属性を持たないエンティティを表示します。
+Limitation The CRUD module only shows bi-directional relationships in one of the two entities: the one that does not have the @mappedBy@ attribute.

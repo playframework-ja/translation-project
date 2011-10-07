@@ -1,0 +1,15 @@
+id: paginate
+
+name: paginate
+
+description: >
+  ページングを簡単に再利用するシンプルなモジュールです。
+  
+url: http://github.com/lmcalpin/Play--Paginate
+
+author: Lawrence McAlpin
+
+versions:
+- version: "head"
+  publishedAt: Jan 05, 2011
+  isDefault: true

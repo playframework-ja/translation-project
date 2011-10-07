@@ -1,38 +1,38 @@
-h1. Play 1.0.1 — リリースノート
+h1. Play 1.0.1 -- Release notes
 
-**Play 1.0.1** は Play 1.0 ブランチのメンテナンスリリースです。このリリースは大量の小さなバグを修正し、JPA オブジェクトのより良いバインディング、XSS セキュリティ問題を回避する HTML および Javascript コードの自動エスケープを提供します。
+**Play 1.0.1** is a maintenance release of the Play 1.0 branch. It fixes a lot of small bugs, provides a better binding for persistent JPA objects, auto-escaping of HTML and JavaScript code in templates to avoid XSS security problems.
 
-p(note). **Play 1.0.1** はメンテナンスリリースであり、バージョン 1.0 との完全な互換性があります。何か問題にぶつかったら Google Group にて質問してください。
+p(note). **Play 1.0.1** is a maintenance release and is fully compatible with the 1.0 version. If you encounter any problems please ask us on the Google Group.
 
-"1.0.1 ロードマップページ":http://www.playframework.org/roadmap/1.0.1 にて、修正されたバグについて読むことができます。もっとも重要な変更は、このページにてハイライトされています:
+You can read about the fixed bugs on the "1.0.1 road map page":http://www.playframework.org/roadmap/1.0.1. The most important changes are highlighted in this page:
 
-h2. <a>テンプレートにおける HTML コードの自動エスケープ</a>
+h2. <a>Automatic escaping for HTML code in templates</a>
 
-全ての動的な式は、アプリケーションにおける XSS セキュリティ問題を回避するために、テンプレートエンジンによってエスケープされます。このため、 <code>==&lt;h1>Title&lt;/h1>==</code> を含む @title@ 変数は、以下のようにエスケープされます:
+Now all dynamic expressions are escaped by the template engine to avoid XSS security issues in your application. So the @title@ variable containing <code>==&lt;h1>Title&lt;/h1>==</code> is now escaped:
 
 bc. ${title} --> &lt;h1&gt;Title&lt;/h1&gt;
 
-これらを本当にエスケープせずに表示したい場合は、 @raw()@ メソッドを明示的に呼び出す必要があります:
+If you really want to display it in an unescaped way, you need to explicitely call the @raw()@ method:
 
 bc. ${title.raw()} --> <h1>Title</h1>
 
-素の HTML の大部分を表示したい場合は、 @#{verbatim /}@ タグを使うこともできます:
+Also, if you want to display a large part of raw HTML, you can use the @#{verbatim /}@ tag:
 
 bc. #{verbatim}
     ${title} --> <h1>Title</h1>
 #{/verbatim}
 
-もちろん、この機能は既存のアプリケーションを壊してしまうかもしれないので、デフォルトでは有効ではありません。これは以下の行を @application.conf@ ファイルに追加することで有効にすることができます:
+Of course, as this feature can break existing applications, it is not enabled by default. You can enable it by adding the following line to your @application.conf@ file:
 
 bc. future.escapeInTemplates=true
 
-この行は、リリース 1.0.1 で作られた新規アプリケーションには追加されます。
+This line is  added to new applications created with the 1.0.1 release.
 
-h2. <a>@javax.inject.Inject サポート</a>
+h2. <a>@javax.inject.Inject support</a>
 
-"Spring module":spring モジュールで提供されるような DI コンテナを使っている場合、 <code>@Inject</code> アノテーションを使うことができます。この <code>@Inject</code> アノテーションは、定義された Java Beans をコントローラ、ジョブ、またはメーラに自動的にインジェクションします。このアノテーションは static フィールドに作用します。
+You can now use the <code>@Inject</code> annotation if you are using a Dependency Injection container like the one provided by the "Spring module":spring. The <code>@Inject</code> annotation automatically injects defined beans in your controllers, jobs and mailer. It works on static fields. 
 
-例えば、Spring に定義された @PriceWatcher@ サービスをコントローラにインジェクションするには、以下のようにするだけです:
+For example to inject a @PriceWatcher@ service defined in Spring to one of your controllers, just do:
 
 bc. public class Application extends Controller {
     
@@ -45,19 +45,19 @@ bc. public class Application extends Controller {
     
 }
 
-自動リロードは期待通り動作するはずです。
+Auto-reload should work as expected.
 
-h2. <a>JPA オブジェクトのより良いバインディング</a>
+h2. <a>Better binding for JPA objects</a>
 
-以前は、HTTP を使って JPA オブジェクトを自動的に紐付ける方法はありませんでした。例えば:
+Previously there was no way to automatically bind a JPA object using the HTTP to Java binding. For example:
 
 bc. public static void save(User user) {
     user.save(); // fail in 1.0
 }
 
-@User@ は JPA エンティティクラスであり、user は Binder によって作成された一時的なオブジェクトで、まだ Hibernate によって管理されていないので、このコードは失敗します。
+@User@ being a JPA entity class, this code failed because user was a transient object created by the Binder and not yet managed by Hibernate.
 
-古いやり方は、以下のように @edit()@ メソッドを使うものでした:
+The old way was to use the @edit()@ method, like:
 
 bc. public static void save(Long id) {
     User user = User.findById(id);
@@ -65,42 +65,42 @@ bc. public static void save(Long id) {
     user.save(); // ok
 }
 
-今では、HTTP パラメータに @user.id@ フィールドを渡すことができます。Play は @id@ フィールドを見つけると、HTTP パラメータを編集する前に、データベースからマッチするインスタンスをロードします。その後、HTTP リクエストの他のパラメータが適用されます。こうして、HTTP パラメータを直接保存することができます。
+Now you can provide the @user.id@ field yourself in the HTTP parameters. When Play finds the @id@ field, it loads the matching instance from the database before editing it. The other parameters provided by the HTTP request are then applied. So you can save it directly.
 
 bc. public static void save(User user) {
     user.save(); // ok with 1.0.1
 }
 
-もちろん、この機能は既存のアプリケーションを壊してしまうかもしれないので、デフォルトでは有効ではありません。これは以下の行を @application.conf@ ファイルに追加することで有効にすることができます:
+Of course as this feature can break existing applications it is not enabled by default. You can enable it by adding the following line to your @application.conf@ file:
 
 bc. future.bindJPAObjects=true
 
-この行は、リリース 1.0.1 で作られた新規アプリケーションには追加されます。
+This line is added to new applications created with the 1.0.1 release.
 
-h2. <a>コマンドラインからのフレームワーク ID の設定</a>
+h2. <a>Framework ID can be set from the command line</a>
 
-フレームワーク ID によって、同じ Play アプリケーションを異なる設定 (例えば dev, test, staging, production, など…) で実行することができます。
+The framework ID allows you to run different configurations for a same Play application (ie dev, test, staging, production, etc…).
 
-コマンドラインを使うことで、アプリケーションが使用する "フレームワーク ID":ids を指定することができます。例えば、アプリケーションを production モードで実行するには、以下のコマンドを:
+Using the command line, you can now specify the application "framework ID":ids the application will use. For example, to run an application in production mode:
 
 bc. play run --%production
 
-以下の行を @application.conf@ ファイルに定義して実行します:
+With these lines defined in the @application.conf@ file:
 
 bc. application.mode=dev
 %production.application.mode=prod
 
-これは、フレームワーク id 情報を使用する全ての既存のコマンドと互換性があります。今でも、デフォルト ID は @play id@ コマンドを使って定義します。
+It is compatible with all the existing commands using the framework ID information. The default ID is still defined using the @play id@ command.
 
-ちなみに @play test@ は以下と等価です:
+By the way, @play test@ is then equivalent to:
 
 bc. play run --%test
 
-h2. <a>カスタムバリデーション</a>
+h2. <a>Custom validation</a>
 
-必要なバリデータを @play.data.validation@ パッケージから探すことができませんか? 自分で書きましょう。一般的な <code>@CheckWith</code> アノテーションを使って、独自の @Check@ 実装を紐付けることができます。
+Can’t find the validator you need in the @play.data.validation@ package? Write your own. You can use the generic <code>@CheckWith</code> annotation to bind your own @Check@ implementation.
 
-例:
+For example:
 
 bc. public class User {
     
@@ -117,17 +117,17 @@ bc. public class User {
     }
 }
 
-h2. <a>テストランナーの更新</a>
+h2. <a>Test runner update</a>
 
-selenium をバージョン 1.0.1 final に更新し、UI を改良しました。Selenium テストは全画面で実行されます。さらに "Run all tests" のような新機能がいくつか追加されています。
+We’ve updated Selenium to the 1.0.1 final version and improved the UI. Selenium tests now run in fullscreen. And some new functionality like the "Run all tests" have been added.
 
 !images/selenium-fullscreen!
 
-アプリケーションを test モードで実行した場合、ローカルのドキュメントを利用することもできます。
+Also local documentation is now available when you run your application in test mode.
 
-h2. <a>HTML5 をデフォルトの doctype へ、そして JQuery を新規アプリケーションへ</a>
+h2. <a>HTML5 as default doctype and JQuery in new applications</a>
 
-新規アプリケーションにはデフォルトの HTML スケルトンが含まれます。以前、このスケルトンは **XHTML 1.0 Transitional** でフォーマットされた HTML でした。今では、デフォルトで **HTML5** doctype となります:
+New applications come with a default HTML skeleton. Previously it was a **XHTML 1.0 Transitional** formatted HTML. Now it comes with a **HTML5** doctype by default:
 
 bc. <!DOCTYPE html>
  
@@ -138,7 +138,7 @@ bc. <!DOCTYPE html>
         <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/main.css'}">
         #{get 'moreStyles' /}
         <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
-        <script src="@{'/public/javascripts/jquery-1.3.2.min.js'}" type="text/javascript" charset="utf-8"></script>
+        <script src="@{'/public/javascripts/jquery-1.6.min.js'}" type="text/javascript" charset="utf-8"></script>
         #{get 'moreScripts' /}
     </head>
     <body>
@@ -146,50 +146,50 @@ bc. <!DOCTYPE html>
     </body>
 </html>
 
-これは単なるデフォルト設定であり、当然、お望みであればどのような doctype にも変更可能です。しかしながら、"HTML5":http://html5.org は間違いなく次世代的であり、簡単です。
+It’s just the default and you can of course change it to any doctype if you wish. However "HTML5":http://html5.org is surely the future and is way simpler.
 
-デフォルトテンプレートには **JQuery** Javascript ライブラリが含まれます。これは、モダンな web アプリケーションには優れた Javascript フレームワークが必要であり、かつ我々が "JQuery":http://www.jquery.com を愛しているからです。こちらも単なるデフォルト設定であり、お望みのどんな Javascript ライブラリで置き換えることもできます。
+The default template comes with the **JQuery** JavaScript library. This is because modern web applications need a good JavaScript framework and we love "JQuery":http://www.jquery.com. Again it is just the default and you can of course override it with whatever JavaScript library you want.
 
-ああ、そして、デフォルトテンプレートには追加のスクリプトと/またはスタイルを挿し込む 2 つのデフォルトのプレースホルダが含まれます。例えば、以下のようにしてビューに追加します:
+Oh, and it comes with two default placeholders to inject even more scripts and/or styles. For example, add in your view:
 
 bc. #{set 'moreScripts'}
 <script src="@{'/public/javascripts/gears_init.js'}" type="text/javascript">
 </script>
 #{/set}
 
-これで、このビューにて gear Javascript ライブラリにアクセスすることができるようになります。
+And the gear JavaScript library will be accessible in your view.
 
-h2. <a>#{list} タグの改善</a>
+h2. <a>Improved #{list} tag</a>
 
-@items@ パラメータはオプションとなり、デフォルトの @arg@ 引数で置き換えることが可能です。
+The @items@ parameter is now optional and can be replaced by the default @arg@ argument.
 
-このため:
+So you can rewrite:
 
 bc. #{list items:users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-を、以下のように書き換えることができます:
+as:
 
 bc. #{list users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-@as@ パラメータもまたオプションです。デフォルト変数名として @_@ を使用します:
+The @as@ parameter is now optional as well. It uses @_@ as default variable name:
 
 bc. #{list users}
     <li>${_}</li>
 #{/list}
 
-h2. <a>新しい #{jsAction /} タグ</a>
+h2. <a>New #{jsAction /} tag</a>
 
-この @#{jsAction /}@ タグは、サーバ側で定義されたルートを Javascript 関数として取り込めるようにします。これは、自由な引数を使う AJAX によって URL を呼び出す必要がある場合に、とても便利です。
+The @#{jsAction /}@ tag allows to import a server-side defined route as a JavaScript function. It is very useful if you need to call an URL with an AJAX call using free variables.
 
-例を見てみましょう:
+Let’s see an example:
 
 bc. GET     /users/{id}        Users.show
 
-このルートをクライアント側に取り込むことができます:
+Now you can import this route on the client side:
 
 bc. <script type="text/javascript">
     var showUserAction = #{jsAction @Users.show(':id')}
@@ -199,32 +199,32 @@ bc. <script type="text/javascript">
     }
 </script>
 
-見ての通り、自由な引数を定義するために @:name@ 構文を使用します。可変引数と固定引数を一緒に使用することも可能です。この @#{jsAction /}@ タグは Javascript 関数を出力します。この関数は全ての可変引数を定義する Javascript オブジェクトを引数として受け取ります。
+As you see you use the @:name@ syntax to declare free variables. You can mix free and fixed variables together. The @#{jsAction /}@ tag generates a JavaScript function. This function takes a JavaScript object as parameter that must define all the free variables.
 
-h2. <a>新しいサンプルアプリケーション: ‘booking’</a>
+h2. <a>New sample application: ‘booking’</a>
 
-この @予約@ アプリケーションは、有名な "JBoss Seam フレームワークの予約アプリケーション":http://docs.jboss.com/seam/latest/reference/en-US/html/tutorial.html#booking を移植したものです。
+The @booking@ application is a port of the well known "booking application from the JBoss Seam framework":http://docs.jboss.com/seam/latest/reference/en-US/html/tutorial.html#booking.
 
-この予約アプリケーションは、ステートレスなフレームワークを使って、クライアント側で RESTFul な方法で複雑な状態をどのように管理するかを示します。
+It demonstrates how you can manage complex states client side in a RESTful way with a stateless web framework.
 
 !images/booking!
 
-h2. <a>Eclipse プラグインは順調です</a>
+h2. <a>Eclipse plug-in is on its way</a>
 
-Eclipse 専用プラグインを提供するためにがんばって作業しています。現状はアルファ版ですが、すでに利用可能です。このプラグインは Play インストールパスの @support/eclipse@ ディレクトリにあります。
+We are working hard to provide a dedicated Eclipse plug-in. The current status is alpha but already usable. You can find it in the @support/eclipse@ directory of your Play installation.
 
 !images/eclipse-plugin!
 
-h2. <a>IntelliJ IDEA のサポート</a>
+h2. <a>Support for IntelliJ IDEA</a>
 
-今や Play フレームワークは、そのままで "IntelliJ IDEA":http://www.jetbrains.com/idea/ をサポートします!
+The Play framework now supports "IntelliJ IDEA":http://www.jetbrains.com/idea/ out of the box!
 
-Play アプリケーションを IntelliJ IDEA プロジェクトに変換するには、 @idealize@ コマンドを使います:
+To convert your Play application into an IntelliJ IDEA project, use the @idealize@ command:
 
 bc. # play idealize myApp
 
 !images/intellij!
 
-コンテキストメニューから実行やデバッグを行うことができます。
+You can use the Run and Debug using the context menu.
 
-p(note). 次のリリース: %(next)"Play 1.0.2 リリースノート":releasenotes-1.0.2%
+p(note). Next release: %(next)"Play 1.0.2 release notes":releasenotes-1.0.2%
