@@ -166,8 +166,8 @@ Más referencias para la programación del día a día.
 
 # <a class="navigation" href="index">Guía rápida</a>
 # <a class="navigation" href="/@api/index.html">Documentación de la API (Javadoc)</a>
-# "Hoas ayuda-memoria":cheatsheet/commandLine
-## "Instrucción de línea de comandos":cheatsheet/commandLine
+# "Hojas ayuda-memoria":cheatsheet/commandLine
+## "Instrucciones de línea de comandos":cheatsheet/commandLine
 ## "Controladores":cheatsheet/controllers
 ## "Templates":cheatsheet/templates
 ## "Modelos":cheatsheet/model
