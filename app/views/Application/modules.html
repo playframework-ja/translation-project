@@ -2,7 +2,7 @@
 #{set title:'Modules' /}
 
 <div id="top">
-    <p class="category">コミュニティが寄付した拡張</p>
+    <p class="category">&{'modules.title'}</p>
 </div>
 
 <div class="wrapper">
@@ -11,7 +11,7 @@
         
         <ul class="sidemenu">
             <li class="selected">
-                <a href="/modules">すべてのモジュール</a> <span>⬅</span>
+                <a href="/modules">&{'modules.allModules'}</a> <span>⬅</span>
             </li>
             <li class="">
                 <a href="/modules/scala">Scala</a> <span>⬅</span>
@@ -42,14 +42,13 @@
     
     <div class="wrapped wikistyle">
     
-        <h1>モジュールリポジトリ</h1>
+        <h1>&{'modules.repository'}</h1>
         <p>
-            ここでは play コミュニティから寄付された素晴らしいモジュールを見つけることができます。好きなものを選んで、その機能をアプリケーションに追加してください。
-            モジュールに関するヘルプが必要ですか？<a href="/documentation/latest/modules">マニュアルページ</a> を確認してください。
+            &{'modules.repository.text'}
         </p>
         
         <p>
-            <input type="text" id="keyword" size="50" class="disabled" style="font-size: 20px" defaultvalue="なにか特別なものをお探しですか？" />
+            <input type="text" id="keyword" size="50" class="disabled" style="font-size: 20px" defaultvalue="&{'modules.defaultSearch'}" />
         </p>
         
         <div id="modules">
@@ -58,7 +57,7 @@
             <h2>[${module.id}] <a>${module.name}</a> <span class="by">by ${module.author}</span></h2>
             <p>${module.description.raw()}</p>
             <p>
-                <a href="/modules/${module.id}">詳細とバージョン</a>
+                <a href="/modules/${module.id}">&{'modules.details'}</a>
             </p>
             </div>
             #{/list}
