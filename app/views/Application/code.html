@@ -2,7 +2,7 @@
 #{set title:'Code' /}
 
 <div id="top">
-    <p class="category">Play framework に貢献する</p>
+    <p class="category">&{'code.title'}</p>
 </div>
 
 <div class="wrapper">
@@ -11,82 +11,80 @@
         
         <ul class="sidemenu">
             <li>
-                <a href="http://github.com/playframework/play" target="_blank">ソースコード</a>
+                <a href="http://github.com/playframework/play" target="_blank">&{'code.links.source'}</a>
             </li>
             <li>
-                <a href="http://play.lighthouseapp.com" target="_blank">バグトラッキング</a>
+                <a href="http://play.lighthouseapp.com" target="_blank">&{'code.links.bugTracking'}</a>
             </li>
             <li>
-                <a href="http://github.com/playframework/play/contributors" target="_blank">コミッタ</a>
+                <a href="http://github.com/playframework/play/contributors" target="_blank">&{'code.links.contributors'}</a>
             </li>
             <li>
-                <a href="http://integration.playframework.org" target="_blank">CI サーバ</a>
-
+                <a href="http://www.playframework.org/code/security" target="_blank">&{'code.links.security'}</a>
             </li>
             <li>
-                <a href="http://download.playframework.org" target="_blank">ダウンロード</a>
+                <a href="http://integration.playframework.org" target="_blank">&{'code.links.integrationServer'}</a>
+            </li>
+            <li>
+                <a href="http://download.playframework.org" target="_blank">&{'code.links.download'}</a>
             </li>
         </ul>
     </div>
     
     <div class="wrapped wikistyle">
         
-        <h1>ライセンス</h1>
+        <h1>&{'code.license'}</h1>
         
         <p>
-            Play framework のコードは <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a> でリリースされています。
+            &{'code.license.text'}
         </p>
         
-        <h2>バグ報告</h2>
+        <h2>&{'code.bugs'}</h2>
         
         <p>
-            バグトラッカに <a href="http://play.lighthouseapp.com">Lighthouse</a> を使用しています。
-            バグレポートはとても役に立つので、時間を割いてバグトラッカにバグを報告したり機能をリクエストしてください。
-            Play コードのパッチは常に歓迎します。パッチが添付されたバグ報告は、そうでないものよりもはるかに早く修正されるでしょう。
+            &{'code.bugs.text'}
         </p>
 
         
-        <h2>コードの取得</h2>
+        <h2>&{'code.getCode'}</h2>
 
         <p>
-            Play framework はバージョン管理システム Git を使用する Github で管理されています。以下のコマンドでコードを取得することができます:
+            &{'code.getCode.text'}
         </p>
 
         <pre><code>git clone git://github.com/playframework/play.git</code></pre>
         
         <p>
-            プロジェクトのヒストリはかなり大きいです。--depth を使ってコミット番号を指定した浅いクローンだけを pull することができます:
+            &{'code.getCode.text2'}
         </p>
-
         
         <pre><code>git clone git://github.com/playframework/play.git --depth 10</code></pre>
         
-        <h2>ソースからのビルド</h2>
+        <h2>&{'code.source'}</h2>
         
         <p>
-            Play framework をビルドするためには <a href="http://ant.apache.org/">Ant</a> が必要です。<strong>framework/</strong> ディレクトリに移動して以下のコマンドを実行してください:
+            &{'code.source.text'}
         </p>
         
         <pre><code>ant</code></pre>
         
         <p>
-            これだけです！テストスイートを実行したい場合は、下記のコマンドを実行してください:
+            &{'code.source.text2'}
         </p>
         
         <pre><code>ant test</code></pre>
         
-        <h2>貢献</h2>
+        <h2>&{'code.contribute'}</h2>
         
         <p>
-            貢献する最もよい方法は、バグを見つけること、バグを報告すること、バグのためのテストを書くこと、そしてドキュメントを改善することです。
-            Play コードのパッチは常に歓迎します。パッチが添付されたバグ報告は、そうでないものよりもはるかに早く修正されるでしょう。
+            &{'code.contribute.text'}
         </p>
 
         <p>
-            コードを修正するときは、設計方針に従うよう注意してください。特に、モジュールや古いバージョンの互換性を壊さないよう注意してください。また、妥当な理由無しに複雑さを増大させないよう注意してください。
+            &{'code.contribute.text2'}
         </p>
         <p>
-            パッチを持っていますか？<a href="http://play.lighthouseapp.com/projects/57987/contributor-guide">貢献者ガイド</a> を確認してください。
+            &{'code.contribute.text3'}
         </p>
         
     </div>
