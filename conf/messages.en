@@ -2,18 +2,8 @@
 # For example, for French create a messages.fr file
 #
 
-about.title=About this site
-about.welcome=Welcome to playdoces
-about.welcome.text=Welcome to the Play framework site for spanish speaking community. Information on this site is shown below. 
-about.disclaimer=This is not an official play framework site. 
-about.disclaimer.text=This project IS NOT made by <a href="http://www.playframework.org/">playframework.org</a>.
-about.disclaimer.text2=Please do not make any question about the contents of this project to playframework.org.
-about.acknowledment=Acknowledgments
-about.acknowledment.text=Based on %s, developed and maintained by %s.
-about.translators=Translators
-about.translators.text=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
-
-### main.html
+### views/main.html
+#------------------
 
 main.header.home=Home
 main.header.learn=Learn
@@ -55,39 +45,59 @@ main.footer.message.authors=Play! is brought to you by <a href="http://guillaume
 main.footer.message.license=Distributed under apache 2 licence
 main.footer.message.hosting=Hosted on <a href="http://www.playapps.net/">playapps.net</a>
 
-### index.html
+### views/Application/index.html
+#-------------------------------
 
 # main panel, introduction section
-index.introduction.title=The Play framework makes it easier to build Web applications with Java and <a href="http://scala.playframework.org/">Scala</a>
-index.introduction.content=Finally a Java Web framework made by Web developers. Discover a clean alternative to bloated enterprise Java stacks. Play focuses on developer productivity and targets RESTful architectures.
+index.introduction.title=\
+  The Play framework makes it easier to build Web applications with Java and <a href="http://scala.playframework.org/">Scala</a>
+
+index.introduction.content=\
+  Finally a Java Web framework made by Web developers. \
+  Discover a clean alternative to bloated enterprise Java stacks. \
+  Play focuses on developer productivity and targets RESTful architectures.
 
 # overview panel (features)
 
 index.features.title=Quick overview
 
 index.features.refresh=Fix the bug and hit reload!
-index.features.refresh.content=Edit your Java files, save, refresh your browser and see the results immediately! No need to compile, deploy or restart the server.
+index.features.refresh.content=\
+  Edit your Java files, save, refresh your browser and see the results immediately! \
+  No need to compile, deploy or restart the server.
 
 index.features.stateless=Stateless model
-index.features.stateless.content=Play is a real "Share nothing" system. Ready for REST, it is easily scaled by running multiple instances of the same application on several servers.
+index.features.stateless.content=\
+  Play is a real "Share nothing" system. Ready for REST, \
+  it is easily scaled by running multiple instances of the same application on several servers.
 
 index.features.template=Efficient template system
-index.features.template.content=A clean template system based on Groovy as an expression language. It provides template inheritence, includes and tags.
+index.features.template.content=\
+  A clean template system based on Groovy as an expression language. It provides template inheritence, includes and tags.
 
 index.features.async=Asynchronous
-index.features.async.content=Based on an Non blocking IO model, it allows to create modern web applications based on long polling and WebSockets
+index.features.async.content=\
+  Based on an Non blocking IO model, it allows to create modern web applications based on long polling and WebSockets
 
 index.features.fullStack=Full stack
-index.features.fullStack.content=All you need to create a cool web application Provides integration with Hibernate, OpenID, Memcached... And a plugin system.
+index.features.fullStack.content=\
+  All you need to create a cool web application. \
+  Provides integration with Hibernate, OpenID, Memcached... And a plugin system.
 
 index.features.java=Pure Java
-index.features.java.content=Code with Java, use any Java library and develop with your preferred IDE. Integrates nicely with eclipse or netbeans.
+index.features.java.content=\
+  Code with Java, use any Java library and develop with your preferred IDE. \
+  Integrates nicely with eclipse or netbeans.
 
 index.features.fixErrors=Resolve errors quickly
-index.features.fixErrors.content=When an error occurs, play shows you the source code and the exact line containing the problem. Even in templates.
+index.features.fixErrors.content=\
+  When an error occurs, play shows you the source code and the exact line containing the problem. \
+  Even in templates.
 
 index.features.fun=Fun & Productive
-index.features.fun.content=Cut out the time you spend waiting for your Java application to restart, increase your productivity and complete your projects faster.
+index.features.fun.content=\
+  Cut out the time you spend waiting for your Java application to restart, \
+  increase your productivity and complete your projects faster.
 
 # right panel download section
 index.download.title=Get it now!
@@ -97,9 +107,6 @@ index.download.othersLink=other versions of the framework
 
 # right panel learn section
 index.learn.title=Learn
-# params: Play framework overview, the tutorial, documentation
-index.learn.content=Read the &{index.learn.overview}.
-
 index.learn.content=\
   Read the <a href="/documentation/latest/overview">&{index.learn.overview}</a>, \
   work through the <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, \
@@ -108,7 +115,6 @@ index.learn.content=\
 index.learn.overview=Play framework overview
 index.learn.tutorial=tutorial
 index.learn.documentation=documentation
-
 
 # right panel get help section
 index.help.title=Get help
@@ -125,7 +131,10 @@ index.help.meet=meet
 
 # right panel contribute section
 index.contribute.title=Contribute
-index.contribute.content=File <a href="http://play.lighthouseapp.com/" target="_blank">&{index.contribute.bugReports}</a>, check out the <a href="http://github.com/playframework/play" target="_blank">&{index.contribute.source}</a>, and <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide" target="_blank">&{index.contribute.contributeBack}</a> to the project.
+index.contribute.content=   
+  File <a href="http://play.lighthouseapp.com/" target="_blank">&{index.contribute.bugReports}</a>, \
+  check out the <a href="http://github.com/playframework/play" target="_blank">&{index.contribute.source}</a>, \
+  and <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide" target="_blank">&{index.contribute.contributeBack}</a> to the project.
 
 index.contribute.bugReports=bug reports
 index.contribute.source=source code on github
@@ -138,7 +147,8 @@ index.twitter.title=Twitter buzz
 index.events.title=Next developers event
 index.events.checkAll=Check all events
 
-### documentation/page.html
+### views/Documentation/page.html
+#--------------------------------
 
 documentation.title=Manual, tutorials & references
 documentation.browse=Browse
@@ -153,4 +163,163 @@ documentation.search.help=Get help with google
 documentation.books=Books
 
 documentation.comments=Comments
-documentation.comments.text=Use this form to add corrections, additions and suggestions about the documentation on this page. Please ask questions on the play-framework group instead. Support requests, bug reports, and off-topic comments will be deleted without warning. 
+documentation.comments.text=\
+  Use this form to add corrections, additions and suggestions about the documentation on this page. \
+  Please ask questions on the play-framework group instead. \
+  Support requests, bug reports, and off-topic comments will be deleted without warning. 
+
+
+
+### views/Application/download.html
+#----------------------------------
+
+download.title=%s downloads, and counting
+download.text=\
+  Every binary package contains all required dependencies, the complete documentation, \
+  a full set of sample applications and support for many IDE and text editors.
+
+download.latest=Get the latest official version
+download.latest.text=The latest official version is  <strong>%s</strong> (%s).
+
+download.upcoming=Next version
+download.upcoming.test=Don't miss the opportunity to try the next version of play.
+
+download.older=Older versions
+download.older.text=\
+  Looking for older versions of Play? You can find some of our latest releases below.
+
+download.night=Nighties version
+download.night.text=\
+  Wanna take a walk on the wild side? Go ahead and try one of the nightly builds.
+
+
+### views/Application/code.html
+#------------------------------
+
+code.title=Contribute to Play framework
+
+# right panel
+code.links.source=Source code
+code.links.bugTracking=Bug Tracking
+code.links.contributors=Contributors
+code.links.security=Security reports
+code.links.integrationServer=Integration server
+code.links.download=Download play! framework
+
+# content page
+
+code.license=License
+code.license.text=\
+  The Play framework source code is released under the \
+  <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a>.
+  
+code.bugs=Reporting bugs
+code.bugs.text=\
+  We use <a href="http://play.lighthouseapp.com">Lighthouse</a> as issue tracker. \
+  Bug reports are incredibly helpful, so take time to report bugs and request features in our ticket tracker. \
+  We’re always grateful for patches to Play’s code. \
+  Indeed, bug reports with attached patches will get fixed far quickly than those without any.
+
+code.getCode=Getting the code
+code.getCode.text=\
+  Play framework is hosted on Github using the Git version control system. \
+  You can get the code with the following command:
+code.getCode.text2=\
+  The project history is pretty big. \
+  You can pull only a shallow clone by specifying the number of commits you want with —depth:
+
+code.source=Building from source
+code.source.text=\
+  You need Ant to build the Play framework. Just en enter the framework/ directory and run:
+code.source.text2=\
+  That's all! If you want run the test suite on your computer, just run:
+  
+code.contribute=Contributing
+code.contribute.text=\
+  The best ways to contribute are by finding and reporting bugs, \
+  writing tests for bugs, and improving the documentation. \
+  We’re always grateful for patches to Play’s code. \
+  Indeed, bug reports with attached patches will get fixed far quickly than those without.
+code.contribute.text2=\
+  If you want to change the code, be careful follow our design-decisions. \
+  Be especially careful not to break compatibility with modules and older versions, \
+  or to increase complexity if you don't have a really good reason.
+code.contribute.text3=\
+  You have a patch? Check the <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide">contributor guide</a>.
+
+### views/Application/ecosystem.html
+#-----------------------------
+
+ecosystem.title=Professional services and hosting
+
+ecosystem.consulting=Consulting, training & support
+
+ecosystem.zenexity.text=\
+  Being the company behind Play framework, \
+  <a href="http://www.zenexity.com">Zenexity</a> can help you understand \
+  the key concepts in order to unleash its full power.
+ecosystem.zenexity.text2=\
+  We audit your Play applications, train your teams, \
+  bootstrap your project and help you to integrate it in your existing information system. \
+  We also offer professionnal support for mission critical applications running on Play.
+
+ecosystem.lunatech.title=Lunatech Research, Netherlands
+ecosystem.lunatech.text=\
+  <a href="http://www.lunatech-research.com/">Lunatech</a> has contributed to Play since its beginning. \
+  We can help you design an elegant architecture, \
+  reuse your existing services and build rock-solid RESTful web services and applications.
+ecosystem.lunatech.text2=\
+  If you also want to integrate your Play application with your existing Java EE service stack, \
+  but you don't really know how, just ask us. We provide technical training as well. \
+  We can also provide third-line support for the Play! framework, \
+  with an agreed SLA for developer questions, framework bug fixing and enhancements.
+
+ecosystem.hosting=Hosting
+
+ecosystem.heroku.title=Heroku
+ecosystem.heroku.text=\
+  <a href="http://www.heroku.com">Heroku</a> (pronounced her-OH-koo) \
+  is a cloud application platform – a new way of building and deploying web apps.
+ecosystem.heroku.text2=\
+  It supports natively Play, out of the box, no module, no wars, no extra stuff, just your plain application.
+
+ecosystem.playapps.title=playapps.net
+ecosystem.playapps.text=\
+  <a href="http://www.playapps.net">Playapps.net</a> is a streamlined deployment environment \
+  designed to get your Play applications up and running quickly and efficiently.
+ecosystem.playapps.text2=\
+  It was created with the simplicity of the Play framework in mind \
+  and each slot includes all services needed to run your application without the hassle of running your own server.
+
+
+### views/Application/modules.html
+#---------------------------
+
+modules.title=Community contributed extensions
+
+modules.repository=Modules repository
+modules.repository.text=\
+  Here you can find great modules contributed by the play community. \
+  Make your choice and add instant power to your application. \
+  Need help about modules? Check the <a href="/documentation/latest/modules">manual page</a>.
+
+modules.allModules=All modules
+
+modules.defaultSearch=Search for something special?
+
+modules.details=Get details and version
+
+### views/Application/about.html
+#-------------------------
+
+about.title=About this site
+about.welcome=Welcome to playdoces
+about.welcome.text=Welcome to the Play framework site for spanish speaking community. Information on this site is shown below. 
+about.disclaimer=This is not an official play framework site. 
+about.disclaimer.text=This project IS NOT made by <a href="http://www.playframework.org/">playframework.org</a>.
+about.disclaimer.text2=Please do not make any question about the contents of this project to playframework.org.
+about.acknowledment=Acknowledgments
+about.acknowledment.text=Based on %s, developed and maintained by %s.
+about.translators=Translators
+about.translators.text=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
+  
