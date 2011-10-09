@@ -2,7 +2,7 @@
 #{set title:'Code' /}
 
 <div id="top">
-    <p class="category">${downloads.format('#,###')} ダウンロード、カウント中</p>
+    <p class="category">&{'download.title', downloads.format('#,###')}</p>
 </div>
 
 <div class="wrapper" id="downloads">
@@ -10,14 +10,13 @@
     <div class="wrapped wikistyle">
         
         <p>
-           どのバイナリパッケージにも、必要なすべてのライブラリ、完全なドキュメント、一式のサンプルアプリケーション、
-           そして多くの統合開発環境とテキストエディタに対するサポートが含まれています。
+            &{'download.text'}
         </p>
         
-        <h2>公式の最新バージョンを取得する</h2>
+        <h2>&{'download.latest'}</h2>
         
         <p>
-            公式の最新バージョンは <strong>${latest.version}</strong> (${latest.date.format('MMMM dd, yyyy', 'us')}) です。
+            &{'download.latest.text', latest.version, latest.date.format('MMMM dd, yyyy', 'us')}
         </p>
         <table id="official">
             <tr>
@@ -28,10 +27,10 @@
         </table>
         
         #{if upcoming}
-        <h2>新登場</h2>
+        <h2>&{'download.upcoming'}</h2>
         
         <p>
-            次のバージョンのプレビューとリリース候補です。
+            &{'download.upcoming.text'}
         </p>
         <table>
             <tr class="odd">
@@ -42,10 +41,10 @@
         </table>
         #{/if}
         
-        <h2>古いバージョン</h2>
+        <h2>&{'download.older'}</h2>
         
         <p>
-            古いバージョンの Play をお探しですか? 以下で、いくつかの古いリリースを見つけることができます。
+            &{'download.older.text'}
         </p>
         
         <table>
@@ -59,10 +58,10 @@
         </table>
         
         #{if nightlies}
-        <h2>夜間ビルド</h2>
+        <h2>&{'download.night'}</h2>
         
         <p>
-            すべてのコミットの後に、ビルドしたフレームワークのコピーを配置しています。
+            &{'download.night.text'}
         </p>
         
         <table>
