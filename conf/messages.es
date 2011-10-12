@@ -210,7 +210,7 @@ code.links.download=Descarga play! framework
 
 code.license=Licencia
 code.license.text=\
-  El código fuente de Play framework es ditribuido en los términos de la
+  El código fuente de Play framework es ditribuido en los términos de la \
   <a href="http://www.apache.org/licenses/LICENSE-2.0.html">licencia Apache 2</a>.
   
 code.bugs=Reportando errores

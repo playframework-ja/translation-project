@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Introducing Play 2.0</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<link rel="stylesheet" href="/public/2.0/stylesheets/styles.css" media="screen" charset="utf-8" />
+		<script src="http://code.jquery.com/jquery-1.4.2.min.js" type="text/javascript" charset="utf-8"></script>
+		<script src="/public/2.0/javascript/script.js" type="text/javascript" charset="utf-8"></script>
+
+	</head>
+	<body>
+		<div id="home"></div>
+		<header id="top">
+			<a href="#home" id="logo"><img src="/public/2.0/images/mini-logo.png" alt="Play framework" width="83"/></a>
+			<ul id="menu">
+				<li><a href="#changes">Introducing Play 2.0</a></li>
+				<li><a href="#features">Track our progress</a></li>
+
+				<li><a href="#faq">Frequently Anticipated Questions</a></li>
+				<li><a href="#share">Share</a></li>
+			</ul>
+			<span id="marker"></span>
+		</header>
+		<div id="announcement">
+			<div id="description">
+				<h1>Working on Play 2.0</h1>
+
+				<p>It's time to move on! We are working on the next major version of Play framework, integrating a brand new build system and awesome asynchronous features all with native Java and Scala support.</p>
+				<p>Play 2.0 is still under heavy development and APIs are likely to change, but you can already have a look and download the preview version.</p>
+				<dl id="download">
+					<dt><a href="http://download.playframework.org/releases/play-2.0-preview.zip">Download Play-2.0-preview</a></dt>
+					<dd><a href="http://github.com/playframework/play20">Check the source on Github</a></dd>
+				</dl>
+			</div>
+
+			<div id="history" class="v1">
+				<div id="hplay">Play! framework</div>
+				<div id="hjava">Java</div>
+				<div id="hscala">Scala</div>
+				<div id="hjsp">JSP</div>
+				<div id="hservlet">Servlet</div>
+
+				<div id="hgroovy">Groovy</div>
+				<div id="hpython">Python</div>
+				<div id="hasync">Async I/O</div>
+				<div id="hsbt">sbt</div>
+				<div id="hakka">Akka</div>
+				<div id="hdeps">Ivy</div>
+
+				<div id="hsocket">WebSockets</div>
+				<div id="htemplates">Templates</div>
+				<ul id="historyMenu">
+					<li id="va">0.x</li>
+					<li id="vb">1.0</li>
+					<li id="v1" class="active">1.2</li>
+
+					<li id="v2">2.0</li>
+                </ul>
+			</div>
+		</div>
+		<section id="wrapper">
+
+			<article id="changes">
+				<header>
+					<h1>Introducing Play 2.0</h1>
+
+					<p>by Guillaume Bort, Play project’s lead developer.</p>
+				</header>
+				<div class="cols">
+					<p>Since 2007, we have been working on making Java web application development easier. Play started as an internal project at Zenexity and was heavily influenced by our way of doing web projects: focusing on developer productivity, respecting Web architecture, and using from the start a fresh approach to packaging conventions - breaking so-called JEE best practices where it made sense.</p>
+					<p>In 2009, we decided to share these ideas with the community as an open source project. The immediate feedback was extremely positive and the project gained a lot of traction. Today - after two years of active development - Play has several versions, an active community of 3,000 people, with a growing number of applications running in production all over the globe.</p>
+					<p>Opening a project to the world certainly means more feedback, but it also means discovering and learning about new use cases, requiring features and un-earthing bugs that we were not specifically considered in the original design and assumptions. During the two years of work on Play as an open source project we have worked to fix all of these kind of issues, as well as to integrate new features to support a wider range of scenarios. As the project has grown, we have learned a lot from our community and from our own experience - using Play in more and more complex and varied projects.</p>
+					<p>In the meantime, technology and the Web have continued to evolve. The Web has become the central point of all applications. HTML, CSS and Javascript technologies have evolved quickly - making it almost impossible for a server-side framework to follow. The whole Web architecture is fast moving towards real-time, and the emerging requirements of today's project profiles mean SQL no longer works as the exclusive datastore technology. At the programming language level we've witnessed some monumental changes with several JVM languages, including Scala, gaining popularity.</p>
+
+					<p><strong>That's why we think it's now time to move on, and to consider the next major version of Play. Welcome Play 2.0</strong></p>
+				</div>
+
+				<div id="wholeAnnouncement">
+
+				    <h2>Native support for Java and Scala</h2>
+    				<div class="cols">
+    					<p>In Play 1.1, we started exploring the possibility of using the Scala programming language for writing Play applications. We initially introduced this work as an external module to be able to experiment freely without impacting the framework itself</p>
+       					<p>Properly integrating Scala into a Java-based framework is not trivial. Considering Scala’s compatibility with Java, one can quickly achieve a first naive integration that simply uses Scala’s syntax instead of Java’s. This, however, is certainly not the optimal way of using the language. Scala is a mix of true object orientation with functional programming. Leveraging the full power of Scala requires rethinking most of the framework’s APIs. After several versions we now have a clean <a href="http://scala.playframework.org">Scala module</a> that allows the use of most of Play's features from Scala, in a Scala-ish manner.</p>
+    					<p>Now, we are reaching the limits of what we can do with Scala support as a separate module. Initial design choices we made in Play 1.x, relying heavily on Java reflection API and byte code manipulation, have made it harder to progress without completely rethinking some essential parts of Play’s internals. Meanwhile, we have created several awesome components for the Scala module, like the new type-safe template engine and the brand new SQL access component Anorm. So we have decided that, to fully unleash the power of Scala with Play, we are moving Scala support from a separate module to the core of Play 2.0, which will be designed from the beginning to natively support Scala as a programming language.</p>
+    					<p>Java, on the other hand, is certainly not getting any less support from Play 2.0; quite the contrary. The Play 2.0 build provides us with an opportunity to enhance the development experience for Java developers. Backed by our experience throughout the project we have a clear idea of what we need to achieve and what mistakes we have to avoid.</p>
+    				</div>
+
+    				<h2>Powerful build system</h2>
+
+    				<div class="cols">
+    					<p>From the beginning we have chosen a fresh way to run, compile and deploy Play applications. At the time it may have looked like an esoteric design - but it was crucial to providing an asynchronous HTTP API instead of the standard Servlet API, short feedback cycles through live compilation and reloading of source code during development, and promoting a fresh packaging approach. Consequently, It was difficult to make Play follow the standard JEE conventions.</p>
+    					<p>Today, this idea of container-less deployment is more and more accepted in the Java world. It's a design choice that has allowed the Play framework to run natively on platforms like Heroku, which introduced a model that we consider the future of Java applications deployment on elastic PaaS platforms.</p>
+    					<p>Existing Java build systems, however, were not flexible enough to support this new approach. Since we wanted to provide straightforward tools to run and deploy Play applications, in Play 1.x we created a collection of Python scripts to handle all build and deployment related tasks.</p>
+    					<p>But developers using Play for more enterprise-scale projects, which require build process customization and integration with their existing company build systems, were a bit lost. The Python scripts we provide with Play 1.x are in no way a fully featured build system and are not easily customizable. That's why we've decided to go for a more powerful build system for Play 2.0.</p>
+
+    					<p>As we need a modern build tool, flexible enough to support Play original conventions and able to build Java and Scala projects, we have chosen to integrate sbt in Play 2.0. This, however, should not scare existing Play users who are happy with the simplicity of Play build. We are leveraging the same simple play new, run, start experience on top of an extensible model: Play 2.0 will come with a preconfigured build script that will just work for most users. On the other hand, if you need to change the way your application is built, deployed, etc., a Play project being a standard sbt project will hand you all the power to customize and adapt it to your special needs.</p>
+    					<p>This also mean better integration with Maven projects out of the box, the ability to package and publish your project as a simple set of jar files to any repository, and especially live compiling and reloading at development time of any depended project even for standard Java or Scala libraries projects.</p>
+    				</div>
+
+    				<h2>Focused on type safety</h2>
+    				<div class="cols">
+
+    					<p>One benefit of using Java as programming language for writing Play applications is that the Java compiler can check certain parts of your code. This is not only useful for detecting mistakes early in the development process, but it also makes it a lot easier to work on large projects with a lot developers involved.</p>
+    					<p>Adding Scala to the mix for Play 2.0, we will clearly benefit from even stronger compiler guarantees - but that’s not enough. In Play 1.x, the template system is dynamic, based on the Groovy language, and the compiler can’t do much for you. As a result, errors in templates can only be detected at runtime. The same goes for verification of glue code with controllers.</p>
+    					<p>We really want to push further this idea of having Play check most of your code at compilation time in the 2.0 version. Accordingly, we have decided to use the Scala-based template engine as the default for Play applications - even for developers using Java as the main programming language. This doesn't mean that you have to become a Scala expert to write templates in Play 2.0, just like you were not really required to know Groovy to write templates in Play 1.x. Scala will be mainly used to navigate your object graph in order to display relevant information with a syntax that is very close to the Java one. However if you want to unleash the power of Scala to write advanced templates abstractions, you will quickly discover how Scala, being expression-oriented and functional, is a perfect fit for a template engine.</p>
+    					<p>And that's not only true for the template engine: the routing system will also be fully type-checked. Play 2.0 will check all your routes' descriptions, and verify that the everything is coherent, including the reverse routing part</p>
+    					<p>As a nice side effect, being fully compiled, the templates and route files will be easier to package and reuse and you can expect high performance gain on these parts at runtime.</p>
+    				</div>
+
+    				<h2>Built for asynchronism</h2>
+    				<div class="cols">
+    				    <p>Today's web applications are integrating more concurrent realtime data, so web frameworks need to support a full asynchronous HTTP programming model. Play 1.x was initially designed to handle classic Web applications with many short lived requests. But now, the event model is the way to go for persistent connections - though comet, long-polling and WebSockets.</p>
+    				    <p>Play 1.2 already provides great asynchronous HTTP support and WebScokets using continuations. Play 2.0 will be architected from the start under the assumption that every request is potentially long living. We want, for instance, to generalize Controller and WebsocketController concepts into one single simple model that fits all needs.</p>
+    				    <p>But that’s not all: we also need a powerful way to schedule and run long running tasks. Although the original Play 1.0 Jobs model was introduced for this, we really need something more powerful and robust. The Actor based model is unquestionably the best model today to handle highly concurrent systems, and the best implementation of that model available for both Java and Scala is Akka - so it's going in. We will be introducing native Akka support for Play applications, making it possible to write highly distributed systems.</p>
+
+    				</div>
+
+    				<h2>Datastore and Model integration</h2>
+    				<div class="cols">
+    				    <p>Datastore is no longer synonymous with "SQL database", and it probably never was. A lot of interesting models of datastores are becoming popular, providing different properties for different scenarios. For this reason it has become difficult for a Web framework like Play to make bold assumptions regarding the kind of datastore that will be used by developers. A generic play.db.Model concept in Play no longer makes sense, since it is almost impossible to abstract over all these kinds of technology with a single API.</p>
+    				    <p>We want to make it really easy in Play 2.0 to use any datastore driver, ORM, or any another database access library without any special integration with the Web framework. We simply want to offer a minimal set of helpers to handle common technical issues, like managing the connection bounds. We also want, however, to maintain the full-stack aspect of Play framework by bundling default tools to access classical databases for users that don't have specialized needs.</p>
+    				    <p>Today, the preferred way for a Play Java application to access an SQL database is the Play Model library that is powered by Hibernate. But since it's annoying in a stateless Web framework like Play to manage stateful entities such as the ones defined in the official JPA specification, we have provided a special flavor of JPA keeping things as stateless as possible. This forced us to hack Hibernate in a way that is probably not sustainable in the long term. To address this, we plan to move to an existing implementation of stateless JPA called <a href="http://www.avaje.org/">EBean</a>. If you don't care too much about what is used under the hood then it will change almost nothing for you, but if you really want to use Hibernate or even another official JPA implementation you will be able to do it without any special integration with Play. And if you are using Scala we will continue to bundle Anorm.</p>
+
+    				</div>
+
+    				<h2>Changes for current Play users</h2>
+    				<div class="cols">
+    				    <p>Play 2.0 will be a major release so it is unlikely that it will be compatible at the API level with previous versions. Of course at the architecture level you will find the same set of components, organized in the same way, and most importantly, you will live the same 'Play experience'.</p>
+    				    <p><strong>What about my existing Play applications? How difficult will it be to migrate?</strong></p>
+    				    <p>Don't worry, we don't expect you to migrate your existing applications to Play 2.0. The Play 1.x versions will continue to be maintained and you don't need to move to Play 2.0. We ourselves have many Play 1.x web applications running and we will of course continue to support them.</p>
+
+    				    <p><strong>Remember: Play 1.2.3 is still the best way to write Web applications in Java while Play 2.0 is still under development, and will continue to be maintained and developed by the core team and contributors. Play 2.0 is an opportunity to move to for your next project, or the next major rewrite of your application.</strong></p>
+    				</div>
+
+    				<h2>Getting started</h2>
+    				<div class="col">
+    				    <p>Play 2.0 is still under heavy development and APIs are likely to change, but you can already have a look to our preview versions. </p>
+    				    <p>Download the <a href="http://download.playframework.org/releases/play-2.0-preview.zip">first preview version</a>, or <a href="http://github.com/playframework/play20">follow the development directly on GitHub</a>.</p>
+
+    				</div>
+
+                </div>
+				<a href="#" class="link">すべての発表を読み、ロードマップを見る</a>
+			</article>
+
+			<div class="tweet">
+				<q>Woah... #playframework's new #scala template language looks awesome! <a href="http://bit.ly/mCR5Tu">http://bit.ly/mCR5Tu</a></q>
+
+				<a href="http://twitter.com/#!/grandfatha/statuses/70586943544631296" class="author">
+					<img src="http://a0.twimg.com/profile_images/1175953530/NwfUx_normal.jpeg" />
+					<cite>K.D.</cite>
+					<span>@grandfatha</span>
+				</a>
+			</div>
+
+			<article id="features">
+
+				<header>
+					<h1>Track our progress</h1>
+					<p>そand discover what's new in Play 2.0.</p>
+				</header>
+				${list.raw()}
+				<div class="details">
+					#{list items:details, as:'item'}
+					<div id="${item.get('id')}" class="detail #{if item_index == 1}active#{/if}">
+						<h3>lRelated tickets on lighthouse</h3>
+						${item.get('benefits').raw()}
+					</div>
+					#{/list}
+				</div>
+
+			</article>
+
+			<div class="tweet">
+				<q>So cool, Play framework rolles out Anorm - SQL data access with Scala <a href="http://bit.ly/rrpXUf">http://bit.ly/rrpXUf</a></q>
+				<a href="http://twitter.com/#!/hofri/status/105333391746015233" class="author">
+					<img src="http://a2.twimg.com/profile_images/300504667/foto_yehuda_normal.jpg" />
+					<cite>yehuda hofri</cite>
+					<span>@hofri</span>
+
+				</a>
+			</div>
+
+			<article id="faq">
+				<header>
+					<h1>FAQs</h1>
+					<p>Almost nothing changes, but it changes everything.</p>
+				</header>
+
+				<div class="details">
+					<div id="differencies">
+						<div class="bloc">
+						<h3>I want to create a new project using Play. Should I start with Play 2.0?</h3>
+						<p>Play 2.0 is still under heavy development. APIs are incomplete and likely to change. Currently, Play 1.2.3 is still the best way to write Web applications in Java, and will continue to be maintained and developed by the core team and contributors even after the 2.0 release. </p>
+						</div>
+
+						<div class="bloc">
+						<h3>Play 2.0 is exciting! When can I use it in my projects?</h3>
+						<p>We expect to release a usable beta towards the end of the year. In the meantime, you can try out the alpha and check the progress bars above and Lighthouse to follow the team's work.</p>
+						</div>
+
+						<div class="bloc">
+						<h3>Will all these new features slow down the framework?</h3>
+						p>We expect important performance improvements in Play 2.0, mostly because almost everything will be resolved at compilation time. Having a more complex build system may slightly slow down build performance at development time, but thanks to a better separation between dev and prod mode, it will not impact performance at runtime.</p>
+
+						</div>
+
+						<div class="bloc">
+						<h3>Why Scala? I would prefer support for language X instead.</h3>
+						<p>We want to continue to focus on a type safe approach where as most as possible parts of your application are checked by a compiler. We strongly believe Scala will continue to gain momentum as a type safe JVM language.</p>
+						</div>
+
+						<div class="bloc">
+						<h3>Can we have feature X in the 2.0 release?</h3>
+						<p>We have already planned a lot of changes in this release, and we want to avoid the <a href="http://en.wikipedia.org/wiki/Second-system_effect">Second System effect</a>. However if you think we missed something really important, you are free to open a discussion on the mailing list.</p>
+						</div>
+
+						<div class="bloc">
+						<h3>I want to help, how can I contribute to Play 2.0?</h3>
+						<p>We are currently working hard to lay the project foundations: the build system, compilers, base API etc. This low level work is being led by Play's team of core contributors. To get involved, please follow the development mailing list and issue tracker.</p>
+						</div>
+
+					</div>
+				</div>
+				<a href="https://groups.google.com/forum/#!forum/play-framework" class="link">Other questions? Ask us on Play’s mailing list.</a>
+			</article>
+
+			<div class="tweet">
+				<q>play! framework is shockingly good</q>
+				<a href="http://twitter.com/#!/whozman/status/28972750268" class="author">
+
+					<img src="http://a1.twimg.com/profile_images/78167632/alex4_normal.jpg" />
+					<cite>@whozman</cite>
+					<span>@whozman</span>
+				</a>
+			</div>
+
+			<div id="share">
+				<div class="back">${twitter.raw()}</div>
+				<div class="content">
+					<p class="buttons">
+						<a href="https://twitter.com/share?original_referer=http%3A%2F%2Fwww.playframework.org%2F2.0&source=tweetbutton&text=%23play2.0" class="tag">Share your thoughts about #play2.0</a>
+					</p>
+				</div>
+			</div>
+		</section>
+
+	</body>
+</html>
+

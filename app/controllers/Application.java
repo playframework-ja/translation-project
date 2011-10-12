@@ -22,6 +22,8 @@ import com.google.gson.annotations.*;
 
 public class Application extends Controller {
 
+	final private static String lang = play.i18n.Lang.get();
+	
     static {
 
         String hostKey = "http.proxyHost";
@@ -167,7 +169,9 @@ public class Application extends Controller {
 
         String twitter = getString(source.getElementById("share").getChildElements().get(0));
         
-        render(list, details, twitter);
+        renderTemplate("Application/"+lang+"/introduce20.html", list, details, twitter);
+        
+        //render(list, details, twitter);
     }
     
     private static Map<String, String> getMap(Source source, String id) {
