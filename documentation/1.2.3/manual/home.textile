@@ -17,7 +17,7 @@ Sus primeros pasos con play! y sus primeros 5 minutos de diversión.
 # "Configurando su IDE favorito":ide
 # "Su primera aplicación — ‘Hola mundo’ con play":firstapp
 # "Aplicaciones de ejemplo":samples
-# "Editando código 'en vivo’ - para practicar e impresionar a sus colegas":demoingplay
+# "Cómo hacer una demo de play - para practicar e impresionar a sus colegas":demoingplay
 
 h2. <a name="guide">Tutorial -- Guía de play, una verdadera aplicación paso a paso</a>
 
