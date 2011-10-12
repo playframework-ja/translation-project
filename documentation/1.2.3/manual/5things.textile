@@ -1,38 +1,38 @@
-h1. Five cool things you can do with Play
+h1. Cinco cosas en las que Play le facilita la vida
 
-Five examples to show the philosophy behind the Play framework.
+Cinco ejemplos para mostrarle la filosofía de Play.
 
-h2. <a>Bind an HTTP parameter to a Java method parameter</a>
+h2. <a>Vincular un parámetro HTTP a un parámetro de un método Java</a>
 
-Retrieving HTTP parameters from Java code is really simple with Play. Just declare method parameters with the same names as the HTTP parameters.
+Acceder a los parámetros HTTP desde el código Java es muy fácil con Play. Simplemente declare un método con parámetros cuyos nombres coincidan con los de los parámetros HTTP.
 
-For example, with this request:
+Por ejemplo, con este url:
 
 bc. /articles/archive?date=08/01/08&page=2
 
-You can retrieve the @date@ and @page@ parameters by declaring them as Java method parameters:
+Puede acceder a los parámetros **date** y **page** declarándolos como parámetros de un método Java:
 
 bc. public static void archive(Date date, Integer page) {
     List<Article> articles = Articles.fromArchive(date, page);
     render(articles);
 }
 
-Play will use the method parameter’s static type, to translate the HTTP value into a Java object.
+Play utilizará el tipo de dato del parámetro del método para traducir el valor HTTP a un objeto de Java.
 
-Smart binding also works **with any class.**
+Lo que es mejor, esta vinculación inteligente funcionará **con cualquier clase.**
 
 bc. public class Person {
     public String name;
     public Integer age;
 }
 
-A simplistic controller action to add a person may look like this:
+Un controlador básico que permita agregar una persona se verá así:
 
 bc. public static void add(Person p) {
     p.save();
 }
 
-The HTML form defines fields with composite names:
+En el formulario HTML defina campos con nombres compuestos.
 
 bc. <form action="/Directory/add" method="POST">
     Name: <input type="text" name="p.name" />
@@ -40,9 +40,9 @@ bc. <form action="/Directory/add" method="POST">
 </form>
 
 
-h2. <a>Redirect to an action by calling the corresponding Java method</a>
+h2. <a>Hacer un redirect a una acción llamando a un método de Java</a>
 
-There is no equivalent to the Java Servlet @forward@ command with Play. But redirecting to another action is really simple. Just call the corresponding Java method and Play will generate the correct HTTP ‘redirect’ response.
+No existe el equivalente al comando **forward** de los Servlets de Java en Play. Pero hacer un redirect hacia otra acción es realmente muy simple, tan sólo es preciso llamar al correspondiente método de Java y Play generará la respuesta HTTP "Redirect" por usted.
 
 bc. public static void show(Long id) {
     Article article = Article.findById(id);
@@ -56,21 +56,20 @@ public static void edit(Long id, String title) {
     show(id);
 }
 
+Preste atención a la manera en que al finalizar la acción "edit", efectuamos un redirect a la acción "show":
 
-Note how at the end of the edit action, we redirect to the show action.
-
-In any template you can use the equivalent syntax to generate the link:
+A su vez, en cualquier template puede utilizar la siguiente sintaxis para generar un link:
 
 bc. <a href="@{Article.show(article.id)}">${article.title}</a>
 
-That will generate the following HTML:
+Lo cual generará el siguiente código HTML:
 
 bc. <a href="/articles/15">My new article</a>
 
 
-h2. <a>Don’t Repeat Yourself when passing Java objects to templates</a>
+h2. <a>No sea redundante al pasar objetos Java al template</a>
 
-In most Java frameworks, in order to pass Java objects to the template system you need to write something like:
+En la mayor parte de los frameworks Java, para pasar un objeto Java al sistema de templates deberá escribir algo como lo siguiente:
 
 bc. Article article = Article.findById(id);
 User user = User.getConnected();
@@ -79,22 +78,22 @@ model.put("article", article);
 model.put("user", user);
 render(model);
 
-With Play, you can just write:
+Con Play, puede simplemente escribir:
 
 bc. Article article = Article.findById(id);
 User user = User.getConnected();
 render(article, user);
 
-And retrieve objects from their Java local name in the template. That saves a lot of useless lines of code…
+Y desde el template acceder a los objetos a partir de su nombre en el código fuente Java. Esto le ahorra muchísimas líneas de código de poca utilidad.
 
-h2. <a>JPA on steroids</a>
+h2. <a>JPA recargado</a>
 
-JPA is surely the best object-relational mapping (ORM) API available for Java. If you know it you will be amazed how much simpler it becomes with Play. With nothing to configure, Play will automatically start the JPA Entity Manager using Hibernate and magically synchronize it when code is reloaded.
+JPA es sin duda la mejor API para persistencia de objetos en base de datos relacionales (object-relational mapping ORM) disponible para Java hoy en día. Si usted ya lo conoce, se sorprenderá al ver cuánto más fácil resulta con Play. Sin nada que configurar, Play automáticamente inicializará el Administrador de Entidades de JPA (JPA Entity Manager) y mágicamente se sincronizará con la base de datos cada vez que se vuelva a cargar el código fuente de la aplicación.
 
-Moreover, if you use the provided @play.db.jpa.Model@ superclass it will help to make your code prettier. Take a look:
+Pero eso no es todo. Si utiliza la clase **play.db.jpa.Model** verá cómo lo ayuda a tener el código más limpio. Fíjese:
 
 bc. public void messages(int page) {
-    User connectedUser = User.find("byEmail", connected()).first();
+    User connectedUser = User.find("byEmail", connected());
     List<Message> messages = Message.find(
         "user = ? and read = false order by date desc",
         connectedUser
@@ -102,22 +101,22 @@ bc. public void messages(int page) {
     render(connectedUser, messages);
 }
 
-h2. <a>Straightforward file upload management</a>
+h2. <a>Manejar archivos de manera simple y directa</a>
 
-File upload management is very simple with Play.
+Subir un archivo es muy simple con play.
 
-The HTML form:
+Éste es el formulario HTML:
 
-bc. #{form @uploadPhoto(), enctype:'multipart/form-data'}
+bc. <form action="@{Article.uploadPhoto()}" method="POST" enctype="multipart/form-data">
     <input type="text" name="title" />
     <input type="file" id="photo" name="photo" />
     <input type="submit" value="Send it..." />
-#{/}
+</form>
 
-And the Java code:
+Y el código Java:
 
 bc. public static void uploadPhoto(String title, File photo) {
    ...
 }
 
-How could it be easier?
+¿Cómo podría ser más fácil?
