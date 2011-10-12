@@ -55,7 +55,7 @@ index.introduction.title=\
 index.introduction.content=\
   Por fin, un framework para desarrollar aplicaciones web, hecho por desarrolladores de aplicaciones web. \
   Descubre una alternativa ágil a los stacks empresariales de Java. \
-  Play se centra en la productividad de los desarrolladores y está orientado a aplicaciones REST.
+  Play hace hincapié en la productividad de los desarrolladores y está orientado a aplicaciones REST.
 
 # overview panel (features)
 
