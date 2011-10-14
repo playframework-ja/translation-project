@@ -152,6 +152,12 @@ public class Application extends Controller {
     public static void about(String action) throws TwitterException {
         render(action);
     }
+
+    public static void translation(String version) throws Exception {
+        if (version == null) version = Play.configuration.getProperty("version.latest");
+
+        Documentation.page(version, "translation");
+    }
     
     public static void introduce20() throws MalformedURLException, IOException {
         
