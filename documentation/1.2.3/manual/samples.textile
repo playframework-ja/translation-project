@@ -1,3 +1,5 @@
+p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+
 h1. Sample applications
 
 Play comes with the following set of sample applications in the @samples-and-test/@ directory, in the framework installation path. We use them to run our automated test suite, and you can take a look at them to discover typical Play usages.

@@ -1,3 +1,5 @@
+p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+
 h1. Adding authentication
 
 Now that we have an administration area we need to plug in some authentication. Fortunately, Play has a module for that. It’s called the **Secure** module.

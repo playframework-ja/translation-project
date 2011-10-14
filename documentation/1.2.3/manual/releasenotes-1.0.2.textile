@@ -1,3 +1,5 @@
+p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+
 h1. Play 1.0.2 -- Release notes
 
 **Play 1.0.2** is a maintenance release of the Play 1.0 branch. The major new features are the support for the module repository and built-in protection against CSRF attacks. It also fixes a lot of small bugs.

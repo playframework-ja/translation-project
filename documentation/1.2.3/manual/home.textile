@@ -6,7 +6,7 @@ Verifique las "notas de lanzamiento de la versión 1.1":releasenotes-1.1.
 
 h2. <a name="started">Comenzando a usar play!</a>
 
-Sus primeros pasos con play! y sus primeros 5 minutos de diversión.
+Primeros pasos con play! y primeros 5 minutos de diversión.
 
 # "Introdución al framework play":overview
 # "Mire el video":http://vimeo.com/7087610

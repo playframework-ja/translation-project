@@ -1,3 +1,5 @@
+p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+
 h1. Asynchronous programming with HTTP
 
 This section explains how to deal with asynchonism in a Play application to achieve typical long-polling, streaming and other "Comet-style":http://en.wikipedia.org/wiki/Comet_(programming%29 applications that can scale to thousands of concurrent connections.
