@@ -1,3 +1,5 @@
+p(note). Texto sin traducir
+
 h1. Usability - details matter as much as features
 
 Perhaps the most striking thing about the Play framework is that its biggest advantage over other Java web application development frameworks does not fit into a neat feature list, and is only apparent after you have used it to build something. That advantage is usability.
