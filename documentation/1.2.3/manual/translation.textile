@@ -29,11 +29,11 @@ Lo primero que hay hacer es navegar a "https://github.com/signup/free":https://g
 
 Luego deberás instalar git en tu equipo y configurar tu cuenta siguiendo las "instrucciones para linux":http://help.github.com/linux-set-up-git/ o las "instrucciones para windows":http://help.github.com/win-set-up-git/, según el sistema operativo que estés utilizando.
 
-* Hacer un fork del repositorio origin
+* Hacer un fork del repositorio upstream
 
 Navega al sitio de "github":https://github.com e ingresa son tu usuario y password. Luego navega a "https://github.com/opensas/playdoces":https://github.com/opensas/playdoces y hacer click en "fork". Con esto ya habrás creado tu repositorio origin, que en nuestro caso se encuentra en https://github.com/traductor-play/playdoces.
 
-* Clonar el repositorio origin en un repositorio local
+* Clonar nuestro repositorio origin en un repositorio local
 
 En nuestra estación de trabajo ejecutamos las siguientes instrucciones (debes ajustarlas según tu nombre de usuario):
 
@@ -45,6 +45,8 @@ git clone git@github.com:traductor-play/playdoces.git
 * Traduciendo los archivos
 
 A fin de realizar la traducción de las páginas podemos simplemente editar los archivos de ~/apps/playdoces/documentation/1.2.3/ con cualquier editor de texto.
+
+p(note). La documentación está almacenada en formato "textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29, que es un formato muy simple, pensado para que pueda ser leido y editado por seres humanos. De todas maneras, no necesitas saber textile para traducir la documentación, simplemente debes traducir el texto sin alterar el formato del texto.
 
 Para ir viendo cómo quedará la traducción una vez subida a producción, tenemos que iniciar la aplicación. Para eso ejecutamos
 
