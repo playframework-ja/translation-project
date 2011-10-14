@@ -5,15 +5,83 @@ La documentación de Play es extensa y detallada, y es sin duda uno de los punto
 
 h2. <a name="java">Lee la documentación</a>
 
-La forma más fácil de colaborar con la traducción de la documentación de Play, es justamente leyendo la documentación en español, y enviando comentarios para sugerir correcciones y mejoras. Para aquéllos que tienen conocimientos de ingleś, sin duda resultará engorroso consultar una documentación que, inevitablemente, no podrá sonar tan natural o idiomática como la original, pero es una manera de mejorar la calidad de la traducción y permitir que otros usuarios puedan interiorizarse en el funcionamiento del framework.
+La forma más fácil de colaborar con la traducción de la documentación de Play, es justamente leyendo la documentación en español, y enviando comentarios para sugerir correcciones y mejoras. Aquéllos que tengan conocimientos de ingleś, seguramente preferirán leer la versión original, pero es una manera de mejorar la calidad de la traducción y permitir que otros usuarios puedan interiorizarse en el funcionamiento del framework.
 
 h2. <a name="java">Colabora con el proyecto a través de github</a>
 
 Al igual que la documentación original de Play!, este proyecto se encuentra disponible en el repositorio "https://github.com/opensas/playdoces":https://github.com/opensas/playdoces de github.   
 
-p(note). En breve terminaremos la guía para colaborar a través de github.
+Si ya tienes experiencia colaborando con otros proyectos de github puedes saltearte esta sección, simplemente tienes que hacer un fork del proyecto y luego efectuar sucesivos pull requests para que integremos tus cambios.
+
+* Trabajando con github
+
+El esquema de trabajo que nos proponer github puede parecer confuso al principio, pero en realidad es bastante simple, simplemente hay que tener presente que uno está trabajando con tres repositorios distintos y enteder el rol que cada uno cumple.
+
+*Repositorio upstream*: es el repositorio en github de la aplicación con la cual vamos a colaborar. En nuestro caso el repositorio está en "https://github.com/opensas/playdoces":https://github.com/opensas/playdoces y la aplicación es "http://playdoces.appspot.com":http://playdoces.appspot.com. En este repostirio no tenemos permisos de escritura, simplemente vamos a hacer nuestra propia copia del mismo (fork), efectuar los cambios allí y luego hacer un pedido _(pull request)_ al dueño del repositorio para que integre nuestros cambios.
+
+*Repositorio origin*: es nuestra propia copia del repositorio que _forkeamos_ alojada en github. Sobre este repositorio sí efectuaremos los cambios, y luego haremos un _pull request_ solicitando al dueño del repositorio upstream que integre nuestros cambios.
+
+*Repositorio local*: para modificar los archivos de playdoces necesitamos contar con un repositorio local, para ello clonaremos nuestro repositorio origin en nuestra estación de trabajo. Nosotros trabajaremos contra este repositorio local, modificando archivos y commiteándolos localmente. Luego enviaremos _(push)_ estos cambios haremos a nuestro repositorio *origin*, y finalmente haremos un pedido _(pull request)_ al repositorio *upstream* solicitándole que integre los cambios del repositorio *origin*.  
+
+* Crear una cuenta en github
+
+Lo primero que hay hacer es navegar a "https://github.com/signup/free":https://github.com/signup/free y crear una cuenta gratuita en github, en nuestro ejemplo hemos creado la cuenta *traductor-play*.
+
+Luego deberás instalar git en tu equipo y configurar tu cuenta siguiendo las "instrucciones para linux":http://help.github.com/linux-set-up-git/ o las "instrucciones para windows":http://help.github.com/win-set-up-git/, según el sistema operativo que estés utilizando.
+
+* Hacer un fork del repositorio origin
+
+Navega al sitio de "github":https://github.com e ingresa son tu usuario y password. Luego navega a "https://github.com/opensas/playdoces":https://github.com/opensas/playdoces y hacer click en "fork". Con esto ya habrás creado tu repositorio origin, que en nuestro caso se encuentra en https://github.com/traductor-play/playdoces.
+
+* Clonar el repositorio origin en un repositorio local
+
+En nuestra estación de trabajo ejecutamos las siguientes instrucciones (debes ajustarlas según tu nombre de usuario):
+
+bc. cd ~
+mkdir apps
+cd apps
+git clone git@github.com:traductor-play/playdoces.git
+
+* Traduciendo los archivos
+
+A fin de realizar la traducción de las páginas podemos simplemente editar los archivos de ~/apps/playdoces/documentation/1.2.3/ con cualquier editor de texto.
+
+Para ir viendo cómo quedará la traducción una vez subida a producción, tenemos que iniciar la aplicación. Para eso ejecutamos
+
+bc. cd ~/apps/playdoces
+play start
+
+antes de iniciar por primera vez la aplicación debes ejecutar
+
+bc. play deps
+
+para que Play! instale todas las dependencias.
+
+Luego navegamos a "localhost:9000":localhost:9000. Y ya está nuestro sitio playdoces corriendo localmente en nuestra máquina. Siguiendo la filosofía Play!, simplemente editamos los archivos, apretamos F5 en el explorador y ya deberíamos ver los cambios reflejados en la página. 
+
+* Guardando los cambios
+
+Mediante el comando @git status@ podemos ver los archivos que hemos modificado. Con el comando @git add .@, le indicamos a git cuáles son los archivos que vamos a querer commitear. Con @git commit@ confirmamos los cambios en nuestro repositorio local, y finalmente, con @git push origin master@ subimos nuestros cambios locales a nuestro repositorio origin. Estos serían los comandos
+
+bc. git status
+git add .
+git commit -a "traduje una nueva página"
+git push origin master
+
+Luego navegamos al repositorio *origin*, en nuestro caso https://github.com/traductor-play/playdoces, en donde ya deberías poder ver los cambios que acabas de impactar. Para solicitar el repostorio *upstream* que integre nuestros cambios simplemente hacemos click en el botón *pull request*. Y ahora tan sólo resta esperar que los dueños del repositorio *upstream* (en este caso nosotros) revisen los cambios y los impacten en la aplicación.
+
+* Manteniendo nuestros repositorios actualizados
+
+A medida que sigamos trabajando, querremos mantener actualizados nuestros repositorios (*local* y *origin*) con respecto al repositorio *upstream*. Para eso configuramos el repositorio upstream como un remote de nuestro repostorio local
+
+bc. git remote add upstream git@github.com:opensas/playdoces.git
+
+Cuando querramos traer los cambios ocurridos en el upstream, deberemos ejecutar:
+
+bc. git fetch upstream
+git merge upstream/master
 
 h2. <a name="java">Ponte en contacto con la comunidad hispano-hablante</a>
 
-Puedes ponerte en contacto con nosotros a través de la "lista de discusión de Play framework para América latina":http://groups.google.com/group/play-latam. Allí puedes proponer nuevas ideas y coordinar con el resto de la comunidad para impulsar la adopción de Play! en América latina.
+No dudes en ponerte en contacto con nosotros a través de la "lista de discusión de Play framework para América latina":http://groups.google.com/group/play-latam. Allí podrás proponer nuevas ideas y coordinar con el resto de la comunidad para impulsar la adopción de Play! en América latina.
 
