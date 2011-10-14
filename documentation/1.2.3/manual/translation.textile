@@ -3,9 +3,9 @@ h1. Traduciendo Play! framework
 La documentación de Play es extensa y detallada, y es sin duda uno de los puntos fuertes del framework. Lograr una traducción que sea precisa y amena al mismo tiempo requiere mucho tiempo y esfuerzo, es por eso que apelamos a la ayuda de la comunidad para llevar adelante esta tarea.
 
 
-h2. <a name="java">Lée la documentación</a>
+h2. <a name="java">Lee la documentación</a>
 
-La forma más fácil de colaborar con la traducción de la documentación de Play, es leyendo la documentación en español, y sugiriendo correcciones y mejoras en los comentarios. Para aquéllos que tienen conocimientos de ingleś, sin duda resultará engorroso consultar una documentación que, inevitablemente, no podrá sonar tan natural o idiomática como la original, pero es una manera de mejorar la calidad de la traducción y permitir que otros usuarios puedan interiorizarse en el funcionamiento del framework.
+La forma más fácil de colaborar con la traducción de la documentación de Play, es justamente leyendo la documentación en español, y enviando comentarios para sugerir correcciones y mejoras. Para aquéllos que tienen conocimientos de ingleś, sin duda resultará engorroso consultar una documentación que, inevitablemente, no podrá sonar tan natural o idiomática como la original, pero es una manera de mejorar la calidad de la traducción y permitir que otros usuarios puedan interiorizarse en el funcionamiento del framework.
 
 h2. <a name="java">Colabora con el proyecto a través de github</a>
 

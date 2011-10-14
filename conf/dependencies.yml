@@ -1,0 +1,8 @@
+require:
+    - play -> play [1.2.1,)
+    - play -> gae 1.4
+    
+    - net.htmlparser.jericho -> jericho-html 3.1:
+        transitive: false
+    - org.twitter4j -> twitter4j-core 2.2.1:
+        transitive: false
