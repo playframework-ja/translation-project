@@ -326,5 +326,12 @@ about.disclaimer.text2=Por favor, no haga preguntas acerca del contenido de este
 about.acknowledment=Agradecimientos
 about.acknowledment.text=Este sitio se ha basado en %s, que es desarrollado y mantenido por %s.
 
+about.contribute=Colabora con la traducción de Play!
+about.contribute.text=\
+La documentación de Play es extensa y detallada, y es sin duda uno de los puntos fuertes del framework. \
+Lograr una traducción que sea precisa y amena al mismo tiempo requiere mucho tiempo y esfuerzo, \
+es por eso que apelamos a la ayuda de la comunidad para llevar adelante esta tarea. \
+Si estás interesado en colaborar lee nuestra <a href="%s">guía para colaborar con la traducción de Play!</a>.  
+
 about.translators=Traductores
 about.translators.text=Este sitio se encuentra en <a href="https://github.com/opensas/playdoces"/>github</a> y es mantenido por los siguientes traductores.

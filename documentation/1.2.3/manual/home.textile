@@ -18,6 +18,7 @@ Sus primeros pasos con play! y sus primeros 5 minutos de diversión.
 # "Su primera aplicación — ‘Hola mundo’ con play":firstapp
 # "Aplicaciones de ejemplo":samples
 # "Cómo hacer una demo de play - para practicar e impresionar a sus colegas":demoingplay
+# "Traduciendo Play framework - colabora con la traducción de este sitio":translation
 
 h2. <a name="guide">Tutorial -- Guía de play, una verdadera aplicación paso a paso</a>
 

@@ -320,6 +320,14 @@ about.disclaimer.text=This project IS NOT made by <a href="http://www.playframew
 about.disclaimer.text2=Please do not make any question about the contents of this project to playframework.org.
 about.acknowledment=Acknowledgments
 about.acknowledment.text=Based on %s, developed and maintained by %s.
+
+about.contribute=Contribute to Play! framework translation
+about.contribute.text=\
+Play! framework documentation is very very clear and detailes, and it's one of it's best selling points. \
+Achieving a precise and pleasent translation is no easy task, \ 
+that's why we rely on the community to achieve such a goal. \
+If you'd like to contribute read our <a href="%s">traslator contribution guide</a>.  
+
 about.translators=Translators
 about.translators.text=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
   
