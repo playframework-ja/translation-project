@@ -28,3 +28,8 @@ bc. play run --%local-mysql
 
 設定ファイル内の **carbonate.path** にデータが存在しない場合、移行が無視されることに注意してください。(Play内でメモリデータベースを利用したい場合はこの方が都合が良いでしょう。)
 
+h3. ==Configuration options==
+
+bc. carbonate.path       - Path to the migrations folder. If missing the migrations will not be run.
+carbonate.delimeter      - Delimeter string to use to separate the generated migration statements. Default value ';'.
+carbonate.comment        - Comment string used in migrations. Default value '--'.
