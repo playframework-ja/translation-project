@@ -1,47 +1,45 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Aplicaciones de ejemplo
 
-h1. Sample applications
+Play trae un conjunto de aplicaciones de ejemplo en el directorio @samples-and-test/@ que puede encontrar en el directorio de instalación del framework. Son utilizados para correr nuestra batería de pruebas automáticas, y puede estudiarlas para descubrir algunos usos típicos de Play.
 
-Play comes with the following set of sample applications in the @samples-and-test/@ directory, in the framework installation path. We use them to run our automated test suite, and you can take a look at them to discover typical Play usages.
+h2. <a>Yet Another Blog Engine (Otro sistema de blogs más)</a>
 
-h2. <a>Yet Another Blog Engine</a>
-
-The final application from the "Play guide":guide1 tutorial.
+La aplicación final de "la guía de Play":guide1.
 
 !images/yabe!
 
 h2. <a>Zencontact</a>
 
-A simple contact management application.
+Una simple aplicación de administración de contactos.
 
 !images/zencontact!
 
 h2. <a>Booking</a>
 
-A port of the well known 'booking' application from the JBoss seam framework.
+Una versión de la aplicación 'booking' del framework Seam de JBoss hecha con Play.
 
 !images/booking!
 
 h2. <a>Forum</a>
 
-A simple forum application that uses JPA.
+Una simple aplicación de foros que usa JPA.
 
 !images/forum!
 
 h2. <a>Jobboard</a>
 
-A fully-featured job board application that uses the CRUD module to automatically generate the administration area. 
+Una completa bolsa de trabajo que utiliza el módulo CRUD para generar automáticamente las páginas de administración.
 
 !images/jobboard!
 
 h2. <a>Chat</a>
 
-An HTTP-based chat application. It uses the asynchronous request model to be able to handle a lot of simultaneous connected users without wasting resources.
+Una aplicación de chat basada en HTTP. Utiliza el modelo de pedidos asincrónicos a fin de poder manejar múltiples conexiones simultáneas sin desperdiciar recursos.
 
 !images/chat!
 
-h2. <a>Validation</a>
+h2. <a>Validaciones</a>
 
-Demonstrates the different ways to create a form with validation support.
+Muestra el uso de diferentes maneras de crear un formulario con soporte de validaciones.
 
 !images/validation!
