@@ -1,152 +1,141 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Configurando su IDE favorito
 
-h1. Setting-up your preferred IDE
+Trabajar con Play es fácil. Ni siquiera necesita un IDE (Entorno Integrado de Desarrollo) sofisticado, ya que Play compila y vuelve a cargar automáticamente las modificaciones que usted efectúa en el código fuente. Incluso puede trabajar utilizando un simple editor de texto.
 
-Working with Play is easy. You don’t even need a sophisticated IDE as Play compiles and refreshes the modifications you make to your source files automatically. So you can easily work using a simple text editor.
+Sin embargo, utilizar un IDE para Java provee poderosas herramientas que aumentarán su productividad, como autocompletado de código, compilación al vuelo, asistentes para hacer refactoring de código y soporte para depurar aplicaciones. Play brinda soporte para "NetBeans":http://www.netbeans.org, "IntelliJ IDEA":http://www.jetbrains.com/idea/index.html y "Eclipse":http://www.eclipse.org.
 
-However, using a modern Java IDE provides cool productivity features like auto-completion, on-the-fly compilation, assisted refactoring and debugging. Play supports the "NetBeans":http://www.netbeans.org, "IntelliJ IDEA":http://www.jetbrains.com/idea/index.html and "Eclipse":http://www.eclipse.org platforms.
+h2(#eclipse). <a>Generando los archivos de configuración para Eclipse</a>
 
-
-h2(#eclipse). <a>Eclipse</a>
-
-h3. Generate configuration
-
-Play provides a command to simplify Eclipse configuration. To transform a Play application into a working Eclipse project, use the @eclipsify@ command:
+Play provee un comando para simplificar la configuración de Eclipse. Para transformar una aplicación de Play en un proyecto de Eclipse, use el comando @eclipsify@:
 
 bc. # play eclipsify myApp
 
-You then need to import the application into your Workspace with the **File/Import/General/Existing project…** menu.
+Necesitará importar a aplicación a su Workspace mediante la opción de menú **File/Import/General/Existing project…**.
 
 !images/eclipse!
 
-The @eclipsify@ command generates several launchers for the application. The main launcher in only usable with the **Run As** Eclipse command. You can then use the *Connect JPDA launcher* using *Debug As* to start a debugging session at any time. Stopping the debugging session will not stop the server.
+El comando @eclipsify@ genera varios lanzadores para la aplicación. El principal lanzador tan sólo puede ser utilizado con el comando **Run As** de Eclipse. Puede entonces usar el lanzador **Connect JPDA launcher** utilizando **Debug As** para iniciar una sesión de depuración en cualquier momento. Tenga en cuenta que al detener la sesión de depuración no detendrá el servidor.
 
-If you make any important changes to your application, such as changing the classpath, use @eclipsify@ again to regenerate the configuration files.
+Si efectúa cualquier cambio importante en su aplicación, tal como cambiar el classpath, use nuevamente el comando @eclipsify@ para volver a generar los archivos de configuración.
 
-p(note). **Do not commit Eclipse configuration files when you work in a team!**
+p(note). **¡No comitee sus archivos de configuración de eclipse cuando trabaja en equipo!**
+ 
+Los archivos de configuración generados contienen referencias absolutas a la instalación de su framework. Son específicos a su propia instalación. Cuando trabaja en equipo, cada desarrollador debe mantener sus archivos de configuración de Eclipse fuera del control de código fuente.
 
-The generated configuration files contain absolute references to your framework installation. These are specific to your own installation. When you work in a team, each developer must keep his Eclipse configuration files private. 
+h3. Plug-in para Eclipse
 
-h3. Play Eclipse plug-in
+Adicionalmente, Play trae un plug-in para Eclipse que provee editores para los templates HTML y los archivos @application.conf@ y @routes@. 
 
-Additionally, Play comes with an Eclipse plug-in that provides editors for HTML view templates, @application.conf@ and the @routes@ file.
+Para instalarlo, simplemente copie el archivo JAR de @$PLAY_HOME/support/eclipse@ a @$ECLIPSE_HOME/dropins@. 
 
-To install, copy the JAR file from @$PLAY_HOME/support/eclipse@ to @$ECLIPSE_HOME/dropins@.
+h2(#netbeans). <a>Generando archivos de configuración para Netbeans</a>
 
-
-h2(#netbeans). <a>NetBeans</a>
-
-Play provides a command to simplify NetBeans configuration. To transform an existing application to a valid NetBeans project, use the @netbeansify@ command:
+Play provee un comando para simplificar la configuración de Netbeans. Para transformar una aplicación de Play en un proyecto de Netbeans, use el comando @netbeansify@:
 
 bc. # play netbeansify myApp
 
-Then you can just open the application as a NetBeans project.
+Podrá entonces abrir la aplicación como un proyecto de Netbeans.
 
 !images/netbeans!
 
-Use the standard *Run* button to start the application. When the application is started you can attach a debugging session at any time using the *Debug* button. Stopping the debugging session doesn’t stop the server.
+Use el botón **Run** para iniciar la aplicación. Una vez que se haya iniciado la aplicación, puede conectar una sesión de depuración en cualquier momento con el botón **Debug**. Tenga en cuenta que al detener la sesión de depuración no detendrá el servidor.
 
-If you make any important change to your application such as changing the classpath, use @netbeansify@ again to regenerate the configuration files. 
+Si efectúa cualquier cambio importante en su aplicación, tal como cambiar el classpath, use nuevamente el comando @netbeansify@ para volver a generar los archivos de configuración.
 
-p(note). **Do not commit the @nbproject/@ directory when you work in a team!**
+p(note). **¡No comitee el directorio nbproject cuando trabaja en equipo!**
  
-The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his NetBeans configuration files private.
+Los archivos de configuración generados contienen referencias absolutas a la instalación de su framework. Son específicos a su propia instalación. Cuando trabaja en equipo, cada desarrollador debe mantener sus archivos de configuración de Netbeans fuera del control de código fuente.
 
-h2(#intellij). <a>IntelliJ IDEA</a>
+h2(#intellij). <a>Generando archivos de configuración para IntelliJ IDEA</a>
 
-Play provides a command to simplify IntelliJ IDEA configuration. To transform an existing application to a valid IntelliJ IDEA module, use the @idealize@ command:
+Play provee un comando para simplificar la configuración de IntelliJ IDEA. Para transformar una aplicación de Play en un proyecto o módulo de IntelliJ IDEA, use el comando @idealize@:
 
 bc. # play idealize myApp
 
-To create a single module project, do the following in IntelliJ IDEA.
+Para crear un proyecto con un único módulo, siga los siguientes pasos en IntelliJ IDEA.
 
-# On the command line, use the @play new@ command to create the Play project.
-# On the command line, use the @play idealize@ command to create an IntelliJ IDEA module.
-# In IntelliJ IDEA, on the *File* menu, select *Open Project…* and select the generated @.ipr@ file.
+# En la línea de comandos, utilice el comando @play new@ para crear el proyecto de Play.
+# En la línea de comandos, utilice el comando @play idealize@ para crear el módulo de IntelliJ IDEA.
+# En IntelliJ IDEA, en el menú **File**, seleccione *Open Project…* y luego elija el archivo @.ipr@ generado.
 
 !images/intellij!
 
-To add a run configuration:
+Para agragar una configuración de ejecución:
 
-# In IntelliJ IDEA, on the *Run* menu, select *Edit Configurations*.
-# Right-click on *Application* under *Defaults* and select *Add New Configuration*.
-# Under *Main class*, enter @play.server.Server@.
-# Under *VM parameters*, enter @-Dapplication.path="."@.
-# Under *Working directory*, enter the application path.
+# En IntelliJ IDEA, en el menú *Run*, elija *Edit Configurations*.
 
-To run Play in test mode in IntelliJ:
+# Haga click con el botón derecho en *Application* bajo la opción *Defaults* y elija *Add New Configuration*.
+# En *Main class*, ingrese @play.server.Server@.
+# En *VM parameters*, ingrese @-Dapplication.path="."@.
+# En *Working directory*, ingrese el camino de la aplicación.
 
-# Edit the run configuration and in *VM parameters*, append *-Dplay.id=test*.
-# Right-click on your module and select *Open Module Settings*.
-# Select the *Dependencies* tab.
-# Click *Add…* and select *Single-Entry Module Library*.
-# Select @$PLAY_HOME/modules/testrunner/lib/play-testrunner.jar@ and click *OK*.
+Para ejecutar la aplicación de Play en modo test:
 
-p(note). **Do not commit the .iml files when you work in a team!**
+# Edite la configuración run y en *VM parameters*, agregue *-Dplay.id=test*.
+# Haga click con el botón derecho en su módulo y elija *Open Module Settings*.
+# Seleccione el tab *Dependencies*.
+# Haga click en *Add…* y elija *Single-Entry Module Library*.
+# Selecione el jar @$PLAY_HOME/modules/testrunner/lib/play-testrunner.jar@ y haga click en *OK*.
+
+p(note). **¡No comitee los archivos .iml cuando trabaja en equipo!**
  
-The generated configuration files contains absolute references to your framework installation. These are specific to your own installation. When you work in a team on the same application, each developer must keep his IntelliJ IDEA configuration files private.
-
+Los archivos de configuración generados contienen referencias absolutas a la instalación de su framework. Son específicos a su propia instalación. Cuando trabaja en equipo, cada desarrollador debe mantener sus archivos de configuración de IntelliJ IDEA fuera del control de código fuente.
 
 h2(#textmate). <a>Textmate</a>
 
-Install the "Textmate":http://macromates.com/ bundle provided at @$PLAY_HOME/support/textmate.zip@ to enable syntax coloring and auto-completion. The bundle also eases navigation between controllers and views.
+Descargue e instale el módulo para "Textmate":http://macromates.com/ para habilitar el resaltado de sintaxis y el auto completado. El módulo también facilita la navegación entre los controladores y las vistas.
 
 !images/editor!
 
-
 h2(#vim). <a>Vim</a>
 
-Inspired by Textmate, the "snipMate":http://www.vim.org/scripts/script.php?script_id=2540 plug-in provides keyword auto-completion in "Vim":http://www.vim.org/. Play provides snippets files for HTML and Java: to use them, install snipMate and copy @$PLAY_HOME/support/vim/*.snippets@ to @~/.vim/snippets/@.
+Inspirado en Textname, el plugin "snipMate":http://www.vim.org/scripts/script.php?script_id=2540 provee autocompletado de comandos en "Vim":http://www.vim.org/. Play provee snippets para archivos HTML y Java: para utilizarlos, instale snipMate y copie @$PLAY_HOME/support/vim/*.snippets@ a @~/.vim/snippets/@.
 
+h2(#custom). <a>Configure manualmente su editor preferido.</a>
 
-h2(#custom). <a>Custom configuration</a>
+Dado que las aplicaciones de Play son aplicaciones Java estándar, no necesita ningún plug-in específico para trabajar con su editor preferido. Esto, de todas maneras, requiere algún conocimiento acerca del funcionamiento de Play.
 
-As Play applications are standard Java applications, you don’t need a specific plug-in to work with your preferred editor. This, however, requires a little bit of knowledge of how Play works.
+h3. Configuración del Classpath
 
-h3. Classpath settings
+El classpath de una aplicación play es construido de la siguiente manera (y según el siguiente orden):
 
-A Play application classpath is built as follows (in this order): 
+* El directorio **conf/** de la aplicación
+* El archivo **$PLAY_PATH/framework/play.jar**
+* Todos los archivos JAR que se encuentran en el directorio **lib/** de su aplicación
+* Todos los archivos JAR que se encuentran en el directorio **$PLAY_PATH/framework/lib/**
 
-* The @conf/@ directory for the application
-* The @$PLAY_PATH/framework/play-$version.jar@
-* All JAR files found in your application’s @lib/@ directory
-* All JAR files found in the @$PLAY_PATH/framework/lib/@ directory
-
-p(note). *Tip*
+p(note). *Consejo*
  
-If you have any modules enabled, you will need to add all modules’ libraries (from the @$module/lib/@ directory) to the classpath as well.
+Si ha habilitado cualquier módulo, también necesitará agregar todas las librerías requeridas por el módulo (del directorio **$module/lib/**) al classpath.
 
+h3. La clase de inicio
 
-h3. Main class to run
+Para iniciar una aplicación Play, simplemente ejecute la clase. Play utiliza la propiedad del sistema @"application.path"@ para localizar la aplicación a ejecutar. Típicamente esta variable es pasada de la siguiente manera:
 
-To start a Play application, just run the @play.server.Server@ class. Play uses the @"application.path"@ system property to locate the application to run. Typically you pass this value with:
+bc. java -Dapplication.path="/app/path"...
 
-bc. java -Dapplication.path="/app/path"…
+h3. Agente de Java
 
+Para habilitar la recarga dinámica de código (HotSwap reloading) deberá carga un agente de Java que se encuentra empquetado en la librería **play.jar**. Cómunmente se hace de la siguiente manera:
 
-h3. Java agent
+bc. java -javaagent:"$PLAY_PATH/framework/play.jar" ...
 
-To enable HotSwap reloading you have to load a Java agent packaged in the @play.jar@ library. Typically like this:
+No es obligatorio, pero acelerará la recarga de las clases cuando sea posible.
 
-bc. java -javaagent:"$PLAY_PATH/framework/play.jar" …
+h2. <a>Problemas al depurar</a>
 
-It’s not required, but will speed-up class reloading when it is possible.
+Play automáticamente vuelve a cargar las clases de Java cuando el código fuente es modificado. Sin embargo, Java no brinda soporte completo para la recarga dinámica de clases, razón por la cual el depurador JPDA puede confundirse fácilmente: algunos puntos de ruptura pueden ser ignorados o el depurador puede detenerse en la línea de código equivocada.
 
+Para evitar este comportamiento, lo mejor es iniciar una nueva sesión de depuración luego de cada modificación del código. Afortunadamente JPDA tiene la capacidad de conectar y deconectar el depurador en cualquier momento sin necesidad de reiniciar la JVM.
 
-h2. <a>Debugging issues</a>
+Así que la manera correcta de utilizar el depurador es la siguiente:
 
-Play automatically reloads Java classes when the Java sources are modified. However as Java does not fully support class reloading, the JDPA debugger can easily get confused: breakpoint submission may fail or the debugger may stop on the wrong line when you step into the code.
+# <span>Hacer cambios al código fuente de su aplicación.</span>
+# <span>Actualizar el explorador web para ver el resultado. (En este momento Play volverá a cargar las modificación de su código y redefinirá las clases en la JVM.)</span>
+# <span>Si algo sale mal y precisa depurar la aplicación, inicie una nueva sesión de depuración.</span>
+# <span>Depure y corrija el código.</span>
+# <span>Desconecte el depurador.</span>
 
-To avoid this behavior, a better way is to start a fresh debugging session after a code modification. Luckily, JPDA supports the ability to connect and disconnect the debugger at any time without restarting the JVM.
+Siguiendo estos pasos, siempre dispondrá de una sesión de depuración en sintonía con el código cargado en la JVM.
 
-So the correct workflow for debugging is:
-
-# <span>Make changes to your source code.</span>
-# <span>Refresh the browser to see the results. (At this time Play will reload your code modifications and redefine classes in the JVM.)</span>
-# <span>If something goes wrong and you need to debug, start a new debug session.</span>
-# <span>Debug and correct your code.</span>
-# <span>Disconnect the debugger.</span>
-
-By using this work-flow you will always have a debugger synchronized with the code loaded in the JVM.
-
-p(note). Next: %(next)"‘Hello World’ tutorial":firstapp%.
+p(note). Próximo: %(next)"Su primera aplicación — ‘Hola mundo’ con play":firstapp%.
