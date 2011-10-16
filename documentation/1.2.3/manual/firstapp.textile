@@ -1,81 +1,78 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Su primera aplicación — ‘Hola mundo’ con Play
 
-h1. ‘Hello World’ tutorial -- Your first Play application
+Le presentamos aquí un tutorial muy simple, que le ayudará a descubrir el framework Play con el famoso ejemplo 'Hola Mundo'.
 
-A very simple tutorial, that will just help you to discover the Play framework with the famous 'Hello World' example.
+h2. <a>Prerequisitos</a>
 
-h2. <a>Prerequisites</a>
+En primer lugar, asegúrese de contar con una instalación de Java en funcionamiento. Play requiere **Java 5 o superior**.
 
-First of all, make sure that you have a working Java installation. Play requires **Java 5 or later**.
+Dado que vamos a utilizar la línea de comandos asiduamente, será mejor utilizar un sistema operativo similar a Unix. Si está ejecutando un sistema windows, no se preocupe, tan sólo tendrá que tipear algunos comandos en la consola del sistema.
 
-As we will use the command line a lot, it's better to use a Unix-like OS. If you run a Windows system, it will also work fine; you'll just have to type a few commands in the command prompt.
+Por supuesto que precisará un editor de texto. Si está acostumbrado a utilizar un IDE de Java, como Eclipse o Netbeans por supuesto que puede usarlo. Sin embargo con play usted puede divertirse trabajando con un simple editor de texto como Textmate, Emacs o Vi. Esto es posible gracias a que el framework se encarga automáticamente del proceso de compilación e instalación. En breve veremos esto...
 
-You will of course need a text editor. If you are accustomed to use a full featured Java IDE like Eclipse or Netbeans you can of course use it. However with Play you can have fun working with a simple text editor like Textmate, Emacs or VI. This is because the framework manages the compilation and the deployment process itself. We will soon see that…
+h2. <a>Instalando el framework Play</a>
 
+La instalación del framework es muy simple. Tan sólo tiene que descargar la ultima versión del paquete binario y descomprimirlo en cualquier carpeta.
 
-h2. <a>Installing the Play framework</a>
+p(note). Si está utilizando windows, es una buena idea evitar espacios en el nombre de la carpeta de instalación, de manera que, por ejemplo, es recomendable instalar el framework en una carpeta como @c:\Play@ antes que @c:\Documents And Settings\user\play@.
 
-Installation is very simple. Just download the latest binary package from the download page and unzip it to any path.
+Para trabajar con comodidad, precisará agregar el directorio de Play al path de sus sistema. Esto le permitirá simplemente tipear @play@ en la línea de comandos para usar la utilidad Play. Para verificar que la instalación finalizó correctamente, simplemente abra una nueva consola y tipee @play@; debería ver en pantalla la ayuda del comando Play.
 
-p(note). If you're using Windows, it is generally a good idea to avoid space characters in the path, so for example @c:\Play@ would be a better choice than @c:\Documents And Settings\user\play@.
+h2. <a>Creando un proyecto</a>
 
-To work efficiently, you need to add the Play directory to your working path. It allows to type just @play@ at the command prompt to use the Play utility. To check that the installation worked, just open a new command line and type @play@; it should show you the Play basic usage help.
+Ahora que Play ha sido instalado correctamente, es hora de crear a aplicación Hola Mundo. Crear una aplicación con Play es muy fácil ya que la utilidad de línea de comandos de Play se encarga de todo. Esto permite a su vez compartir una estructura estándar de directorios entre todas las aplicaciones Play.
 
-h2. <a>Project creation</a>
-
-Now that Play is correctly installed, it's time to create the hello world application. Creating a Play application is pretty easy and fully managed by the Play command line utility. That allows for standard project layouts between all Play applications. 
-
-Open a new command line and type:
+Abra una nueva consola y tipee:
 
 bc. ~$ play new helloworld
 
-It will prompt you for the application full name. Type @Hello world@.
+Le preguntará por el nombre completo de la aplicación. Escriba **Hello world**.
 
 !images/firstapp-1!
 
-The @play new@ command creates a new directory @helloworld/@ and populates it with a series of files and directories, the most important being:
+El comando @play new@ crea un nuevo directorio @helloworld/@ y graba en él una serie de archivos y directorios, siendo los más importantes:
 
-@app/@ contains the application’s core, split between models, controllers and views directories. It can contain other Java package as well. This is the directory where @.java@ source files live.
+@app/@ contiene el núcleo de a aplicación, separado en directorios para los modelos (models), controladores (controllers) y vistas (views). Puede contener a su vez otros paquetes de Java. Este es el directorio donde residen los archivos fuente @.java@.
 
-@conf/@ contains all the application’s configuration files, especially the main @application.conf@ file, the @routes@ definition files and the @messages@ files used for internationalization.
+@conf/@ contiene todos los archivos de configuración de la aplicación, en especial el archivo @application.conf@ , el archivo @routes@ con la definición del enrutamiento de los URLs y mensajes HTTP, y el archivo @messages@ utilizado para internacionalizar la aplicación.
 
-@lib/@ contains all optional Java libraries packaged as standard .jar files.
+@lib/@ contiene todas las librerías opcionales de Java empaquetadas como archivos .jar.
 
-@public/@ contains all the publicly available resources, which includes JavaScript, stylesheets and images directories.
+@public/@ contiene todos los recursos disponibles públicamente, lo cual típicamente incluye archivos javascript, hojas de estilo (CSS) y directorios con archivos de imágenes.
 
-@test/@ contains all the application tests. Tests are written either as Java JUnit tests or as Selenium tests.
+@test/@ contiene todas las pruebas de la aplicación. Las pruebas son escritas como pruebas JUnit o bien como pruebas de Selenium.
 
-p(note). Because **Play uses UTF-8** as single encoding, it's very important that all text files hosted in these directories are encoded using this charset. Make sure to configure your text editor accordingly.
+p(note). Dado que **Play usa UTF-8*** como única codificación, es sumamente importante que todos los archivos que se encuentren en estos directorios sean codificados utilizando este juego de caracteres. Asegúrese de configurar su editor de textos para utilizar esta codificación.
 
-Now if you're a seasoned Java developer, you may wonder where all the .class files go. The answer is nowhere: Play doesn't use any class files but reads the Java source files directly. Under the hood we use the Eclipse compiler to compile Java sources on the fly. 
+Si usted cuanta con experiencia en el desarrollo de aplicaciones Java, seguramente se estará preguntando a dónde van los archivos .class. La respuesta es a ningún lado: Play no usa ningún archivo .class, sino que lee los fuentes de código Java directamente. En realidad, lo que hace es utilizar el compilador de Eclipse para compilar los fuentes de Java en tiempo de ejecución.
 
-That allows two very important things in the development process. The first one is that Play will detect changes you make to any Java source file and automatically reload them at runtime. The second is that when a Java exception occurs, Play will create better error reports showing you the exact source code.
+Esto permite dos cosas sumamente importante en el proceso de desarrollo. La primera es que Play detectará los cambios que efectúe a cualquier archivo fuente de Java y automáticamente volverá a cargar el código en tiempo de ejecución. La segunda, es que cuando ocurra alguna excepción, Play podrá crear un reporte del error detallado mostrando exactamente la línea de código que generó el error.
 
-h2. <a>Running the application</a>
+h2. <a>Ejecutando la aplicación</a>
 
-We can now test the newly-created application. Just return to the command line, go to the newly-created @helloworld/@ directory and type @play run@. Play will now load the application and start a Web server on port 9000.
+Ahora podemos probar la nueva aplicación. Vuelva a la consola, diríjase a la carpeta **helloworld/** y tipee **play run**. Play cargará la aplicación e iniciará un servidor web en el puerto 9000.
 
-You can see the new application by opening a browser to "http://localhost:9000":http://localhost:9000. A new application has a standard welcome page that just tells you that it was successfully created.
+Podrá ver la nueva aplicación abriendo un explorador en "http://localhost:9000":http://localhost:9000. Allí se encontrará con una página de bienvenida en la que le anunciará que la aplicación fue creada con éxito.
 
 !images/guide1-2!
 
-Let’s see how the new application can display this page. 
+Veamos cómo hace la aplicación para mostrar esta página.
 
-The main entry point of your application is the @conf/routes@ file. This file defines all of the application’s accessible URLs. If you open the generated routes file you will see this first ‘route’:
+El punto de entrada principal para su aplicación es el archivo @conf/routes@. En este archivo se definen todos los URLs acesibles para la aplicación. Si abre el archivo de rutas generado por el comando **play new** verá la primera ‘ruta’:
 
-bc. GET		/			Application.index
+bc. GET     /           Application.index
 
-That simply tells Play that when the web server receives a **GET** request for the @/@ path, it must call the @Application.index@ Java method. In this case, @Application.index@ is a shortcut for @controllers.Application.index@, because the controllers package is implicit. 
+Esta línea simplemente le dice a Play que cuando el servidor web reciba un pedido HTTP con el método @GET@ para el recurso @/@, deberá llamar al método Java @Application.index@. En este caso, @Application.index@ es una manera abreviada de referirnos a @controllers.Application.index@, ya que el paquete controllers está implícito.
 
-When you create standalone Java applications you generally use a single entry point defined by a method such as:
+Cuando usted crea una aplicación Java independiente, generalmente utiliza un único punto de entrada definido por un método de la siguiente manera:
 
 bc. public static void main(String[] args) {
   ... 
 }
 
-A Play application has several entry points, one for each URL. We call these methods **action** methods. Action methods are defined in special classes that we call **controllers**.
+Una aplicación Play, en cambio, tiene múltiples puntos de entrada, uno por cada URL. Llamamos a estos métodos **action** métodos o métodos de acción. Los métodos de acción son definidos en clases especiales a las que llamamos **controllers** o controladores.
 
-Let’s see how the @controllers.Application@ controller looks like. Open the @helloworld/app/controllers/Application.java@ source file:
+Veamos qué aspecto tiene el controlador @controllers.Application@. Abra el archivo @helloworld/app/controllers/Application.java@:
 
 bc. package controllers;
  
@@ -83,37 +80,37 @@ import play.mvc.*;
  
 public class Application extends Controller {
  
-	public static void index() {
-		render();
-	}
+    public static void index() {
+        render();
+    }
  
 }
 
-You see that controller classes extend the @play.mvc.Controller@ class. This class provides all useful methods for controllers, like the @render()@ method we use in the index action.
+La clase del controlador extiende la clase @play.mvc.Controller@. Esta clase provee métodos que son súmamente útiles para los controladores, como el método @render()@ que utilizamos en esta acción.
 
-The index action is defined as a @public static void@ method. This is how action methods are defined. You can see that action methods are static, because the controller classes are never instantiated. They are marked public to authorize the framework to call them in response of a URL. They always return void.  
+La acción index es definida como un método @public static void@. Esta es la manera en que se definen los métodos de acción. Los métodos de acción son estáticos, porque la clase del controlador nunca es instanciada. Están marcados como públicos, para que el framework pueda ejecutarlos en respuesta a un URL. Y siempre retornan void.
 
-The default index action is simple: it calls the @render()@ method which tells Play to render a template. Using a template is the most common way (but not the only one) to generate the HTTP response.
+La acción por defecto index es simple: llama al método @render()@ el cual le indica a Play que despliegue un template. Usar un template es la manera más común (si bien no la única) de generar una respuesta HTTP.
 
-Templates are simple text files that live in the @/app/views@ directory. Because we didn’t specify a template, the default one for this action will be used: @Application/index.html@
+Los templates son simples archivos de texto que residen en el directorio @/app/views@. Dado que no especificamos ningún template en particular, el framework tomará el template por defecto para esta acción: @Application/index.html@
 
-To see what the template looks like, open the @helloworld/app/views/Application/index.html@ file:
+Para ver cómo es un template, abra el archivo @helloworld/app/views/Application/index.html@:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
  
 #{welcome /}
 
-The template content seems pretty light. In fact, all you see are Play tags. Play tags are very close to JSP taglib. This is the @#{welcome /}@ tag that generates the welcome message you’ve seen in the browser. 
+El contenido del template parece bastante liviano. De hecho, lo único que se ve son tags de Play. Los tags de play son muy similares a los de la librería de tags de JSP. El último de ellos es el tag #{welcome /} que genera el mensaje de bienvenida que acaba de ver en el explorador web.
 
-The @#{extends /}@ tags tells Play that this template inherits another template called @main.html@. Template inheritance is a powerful concept that allows to create complex web pages by reusing common parts.
+El tag @#{extends /}@ le indica a Play que este tag hereda de otro tag llamado @main.html@. La herencia de templates es un concepto poderoso que le permite crear páginas web complejas reutilizando partes comunes a todas ellas.
 
-Open the @helloworld/app/views/main.html@ template:
+Abra el template @helloworld/app/views/main.html@:
 
 bc. <!DOCTYPE html>
 <html>
     <head>
-        <title>#{get 'title' /}</title>		
+        <title>#{get 'title' /}</title>     
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" media="screen" 
             href="@{'/public/stylesheets/main.css'}" />
@@ -125,13 +122,13 @@ bc. <!DOCTYPE html>
     </body>
 </html>
 
-Can you see the @#{doLayout /}@ tag? This is where the content of @Application/index.html@ will be inserted.
+¿Ha notado el tag @#{doLayout /}@? Indica que allí es donde el contenido de @Application/index.html@ será insertado.
 
-h2. <a>Creating the form</a>
+h2. <a>Creando el fomulario HTML</a>
 
-We will start the ‘Hello World’ application with a form where you can enter your name.
+Iniciaremos la aplicación ‘Hola Mundo’ con un formulario HTML en el que pueda ingresar su nombre.
 
-Edit the @helloworld/app/views/Application/index.html@ template:
+Edite el template @helloworld/app/views/Application/index.html@:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -141,13 +138,13 @@ bc. #{extends 'main.html' /}
     <input type="submit" value="Say hello!" />
 </form> 
 
-p(note). Note that we use GET as form submission method, because the form submission does not have any side effect and is idempotent.
+p(note). Note que utilizamos el método GET para enviar el formulario porque el mismo no tiene ningún efecto colateral, se trata de una operación idempotente.
 
-We use the <code>@{…}</code> notation to ask Play to automatically generate the URL able to invoke the @Application.sayHello@ action. Now, refresh the home page in the browser.
+Utilizamos la notación <code>@{…}</code> para pedirle a Play que automáticamente genere la URL necesaria para invocar la acción @Application.sayHello@. Ahora, refresque la página principal en el explorador web.
 
 !images/firstapp-2!
 
-Oops, you get an error. This is because you reference the non-existent action @Application.sayHello@. Let’s create it in the @helloworld/app/controllers/Application.java@ file:
+Oops, un error. Esto es porque acaba de referenciar la acción @Application.sayHello@, que todavía no existe. Vamos a crearla en el archivo @helloworld/app/controllers/Application.java@:
 
 bc. package controllers;
  
@@ -165,15 +162,15 @@ public class Application extends Controller {
  
 }
 
-We have declared the @myName@ parameter in the action method signature, so it will automatically be filled with the value of the HTTP @myName@ parameter, coming from the form submission. And we call render to just display a template; as we pass the @myName@ variable to the @render()@ call, this one will be available from the template.
+Declaramos el parámetro @myName@ en la firma del método sayHello, de manera que automáticamente será cargado con el valor del parámetro HTTP @myName@, que viene al ser enviado el formulario. Y luego llamamos el método render para desplegar un template; como le pasamos la variable @myName@ al método @render()@, esta variable estará disponible en el template.
 
 !images/firstapp-3!
 
-Now, if you try to enter your name and submit the form, you will get another error:
+Ahora, si intenta ingresar su nombre y enviar el formulario, recibirá otro error:
 
 !images/firstapp3!
 
-The error is pretty clear. Play tries to render the default template for this action method, but it doesn’t exist. Let’s create it in the file @helloworld/app/views/Application/sayHello.html@:
+El error es bastante claro. Play intenta desplegar el template por defecto para esta acción, pero el mismo aún no existe. Para solucionar esto creamos el archivo @helloworld/app/views/Application/sayHello.html@:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -182,31 +179,31 @@ bc. #{extends 'main.html' /}
  
 <a href="@{Application.index()}">Back to form</a>
 
-You can refresh the page.
+Puede refrescar la página.
 
 !images/firstapp-4!
 
-Look how we have used Groovy’s @?:@ operator. It switches to a default value if the @myName@ variable is not filled. So if you try to submit the form without entering any name, it will display ‘Hello guest’.
+Fíjese cómo usamos el operador de Groovy @?:@. Asigna un valor por defecto si la variable @myName@ no ha sido asignada. Así que si intenta enviar el formulario sin ingresar ningún nombre, desplegará el texto ‘Hello guest’.
 
-h2. <a>Providing a better URL</a>
+h2. <a>Exponiendo un URL más elegante</a>
 
-Well, if you look at the submission URL, you will see something like:
+Si echa una mirada al URL que es enviado por el formulario, verá lo siguiente:
 
 bc. http://localhost:9000/application/sayhello?myName=guillaume
 
-It is not very pretty. This is because Play used the default ‘catch all’ route.
+No es muy prolijo que digamos. Esto es porque Play utilizó la ruta por defecto, aquélla destinada a capturar cualquier pedido.
 
 bc. *       /{controller}/{action}                  {controller}.{action}
 
-We can have a better URL by specifying a custom path for the @Application.sayHello@ action. Edit the @helloworld/conf/routes@ file and add this route after the first one:
+Pero podemos tener un URL más elegante si especificamos un camino personalizado para la acción @Application.sayHello@. Modifique el archivo @helloworld/conf/routes@ y agregue la siguiente línea a continuación de la primera ruta:
 
 bc. GET     /hello                                  Application.sayHello
 
-Now go back to the form and submit it again to check that it uses the new URL pattern.
+Ahora vuelva al formulario, y reenvíelo para verificar que ahora utilizar el nuevo patrón URL.
 
-h2. <a>Customizing the layout</a>
+h2. <a>Personalizando el layout de la página</a>
 
-As both templates that the application use so far inherit from the same @main.html@ template, you can easily add a custom layout. Edit the @helloworld/app/views/main.html@ file:
+Dado que ambos templates que nuestra aplicación está utilizando heredan del template @main.html@, podemos fácilmente agregar un layout personalizado. Edite el archivo @helloworld/app/views/main.html@:
 
 bc. ...
 <body>
@@ -217,15 +214,15 @@ bc. ...
 </body>
 ...
 
-Now we have a common header for both pages.
+Ahora tenemos un encabezamiento común a ambas páginas.
 
 !images/firstapp-5!
 
-h2. <a>Adding validation</a>
+h2. <a>Agregando validaciones</a>
 
-We will add a little validation to the form, to make the name field required. We can use the Play validation framework to do that.
+Agregaremos una pequeña validación al formulario, para indicar que el campo nombre es requerido. Podemos usar el framework de validaciones de Play para hacer eso.
 
-Edit the @helloworld/app/controllers/Application.java@ controller, and the @sayHello@ action:
+Edite el controlador @helloworld/app/controllers/Application.java@, y la acción @sayHello@:
 
 bc. ...
 public static void sayHello(@Required String myName) {
@@ -237,11 +234,11 @@ public static void sayHello(@Required String myName) {
 }
 ...
 
-And don’t forget to import the @play.data.validation.*@ package to get the <code>@Required</code> annotation. Play will automatically check that the myName field is filled or will add an error object to the **errors** scope. Then if there is any error, we add a message to the **flash** scope and redirect to the @index@ action.
+No olvide importar el paquete @play.data.validation.*@ para poder hacer referencia a la anotación <code>@Required</code>. Play automáticamente verificará que el campo myName haya sido completado, o agregará un objeto error a la colección **errors*. Entonces, si hay algún error agregamos un mensaje a la colección *flash** y redireccionamos a la accion @index@.
 
-The flash scope allows to keep messages during action redirection.
+La colección flash permite mantener mensajes durante un redirect.
 
-Now you just have to display the **error** message if any. Edit the @helloworld/app/views/Application/index.html@:
+Ahora tan sólo tenemos que mostrar el mensaje de **error** si es que hay alguno. Edite el archivo @helloworld/app/views/Application/index.html@:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -257,46 +254,47 @@ bc. #{extends 'main.html' /}
     <input type="submit" value="Say hello!" />
 </form>
 
-And check that it works:
+Y verifique que funcione:
 
 !images/firstapp-6!
 
-h2. <a>Writing an automated test suite</a>
+h2. <a>Escribiendo una batería de tests automáticos</a>
 
-We will finish by writing a test for the application. As there is no Java logic to test, we need to test the Web application itself. So we will write a Selenium test.
+Para finalizar, escribiremos una serie de pruebas para la aplicación. Dado que no hay ninguna lógica Java para probar, deberemos probar la propia aplicación web. Así que primero escribiremos una prueba de Selenium.
 
-First, you need to run your application in **test mode**. Stop the application and restart it with the @test@ command:
+Antes que nada tiene que ejecutar su aplicación en modo prueba, o **test mode**. Detenga la aplicación y vuelva a iniciarla con el comando @test@:
 
 bc. $ play test
 
-The @play test@ command is almost the same as @play run@, except that it loads a test runner module that allows to run test suite directly from a browser. 
+El comanto @play test@ es casi idéntico a @play run@, excepto que carga un módulo que le permite ejecutar la batería de pruebas directamente desde un explorador web.
 
-Open a browser to the "http://localhost:9000/@tests":http://localhost:9000/@tests URL to see the test runner. Try to select all the default tests and run them; all should be green… But these default tests don’t really test anything.
+Abra un browser y navegue a "http://localhost:9000/@tests":http://localhost:9000/@tests para ver el ejecutador de pruebas. Intente seleccionar todas las pruebas por defecto y ejecútelas; todo debería dar verde... Pero estas pruebas por defecto que genera automáticamente el framework, en realidad no prueban gran cosa.
 
 !images/guide2-1!
 
-A selenium test suite is typically written as an HTML file. The HTML syntax required by selenium is a little tedious (formatted using an HTML table element) to write. The good news is that Play will help you to generate it using the Play template engine and a set of tags that support a simplified syntax for selenium scenarios. 
+Una batería de pruebas selenium es típicamente escrita en un archivo HTML. La sintaxis html requerida por selenium es un tanto engorrosa (formateada usando una tabla HTML) para escribir. Por suerte Play le ayudará a generarlo utilizando el sistema de templates y un conjunto de tags que le permiterá especificar las pruebas con una sintaxis mucho más simple.
 
-The default test suite of a newly created Play application already contains a selenium test. Open the @helloworld/test/Application.test.html@ file:
+La batería de pruebas que Play genera automáticamente cada vez que se crea un proyecto ya contiene una prueba de Selenium. Abra el arhivo @helloworld/test/Application.test.html@:
 
 bc. *{ You can use plain selenium command using the selenium tag }*
  
 #{selenium}
     // Open the home page, and check that no error occurred
     open('/')
+    waitForPageToLoad(1000)
     assertNotTitle('Application error')
 #{/selenium}
 
-This test should run without any problem with the application for now. It just opens the home page and checks that the page content does not contain the ‘Application error’ text.
+Esta prueba debería ejecutarse sin problemas por ahora. Lo único que hace es abrir la página principal y verificar que en el contenido de la página no aparece el texto ‘Application error’.
 
-Let’s write a test for our application. Edit the test content:
+Escribamos un test para nuestra aplicación. Edite el contenido del test:
 
 bc. #{selenium}
     // Open the home page, and check that no error occurred
     open('/')
     assertNotTitle('Application error')
     
-    // Check that it is the Hello World application
+    // Check that it is the form
     assertTextPresent('The Hello world app.')
     
     // Submit the form
@@ -320,11 +318,10 @@ bc. #{selenium}
     assertTextNotPresent('Hello bob!')
 #{/selenium}
 
-We have fully tested the application. Just select this test in the test runner and click ‘Start’. Everything should be green!
+Acabamos de testear nuestra aplicación. Simplemente seleccione este test desde el ejecutador y haga click en "Start". ¡Todo debería dar verde!
 
 !images/firstapp-7!
 
+h2. <a>Aprenda más</a>
 
-h2. <a>Learn more</a>
-
-This was a very simple tutorial about a very dumb application. If you want to learn more about Play, you can now check out the %(next)"Play tutorial":guide1%.
+Este fue un tutorial sumamente simple sobre una aplicación bastante trivial. Si quiere aprender más acerca de Play, ahora puede ver el %(next)"Tutorial de Play":guide1%.

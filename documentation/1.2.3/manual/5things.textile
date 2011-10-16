@@ -19,7 +19,7 @@ bc. public static void archive(Date date, Integer page) {
 
 Play utilizará el tipo de dato del parámetro del método para traducir el valor HTTP a un objeto de Java.
 
-Lo que es mejor, esta vinculación inteligente funcionará **con cualquier clase.**
+Lo que es aún mejor, esta vinculación inteligente funcionará **con cualquier clase.**
 
 bc. public class Person {
     public String name;

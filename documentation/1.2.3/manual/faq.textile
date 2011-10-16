@@ -1,55 +1,53 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Preguntas frecuentes
 
-h1. Frequently Asked Questions
+h2. <a>¿A dónde puedo hacer preguntas que no son respondidas aquí?</a>
 
-h2. <a>Where do I ask questions that are not answered here?</a>
+La página de la "comunidad":http://www.playframework.org/community contiene links a varios lugares en los cuales puede leer y enviar preguntas acerca de Play. En general, el mejor lugar para plantear dudas es en el "grupo google del framework play":http://groups.google.com/group/play-framework.
 
-The "Community":http://www.playframework.org/community page links to various places where you can read and post about Play. In general, the best place to ask questions is the "play-framework Google Group":http://groups.google.com/group/play-framework.
+h2. <a>¿Cómo se compara Play con el framework X?</a>
 
-h2. <a>How does Play compare to framework X?</a>
+Hoy en día, hay un gran número de opciones a la hora de desarrollar aplicaciones web. Dado que Play es un framework de aplicaciones web basado en Java, comparémoslo con otros framework de Java. Play está construido con una arquitectura 'share nothing', se trata de un framework que no mantiene estado (statless framework), de manera que es muy distinto a todos los frameworks Java que mantienen el estado y que están basados en componentes, como Seam, Tapestry o Wicket. Es mucho más similar a Spring MVC o Struts (o Struts 2), pero mucho más influenciado por la opinión de la comunidad.
 
-Nowadays, you have a very large number of choices for developing web applications. Play being a Java web application framework, let’s compare it to other Java frameworks. Play is built for a ‘share nothing’ architecture (think about it as a stateless framework), so it’s very different from all these Java stateful and components based frameworks like Seam, Tapestry or Wicket. It’s closer to Spring MVC or Struts (or Struts 2), but way more opinionated.
+Sin embargo Play es único en su clase. No se basa en lo que se conoce como estándares empresariales de Java. Usa Java, pero intenta traer al mundo de Java todas las cosas buenas que surgieron de los frameworks basados en leguajes de scripting, como Ruby on Rails, Django, Pylons, Symfony, Grails y Cake PHP. Intentamos conservar lo mejor de la plataforma Java sin las inconveniencias del desarrollo web tradicional en Java: un ciclo de desarrollo lento y farragoso, demasiadas capas de abstracción y ciertamente demasiados archivos de configuración.
 
-However Play is a unique Java framework. It does not really rely on the so-called Java Enterprise standards. It uses Java, but tries to bring all the good things from the frameworks based on scripting languages like Ruby On Rails, Django, Pylons, Symfony, Grails and Cake PHP to the Java world. We really tried to get the best out of the Java platform without getting the pain of traditional Java web development: a slow development cycle, too much abstraction and too much configuration.
+h2. <a>¿Por qué no cambian el nombre del paquete ‘play’ a ‘org.playframework’?!</a>
 
-h2. <a>Why don’t you rename the ‘play’ package to ‘org.playframework’?!</a>
+Hya algo que tenemos que aclarar. Play no es una librería más que tenga que agregar a su contenedor de Servlets. Es realmente un framework que provee un stack completo y que le permite correr su aplicación de manera autónoma e independiente. Las convenciones de los paquetes de Java existen para evitar colisiones de nombres cuando utiliza diversas librerías de diferentes proveedores. Pero, y le pedimos que confíe en nosotros, usted nunca pondrá su @play.jar@ en sus propios proyectos. Esta no es la manera en que Play funciona, porque Play **es la plataforma**. No se preocupe por ello.
 
-You are missing the point. Play is not another library that you add to your Servlet container. It’s really a full stack Java framework that runs your application stand-alone. The Java package naming conventions exist to avoid name clashes when you use several different libraries from several vendors. But believe us, you will never put the @play.jar@ library in your own project. This is not the way Play works. Play **is the platform**. Don’t worry about that.
+h2. <a>¿Para qué usan Python? (¿No sería mejor Maven?)</a>
 
-h2. <a>Why do I need Python (I would prefer Maven)?</a>
+Necesitamos una gran cantidad de scripts para manejar las aplicaciones Play, para crear una nueva aplicación, para ejecutarla, lanzar un explorar web, etc. Por supuesto que podríamos haber escrito estos scripts directamente en Java. Pero correr una JVM para simples tareas como la creación de un proyecto es muy lento. Y Java es muy limitado en lo que se refiere a la interacción con el sistema operativo.
 
-We need a lot of scripts to manage Play applications, for creating a new application, running it, launching a browser, etc… Of course we could write these in Java directly. But running a Java VM for simple tasks like project creation is very slow. And Java itself is very limited when it comes to OS interaction.
+Utilizar Python nos ha permitido escribir estos scripts de una manera totalmente portable. Es rápido para ejecutar, fácil de escribir y viene instalado en la mayor parte de los sistemas operativos. No viene con windows, es cierto, y es por eso que hemos incluido una versión de Python para windows junto con el framework.
 
-Python allowed us to write these scripts in a completely portable way. It’s fast to run, easy to write and available out of the box on most systems. It’s not on Windows, that’s why we bundle a Windows Python binary with the framework.
+h2. <a>¿Es Play un framework para Groovy?</a>
 
-h2. <a>Is Play a Groovy framework?</a>
+No. Si bien Groovy es la base que utilizamos para desarrollar el sistema de templates de Play, es totalmente transparente para el framework. Además, no puede escribir ninguna otra parte de la aplicación (como los controladores, modelos u otras utilidades) en Groovy. Si anda buscando un framework basado en Groovy debería echarle un vistazo a Grails.
 
-No. Even though we use Groovy as the base technology for the Play templating system, it’s totally transparent. Also, you can’t directly write any other part of the application (such as controllers, models or other utilities) in Groovy. If you’re looking for a Groovy based framework you should have a look at Grails.
+h2. <a>Ja, ustedes no tienen idea de lo que es programar en Java</a>
 
-h2. <a>You guys don’t even know how to program in Java...</a>
+Somos completamente conscientes de que hemos tomado varias decisiones que son poco comunes en el mundo de Java, y de hecho Play no sigue ciegamente todas las denominadas ‘buenas prácticas’. Pero todos los miembros del equipo de Play tenemos vasta experiencia en el desarrollo de aplicaciones en Java, y estamos totalmente al tanto de las elecciones que hacemos y las reglas que rompemos.
 
-We are fully aware that we made choices that are pretty uncommon in the Java world, and that Play does not blindly follow all the so-called Java ‘good practices’. But all of the Play team members are very experienced Java developers and we are totally aware of the choices we made and the rules we broke.
+Java en sí mismo es un lenguaje de programación de uso genérico y no fue originalmente concebido para el desarrollo de aplicaciones web. Es una cosa muy distinta desarrollar una librería en Java genérica y reutilizable a desarrollar una aplicación web. De hecho una aplicación web no tiene por qué ser diseñada para ser reutilizable. Se precisa menos abstracción, menos configuración. La reusabilidad debe ser contemplada para las aplicaiones web, pero a través de APIs de servicios web en vez de integraciones al nivel del lenguaje.
 
-Java itself is a very generic programming language and not originally designed for web application development. It is a very different thing to write a generic and reusable Java library and to create a web application. A web application itself doesn’t need to be designed to be reusable. You need less abstraction, less configuration. Reusability does exist for web applications, but through web service APIs rather than language-level integration.
+Cuando el tiempo de desarrollo tiende a cero, usted puede concentrarse en la funcionalidad de su aplicación y experimentar rápidamente, en vez de crear capas y capas de abstracción para futuros desarrollos.
 
-When the development time tends to zero you can concentrate on your application features and experiment quickly, instead of trying to abstract things for future developments.
+h2. <a>¿Play es rápido?</a>
 
-h2. <a>Is Play fast?</a>
+Sí, el framework Play en sí es rápido. Pero eso no significa que cualquier aplicación hecha con Play será rápida. El servidor HTTP integrado, el routeo de URLs y la llamada al controlador son extremadamente rápidos. Combinados con la tecnología de la JVM y las ventajas de la compilación justo a tiempo (Just In Time compilation) puede fácilmente dar respuesta a miles de llamadas por segundo. Desafortunadamente su aplicación seguramente utilizará una base de datos, que por lo general se convertirá en el cuello de botella de su aplicación.
 
-Yes, Play itself is fast. But that doesn’t mean that any particular application will be fast. The embedded HTTP server, the basic routing and the controller invocation stack are very very fast. Used with a modern JVM and Just In Time compiling you can easily get thousands of requests per second. Unfortunately, your application will likely use a database, which will become the bottleneck as usual.
+Actualmente el mayor consumidor de CPU en el stack de Play el el sistema de templates basado en Groovy. Pero dado que las aplicaciones Play son fácilmente escalables, no es realmente un problema si precisa manejar un tráfico verdaderamente alto: puede balancear la carga de trabajo entre varios servidores. También confiamos en lograr una mejora en la performance con la llegada de JDK7 y su soporte mejorado para lenguajes dinámicos.
 
-The biggest CPU consumer in the Play stack at the moment is the Groovy-based template engine. But as Play applications are easily scalable, it is not really a problem if you need to handle very high traffic: you can balance the load between several servers. We also hope for a performance gain at this level with the new JDK7 and its better support for dynamic languages.
+h2. <a>¿Puedo utilizar Play para una aplicación en producción?</a>
 
-h2. <a>Can I already use Play for a production application?</a>
+Seguro, "muchas personas":http://www.playframework.org/community/testimonials están utilizando Play en producción. La rama de la versión 1.0 ya ha entrado en mantenimiento, lo que significa que tan sólo arreglaremos bugs y mantendremos la compatibilidad de la API en esa rama.
 
-Sure, "a lot of people":http://www.playframework.org/community/testimonials already use Play in production. The 1.0 branch is now in maintenance mode, which means that we will just fix bugs and keep API compatibility in that branch.
+h2. <a>¿Tiene soporte para la librería X?</a>
 
-h2. <a>Is library X supported?</a>
+Play es código Java estándar, así que cualquier librería Java puede ser usada fácilmente. Sin embargo, tenga presente que Play no utiliza la API de los Servlet (si bien puede hacer funcionar en un contenedor estándar de Servlets usando la funcionalidad de exportar su aplicación en un archivo WAR). Así que a menos que la librería que desea utilizar dependa de la API de los Servlet, no tendrá ninguna problema.
 
-Play is standard Java, so any standard Java library can easily be used. However keep in mind that Play does not use the Servlet API (although you can get it work in a standard Servlet container using the WAR export feature). So unless the library you want to use relies on the Servlet API, there won’t be any problem.
+h2. <a>¿Cómo puedo contribuir?</a>
 
-h2. <a>How can I help/contribute?</a>
+Utilizamos "GitHub":http://github.com/playframework/play como nuestra herramienta de desarrollo principal, y GitHub mismo es sumamente abierto. Puede registrar una cuenta en GitHub y comenzar a contribuir haciendo un fork del código del framework. Consulte la "guía para contribuir":http://play.lighthouseapp.com/projects/57987/contributor-guide.
 
-We use "GitHub":http://github.com/playframework/play as our main development tool, and launchpad itself is very open. You can just register a GitHub account and fork the code base. Check the "contributor guide":http://play.lighthouseapp.com/projects/57987/contributor-guide.
-
-The documentation itself is kept as "Textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29 files in the framework source repository, so you can edit it and contribute just as you do with code.
+Incluso la documentación está almacenada como un archivo "Textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29 en el repositorio con los fuentes del framework, de manera que puede editarla y contribuir tal como lo haría con el código.
