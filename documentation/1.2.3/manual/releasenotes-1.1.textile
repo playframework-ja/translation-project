@@ -1,4 +1,4 @@
-h1. Play 1.1 -- Notas de lanzamiento
+h1. Play 1.1 -- Notas de versión
 
 Puedes consultar las lista de bugs solucionados en Play 1.1 en la "hoja de ruta":http://www.playframework.org/roadmap/1.1. Esta página resume los cambios más importantes.
 

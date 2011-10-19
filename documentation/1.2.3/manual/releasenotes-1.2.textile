@@ -1,35 +1,32 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Play 1.2 -- Notas de la versión
 
-h1. Play 1.2 -- Release notes
+Puedes consultar las lista de bugs solucionados en Play 1.2 en la "hoja de ruta":http://www.playframework.org/roadmap/1.2. Esta página resume los cambios más importantes.
 
-You can read about the bugs fixed in Play 1.2 on the "road map page":http://www.playframework.org/roadmap/1.2. This page highlights the most important changes.
+h2. Migrando desde Play 1.1.x
 
-h2. Migrating from Play 1.1.x
+Migrar desde Play 1.1.x es sumamente simple. No hay cambios en el layout de la aplicación, de forma tal que sus aplicaciones podrán ejecutarse en Play 1.2. Sin embargo, si usa algún módulo externo, posiblemente tenga que actualizarse a alguna versión compatible con Play 1.2. Verifique la documentación del módulo correspondiente.
 
-Migrating from Play 1.1.x is pretty straightforward. There are no changes to the application layout, so your applications will run in Play 1.2. However, if you use any external modules in your application, you may have to use more recent versions that are compatible with Play 1.2. Check the corresponding module pages.
+Algunas APIs han sido eliminadas de Play 1.2, luego de haber sido deprecadas por un tiempo prudencial, pero la mayor parte de la API pública se ha mantenido sin cambios. Si se encuentra con problemas de compilación que no sabe cómo resolver, consúltenos en la "lista de discusión de google":https://groups.google.com/forum/#!forum/play-framework.
 
-Some APIs have been removed in Play 1.2, after having been deprecated for a long time, but most of the public API is the same. If you have compilation errors that you don’t know how to solve, ask on the "Google group":https://groups.google.com/forum/#!forum/play-framework.
-
-When you call a controller from a @FunctionalTest@, the action invocation now runs in its own transaction. Because the test itself also run in its own transaction, deadlocks can occur. So it's better to configure your database with *READ_UNCOMMITED* transactions while running tests. If you test again the in-memory H2 database, use the following database configuration:
+A partir de esta versión, al llamar  a un controlador desde un test funcional (@FunctionalTest@), la acción invocada se ejecutará en su propia transacción. Dado que el test en sí mismo también se ejecuta en su propia transacción, esto puede dar lugar a deadlocks. Así que es recomendable configurar su base de datos con transacciones *READ_UNCOMMITED* al ejecutar las pruebas. Si realiza las pruebas contra la base de datos en  memoria H2, utilice la siguiente configuración:
 
 bc. %test.db.url=jdbc:h2:mem:play;MODE=MYSQL;LOCK_MODE=0@ 
 
-If you can't use *READ_UNCOMMITED* for your database transactions, you need to run every JPA access it their own transaction, either by managing JPA transaction by hand (using @JPA.em().getTransaction()@) or by spawning invocations using *Jobs*. 
+Si no puede utilizar *READ_UNCOMMITED* para las transacciones de su base de datos, deberá ejecutar cada operación de JPA en su propia transacción, ya sea estableciendo las tansacciones de JPA manualmente (utilizando @JPA.em().getTransaction()@) o lanzando nuevos procesos usando *Jobs*. 
 
+h2. Gestión de dependencias
 
-h2. Dependency management
+El "sistema de gestión de dependencias de Play":dependency le permite configurar las dependencias externas de su aplicación utilizando únicamente el archivo  @dependencies.yml@. 
 
-"Play’s dependency management system":dependency allows you to express your application’s external dependencies in a single @dependencies.yml@ file. 
+Una aplicación de Play puede tener tres tipos de dependencias:
 
-A Play application can have three kinds of dependencies:
+* El framework de Play propiamente dicho, ya que toda aplicación de Play siempre depende del framework Play.
+* Cualquier librería de Java disponible como un archivo **JAR** instalado en el directorio @lib/@ de su aplicación.
+* Un módulo de Play (que de hecho es un fragmento de aplicación) instalado en el directorio @modules/@ de su aplicación.
 
-* The Play framework itself, since a Play application always depends on the Play framework.
-* Any Java library, provided as **JAR** file installed in your application’s @lib/@ directory.
-* A Play module (in fact an application fragment) installed in your application’s @modules/@ directory.
+Una vez que ha establecido estas dependencias en el archivo @conf/dependencies.yml@, Play se encargará de resolver, descargar e instalar todas las dependencias requeridas.  
 
-Once you have expressed these dependencies in your application’s @conf/dependencies.yml@ file, Play will resolve, download and install all required dependencies.
-
-For example, using this file:
+Por ejemplo, utilizando el siguiente archivo:
 
 bc. # Application dependencies
  
@@ -38,108 +35,108 @@ require:
     - com.google.guava -> guava r07
     - play -> pdf 0.2
 
-You can run @`play dependencies`@:
+Puede ejecutar @`play dependencies`@ en la línea de comandos:
 
 !images/dependencies!
 
-Under the hood it is powered by "Apache Ivy":http://ant.apache.org/ivy/, and it supports Maven compatible repositories.
+Internamente Play utiliza "Apache Ivy":http://ant.apache.org/ivy/, por lo que provee soporte para repositorios compatibles con Maven.
 
-h2. Better asynchronous features
+h2. Mejor soporte para llamadas asincrónicas 
 
-It was already possible to achieve asynchronism with Play 1.1 using Java Future and @waitFor(…)@ and @suspend(…)@ controller methods. However these primitives were not really easy to use. That’s why we’ve worked on a complete set of new coherent features for Play 1.2.
+En la versión 1.1 de Play era posible trabajar de manera asincrónica utilizando los Futures de Java y los métodos de los controladores @waitFor(…)@ y @suspend(…)@. Sin embargo, estas órdenes primitivas no eran muy fáciles de usar. Es por eso que en Play 1.2 hemos rediseñado el soporte para llamadas ascinrónicas. 
 
 h3. Promises
 
-In Play 1.2 we introduce Promise, which is Play’s custom Future type. In fact a @Promise<T>@ is also a @Future<T>@ so you can use it as a standard Future. However, it also has a very interesting addition: the ability to register callback using @onRedeem(…)@ that will be called as soon as the promised value is available. It allows the framework to register itself on them and to reschedule the request invocation as soon as possible.
+En Play 1.2 introducimos el tipo Promise, que es una adaptación del tipo de dato Future de Java. De hecho, un @Promise<T>@ es también un @Future<T>@ de forma tal que lo puede usar como un Future estándar. Sin embargo, tiene también un agregado sumamente interesante: la posibilidad de registrar un callback usando @onRedeem(…)@ que será invocado tan pronto como el valor retornado por el Promise esté disponible. Esto le permite al framework registrarse a sí mismo a los Promises y retomar el pedido http tan pronto como sea posible. 
 
 h3. play.libs.F
 
-The Promise type is part of new library (play.libs.F) that introduces several useful functional programming constructs. We also felt that we needed pattern matching in Java. Unfortunately Java has not built-in pattern matching, and because of the lack of functional constructs, it is difficult to add it as a library. Anyway we’ve worked on a solution that is not so bad.
+El tipo Promise es parte de una nueva librería (play.libs.F) que introduce varias contrucciones propias de la programación funcional. También nos pareció que precisábamos contar con pattern mathching en Java. Lamentablemente Java no trae soporte nativo para pattern matching, y debido a la falta de construcciones funcionales, es bastante complicado agregarlo como una librería. De todas maneras, hemos logrado una solución que no está nada mal.
 
 h3. await(…)
 
-When your application code returns values that are not yet available using a @Promise<T>@, you want to be able to ask Play to wait for this promised result to be available before resuming your request. It allows your code to say explicitly: 
+Cuando su aplicación retorna valores que aún no están disponibles utilizando un @Promise<T>@, usted podrá pedirle a Play que espere hasta que el resultado "prometido" esté disponible antes de continuar procesando el pedido http. Para ser más claros, su código Java explícitamente podrá decir:  
 
-bq. "I’m waiting for a result that will be available later" 
+bq. "Estoy esperando un resultado que estará disponible más tarde" 
 
-and so the framework to handle it as 
+y el framework responderá:
 
-bq. "Ok I will stop your code, reuse the thread to serve other requests, and resume your code as soon as the promised value you wait for is available".
+bq. "Entendido, detendré la ejecución de su código, reutilizaré el thread para atender otros pedidos http, y retomaré la ejecución de su código tan pronto como el valor prometido que está esperando esté disponible".
 
 h3. Continuations
 
-Because the framework needs to recover the thread you were using in order to use it to serve other requests, it has to suspend your code. In the previous Play version, the @await(…)@ equivalent was @waitFor(…)@, which suspended your action, and then recalled it later from the beginning.
+Dado que el framework precisa recuperar el thread que estaba utilizando a fin de utilizarlo para atender otros pedidos, tiene que suspender la ejecución de su código. En versiones previas de Play, el equivalente a @await(…)@ era @waitFor(…)@, el cual suspendía la acción y luego la volvía a llamar más tarde desde el principio.
 
-To make it easier to deal with asynchronous code in Play 1.2 we have introduced continuations. Continuations allow your code to be suspended and resumed transparently.
+Para lograr que sea más fácil trabajar con código asincrónico en Play 1.2, hemos desarrollado los _Continuations_, los cuales le permiten a su código ser suspendido y reanudado de manera trasnparente.
 
 h3. Response streaming
 
-Because you are able to loop without blocking the request, you may want to send data to the browser as soon you have part of the result available. This is the point of the @Content-Type:Chunked@ HTTP response type. It allows to send your HTTP response several times using multiples chunks. The browser will receive these chunks as soon as they are published.
+Dado que podrá ejecutar bucles sin bloquear el pedido http, seguramente querrá enviar información al browser tan pronto como alguna porción de la misma esté disponible. Para esto creamos el tipo de respuesta HTTP @Content-Type:Chunked@, el cual le permite enviar respuestas HTTP por tramos (chunks). El browser recibirá estos _chunks_ tan pronto como sean publicados por su aplicación.
 
 h3. WebSockets
 
-WebSockets are a way to open a two-way communication channel between a browser and your application. It is now supported by your Play application.
+Mediante el uso de WebSockets podrá establecer un canal bidireccional de comunicación entre el browser y su aplicación. Con la versión 1.2, Play provee soporte para WebSockets.
 
-h3. New Chat sample application
+h3. Nueva aplicación de char de ejemplo
 
 !images/chat-websocket!
 
-All these features are used in the new *Chat* sample application, which demonstrates how to achieve a standard chat application in three different ways:
+Todas estas nuevas funcionalidades son utilizadas en la nueva aplicación de chat de ejemplo, la cual muestra cómo desarrollar una aplicación de chat de tres maneras distintas:
 
 * Active refresh
 * Ajax with long polling
 * WebSockets
 
-h2. Routes file improvements
+h2. Mejoras en el archivo de rutas
 
-The @routes@ file now supports a set of new features. Also you can now safely use *{* and *}* characters in a route path regular expression.
+El archivo @routes@ ahora soporta un conjunto de nuevas prestaciones. Además, ahora también puede utilizar los caracters *{* y *}* en las expresiones regulares de una definición de ruta.
 
 h3. staticFile: mapping
 
-Like the old @staticDir@ mapping, you can now directly map a URL path to a static file rendering.
+Al igual que el anterior mapeo @staticDir@, ahora puede relacionar directamente un camino URL a un archivo estático. 
 
 bc. # Serve index.html static file for home requests
 GET     /home                   staticFile:/public/html/index.html
 
-h3. 404 as action
+h3. 404 como una acción
 
-You can now directly use @404@ as a route action to mark a URL path that must be ignored by your application. For example:
+Ahora puede usar directamente @404@ como una acción para indicar un camino URL que debe ser ignorado por su aplicación, por ejemplo:
 
 bc. # Ignore favicon requests
 GET     /favicon.ico            404
 
-h3. WS method
+h3. Método WS
 
-The new @WS@ method allows you to declare a route that is mapped to a WebSocket.
+El nuevo método @WS@ le permite declarar una ruta que está mapeada a un WebSocket.
 
 bc. # A WebSocket
 WS    /chat/messages            Chat.messages
 
-You can use the <code>@@{Chat.messages()}</code> notation to generate the reverse URL, as:
+Ahora puede utilizar la sintaxis <code>@@{Chat.messages()}</code> para generar la ruta URL reversa, como en:
 
 bc. ws://localhost:9000/chat/messages
 
 
 h2. Database evolutions
 
-When you use a relational database, you need a way to track and organize your database schema changes. Play evolutions automatically track these changes and update your schema. 
+Cuando utiliza una base de datos relacional, necesita una manera de llevar registro y organizar los cambios en el esquema de la base de datos. Play evolutions, automáticamente gestiona estos cambios y actualiza su esquema. 
 
 !images/evolutions!
 
-It will also resolve conflicts that occur when several developers work on the same application.
+También resolverá los conflictos que ocurren cuando múltiples desarrolladores trabajan en la misma aplicación.
 
-h2. Invocation context annotations
+h2. Anotaciones para establecer el contexto de invocación (Invocation context annotations)
 
-Play maps each invocation (an HTTP request, a WebSocket message, or an asynchonous job execution for example) as an **Invocation**. You can now annotate any invocation with some annotations that can be used by plugins to change the way they handle this particular invocation.
+Play mapea cada invocación (un pedido HTTP, un mensaje de un WebSocket, o la ejecución de un trabajo asincrónico, por ejemplo) como una **Invocation**. Ahora puede agregar anotaciones a cada invocación que serán utilizadas por los plugins para indicar la manera en que deberá ser tratada esa invocaciónen particular.
 
-For example, the **JPA Plugin** automatically opens a database transaction for each invocation if a database is configured. Now, if you don’t need a database connection for a particular invocation, you can annotate it with <code>@NoTransaction</code>:
+Por ejemplo, el **plugin JPA** automáticamente abrirá una transacción de la base de datos por cada invocación, si una base de datos está configurada. Ahora, si no necesita una conexión a la base para una invocación en particular, puede anotar con <code>@NoTransaction</code>:
 
 bc. @NoTransaction
 public static void index() {
     render();
 }
 
-Another annotation allows you to specify a read-only transaction for a particular invocation;
+Otra anotación le permite especificar una transacción de sólo lectura para una invocación en particular:
 
 bc. @Transactional(readOnly=true)
 public static show(Long id) {
@@ -147,52 +144,52 @@ public static show(Long id) {
     render(post);
 }
 
-The concept of invocation context can be extended to any plugin.
+El concepto de contexto de invocación puede ser extendido a cualquier plugin.
 
-h2. H2 as default in-memory database
+h2. H2 como la base de datos en memoria por defecto
 
-We are now using "H2 Database":http://www.h2database.com/ as the in-memory database for Play. It is more compatible with production database like MySQL, so you will have fewer problems during deployment.
+Hemos adoptado la "base de datos H2":http://www.h2database.com/ como la base de datos en memoria de Play. Tiene mayor grado de compatibilidad con bases de datos de producción como MySql, de forma tal que experimentará menos problemas a la hora de desplegar su aplicación.
 
-As a nice side effect, H2 provides a Web console, that you can launch using the */@db* url of any Play application using *db=mem* as configuration.
+Además, H2 provee una consola Web, que puede invocar desde el url */@db* desde cualquier aplicación de Play, usando *db=mem* en su arhivo de configuración.
 
 !images/h2console!
 
-h2. Test-runner updates
+h2. Mejoras en el Test-runner
 
-There are several updates concerning the test-runner.
+Hay varias novedades en lo que respecta al ejecutador de tests (test-runner)
 
-h3. Run your JUnit-based test from any JUnit test runner
+h3. Ejecute sus tests basados en JUnit desde cualquier JUnit test runner
 
-You can now run you Java test cases directly from any existing JUnit test runner, like the one provided in Eclipse.
+Ahora puede ejecutar sus casos de prueba de Java directamente, desde cualquier JUnit test runner, como el que trae Eclipse.
 
 !images/eclipse-test-runner!
 
-h3. Surefire reports
+h3. Reportes Surefire
 
-Now Surefire reports are generated for any Java test class you run, making it easier to integrate it with other continuous integration softwares.
+Ahora cualquier test de Java que ejecuta genera reportes SureFire, haciéndo más fácil la integación de sus pruebas con otros servidores de integración contínua. 
 
-h3. YAML fixtures
+h3. Fixtures de YAML
 
-You can now load your fixtures from several YAML files at once, and even use the template engine markup language in your YAML definitions to add some kind of dynamic data.
+Ahora puede cargar sus fixtures desde múltiples archivos YAML al mismo tiempo, e incluso usar el lenguaje de templates en las deficiones de sus archivos YAML para agregar contenido dinámico al mismo.
 
-h3. Several test IDs
+h3. Múltiples IDs en modo de prueba
 
-You can also create more than one test configuration, by specifying a framework ID that matches @test-*@.
+También puede crear más de una configuración para el modo prueba, especificando distintos IDs de framework que coincidan con @test-*@.
 
-h2. Cheat-sheets provided with documentation
+h2. Hojas ayuda-memoria (Cheat-sheets) incluidas en la documentación
 
-The Play documentation now includes several Cheat sheets that provide a quick reference for the common Play functions. They can be easily printed.
+La documentación de Play ahora incluye varias hojas ayuda-memoria que le proveen una referencia rápida de las funciones más cómunes de Play, para que imprima y utilice como material de consulta.
 
 !images/cheatsheet!
 
-h2. Other small features
+h2. Otras mejoras menores
 
-There are also some small new features as well as "130 fixed bugs":http://play.lighthouseapp.com/projects/57987-play-framework/milestones/current, including:
+Hay también otras mejoras menores, así como "130 bugs solucionados"::http://play.lighthouseapp.com/projects/57987-play-framework/milestones/current, incluyendo:
 
-* New @create()@ and @validateAndCreate()@ methods for JPA model.
-* Added @--pid_file=@, @--http.port=@, @--https.port=@ command line options to the @play@ command.
-* Support for lang-country pair (e.g. en-GB) 
-* Binding of @Map<String, String>@, with multivalues, composites, etc.
-* Ability to create your own CRUD @ObjectType@.
-* play.lib.WS client now supports Timeout.
-* Session cookies are no longer sent if the session is empty.
+* Nuevos métodos @create()@ y @validateAndCreate()@ para los modelos JPA.
+* Se agregaron las siguientes opciones al comando @play@: @--pid_file=@, @--http.port=@, @--https.port=@
+* Soporte para definición de los pares lenguaje-país (e.g. en-GB) 
+* Binding automático de @Map<String, String>@, para valores múltiples, valores compuestos, etc.
+* Posibilidad de crear tus propios CRUD @ObjectType@.
+* El cliente play.lib.WS ahora soporta timeout.
+* Las cookies de Session ya no son enviadas si la sessión se encuentra vacía.
