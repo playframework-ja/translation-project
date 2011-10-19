@@ -3,7 +3,7 @@ id: carbonate
 name: Carbonate migrations
 
 description: >
-  Playアプリケーションへのデータベース移行を作成し、実行するためのモジュールです。Hibernate schema updateを用いて、自動的に移行用のSQLを生成します。
+  Play アプリケーションへのデータベース移行を作成し、実行するためのモジュールです。 Hibernate schema update を用いて、自動的に移行用のSQLを生成します。
 
 url: http://github.com/huljas/play-carbonate
 

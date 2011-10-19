@@ -1,10 +1,10 @@
 h1. ==Carbonate==
 
-Playアプリケーションへのデータベース移行を作成し、実行するためのモジュールです。このモジュールを利用するためには、 **application.conf** ファイルに下記のように追記する必要があります。
+Play アプリケーションへのデータベース移行を作成し、実行するためのモジュールです。このモジュールを利用するためには、 **application.conf** ファイルに下記のように追記する必要があります。
 
 bc. module.carbonate=${play.path}/modules/carbonate-{version}
 
-次のようにデータベースを設定し、carbonateパスを **application.conf** ファイルに追加します。 _ここでは、local-mysqlというIDを利用しています。_ 
+次のようにデータベースを設定し、carbonate パスを **application.conf** ファイルに追加します。 _ここでは、 local-mysql というIDを利用しています。_ 
 
 bc. %local-mysql.db=
 %local-mysql.db.url=jdbc:mysql://localhost:3306/play-test
@@ -18,15 +18,15 @@ bc. %local-mysql.db=
 
 bc. play carbonate:new --%local-mysql
 
-そのツールは移行ファイル名に追加される移行用の記述を要求し、 **carbonate.path** プロパティに定義されたパスに移行ファイルを作成します。データベースとモデルを比較し、スキーマ更新SQLを生成します。
+そのツールは移行ファイル名に追加される移行用の記述を要求し、 **carbonate.path** プロパティに定義されたパスに移行ファイルを作成します。データベースとモデルを比較し、スキーマ更新 SQL を生成します。
 
 **プロダクトを利用する前にツールによって生成された移行データをチェックするようにしてください!**
 
-新しい移行データは次にplayアプリケーションを実行するタイミングでデータベースに適用されます。
+新しい移行データは次に Play アプリケーションを実行するタイミングでデータベースに適用されます。
 
 bc. play run --%local-mysql
 
-設定ファイル内の **carbonate.path** にデータが存在しない場合、移行が無視されることに注意してください。(Play内でメモリデータベースを利用したい場合はこの方が都合が良いでしょう。)
+設定ファイル内の **carbonate.path** にデータが存在しない場合、移行が無視されることに注意してください。( Play 内でメモリデータベースを利用したい場合はこの方が都合が良いでしょう。)
 
 h3. ==Configuration options==
 
