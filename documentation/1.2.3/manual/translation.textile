@@ -1,5 +1,7 @@
 h1. Traduciendo Play! framework 
 
+Utilice el "glosario":glosary#authenticityToken
+
 La documentación de Play es extensa y detallada, y es sin duda uno de los puntos fuertes del framework. Lograr una traducción que sea precisa y amena al mismo tiempo requiere mucho tiempo y esfuerzo, es por eso que apelamos a la ayuda de la comunidad para llevar adelante esta tarea.
 
 h2. <a name="documentation">Lee la documentación</a>
@@ -28,6 +30,20 @@ play start
 p(note). Antes de iniciar por primera vez la aplicación debes ejecutar @play deps@ situado en el directorio donde instalaste _playdoces_, a fin de que Play! descargue e instale todas las dependencias.
 
 Luego navegamos a "localhost:9000":localhost:9000. Y ya tenemos nuestro sitio playdoces corriendo localmente en nuestra máquina. Siguiendo la filosofía Play!, simplemente editamos los archivos, apretamos F5 en el explorador y ya deberíamos ver los cambios reflejados en la página. 
+
+h2. <a name="criteria">Criterios para la traducción</a>
+
+Como ya hemos dicho, nuestra intención es lograr que la versión en castellano de la documentación de Play sea precisa y al mismo tiempo de amena lectura. Existen numerosos términos técnicos cuya traducción, lejos de aportar claridad, dificultan la comprensión del texto. En tales casos, sugerimos dejarlo en el idioma original o, en caso de requerir alguna explicación extra, utilizar el glosario de la siguiente manera:
+
+bc. [...]y retomar el "http request":glosary#httpRequest tan pronto [...] 
+
+que se verá en pantalla así:
+
+[...]y retomar el "http request":glosary#httpRequest tan pronto [...]
+
+Tan sólo hay que crear la entrada en la página glosary.textile.
+
+Preferimos también reescribir frases enteras, respetando el contenido semántico, antes que intentar traducciones literales que carezcan de naturalidad.  
 
 h2. <a name="contributing">Enviando nuestros cambios</a>
 

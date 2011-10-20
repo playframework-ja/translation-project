@@ -1,0 +1,7 @@
+p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+
+h1. Glosario de términos
+
+h2. <a name="httpRequest">HTTP request</a>
+
+Pedido HTTP. HTTP (Hypertext Transfer Protocol o protocolo de transferencia de hipertexto), el protocolo usado por internet, es un protocolo orientado a transacciones que sigue el esquema petición-respuesta entre un cliente y un servidor. Cada interacción con un servidor web (un usuario navegando a un usuario navega a un sitio web, una llamada ajax, o un web service que es comsumido) consiste en un pedido HTTP que recibirá una respuesta del servidor.
