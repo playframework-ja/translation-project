@@ -1,24 +1,22 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Una primera iteración con el modelo de datos
 
-h1. A first iteration of the data model
+Aquí comenzaremos a diseñar el modelo de datos para nuestros sistema de blogs.
 
-Here we will start to write the model for our blog engine.
+h2. <a>Introducción a JPA</a>
 
-h2. <a>Introduction to JPA</a>
+La capa de datos tiene un rol central en una aplicación de Play (y de hecho en cualquier aplicación bien diseñada). Es la representación de la información específica del dominio sobre la cual operará la aplicación. Dado que nos proponemos desarrollar un sistema de blogs, nuestra capa de datos seguramente contendrá clases como User (usuario), Post (una entrada en el blog) y Comment (comentario).
 
-The model layer has a central position in a Play application (and in fact in all well-designed applications). It is the domain-specific representation of the information on which the application operates. As we want to create a blog engine, the model layer will certainly contain classes like User, Post and Comment.
+Dado que la mayor parte de los objetos del modelo de datos necesitan sobrevivir aún cuando reiniciemos nuestra aplicacion, debemos guardarlos en una base de datos persistente. Una elección bastante habitual es la de elegir una base de datos relacional. Pero dado que Java es un lenguaje orientado a objetos, utilizaremos un "mapeo objeto-relacional u ORM":http://es.wikipedia.org/wiki/ORM para procurar minimizar las diferencias entre ambos tipos de datos.
 
-Because most model objects need to survive between application restarts, we have to save them in a persistent datastore. A common choice is to use a relational database. But because Java is an object oriented language, we will use an "object-relational mapper":http://en.wikipedia.org/wiki/Object-relational_mapping to help reduce the impedance mismatch.
+La "API de Persistencia de JAVA":http://en.wikipedia.org/wiki/Java_Persistence_API (JPA) es una especificación de JAVA que define una API estandar para el mapeo objeto-relacional. Play utiliza el framework "Hibernate":http://www.hibernate.org, una de las más conocidas implementaciones de JPA. Una de las ventajas de utilizar JPA en vez de la API estandar de Hibernate, es que el todo 'mapeo' es declarado directamente en los objetos de Java.
 
-The "Java Persistence API":http://en.wikipedia.org/wiki/Java_Persistence_API (JPA) is a Java specification that defines a standard API for object-relational mapping. As an implementation of JPA, Play uses the well-known "Hibernate":http://www.hibernate.org framework. One advantage of using JPA over the standard Hibernate API is that all the ‘mapping’ is declared directly in the Java objects.
+Si ya ha utilizado Hibernate o JPA con anterioridad, se sorprenderá de lo fácil que resulta hacerlo con Play. No hay necesidad de configurar nada; JPA simplemente funciona tal como viene con Play.
 
-If you have used Hibernate or JPA before you will be surprised by the simplicity added by Play. No need to configure anything; JPA just works out of the box with Play.
+Si no conoce JPA, puede leer "algunas de estas presentaciones":http://java.sun.com/javaee/5/docs/tutorial/doc/bnbpz.html antes de continuar con este tutorial.
 
-If you don’t know JPA, you can read "some of these simple presentations":http://java.sun.com/javaee/5/docs/tutorial/doc/bnbpz.html before continuing.
+h2. <a>La clase Usuario</a>
 
-h2. <a>The User class</a>
-
-We will start to code the blog engine by creating the User class. Create a new file @/yabe/app/models/User.java@, and declare a first implementation of the User class:
+Comenzaremos a desarrollar nuestro sistema de blogs creando una clase para modelar la información de los usuarios. Cree un nuevo archivo  @/yabe/app/models/User.java@, y declare la primera implementación de la clase User:
 
 bc. package models;
  
@@ -43,39 +41,39 @@ public class User extends Model {
  
 }
 
-The <code>@Entity</code> annotation marks this class as a managed JPA entity, and the @Model@ superclass automatically provides a set of useful JPA helpers that we will discover later. All fields of this class will be automatically persisted to the database. 
+La anotación <code>@Entity</code> indica que se trata de una entidad manejada por JPA, y la superclase @Model@ automáticamente provee un conjunto de métodos que complementan la funcionalidad de JPA. Todos los campos de esta clase serán automáticamente persistidos en la base de datos.
 
-p(note). By default, the table name is ‘User’. If you change the configuration to use a database where ‘user’ is a reserved keyword, then you will need to specify a different table name for the JPA mapping. To do this, annotate the @User@ class with <code>@Table(name="blog_user")</code>.
+p(note). Por defecto, el nombre de la tabla será ‘User’. Si cambia la configuración para utilizar una base de datos donde la 'user' es una palabra reservada, deberá especificar otro nombre de tabla para el mapeo de JPA. Para hacerlo, anote la clase @User@ con la anotación <code>@Table(name="blog_user")</code>.
 
-p(note). It’s not required that your model objects extend the @play.db.jpa.Model@ class. You can use plain JPA as well. But extending this class is a good choice in most cases as it will make a lot of the JPA stuff easier.
+p(note). No es obligatorio que sus clases hereden la clase @play.db.jpa.Model@. Puede simplemente utilizar JPA. Pero extender esta clase es una buena opción en la mayoría de los casos, ya que le permitirá usar muchas de las prestaciones de JPA con mayor facilidad.
 
-If you have used JPA before, you know that every JPA entity must provide an <code>@Id</code> property. Here the Model superclass provides an automatically generated numeric ID, and in most cases this is good enough.
+Si alguna vez ha utilizado JPA, sabrá que cada entidad debe proveer una propiedad <code>@Id</code>. En este caso la superclase Model provee un ID numérico automáticamente generado, lo cual en la mayoría de los casos es suficiente.
 
-p(note). Don’t think about this provided @id@ field as a **functional identifier** but as a **technical identifier**. It is generally a good idea to keep both concepts separated and to keep an automatically generated numeric ID as a technical identifier.
+p(note). No considere este campo @id@ como un **identificador funcional** relacionado con sus reglas de negocio, piénselo más bien como un **identificador técnico**. Es una buena idea tener estos dos conceptos bien separados y mantener un ID numérico automáticamente generado cono identificador técnico.
 
-Now if you’re a Java developer with any experience at all, warning bells are probably clanging like mad at the sight of a public variable. In Java (as in other object-oriented languages), best practice says to make all fields private and provide accessors and mutators. This is to promote encapsulation, a concept critical to object oriented design. In fact, Play takes care of that for you and automatically generates getters and setters while preserving encapsulation; we will see how it works later in this tutorial.
+Si usted tiene alguna experiencia en el desarrollo de aplicaciones con Java, seguramente estará horrorizado al ver que utilizamos variables públicas. En Java (y en la mayor parte de los lenguajes orientados a objetos), las buenas prácticas nos recomiendan declarar todos los campos como privados y proveer métodos para acceder y modificar estos campos, a fin de promover el encapsulamiento, uno de los conceptos fundamentales del diseño orientado a objetos. De hecho, Play se encarga de esto automáticamente, generando los métodos para acceder y modificar el valor de los campos preservando así el encapsulamiento de la clase, en breve veremos cómo funciona esto.
 
-You can now refresh the application home page, to see the result. In fact, unless you made a mistake, you should not see any change: Play has automatically compiled and loaded the User class, but this does not add any new features to the application.
+Puede ahora refrescar la página principal para ver los cambios. De hecho, a menos que haya cometido algún error, no debería ver ningún cambio: Play ha automáticamente compilada y cargado la clase User, pero esto todavía no agrega ninguna funcionalidad a nuestra aplicación.
 
-h2. <a>Writing the first test</a>
+h2. <a>Escribiendo la primera prueba unitaria</a>
 
-A good way to test the newly created User class is to write a JUnit test case. It will allow you to incrementally complete the application model and ensure that all is fine.
+Una buena manera de probar la clase User recientemente creada es escribiendo un caso de prueba de JUnit. Le permitirá ir completando incrementalmente el modelo de datos de la aplicación asegurándose de que todo está bien.
 
-To run a test case, you need to start the application in a special ‘test’ mode. Stop the currently running application, open a command line and type:
+Para ejecutar un caso de prueba, tendrá que iniciar la aplicación en un modo especial de prueba, el modo 'test'. Detenga la aplicación que actualmente se está ejecutando, abra una consola de comandos y tipee:
 
 bc. ~$ play test
 
 !images/guide2-0!
 
-The @play test@ command is almost the same as @play run@, except that it loads a test runner module that allows you to run test suite directly from a browser. 
+El comando @play test@ es casi idéntico a @play run@, excepto que carga un módulo "test runner":glosary#testRunner que le permite correr una batería de pruebas directamente desde el browser.
 
-p(note). When you run a Play application in @test mode@, Play will automatically switch to the @test@ framework ID and load the @application.conf@ file accordingly. Check the "framework ID documentation":ids for more information.
+p(note). Cuando ejecuta una aplicación play en @modo test@, Play automáticamente cambiará el ID del framework a @test@  y cargará los correspondientes valores del archivo @application.conf@. Consulte la "documentación de los IDs de framework":ids para más información.
 
-Open a browser to the "http://localhost:9000/@tests":http://localhost:9000/@tests URL to see the test runner. Try to select all the default tests and run them; all should be green… But these default tests don’t really test anything.
+Abra un explorador en "http://localhost:9000/@tests":http://localhost:9000/@tests para ver el "test runner":glosary#testRunner. Seleccione todas las pruebas por defecto haciendo click en 'Select all' y ejecútelas haciendo click en 'Start'; todos deberían dar verde, lo que significa que no hubo errores... Pero en realidad estas pruebas, por el momento, en realidad no prueban nada.
 
 !images/guide2-1!
 
-To test the model part of the application we will use a JUnit test. As you can see, a default @BasicTests.java@ already exists, so let’s open it (@/yabe/test/BasicTest.java@):
+Para probar la capa de datos de nuestra aplicación utilizaremos una prueba de JUnit. Como puede ver, Play ya ha creado un archivo con pruebas básicas: @BasicTests.java@. Así que abrámoslo (@/yabe/test/BasicTest.java@):
 
 bc. import org.junit.*;
 import play.test.*;
@@ -90,7 +88,7 @@ public class BasicTest extends UnitTest {
  
 }
 
-Remove the useless default test (@aVeryImportantThingToTest@) and create a test that tries to create a new user and retrieve it:
+Elimine la prueba por defecto (@aVeryImportantThingToTest@) y cree una prueba que intente crear un nuevo usuario y recuperarlo:
 
 bc. @Test
 public void createAndRetrieveUser() {
@@ -105,21 +103,21 @@ public void createAndRetrieveUser() {
     assertEquals("Bob", bob.fullname);
 }
 
-As you can see, the Model superclass gives us two very useful methods: @save()@ and @find()@.
+Como puede ver, la superclase Model nos brinda dos métodos sumamente útiles: @save()@ y @find()@.
 
-p(note). You can read more about the Model class’ methods in the Play manual’s "JPA support":jpa chapter.
+p(note). Puede leer más acerca de los métodos de la clase Model en la sección "Soporte para JPA":jpa del manual de Play.
 
-Select the @BasicTests.java@ in the test runner, click start and check that all is green. 
+Seleccione @BasicTests.java@ en el test runner, haga click en 'Start' y verificque que todo siga dando verde.
 
-We will need a method on the User class that checks if a user with a specified username and password exists. Let’s write it and test it.
+Necesitaremos un método en la clase User que verifique si existe un usuario con un específico nombre de usuario y clave. Escribamos dicho método y probémoslo.
 
-In the @User.java@ source, add the @connect()@ method:
+En el archivo @User.java@, agregue el método @connect()@:
 
 bc. public static User connect(String email, String password) {
     return find("byEmailAndPassword", email, password).first();
 }
 
-And now the test case:
+Y ahora el caso de prueba:
 
 bc. @Test
 public void tryConnectAsUser() {
@@ -132,11 +130,11 @@ public void tryConnectAsUser() {
     assertNull(User.connect("tom@gmail.com", "secret"));
 }
 
-Each time you make a modification you can run all the tests from the Play test runner to make sure you didn’t break anything. 
+Cada vez que haga una modificación, puede ejecutar todos los tests utilizando el "test runner":glosary#testRunner provisto por Play para asegurarse de que no haya roto nada.
 
-h2. <a>The Post class</a>
+h2. <a>La clase Post</a>
 
-The @Post@ class will represent blog posts. Let’s write a first implementation:
+La clase **Post** representará cada entrada en el blog. Escribamos una primera implementación de la misma:
 
 bc. package models;
  
@@ -166,25 +164,26 @@ public class Post extends Model {
  
 }
 
-Here we use the <code>@Lob</code> annotation to tell JPA to use a large text database type to store the post content. We have declared the relation to the @User@ class using <code>@ManyToOne</code>. That means that each @Post@ is authored by a single @User@, and that each @User@ can author several @Post@ instances.
+Aquí utilizamos la anotación <code>@Lob</code> para indicarle a JPA que utilice un campo de texto largo para almacenar el contenido de la entrada en el blog. Declaramos además la relación con la clase @User@ con la anotacion <code>@ManyToOne</code> (Muchos a uno). Eso singifica que cada @Post@ es publicado por un único @User@, su autor, y que cada @User@ puede escribir muchos @Posts@.
 
-We will write a new test case to check that the @Post@ class works as expected. But before writing more tests, we need to do something in the JUnit test class. In the current test, the database content is never deleted, so each new run creates more and more objects. This will soon become problematic, when more advanced tests count objects to check that all is fine.
+Vamos a escribir ahora un caso de prueba para verificar que la clase @Post@ funciona según lo planeado. Pero antes de escribir más tests debemos hacer algo en la clase de pruebas de JUnit. En el test que acabamos de hacer, el contenido de la base de datos nunca es borrado, de manera que cada corrida crea más y más objetos. Esto pronto se transformará en un problema, cuando pruebas más avanzadas tengan que contar la cantidad de objetos para verificar que todo esté funcionando correctamente.
 
-So let’s write a JUnit @setup()@ method to delete the database before each test:
+Así que escribiremos un método @setup()@ de JUnit para borrar todos los registros de la base de datos antes de cada prueba:
 
 bc. public class BasicTest extends UnitTest {
  
     @Before
     public void setup() {
-        Fixtures.deleteDatabase();
+        Fixtures.deleteAll();
     }
+    
+    ...
  
-    …
 }
 
-p(note). The <code>@Before</code> concept is a core concept of the JUnit testing tool.
+p(note). El concepto **@Before** (antes) es un concepto central del framework de testeo JUnit.
 
-As you can see, the @Fixtures@ class is a helper to deal with your database during tests. Run the test again to check that you haven’t broken anything, and start to write the next test:
+Como puede ver, la clase @Fixtures@ provee métodos que le facilitan preparar la base de datos para las pruebas. Ejecute nuevamente las pruebas para verificar que no ha roto nada, y comience a escribir las siguientes pruebas:
 
 bc. @Test
 public void createPost() {
@@ -210,13 +209,13 @@ public void createPost() {
     assertNotNull(firstPost.postedAt);
 }
 
-p(note). **Don’t forget** to import the @java.util.List@ or you will get a compilation error.
+p(note). **Recuerde** importar la librería @java.util.List@ para evitar obtener un error de compilación.
 
-h2. <a>Adding Comments</a>
+h2. <a>Agregando los comentarios</a>
 
-The last thing that we need to add to this first model draft is the ability to attach comments to posts.
+Lo último que precisamos agregar a este primer modelo de datos es la posibilidad de agregar comentarios a los mensajes.
 
-Creating the @Comment@ class is pretty straightforward.
+Crear la clase @Comment@ es muy simple.
 
 bc. package models;
  
@@ -246,7 +245,7 @@ public class Comment extends Model {
  
 }
 
-Let’s write a first test case:
+Escribamos nuestro primer caso de prueba:
 
 bc. @Test
 public void postComments() {
@@ -279,9 +278,9 @@ public void postComments() {
     assertNotNull(secondComment.postedAt);
 }
 
-You can see that navigation between **Post** and **Comments** is not very easy: we need to use a query to retrieve all comments attached to a @Post@. We can do better by setting up the other side of the relationship with the @Post@ class. 
+La navegabilidad entre la clase @Post@ y @Comments@ no es tan simple: necesitamos una consulta para traer todos los comentarios que han surgido de un mensaje. Para ello deberemos definir la otra parte de la relación con la clase @Post@.
 
-Add the @comments@ field to the @Post@ class:
+Agregue el campo @coments@ a la clase @Post@:
 
 bc. ...
 @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
@@ -296,11 +295,11 @@ public Post(User author, String title, String content) {
 }
 ...
 
-Note how we have used the @mappedBy@ attribute to tell JPA that the @Comment@ class’ post field maintains the relationship. When you define a bi-directional relation with JPA it is very important to tell it which side will maintain the relationship. In this case, since the @Comments@ belong to the @Post@, it’s better that the @Comment@ class maintains the relationship.
+Hemos utilizado el atributo @mappedBy@ para decirle a JPA que el campo post de la clase @Comments@ es el encargado de mantener la relación. Cuando define una relación bidireccional con JPA es importante definir qué lado mantendrá la relación. En este caso, dado que que los comentarios pertenecen a un mensaje, lo mejor será que la clase @Comments@ sea la encargada de mantener la relación.
 
-We have set the @cascade@ property to tell JPA that we want @Post@ deletion be cascaded to @comments@. This way, if you delete a post, all related comments will be deleted as well.
+La propiedad @cascade@ le indica a JPA que al eliminar un @Post@ deberá eliminar 'en cascada' todos los comentarios relacionados a ese mensaje.
 
-With this new relationship, we will add a helper method to the @Post@ class to simplify adding comments:
+Con esta nueva relación, agragaremos un método a la clase @Post@ que nos permita agregar comentarios de una manera más simple:
 
 bc. public Post addComment(String author, String content) {
     Comment newComment = new Comment(this, author, content).save();
@@ -309,7 +308,7 @@ bc. public Post addComment(String author, String content) {
     return this;
 }
 
-Let’s write another test case to check that it works:
+Escribamos ahora un caso de prueba para verificar que funcione:
 
 bc. @Test
 public void useTheCommentsRelation() {
@@ -345,15 +344,15 @@ public void useTheCommentsRelation() {
     assertEquals(0, Comment.count());
 }
 
-Is it green?
+Como de costrumbre, verificaremos que dé todo verde.
 
 !images/guide2-2!
 
-h2. <a>Using Fixtures to write more complicated tests</a>
+h2. <a>Utilizando 'Fixtures' para escribir pruebas más complicadas</a>
 
-When you start to write more complex tests, you often need a set of data to test on. Fixtures let you describe your model in a "YAML":http://en.wikipedia.org/wiki/Yaml file and load it at any time before a test.
+Cuando comienza a escribir pruebas más complicadas, necesitará contar con un conjunto de datos sobre los cuales efectuar las pruebas. Los Fixtures le permiten describir los contenidos de sus modelos en un archivo "YAML":http://en.wikipedia.org/wiki/Yaml y cargarlos antes de ejecutar las pruebas.
 
-Edit the @/yabe/test/data.yml@ file and start to describe a User:
+Edite el archivo @/yabe/test/data.yml@ y comience a describir un usuario:
 
 bc. 
 User(bob):
@@ -362,15 +361,14 @@ User(bob):
     fullname: Bob
  
 ...
- 
 
-Well, because the @data.yml@ file is a litle big, you can "download it here":files/data.yml.
+Dado que el archivo @data.yml@ es bastante grande, puede "descargarlo desde aquí":files/data.yml.
 
-Now we create a test case that loads this data and runs some assertions over it:
+Ahora creamos una prueba que cargue esta información y ejecute varias verificaciones (assertions, en la jerga de las pruebas unitarias) sobre estos datos:
 
 bc. @Test
 public void fullTest() {
-    Fixtures.loadModels("data.yml");
+    Fixtures.load("data.yml");
  
     // Count things
     assertEquals(2, User.count());
@@ -405,26 +403,26 @@ public void fullTest() {
     assertEquals(4, Comment.count());
 }
 
-p(note). You can read more about Play and YAML in the "YAML manual page":yaml.
+p(note). Puede leer más acerca de Play y el formato YAML en la "página del manual de YAML":yaml.
 
-h2. <a>Save your work</a>
+h2. <a>Guarde su trabajo</a>
 
-We have now finished a huge part of the blog engine. Now that we have created and tested all these things, we can start to develop the web application itself.
+Hemos concluido una parte sumamente importante de nuestro sistema de blogs. Ahora que ya hemos creado y probado todas estas cosas, podemos comenzar a desarrollar la interface web de la aplicación.
 
-But before continuing, it’s time to save your work using Bazaar. Open a command line and type @bzr st@ to see the modifications made since the last commit:
+Pero antes de continuar, es hora de guardar su trabajo utilizando Bazaar. Abra una línea de comando y tipee @bzr st@ para ver las modificaciones que ha efectuado desde la última vez que guardó los cambios en Bazaar:
 
 bc. $ bzr st
 
-As you can see, some new files are not under version control. The @test-result@ folder doesn’t need to be versioned, so let’s ignore it.
+Como puede ver, algunos archivos no están bajo control de código fuente. La carpeta @test-result@ no precisa ser versionada, así que vamos a ignorarla:
 
 bc. $ bzr ignore test-result
 
-Add all the other files to version control using @bzr add@.
+Y agregaremos el resto de los archivo al control de código fuente utilizando @bzr add@.
 
 bc. $ bzr add
 
-You can now commit your project.
+Ahora puede guardar los cambios de su proyecto.
 
-bc. $ bzr commit -m "The model layer is ready"
+bc. $ bzr commit -m "EL modelo de datos está listo"
 
-p(note). Go to the %(next)"Building the first screen":guide3%. 
+p(note). Vaya a %(next)"Desarrollando la primera pantalla":guide3%. 
