@@ -118,7 +118,7 @@ Morphia モジュールは play.db.Model から mongo へのアクセスと少�
 ** お気に入りの "Binder.bind(user, "User", params.all());" もしくは "User.edit(user, "User", params.all());" それと "Validation.valid(user);" を http リクエストパラメータの validation のために呼び出すことができます。
 
 * Indexing
-**　手で index を作る必要はありません。フィールドに @Indexed をつければいいだけです。 Morphia は play application の起動の際に index を作成することを保証します。
+** 手で index を作る必要はありません。フィールドに @Indexed をつければいいだけです。 Morphia は play application の起動の際に index を作成することを保証します。
 
 h2. 制限
 
@@ -305,11 +305,11 @@ p. 基本的に参照されたエンティティプロパティを利用して�
 bc.. User bob = User.filter("email", "bob@gmail.com").first();
 Post p = Post.filter("author", bob).first();
 
-p.リレーションシップが reference ではなく embedded になっている場合、クエリーにドット表記を使用することはできますか?
+p. リレーションシップが reference ではなく embedded になっている場合、クエリーにドット表記を使用することはできますか?
  
 h3. エンティティオブジェクトがメモリ中で作られた新しいオブジェクトなのか、データベースからロードされたデータなのかどうやって知ればいいのでしょう?
 
-p.　obj.isNew() メソッドを使ってください。
+p. obj.isNew() メソッドを使ってください。
 
 h3. Unit テストの setup メソッド内で Fixtures.deleteAll() メソッドを呼びだそうとしましたが、データが残ったままになります。どうすれば良いのでしょう?
 
