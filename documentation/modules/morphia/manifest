@@ -3,13 +3,13 @@ id: morphia
 name: Morphia - MongoDB Integration
 
 description: >
-  Seamlessly MongoDB access integration with Play's Model interface. 
+  シームレスなMongoDBアクセスを Play のモデルインタフェースに提供します。
   
 url: http://github.com/greenlaw110/play-morphia
 
 author: Green Luo
 
 versions:
-- version: "1.1c"
-  publishedAt: Oct 12, 2010
+- version: "1.2.3d"
+  publishedAt: Sep 28, 2011
   isDefault: true

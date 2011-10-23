@@ -1,143 +1,140 @@
 Updates in 1.2beta-6
-* Support filter (where clause) in Model.Factory.count and Model.Factory.fetch
-* Add @Global annotated ObjectIdBinder to app. This could fix issue #5
-* Revert morphia library to 0.99-Snapshot as a workaround for issue #16
+* フィルタ ( where 句 ) を Model.Factory.count と Model.Factory.fetch でサポート
+* @Global とアノテーション付けされた ObjectIdBinder を追加。問題 #5 を修正。 
+* #16 の問題のため、morphia ライブラリを 0.99-Snapshot に一時的に戻した。
 
 Updates in 1.2beta-5:
-* Fix issue: https://github.com/greenlaw110/play-morphia/issues#issue/12
-* Support simple where clause in MorphiaPlugin.MorphiaModelLoader.fetch|count
+* 問題を修正： https://github.com/greenlaw110/play-morphia/issues#issue/12
+* MorphiaPlugin.MorphiaModelLoader.fetch|count に where 句を記述できるようにサポート。
 
-Updates in 1.2beta-4:
-* morphia lib updated to 0.99 release
-* mongo driver updated to 0.24 release
+Updaets in 1.2beta-4:
+* morphia ライブラリを 0.99 にアップデート。
+* mongo driver を 0.24 にアップデート。
 
 Updates in 1.2beta-3:
-* Fixed issues: 7,8,9, see http://github.com/greenlaw110/play-morphia/issues
-* Add new configuration: morphia.defaultWriteConcern
+* 7,8,9 の問題を修正。詳しくは  http://github.com/greenlaw110/play-morphia/issues を閲覧してください。
+* 新しい設定： morphia.defaultWriteConcern を追加。
 
 Updates in 1.2beta-2:
-* Fix bug: Play reload cause MappingException (https://github.com/greenlaw110/play-morphia/issues#issue/6)
-* Supress some debug information (change debug to trace) in MorphiaEnhancer and MorphiaPlugin
+* Play reload が MappingException (https://github.com/greenlaw110/play-morphia/issues#issue/6) を発生させる不具合を修正。
+* MorphiaEnhancer と MorphiaPlugin 内のデバッグ情報を抑制 
 
 Updates in 1.2beta:
-* Upgrade Morphia Library to 0.99-SNAPSHOT, mongodb driver to 2.3
-* Better generic support in Model query methods. Now you don't need type cast for methods return a of entities. But if you use field or criteria in your expression, type cast is still needed
-* Support new Or query interface which is released since morphia-0.97
+* Morphia ライブラリを 0.99-SNAPSHOT にアップグレード。 mongodb driver を 2.3 にアップグレード。
+* Model の query メソッドで 今よりも良い Generic をサポート。メソッドの返り値に対して型キャストをする必要がなくなりました。しかしフィールドもしくは、式の中でのクライテリアを使用するのであれば、型キャストが今でも必要です。
+* morphia-0.97 からリリースされた新しい Or クエリーインタフェースをサポート。
 
-Note using Long as IdType (configured with "morphia.id.type") and you have @Reference annotation in your model entities, then you will be in trouble. Check <a href="http://groups.google.com/group/morphia/browse_thread/thread/bdd51121c2845973">this</a> thread for detail. Yabe sample has been updated and now use ObjectId as ID type for the same reason
+注意： ID として Long 型 ("morphia.id.type" で設定可能 ) を使う場合と @Reference アノテーションをエンティティに持つ場合、問題があります。 <a href="http://groups.google.com/group/morphia/browse_thread/thread/bdd51121c2845973">この掲示板</a> を注意深く確認してください。  Yabe サンプルはアップデートされ、同様の理由で ObjectId を ID として利用するようになりました。
 
-Known Issues: 
+公開された問題: 
 1. <a href="https://github.com/greenlaw110/play-morphia/issues/issue/5">StackOverflowError with unbind</a>
 2. <a href="https://github.com/greenlaw110/play-morphia/issues/issue/6">Play reload cause MappingException</a>
 
 Updates in 1.1d:
-* Fix bug: Play reload cause MappingException (https://github.com/greenlaw110/play-morphia/issues#issue/6)
-* Supress some debug information (change debug to trace) in MorphiaEnhancer and MorphiaPlugin
+* Play のリロードが MappingException (https://github.com/greenlaw110/play-morphia/issues#issue/6) を引き起こすバグを修正
+* MorphiaEnhancer と MorphiaPlugin 内のデバッグ情報を抑制 
 
 Updates in 1.1c:
-* Fix bug in MorphiaFixture: delete(Class<Model>) -> delete(Class<? extends Model)
+* MorphiaFixture のバグを修正 : delete(Class<Model>) -> delete(Class<? extends Model)
 
 Updates in 1.1b: 
-* Yabe unit test passed 
-* Add isNew() method to Model 
-* Model.save() now return Model object which is comply to JPAModel; Use Model.save2() to return Key<Model> 
+* Yabe 単体テストをパスした。
+* isNew() メソッドをモデルに追加。
+* Model.save() が JPAModel に準拠する Model オブジェクトを返すようにしました。さらに Model.saveZ() を使用し、 Key<Model> を返すようにしました。
 
 Updates in 1.1a:
-* Fix problems with User defined @Id field 
-* Add information to document on how to create user defined @Id field entity 
+* ユーザー定義の @Id フィールドによる問題を修正
+* ユーザー定義の @Id フィールドエンティティの作り方を文書に追記
 
-h1. Morphia module
+h1. Morphia モジュール
 
-The Morphia module bridge play.db.Model to mongodb. 
+Morphia モジュールは play.db.Model と mongodb 間の橋渡し役です。
 <script type="text/javascript" src="http://www.ohloh.net/p/485871/widgets/project_users_logo.js"></script>
 
-This module depends on morphia project hosted on <a href="http://code.google.com/p/morphia/">googlecode</a>
+本モジュールは <a href="http://code.google.com/p/morphia/">googlecode</a> 上の morphia プロジェクトに依存しています。
 <script type="text/javascript" src="http://www.ohloh.net/p/484627/widgets/project_partner_badge.js"></script>
 
-h2. <a>Motivation</a>
+h2. <a>モチベーション</a>
 
-In the begining I want to use existing <a href="http://www.playframework.org/modules/mongo">play-mongo</a> plugin. However it lack some features I need, including:
-* support map (relatively long) java name to (short) mongo db name
-* create (inique) index on field
-* life cycle management: @PreLoad, @PostPersist etc.
+はじめは私は既存の <a href="http://www.playframework.org/modules/mongo">play-mongo</a> プラグインが使いたいと思っていました。しかし、私にとって必要な下記の機能がなかったのです。
+例：
+* java の名前 ( 具体的には long ) を mongo db の名前 ( short ) に マップする機能のサポート
+* フィールドに対しての unique index の作成
+* ライフサイクルマネジメント　：@PreLoad, @PostPersist 等
 
-I've come across with <a href="http://code.google.com/p/morphia/">morphia</a> project and feel it is exactly what I need. Juust need to write some code to bridge it to existing data model of play framework. And it comes out this plugin.
+私は <a href="http://code.google.com/p/morphia/">morphia</a> プロジェクトに出会い、求めていたものだと感じた。ちょっとしたコードを書くだけで、既存の Play framework 内のデータモデルにアクセスできる。それがこのプラグインを出した背景である。
 
-h2. <a>features</a>
+h2. <a>機能</a>
 
-Morphia module provides complete bridge from play.db.Model to mongo, meaning your application needs very limited change to migrate from JPA/RDBMS to mongodb:
+Morphia モジュールは play.db.Model から mongo へのアクセスと少しの変更だけで、 JPA/RDBMS から mongodb への移行を提供します。
 
-* Annotations:
-** Entity (support short collection name), like javax.persistence.Entity combined with javax.persistence.Table
-** Id, like javax.persistence.Id. Usually you don't need to provide @Id marked fields as MorphiaEnhancer will generate one for you.
-** Property (support short field name), like javax.persistence.Column
-** Indexed (support unique and dropDups), enable you mark fields needs index
-** Transient, mark fields which should be ignored
-** Embedded, mark a entity which should be embedded in another entity, or a field of host entity which is an embedded entity
+* アノテーション一覧:
+** Entity ( short collection name のサポート ) java.persistence.Entity と同様、 javax.persistence.Table と紐付ける機能
+** Id javax.persistence.Idと同様。 @Id とフィールドにマークをしなくても MorphiaEnhancer がそれを生成してくれます。
+** Property ( short field name のサポート ) javax.persistence.Columnと同様。
+** Indexed ( unique と dropDups オプションのサポート ), index が必要なフィールドにマークすると利用可能になります。
+** Transient, 無視されるべきフィールドにマークします。
+** Embedded, もう一つのエンティティに組み込まれるエンティティもしくは、エンティティに組み込まれるホストエンティティのフィールドに対してマークします。
 ** Life cycle annotations: PreLoad, PrePersist, PostLoad, PostPersist...
-** and many other useful annotations you can find at <a href="http://code.google.com/p/morphia/wiki/EntityAnnotation">here</a>
+** その他の多くの使いやすいアノテーションは <a href="http://code.google.com/p/morphia/wiki/EntityAnnotation">こちら</a> で見つけることができます。
 
-* play.db.Model support
-** Yes, you can use almost all existing interface without changing your code. You can even load yml data by Fixtures.load(). You can also use find("byXAndY", ...) 
-style query. However SQL/JQL query not supported. Take a look at the YABE sample code to see how things like "Post.find("postedAt < ? order by postedAt desc", postedAt).first();" be translated into "(Post) Post.filter("postedAt <", postedAt).order("-postedAt").get();". There is also an example in Tag.java showing you how SQL aggregation is completed using mongodb mapReduce. Note, you can't simply use Fixtures.deleteXX() methods to get rid of testing data, use MorphiaFixtures.deleteXX() instead.
-** (new in 1.2beta-5) simple where string support in Model.Factory.fetch|count:
-*** where string could be one of: "prop = val", "prop in (val1, val2, ...)", "prop1 = val1 and prop2 = val2 and prop3 in (val1, val2, val3, ..) ..."
+* play.db.Model サポート
+** コードの変更をせずに既存のインタフェースのほとんどを利用可能にします。 Fixtures.load() によって yml データをロードできます。 find("byXAndY", ...) スタイルのクエリーを利用することができます。しかし、 SQL/JQL クエリーはサポートされていません。 "Post.find("postedAt < ? order by postedAt desc", postedAt).first();" は  "(Post) Post.filter("postedAt <", postedAt).order("-postedAt").get();" に変換されます。このような変換の詳細は YABE サンプルを参考にしてください。 Tag.java 内にどうやって SQL の集合が mongodb の mapReduce に変換されるかが示されている例があります。注意：テストデータを省いて Fixtures.delete() メソッドを単純に使うことはできません。 MorphiaFixtures.deleteXX() を代わりに使ってください。
+** (1.2beta-5 の新機能 ) Model.Factory.fetch|count での simple where 句をサポート
+*** where 句の例: "prop = val", "prop in (val1, val2, ...)", "prop1 = val1 and prop2 = val2 and prop3 in (val1, val2, val3, ..) ..."
 
-* Dynamic Id support
-** MongoDB suggest use org.bson.types.ObjectId as the type for Id field, there are good reason to use that b/c u don't have go to database for new id generation. However
-if you like use Long (an obvious motivation is CRUD's route file recongnize number only...), you are free to do it. Just add this line in your application.conf: "morphia.id.type=Long" Morphia will handle everything for you Long type ID generation. You are free to mark your own Id field with any type (better to be String) like Tag.name. In that case, Morphia will
-not manage your Id field
+* Dynamic Id サポート
+** MongoDB は org.bson.types.ObjectId を Id フィールドの型として使うことを推奨しています。 新しい Id の生成のためにデータベースにアクセスする必要がないというのは利用しやすいです。しかし、もし Long をIDとして利用する場合 ( CRUD の ID を数字のみにしたいという要求はあるでしょう。), Long の利用も可能です。 application.conf 内に "morphia.id.type=Long" 行を追加するだけです。こうすれば Morphia は Long 型の ID を生成してオブジェクトをハンドリングすることができます。 Tag.name のようにどんな型でも Id フィールドを設定する事もできます ( ここでは String がベターでしょう ) 。その場合、 Morphia は Id フィールドを管理しません。
 
-* CRUD support
-** Yeah! Morphia support CRUD transparently. However there are some inherited limitation with Embedded entity type: MongoDb prevent Id field for any embedded document, thus you cannot manage embedded entities using CRUD like Comment in YABE sample.
+* CRUD サポート
+** Morphia は CRUD を透過的にサポートします。しかし、 Embedded エンティティタイプには継承された制限があります。 MongoDb は組み込みドキュメント用の ID フィールドを制限しています、そのため YABE サンプル内のコメントのように CRUD を利用して Embedded エンティティを管理することはできません。
 
-* Data binding and validation
-** Feel free to your faviourite "Binder.bind(user, "User", params.all());" or "User.edit(user, "User", params.all());", and call "Validation.valid(user);" to validate
-http request params.
+* Data Binding と Validation
+** お気に入りの "Binder.bind(user, "User", params.all());" もしくは "User.edit(user, "User", params.all());" それと "Validation.valid(user);" を http リクエストパラメータの validation のために呼び出すことができます。
 
 * Indexing
-** You don't need to create index manually. Just map your field with @Indexed. Morphia will ensure the index is created upon your play application startup
+**　手で index を作る必要はありません。フィールドに @Indexed をつければいいだけです。 Morphia は play application の起動の際に index を作成することを保証します。
 
-h2. Limitation
+h2. 制限
 
-* The generic is not working well, sometimes you need type casting. If someone could help, that would be very appreciate.
+* Generic がうまく動作しません。 型キャストが必要になる場合があります。誰かが助けてくれるなら、助かります。。。
 
 bc.. public List<play.db.Model> fetch(int offset, int size, String orderBy, String order, List<String> searchFields, String keywords, String where);
 
-h2. TODO List
+h2. TODO リスト
 
-* Support storing files to GridFS
+* ファイルを GridFS に保存できるようにサポートすること
 
-h2. <a>Dependencies</a>
+h2. <a>依存関係</a>
 
-* Play: Play-1.1 release. It's okay to use the current trunk but not 1.1 beta1
-* Morphia: morphia-0.97 + <a href="http://code.google.com/p/morphia/issues/detail?id=104">this patch</a>. It's safe to use the bundled jar file.
+* Play: Play-1.1 リリース。 1.1 beta1 ではなく、 current の trunk を使う分には動作確認済み。
+* Morphia: morphia-0.97 + <a href="http://code.google.com/p/morphia/issues/detail?id=104">パッチ</a>が必要。まとまった jar ファイルでの利用が安全です。
 
-You really really need the latest Play (even late than 1.1beta) and morphia@googlecode (even late than morphia-0.96-SNAPSHOT.jar). In the progress of development, there are many interactions with Play and morphia team and have some code changes in the latest trunk of both product. It's safe to use the morphia-0.96-SNAPSHOT.jar file included in this plugin. But don't use the one distibuted at http://code.google.com/p/morphia/.
+最新の Play (1.1 beta よりも新しいバージョン) と morphia@googlecode (morphia-0.96-SNAPSHOT.jar よりも新しいバージョン) がどうしても必要なら、 Play と Morphia 双方に影響している開発中のバージョンがあります、両方のプロダクトの最新の trunk にコード変更が必要です。本プラグイン中の morphia-0.96-SNAPSHOT.jar を使うほうが安全です。 http://code.google.com/p/morphia/ で配信されているものを使うべきではありません。
 
 h2. <a>Usage</a>
 
-h3. <a>Configuration</a>
+h3. <a>設定</a>
 
-bc.. ## Morphia module configuration
-# load morphia module
+bc.. ## Morphia モジュールの設定
+# Morphia モジュールのロード
 module.morphia=${play.path}/modules/morphia
-# where your mongodb server located?
+# MongoDB サーバーがある場所
 morphia.db.host=ckweb
-# what's your mongodb server port
+# MongoDB サーバーのポート番号
 morphia.db.port=27017 
-# what's your database name
+# データベースの名前
 morphia.db.name=yabe
-# Authentication to your mongodb server
+# MongoDB サーバーへの認証情報
 #morphia.db.username=user
 #morphia.db.password=pass
-# configure your ID field type
-# could be either ObjectId or Long, default to ObjectId
+# IDフィールドの型の設定
+# ObjectId にするか Long 型にするか。デフォルトは ObjectId 
 morphia.id.type=Long
 # Set default write concern, see http://api.mongodb.org/java/current/com/mongodb/class-use/WriteConcern.html
 #morphia.defaultWriteConcern=safe
 
-h3. <a>Create domain model using Morphia</a>
+h3. <a>Morphia を利用したドメインモデルの作成 </a>
 
 bc.. package models;
  
@@ -177,9 +174,9 @@ public class User extends Model {
  
 }
 
-p. User.java is almost not changed from what it is in Play sample_and_tests. The only differences is Model is now play.modules.morphia.Model and Entity becomes com.google.code.morphia.annotations.Entity
+p. User.java は Play のサンプルとテストにあるものからほとんど変更していません。唯一の違いは Model です、 Model のパッケージは play.modules.morphia.Model にし、 Entity も com.google.code.morphia.annotations.Entity にしています。
 
-h3. <a>Migrate JQL query to MongoDB query</a>
+h3. <a>JQL クエリーを MongoDB クエリーに移行する</a>
 
 h4. JPA Style
 
@@ -193,7 +190,7 @@ bc..     public Post previous() {
         return (Post) Post.filter("postedAt <", postedAt).order("-postedAt").get();
     }
 
-h3. <a>Aggregation with MapReduce</a>
+h3. <a>MapReduce による集約</a>
 
 h4. JPA style:
 
@@ -223,11 +220,11 @@ bc..     private static final String m_ = "function() {this.tags.forEach(functio
         return result;
     }
     
-p. This part looks not so elegant. I hope it could be simplified in the future.
+p. 本コードはそこまでキレイではないため、将来的に簡単にしていきたいと思っています。
 
 h2. <a>FAQ</a>
 
-h3. Why do I get the following error while running my play app in prod mode?
+h3. play アプリケーションを prod モードで実行している最中に下記のエラーが出ました。原因を教えて下さい。
 
 bc.. play.exceptions.JavaExecutionException: Cannot load fixture initial-data.yml: The JPA context is not initialized. JPA Entity Manager automatically start when one or more classes annotated with the @javax.persistence.Entity annotation are found in the application.
         at play.jobs.Job.call(Job.java:119)
@@ -239,9 +236,9 @@ Caused by: java.lang.RuntimeException: Cannot load fixture initial-data.yml: The
         at play.jobs.Job.doJobWithResult(Job.java:37)
         at play.jobs.Job.call(Job.java:110)
         
-p. This problem happens on Play v1.1-beta1. Please switch to latest 1.1 version
+p. 本現象は Play v1.1-beta1 で発生します。最新の 1.1 version に変更してください。
 
-h3. How to create an "OR" relation query?
+h3. "OR" 条件のクエリーの作り方を教えて下さい。
 
 bc..     Query q = myPost.createQuery(); // create a Query
     q.or(q.criteria("title").contains("mongodb"), q.criteria("content").contains("mongodb"), ...);
@@ -249,48 +246,48 @@ bc..     Query q = myPost.createQuery(); // create a Query
     l.add(q.order("-postedAt").limit(10).asList()); // sort the result by postedAt desc order and fetch at most 10 items
     return l;
 
-h3. How to do aggregation?
+h3. 集約の方法を教えて下さい。
 
-Scroll up this page until you see "Aggregation with MapReduce".
+"MapReduce による集約" を参考にしてください。
 
-h3. There is a lot of compilation and runtime errors with this plugin!
+h3. 本プラグインで多くの編集とランタイムエラーが出るんですが。
 
-Make sure you have checked "Dependences" section already
+"依存関係" の項目を再チェックしてください。
 
-h3. Why do you choose Morphia? I've heard that GuiceyMongo is faster
+h3. Morphia を選択した理由は何ですか? GuiceyMongo のほうが速いって聞いたけど。
 
-Well the goal of Play-Morphia is to provide a way to help Play app developer to migrate their existing apps from RDBMS (via JPA) to MongoDB with least effort. Morphia is by far the best thing I can find provides JPA style (annotation) access to mongodb. If you are developing new Play application, and would like to try a different way, GuiceyMongo might be a good choice for you.
+Play-Morphia のゴールは Play アプリケーション開発者の既存のアプリケーションを RDBMS や JPA から MongoDB に最小限の努力で移行できるようにする方法を提供することです。 Morphia は JPA スタイルの MongoDB へのアクセスを提供する最良の方法です。あなたが新しく Play アプリケーションを開発し、異なる方法を試したいのであれば、 GuiceyMongo が良い選択かもしれません。
 
-h3. How to create Entity with user defined @Id field?
+h3. ユーザー定義の @Id フィールドを持つ Entity はどうやって作成するのですか?
 
-* Add @com.google.code.morphia.annotations.Id annotation to the field you want to use as an ID field, e.g. : @Id name;
-* Override the following methods declared in play.modules.morphia.Model:
+* @com.google.code.morphia.annotations.Id アノテーションを ID フィールドとして利用したいフィールドに追加してください。例： @Id name;
+* play.modules.morphia.Model; 内に宣言されている下記のメソッドを Override してください。
 
 bc..     @Override public Object getId() {return name;}
     @Override protected void setId_(Object id) {name = id.toString();}
     protected static Object processId_(Object id) {return id.toString();}
 
-p. Make sure you always populated your @Id field before calling model.save(), don't let framework to generate Id for you b/c framework has no knowledge on how to do it
+p. model.save() を呼び出す前に追加された @Id フィールドを確認してください、フレームワークに Id 生成させないようにしてください。 Id をどうするべきかをフレームワーク側は知りません。
 
-It's better to keep your @Id field type to be java.lang.String.
+@Id フィールドの型を java.lang.String にしておくほうが良いでしょう。
 
-h3. I got "Can not use dot-notation past  ..." exception when I try to query entity using relationship, what happened?
+h3. リレーションシップを利用してエンティティを検索しようとしたら "Can not use dot-notation past  ..." という exception が発生したんですが、何が原因でしょうか?
 
-p. Basically this error occurred when you try to query an entity using referenced entity property. E.g. Post p = Post.filter("author.email", "bob@gmail.com").first(). The solution is:
+p. 基本的に参照されたエンティティプロパティを利用している際にエンティティを検索しようとしたときにこのエラーが発生します。 E.g. Post p = Post.filter("author.email", "bob@gmail.com").first(). 解決策は以下のとおり。
 
 bc.. User bob = User.filter("email", "bob@gmail.com").first();
 Post p = Post.filter("author", bob).first();
 
-p. If the relationship is embedded rather than reference, you can safely use "dot" notation to do the query
+p.リレーションシップが reference ではなく embedded になっている場合、クエリーにドット表記を使用することはできますか?
  
-h3. How do I know if an entity object is an new object just constructed in the memory or represents a data (either by save or load from db) in a db?
+h3. エンティティオブジェクトがメモリ中で作られた新しいオブジェクトなのか、データベースからロードされたデータなのかどうやって知ればいいのでしょう?
 
-p. Use obj.isNew()
+p.　obj.isNew() メソッドを使ってください。
 
-h3. I try to call Fixtures.deleteAll() in my unit test setup methods, but I found the data is still there, what happened?
+h3. Unit テストの setup メソッド内で Fixtures.deleteAll() メソッドを呼びだそうとしましたが、データが残ったままになります。どうすれば良いのでしょう?
 
-p. The deleteAll() methods defined in play.test.Fixtures are hooked with JPA based database, try to use MorphiaFixtures.deleteAll() instead. Actually you are encouraged to use MorphiaFixtures in replace of Fixtures to deal with your Morphia models for all methods call.
+p. play.test.Fixtures で定義された deleteAll() メソッドは JPA ベースのデータベースでフックされます。 MorphiaFixtures.deleteAll() メソッドを代わりに使ってください。 Morphia の全てのメソッドは Fixtures の代わりに MorphiaFixtures の使用を推奨しています。
 
-h3. Why setting morphia.defaultWriteConcern does not work?
+h3. morphia.defaultWriteConcern は何故設定しても動作しないのでしょう?
 
-p. A <a href='http://code.google.com/p/morphia/issues/detail?id=209'>bug</a> of current version (at the time v0.99) of morphia suppress this setting
+p. morphia のカレントバージョン　(　今は 0.99　) の <a href='http://code.google.com/p/morphia/issues/detail?id=209'> バグ </a> です。
