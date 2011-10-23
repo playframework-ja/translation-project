@@ -1,20 +1,18 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Desarrollando la primera pantalla
 
-h1. Building the first screen
+Ahora que ya contamos con una primera versión de nuestro modelo de datos, es hora de comenzar a desarrollar la primera paǵina de nuestra aplicación. Esta página simplemente mostrará la lista con los mensajes más recientes, así como una lista con los anteriores mensajes.
 
-Now that we have built a first data model, it’s time to start to create the first page of the application. This page will just show the most recent posts, as well as a list of older posts.
-
-Here is a mock-up of what we want to achieve:
+Aquí tenemos un prototipo de lo que queremos conseguir:
 
 !images/guide-mock1!
 
-h2. <a>Bootstrapping with default data</a>
+h2. <a>Iniciando el framework con datos de prueba</a>
 
-In fact, before coding the first screen we need one more thing. Working on a web application without test data is not fun. You can’t even test what you’re doing. But because we haven’t developed the contribution screens yet, we can’t populate the blog with posts ourselves. 
+Antes de desarrollar nuestra primera pantalla tenemos que hacer una cosa más. Trabajar con una aplicación web sin contar con datos de prueba es bastante arduo. Uno ni siquiera puede verificar lo que está haciendo. Pero dado que todavía no hemos desarrollado las pantallas para crear mensajes, no podemos cargar mensajes a nuestro sistema de blogs.
 
-One way to inject default data into the blog is to load a fixture file at application load time. To do that we will create a Bootstrap Job. A Play job is something that executes itself outside of any HTTP request, for example at the application start or at specific interval using a CRON job.
+Una manera de cargar información de prueba en el blog es mediante un archivo de **fixtures** a ser cargado cuando iniciamos la aplicación. Para ello crearemos una tarea de inicia (Bootstrap Job). Una terea de Play es algo que se ejecuta a sí misma sin depender de ninguna llamada HTTP, por ejemplo cuando la aplicación se inicia o a intervalos específicos de tiempo utilizando una tarea CRON.
 
-Let’s create the @/yabe/app/Bootstrap.java@ job that will load a set of default data using @Fixtures@:
+Creemos la tarea @/yabe/app/Bootstrap.java@ el cual se encargará de cargar un conjunto de datos de prueba usando @Fixtures@:
 
 bc. import play.*;
 import play.jobs.*;
@@ -28,29 +26,29 @@ public class Bootstrap extends Job {
     public void doJob() {
         // Check if the database is empty
         if(User.count() == 0) {
-            Fixtures.loadModels("initial-data.yml");
+            Fixtures.load("initial-data.yml");
         }
     }
  
 }
 
-We have annotated this Job with the <code>@OnApplicationStart</code> annotation to tell Play that we want to run this job synchronously at application start-up.
+Hemos anotado esta tarea con la anotación @OnApplicationStart@ para indicarle a Play que queremos ejecutar esta tarea al iniciar de la aplicación.
 
-p(note). In fact this job will be run differently in DEV or PROD modes. In DEV mode, Play waits for a first request to start. So this job will be executed synchronously at the first request. That way, if the job fails, you will get the error message in your browser. In PROD mode however, the job will be executed at application start-up (synchrously with the @play run@ command) and will prevent the application from starting in case of an error.
+p(note). De hecho esta tarea será ejecutada de manera diferente dependiendo de que estemos en modo DEV (desarrollo) or PROD (producción). En modo desarrollo Play espera al primer pedido HTTP para iniciar la aplicación, de forma tal que esta tarea será ejecutada sincrónicamente al recibir el primer pedido. De esa manera, si la tarea produce algún error, obtendrá el mensaje correspondiente al error en su browser. Sin embargo, en modo producción, la tarea se ejecutará al iniciar la aplicación (en el momento en que ejecutamos el comando @play run@) y evitará que la aplicación se inicie en caso de detectar algún error.
 
-You have to create an @initial-data.yml@ in the @yabe/conf/@ directory. You can of course reuse the @data.yml@ content that we just used for tests previously.
+Debe crear un archivo @initial-data.yml@ en la carpeta @yabe/conf/@. Puede reutilizar los contenidos del archivo @data.yml@ que acabamos de usar en el paso anterior.
 
-Now run the application using @play run@ and display the page "http://localhost:9000/":http://localhost:9000/ in the browser.
+Ahora inicie la aplicación mediante el comando @play run@ y navegue a la página "http://localhost:9000/":http://localhost:9000/.
 
-h2. <a>The blog home page</a>
+h2. <a>La paǵina principal de nuestro sistema de blogs</a>
 
-This time, we can really start to code the home page.
+Ahora sí podemos comenzar a desarrollar la página principal.
 
-Do you remember how the first page is displayed? First the routes file specifies that the @/@ URL will invoke the @controllers.Application.index()@ action method. Then this method calls @render()@ and executes the @/yabe/app/views/Application/index.html@ template.
+¿Recuerda cómo hacía Play para mostrar la página de bienvenida? En primer lugar el archivo @routes@ especifica que un pedido al URL @/@ invocará al método de acción definido en @controllers.Application.index()@. Este método llama al @render()@ que ejecutará el template @/yabe/app/views/Application/index.html@. 
 
-We will keep these components but add code to them to load the posts list and display them.
+Mantendremos estos componentes, pero a su vez agregaremos código para cargar la lista de mensajes y mostrarlos en pantalla.
 
-Open the @/yabe/app/controllers/Application.java@ controller and modify the @index()@ action to load the posts list, as is:
+Abra el controlador @/yabe/app/controllers/Application.java@ y modifique la acción @index()@ para cargar la lista de mensajes de la siguiente manera:
 
 bc. package controllers;
  
@@ -73,9 +71,9 @@ public class Application extends Controller {
  
 }
 
-Can you see how we pass objects to the @render@ method? It will allow us to access them from the template using the same name. In this case, the variables @frontPost@ and @olderPosts@ will be available in the template.
+¿Ha notado como pasamos objetos al método @render()@? Nos permitirá acceder a ellos desde el template utilizando los mismos nombres. En este caso, las variables @frontPost@ y @olderPosts@ estarán disponibles en el template.
 
-Open the @/yabe/app/views/Application/index.html@ and modify it to display these objects:
+Abra el template @/yabe/app/views/Application/index.html@ y modifíquelo para mostrar estos objetos:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -140,17 +138,17 @@ bc. #{extends 'main.html' /}
     </div>
 #{/else}
 
-You can read about how this template works in the "Templates chapter":templates. Basically, it allows you to access your Java objects dynamically. Under the hood we use Groovy. Most of the pretty constructs you see (like the @?:@ operator) come from Groovy. But you don’t really need to learn Groovy to write Play templates. If you’re already familiar with another template language like JSP with JSTL you won’t be lost.
+Puede aprender más acerca del funcionamiento de los templates en "El motor de templates":templates. Básicamente, le permite acceder a sus objetos de Java dinámicamente. Internamente utilizamos Groovy. La mayor parte de los prácticos comandos que ve (como el operador @?:@) vienen del lenguaje Groovy. Pero no necesita aprender Groovy para escribir templates de Play. Si ya ha trabajado con algún otro lenguaje de templates, como JSP con JSTL, no se sentirá perdido en absoluto.
 
-OK, now refresh the blog home page.
+Bien, ahora refresque la página principal de nuestra aplicación.
 
 !images/guide3-0!
 
-Not pretty but it works!
+No muy atractivo... ¡pero funciona!
 
-However you can see we have already started to duplicate code. Because we will display posts in several ways (full, full with comment, teaser) we should create something like a function that we could call from several templates. This is exactly what a Play tag does!
+Sin embargo, habrá notado que ya comenzamos a duplicar código. Dado que mostraremos mensajes de muchas maneras distintas, deberíamos crear algo similar a una función que podamos llamar desde distintos templates. Esto es exactamente lo que un 'tag' de Play hace.
 
-To create a tag, just create the new @/yabe/app/views/tags/display.html@ file. A tag is just another template. It has parameters (like a function). The @#{display /}@ tag will have two parameters: the Post object to display and the display mode which will be one of @home@, @teaser@ or @full@.
+Para crear un tag, simplemente cree un archivo @/yabe/app/views/tags/display.html@. Un tag no es más que otro template que acepta parámetros, como una función. El tag @#{display /}@ tendrá dos parámetros: el objeto Post a mostrar y en modo en que lo queremos desplegar: @home@, @teaser@ o @full@.
 
 bc. *{ Display a post in one of these modes: 'full', 'home' or 'teaser' }*
  
@@ -204,7 +202,7 @@ bc. *{ Display a post in one of these modes: 'full', 'home' or 'teaser' }*
     </div>
 #{/if}
 
-Now using this tag we can rewrite the home page without code duplication:
+Ahora usando este tag podemos reescribir la página principal sin duplicar código:
 
 bc. #{extends 'main.html' /}
 #{set title:'Home' /}
@@ -233,18 +231,18 @@ bc. #{extends 'main.html' /}
     </div>
 #{/else}
 
-Reload the page and check that all is fine.
+Refresque la página y verifique que todo funciona según lo esperado.
 
-h2. <a>Improving the layout</a>
+h2. <a>Mejorando el layout de la página</a>
 
-As you can see, the @index.html@ template extends @main.html@. Because we want to provide a common layout for all blog pages, with the blog title and authentication links, we need to modify this file.
+Como puede ver, el template @index.html@ extiende el template @main.html@. Dado que queremos brindar un layout común a todas las páginas de nuestra aplicación, con el título del mensaje y los links de autenticación, necesitamos modificar este archivo.
 
-Edit the @/yabe/app/views/main.html@ file:
+Edite el archivo @/yabe/app/views/main.html@:
 
 bc. <!DOCTYPE html >
 <html>
     <head>
-        <title>#{get 'title' /}</title>		
+        <title>#{get 'title' /}</title>     
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
         <link rel="stylesheet" type="text/css" media="screen" 
             href="@{'/public/stylesheets/main.css'}" />
@@ -282,11 +280,11 @@ bc. <!DOCTYPE html >
     </body>
 </html>
 
-Refresh and check the result. It seems to work, except that the @blogTitle@ and the @blogBaseLine@ variables are not displayed. This is because we didn’t pass them to the @render(…)@ call. Of course we could add them to the @render()@ call in the @index@ action. But because the @main.html@ file will be used as main template for all application actions, we don’t want to add them every time.
+Refresque y verifique el resultado. Parece que todo funcionar, excepto que las variables @blogTitle@ y @blogBaseLine@ no aparecen en pantalla. Esto es debido a que no las hemos pasado a la llamada al método @render(...)@. Por supuesto que puede agregarlas a la llamada a @render()@ en la acción @index@. Pero dado que el archivo @main.html@ será utilizado como template base para todas las acciones de nuestra aplicación, no queremos tener que agregarlo manualmente cada vez.
 
-One way to execute the same code for each action of a controller (or a hierarchy of controllers) is to define a <code>@Before</code> interceptor. 
+Una manera de ejecutar el mismo código para cada acción de un controlador (o una jerarquía de controladores) es definiendo un interceptor <code>@Before</code>.
 
-Let’s add the @addDefaults()@ method to the Application controller:
+Agreguemos el método @addDefaults()@ al controlador Application:
 
 bc. @Before
 static void addDefaults() {
@@ -294,38 +292,38 @@ static void addDefaults() {
     renderArgs.put("blogBaseline", Play.configuration.getProperty("blog.baseline"));
 }
 
-p(note). You will need to import @play.Play@ in the @Application.java@ file.
+p(note). Necesitará importar @play.Play@ en el archivo @Application.java@.
 
-All variables added to the @renderArgs@ scope will be available from the templates. And you can see that the method reads the variable’s values from the @Play.configuration@ object. This object contains all configuration keys from the @/yabe/conf/application.conf@ file.
+Todas las variables agregadas a la colección @renderArgs@ estarán disponibles desde los templates. Note que el método lee los valores de las variables del objeto @Play.configuration@. Este objeto permite acceder a la configuración del archivo @/yabe/conf/application.conf@.
 
-Add these two keys to the configuration file:
+Agregue estas dos claves al archivo de configuración:
 
 bc. # Blog engine configuration
 # ~~~~~
 blog.title=Yet another blog
-blog.baseline=We will write about nothing
+blog.baseline=We won't write about anything
 
-Reload the home page and check that it works!
+Refresque la página principal y verifique que todo haya salido bien.
 
 !images/guide3-1!
 
-h2. <a>Adding some style</a>
+h2. <a>Agregando estilo a las páginas</a>
 
-Now the blog home page is almost done, but it’s not very pretty. We’ll add some style to make it shinier. As you have seen, the main template file main.html includes the @/public/stylesheets/main.css@ stylesheet. We’ll keep it but add more style rules to it.
+La página principal de nuestro sistema de blogs está casi lista, pero no se ve muy bien que digamos. Le agregaremos algunas plantillas de estilo para hacerla más atractiva. Como habrá nota, nuestro template principal @main.html@ incluye la hoja de estilos @/public/stylesheets/main.css@. Nos quedaremos con ella pero le agregaremos nuevas reglas de estilo.
 
-You can "download it here":files/main.css, and copy it to the @/public/stylesheets/main.css@ file.
+Puede "descargar la hoja de estilos":files/main.css, y copiarla al archivo @/public/stylesheets/main.css@.
 
-Refresh the home page and you should now see a styled page.
+Refresque la página y debería ver ahora una página con los estilos aplicados.
 
 !images/guide3-2!
 
-h2. <a>Commit your work</a>
+h2. <a>Guarde su trabajo</a>
 
-The blog home page is now finished. As usual we can commit this blog version to bazaar:
+La página principal está terminada. Como de costumbre, grabamos los cambios efectuados en bazaar:
 
 bc. $ bzr st
 $ bzr add
 $ bzr commit -m 'Home page'
 
-p(note). Next: %(next)"The comments page":guide4%. 
+p(note). Vaya a %(next)"La página de comentarios":guide4%. 
 
