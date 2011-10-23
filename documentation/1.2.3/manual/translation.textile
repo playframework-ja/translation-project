@@ -33,7 +33,7 @@ Luego navegamos a "localhost:9000":localhost:9000. Y ya tenemos nuestro sitio pl
 
 h2. <a name="criteria">Criterios para la traducción</a>
 
-Como ya hemos dicho, nuestra intención es lograr que la versión en castellano de la documentación de Play sea precisa y al mismo tiempo de amena lectura. Existen numerosos términos técnicos cuya traducción, lejos de aportar claridad, dificultan la comprensión del texto. En tales casos, sugerimos dejarlo en el idioma original o, en caso de requerir alguna explicación extra, utilizar el glosario de la siguiente manera:
+Existen numerosos términos técnicos cuya traducción, lejos de aportar claridad, dificultan la comprensión del texto. En tales casos, sugerimos dejarlo en el idioma original o, en caso de requerir alguna explicación extra, utilizar el glosario de la siguiente manera:
 
 bc. [...]y retomar el "http request":glosary#httpRequest tan pronto [...] 
 
