@@ -54,7 +54,7 @@ Luego navegamos a nuestro repositorio *origin*, en este caso https://github.com/
 
 h2. <a name="fetch">Manteniendo nuestros repositorios actualizados</a>
 
-A medida que sigamos trabajando, querremos mantener actualizados nuestros repositorios (*local* y *origin*) con los cambios del repositorio *upstream*. Para eso configuramos el repositorio *upstream* como un repositorio remoto _(remote)_ vinculado a nuestro repositorio local
+A medida que sigamos trabajando, querremos mantener actualizados nuestros repositorios (*local* y *origin*) con los cambios del repositorio *upstream*. Para eso configuramos el repositorio *upstream* como un repositorio remoto _(remote)_ vinculado a nuestro repositorio local. Situados en el directorio del repositorio, en nuestro ejemplo @~/apps/playdoces@, deberemos ejecutar:
 
 bc. git remote add upstream git@github.com:opensas/playdoces.git
 
