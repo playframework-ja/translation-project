@@ -1,7 +1,5 @@
 h1. Traduciendo Play! framework 
 
-Utilice el "glosario":glosary#authenticityToken
-
 La documentación de Play es extensa y detallada, y es sin duda uno de los puntos fuertes del framework. Lograr una traducción que sea precisa y amena al mismo tiempo requiere mucho tiempo y esfuerzo, es por eso que apelamos a la ayuda de la comunidad para llevar adelante esta tarea.
 
 h2. <a name="documentation">Lee la documentación</a>
