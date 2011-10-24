@@ -1,20 +1,20 @@
 h1. Guía para colaborar con un proyecto en github 
 
-Al igual que la documentación original de Play!, este proyecto se encuentra alojado en "github":https://github.com/opensas/playdoces, a fin de que la comunidad de usuarios de play pueda colaborar con nosotros en la traducción y actualización de la domunentación del framework.
+Al igual que la documentación original de Play!, este proyecto se encuentra alojado en "github":https://github.com/opensas/playdoces, a fin de que la comunidad de usuarios de play pueda colaborar con nosotros en la traducción y actualización de la documentación del framework.
 
 Para facilitar esta tarea, hemos elaborado esta guía que te permitirá crear tu propia versión del sitio _(fork)_, instalarla en tu estación de trabajo _(clone)_, hacer modificaciones y contribuciones trabajando localmente, y enviarnos pedidos _(pull requests)_ para integrar tu trabajo en la versión de producción de "playdoces":http://playdoces.appspot.com.
 
-h2. <a name="github">Trabajando con de github</a>
+h2. <a name="github">Trabajando con github</a>
 
-El esquema de trabajo que nos propone github puede parecer confuso al principio, pero en realidad es bastante simple, tan sólo hay que tener presente que uno está trabajando con tres repositorios distintos y enteder el rol que cada uno cumple.
+El esquema de trabajo que nos propone github puede parecer confuso al principio, pero en realidad es bastante simple, tan sólo hay que tener presente que uno está trabajando con tres repositorios distintos y entender el rol que cada uno cumple.
 
 *Repositorio upstream*: es el repositorio en github de la aplicación con la cual vamos a colaborar. En nuestro caso el repositorio está en "https://github.com/opensas/playdoces":https://github.com/opensas/playdoces y la aplicación es "http://playdoces.appspot.com":http://playdoces.appspot.com. No podremos hacer ningún cambio directamente sobre este repositorio, ya que no tendremos permisos de escritura sobre el mismo. Lo que haremos es crear nuestra propia copia _(fork)_ del mismo.
 
-*Repositorio origin*: es nuestra propia copia del repositorio que _forkeamos_ alojada en github. A este repositorio enviaremos los cambios que efectuaremos en nuestro repositorio local. 
+*Repositorio origin*: es nuestra copia del repositorio que _forkeamos_ alojada en github. A este repositorio enviaremos los cambios que efectuaremos en nuestro repositorio local. 
 
 *Repositorio local*: es el repositorio local que tendremos en nuestra propia estación de trabajo. 
 
-Comúnmente realizaremos los cambios trabajando en nuestro repositorio *local*. Cuando hayamos confirmado _(commit)_ nuestros cambios localmente, enviaremos _(push)_ los cambios a nuestros repositorio *origin* alojado en github. Luego haremos un pedido _(pull request)_ al repositorio *upstream* solicitándole que integre los cambios del repositorio *origin*.  
+Comunmente realizaremos los cambios trabajando en nuestro repositorio *local*. Cuando hayamos confirmado _(commit)_ nuestros cambios localmente, los enviaremos _(push)_ a nuestro repositorio *origin* alojado en github. Luego haremos un pedido _(pull request)_ al repositorio *upstream* solicitándole que integre los cambios del repositorio *origin*.  
 
 Este es el esquema general de trabajo con github, que nos servirá no sólo para colaborar con "playdoces":http://playdoces.appspot.com, sino con cualquier proyecto libre alojado en github, incluido el propio "play framework":https://github.com/playframework/play.
 
@@ -30,7 +30,7 @@ Navega al sitio de "github":https://github.com e ingresa con tu usuario y passwo
 
 h2. <a name="clone">Clonar nuestro repositorio origin en un repositorio local</a>
 
-En nuestra estación de trabajo ejecutamos las siguientes instrucciones (debes ajustarlas según tu nombre de usuario):
+En nuestra estación de trabajo ejecutamos las siguientes instrucciones (debes ajustarlas según tu nombre de usuario, remplazando _traductor-play_ por tu nombre):
 
 bc. cd ~
 mkdir apps
@@ -43,9 +43,9 @@ h2. <a name="pullrequest">Guardar los cambios y enviar nuestras traducciones</a>
 
 Una vez que hemos terminado de traducir algún archivo, vamos a querer enviarlo a los administradores de "playdoces":http://playdoces.appspot.com para que sean incluidos en producción. Para ello tendremos que confirmar los cambios en nuestro repositorio *local*, actualizar nuestro repositorio *origin* en github, y hacer un pedido para que estos cambios sean incluido en el repostiorio *upstream*.
 
-Mediante el comando @git status@ podemos ver los archivos que hemos modificado localmente. Con el comando @git add@, le indicamos a git cuáles son los archivos que vamos a querer confirmar _(commit)_. Con @git commit@ confirmamos los cambios en nuestro repositorio *local* y finalmente, con @git push origin master@ subimos los cambios locales a nuestro repositorio *origin*. Estos serían los comandos:
+Mediante el comando @git status@ podemos ver los archivos que hemos modificado localmente. Con el comando @git add@, le indicamos a git cuáles son los archivos que vamos a querer confirmar _(commit)_. Con @git commit@ confirmamos los cambios en nuestro repositorio *local* y finalmente, con @git push origin master@ subimos los cambios locales a nuestro repositorio *origin*. Situados en el directorio del repositorio, en nuestro ejemplo @~/apps/playdoces@, estos serían los comandos que deberemos ejecutar:
 
-bc. git status
+bc.git status
 git add .
 git commit -m "traduje una nueva página"
 git push origin master
