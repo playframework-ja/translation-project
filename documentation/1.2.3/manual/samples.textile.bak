@@ -1,6 +1,6 @@
 h1. Aplicaciones de ejemplo
 
-Play trae un conjunto de aplicaciones de ejemplo en el directorio @samples-and-test/@ que puede encontrar en el directorio de instalación del framework. Son utilizadas para correr nuestra batería de pruebas automáticas, y puede estudiarlas para descubrir algunos usos típicos de Play.
+Play trae un conjunto de aplicaciones de ejemplo en el directorio @samples-and-test/@ que puede encontrar en el directorio de instalación del framework. Son utilizados para correr nuestra batería de pruebas automáticas, y puede estudiarlas para descubrir algunos usos típicos de Play.
 
 h2. <a>Yet Another Blog Engine (Otro sistema de blogs más)</a>
 

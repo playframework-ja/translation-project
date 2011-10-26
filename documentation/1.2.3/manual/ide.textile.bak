@@ -116,7 +116,7 @@ bc. java -Dapplication.path="/app/path"...
 
 h3. Agente de Java
 
-Para habilitar la recarga dinámica de código (HotSwap reloading) deberá cargar un agente de Java que se encuentra empquetado en la librería **play.jar**. Cómunmente se hace de la siguiente manera:
+Para habilitar la recarga dinámica de código (HotSwap reloading) deberá carga un agente de Java que se encuentra empquetado en la librería **play.jar**. Cómunmente se hace de la siguiente manera:
 
 bc. java -javaagent:"$PLAY_PATH/framework/play.jar" ...
 

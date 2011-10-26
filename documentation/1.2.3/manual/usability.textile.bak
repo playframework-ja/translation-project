@@ -6,8 +6,7 @@ Tenga en cuenta que la usabilidad es algo separado de la funcionalidad. En este 
 
 h2. <a>Escrito por desarrolladores web para desarrolladores web</a>
 
-La primera pista de que algo diferente sucede aquí es cuando escucha por primera vez que
-el framework Play está ‘escrito por desarrolladores web para desarrolladores web‘, un enfoque poco convencional que pone los principios de la web y sus convenciones por delante de las de Java. Específicamente esto significa que el framework Play está más alineado con lo que la W3C postula como la "Arquitectura de la World Wide Web":http://www.w3.org/TR/webarch/ que con las convenciones de Java Enterprise Edition (Java EE).
+La primera pista de que algo diferente sucede aquí es cuando escucha por primera vez que el framework Play está ‘escrito por desarrolladores web para desarrolladores web‘, un enfoque poco convencional que pone los principios de la web y sus convenciones por delante de las de Java. Específicamente esto significa que el framework Play está más alineado con lo que la W3C postula como la "Arquitectura de la World Wide Web":http://www.w3.org/TR/webarch/ que con las convenciones de Java Enterprise Edition (Java EE).
 
 h2. <a>URLs para perfeccionistas</a>
 

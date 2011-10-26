@@ -54,7 +54,7 @@ Por ejemplo, se precisa tan sólo una línea para vincular un patrón URI a la l
 
 bc. GET    /clients/{id}        Clients.show
 
-Si cuestiones como Ajax, REST y manejar el movimiento hacia adelante y hacia atrás entre páginas web son algunos de los problemas que enfrenta usted día a día al desarrollar aplicaciones web, déle una oportunidad a Play.
+Si cuestiones como Ajax, REST y manejar el movimiento hacia adelante y hacia atrás entre páginas web son algnos de los problemas que enfrenta usted día a día al desarrollar aplicaciones web, déle una oportunidad a Play.
 
 h2. <a name="templates">Un sistema de templates eficiente</a>
 
@@ -95,7 +95,7 @@ bc. public void messages(int page) {
     render(connectedUser, messages);
 }
 
-h2. <a>TDD - Desarrollo guiado por pruebas (si así lo desea)</a>
+h2. <a>TDD - Desarrollo guidado por pruebas (si así lo desea)</a>
 
 El ejecutador de pruebas que viene con Play, le permite fácilmente implementar desarrollo guiado por pruebas (test-driven development TDD). Puede escribir toda clase de pruebas, desde simples pruebas unitarias hasta completas pruebas de aceptación, y ejecutarlas directamente en un explorador web utilizando "Selenium":http://seleniumhq.org/. Play también lo ayudará a controlar la cobertura de código del proyecto.
 
@@ -103,11 +103,11 @@ El ejecutador de pruebas que viene con Play, le permite fácilmente implementar 
 
 h2. <a name="full-stack">Un Framework de aplicación completo</a>
 
-Play fue inicialmente inspirado en nuestras propias aplicaciones Java. Trae consigo todas las herramientas necesarias para crear una aplicación web moderna, incluyendo:
+Play fue inicialmente inspirado en nuestras propias aplicaciones Java. Trae consigo todas las herarmientas necesarias para crear una aplicación web moderna, incluyendo:
 
 * soporte para bases de datos relacionales a través de JDBC.
 * mapeo de objetos a bases relacionales (object-relational mapping) usando Hibernate (con la API de JPA).
-* soporte integrado de caché, con una simple API para utilizar el sistema distribuido de caché memcached, si lo necesita.
+* soporte integrado de cache, con una simple API para utilizar el sistema distribuido de cache memcached, si lo necesita.
 * consumo de servicios web simple y directo, ya sea en JSON o XML (nos referimos a verdaderos servicios web, nada de SOAP por aquí).
 * soporte para OpenId como sistema distribuido de autenticación.
 * instalación ubicua, su aplicación web podrá ser implementada en donde sea (servidor de aplicaciones, Google App Engine, Cloud, etc.)

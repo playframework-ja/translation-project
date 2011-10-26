@@ -180,7 +180,7 @@ p(note). Ahora comenzaremos a desarrollar la aplicación de blogs. Puede continu
 
 h2. <a name="db">Configurando la base de datos</a>
 
-Una cosa más antes de empezar a escribir código. Para almacenar la información de los blogs, precisaremos una base de datos. Para el desarrollo, Play viene con una base de datos autónoma llamada H2. Esta es la mejor manera de comenzar un proyecto antes de pasar a una base de datos más robusta en caso de ser necesario. Puede elegir trabajar con una base de datos en memoria o en un archivo, a fin de mantener la información al reiniciar la aplicación.
+Una cosa más antes de empezar a escribir código. Para almacenar la información de los blogs, precisaremos una base de datos. Para el desarrollo, Play viene con una base de datos autónoma llamada H2. Esta es la mejor manera de comenzar un proyecto antes de pasar a una base de datos más robusta en caso de ser necesario. Puede elegir trabajar con ua base de datos en memoria o en un archivo, a fin de mantener la información al reiniciar la aplicación.
 
 Al principio, haremos mútliples pruebas y cambios en el modelo de datos de la aplicación. Por esa razón, es mejor utilizar una base de datos en memoria a fin de comenzar siempre con un conjunto de datos limpio.
 
