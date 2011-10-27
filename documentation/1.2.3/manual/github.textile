@@ -45,7 +45,7 @@ Una vez que hemos terminado de traducir algún archivo, vamos a querer enviarlo 
 
 Mediante el comando @git status@ podemos ver los archivos que hemos modificado localmente. Con el comando @git add@, le indicamos a git cuáles son los archivos que vamos a querer confirmar _(commit)_. Con @git commit@ confirmamos los cambios en nuestro repositorio *local* y finalmente, con @git push origin master@ subimos los cambios locales a nuestro repositorio *origin*. Situados en el directorio del repositorio, en nuestro ejemplo @~/apps/playdoces@, estos serían los comandos que deberemos ejecutar:
 
-bc.git status
+bc. git status
 git add .
 git commit -m "traduje una nueva página"
 git push origin master
