@@ -44,7 +44,7 @@ Seguro, "muchas personas":http://www.playframework.org/community/testimonials es
 
 h2. <a>¿Tiene soporte para la librería X?</a>
 
-Play es código Java estándar, así que cualquier librería Java puede ser usada fácilmente. Sin embargo, tenga presente que Play no utiliza la API de los Servlet (si bien puede hacer funcionar en un contenedor estándar de Servlets usando la funcionalidad de exportar su aplicación en un archivo WAR). Así que a menos que la librería que desea utilizar dependa de la API de los Servlet, no tendrá ningun problema.
+Play es código Java estándar, así que cualquier librería Java puede ser usada fácilmente. Sin embargo, tenga presente que Play no utiliza la API de los Servlet (si bien puede hacer funcionar en un contenedor estándar de Servlets usando la funcionalidad de exportar su aplicación en un archivo WAR). Así que a menos que la librería que desea utilizar dependa de la API de los Servlet, no tendrá ninguna problema.
 
 h2. <a>¿Cómo puedo contribuir?</a>
 

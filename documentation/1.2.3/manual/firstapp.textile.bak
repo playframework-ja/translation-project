@@ -272,7 +272,7 @@ Abra un browser y navegue a "http://localhost:9000/@tests":http://localhost:9000
 
 !images/guide2-1!
 
-Una batería de pruebas selenium es típicamente escrita en un archivo HTML. La sintaxis html requerida por selenium es un tanto engorrosa (formateada usando una tabla HTML) para escribir. Por suerte Play le ayudará a generarlo utilizando el sistema de templates y un conjunto de tags que le permitirá especificar las pruebas con una sintáxis mucho más simple.
+Una batería de pruebas selenium es típicamente escrita en un archivo HTML. La sintaxis html requerida por selenium es un tanto engorrosa (formateada usando una tabla HTML) para escribir. Por suerte Play le ayudará a generarlo utilizando el sistema de templates y un conjunto de tags que le permitirá especificar las pruebas con una sintaxis mucho más simple.
 
 La batería de pruebas que Play genera automáticamente cada vez que se crea un proyecto ya contiene una prueba de Selenium. Abra el arhivo @helloworld/test/Application.test.html@:
 

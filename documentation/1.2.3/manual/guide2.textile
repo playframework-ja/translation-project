@@ -8,7 +8,7 @@ La capa de datos tiene un rol central en una aplicación de Play (y de hecho en 
 
 Dado que la mayor parte de los objetos del modelo de datos necesitan sobrevivir aún cuando reiniciemos nuestra aplicacion, debemos guardarlos en una base de datos persistente. Una elección bastante habitual es la de elegir una base de datos relacional. Pero dado que Java es un lenguaje orientado a objetos, utilizaremos un "mapeo objeto-relacional u ORM":http://es.wikipedia.org/wiki/ORM para procurar minimizar las diferencias entre ambos tipos de datos.
 
-La "API de Persistencia de JAVA":http://en.wikipedia.org/wiki/Java_Persistence_API (JPA) es una especificación de JAVA que define una API estandar para el mapeo objeto-relacional. Play utiliza el framework "Hibernate":http://www.hibernate.org, una de las más conocidas implementaciones de JPA. Una de las ventajas de utilizar JPA en vez de la API estandar de Hibernate, es que el todo 'mapeo' es declarado directamente en los objetos de Java.
+La "API de Persistencia de JAVA":http://en.wikipedia.org/wiki/Java_Persistence_API (JPA) es una especificación de JAVA que define una API estandar para el mapeo objeto-relacional. Play utiliza el framework "Hibernate":http://www.hibernate.org, una de las más conocidas implementaciones de JPA. Una de las ventajas de utilizar JPA en vez de la API estandar de Hibernate, es que todo el 'mapeo' es declarado directamente en los objetos de Java.
 
 Si ya ha utilizado Hibernate o JPA con anterioridad, se sorprenderá de lo fácil que resulta hacerlo con Play. No hay necesidad de configurar nada; JPA simplemente funciona tal como viene con Play.
 
@@ -43,17 +43,17 @@ public class User extends Model {
 
 La anotación <code>@Entity</code> indica que se trata de una entidad manejada por JPA, y la superclase @Model@ automáticamente provee un conjunto de métodos que complementan la funcionalidad de JPA. Todos los campos de esta clase serán automáticamente persistidos en la base de datos.
 
-p(note). Por defecto, el nombre de la tabla será ‘User’. Si cambia la configuración para utilizar una base de datos donde la 'user' es una palabra reservada, deberá especificar otro nombre de tabla para el mapeo de JPA. Para hacerlo, anote la clase @User@ con la anotación <code>@Table(name="blog_user")</code>.
+p(note). Por defecto, el nombre de la tabla será ‘User’. Si cambia la configuración para utilizar una base de datos donde 'user' es una palabra reservada, deberá especificar otro nombre de tabla para el mapeo de JPA. Para hacerlo, anote la clase @User@ con la anotación <code>@Table(name="blog_user")</code>.
 
 p(note). No es obligatorio que sus clases hereden la clase @play.db.jpa.Model@. Puede simplemente utilizar JPA. Pero extender esta clase es una buena opción en la mayoría de los casos, ya que le permitirá usar muchas de las prestaciones de JPA con mayor facilidad.
 
 Si alguna vez ha utilizado JPA, sabrá que cada entidad debe proveer una propiedad <code>@Id</code>. En este caso la superclase Model provee un ID numérico automáticamente generado, lo cual en la mayoría de los casos es suficiente.
 
-p(note). No considere este campo @id@ como un **identificador funcional** relacionado con sus reglas de negocio, piénselo más bien como un **identificador técnico**. Es una buena idea tener estos dos conceptos bien separados y mantener un ID numérico automáticamente generado cono identificador técnico.
+p(note). No considere este campo @id@ como un **identificador funcional** relacionado con sus reglas de negocio, piénselo más bien como un **identificador técnico**. Es una buena idea tener estos dos conceptos bien separados y mantener un ID numérico automáticamente generado como identificador técnico.
 
 Si usted tiene alguna experiencia en el desarrollo de aplicaciones con Java, seguramente estará horrorizado al ver que utilizamos variables públicas. En Java (y en la mayor parte de los lenguajes orientados a objetos), las buenas prácticas nos recomiendan declarar todos los campos como privados y proveer métodos para acceder y modificar estos campos, a fin de promover el encapsulamiento, uno de los conceptos fundamentales del diseño orientado a objetos. De hecho, Play se encarga de esto automáticamente, generando los métodos para acceder y modificar el valor de los campos preservando así el encapsulamiento de la clase, en breve veremos cómo funciona esto.
 
-Puede ahora refrescar la página principal para ver los cambios. De hecho, a menos que haya cometido algún error, no debería ver ningún cambio: Play ha automáticamente compilada y cargado la clase User, pero esto todavía no agrega ninguna funcionalidad a nuestra aplicación.
+Puede ahora refrescar la página principal para ver los cambios. De hecho, a menos que haya cometido algún error, no debería ver ningún cambio: Play ha automáticamente compilado y cargado la clase User, pero esto todavía no agrega ninguna funcionalidad a nuestra aplicación.
 
 h2. <a>Escribiendo la primera prueba unitaria</a>
 
@@ -107,9 +107,9 @@ Como puede ver, la superclase Model nos brinda dos métodos sumamente útiles: @
 
 p(note). Puede leer más acerca de los métodos de la clase Model en la sección "Soporte para JPA":jpa del manual de Play.
 
-Seleccione @BasicTests.java@ en el test runner, haga click en 'Start' y verificque que todo siga dando verde.
+Seleccione @BasicTests.java@ en el test runner, haga click en 'Start' y verifique que todo siga dando verde.
 
-Necesitaremos un método en la clase User que verifique si existe un usuario con un específico nombre de usuario y clave. Escribamos dicho método y probémoslo.
+Necesitaremos un método en la clase User que verifique si existe un usuario con un nombre específico de usuario y clave. Escribamos dicho método y probémoslo.
 
 En el archivo @User.java@, agregue el método @connect()@:
 
@@ -280,7 +280,7 @@ public void postComments() {
 
 La navegabilidad entre la clase @Post@ y @Comments@ no es tan simple: necesitamos una consulta para traer todos los comentarios que han surgido de un mensaje. Para ello deberemos definir la otra parte de la relación con la clase @Post@.
 
-Agregue el campo @coments@ a la clase @Post@:
+Agregue el campo @comments@ a la clase @Post@:
 
 bc. ...
 @OneToMany(mappedBy="post", cascade=CascadeType.ALL)
@@ -417,7 +417,7 @@ Como puede ver, algunos archivos no están bajo control de código fuente. La ca
 
 bc. $ bzr ignore test-result
 
-Y agregaremos el resto de los archivo al control de código fuente utilizando @bzr add@.
+Y agregaremos el resto de los archivos al control de código fuente utilizando @bzr add@.
 
 bc. $ bzr add
 
