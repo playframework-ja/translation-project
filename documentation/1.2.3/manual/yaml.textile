@@ -2,11 +2,11 @@ p(note). Esta página todavía no ha sido traducida al castellano. Si quieres co
 
 h1. YAML
 
-h2. <a name="syntax">YAML syntax</a>
+h2. <a name="syntax">Sintaxis YAML</a>
 
-Your application tests will often use data structures that consist of related model objects, which can be tedious to create programmatically in Java. Play includes a "YAML":http://en.wikipedia.org/wiki/YAML parser which makes the task much simpler.
+En las pruebas de las aplicaciones, comunmente, se utilizan estructuras de datos que consisten en un modelo de objetos relacionados los cuales pueden ser tediosos de crear programaticamente con Java. Play incluye un parser "YAML":http://en.wikipedia.org/wiki/YAML que hace esta tarea sumamente sencilla.
 
-Create a YAML file like the following, in the @conf@ directory.
+Crear en el directorio @conf@ un archivo YAML como el siguiente:
 
 bc.. City(capitalfederal):
     name: Capital Federal
@@ -36,9 +36,9 @@ Neighborhood(coghlan):
     tags: "cafes, bars"
     users: [john]
 
-p. Play’s YAML syntax varies slightly from the standard. Each stanza must start with the name of the model class (eg @Neighborhood@) and be followed by an identifier in brackets (eg @villalugano@), which you can use to reference the object elsewhere in the file. This is different to standard YAML syntax, which uses the ampersand character to indicate a reference.
+p. La sintaxis que utiliza Play para los archivos YAML varía ligeramente de la estandar. Cada parrafo debe comenzar con el nombre de la clase del modelo (por ejemplo @Neighborhood@) seguido de un identificador entre parentesis (por ejemplo @villalugano@), el cual se podra utilizar para referenciar el objeto dentro del archivo. Esto es diferente a la sintaxis estandar para archivos YAML, en la cual se usa el ampersand para indicar una referencia.
 
-Play uses "SnakeYAML":http://code.google.com/p/snakeyaml/, which has an excellent "documentation page":http://code.google.com/p/snakeyaml/wiki/Documentation#YAML_syntax with many examples.
+Play utiliza "SnakeYAML":http://code.google.com/p/snakeyaml/, que tiene una excelente "documentación":http://code.google.com/p/snakeyaml/wiki/Documentation#YAML_syntax colmada de ejemplos.
 
 h2. <a name="model">Model classes</a>
 
