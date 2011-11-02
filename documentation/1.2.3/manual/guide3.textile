@@ -40,7 +40,7 @@ Debe crear un archivo @initial-data.yml@ en la carpeta @yabe/conf/@. Puede reuti
 
 Ahora inicie la aplicación mediante el comando @play run@ y navegue a la página "http://localhost:9000/":http://localhost:9000/.
 
-h2. <a>La paǵina principal de nuestro sistema de blogs</a>
+h2. <a>La página principal de nuestro sistema de blogs</a>
 
 Ahora sí podemos comenzar a desarrollar la página principal.
 
