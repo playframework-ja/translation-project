@@ -748,9 +748,15 @@ a:hover {
 	float: left;
 }
 
+.profile-image-container img{
+	height: 72px;
+	width: 72px
+}
+
 .profile-details {
     display: inline-block;
     margin-left: 15px;
+	height: 80px;
     width: 500px;
 }
 
