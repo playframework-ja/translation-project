@@ -41,7 +41,9 @@ De esta manera nos quedará la aplicación _playdoces_ instalada en ~/apps/playd
 
 h2. <a name="coordinate">Coordinar nuestro trabajo con el resto de los traductores</a>
 
-A fin de evitar que más de un traductor esté trabajando en las mismas páginas es conveniente utilizar el sistema de incidentes que nos provee github. Simplemente debemos dirigirnos al sitio del repositorio *upstream* "https://github.com/opensas/playdoces/issues/":https://github.com/opensas/playdoces/issues y "crear un nuevo incidente":https://github.com/opensas/playdoces/issues/new, poniendo el nombre de la página que vamos a traducir y entre corchetes nuestro nombre de usuario en github. Por ejemplo, si quisiéramos traducir la página _lib.textile_, primero nos fijaríamos en los incidentes para asegurarnos que nadie esté trabajando en ella, y luego cargaremos uno nuevo con el siguiente texto `lib.textile [traductor-play]`.
+A fin de evitar que más de un traductor esté trabajando en las mismas páginas es conveniente utilizar el sistema de incidentes que nos provee github. Simplemente debemos dirigirnos al sitio del repositorio *upstream* "https://github.com/opensas/playdoces/issues/":https://github.com/opensas/playdoces/issues y "crear un nuevo incidente":https://github.com/opensas/playdoces/issues/new, poniendo el nombre de la página que vamos a traducir y entre corchetes nuestro nombre de usuario en github. 
+
+Por ejemplo, si quisiéramos traducir la página _lib.textile_, primero nos fijaríamos en los incidentes para asegurarnos que nadie esté trabajando en ella, y luego cargaremos uno nuevo con el siguiente texto @lib.textile [traductor-play]@.
 
 h2. <a name="pullrequest">Guardar los cambios y enviar nuestras traducciones</a>
 
