@@ -1,0 +1,1 @@
+echo restan: `grep "todavía no ha sido traducida" * | wc -l` / `ls | wc -l`
