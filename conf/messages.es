@@ -190,7 +190,7 @@ download.older.text=\
 
 download.night=Versiones nocturnas
 download.night.text=\
-  ¿Te sients intrépido? Anímate, y prueba alguna de las versiones nocturnas.
+  ¿Te sientes intrépido? Anímate, y prueba alguna de las versiones nocturnas.
 
 
 ### views/Application/code.html
