@@ -1,97 +1,91 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Conceptos principales
 
-h1. The main concepts
+h2. <a name="mvc">El modelo de aplicación MVC</a>
 
-h2. <a name="mvc">The MVC application model</a>
+Una aplicación de Play sigue el patrón de arquitectura para aplicaciones web conocido como MVC (Modelo-Vista-Controlador).
 
-A Play application follows the MVC architectural pattern applied to the web architecture.
+Este patrón organiza la aplicación en capas separadas: la capa de presentación y la capa del modelo. A su vez la capa de presentación se divide en una capa de vista y otra de controlador. 
 
-This pattern splits the application into separate layers: the Presentation layer and the Model layer. The Presentation layer is further split into a View and a Controller layer. 
+* El **Modelo** es la representación de la información que es específica del dominio de la aplicación. La lógica del dominio es la que agrega 'significado' a la información, que de otra manera no serían más que datos. (ej. calcular si hoy es el cumpleños del usuario, o el importe, impuestos y cargos de envío de un carrito de compras, de no ser por la lógica de dominio, éstos no serían más que datos de tipo fecha y númérico sin ningún significado específico). Comúnmente las aplicaciones utilizan algún mecanismo de almacenamiento persistente, como una base de datos, para guardar la información. MVC no hace mención específica a ninguna capa de acceso a datos, ya que se entiende que se encuentra por debajo, o encapsulada en, el Modelo.
+ 
+* La **Vista** despliega la información del Modelo de manera apropiada para que el usuario interactúe con ella, típicamente a través de una interfaz de usuario. Múltiples vistas pueden existir para un único modelo, sirviendo diferentes propósitos. En una aplicación web la vista es comúnmente desplegada en un 'formato web' como HTML, XML o JSON. Sin embargo hay casos en los cuales la vista puede producir como resultados archivos binarios, por ejemplo en la generación de diagramas u otros tipos de gráficos. 
 
-* The **Model** is the domain-specific representation of the information on which the application operates. Domain logic adds ‘meaning’ to raw data (e.g., calculating if today is the user’s birthday, or the totals, taxes, and shipping charges for a shopping cart). Most applications use a persistent storage mechanism such as a database to store data. MVC does not specifically mention the data access layer because it is understood to be underneath, or encapsulated by, the Model.
-
-* The **View** renders the model into a form suitable for interactions, typically a user interface. Multiple views can exist for a single model, for different purposes. In a Web application the view is usually rendered in a ‘web format’ like HTML, XML or JSON. However there are some cases where the view can be expressed in a binary form, e.g. dynamically rendered chart diagrams.
-
-* The **Controller** responds to events (typically user actions) and processes them, and may also invoke changes on the model. In a Web application, events are typically HTTP requests: a Controller listens for HTTP requests, extracts relevant data from the ‘event’, such as query string parameters, request headers… and applies changes to the underlying model objects.
+* El **Controlador** responde a eventos (típicamente acciones generadas por el usuario) y los procesa, también puede invocar cambios en el modelo, En una aplicación web, los eventos son típicamente "pedidos HTTP":glossary#httpRequest: un controlador escucha estos pedidos HTTP, extrae la información relevante de este 'evento', como pueden ser los parámetros del "query string":glossary#queryString o "request headers":glossary:requestHeader … y aplica los cambios al modelo de objetos.
 
 !images/diagrams_mvc!
 
-In a Play application these three layers are defined in the @app@ directory, each one in a separate Java package.
+En una aplicación de Play estas tres capas se definen en el directorio @app@, cada una en un "package de Java":glossary#javaPackage distinto.
 
 h3. app/controllers
 
-A Controller is a Java class where each public, static, method is an **action**. An action is a Java entry point invoked when an HTTP Request is received. The Java code from the Controller class isn’t really object oriented: it’s mainly procedural code. The action method extracts relevant data from the HTTP Request, reads or updates the model objects, and sends back a result which is wrapped into an HTTP Response. 
+Un controlador es una clase de java en la cual cada método público y estático es una **acción** o **"action method":glossary#actionMethod**. Una acción es un punto de entrada a una aplicación Java que es invocado cuando un pedido HTTP es recibido. El código Java del controlador, en realidad no está orientado a objetos, es meramente código precedural. El action method extrae la información relevante del pedido HTTP, lee o actualiza el modelo de objetos, y retorna el resultado bajo la forma de una respuesta HTTP.
 
 h3. app/models
 
-The domain model object layer is a set of Java classes using all the object-oriented features available from the Java language. It contains data structures and operations on which the application operates. Whenever model objects need to be saved to persistent storage, they may contain some glue artifacts like JPA annotations or SQL statements.
+La capa de modelo de objetos de dominio, es un conjunto de clases de Java que hace uso de la orientación a objetos que provee el lenguaje Java. Contiene estructuras de datos (estado) y operaciones (comportamiento) sobre la cual opera la aplicación. En caso de que el modelo de objetos requiera ser persistido a una base de datos, puede contener directivas como anotaciones JPA o sentencias SQL. 
 
 h3. app/views
 
-Most of the application views are generated using an efficient templating system provided by Play. The Controller gets some interesting data from the model layer, and then applies a template to decorate these objects. This package contains HTML, XML, JSON or other template files with special directives used to dynamically generate the model representation.
+La mayor parte de las vistas de una aplicación son generados por un eficiente motor de "templates":glossary#template provisto por Play. El controlador obtiene la información pertinente consultando la capa de datos, y luego aplica un template para 'decorar' estos objetos. Esta capa contiene HTML, XML, JSON y otros archivos de templates con directivas especiales para generar dinámicamente la representación del modelo.
 
+h2. <a name="request">El ciclo de vida del request</a>
 
-h2. <a name="request">The request life cycle</a>
+El framework play es completamente "stateless":glossary#stateless (sin estado) y orientado exclusivamente a pedidos/respuestas. Todos los pedidos HTTP siguen el mismo camino:
 
-The Play framework is fully stateless and only request/response-oriented. All HTTP Requests follow the same path:
+# <span>Un pedido HTTP es recibido por el framework.</span>
+# <span>El "router":glossary#router (enrutador) intenta dar con la ruta más específica capaz de atender este pedido, e invoca el "action method":glossary#actionMethod correspondiente.</span>
+# <span>El código de la aplicación es ejecutado.</span>
+# <span>Si es preciso generar una vista compleja, evalúa un template encargado de generarla.</span>
+# <span>El resultado del action method (código de respuesta HTTP, contenido HTTP) es retornado como una "respuesta HTTP":glossary#httpResponse.</span>
 
-# <span>An HTTP Request is received by the framework.</span>
-# <span>The Router component tries to find the most specific route able to accept this request. The corresponding action method is then invoked.</span>
-# <span>The application code is executed.</span>
-# <span>If a complex view needs to be generated, a template file is rendered.</span>
-# <span>The result of the action method (HTTP Response code, Content) is then written as an HTTP Response.</span>
-
-The following diagram summarizes the HTTP Request path:
+El siguiente diagrama muestra el ciclo de vida de un pedido HTTP:
 
 !images/diagrams_path!
 
 
-h2. <a name="application">The standard application layout</a>
+h2. <a name="application">La "estructura de directorios":glossary#applicationLayout de una aplicación típica de play</a>
 
-The layout of a Play application is standardized to keep things as simple as possible.
+La estructura de directios de las aplicacioens de Play está estandarizada, a fin de mantener las cosas lo más simple posibles.
 
+h3. El directorio **app** 
 
-h3. The **app** directory
+Este directorio contiene todos los artefactos ejecutables: código fuente Java y los templates de las vistas.
 
-This directory contains all executable artifacts: Java source code and view templates.
-
-p(note). **Where are my .class files?**
+p(note). **¿Dónde están mis archivos .class?**
  
-Don’t look for compiled Java classes. The framework compiles the Java source code at runtime and only keeps compiled classes in a bytecode cache under the @tmp@ directory. The main executable artifacts in a Play application are the *.java* source files, not the compiled classes.
+No pierda el tiempo buscado las clases compiladas de Java. El framework compila el código fuente de Java en tiempo de corrida, y mantiene el bytecode generado en un cache en el directorio @tmp@. Los artefactos ejecutables en una aplicación de play son los archivos *.java*, y no las clases compiladas.   
+ 
+hay tres "paquetes":glossary#javaPackage estándar en el diectorio **app**, uno por cada capa del patrón MVC. Claro está que usted puede agregar sus propios paquetes, como por ejemplo un paquete *utils*. 
 
-There are three standard packages in the app directory, one for each layer of the MVC architectural pattern. You can of course add your own packages like for example a *utils* package.
+A su vez, el paquete de vistas está organizado en subpaquetes:
 
-In addition, the views package is further organized into sub-packages:
+* @tags@, contiene los "tags":glossary#tag de la aplicactión, ej.porciones de templates reutilizables. 
+* una carpeta con las @vistas@ de cada controllador - por convención los templates vinculados a un mismo controlador son almacenados en su propio subpaquete.
 
-* @tags@, hosts application tags, e.g. reusable pieces of templates.
-* one @views@ folder for each controller - by convention templates related to each controller are stored in their own sub-package.
+h3. El directorio **public**
 
+Los archivos almacenados en el directorio @public@ son recursos estáticos y son servidos directamente por el servidor web. 
 
-h3. The **public** directory
-
-Resources stored in the @public@ directory are static assets and are served directly by the Web server.
-
-This directory is split into three standard sub-directories: for images, CSS stylesheets and JavaScript files. You should try to organize your static assets like this to keep all Play applications consistent.
+Este directorio está a su vez dividido en tres subdirectorios: para imágenes, hojas de estilo CSS y archivos de JavaScript. Procure organizar sus recursos estáticos siguiendo estos lineamientos para mantener la consistencia de sus aplicaciones. 
 
 p(note). **Tip**
  
-By default the @/public@ directory is mapped to the @/public@ URL path, but you can easily change that, or even use several directories for your static assets.
+Por defecto, el directorio @/public@ está vinculado a la URL @/public@, pero usted puede fácilmente cambiar esta configuración, o incluso utilizar diversos directorios para sus recursos estáticos.
 
+h3(#conf). El directorio **conf**
 
-h3(#conf). The **conf** directory
+El directorio @conf@ contiene todos los archivos de configuración de la aplicación.
 
-The @conf@ directory contains all configuration files for the application.
+Hay dos archivos de configuración que son requeridos por el framework:
 
-There are two required configuration files:
+* @application.conf@, el archivo principal de configuración. Contiene los "parámetros de configuración":configuration estándar de la aplicación.
+* @routes@, el archivo con la definición de las rutas HTTP.
 
-* @application.conf@, the main configuration file for the application. It contains standard "configuration parameters":configuration.
-* @routes@, the routes definition file.
+Si precisa agregar alguna configuración específica para su aplicación, es conveniente agregar más opciones al archivo @application.conf@. Las opciones de configuración de este archivo pueden ser leidas programáticamente mediante la sentencia @Play.configuration.get("propertyName")@. Cuando crea una nueva aplicación, el comando @play new@ copia la configuración por defecto del directorio @$PLAY_HOME/resources/application-skel/conf@ con varias configuraciones explicadas y comentadas para ayudarlo a comprender el significado de cada opción.
 
-If you need to add some configuration options specific to your application, it’s a good idea to add more options to the @application.conf@ file. Configuration options in this file are read programmatically with @Play.configuration.get("propertyName")@. When you create a new application, the @play new@ command copies a default configuration file from the @$PLAY_HOME/resources/application-skel/conf@ directory with some commented-out options to get you started.
+Si alguna librería precisa una configuración específica, procure guardarla en el diectorio @conf@: ya que **este directorio se incluye automáticamente en el "ClassPath de Java":glossary#javaClasspath**
 
-If any library needs a specific configuration file, try to file it under the @conf@ directory: **this directory is included in the Java ClassPath**.
-
-You can add additional configuration files to the Play configuration by specifying a file name in @application.conf@ as the value of a configuration option that has <code>@include.</code> at the start of the key. For example, if you define additional MIME types in a @conf/mime-types.conf@
+Puede incluir archivos de configuración adicionales a la configuración de Play especificando un nombre de archivo en @application.conf@ como el valor de una opción de configuración que contiene <code>@include.</code> como principio de la clave. Por ejemplo, si define tipos MIME adicionales en un archivo @conf/mime-types.conf@
 
 bc. # Web fonts
 mimetype.eot = application/vnd.ms-fontobject
@@ -99,60 +93,58 @@ mimetype.otf = application/octet-stream
 mimetype.ttf = application/octet-stream
 mimetype.woff = application/x-font-woff
 
-you can include them by adding the following line to @application.conf@:
+puede incluirlos agregando la siguiente línea al archivo @application.conf@:
 
 bc. @include.mime = mime-types.conf
 
-h3. The lib directory
+h3. El directorio lib
 
-This directory contains all standard Java libraries needed by your application. They are automatically added to the Java classpath.
+Este directorio contiene todas las librerías de Java requeridas por su aplicación. Son automáticamente agregadas al classpath de Java.
 
+h2. <a name="lifecycle">Ciclo de vida del desarrollo</a>
 
-h2. <a name="lifecycle">Development life cycle</a>
+No hay fase de compilación, "packaging":glossary#packaging o "deployment":glossary#deployment cuando trabaja con Play. Sin embargo Play implementa dos entornoa de trabajo diferenciados: DEV durante la fase de desarrollo y PROD cuando la aplicación ha sido deployada. 
 
-There are no compilation, packaging or deployment phases while working with Play. However Play implements two distinct environments: DEV mode during the development phase and PROD mode when the application is deployed. 
-
-p(note). **About DEV/PROD modes**
+p(note). **Acerca de los modos DEV y PROD**
  
-You can run an application either in a DEV or PROD mode. You toggle this mode using the "application.mode configuration":configuration#application.mode. When run in DEV mode, Play will check for file changes and will handle hot reloading if necessary. 
+Puede ejecutar aplicaciones tanto en modo DEV como PROD. Puede cambiar entre estos modos usando la configuración "application.mode":configuration#application.mode. Cuando es está ejecutando en modo DEV, Play verificará si algún archivo ha sido modificado y se encargará de volverlo a compilar y cargar dinámicamente ("hot reload":glossary#hotReload) de ser necesario. 
+
+El modo PROD está completamente optimizado para ejecutarse en producción: los templates y archivos fuentes de Java con compilados por única vez y guardados en el cache para ser accedidos por múltiples usuarios.
  
-The PROD mode is fully optimized for production: Java sources and templates are compiled once and cached for multiple uses.
+El código fuente de java es compilado y cargado en tiempo de ejecución. Si un archivo con código fuente de Java es modificado mientras la aplicación está ejecutándose, el código fuente es recompilado y remplazado ("hot-swapped":glossary#hotSwap) en la JVM.  
 
-Java source code is compiled and loaded at runtime. If a Java source file is modified while the application is running, the source code is recompiled and hot-swapped into the JVM.
-
-If a compilation error occurs, the exact problem is displayed in the browser (in DEV mode only).
+Si sucediera algún error de compilación, el reporte exacto del problema que lo generó será desplegado en el browser (sólo en modo DEV).
 
 !images/guide1-3!
 
-Template files are hot-compiled and hot-reloaded too.
+Los archivos de template también son compilados y remplazados dinámicamente.
 
-h3. Connect a Java debugger
+h3. Conectándose a un debugger de Java 
 
-When you run the application in DEV mode, you can connect a Java debugger to the port 8000.
+Cuando ejecuta la aplicación en modo DEV, puede conectar un depurador de código java al puerto 8000.  
 
-For example, using the NetBeans debugger:
+Por ejemplo, utilizando el depurador de Netbeans:
 
 !images/screenshot_attach-debugger!
 
 
-h2. Class enhancement
+h2. "Class enhancement":glossary#classEnhancement
 
-A Play plug-in (i.e. a subclass of @play.PlayPlugin@) may include ‘enhancers’ that modify application classes at runtime, to add functionality. This is how some of Play’s magic works.
+Un plugin de play (cualquier clase que extiende @play.PlayPlugin@) puede incluir "‘enhancers’":glossary:classEnhacer que modifican las clases de la aplicación en tiempo de corrida para agregar funcionalidad. Así es como funciona buena parte de la 'magia' de Play. 
 
-The built-in @play.CorePlugin@ uses enhancers from the @play.classloading.enhancers@ package to dynamically add code to your application’s classes:
+La clase @play.CorePlugin@, que viene incluida en Play, utiliza enhancers del paquete @play.classloading.enhancers@ para agregar código de manera dinámica a las clases de su aplicación.
 
-* @ContinuationEnhancer@ - adds continuations support to controller classes
-* @ControllersEnhancer@ - makes controller action methods thread-safe and adds HTTP redirects for method calls
-* @LocalvariablesNamesEnhancer@ - tracks local variable names in controllers
-* @MailerEnhancer@ - sets-up @play.mvc.Mailer@ subclasses
-* @PropertiesEnhancer@ - turns all application classes into valid JavaBeans, with properties based on fields
-* @SigEnhancer@ - computes a unique hash for each class’ signature, to enable automatic reloading.
+* @ContinuationEnhancer@ - agrega soporte de "continuations":glossary#continuation a las clases de los controladores
+* @ControllersEnhancer@ - hace que los action method de los controladores sean "thread-safe":glossary#threadSafe y agrega redirects HTTP para llamadas entre las acciones de los controladores. 
+* @LocalvariablesNamesEnhancer@ - lleva el registro de las variables locales en los controladores 
+* @MailerEnhancer@ - configura las subclases de @play.mvc.Mailer@
+* @PropertiesEnhancer@ - transforma todas las clases de la aplicación en "JavaBeans":glossary#jabaBean válidos, con propiedades basadas en campos. 
+* @SigEnhancer@ - calcula un hash único para la firma de cada clase, a fin de facilitar la recompilación y recarga automática de las mismas.
 
-In addition, the @play.db.jpa.JPAPlugin@ enhances subclasses of @play.db.jpa.JPABase@ with implementations of the convenience methods for JPA queries. This normally applies to your application's model classes that subclass @play.db.jpa.Model@. The JPA queries in question are those defined in @play.db.jpa.GenericModel@.
+Además, @play.db.jpa.JPAPlugin@ agrega a las subclases de @play.db.jpa.JPABase@ métodos que facilitan trabajar con consultas JPA. Por lo general esto se aplica a las clases del modelo de su aplicación que extienden @play.db.jpa.Model@. Las consultas JPA que son agregadas están definidas en @play.db.jpa.GenericModel@. 
 
-To add your own enhancer, call a subclass of @play.classloading.enhancers.Enhancer@ from your plug-in’s @enhance(ApplicationClass)@ method.
+Para agregar sus propios enhancers, puede extender la clase @play.classloading.enhancers.Enhancer@ desde el método @enhance(ApplicationClass)@ de sus propios plugins.
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
  
-Now that you’ve seen what a Play application is, let’s see how %(next)"HTTP routing":routes% works. The Router is in charge of translating incoming HTTP Requests into actions.
-
+Ahora que ha visto de qué se trata una aplicación de Play, veamos cómo Play maneja las %(next)"Rutas HTTP":routes%. El Router es el encargado de traducir los pedidos HTTP que llegan a nuestra aplicación, en acciones a ser ejecutadas por los controladores.
