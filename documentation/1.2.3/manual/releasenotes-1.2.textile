@@ -47,7 +47,7 @@ En la versión 1.1 de Play era posible trabajar de manera asincrónica utilizand
 
 h3. Promises
 
-En Play 1.2 introducimos el tipo Promise, que es una adaptación del tipo de dato Future de Java. De hecho, un @Promise<T>@ es también un @Future<T>@ de forma tal que lo puede usar como un Future estándar. Sin embargo, tiene también un agregado sumamente interesante: la posibilidad de registrar un callback usando @onRedeem(…)@ que será invocado tan pronto como el valor retornado por el Promise esté disponible. Esto le permite al framework registrarse a sí mismo a los Promises y retomar el "http request":glosary#httpRequest tan pronto como sea posible. 
+En Play 1.2 introducimos el tipo Promise, que es una adaptación del tipo de dato Future de Java. De hecho, un @Promise<T>@ es también un @Future<T>@ de forma tal que lo puede usar como un Future estándar. Sin embargo, tiene también un agregado sumamente interesante: la posibilidad de registrar un callback usando @onRedeem(…)@ que será invocado tan pronto como el valor retornado por el Promise esté disponible. Esto le permite al framework registrarse a sí mismo a los Promises y retomar el "http request":glossary#httpRequest tan pronto como sea posible. 
 
 h3. play.libs.F
 

@@ -65,11 +65,11 @@ bc. ~$ play test
 
 !images/guide2-0!
 
-El comando @play test@ es casi idéntico a @play run@, excepto que carga un módulo "test runner":glosary#testRunner que le permite correr una batería de pruebas directamente desde el browser.
+El comando @play test@ es casi idéntico a @play run@, excepto que carga un módulo "test runner":glossary#testRunner que le permite correr una batería de pruebas directamente desde el browser.
 
 p(note). Cuando ejecuta una aplicación play en @modo test@, Play automáticamente cambiará el ID del framework a @test@  y cargará los correspondientes valores del archivo @application.conf@. Consulte la "documentación de los IDs de framework":ids para más información.
 
-Abra un explorador en "http://localhost:9000/@tests":http://localhost:9000/@tests para ver el "test runner":glosary#testRunner. Seleccione todas las pruebas por defecto haciendo click en 'Select all' y ejecútelas haciendo click en 'Start'; todos deberían dar verde, lo que significa que no hubo errores... Pero en realidad estas pruebas, por el momento, en realidad no prueban nada.
+Abra un explorador en "http://localhost:9000/@tests":http://localhost:9000/@tests para ver el "test runner":glossary#testRunner. Seleccione todas las pruebas por defecto haciendo click en 'Select all' y ejecútelas haciendo click en 'Start'; todos deberían dar verde, lo que significa que no hubo errores... Pero en realidad estas pruebas, por el momento, en realidad no prueban nada.
 
 !images/guide2-1!
 
@@ -130,7 +130,7 @@ public void tryConnectAsUser() {
     assertNull(User.connect("tom@gmail.com", "secret"));
 }
 
-Cada vez que haga una modificación, puede ejecutar todos los tests utilizando el "test runner":glosary#testRunner provisto por Play para asegurarse de que no haya roto nada.
+Cada vez que haga una modificación, puede ejecutar todos los tests utilizando el "test runner":glossary#testRunner provisto por Play para asegurarse de que no haya roto nada.
 
 h2. <a>La clase Post</a>
 

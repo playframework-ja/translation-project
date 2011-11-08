@@ -33,13 +33,13 @@ h2. <a name="criteria">Criterios para la traducción</a>
 
 Existen numerosos términos técnicos cuya traducción, lejos de aportar claridad, dificultan la comprensión del texto. En tales casos, sugerimos dejarlo en el idioma original o, en caso de requerir alguna explicación extra, utilizar el glosario de la siguiente manera:
 
-bc. [...]y retomar el "http request":glosary#httpRequest tan pronto [...] 
+bc. [...]y retomar el "http request":glossary#httpRequest tan pronto [...] 
 
 que se verá en pantalla así:
 
-[...]y retomar el "http request":glosary#httpRequest tan pronto [...]
+[...]y retomar el "http request":glossary#httpRequest tan pronto [...]
 
-Tan sólo hay que crear la entrada en la página glosary.textile.
+Tan sólo hay que crear la entrada en la página glossary.textile.
 
 Preferimos también reescribir frases enteras, respetando el contenido semántico, antes que intentar traducciones literales que carezcan de naturalidad.  
 

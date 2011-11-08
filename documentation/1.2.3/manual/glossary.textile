@@ -1,0 +1,93 @@
+h1. Glosario de términos
+
+h2. <a name="applicationLayout">Application layout</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de la application layout.
+
+h2. <a name="actionMethod">Action method</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de un action method.
+
+h2. <a name="continuation">Continuation</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Continuation
+
+h2. <a name="classEnhancement">Class Enhancement</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Class Enhancement.
+
+h2. <a name="classEnhancer">Class Enhancer</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Class Enhancer.
+
+h2. <a name="deployment">Deployment</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de deployment.
+
+h2. <a name="hotReload">Hot reload</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Hot reload.
+
+h2. <a name="hotSwap">Hot swap</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Hot swap.
+
+h2. <a name="httpRequest">HTTP request</a>
+
+Pedido HTTP. HTTP (Hypertext Transfer Protocol o protocolo de transferencia de hipertexto), el protocolo usado por internet, es un protocolo orientado a transacciones que sigue el esquema petición-respuesta entre un cliente y un servidor. Cada interacción con un servidor web (un usuario navegando a un usuario navega a un sitio web, una llamada ajax, o un web service que es comsumido) consiste en un pedido HTTP que recibirá una respuesta del servidor.
+
+h2. <a name="httpResponse">HTTP response</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de un HTTP response.
+
+h2. <a name="javaBean">Java Bean</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Java Bean.
+
+h2. <a name="javaClasspath">Java Classpath</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Java Classpath.
+
+h2. <a name="javaDebugger">Java Debugger</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Java Debugger.
+
+h2. <a name="javaPackage">Java package</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de un Java package.
+
+h2. <a name="packaging">Packaging</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de packaging.
+
+h2. <a name="queryString">Query string</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP query string.
+
+h2. <a name="requestHeader">Request header</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP request header.
+
+h2. <a name="stateless">Stateless</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de stateless.
+
+h2. <a name="tag">Template tag</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de un template tag.
+
+h2. <a name="template">Template</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de un template.
+
+h2. <a name="testRunner">Test runner</a>
+
+Play trae incorporado un _ejecutador de pruebas_ que le permite correr las pruebas de su aplicación. Se trata de una simple consola web que le permite seleccionar los tests a correr.
+
+A continuación puede ver el test runner en acción.
+
+!images/guide10-1!
+
+h2. <a name="threadSafe">Thread-safe</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de Thread-safe.
