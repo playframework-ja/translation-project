@@ -20,9 +20,9 @@ Cuando termines de editar el archivo presiona el botón _Propose file change_ y 
 
 h2. <a name="translating">Trabajando con una copia local del proyecto</a>
 
-Otra opción es instalarte localmente la aplicación "playdoces":http://playdoces.appspot.com para ir viendo cómo quedarán los cambios en producción mientras vas traduciendo las páginas. Para ello puede obtener el proyecto playdoces bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto github":github.
+Otra opción es instalarte localmente la aplicación "playdoces":http://playdoces.appspot.com para ir viendo cómo quedarán los cambios en producción mientras vas traduciendo las páginas. Para ello puede obtener el proyecto bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto github":github.
 
-Luego de hacer esto simplemente tendrás que editar los archivos de /playdoces/documentation/1.2.3/ con cualquier editor de texto.
+Luego de hacer esto tendrás que editar los archivos de _/playdoces/documentation/1.2.3/manual_ con cualquier editor de texto.
 
 Para ir viendo cómo quedará la traducción una vez subida a producción, tendrás que iniciar la aplicación. Para eso ejecuta:
 
@@ -33,25 +33,23 @@ p(note). Antes de iniciar por primera vez la aplicación debes ejecutar @play de
 
 Luego navegamos a "localhost:9000":localhost:9000. Y ya tenemos nuestro sitio playdoces corriendo localmente en nuestra máquina. Siguiendo la filosofía Play!, simplemente editamos los archivos, apretamos F5 en el explorador y ya deberíamos ver los cambios reflejados en la página. 
 
+La mejor manera de hacernos llegar tus traducciones, es haciendo un fork del proyecto en github y enviándonos un pull request, como está explicado en esta "guía":github. Si tienes dudas o consultas respecto a este proceso consúltanos en la "lista de discusión de Play para desarrolladores hispano-hablantes":http://groups.google.com/group/play-latam.  
+
 h2. <a name="criteria">Criterios para la traducción</a>
 
 Existen numerosos términos técnicos cuya traducción, lejos de aportar claridad, dificultan la comprensión del texto. En tales casos, sugerimos dejarlo en el idioma original o, en caso de requerir alguna explicación extra, utilizar el glosario de la siguiente manera:
 
-bc. [...]y retomar el "http request":glossary#httpRequest tan pronto [...] 
+bc. [...] y retomar el "http request":glossary#httpRequest tan pronto como [...] 
 
 que se verá en pantalla así:
 
-[...]y retomar el "http request":glossary#httpRequest tan pronto [...]
+[...] y retomar el "http request":glossary#httpRequest tan pronto como [...]
 
 Tan sólo hay que crear la entrada en la página glossary.textile.
 
 Preferimos también reescribir frases enteras, respetando el contenido semántico, antes que intentar traducciones literales que carezcan de naturalidad.  
 
-h2. <a name="contributing">Enviando nuestros cambios</a>
-
-La mejor manera de hacernos llegar tus traducciones, es haciendo un fork del proyecto en github y enviándonos un pull request, como está explicado en esta "guía":github. Si tienes dudas o consultas respecto a este proceso consúltanos en la "lista de discusión de Play framework para América latina":http://groups.google.com/group/play-latam.  
-
 h2. <a name="java">Ponte en contacto con la comunidad hispano-hablante</a>
 
-No dudes en ponerte en contacto con nosotros a través de la "lista de discusión de Play framework para América latina":http://groups.google.com/group/play-latam. Allí podrás proponer nuevas ideas y coordinar con el resto de la comunidad para impulsar la adopción de Play! en América latina.
+No dudes en ponerte en contacto con nosotros a través de la "lista de discusión de Play para desarrolladores hispano-hablantes":http://groups.google.com/group/play-latam. Allí podrás proponer nuevas ideas y coordinar con el resto de la comunidad para impulsar la adopción de Play! y difundirlo entre los desarroladores de habla hispana.
 
