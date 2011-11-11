@@ -109,7 +109,7 @@ index.download.othersLink=otras versiones anteriores del framework
 index.learn.title=Aprende
 index.learn.content=\
   Lee la <a href="/documentation/latest/overview">&{index.learn.overview}</a>, \
-  sigue <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, \
+  sigue el <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, \
   y revisa la <a href="/documentation">&{index.learn.documentation}</a>.
 
 index.learn.overview=introducción a Play
