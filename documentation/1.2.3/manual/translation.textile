@@ -10,21 +10,19 @@ h2. <a name="github">Colabora con el proyecto a través de github</a>
 
 Al igual que la documentación original de Play!, este proyecto se encuentra disponible en "github":https://github.com/opensas/playdoces.
 
-Afortunadamente "github":http://github.com viene integrado con un editor de archivos .textile, que es el formato utilizado en la documentación de play, por lo que ni siquiera precisas tener instalado git, ni play, tan sólo con contar con un explorador web y registrarte en github ya podrás colaborar con nosotros.
+La documentación de play está almacenada en formato "textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29, que es un formato muy simple, pensado para que pueda ser leido y editado por seres humanos, sin necesidad de ninguna herramienta específica. De todas maneras, no necesitas saber textile para traducir la documentación, simplemente debes traducir el texto sin alterar el formato del texto.
+
+Afortunadamente "github":http://github.com viene integrado con un editor de archivos .textile, por lo que ni siquiera precisas tener instalado git ni play, tan sólo con contar con un explorador web y registrarte en github ya podrás colaborar con nosotros.
 
 Dirígete a "https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual":https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual, selecciona el archivo que quieres editar y presiona el botón _Fork and edit this file_. 
 
-Cuando termines de editar el archivo presiona el botón _Propose file change_ para enviarnos los cambios. ¡Y eso es todo!
+Cuando termines de editar el archivo presiona el botón _Propose file change_ y luego _Send pull request_ para enviarnos los cambios. ¡Y eso es todo!
 
-También puedes copiarte todo el repositorio para poder probar localmente el proyecto mientras traduces la documentación. Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto github":github.
+h2. <a name="translating">Trabajando con una copia local del proyecto</a>
 
-h2. <a name="translating">Traduciendo la documentación</a>
-
-Puedes obtener el proyecto playdoces bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. 
+Otra opción es instalarte localmente la aplicación "playdoces":http://playdoces.appspot.com para ir viendo cómo quedarán los cambios en producción mientras vas traduciendo las páginas. Para ello puede obtener el proyecto playdoces bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. 
 
 Luego de hacer esto simplemente tendrás que editar los archivos de /playdoces/documentation/1.2.3/ con cualquier editor de texto.
-
-p(note). La documentación está almacenada en formato "textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29, que es un formato muy simple, pensado para que pueda ser leido y editado por seres humanos, sin necesidad de ninguna herramienta específica. De todas maneras, no necesitas saber textile para traducir la documentación, simplemente debes traducir el texto sin alterar el formato del texto.
 
 Para ir viendo cómo quedará la traducción una vez subida a producción, tendrás que iniciar la aplicación. Para eso ejecuta:
 
