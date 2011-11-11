@@ -8,9 +8,15 @@ La forma más fácil de colaborar con la traducción de la documentación de Pla
 
 h2. <a name="github">Colabora con el proyecto a través de github</a>
 
-Al igual que la documentación original de Play!, este proyecto se encuentra disponible en "github":https://github.com/opensas/playdoces de github, por lo que tan sólo tienes que hacer un fork del proyecto y luego efectuar sucesivos pull requests para que integremos tus cambios.    
+Al igual que la documentación original de Play!, este proyecto se encuentra disponible en "github":https://github.com/opensas/playdoces.
 
-Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto github":github.
+Afortunadamente "github":http://github.com viene integrado con un editor de archivos .textile, que es el formato utilizado en la documentación de play, por lo que ni siquiera precisas tener instalado git, ni play, tan sólo con contar con un explorador web y registrarte en github ya podrás colaborar con nosotros.
+
+Dirígete a "https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual":https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual, selecciona el archivo que quieres editar y presiona el botón _Fork and edit this file_. 
+
+Cuando termines de editar el archivo presiona el botón _Propose file change_ para enviarnos los cambios. ¡Y eso es todo!
+
+También puedes copiarte todo el repositorio para poder probar localmente el proyecto mientras traduces la documentación. Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto github":github.
 
 h2. <a name="translating">Traduciendo la documentación</a>
 
