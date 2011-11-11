@@ -20,7 +20,7 @@ Cuando termines de editar el archivo presiona el botón _Propose file change_ y 
 
 h2. <a name="translating">Trabajando con una copia local del proyecto</a>
 
-Otra opción es instalarte localmente la aplicación "playdoces":http://playdoces.appspot.com para ir viendo cómo quedarán los cambios en producción mientras vas traduciendo las páginas. Para ello puede obtener el proyecto playdoces bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. 
+Otra opción es instalarte localmente la aplicación "playdoces":http://playdoces.appspot.com para ir viendo cómo quedarán los cambios en producción mientras vas traduciendo las páginas. Para ello puede obtener el proyecto playdoces bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto github":github.
 
 Luego de hacer esto simplemente tendrás que editar los archivos de /playdoces/documentation/1.2.3/ con cualquier editor de texto.
 
