@@ -147,8 +147,10 @@ public class Application extends Controller {
         render(action, modules);
     }
 
-    public static void about(String action) throws TwitterException {
-        render(action);
+    public static void about(String action) throws TwitterException, FileNotFoundException {
+    	List<Map<String, String>> translators =
+    			(List<Map<String, String>>) new Yaml().load(new FileInputStream(Play.applicationPath + "/conf/translators.yml"));
+        render(action, translators);
     }
     
     public static void introduce20() throws MalformedURLException, IOException {

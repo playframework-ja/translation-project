@@ -1,3 +1,44 @@
+Updates in 1.2.3beta1
+* 集約関数のサポート： max, min, sum, average, count, それらのグループ化をします。
+* レプリカセットへの接続のサポート。 https://github.com/taligent に感謝します。
+* ID による関連付けを見つけるためのカスタムキーのサポート。 https://github.com/zash80 に感謝します。
+
+Updates in 1.2.2beta1
+* 重要かつ純粋なコミュニティドリブンのリリースです。下記の更新を含みます。
+** GridFS サポート。 Alexander Reelsen (alr@emplify.de) に感謝します。
+** morphiaFixture タグを追加しました。 Selenium テストケースにモデルにロードされ、削除されることを許可します。 Agile Consulting (http://www.agileconsulting.biz) に感謝します。
+** バグ修正：常に空の Reference Collection 用のリストを選択します。 Lepnio (https://github.com/lepnio) に感謝します。
+
+Updates in 1.2.1beta6
+* バグを修正： 親タイプで定義された @Id フィールド を持つサブタイプモデルを保存すると、 "User defined ID should be populated before persist" というメッセージの IllegalStateException が出現する問題を修正。
+
+Updates in 1.2.1beta5
+* disableValidation() メソッドをモデルに追加。異なるサブタイプモデルが異なるフィールドを持つときに便利です。
+* @NoId アノテーションを追加。https://groups.google.com/forum/#!topic/play-framework/hPWJCvefPoI/discussion で議論されている問題を解決するのに役立ちます。
+
+Updates in 1.2.1beta4
+* Upgrade morphia to 1.0-snapshot and mongo lib to 2.6.1
+
+Updates in 1.2.1beta3
+* 複数 mongodb データベースの限定的なサポート。
+
+Updates in 1.2.1beta-2
+* 設定されたデータベースが存在しない場合、警告と共に"test" データベースが利用されるようにした。
+* MorphiaFixtures.deleteX を呼び出した時、 id キャッシュをクリアするようにした。
+* 自動タイムスタンプをサポート。
+
+Updates in 1.2.1beta-1
+* play-1.2.x と互換可能にした。
+
+Updates in 1.2beta-6
+* フィルタ ( where 句 ) を Model.Factory.count と Model.Factory.fetch でサポート
+* @Global とアノテーション付けされた ObjectIdBinder を追加。問題 #5 を修正。 
+* #16 の問題のため、morphia ライブラリを 0.99-Snapshot に一時的に戻した。
+
+Updates in 1.2beta-5:
+* 問題を修正： https://github.com/greenlaw110/play-morphia/issues#issue/12
+* MorphiaPlugin.MorphiaModelLoader.fetch|count に where 句を記述できるようにサポート。
+
 Updaets in 1.2beta-4:
 * morphia ライブラリを 0.99 にアップデート。
 * mongo driver を 0.24 にアップデート。
@@ -66,11 +107,17 @@ Morphia モジュールは play.db.Model から mongo へのアクセスと少�
 ** Indexed ( unique と dropDups オプションのサポート ), index が必要なフィールドにマークすると利用可能になります。
 ** Transient, 無視されるべきフィールドにマークします。
 ** Embedded, もう一つのエンティティに組み込まれるエンティティもしくは、エンティティに組み込まれるホストエンティティのフィールドに対してマークします。
+*** @Embedded でアノテーション付けされたクラスは play.modules.morphia.Model クラスを継承しないことを注意してください。
 ** Life cycle annotations: PreLoad, PrePersist, PostLoad, PostPersist...
 ** その他の多くの使いやすいアノテーションは <a href="http://code.google.com/p/morphia/wiki/EntityAnnotation">こちら</a> で見つけることができます。
+** AutoTimestamp( v1.2.1beta-2からサポートされています ), play-morphia の独自アノテーションです、このアノテーションでアノテーション付けされると、本プラグインは自動的にクラスに下記の2つのフィールドを追加します。
+*** public long _created; // モデルが作成されると System.currentTimeMills() がこのフィールドに代入されます。フィールドにアクセスすると、 myModel._getCreated() を呼び出します。
+*** public long _modified; // モデルが保存されると常に System.currentTimeMills() がこのフィールドに代入されます。フィールドにアクセスすると、 myModel._getModified() を呼び出します。
 
 * play.db.Model サポート
 ** コードの変更をせずに既存のインタフェースのほとんどを利用可能にします。 Fixtures.load() によって yml データをロードできます。 find("byXAndY", ...) スタイルのクエリーを利用することができます。しかし、 SQL/JQL クエリーはサポートされていません。 "Post.find("postedAt < ? order by postedAt desc", postedAt).first();" は  "(Post) Post.filter("postedAt <", postedAt).order("-postedAt").get();" に変換されます。このような変換の詳細は YABE サンプルを参考にしてください。 Tag.java 内にどうやって SQL の集合が mongodb の mapReduce に変換されるかが示されている例があります。注意：テストデータを省いて Fixtures.delete() メソッドを単純に使うことはできません。 MorphiaFixtures.deleteXX() を代わりに使ってください。
+** (1.2beta-5 の新機能 ) Model.Factory.fetch|count での simple where 句をサポート
+*** where 句の例: "prop = val", "prop in (val1, val2, ...)", "prop1 = val1 and prop2 = val2 and prop3 in (val1, val2, val3, ..) ..."
 
 * Dynamic Id サポート
 ** MongoDB は org.bson.types.ObjectId を Id フィールドの型として使うことを推奨しています。 新しい Id の生成のためにデータベースにアクセスする必要がないというのは利用しやすいです。しかし、もし Long をIDとして利用する場合 ( CRUD の ID を数字のみにしたいという要求はあるでしょう。), Long の利用も可能です。 application.conf 内に "morphia.id.type=Long" 行を追加するだけです。こうすれば Morphia は Long 型の ID を生成してオブジェクトをハンドリングすることができます。 Tag.name のようにどんな型でも Id フィールドを設定する事もできます ( ここでは String がベターでしょう ) 。その場合、 Morphia は Id フィールドを管理しません。
@@ -84,22 +131,15 @@ Morphia モジュールは play.db.Model から mongo へのアクセスと少�
 * Indexing
 ** 手で index を作る必要はありません。フィールドに @Indexed をつければいいだけです。 Morphia は play application の起動の際に index を作成することを保証します。
 
-h2. 制限
-
-* Generic がうまく動作しません。 型キャストが必要になる場合があります。誰かが助けてくれるなら、助かります。。。
-* "Or" 条件のクエリーは実行できますが、インタフェースは将来変更される可能性があります。注意して使ってください。
-* play.db.Model.Factory の下記のインタフェース内で "where" 条件はサポートされていません。
-
-bc.. public List<play.db.Model> fetch(int offset, int size, String orderBy, String order, List<String> searchFields, String keywords, String where);
-
-h2. TODO リスト
-
-* ファイルを GridFS に保存できるようにサポートすること
+* 集約
+** フィールドによるグループとクエリーによってデータを集約することができます。制限：
+*** max/min/sum/average/count の集約関数は一つのフィールド上で動作します。低いレベルの group() インタフェースは複雑なユースケースに使われます。
+*** SQL で使われる Having 句はサポートされていません。同じ結果を得るためにはメモリ中で結果のリストをフィルタする必要があります。詳しくは、http://rickosborne.org/download/SQL-to-MongoDB.pdf を参照して下さい。
+*** インタフェースが同じコレクション内のフィールド上で集約関数をサポートします。リファレンスコレクションによるグループはまだサポートされていません。その結果を得るためには map-reduce を利用する必要があります。
 
 h2. <a>依存関係</a>
 
-* Play: Play-1.1 リリース。 1.1 beta1 ではなく、 current の trunk を使う分には動作確認済み。
-* Morphia: morphia-0.97 + <a href="http://code.google.com/p/morphia/issues/detail?id=104">パッチ</a>が必要。まとまった jar ファイルでの利用が安全です。
+* Play: Play-1.2
 
 最新の Play (1.1 beta よりも新しいバージョン) と morphia@googlecode (morphia-0.96-SNAPSHOT.jar よりも新しいバージョン) がどうしても必要なら、 Play と Morphia 双方に影響している開発中のバージョンがあります、両方のプロダクトの最新の trunk にコード変更が必要です。本プラグイン中の morphia-0.96-SNAPSHOT.jar を使うほうが安全です。 http://code.google.com/p/morphia/ で配信されているものを使うべきではありません。
 
@@ -132,7 +172,7 @@ bc.. package models;
 import play.data.validation.Email;
 import play.data.validation.Required;
 import play.modules.morphia.Model;
-
+import play.modules.morphia.Blob;
 import com.google.code.morphia.annotations.Entity;
  
 @Entity
@@ -149,10 +189,15 @@ public class User extends Model {
     
     public boolean isAdmin;
     
-    public User(String email, String password, String fullname) {
+    // Blob type field support start from v1.2.2beta1
+    public Blob photo;
+    
+    // image Type could be something like "image/jpeg" etc.
+    public User(String email, String password, String fullname, File photo, String imageType) {
         this.email = email;
         this.password = password;
         this.fullname = fullname;
+        this.photo = new Blob(photo, imageType);
     }
     
     public static User connect(String email, String password) {
@@ -165,17 +210,19 @@ public class User extends Model {
  
 }
 
+p. @Embedded クラスは play.modules.morphia.Model クラスを継承しないことを注意してください。
+
 p. User.java は Play のサンプルとテストにあるものからほとんど変更していません。唯一の違いは Model です、 Model のパッケージは play.modules.morphia.Model にし、 Entity も com.google.code.morphia.annotations.Entity にしています。
 
 h3. <a>JQL クエリーを MongoDB クエリーに移行する</a>
 
-h4. JPA Style
+h4. JPA
 
 bc..     public Post previous() {
         return Post.find("postedAt < ? order by postedAt desc", postedAt).first();
     } 
     
-h4. Morphia style:
+h4. MapReduce
 
 bc..     public Post previous() {
         return (Post) Post.filter("postedAt <", postedAt).order("-postedAt").get();
@@ -212,6 +259,18 @@ bc..     private static final String m_ = "function() {this.tags.forEach(functio
     }
     
 p. 本コードはそこまでキレイではないため、将来的に簡単にしていきたいと思っています。
+
+h4. 新しい集約のインタフェース (1.2.3beta1 からスタート )
+
+bc..     public static void aggregateInterface() {
+        long sum = Account.sum("sales"); // sales is an numeric field of collection account
+        long sum = Account.q("region", "AU").sum("sales"); // get sum of sales of all account in AU region
+        AggregationResult r = Account.groupMax("sales", "region"); // max sales grouped by region
+        long maxAU = r.getResult("region", "AU"); // max sales account in AU
+        r = Account.groupMin("sales", "region"); // min sales grouped by region
+        long minUS = r.getResult("region", "US"); // min sales account in US
+        long average = Account.q("department", "IT").average("cost"); // IT department's average cost
+    }
 
 h2. <a>FAQ</a>
 
@@ -282,3 +341,7 @@ p. play.test.Fixtures で定義された deleteAll() メソッドは JPA ベー�
 h3. morphia.defaultWriteConcern は何故設定しても動作しないのでしょう?
 
 p. morphia のカレントバージョン　(　今は 0.99　) の <a href='http://code.google.com/p/morphia/issues/detail?id=209'> バグ </a> です。
+
+h3. 複製 ID フィールドエラーが出ました。
+
+p. サブタイプモデルを定義した場合、 Morphia は拡張し、サブタイプと親タイプの両方のフィールドに @Id を追加するでしょう。その結果、2つの @Id フィールドをサブタイプが持つことになります。この問題を解決するためには、サブタイプもしくは親タイプのどちらかに @NoId アノテーションを付ける必要があります。 (morphia-1.2.1beta5 で利用できるようになりました )

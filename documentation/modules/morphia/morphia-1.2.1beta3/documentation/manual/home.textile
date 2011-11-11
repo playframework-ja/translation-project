@@ -1,3 +1,23 @@
+Updates in 1.2.1beta3
+* 複数 mongodb データベースの限定的なサポート。
+
+Updates in 1.2.1beta-2
+* 設定されたデータベースが存在しない場合、警告と共に"test" データベースが利用されるようにした。
+* MorphiaFixtures.deleteX を呼び出した時、 id キャッシュをクリアするようにした。
+* 自動タイムスタンプをサポート。
+
+Updates in 1.2.1beta-1
+* play-1.2.x と互換可能にした。
+
+Updates in 1.2beta-6
+* フィルタ ( where 句 ) を Model.Factory.count と Model.Factory.fetch でサポート
+* @Global とアノテーション付けされた ObjectIdBinder を追加。問題 #5 を修正。 
+* #16 の問題のため、morphia ライブラリを 0.99-Snapshot に一時的に戻した。
+
+Updates in 1.2beta-5:
+* 問題を修正： https://github.com/greenlaw110/play-morphia/issues#issue/12
+* MorphiaPlugin.MorphiaModelLoader.fetch|count に where 句を記述できるようにサポート。
+
 Updaets in 1.2beta-4:
 * morphia ライブラリを 0.99 にアップデート。
 * mongo driver を 0.24 にアップデート。
@@ -68,9 +88,14 @@ Morphia モジュールは play.db.Model から mongo へのアクセスと少�
 ** Embedded, もう一つのエンティティに組み込まれるエンティティもしくは、エンティティに組み込まれるホストエンティティのフィールドに対してマークします。
 ** Life cycle annotations: PreLoad, PrePersist, PostLoad, PostPersist...
 ** その他の多くの使いやすいアノテーションは <a href="http://code.google.com/p/morphia/wiki/EntityAnnotation">こちら</a> で見つけることができます。
+** AutoTimestamp, play-morphia の独自アノテーションです、このアノテーションでアノテーション付けされると、本プラグインは自動的にクラスに下記の2つのフィールドを追加します。
+*** public long _created; // モデルが作成されると System.currentTimeMills() がこのフィールドに代入されます。フィールドにアクセスすると、 myModel._getCreated() を呼び出します。
+*** public long _modified; // モデルが保存されると常に System.currentTimeMills() がこのフィールドに代入されます。フィールドにアクセスすると、 myModel._getModified() を呼び出します。
 
 * play.db.Model サポート
 ** コードの変更をせずに既存のインタフェースのほとんどを利用可能にします。 Fixtures.load() によって yml データをロードできます。 find("byXAndY", ...) スタイルのクエリーを利用することができます。しかし、 SQL/JQL クエリーはサポートされていません。 "Post.find("postedAt < ? order by postedAt desc", postedAt).first();" は  "(Post) Post.filter("postedAt <", postedAt).order("-postedAt").get();" に変換されます。このような変換の詳細は YABE サンプルを参考にしてください。 Tag.java 内にどうやって SQL の集合が mongodb の mapReduce に変換されるかが示されている例があります。注意：テストデータを省いて Fixtures.delete() メソッドを単純に使うことはできません。 MorphiaFixtures.deleteXX() を代わりに使ってください。
+** (1.2beta-5 の新機能 ) Model.Factory.fetch|count での simple where 句をサポート
+*** where 句の例: "prop = val", "prop in (val1, val2, ...)", "prop1 = val1 and prop2 = val2 and prop3 in (val1, val2, val3, ..) ..."
 
 * Dynamic Id サポート
 ** MongoDB は org.bson.types.ObjectId を Id フィールドの型として使うことを推奨しています。 新しい Id の生成のためにデータベースにアクセスする必要がないというのは利用しやすいです。しかし、もし Long をIDとして利用する場合 ( CRUD の ID を数字のみにしたいという要求はあるでしょう。), Long の利用も可能です。 application.conf 内に "morphia.id.type=Long" 行を追加するだけです。こうすれば Morphia は Long 型の ID を生成してオブジェクトをハンドリングすることができます。 Tag.name のようにどんな型でも Id フィールドを設定する事もできます ( ここでは String がベターでしょう ) 。その場合、 Morphia は Id フィールドを管理しません。
@@ -87,8 +112,6 @@ Morphia モジュールは play.db.Model から mongo へのアクセスと少�
 h2. 制限
 
 * Generic がうまく動作しません。 型キャストが必要になる場合があります。誰かが助けてくれるなら、助かります。。。
-* "Or" 条件のクエリーは実行できますが、インタフェースは将来変更される可能性があります。注意して使ってください。
-* play.db.Model.Factory の下記のインタフェース内で "where" 条件はサポートされていません。
 
 bc.. public List<play.db.Model> fetch(int offset, int size, String orderBy, String order, List<String> searchFields, String keywords, String where);
 
