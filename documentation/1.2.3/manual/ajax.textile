@@ -14,7 +14,7 @@ Veamos un ejemplo:
 
 bc. GET     /hotels/list        Hotels.list
 
-Now you can import this route client side:
+Ahora podemos importar esta ruta desde el cliente de la siguiente manera: 
 
 bc. <script type="text/javascript">
    var listAction = #{jsAction @list(':search', ':size', ':page') /}
@@ -26,24 +26,24 @@ bc. <script type="text/javascript">
    )
 </script>
 
-In this example we are requesting the list method from the default Application controller. We are also passing three parameters: search, size and page. The request we perform is then saved into the listAction variable. Now using jQuery and the @load@ function we are performing a request (an HTTP GET request in fact).
+En este ejemplo estamos solicitando el método _list_ del controlador Application, que es el controlador por defecto para ese template. También estamos pasando tres parámetros: search, size y page. La solicitud es grabada en la función listAction. Al pasarle a dicha función el valor que queremos asignar a vada variable, nos retornará el URL correspondiente. Utilizando la función @load@ de jQuery efectuaremos el pedido HTTP (un pedido HTTP con método GET, en este caso).
 
-In fact, the following request is sent:
+De hecho, el pedido HTTP enviado será el siguiente:
 
 bc. GET /hotels/list?search=x&size=10&page=1
 
-In that case the request returns HTML data.
+En este caso el pedido retorna información HTML.
 
-However, it is also possible to return JSON or XML and to have jQuery interpret the data. In your controller, use the appropriate render method (renderJSON, renderXML or an XML template).
+Sin emabargo, también es posible retornar JSON o XML e interpretar esta información utilizando las funciones de jQuery. En su controlador, utilice el método render correspondiente (renferJSON, renderXML o un template XML) para retornar otros tipos de datos.
 
-Please refer to the "jQuery":http://docs.jquery.com/Main_Page documentation for more info.
+Consulte la "documentación de jQuery":http://docs.jquery.com/Main_Page para más información.
 
-Also please note that we could perform a POST; the jQuery method should then be changed to:
+Tenga en cuenta que también podríamos efectuar un pedido HTTP con método POST; en tal caso el modo jQuery a utilizar debería ser:
 
 bc. $.post(listAction(), function(data) {
   $('#result').html(data);
 });
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
  
-Handle %(next)"Internationalization":i18n%.
+%(next)"Internacionalización":i18n% de aplicaciones.
