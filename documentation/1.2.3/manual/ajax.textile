@@ -8,9 +8,9 @@ El framework también trae el tag @jsAction@, que le permite obtener de manera t
 
 h2. <a name="jsaction">Usando jQuery con el tag jsAction</a>
 
-The @#{jsAction /}@ tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.
+El tag @#{jsAction /}@ retorna una función Javascript que contruye el correspondiente URL basado en la acción definida en el servidor y las variables que le pasemos como parámetro. No efectúa la llamada AJAX, esto lo deberemos realizar nosotros manualmente utilizando el URL retornado.
 
-Let's see an example:
+Veamos un ejemplo:
 
 bc. GET     /hotels/list        Hotels.list
 
