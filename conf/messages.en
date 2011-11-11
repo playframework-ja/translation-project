@@ -140,6 +140,15 @@ index.contribute.bugReports=bug reports
 index.contribute.source=source code on github
 index.contribute.contributeBack=contribute back
 
+# right panel speak your language section
+index.language.title=Speak your own language
+index.language.content=\
+  Join the <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.language.googleGroup}</a> \
+  and help us with the <a href="https://github.com/playframework/play/tree/master/documentation/manual" target="_blank">&{index.language.translate}</a>.
+
+index.language.googleGroup=Google group
+index.language.translate=documentation
+
 # right panel twitter section
 index.twitter.title=Twitter buzz
 

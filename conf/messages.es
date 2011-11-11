@@ -101,7 +101,7 @@ index.features.fun.content=\
 
 # right panel download section
 index.download.title=¡Consíguelo ya!
-index.download.latest=Descarga %s, la última versión estable.
+index.download.latest=Descarga %s.
 index.download.others=O bájate 
 index.download.othersLink=otras versiones anteriores del framework
 
@@ -109,7 +109,7 @@ index.download.othersLink=otras versiones anteriores del framework
 index.learn.title=Aprende
 index.learn.content=\
   Lee la <a href="/documentation/latest/overview">&{index.learn.overview}</a>, \
-  haz una aplicación paso a paso siguiendo el <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, \
+  sigue <a href="/documentation/latest/guide1">&{index.learn.tutorial}</a>, \
   y revisa la <a href="/documentation">&{index.learn.documentation}</a>.
 
 index.learn.overview=introducción a Play
@@ -120,8 +120,8 @@ index.learn.documentation=documentación
 index.help.title=Recibe ayuda
 index.help.content=\
   Únete a la <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a>, \
-  haz preguntas en <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, \
-  comparte tu <a href="/community/snippets">&{index.help.code}</a> con la comunidad, \
+  pregunta en <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, \
+  comparte tu <a href="/community/snippets">&{index.help.code}</a> \
   y <a href="/community/events">&{index.help.meet}</a> a otros desarrollares.
 
 index.help.googleGroup=lista de discusión
@@ -137,8 +137,17 @@ index.contribute.content=\
   y <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide" target="_blank">&{index.contribute.contributeBack}</a> con el proyecto.
 
 index.contribute.bugReports=errores
-index.contribute.source=código fuente desde github
+index.contribute.source=código fuente
 index.contribute.contributeBack=contribuye
+
+# right panel speak your language section
+index.language.title=Habla tu propio idioma
+index.language.content=\
+  Únete a la <a href="http://groups.google.com/group/play-latam" target="_blank">&{index.language.googleGroup}</a> \
+  y ayúdanos con la <a href="documentation/latest/translation" target="_blank">&{index.language.translate}</a>.
+
+index.language.googleGroup=lista de discusión en español
+index.language.translate=traducción de la documentación
 
 # right panel twitter section
 index.twitter.title=¿Qué dicen en twitter?
