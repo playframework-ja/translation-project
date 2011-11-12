@@ -172,8 +172,9 @@ public class Application extends Controller {
         details.add(getMap(source, "datastore"));
         details.add(getMap(source, "testing"));
         details.add(getMap(source, "documentation"));
-
-        String twitter = getString(source.getElementById("share").getChildElements().get(0));
+        
+        List<Element> twitters = source.getElementById("share").getChildElements();
+        String twitter = twitters.isEmpty() ? "" : getString(twitters.get(0));
         
         renderTemplate("Application/"+lang+"/introduce20.html", list, details, twitter);
         
