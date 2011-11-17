@@ -1,10 +1,8 @@
 h1. 設定パラメータ
 
-Configure your Play application by setting values for configuration keys in @conf/application.conf@ file. See also:
 @conf/application.conf@ ファイルの設定キーに値を設定して Play のアプリケーションを設定しましょう。参照:
 
 * "主要な概念 - conf ディレクトリ":main#conf
-* "Managing application.conf in several environments":ids
 * "複数環境用 application.conf の管理":ids
 * "アプリケーションの本番稼動":production
 
@@ -13,18 +11,18 @@ h2(#application). アプリケーション設定
 
 h3(#application.baseUrl). application.baseUrl
 
-アプリケーションベース URL は絶対 URL の逆引きに使われます。このアプリケーションベース URL は e メールのレンダリングのように @Http.Request@ を介さない <code>@@{..}</code> テンプレート構文やジョブ内で使われます。例えば @dev@ モードでは:
+アプリケーションベース URL は絶対 URL の逆引きに使われます。このアプリケーションベース URL は e メールのレンダリングのように @Http.Request@ を介さない <code>@@{..}</code> テンプレート構文やジョブ内で使われます。例えば @dev@ モード用の設定は次のようにし:
 
 bc. application.baseUrl=http://localhost:9000/
 
-@prod@ モードでは:
+@prod@ モード用の設定は次のようにします:
 
 bc. %production%.application.baseUrl=http://www.yourdomain.com/
 
 
 h3(#application.defaultCookieDomain). application.defaultCookieDomain
 
-サブドメイン間で共有される session/cookie を有効にします。例えば、@foo.example.com@ や @bar.example.com@ などのように ‘.example.com’ で終わる全てのドメインで有効な cookie を生成するには:
+サブドメイン間で共有される session/cookie を有効にします。例えば、@foo.example.com@ や @bar.example.com@ などのように ‘.example.com’ で終わる全てのドメインで有効な cookie を生成するには次のようにします:
 
 bc. application.defaultCookieDomain=.example.com
 
@@ -243,19 +241,19 @@ h2(#dbconf). データベース設定
 
 h3(#db). db
 
-データベースエンジンの設定です。素早く開発用データベースをセットアップするために、一時的なインメモリデータベース (H2 インメモリデータベース) を使うには:
+データベースエンジンの設定です。素早く開発用データベースをセットアップするために、一時的なインメモリデータベース (H2 インメモリデータベース) を使うには次のようにします:
 
 bc. db=mem
 
-単純なファイルに書き出すデータベース (H2 ファイルストアド) を使うには:
+単純なファイルに書き出すデータベース (H2 ファイルストアド) を使うには次のようにします:
 
 bc. db=fs
 
-ローカルの MySQL5 データベースを使うには:
+ローカルの MySQL5 データベースを使うには次のようにします:
 
 bc. db=mysql:user:pwd@database_name
 
-アプリケーションサーバに設定されているデータソースを利用するには:
+アプリケーションサーバに設定されているデータソースを利用するには次のようにします:
 
 bc. db=java:/comp/env/jdbc/myDatasource@
 
@@ -272,12 +270,12 @@ h3(#db.destroyMethod). db.destroyMethod
 
 bc. db.destroyMethod=close
 
-デフォルト: none.
+デフォルト: なし
 
 
 h3(#db.driver). db.driver
 
-"db.url":#db.url で設定したデータベースを使うための、データベースドライバのクラス名を指定します。具体例:
+"db.url":#db.url で設定したデータベースを使うための、データベースドライバのクラス名を指定します。設定例:
 
 bc. db.driver=org.postgresql.Driver
 
@@ -296,7 +294,6 @@ h3(#db.pass). db.pass
 
 h3(#db.pool.maxIdleTimeExcessConnections). db.pool.maxIdleTimeExcessConnections
 
-The number of seconds before idle connections beyond "db.pool.minSize":#db.pool.minSize are ‘culled’. See the "c3p0 documentation":http://www.mchange.com/projects/c3p0/#maxIdleTimeExcessConnections.
 "db.pool.minSize":#db.pool.minSize を超えるアイドルコネクションが ‘処分される’ までの秒数です。"c3p0 documentation":http://www.mchange.com/projects/c3p0/#maxIdleTimeExcessConnections を参照してください。
 
 デフォルト: @0@ - ‘処分されません’.
@@ -359,7 +356,7 @@ bc. evolutions.enabled=false
 
 h2(#hibernate). Hibernate
 
-Hibernate のプロパティを追加で指定することも出来ます。例えば、SQL コメントを有効にするには:
+Hibernate のプロパティを追加で指定することも出来ます。例えば、SQL コメントを有効にするには次のようにします:
 
 bc. hibernate.use_sql_comments=true
 
@@ -376,7 +373,7 @@ h2(#http). サーバ設定
 
 h3(#http.address). http.address
 
-HTTP をリッスンするアドレスです。サーバがリッスンするアドレスを制限するときに指定します。具体例:
+HTTP をリッスンするアドレスです。サーバがリッスンするアドレスを制限するときに指定します。設定例:
 
 bc. http.address=127.0.0.1
 
@@ -385,7 +382,7 @@ bc. http.address=127.0.0.1
 
 h3(#http.cacheControl). http.cacheControl
 
-静的ファイルを制御するための HTTP レスポンスヘッダ: 秒単位でデフォルトの最大期間を設定すると、ユーザのブラウザにページをどれだけの期間キャッシュすべきかを伝えます。この値は @prod@ モードの時のみ読み取られ、@dev@ モードではキャッシュは無効になります。例えば、@no-cache@ を送りたいときは以下のようにします:
+静的ファイルを制御するための HTTP レスポンスヘッダ: 秒単位でデフォルトの最大期間を設定すると、ユーザのブラウザにページをどれだけの期間キャッシュすべきかを伝えます。この値は @prod@ モードの時のみ読み取られ、@dev@ モードではキャッシュは無効になります。例えば、@no-cache@ を送りたいときは次のようにします:
 
 bc. http.cacheControl=0
 
@@ -394,7 +391,7 @@ bc. http.cacheControl=0
 
 h3(#http.exposePlayServer). http.exposePlayServer
 
-HTTP サーバを Play と特定する HTTP レスポンスヘッダを無効にします。具体例:
+HTTP サーバを Play と特定する HTTP レスポンスヘッダを無効にします。設定例:
 
 bc. http.exposePlayServer=false
 
@@ -403,7 +400,7 @@ bc. http.exposePlayServer=false
 
 h3(#http.path). http.path
 
-サーバ上でアプリケーションが動作する URL パス: Play アプリケーションをドメインのルートに置きたくないときに使います。このパラメータは WAR としてデプロイしたときには効果がありません。なぜならパスはアプリケーションサーバにハンドリングされるからです。具体例:
+サーバ上でアプリケーションが動作する URL パス: Play アプリケーションをドメインのルートに置きたくないときに使います。このパラメータは WAR としてデプロイしたときには効果がありません。なぜならパスはアプリケーションサーバにハンドリングされるからです。設定例:
 
 bc. http.path=/myapp/
 
@@ -419,7 +416,7 @@ HTTP サーバがリッスンするポート
 
 h3(#http.proxyHost). http.proxyHost
 
-Web サービスをリクエストする際に使用するプロキシサーバです。具体例:
+Web サービスをリクエストする際に使用するプロキシサーバです。設定例:
 
 bc. http.proxyHost=localhost
 
@@ -435,7 +432,7 @@ Web サービスをリクエストする際に使用するプロキシのパス�
 
 h3(#http.proxyPort). http.proxyPort
 
-Web サービスをリクエストする際に使用するプロキシのポートです。具体例:
+Web サービスをリクエストする際に使用するプロキシのポートです。設定例:
 
 bc. http.proxyPort=3128
 
@@ -452,7 +449,7 @@ Web サービスをリクエストする際に使用するプロキシのユー�
 
 h3(#http.useETag). http.useETag
 
-有効にすると Play はエンティティタグを自動的に生成し、必要なときに 304 を送ります。例えば、エンティティタグの利用を停止するには以下のようにします:
+有効にすると Play はエンティティタグを自動的に生成し、必要なときに 304 を送ります。例えば、エンティティタグの利用を停止するには次のようにします:
 
 bc. http.useETag=false
 
@@ -461,7 +458,7 @@ bc. http.useETag=false
 
 h3(#http.userAgent). http.userAgent
 
-Web サービスをリクエストする際に送るカスタムの @USER_AGENT@ ヘッダの値です。具体例:
+Web サービスをリクエストする際に送るカスタムの @USER_AGENT@ ヘッダの値です。設定例:
 
 bc. http.userAgent=myApp 1.0
 
@@ -470,7 +467,7 @@ bc. http.userAgent=myApp 1.0
 
 h3(#https.port). https.port
 
-HTTPS コネクタを有効化し、指定したポートでリッスンします。具体例:
+HTTPS コネクタを有効化し、指定したポートでリッスンします。設定例:
 
 bc. https.port=9443
 
@@ -482,7 +479,7 @@ h2(#java). Java ソース
 
 h3(#java.source). java.source
 
-Java ソースレベルです。これは @java.version@ システムプロパティをオーバーライドします。具体例:
+Java ソースレベルです。これは @java.version@ システムプロパティをオーバーライドします。設定例:
 
 bc. java.source=1.6
 
@@ -496,7 +493,7 @@ h2(#jpa). JPA
 
 h3(#jpa.dialect). jpa.dialect
 
-使用するカスタムの JPA ダイアレクトをここで指定します。具体例:
+使用するカスタムの JPA ダイアレクトをここで指定します。設定例:
 
 bc. jpa.dialect=org.hibernate.dialect.PostgreSQLDialect
 
@@ -505,7 +502,7 @@ bc. jpa.dialect=org.hibernate.dialect.PostgreSQLDialect
 
 h3(#jpa.ddl). jpa.ddl
 
-使用する DDL 生成パターンを指定します。例えば、自動データベース構造更新を有効にするには以下のようにします:
+使用する DDL 生成パターンを指定します。例えば、自動データベース構造更新を有効にするには次のようにします:
 
 bc. jpa.ddl=create-drop
 
@@ -514,7 +511,7 @@ bc. jpa.ddl=create-drop
 
 h3(#jpa.debugSQL). jpa.debugSQL
 
-SQL 文をデバッグ (DEBUG レベルでロギング) します。具体例:
+SQL 文をデバッグ (DEBUG レベルでロギング) します。設定例:
 
 bc. jpa.debugSQL=true
 
@@ -523,7 +520,7 @@ bc. jpa.debugSQL=true
 
 h3(#jpa.entities). jpa.entities
 
-追加でロードする JPA エンティティクラス名のカンマ区切りのリストです。分けられた JAR ファイル内のモデルクラスのように @models@ パッケージに入っていない追加のエンティティがある場合に便利です。具体例:
+追加でロードする JPA エンティティクラス名のカンマ区切りのリストです。分けられた JAR ファイル内のモデルクラスのように @models@ パッケージに入っていない追加のエンティティがある場合に便利です。設定例:
 
 bc. org.example.model.Person, org.example.model.Organisation
 
@@ -542,7 +539,7 @@ h2(#jpda). JVM
 
 h3(#jpda.port). jpda.port
 
-アプリケーションがデバッグモードで動作しているときに JPDA に使われるポートを定義します。具体例:
+アプリケーションがデバッグモードで動作しているときに JPDA に使われるポートを定義します。設定例:
 
 デフォルト: @8000@
 
@@ -552,7 +549,6 @@ h2(#keystore). キーストア
 
 h3(#keystore.algorithm). keystore.algorithm
 
-A JDK Security API standard algorithm name, for use with the "keystore.file":#keystore.file configuration.
 JDK セキュリティ API 標準アルゴリズム名です。これは "keystore.file":#keystore.file の設定とともに使われます。
 
 bc. keystore.algorithm=pkcs12
@@ -568,7 +564,7 @@ Values - JDK セキュリティ API の ‘標準名’:
 
 h3(#keystore.file). keystore.file
 
-HTTPS をサポートするための証明書を指定します。ファイル名は @certificate.jks@ にすべきです。具体例:
+HTTPS をサポートするための証明書を指定します。ファイル名は @certificate.jks@ にすべきです。設定例:
 
 bc. keystore.file=conf/certificate.jks
 
@@ -598,13 +594,13 @@ bc. memcached=enabled
 
 h3(#memcached.host). memcached.host
 
-memcached ホストを指定します。具体例:
+memcached ホストを指定します。設定例:
 
 bc. memcached.host=127.0.0.1:11211
 
 デフォルト: @127.0.0.1:11211@
 
-分散キャッシュを構築するために複数のホストを指定することも出来ます。具体例:
+分散キャッシュを構築するために複数のホストを指定することも出来ます。設定例:
 
 bc. memcached.1.host=127.0.0.1:11211
 memcached.2.host=127.0.0.1:11212
@@ -612,7 +608,7 @@ memcached.2.host=127.0.0.1:11212
 
 h2(#mimetype). カスタム MIME タイプ
 
-MIME タイプを追加して定義できます。具体例:
+MIME タイプを追加して定義できます。設定例:
 
 bc. mimetype.xpi=application/x-xpinstall
 
@@ -621,8 +617,7 @@ h2(#webserviceconfig). Web サービス
 
 h3(#webservice). webservice
 
-Class name of the Web services implementation, or one of the built-in implementations. For example:
-Web サービスの実装クラス名、またはビルトインの実装。具体例:
+Web サービスの実装クラス名、またはビルトインの実装。設定例:
 
 bc. webservice=urlfetch
 
@@ -665,7 +660,6 @@ h3(#mail.smtp.authenticator). mail.smtp.authenticator
 
 h3(#mail.smtp.channel). mail.smtp.channel
 
-There are two ways to send the e-mail over an encrypted channel, which you can choose with this configuration property. Values:
 暗号化された経路で e メールを送信する方法は二通りあり、このプロパティで方法を選択できます。値は以下の通りです:
 
 * @clear@ - 暗号化なし
@@ -677,11 +671,11 @@ There are two ways to send the e-mail over an encrypted channel, which you can c
 
 h3(#mail.smtp.host). mail.smtp.host
 
-外向きのメールサーバです。具体例:
+外向きのメールサーバです。設定例:
 
 bc. mail.smtp.host=127.0.0.1
 
-GMail の SMTP サーバを使うには以下のようにします:
+GMail の SMTP サーバを使うには次のようにします:
 
 bc. mail.smtp.host=smtp.gmail.com
 
@@ -690,7 +684,6 @@ bc. mail.smtp.host=smtp.gmail.com
 
 h3(#mail.smtp.localhost). mail.smtp.localhost
 
-Local host name override for SMTP commands.
 SMTP コマンドで使用されるローカルホスト名
 
 デフォルト: なし - Java Mail のデフォルト値を使います。
@@ -705,7 +698,7 @@ SMTP サーバのパスワードです。"mail.smtp.host":#mail.smtp.host のも
 
 h3(#mail.smtp.port). mail.smtp.port
 
-接続先の SMTP サーバのポート番号です。デフォルト値をオーバーライドするために使います。具体例:
+接続先の SMTP サーバのポート番号です。デフォルト値をオーバーライドするために使います。設定例:
 
 bc. mail.smtp.port=2500
 
@@ -760,7 +753,7 @@ bc. play.editor=txmt://open?url=file://%s&line=%s
 
 h3(#play.jobs.pool). play.jobs.pool
 
-ジョブプールのサイズです。具体例:
+ジョブプールのサイズです。設定例:
 
 bc. play.jobs.pool=20
 
@@ -769,7 +762,7 @@ bc. play.jobs.pool=20
 
 h3(#play.netty.clientAuth). play.netty.clientAuth
 
-@javax.net.ssl.SSLEngine@ のクライアント認証を設定します。具体例:
+@javax.net.ssl.SSLEngine@ のクライアント認証を設定します。設定例:
 
 bc. play.netty.clientAuth=need
 
@@ -800,7 +793,7 @@ bc. play.pool=10
 
 h3(#play.tmp). play.tmp
 
-一時ファイルを格納するフォルダです。具体例:
+一時ファイルを格納するフォルダです。設定例:
 
 bc. play.tmp=/tmp/play
 
@@ -858,7 +851,7 @@ h2(#upload). ファイルアップロード
 
 h3(#upload.threshold). upload.threshold
 
-ディスクに書き出されるファイルのアップロード時のバイト単位でのしきい値です。@org.apache.commons.io.output.DeferredFileOutputStream@ に使われます。具体例:
+ディスクに書き出されるファイルのアップロード時のバイト単位でのしきい値です。@org.apache.commons.io.output.DeferredFileOutputStream@ に使われます。設定例:
 
 bc. upload.threshold=20480
 
@@ -876,7 +869,7 @@ h3(#XForwardedHost). XForwardedHost
 
 h3(#XForwardedProto). XForwardedProto
 
-@X-Forwarded-Proto@ と @X-Forwarded-SSL@ HTTP ヘッダ値を上書きすることで、プロキシへのリクエストを SSL だと設定します。このヘッダ値はクライアントが要求した元のプロトコルを保持します。具体例:
+@X-Forwarded-Proto@ と @X-Forwarded-SSL@ HTTP ヘッダ値を上書きすることで、プロキシへのリクエストを SSL だと設定します。このヘッダ値はクライアントが要求した元のプロトコルを保持します。設定例:
 
 bc. XForwardedProto=https
 
