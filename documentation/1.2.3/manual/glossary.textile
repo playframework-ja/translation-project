@@ -62,11 +62,15 @@ h2. <a name="packaging">Packaging</a>
 
 h2. <a name="queryString">Query string</a>
 
-"Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP query string.
+Query string, cadena de consulta. Es la parte de una URL que contiene los parámetros que deben pasar a aplicaciones web. Normalmente están compuestos por un nombre y un valor separados por el signo igual. Diferentes pares de parámetros y valores se separan mediante el signo "&". Un ejemplo de parámetros pasados a través del query string sería: www.sitiodeejemplo.net/pagina.php?nombredevalor1=valor1&nombredevalor2=valor2.
 
 h2. <a name="requestHeader">Request header</a>
 
 "Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP request header.
+
+h2. <a name="requestBody">Request body</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP request body.
 
 h2. <a name="stateless">Stateless</a>
 
