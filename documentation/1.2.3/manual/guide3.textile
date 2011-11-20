@@ -1,6 +1,6 @@
 h1. Desarrollando la primera pantalla
 
-Ahora que ya contamos con una primera versión de nuestro modelo de datos, es hora de comenzar a desarrollar la primera paǵina de nuestra aplicación. Esta página simplemente mostrará la lista con los mensajes más recientes, así como una lista con los anteriores mensajes.
+Ahora que ya contamos con una primera versión de nuestro modelo de datos, es hora de comenzar a desarrollar la primera página de nuestra aplicación. Esta página simplemente mostrará la lista con los mensajes más recientes, así como una lista con los anteriores mensajes.
 
 Aquí tenemos un prototipo de lo que queremos conseguir:
 
@@ -10,9 +10,9 @@ h2. <a>Iniciando el framework con datos de prueba</a>
 
 Antes de desarrollar nuestra primera pantalla tenemos que hacer una cosa más. Trabajar con una aplicación web sin contar con datos de prueba es bastante arduo. Uno ni siquiera puede verificar lo que está haciendo. Pero dado que todavía no hemos desarrollado las pantallas para crear mensajes, no podemos cargar mensajes a nuestro sistema de blogs.
 
-Una manera de cargar información de prueba en el blog es mediante un archivo de **fixtures** a ser cargado cuando iniciamos la aplicación. Para ello crearemos una tarea de inicia (Bootstrap Job). Una terea de Play es algo que se ejecuta a sí misma sin depender de ninguna llamada HTTP, por ejemplo cuando la aplicación se inicia o a intervalos específicos de tiempo utilizando una tarea CRON.
+Una manera de cargar información de prueba en el blog es mediante un archivo de **fixtures** a ser cargado cuando iniciamos la aplicación. Para ello crearemos una tarea de inicio (Bootstrap Job). Una terea de Play es algo que se ejecuta a sí mismo sin depender de ninguna llamada HTTP, por ejemplo cuando la aplicación se inicia o a intervalos específicos de tiempo utilizando una tarea CRON.
 
-Creemos la tarea @/yabe/app/Bootstrap.java@ el cual se encargará de cargar un conjunto de datos de prueba usando @Fixtures@:
+Creemos la tarea @/yabe/app/Bootstrap.java@ la cual se encargará de cargar un conjunto de datos de prueba usando @Fixtures@:
 
 bc. import play.*;
 import play.jobs.*;
@@ -32,9 +32,9 @@ public class Bootstrap extends Job {
  
 }
 
-Hemos anotado esta tarea con la anotación @OnApplicationStart@ para indicarle a Play que queremos ejecutar esta tarea al iniciar de la aplicación.
+Hemos anotado esta tarea con la anotación @OnApplicationStart@ para indicarle a Play que queremos ejecutar esta tarea al iniciar la aplicación.
 
-p(note). De hecho esta tarea será ejecutada de manera diferente dependiendo de que estemos en modo DEV (desarrollo) or PROD (producción). En modo desarrollo Play espera al primer pedido HTTP para iniciar la aplicación, de forma tal que esta tarea será ejecutada sincrónicamente al recibir el primer pedido. De esa manera, si la tarea produce algún error, obtendrá el mensaje correspondiente al error en su browser. Sin embargo, en modo producción, la tarea se ejecutará al iniciar la aplicación (en el momento en que ejecutamos el comando @play run@) y evitará que la aplicación se inicie en caso de detectar algún error.
+p(note). De hecho esta tarea será ejecutada de manera diferente dependiendo de que estemos en modo DEV (desarrollo) ó PROD (producción). En modo desarrollo Play espera al primer pedido HTTP para iniciar la aplicación, de forma tal que esta tarea será ejecutada sincrónicamente al recibir el primer pedido. De esa manera, si la tarea produce algún error, obtendrá el mensaje correspondiente al error en su browser. Sin embargo, en modo producción, la tarea se ejecutará al iniciar la aplicación (en el momento en que ejecutamos el comando @play run@) y evitará que la aplicación se inicie en caso de detectar algún error.
 
 Debe crear un archivo @initial-data.yml@ en la carpeta @yabe/conf/@. Puede reutilizar los contenidos del archivo @data.yml@ que acabamos de usar en el paso anterior.
 
@@ -280,7 +280,7 @@ bc. <!DOCTYPE html >
     </body>
 </html>
 
-Refresque y verifique el resultado. Parece que todo funcionar, excepto que las variables @blogTitle@ y @blogBaseLine@ no aparecen en pantalla. Esto es debido a que no las hemos pasado a la llamada al método @render(...)@. Por supuesto que puede agregarlas a la llamada a @render()@ en la acción @index@. Pero dado que el archivo @main.html@ será utilizado como template base para todas las acciones de nuestra aplicación, no queremos tener que agregarlo manualmente cada vez.
+Refresque y verifique el resultado. Parece que todo funciona, excepto que las variables @blogTitle@ y @blogBaseLine@ no aparecen en pantalla. Esto es debido a que no las hemos pasado a la llamada al método @render(...)@. Por supuesto que puede agregarlas a la llamada a @render()@ en la acción @index@. Pero dado que el archivo @main.html@ será utilizado como template base para todas las acciones de nuestra aplicación, no queremos tener que agregarlo manualmente cada vez.
 
 Una manera de ejecutar el mismo código para cada acción de un controlador (o una jerarquía de controladores) es definiendo un interceptor <code>@Before</code>.
 
@@ -309,7 +309,7 @@ Refresque la página principal y verifique que todo haya salido bien.
 
 h2. <a>Agregando estilo a las páginas</a>
 
-La página principal de nuestro sistema de blogs está casi lista, pero no se ve muy bien que digamos. Le agregaremos algunas plantillas de estilo para hacerla más atractiva. Como habrá nota, nuestro template principal @main.html@ incluye la hoja de estilos @/public/stylesheets/main.css@. Nos quedaremos con ella pero le agregaremos nuevas reglas de estilo.
+La página principal de nuestro sistema de blogs está casi lista, pero no se ve muy bien que digamos. Le agregaremos algunas plantillas de estilo para hacerla más atractiva. Como habrá notado, nuestro template principal @main.html@ incluye la hoja de estilos @/public/stylesheets/main.css@. Nos quedaremos con ella pero le agregaremos nuevas reglas de estilo.
 
 Puede "descargar la hoja de estilos":files/main.css, y copiarla al archivo @/public/stylesheets/main.css@.
 
