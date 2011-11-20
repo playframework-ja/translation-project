@@ -1,15 +1,10 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
 
-h1. Viewing and posting comments
 h1. Visualizando y editando nuestros comentarios
 
-The blog home page is now set, and we will continue by writing the post details page. This page will show all the comments about the current post, and will include a form to post new comments.
 La pagina principal de nuestro blog ya está seteada, y continuaremos escribiendo la página de detalles de los mensajes. Ésta página mostrará los comentarios sobre el mensaje actual, e incluirá un formulario para escribir nuevos comentarios.
 
-h2. <a>Creating the ‘show’ action</a>
 h2. <a>Creando la accion ‘mostrar’</a>
 
-To display the post details page, we will need a new action method on the @Application@ controller. Let’s call it @show()@:
 Para mostrar la página de detalles del mensaje, necesitaremos una nueva acción en el controlador @Application@. Llamémoslo @show()@:
 
 bc. public static void show(Long id) {
@@ -17,13 +12,10 @@ bc. public static void show(Long id) {
     render(post);
 }
 
-As you can see this action is pretty simple. We declare the @id@ method parameter to automatically retrieve the HTTP @id@ parameter as a @Long@ Java object. This parameter will be extracted either from the query string, from the URL path or from the request body.
 Como pueden ver, la acción es bastante simple. Declaramos el parámetro @id@ del método para que automáticamente recupere el parámetro @id@ HTTP como un objeto Java @Long@. Éste parámetro va a ser extraído o del "query string":glossary#queryString de la dirección URL ó bien del "request body":glossary#requestBody.
 
-p(note). If we try to send an @id@ HTTP parameter that is not a valid number, the @id@ variable value will be @null@ and Play will automatically add a validation error to the @errors@ container.
 p(note). Si intentamos enviar por parámetro HTTP un @id@ que no sea un número válido, el valor de la variable @id@ será @null@ y Play automáticamente agregará un error de validación al contenedor de @errores@
 
-This action will display the @/yabe/app/views/Application/show.html@ template:
 Esta acción mostrará el template @/yabe/app/views/Application/show.html@:
 
 bc. #{extends 'main.html' /}
@@ -31,16 +23,12 @@ bc. #{extends 'main.html' /}
  
 #{display post:post, as:'full' /}
 
-Because we’ve already written the @display@ tag, this page is really simple to write.
 Como ya hemos escrito el tag @display@, ésta pagina es realmente fácil de escribir.
 
-h2. <a>Adding links to the details page</a>
 h2. <a>Agregando links a la página de detalles</a>
 
-In the display tag we’ve left all links empty (using @#@). It’s now time to make these links point to the @Application.show@ action. With Play you can easily build links in a template using the <code>@{…}</code> notation. This syntax uses the router to ‘reverse’ the URL needed to call the specified action. 
 En el tag display hemos dejado todos los links vacíos (usando @#@). Es hora de hacerlos apuntar a la accion @Application.show@. Con Play puedes fácilmente construir links en un template usando la notación <code>@{…}</code>. Ésta sintáxis usa el router para ‘revertir’ la URL necesaria para llamar a la acción especifíca. 
 
-Let’s edit the @/yabe/app/views/tags/display.html@ tag:
 Editemos el tag @/yabe/app/views/tags/display.html@:
 
 bc. …
@@ -49,12 +37,10 @@ bc. …
 </h2>
 …
 
-You can now refresh the home page, and click a post title to display the post.
 Ahora puedes refrescar la página principal y clickear en el título de un mensaje para mostrarlo.
 
 !images/guide4-0!
 
-It’s great, but it lacks a link to go back to the home page. Edit the @/yabe/app/views/main.html@ template to complete the title link:
 Es genial, pero nos falta un link para volver a la página principal. Edita el template @/yabe/app/views/main.html@ para completar el link del título:
 
 bc. …
@@ -65,37 +51,28 @@ bc. …
 </div>
 … 
 
-We can now navigate between the home page and the post detail pages.
 Ahora podemos navegar entre la página principal y la página de detalles del mensaje.
 
-h2. <a>Specifying a better URL</a>
 h2. <a>Especificando una URL mejorada</a>
 
-As you can see, the post detail page URL looks like:
 Como puedes ver, la URL de la página de detalles se muestra como:
 
 bc. /application/show?id=1
 
-This is because Play has used the default ‘catch all’ route.
 Esto es porque Play ha utilizado la ruta default ‘catch all’.
 
 bc. *       /{controller}/{action}                  {controller}.{action}
 
-We can have a better URL by specifying a custom path for the @Application.show@ action. Edit the @/yabe/conf/routes@ file and add this route after the first one:
 Podemos tener una URL mejor especificando una dirección a medida para la acción @Application.show@. Edita el archivo @/yabe/conf/routes@ y agrega ésta ruta después de la primera:
 
 bc. GET     /posts/{id}                             Application.show
 
-p(note). This way the @id@ parameter will be extracted from the URL path. You can read more about URI patterns on the manual page about "Route File Syntax":routes#syntax.
 p(note). De ésta manera, el parámetro @id@ será extraído de la dirección URL. Puedes leer màs sobre URI patterns en la página del manual sobre "Route File Syntax":routes#syntax.
 
-Refresh the browser and check that it now uses the correct URL.
 Refresca el navegador y chequea que esté utilizando la URL correcta.
 
-h2. <a>Adding pagination</a>
 h2. <a>Agregando paginación</a>
 
-To allow users to navigate easily through posts, we will add a pagination mechanism. We’ll extend the Post class to be able to fetch previous and next post as required:
 Para permitir a los usuarios navegar facilmente por los comentarios, vamos a agregar un mecanismo de paginación. Extenderemos la clase Post para poder acceder a los comentarios anterior y siguiente:
 
 bc. public Post previous() {
@@ -106,7 +83,6 @@ public Post next() {
     return Post.find("postedAt > ? order by postedAt asc", postedAt).first();
 }
 
-We will call these methods several times during a request so they could be optimized, but they’re good enough for now. Also, add the pagination links at the top of the @show.html@ template (before the @#{display/}@ tag):
 Llamaremos a éstos métodos varias veces a lo largo de un pedido, por lo que podríamos optimizarlos, pero por ahora están bien. También, agrega los links de paginación al comienzo del template de @show.html@ (antes del tag de @#{display/}@):
 
 bc. <ul id="pagination">
@@ -126,13 +102,10 @@ bc. <ul id="pagination">
     #{/if}
 </ul>
 
-It’s better now.
 Ahora está mejor.
 
-h2. <a>Adding the comment form</a>
 h2. <a>Agregando el formulario de comentarios</a>
 
-Now it’s time to set up a comments form. We’ll start by adding the @postComment@ action method to the Application controller.
 Es hora de desarrollar un formulario para los comentarios. Comenzaremos agregando una método de acción @postComment@ al controlador Aplicación.
 
 bc. public static void postComment(Long postId, String author, String content) {
@@ -141,13 +114,10 @@ bc. public static void postComment(Long postId, String author, String content) {
     show(postId);
 }
 
-As you can see we just reuse the @addComment()@ method we previously added to the Post class.
 Como pueden ver, acabamos de reutilizar el método @addComment()@ que agregamos previamente a la clase Post.
 
-Let’s write the HTML form in the @show.html@ template (after the @#{display /}@ tag in fact):
 Escribamos el formulario HTML en el template @show.html@ (después del tag  @#{display /}@):
 
-bc. <h3>Post a comment</h3>
 bc. <h3>Escribe un comentario</h3>
  
 #{form @Application.postComment(post.id)}
@@ -164,15 +134,12 @@ bc. <h3>Escribe un comentario</h3>
     </p>
 #{/form}
 
-You can now try posting a new comment. It should just work.
 Ahora puedes intentar postear un nuevo comentario. Debería simplemente funcionar.
 
 !images/guide4-1!
 
-h2. <a>Adding validation</a>
 h2. <a>Agregando validación</a>
 
-Currently we don’t validate the form content before creating the comment. We would like to make both fields required. We can easily use the Play validation mechanism to ensure that the HTTP parameters are correctly filled in. Modify the @postComment@ action to add <code>@Required</code> validation annotations and check that no error occurs:
 Por el momento, no estamos validando el contenido del formulario antes de crear el comentario. Nos gustaría hacer ambos campos obligatorios. Podemos facilmente utilizar el mecanismo de validación de Play para asegurarnos que los parámetros HTTP están completados correctamente. Modifica la acción @postComment@ agregando la anotación de validación <code>@Required</code> para chequear que no ocurra ningún error:
 
 bc. public static void postComment(Long postId, @Required String author, @Required String content) {
@@ -184,13 +151,10 @@ bc. public static void postComment(Long postId, @Required String author, @Requir
     show(postId);
 }
 
-p(note). **Don’t forget** to import @play.data.validation.*@ as well.
 p(note). **No olvides** importar @play.data.validation.*@.
 
-As you can see, in case of validation errors, we re-display the post detail page. We have to modify the form code to display the error message:
 Como puedes ver, en caso de errores de validación, mostramos nuevamente la página de detalles del mensaje. Tenemos que modificar el código del formulario para mostrar el mensaje de error:
 
-bc. <h3>Post a comment</h3>
 bc. <h3>Postea un comentario</h3>
  
 #{form @Application.postComment(post.id)}
@@ -214,10 +178,8 @@ bc. <h3>Postea un comentario</h3>
     </p>
 #{/form}
 
-Note that we reuse the posted parameters to fill the HTML input values.
 Nota que reutilizamos los paramentros posteados para completar los valores del input HTML
 
-To make the UI feedback more pleasant for the poster, we will add a little JavaScript to automatically set focus on the comment form in case of an error. As this script uses "JQuery":files/jquery-1.4.2.min.js and "JQuery Tools Expose":http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js as support libraries, you have to include them. Download these two libraries to the @yabe/public/javascripts/@ directory and modify the @main.html@ template to include them:
 Para hacer el feedback aún más agradable al usuario, vamos a agregar un pequeño JavaScript para enfocarnos automáticamente en el formulario del comentario en caso de error. Como el script utliza "JQuery":files/jquery-1.4.2.min.js y "JQuery Tools Expose":http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js  para soportar las librerías, deberás incluirlas. Descarga éstas dos librerías al directorio @yabe/public/javascripts/@ y modifica el template @main.html@ para incluirlas:
 
 bc. …
@@ -225,7 +187,6 @@ bc. …
     <script src="@{'/public/javascripts/jquery.tools-1.2.5.toolbox.expose.min.js'}"></script>
 </head>
 
-Now you can add this script to the @show.html@ template (add it at the end of the page):
 Ahora puedes agregar éste script al template @show.html@ (agrégalo al final de la página):
 
 bc. <script type="text/javascript" charset="utf-8">
@@ -245,13 +206,10 @@ bc. <script type="text/javascript" charset="utf-8">
 
 !images/guide4-2!
 
-The comment form looks pretty cool now. We will add two more things.
 El formulario del comentario se ve muy bien ahora. Agregaremos dos cosas más.
 
-First, we will display a success message after a comment is successfully posted. For that, we use the flash scope that allows us to pass messages from one action call to the next one.
 Primero, mostraremos un mensaje de éxito luego de que el comentario haya sido posteado exitosamente. Para eso, utilizamos la clase flash que nos permite pasar mensajes de la llamada de una acción hacia la siguiente.
 
-Modify the @postComment@ action to add a success message:
 Modifica la acción @postComment@ para agregar un mensaje de éxito:
 
 bc. public static void postComment(Long postId, @Required String author, @Required String content) {
@@ -264,7 +222,6 @@ bc. public static void postComment(Long postId, @Required String author, @Requir
     show(postId);
 }
 
-and display the success message in @show.html@ if present (add it at the top of the page):
 y muestra el mensaje de éxito en @show.html@ si estuviese presente (agrégalo al comienzo de la página):
 
 bc. …
@@ -277,13 +234,10 @@ bc. …
 
 !images/guide4-3!
 
-The last thing we will adjust in this form is the URL used for the @postComment@ action. As always, it uses the default catch-all route because we didn’t define any specific route. So add this route to the application routes file:
 Lo último que ajustaremos en nuestro formulario será la URL utilizada para llamar a la acción @postComment@. Como siempre, está utilizando la ruta default catch-all porque no hemos definido una ruta específica. Agreguemos ésta ruta al archivo de rutas de aplicación:
 
 bc. POST    /posts/{postId}/comments                Application.postComment
 
-That’s done. As always, commit the version to bazaar.
 Terminado. Como siempre, comitea la versión a bazaar.
 
-p(note). Next: %(next)"Setting up a Captcha":guide5%.
 p(note). Siguiente: %(next)"Configurando un Captcha":guide5%.
