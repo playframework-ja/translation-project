@@ -148,7 +148,7 @@ No muy atractivo... ¡pero funciona!
 
 Sin embargo, habrá notado que ya comenzamos a duplicar código. Dado que mostraremos mensajes de muchas maneras distintas, deberíamos crear algo similar a una función que podamos llamar desde distintos templates. Esto es exactamente lo que un 'tag' de Play hace.
 
-Para crear un tag, simplemente cree un archivo @/yabe/app/views/tags/display.html@. Un tag no es más que otro template que acepta parámetros, como una función. El tag @#{display /}@ tendrá dos parámetros: el objeto Post a mostrar y en modo en que lo queremos desplegar: @home@, @teaser@ o @full@.
+Para crear un tag, simplemente cree un archivo @/yabe/app/views/tags/display.html@. Un tag no es más que otro template que acepta parámetros, como una función. El tag @#{display /}@ tendrá dos parámetros: el objeto Post a mostrar y el modo en que lo queremos desplegar: @home@, @teaser@ o @full@.
 
 bc. *{ Display a post in one of these modes: 'full', 'home' or 'teaser' }*
  

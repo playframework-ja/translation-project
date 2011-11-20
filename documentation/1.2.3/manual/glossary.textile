@@ -62,11 +62,15 @@ h2. <a name="packaging">Packaging</a>
 
 h2. <a name="queryString">Query string</a>
 
-"Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP query string.
+"Ayudanos a completar el glosario":translation: Query string, cadena de consulta, este término generalmente se utiliza para hacer referencia a una interacción con una base de datos. Es la parte de una URL que contiene los datos que deben pasar a aplicaciones web como los progamas CGI.
 
 h2. <a name="requestHeader">Request header</a>
 
 "Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP request header.
+
+h2. <a name="requestBody">Request body</a>
+
+"Ayudanos a completar el glosario":translation: Incluir aquí la definición de HTTP request body.
 
 h2. <a name="stateless">Stateless</a>
 
