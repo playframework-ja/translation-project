@@ -1,7 +1,7 @@
 
 h1. Visualizando y editando nuestros comentarios
 
-Ahora que hemos terminado la página principal de nuestro blog, continuaremos con la página de detalles de los mensajes. Ésta página mostrará los comentarios sobre el mensaje actual, e incluirá un formulario para escribir nuevos comentarios.
+La pagina principal de nuestro blog ya está seteada, y continuaremos escribiendo la página de detalles de los mensajes. Ésta página mostrará los comentarios sobre el mensaje actual, e incluirá un formulario para escribir nuevos comentarios.
 
 h2. <a>Creando la accion ‘mostrar’</a>
 
