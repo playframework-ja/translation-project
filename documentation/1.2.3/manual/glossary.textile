@@ -10,7 +10,7 @@ h2. <a name="actionMethod">Action method</a>
 
 h2. <a name="catchAll">Catch all route</a>
 
-Ruta 'atrapa todo' o comodín. En el archivo de routes que puedes encontrar en @conf/routes@, por defecto viene definida una ruta genérica 'catch all' que coincidirá con cualquier acción de cualquier controlador. La ruta en cuestión es la siguiente:
+Ruta 'atrapa todo' o comodín. En el archivo de rutas que puedes encontrar en @conf/routes@, por defecto viene definida una ruta genérica 'catch all' que coincidirá con cualquier acción de cualquier controlador. La ruta en cuestión es la siguiente:
 
 bc. # Catch all
 *       /{controller}/{action}                  {controller}.{action}
