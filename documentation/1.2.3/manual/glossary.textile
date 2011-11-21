@@ -8,6 +8,17 @@ h2. <a name="actionMethod">Action method</a>
 
 "Ayudanos a completar el glosario":translation: Incluir aquí la definición de un action method.
 
+h2. <a name="catchAll">Catch all route</a>
+
+Ruta 'atrapa todo' o comodín. En el archivo de routes que puedes encontrar en @conf/routes@, por defecto viene definida una ruta genérica 'catch all' que coincidirá con cualquier acción de cualquier controlador. La ruta en cuestión es la siguiente:
+
+bc. # Catch all
+*       /{controller}/{action}                  {controller}.{action}
+
+Básicamente lo que hace es mapear cualquier acción a una ruta HTTP compuesta por el nombre del controlador seguida del nombre de la acción. Ej: en caso de tener una acción _miAccion_ en el controlador _miControlador_, la ruta 'catch all' nos permitiría acceder a dicha acción con el siguiente url: @http://localhost:9000/miControlador/miAccion@.
+
+Esta ruta está pensada para permitirnos probar nuestra aplicación en modo desarrollo sin tener que definir explícitamente la ruta de cada acción. Sin embargo, es una buena práctica definir explícitamente todas las rutas que aceptará nuestra aplicación, por lo que se recomienda comentar o eliminar dicha ruta del archivo _routes_ al pasar a producción.
+
 h2. <a name="continuation">Continuation</a>
 
 "Ayudanos a completar el glosario":translation: Incluir aquí la definición de Continuation
@@ -62,7 +73,7 @@ h2. <a name="packaging">Packaging</a>
 
 h2. <a name="queryString">Query string</a>
 
-"Ayudanos a completar el glosario":translation: Query string, cadena de consulta, este término generalmente se utiliza para hacer referencia a una interacción con una base de datos. Es la parte de una URL que contiene los datos que deben pasar a aplicaciones web como los progamas CGI.
+Cadena de consulta. Es la parte de una URL que contiene los parámetros que deben pasar a aplicaciones web. Normalmente están compuestos por un nombre y un valor separados por el signo igual. Diferentes pares de parámetros y valores se separan mediante el signo "&". Un ejemplo de parámetros pasados a través del query string sería: @www.misitio.net/pagina.php?nombre1=valor1&nombre2=valor2@.
 
 h2. <a name="requestHeader">Request header</a>
 

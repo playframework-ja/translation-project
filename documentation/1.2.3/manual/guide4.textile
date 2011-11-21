@@ -1,7 +1,6 @@
-
 h1. Visualizando y editando nuestros comentarios
 
-La pagina principal de nuestro blog ya está seteada, y continuaremos escribiendo la página de detalles de los mensajes. Ésta página mostrará los comentarios sobre el mensaje actual, e incluirá un formulario para escribir nuevos comentarios.
+Ahora que la página principal de nuestro blog ya está lista, vamos a desarrollar la página de detalles de los mensajes. Esta página mostrará los comentarios del mensaje actual, e incluirá un formulario para escribir nuevos comentarios.
 
 h2. <a>Creando la accion ‘mostrar’</a>
 
@@ -12,9 +11,9 @@ bc. public static void show(Long id) {
     render(post);
 }
 
-Como pueden ver, la acción es bastante simple. Declaramos el parámetro @id@ del método para que automáticamente recupere el parámetro @id@ HTTP como un objeto Java @Long@. Éste parámetro va a ser extraído o del "query string":glossary#queryString de la dirección URL ó bien del "request body":glossary#requestBody.
+Como pueden ver, la acción es bastante simple. Declaramos en el método un parámetro @id@ para que automáticamente recupere el parámetro HTTP @id@ como un objeto Java @Long@. Este parámetro va a ser extraído del "query string":glossary#queryString de la dirección URL ó bien del "request body":glossary#requestBody.
 
-p(note). Si intentamos enviar por parámetro HTTP un @id@ que no sea un número válido, el valor de la variable @id@ será @null@ y Play automáticamente agregará un error de validación al contenedor de @errores@
+p(note). Si intentamos enviar por parámetro HTTP un @id@ que no sea un número válido, el valor de la variable @id@ será @null@ y Play automáticamente agregará un error de validación a la lista de errores @errors@
 
 Esta acción mostrará el template @/yabe/app/views/Application/show.html@:
 
@@ -23,11 +22,11 @@ bc. #{extends 'main.html' /}
  
 #{display post:post, as:'full' /}
 
-Como ya hemos escrito el tag @display@, ésta pagina es realmente fácil de escribir.
+Gracias a que ya hemos desarrollado el tag @display@, ésta pagina es realmente simple.
 
 h2. <a>Agregando links a la página de detalles</a>
 
-En el tag display hemos dejado todos los links vacíos (usando @#@). Es hora de hacerlos apuntar a la accion @Application.show@. Con Play puedes fácilmente construir links en un template usando la notación <code>@{…}</code>. Ésta sintáxis usa el router para ‘revertir’ la URL necesaria para llamar a la acción especifíca. 
+En el tag display hemos dejado todos los links vacíos (usando @#@). Ahora deberemos hacerlos apuntar a la accion @Application.show@. Con Play es fácil construir links en un template usando la notación <code>@{…}</code>. Esta sintaxis usa el router para ‘revertir’ la URL necesaria para llamar a la acción especifíca. 
 
 Editemos el tag @/yabe/app/views/tags/display.html@:
 
@@ -53,27 +52,27 @@ bc. …
 
 Ahora podemos navegar entre la página principal y la página de detalles del mensaje.
 
-h2. <a>Especificando una URL mejorada</a>
+h2. <a>Mejorando la URL de nuestra aplicación</a>
 
 Como puedes ver, la URL de la página de detalles se muestra como:
 
 bc. /application/show?id=1
 
-Esto es porque Play ha utilizado la ruta default ‘catch all’.
+Esto es porque Play ha utilizado la ruta "'catch all'":glossary#catchAll que viene por defecto en el archivo @conf/routes@.
 
 bc. *       /{controller}/{action}                  {controller}.{action}
 
-Podemos tener una URL mejor especificando una dirección a medida para la acción @Application.show@. Edita el archivo @/yabe/conf/routes@ y agrega ésta ruta después de la primera:
+Podemos tener una URL mejor especificando una dirección a medida para la acción @Application.show@. Edita el archivo @/yabe/conf/routes@ y agrega esta ruta después de la primera:
 
 bc. GET     /posts/{id}                             Application.show
 
-p(note). De ésta manera, el parámetro @id@ será extraído de la dirección URL. Puedes leer màs sobre URI patterns en la página del manual sobre "Route File Syntax":routes#syntax.
+p(note). De esta manera, el parámetro @id@ será extraído de la dirección URL. Puedes leer más sobre los patrones de la URI en la página del manual sobre "Route File Syntax":routes#syntax.
 
 Refresca el navegador y chequea que esté utilizando la URL correcta.
 
 h2. <a>Agregando paginación</a>
 
-Para permitir a los usuarios navegar facilmente por los comentarios, vamos a agregar un mecanismo de paginación. Extenderemos la clase Post para poder acceder a los comentarios anterior y siguiente:
+Para permitir a los usuarios navegar fácilmente por los comentarios, vamos a agregar un mecanismo de paginación. Extenderemos la clase Post para poder acceder a los comentarios anteriores y siguientees según sea necesario:
 
 bc. public Post previous() {
     return Post.find("postedAt < ? order by postedAt desc", postedAt).first();
@@ -83,7 +82,7 @@ public Post next() {
     return Post.find("postedAt > ? order by postedAt asc", postedAt).first();
 }
 
-Llamaremos a éstos métodos varias veces a lo largo de un pedido, por lo que podríamos optimizarlos, pero por ahora están bien. También, agrega los links de paginación al comienzo del template de @show.html@ (antes del tag de @#{display/}@):
+Llamaremos a estos métodos varias veces a lo largo de un pedido, por lo que podríamos optimizarlos, pero por ahora están bien. También debes agregar los links de paginación al comienzo del template de @show.html@ (antes del tag de @#{display/}@):
 
 bc. <ul id="pagination">
     #{if post.previous()}
@@ -102,11 +101,11 @@ bc. <ul id="pagination">
     #{/if}
 </ul>
 
-Ahora está mejor.
+Así está mejor.
 
 h2. <a>Agregando el formulario de comentarios</a>
 
-Es hora de desarrollar un formulario para los comentarios. Comenzaremos agregando una método de acción @postComment@ al controlador Aplicación.
+Es hora de desarrollar un formulario para los comentarios. Comenzaremos agregando un método de acción @postComment@ al controlador @Application@.
 
 bc. public static void postComment(Long postId, String author, String content) {
     Post post = Post.findById(postId);
@@ -118,7 +117,7 @@ Como pueden ver, acabamos de reutilizar el método @addComment()@ que agregamos 
 
 Escribamos el formulario HTML en el template @show.html@ (después del tag  @#{display /}@):
 
-bc. <h3>Escribe un comentario</h3>
+bc. <h3>Escribiendo un comentario</h3>
  
 #{form @Application.postComment(post.id)}
     <p>
@@ -138,9 +137,9 @@ Ahora puedes intentar postear un nuevo comentario. Debería simplemente funciona
 
 !images/guide4-1!
 
-h2. <a>Agregando validación</a>
+h2. <a>Agregando validaciones</a>
 
-Por el momento, no estamos validando el contenido del formulario antes de crear el comentario. Nos gustaría hacer ambos campos obligatorios. Podemos facilmente utilizar el mecanismo de validación de Play para asegurarnos que los parámetros HTTP están completados correctamente. Modifica la acción @postComment@ agregando la anotación de validación <code>@Required</code> para chequear que no ocurra ningún error:
+Por el momento, no estamos validando el contenido del formulario antes de crear el comentario. Nos gustaría que ambos campos fueran obligatorios. Podemos fácilmente utilizar el mecanismo de validación de Play para asegurarnos que los parámetros HTTP hayan sido completados. Modifica la acción @postComment@ agregando la anotación de validación <code>@Required</code> y verifica que que no haya ocurrido ningún error:
 
 bc. public static void postComment(Long postId, @Required String author, @Required String content) {
     Post post = Post.findById(postId);
@@ -155,7 +154,7 @@ p(note). **No olvides** importar @play.data.validation.*@.
 
 Como puedes ver, en caso de errores de validación, mostramos nuevamente la página de detalles del mensaje. Tenemos que modificar el código del formulario para mostrar el mensaje de error:
 
-bc. <h3>Postea un comentario</h3>
+bc. <h3>Ingresando un nuevo comentario</h3>
  
 #{form @Application.postComment(post.id)}
  
@@ -180,14 +179,14 @@ bc. <h3>Postea un comentario</h3>
 
 Nota que reutilizamos los paramentros posteados para completar los valores del input HTML
 
-Para hacer el feedback aún más agradable al usuario, vamos a agregar un pequeño JavaScript para enfocarnos automáticamente en el formulario del comentario en caso de error. Como el script utliza "JQuery":files/jquery-1.4.2.min.js y "JQuery Tools Expose":http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js  para soportar las librerías, deberás incluirlas. Descarga éstas dos librerías al directorio @yabe/public/javascripts/@ y modifica el template @main.html@ para incluirlas:
+Para hacer el feedback de la interfaz de usuario aún más agradable, vamos a agregar algo de JavaScript para automáticamente situar el cursor en el formulario del comentario en caso de error. Como el script utliza "JQuery":files/jquery-1.4.2.min.js y "JQuery Tools Expose":http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js  para soportar las librerías, deberás incluirlas. Descarga estas dos librerías al directorio @yabe/public/javascripts/@ y modifica el template @main.html@ para incluirlas:
 
 bc. …
     <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}"></script>
     <script src="@{'/public/javascripts/jquery.tools-1.2.5.toolbox.expose.min.js'}"></script>
 </head>
 
-Ahora puedes agregar éste script al template @show.html@ (agrégalo al final de la página):
+Ahora puedes agregar este script al template @show.html@ (agrégalo al final de la página):
 
 bc. <script type="text/javascript" charset="utf-8">
     $(function() {         
@@ -208,7 +207,7 @@ bc. <script type="text/javascript" charset="utf-8">
 
 El formulario del comentario se ve muy bien ahora. Agregaremos dos cosas más.
 
-Primero, mostraremos un mensaje de éxito luego de que el comentario haya sido posteado exitosamente. Para eso, utilizamos la clase flash que nos permite pasar mensajes de la llamada de una acción hacia la siguiente.
+Primero, mostraremos un mensaje de éxito luego de que el comentario haya sido posteado exitosamente. Para eso, utilizamos la utilidad flash que nos permite pasar mensajes de la llamada de una acción hacia la siguiente.
 
 Modifica la acción @postComment@ para agregar un mensaje de éxito:
 
@@ -222,7 +221,7 @@ bc. public static void postComment(Long postId, @Required String author, @Requir
     show(postId);
 }
 
-y muestra el mensaje de éxito en @show.html@ si estuviese presente (agrégalo al comienzo de la página):
+y, en caso de estar presente, muestra el mensaje de éxito en @show.html@ (agrégalo al comienzo de la página):
 
 bc. …
 #{if flash.success}
@@ -234,10 +233,10 @@ bc. …
 
 !images/guide4-3!
 
-Lo último que ajustaremos en nuestro formulario será la URL utilizada para llamar a la acción @postComment@. Como siempre, está utilizando la ruta default catch-all porque no hemos definido una ruta específica. Agreguemos ésta ruta al archivo de rutas de aplicación:
+Lo último que ajustaremos en nuestro formulario será la URL utilizada para llamar a la acción @postComment@. Como siempre, estará utilizando la ruta 'catch-all':glossary#catchAll porque no hemos definido una ruta específica. Agreguemos esta ruta al archivo de rutas de aplicación:
 
 bc. POST    /posts/{postId}/comments                Application.postComment
 
-Terminado. Como siempre, comitea la versión a bazaar.
+Terminado. Como de costumbre, comitea la versión a bazaar.
 
 p(note). Siguiente: %(next)"Configurando un Captcha":guide5%.
