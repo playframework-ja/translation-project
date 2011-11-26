@@ -64,7 +64,7 @@ index.features.title=¿Por qué Play?
 index.features.refresh=¡Edita el código y aprieta F5!
 index.features.refresh.content=\
   Puedes editar tus archivos de Java, guardar los cambios, refrescar el explorar y ver los resultados al instante. \
-  No necesitas compilar, deployar ni reiniciar el servidor.
+  No necesitas compilar, desplegar ni reiniciar el servidor.
 
 index.features.stateless=Sin estado
 index.features.stateless.content=\
