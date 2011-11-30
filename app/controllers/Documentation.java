@@ -23,6 +23,7 @@ public class Documentation extends Controller {
             }
             versions.add(name);
         }
+        Collections.sort(versions);
         Collections.reverse(versions);
         latestVersion = Play.configuration.getProperty("version.latest");
     }
