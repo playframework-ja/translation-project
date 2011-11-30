@@ -52,7 +52,14 @@ public class Documentation extends Controller {
     }
 
     public static void image(String version, String name) {
-        renderBinaryFile(String.format("documentation/%s/images/%s.png", version, name));
+        String filepath = "";
+        for (String s : versions) {
+            filepath = String.format("documentation/%s/images/%s.png", s, name);
+            if (new File(Play.applicationPath, filepath).exists()) {
+                break;
+            }
+        }
+        renderBinaryFile(filepath);
     }
 
     public static void file(String version, String name) {
