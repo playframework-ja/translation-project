@@ -10,9 +10,9 @@ val docs = new File(".").listFiles
 
 val translated = docs.filter(_.isTranslated)    // only already translated files
 
-val translatedLength = translated.foldLeft(0L)( (acum, element) => acum + element.length )
+val translatedLength = translated.map(_.length).sum
 
-val docsLength = docs.foldLeft(0L)( (acum, element) => acum + element.length )
+val docsLength = docs.map(_.length).sum
 
 println( 
   status("translated size", translatedLength, docsLength, (length) => asKB(length) ) 
