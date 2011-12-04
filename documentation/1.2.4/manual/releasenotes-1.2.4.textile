@@ -1,6 +1,6 @@
 h1. Play 1.2.4 -- Notas de lanzamiento de la versión 1.2.4
 
-Puedes consultar las lista de bugs solucionados en Play 1.2.4 en la "hoja de ruta":http://www.playframework.org/roadmap/1.2.4. Esta página resume los cambios más importantes.
+Puedes consultar las lista de bugs solucionados en Play 1.2.4 en la "hoja de ruta":https://play.lighthouseapp.com/projects/57987-play-framework/milestones/121681-124. Esta página resume los cambios más importantes.
 
 h2. Soporte para Java 7
 
