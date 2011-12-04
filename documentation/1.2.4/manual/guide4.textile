@@ -1,0 +1,242 @@
+h1. Visualizando y editando nuestros comentarios
+
+Ahora que la página principal de nuestro blog ya está lista, vamos a desarrollar la página de detalles de los mensajes. Esta página mostrará los comentarios del mensaje actual, e incluirá un formulario para escribir nuevos comentarios.
+
+h2. <a>Creando la accion ‘mostrar’</a>
+
+Para mostrar la página de detalles del mensaje, necesitaremos una nueva acción en el controlador @Application@. Llamémoslo @show()@:
+
+bc. public static void show(Long id) {
+    Post post = Post.findById(id);
+    render(post);
+}
+
+Como pueden ver, la acción es bastante simple. Declaramos en el método un parámetro @id@ para que automáticamente recupere el parámetro HTTP @id@ como un objeto Java @Long@. Este parámetro va a ser extraído del "query string":glossary#queryString de la dirección URL ó bien del "request body":glossary#requestBody.
+
+p(note). Si intentamos enviar por parámetro HTTP un @id@ que no sea un número válido, el valor de la variable @id@ será @null@ y Play automáticamente agregará un error de validación a la lista de errores @errors@
+
+Esta acción mostrará el template @/yabe/app/views/Application/show.html@:
+
+bc. #{extends 'main.html' /}
+#{set title:post.title /}
+ 
+#{display post:post, as:'full' /}
+
+Gracias a que ya hemos desarrollado el tag @display@, ésta pagina es realmente simple.
+
+h2. <a>Agregando links a la página de detalles</a>
+
+En el tag display hemos dejado todos los links vacíos (usando @#@). Ahora deberemos hacerlos apuntar a la accion @Application.show@. Con Play es fácil construir links en un template usando la notación <code>@{…}</code>. Esta sintaxis usa el router para ‘revertir’ la URL necesaria para llamar a la acción especifíca. 
+
+Editemos el tag @/yabe/app/views/tags/display.html@:
+
+bc. …
+<h2 class="post-title">
+    <a href="@{Application.show(_post.id)}">${_post.title}</a>
+</h2>
+…
+
+Ahora puedes refrescar la página principal y clickear en el título de un mensaje para mostrarlo.
+
+!images/guide4-0!
+
+Es genial, pero nos falta un link para volver a la página principal. Edita el template @/yabe/app/views/main.html@ para completar el link del título:
+
+bc. …
+<div id="title">
+    <span class="about">About this blog</span>
+    <h1><a href="@{Application.index()}">${blogTitle}</a></h1>
+    <h2>${blogBaseline}</h2>
+</div>
+… 
+
+Ahora podemos navegar entre la página principal y la página de detalles del mensaje.
+
+h2. <a>Mejorando la URL de nuestra aplicación</a>
+
+Como puedes ver, la URL de la página de detalles se muestra como:
+
+bc. /application/show?id=1
+
+Esto es porque Play ha utilizado la ruta "'catch all'":glossary#catchAll que viene por defecto en el archivo @conf/routes@.
+
+bc. *       /{controller}/{action}                  {controller}.{action}
+
+Podemos tener una URL mejor especificando una dirección a medida para la acción @Application.show@. Edita el archivo @/yabe/conf/routes@ y agrega esta ruta después de la primera:
+
+bc. GET     /posts/{id}                             Application.show
+
+p(note). De esta manera, el parámetro @id@ será extraído de la dirección URL. Puedes leer más sobre los patrones de la URI en la página del manual sobre "Route File Syntax":routes#syntax.
+
+Refresca el navegador y chequea que esté utilizando la URL correcta.
+
+h2. <a>Agregando paginación</a>
+
+Para permitir a los usuarios navegar fácilmente por los comentarios, vamos a agregar un mecanismo de paginación. Extenderemos la clase Post para poder acceder a los comentarios anteriores y siguientees según sea necesario:
+
+bc. public Post previous() {
+    return Post.find("postedAt < ? order by postedAt desc", postedAt).first();
+}
+ 
+public Post next() {
+    return Post.find("postedAt > ? order by postedAt asc", postedAt).first();
+}
+
+Llamaremos a estos métodos varias veces a lo largo de un pedido, por lo que podríamos optimizarlos, pero por ahora están bien. También debes agregar los links de paginación al comienzo del template de @show.html@ (antes del tag de @#{display/}@):
+
+bc. <ul id="pagination">
+    #{if post.previous()}
+        <li id="previous">
+            <a href="@{Application.show(post.previous().id)}">
+                ${post.previous().title}
+            </a>
+        </li>
+    #{/if}
+    #{if post.next()}
+        <li id="next">
+            <a href="@{Application.show(post.next().id)}">
+                ${post.next().title}
+            </a>
+        </li>
+    #{/if}
+</ul>
+
+Así está mejor.
+
+h2. <a>Agregando el formulario de comentarios</a>
+
+Es hora de desarrollar un formulario para los comentarios. Comenzaremos agregando un método de acción @postComment@ al controlador @Application@.
+
+bc. public static void postComment(Long postId, String author, String content) {
+    Post post = Post.findById(postId);
+    post.addComment(author, content);
+    show(postId);
+}
+
+Como pueden ver, acabamos de reutilizar el método @addComment()@ que agregamos previamente a la clase Post.
+
+Escribamos el formulario HTML en el template @show.html@ (después del tag  @#{display /}@):
+
+bc. <h3>Escribiendo un comentario</h3>
+ 
+#{form @Application.postComment(post.id)}
+    <p>
+        <label for="author">Your name: </label>
+        <input type="text" name="author" id="author" />
+    </p>
+    <p>
+        <label for="content">Your message: </label>
+        <textarea name="content" id="content"></textarea>
+    </p>
+    <p>
+        <input type="submit" value="Submit your comment" />
+    </p>
+#{/form}
+
+Ahora puedes intentar postear un nuevo comentario. Debería simplemente funcionar.
+
+!images/guide4-1!
+
+h2. <a>Agregando validaciones</a>
+
+Por el momento, no estamos validando el contenido del formulario antes de crear el comentario. Nos gustaría que ambos campos fueran obligatorios. Podemos fácilmente utilizar el mecanismo de validación de Play para asegurarnos que los parámetros HTTP hayan sido completados. Modifica la acción @postComment@ agregando la anotación de validación <code>@Required</code> y verifica que que no haya ocurrido ningún error:
+
+bc. public static void postComment(Long postId, @Required String author, @Required String content) {
+    Post post = Post.findById(postId);
+    if (validation.hasErrors()) {
+        render("Application/show.html", post);
+    }
+    post.addComment(author, content);
+    show(postId);
+}
+
+p(note). **No olvides** importar @play.data.validation.*@.
+
+Como puedes ver, en caso de errores de validación, mostramos nuevamente la página de detalles del mensaje. Tenemos que modificar el código del formulario para mostrar el mensaje de error:
+
+bc. <h3>Ingresando un nuevo comentario</h3>
+ 
+#{form @Application.postComment(post.id)}
+ 
+    #{ifErrors}
+        <p class="error">
+            All fields are required!
+        </p>
+    #{/ifErrors}
+ 
+    <p>
+        <label for="author">Your name: </label>
+        <input type="text" name="author" id="author" value="${params.author}" />
+    </p>
+    <p>
+        <label for="content">Your message: </label>
+        <textarea name="content" id="content">${params.content}</textarea>
+    </p>
+    <p>
+        <input type="submit" value="Submit your comment" />
+    </p>
+#{/form}
+
+Nota que reutilizamos los paramentros posteados para completar los valores del input HTML
+
+Para hacer el feedback de la interfaz de usuario aún más agradable, vamos a agregar algo de JavaScript para automáticamente situar el cursor en el formulario del comentario en caso de error. Como el script utliza "JQuery":files/jquery-1.4.2.min.js y "JQuery Tools Expose":http://cdn.jquerytools.org/1.2.5/full/jquery.tools.min.js  para soportar las librerías, deberás incluirlas. Descarga estas dos librerías al directorio @yabe/public/javascripts/@ y modifica el template @main.html@ para incluirlas:
+
+bc. …
+    <script src="@{'/public/javascripts/jquery-1.4.2.min.js'}"></script>
+    <script src="@{'/public/javascripts/jquery.tools-1.2.5.toolbox.expose.min.js'}"></script>
+</head>
+
+Ahora puedes agregar este script al template @show.html@ (agrégalo al final de la página):
+
+bc. <script type="text/javascript" charset="utf-8">
+    $(function() {         
+        // Expose the form 
+        $('form').click(function() { 
+            $('form').expose({api: true}).load(); 
+        }); 
+        
+        // If there is an error, focus to form
+        if($('form .error').size()) {
+            $('form').expose({api: true, loadSpeed: 0}).load(); 
+            $('form input[type=text]').get(0).focus();
+        }
+    });
+</script>
+
+!images/guide4-2!
+
+El formulario del comentario se ve muy bien ahora. Agregaremos dos cosas más.
+
+Primero, mostraremos un mensaje de éxito luego de que el comentario haya sido posteado exitosamente. Para eso, utilizamos la utilidad flash que nos permite pasar mensajes de la llamada de una acción hacia la siguiente.
+
+Modifica la acción @postComment@ para agregar un mensaje de éxito:
+
+bc. public static void postComment(Long postId, @Required String author, @Required String content) {
+    Post post = Post.findById(postId);
+    if(validation.hasErrors()) {
+        render("Application/show.html", post);
+    }
+    post.addComment(author, content);
+    flash.success("Thanks for posting %s", author);
+    show(postId);
+}
+
+y, en caso de estar presente, muestra el mensaje de éxito en @show.html@ (agrégalo al comienzo de la página):
+
+bc. …
+#{if flash.success}
+    <p class="success">${flash.success}</p>
+#{/if}
+ 
+#{display post:post, as:'full' /}
+…
+
+!images/guide4-3!
+
+Lo último que ajustaremos en nuestro formulario será la URL utilizada para llamar a la acción @postComment@. Como siempre, estará utilizando la ruta 'catch-all':glossary#catchAll porque no hemos definido una ruta específica. Agreguemos esta ruta al archivo de rutas de aplicación:
+
+bc. POST    /posts/{postId}/comments                Application.postComment
+
+Terminado. Como de costumbre, comitea la versión a bazaar.
+
+p(note). Siguiente: %(next)"Configurando un Captcha":guide5%.

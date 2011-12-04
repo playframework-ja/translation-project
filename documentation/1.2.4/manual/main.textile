@@ -1,0 +1,151 @@
+h1. Conceptos principales
+
+h2. <a name="mvc">El modelo de aplicación MVC</a>
+
+Una aplicación de Play sigue el patrón de arquitectura para aplicaciones web conocido como MVC (Modelo-Vista-Controlador).
+
+Este patrón organiza la aplicación en capas separadas: la capa de presentación y la capa del modelo. A su vez la capa de presentación se divide en una capa de vista y otra de controlador. 
+
+* El **Modelo** es la representación de la información que es específica del dominio de la aplicación. La lógica del dominio es la que agrega 'significado' a la información, que de otra manera no serían más que datos. (ej. calcular si hoy es el cumpleños del usuario, o el importe, impuestos y cargos de envío de un carrito de compras, de no ser por la lógica de dominio, éstos no serían más que datos de tipo fecha y númérico sin ningún significado específico). Comúnmente las aplicaciones utilizan algún mecanismo de almacenamiento persistente, como una base de datos, para guardar la información. MVC no hace mención específica a ninguna capa de acceso a datos, ya que se entiende que se encuentra por debajo, o encapsulada en, el Modelo.
+ 
+* La **Vista** despliega la información del Modelo de manera apropiada para que el usuario interactúe con ella, típicamente a través de una interfaz de usuario. Múltiples vistas pueden existir para un único modelo, sirviendo diferentes propósitos. En una aplicación web la vista es comúnmente desplegada en un 'formato web' como HTML, XML o JSON. Sin embargo hay casos en los cuales la vista puede producir como resultados archivos binarios, por ejemplo en la generación de diagramas u otros tipos de gráficos. 
+
+* El **Controlador** responde a eventos (típicamente acciones generadas por el usuario) y los procesa, también puede invocar cambios en el modelo, En una aplicación web, los eventos son típicamente "pedidos HTTP":glossary#httpRequest: un controlador escucha estos pedidos HTTP, extrae la información relevante de este 'evento', como pueden ser los parámetros del "query string":glossary#queryString o "request headers":glossary:requestHeader … y aplica los cambios al modelo de objetos.
+
+!images/diagrams_mvc!
+
+En una aplicación de Play estas tres capas se definen en el directorio @app@, cada una en un "package de Java":glossary#javaPackage distinto.
+
+h3. app/controllers
+
+Un controlador es una clase de java en la cual cada método público y estático es una **acción** o **"action method":glossary#actionMethod**. Una acción es un punto de entrada a una aplicación Java que es invocado cuando un pedido HTTP es recibido. El código Java del controlador, en realidad no está orientado a objetos, es meramente código precedural. El action method extrae la información relevante del pedido HTTP, lee o actualiza el modelo de objetos, y retorna el resultado bajo la forma de una respuesta HTTP.
+
+h3. app/models
+
+La capa de modelo de objetos de dominio, es un conjunto de clases de Java que hace uso de la orientación a objetos que provee el lenguaje Java. Contiene estructuras de datos (estado) y operaciones (comportamiento) sobre la cual opera la aplicación. En caso de que el modelo de objetos requiera ser persistido a una base de datos, puede contener directivas como anotaciones JPA o sentencias SQL. 
+
+h3. app/views
+
+La mayor parte de las vistas de una aplicación son generados por un eficiente motor de "templates":glossary#template provisto por Play. El controlador obtiene la información pertinente consultando la capa de datos, y luego aplica un template para 'decorar' estos objetos. Esta capa contiene HTML, XML, JSON y otros archivos de templates con directivas especiales para generar dinámicamente la representación del modelo.
+
+h2. <a name="request">El ciclo de vida del request</a>
+
+El framework play es completamente "stateless":glossary#stateless (sin estado) y orientado exclusivamente a pedidos/respuestas. Todos los pedidos HTTP siguen el mismo camino:
+
+# <span>Un pedido HTTP es recibido por el framework.</span>
+# <span>El "router":glossary#router (enrutador) intenta dar con la ruta más específica capaz de atender este pedido, e invoca el "action method":glossary#actionMethod correspondiente.</span>
+# <span>El código de la aplicación es ejecutado.</span>
+# <span>Si es preciso generar una vista compleja, evalúa un template encargado de generarla.</span>
+# <span>El resultado del action method (código de respuesta HTTP, contenido HTTP) es retornado como una "respuesta HTTP":glossary#httpResponse.</span>
+
+El siguiente diagrama muestra el ciclo de vida de un pedido HTTP:
+
+!images/diagrams_path!
+
+
+h2. <a name="application">La "estructura de directorios":glossary#applicationLayout de una aplicación típica de play</a>
+
+La estructura de directios de las aplicacioens de Play está estandarizada, a fin de mantener las cosas lo más simple posibles.
+
+h3. El directorio **app** 
+
+Este directorio contiene todos los artefactos ejecutables: código fuente Java y los templates de las vistas.
+
+p(note). **¿Dónde están mis archivos .class?**
+ 
+No pierda el tiempo buscado las clases compiladas de Java. El framework compila el código fuente de Java en tiempo de corrida, y mantiene el bytecode generado en un cache en el directorio @tmp@. Los artefactos ejecutables en una aplicación de play son los archivos *.java*, y no las clases compiladas.   
+ 
+hay tres "paquetes":glossary#javaPackage estándar en el diectorio **app**, uno por cada capa del patrón MVC. Claro está que usted puede agregar sus propios paquetes, como por ejemplo un paquete *utils*. 
+
+A su vez, el paquete de vistas está organizado en subpaquetes:
+
+* @tags@, contiene los "tags":glossary#tag de la aplicactión, ej.porciones de templates reutilizables. 
+* una carpeta con las @vistas@ de cada controllador - por convención los templates vinculados a un mismo controlador son almacenados en su propio subpaquete.
+
+h3. El directorio **public**
+
+Los archivos almacenados en el directorio @public@ son recursos estáticos y son servidos directamente por el servidor web. 
+
+Este directorio está a su vez dividido en tres subdirectorios: para imágenes, hojas de estilo CSS y archivos de JavaScript. Procure organizar sus recursos estáticos siguiendo estos lineamientos para mantener la consistencia de sus aplicaciones. 
+
+p(note). Por defecto, el directorio @/public@ está asociado a la URL @/public@, pero usted puede fácilmente cambiar esta configuración, o incluso utilizar diversos directorios para sus recursos estáticos.
+
+h3(#conf). El directorio **conf**
+
+El directorio @conf@ contiene todos los archivos de configuración de la aplicación.
+
+Hay dos archivos de configuración que son requeridos por el framework:
+
+* @application.conf@, el archivo principal de configuración. Contiene los "parámetros de configuración":configuration estándar de la aplicación.
+* @routes@, el archivo con la definición de las rutas HTTP.
+
+Si precisa agregar alguna configuración específica para su aplicación, es conveniente agregar más opciones al archivo @application.conf@. Las opciones de configuración de este archivo pueden ser leidas programáticamente mediante la sentencia @Play.configuration.get("propertyName")@. Cuando crea una nueva aplicación, el comando @play new@ copia la configuración por defecto del directorio @$PLAY_HOME/resources/application-skel/conf@ con varias configuraciones explicadas y comentadas para ayudarlo a comprender el significado de cada opción.
+
+Si alguna librería precisa una configuración específica, procure guardarla en el diectorio @conf@: ya que **este directorio se incluye automáticamente en el "ClassPath de Java":glossary#javaClasspath**
+
+Puede incluir archivos de configuración adicionales a la configuración de Play especificando un nombre de archivo en @application.conf@ como el valor de una opción de configuración que contiene <code>@include.</code> como principio de la clave. 
+
+p(note). La posibilidad de incluir archivos en la configuración está en estado experimental, y todavía no funciona apropiadamente en todos los casos. En particular, se ha reportado que los IDs de los framework no funcionan correctamente. 
+
+Por ejemplo, si define tipos MIME adicionales en un archivo @conf/mime-types.conf@
+
+bc. # Web fonts
+mimetype.eot = application/vnd.ms-fontobject
+mimetype.otf = application/octet-stream
+mimetype.ttf = application/octet-stream
+mimetype.woff = application/x-font-woff
+
+puede incluirlos agregando la siguiente línea al archivo @application.conf@:
+
+bc. @include.mime = mime-types.conf
+
+h3. El directorio lib
+
+Este directorio contiene todas las librerías de Java requeridas por su aplicación. Son automáticamente agregadas al classpath de Java.
+
+h2. <a name="lifecycle">Ciclo de vida del desarrollo</a>
+
+No hay fase de compilación, "packaging":glossary#packaging o "deployment":glossary#deployment cuando trabaja con Play. Sin embargo Play implementa dos entornoa de trabajo diferenciados: DEV durante la fase de desarrollo y PROD cuando la aplicación ha sido deployada. 
+
+p(note). **Acerca de los modos DEV y PROD**
+ 
+Puede ejecutar aplicaciones tanto en modo DEV como PROD. Puede cambiar entre estos modos usando la configuración "application.mode":configuration#application.mode. Cuando es está ejecutando en modo DEV, Play verificará si algún archivo ha sido modificado y se encargará de volverlo a compilar y cargar dinámicamente ("hot reload":glossary#hotReload) de ser necesario. 
+
+El modo PROD está completamente optimizado para ejecutarse en producción: los templates y archivos fuentes de Java con compilados por única vez y guardados en el cache para ser accedidos por múltiples usuarios.
+ 
+El código fuente de java es compilado y cargado en tiempo de ejecución. Si un archivo con código fuente de Java es modificado mientras la aplicación está ejecutándose, el código fuente es recompilado y remplazado ("hot-swapped":glossary#hotSwap) en la JVM.  
+
+Si sucediera algún error de compilación, el reporte exacto del problema que lo generó será desplegado en el browser (sólo en modo DEV).
+
+!images/guide1-3!
+
+Los archivos de template también son compilados y remplazados dinámicamente.
+
+h3. Conectándose a un debugger de Java 
+
+Cuando ejecuta la aplicación en modo DEV, puede conectar un depurador de código java al puerto 8000.  
+
+Por ejemplo, utilizando el depurador de Netbeans:
+
+!images/screenshot_attach-debugger!
+
+h2. "Class enhancement":glossary#classEnhancement
+
+Un plugin de play (cualquier clase que extiende @play.PlayPlugin@) puede incluir "‘enhancers’":glossary:classEnhacer que modifican las clases de la aplicación en tiempo de corrida para agregar funcionalidad. Así es como funciona buena parte de la 'magia' de Play. 
+
+La clase @play.CorePlugin@, que viene incluida en Play, utiliza enhancers del paquete @play.classloading.enhancers@ para agregar código de manera dinámica a las clases de su aplicación.
+
+* @ContinuationEnhancer@ - agrega soporte de "continuations":glossary#continuation a las clases de los controladores
+* @ControllersEnhancer@ - hace que los action method de los controladores sean "thread-safe":glossary#threadSafe y agrega redirects HTTP para llamadas entre las acciones de los controladores. 
+* @LocalvariablesNamesEnhancer@ - lleva el registro de las variables locales en los controladores 
+* @MailerEnhancer@ - configura las subclases de @play.mvc.Mailer@
+* @PropertiesEnhancer@ - transforma todas las clases de la aplicación en "JavaBeans":glossary#jabaBean válidos, con propiedades basadas en campos. 
+* @SigEnhancer@ - calcula un hash único para la firma de cada clase, a fin de facilitar la recompilación y recarga automática de las mismas.
+
+Además, @play.db.jpa.JPAPlugin@ agrega a las subclases de @play.db.jpa.JPABase@ métodos que facilitan trabajar con consultas JPA. Por lo general esto se aplica a las clases del modelo de su aplicación que extienden @play.db.jpa.Model@. Las consultas JPA que son agregadas están definidas en @play.db.jpa.GenericModel@. 
+
+Para agregar sus propios enhancers, puede extender la clase @play.classloading.enhancers.Enhancer@ desde el método @enhance(ApplicationClass)@ de sus propios plugins.
+
+p(note). **Próximos pasos**
+ 
+Ahora que ha visto de qué se trata una aplicación de Play, veamos cómo Play maneja las %(next)"Rutas HTTP":routes%. El Router es el encargado de traducir los pedidos HTTP que llegan a nuestra aplicación, en acciones a ser ejecutadas por los controladores.

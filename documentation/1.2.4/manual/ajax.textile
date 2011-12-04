@@ -1,0 +1,47 @@
+h1. Ajax con Play framework
+
+Play le permite realizar pedidos HTTP utilizando Ajax, y por defecto viene integrado con "jQuery":http://jquery.com. En este capítulo le contamos cuál es la manera más efectiva de utizar "jQuery":http://jquery.com desde el framework.
+
+El framework también trae el tag @jsAction@, que le permite obtener de manera transparente la denición del método desde el controlador.
+
+h2. <a name="jsaction">Usando jQuery con el tag jsAction</a>
+
+El tag @#{jsAction /}@ retorna una función Javascript que contruye el correspondiente URL basado en la acción definida en el servidor y las variables que le pasemos como parámetro. No efectúa la llamada AJAX, esto lo deberemos realizar nosotros manualmente utilizando el URL retornado.
+
+Veamos un ejemplo:
+
+bc. GET     /hotels/list        Hotels.list
+
+Ahora podemos importar esta ruta desde el cliente de la siguiente manera: 
+
+bc. <script type="text/javascript">
+   var listAction = #{jsAction @list(':search', ':size', ':page') /}
+   $('#result').load(
+       listAction({search: 'x', size: '10', page: '1'}), 
+       function() {
+           $('#content').css('visibility', 'visible')
+       }
+   )
+</script>
+
+En este ejemplo estamos solicitando el método _list_ del controlador Application, que es el controlador por defecto para ese template. También estamos pasando tres parámetros: search, size y page. La solicitud es grabada en la función listAction. Al pasarle a dicha función el valor que queremos asignar a vada variable, nos retornará el URL correspondiente. Utilizando la función @load@ de jQuery efectuaremos el pedido HTTP (un pedido HTTP con método GET, en este caso).
+
+De hecho, el pedido HTTP enviado será el siguiente:
+
+bc. GET /hotels/list?search=x&size=10&page=1
+
+En este caso el pedido retorna información HTML.
+
+Sin emabargo, también es posible retornar JSON o XML e interpretar esta información utilizando las funciones de jQuery. En su controlador, utilice el método render correspondiente (renferJSON, renderXML o un template XML) para retornar otros tipos de datos.
+
+Consulte la "documentación de jQuery":http://docs.jquery.com/Main_Page para más información.
+
+Tenga en cuenta que también podríamos efectuar un pedido HTTP con método POST; en tal caso el modo jQuery a utilizar debería ser:
+
+bc. $.post(listAction(), function(data) {
+  $('#result').html(data);
+});
+
+p(note). **Próximos pasos**
+ 
+%(next)"Internacionalización":i18n% de aplicaciones.

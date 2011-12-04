@@ -1,0 +1,72 @@
+h1. Guía para colaborar con un proyecto en github 
+
+Al igual que la documentación original de Play!, este proyecto se encuentra alojado en "github":https://github.com/opensas/playdoces, a fin de que la comunidad de usuarios de play pueda colaborar con nosotros en la traducción y actualización de la documentación del framework.
+
+Para facilitar esta tarea, hemos elaborado esta guía que te permitirá crear tu propia versión del sitio _(fork)_, instalarla en tu estación de trabajo _(clone)_, hacer modificaciones y contribuciones trabajando localmente, y enviarnos pedidos _(pull requests)_ para integrar tu trabajo en la versión de producción de "playdoces":http://playdoces.appspot.com.
+
+h2. <a name="github">Trabajando con github</a>
+
+El esquema de trabajo que nos propone github puede parecer confuso al principio, pero en realidad es bastante simple, tan sólo hay que tener presente que uno está trabajando con tres repositorios distintos y entender el rol que cada uno cumple.
+
+*Repositorio upstream*: es el repositorio en github de la aplicación con la cual vamos a colaborar. En nuestro caso el repositorio está en "https://github.com/opensas/playdoces":https://github.com/opensas/playdoces y la aplicación es "http://playdoces.appspot.com":http://playdoces.appspot.com. No podremos hacer ningún cambio directamente sobre este repositorio, ya que no tendremos permisos de escritura sobre el mismo. Lo que haremos es crear nuestra propia copia _(fork)_ del mismo.
+
+*Repositorio origin*: es nuestra copia del repositorio que _forkeamos_ alojada en github. A este repositorio enviaremos los cambios que efectuaremos en nuestro repositorio local. 
+
+*Repositorio local*: es el repositorio local que tendremos en nuestra propia estación de trabajo. 
+
+Comunmente realizaremos los cambios trabajando en nuestro repositorio *local*. Cuando hayamos confirmado _(commit)_ nuestros cambios localmente, los enviaremos _(push)_ a nuestro repositorio *origin* alojado en github. Luego haremos un pedido _(pull request)_ al repositorio *upstream* solicitándole que integre los cambios del repositorio *origin*.  
+
+Este es el esquema general de trabajo con github, que nos servirá no sólo para colaborar con "playdoces":http://playdoces.appspot.com, sino con cualquier proyecto libre alojado en github, incluido el propio "play framework":https://github.com/playframework/play.
+
+h2. <a name="signup">Crear una cuenta en github</a>
+
+Lo primero que tendremos que hacer es navegar a "https://github.com/signup/free":https://github.com/signup/free y crear una cuenta gratuita en github, en nuestro ejemplo hemos creado la cuenta *traductor-play*.
+
+Luego deberás instalar git en tu equipo y configurar tu cuenta siguiendo las "instrucciones para linux":http://help.github.com/linux-set-up-git/ o las "instrucciones para windows":http://help.github.com/win-set-up-git/, según el sistema operativo que estés utilizando.
+
+h2. <a name="fork">Hacer un fork del repositorio upstream</a>
+
+Navega al sitio de "github":https://github.com e ingresa con tu usuario y password. Luego tendrás que navegar a "https://github.com/opensas/playdoces":https://github.com/opensas/playdoces y hacer click en "fork". Con esto ya habrás creado tu repositorio *origin*, que en nuestro caso se encuentra en https://github.com/traductor-play/playdoces.
+
+h2. <a name="clone">Clonar nuestro repositorio origin en un repositorio local</a>
+
+En nuestra estación de trabajo ejecutamos las siguientes instrucciones (debes ajustarlas según tu nombre de usuario, remplazando _traductor-play_ por tu nombre):
+
+bc. cd ~
+mkdir apps
+cd apps
+git clone git@github.com:traductor-play/playdoces.git
+
+De esta manera nos quedará la aplicación _playdoces_ instalada en ~/apps/playdoces. Para ejecutar la aplicación y traducir la documentación sigue los pasos en la "guía para traducir play":translation 
+
+h2. <a name="coordinate">Coordinar nuestro trabajo con el resto de los traductores</a>
+
+A fin de evitar que más de un traductor esté trabajando en las mismas páginas es conveniente utilizar el sistema de incidentes que nos provee github. Simplemente debemos dirigirnos al sitio del repositorio *upstream* "https://github.com/opensas/playdoces/issues/":https://github.com/opensas/playdoces/issues y "crear un nuevo incidente":https://github.com/opensas/playdoces/issues/new, poniendo el nombre de la página que vamos a traducir y entre corchetes nuestro nombre de usuario en github. 
+
+Por ejemplo, si quisiéramos traducir la página _lib.textile_, primero nos fijaríamos en los incidentes para asegurarnos que nadie esté trabajando en ella, y luego cargaremos uno nuevo con el siguiente texto @lib.textile [traductor-play]@.
+
+h2. <a name="pullrequest">Guardar los cambios y enviar nuestras traducciones</a>
+
+Una vez que hemos terminado de traducir algún archivo, vamos a querer enviarlo a los administradores de "playdoces":http://playdoces.appspot.com para que sean incluidos en producción. Para ello tendremos que confirmar los cambios en nuestro repositorio *local*, actualizar nuestro repositorio *origin* en github, y hacer un pedido para que estos cambios sean incluido en el repostiorio *upstream*.
+
+Mediante el comando @git status@ podemos ver los archivos que hemos modificado localmente. Con el comando @git add@, le indicamos a git cuáles son los archivos que vamos a querer confirmar _(commit)_. Con @git commit@ confirmamos los cambios en nuestro repositorio *local* y finalmente, con @git push origin master@ subimos los cambios locales a nuestro repositorio *origin*. Situados en el directorio del repositorio, en nuestro ejemplo @~/apps/playdoces@, estos serían los comandos que deberemos ejecutar:
+
+bc. git status
+git add .
+git commit -m "traduje una nueva página"
+git push origin master
+
+p(note). En caso de haber cargado un incidente para esa página, es súmamente útil incluir el texto _fixes_ seguido del signo _#_ y el número del incidente en el texto que utilizamos al hacer el commit, de la siguiente manera `git commit -m "fixes #34 - traduje una nueva página". De esta manera github relacionará nuestros cambios con el incidente y lo cerrará automáticamente.
+
+Luego navegamos a nuestro repositorio *origin*, en este caso https://github.com/traductor-play/playdoces, en donde ya deberías poder ver los cambios que acabas de impactar. Para solicitar al repositorio *upstream* que integre nuestros cambios simplemente hacemos click en el botón *pull request*. Y ahora tan sólo resta esperar que los administradores del repositorio *upstream* (en este caso nosotros) revisen los cambios y los impacten en la aplicación.
+
+h2. <a name="fetch">Manteniendo nuestros repositorios actualizados</a>
+
+A medida que sigamos trabajando, querremos mantener actualizados nuestros repositorios (*local* y *origin*) con los cambios del repositorio *upstream*. Para eso configuramos el repositorio *upstream* como un repositorio remoto _(remote)_ vinculado a nuestro repositorio local. Situados en el directorio del repositorio, en nuestro ejemplo @~/apps/playdoces@, deberemos ejecutar:
+
+bc. git remote add upstream git@github.com:opensas/playdoces.git
+
+Cuando querramos traer las actualizaciones de *upstream*, deberemos ejecutar:
+
+bc. git fetch upstream
+git merge upstream/master

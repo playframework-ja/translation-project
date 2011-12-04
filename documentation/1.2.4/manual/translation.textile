@@ -1,0 +1,55 @@
+h1. Traduciendo Play! framework 
+
+La documentación de Play es extensa y detallada, y es sin duda uno de los puntos fuertes del framework. Lograr una traducción que sea precisa y amena al mismo tiempo requiere mucho tiempo y esfuerzo, es por eso que apelamos a la ayuda de la comunidad para llevar adelante esta tarea.
+
+h2. <a name="documentation">Lee la documentación</a>
+
+La forma más fácil de colaborar con la traducción de la documentación de Play, es justamente leyendo la documentación en español, y enviando comentarios para sugerir correcciones y mejoras. Aquéllos que tengan conocimientos de ingleś, seguramente preferirán leer la versión original, pero frecuentando la documentación en español nos ayudarán a mejorar la calidad de la traducción y permitir que otros usuarios puedan interiorizarse en el funcionamiento del framework.
+
+h2. <a name="github">Colabora con el proyecto a través de github</a>
+
+Al igual que la documentación original de Play!, este proyecto se encuentra disponible en "github":https://github.com/opensas/playdoces.
+
+La documentación de play está almacenada en formato "textile":http://en.wikipedia.org/wiki/Textile_(markup_language%29, que es un formato muy simple, pensado para que pueda ser leido y editado por seres humanos, sin necesidad de ninguna herramienta específica. De todas maneras, no necesitas saber textile para traducir la documentación, simplemente debes traducir el texto sin alterar el formato del texto.
+
+Afortunadamente "github":http://github.com viene integrado con un editor de archivos .textile, por lo que ni siquiera precisas tener instalado git ni play, tan sólo con contar con un explorador web y registrarte en github ya podrás colaborar con nosotros.
+
+Dirígete a "https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual":https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual, selecciona el archivo que quieres editar y presiona el botón _Fork and edit this file_. 
+
+Cuando termines de editar el archivo presiona el botón _Propose file change_ y luego _Send pull request_ para enviarnos los cambios. ¡Y eso es todo!
+
+h2. <a name="translating">Trabajando con una copia local del proyecto</a>
+
+Otra opción es instalarte localmente la aplicación "playdoces":http://playdoces.appspot.com para ir viendo cómo quedarán los cambios en producción mientras vas traduciendo las páginas. Para ello puede obtener el proyecto bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto github":github.
+
+Luego de hacer esto tendrás que editar los archivos de _/playdoces/documentation/1.2.3/manual_ con cualquier editor de texto.
+
+Para ir viendo cómo quedará la traducción una vez subida a producción, tendrás que iniciar la aplicación. Para eso ejecuta:
+
+bc. cd [directorio donde instalamos playdoces]
+play start
+
+p(note). Antes de iniciar por primera vez la aplicación debes ejecutar @play deps@ situado en el directorio donde instalaste _playdoces_, a fin de que Play! descargue e instale todas las dependencias.
+
+Luego navegamos a "localhost:9000":localhost:9000. Y ya tenemos nuestro sitio playdoces corriendo localmente en nuestra máquina. Siguiendo la filosofía Play!, simplemente editamos los archivos, apretamos F5 en el explorador y ya deberíamos ver los cambios reflejados en la página. 
+
+La mejor manera de hacernos llegar tus traducciones, es haciendo un fork del proyecto en github y enviándonos un pull request, como está explicado en esta "guía":github. Si tienes dudas o consultas respecto a este proceso consúltanos en la "lista de discusión de Play para desarrolladores hispano-hablantes":http://groups.google.com/group/play-latam.  
+
+h2. <a name="criteria">Criterios para la traducción</a>
+
+Existen numerosos términos técnicos cuya traducción, lejos de aportar claridad, dificultan la comprensión del texto. En tales casos, sugerimos dejarlo en el idioma original o, en caso de requerir alguna explicación extra, utilizar el glosario de la siguiente manera:
+
+bc. [...] y retomar el "http request":glossary#httpRequest tan pronto como [...] 
+
+que se verá en pantalla así:
+
+[...] y retomar el "http request":glossary#httpRequest tan pronto como [...]
+
+Tan sólo hay que crear la entrada en la página glossary.textile.
+
+Preferimos también reescribir frases enteras, respetando el contenido semántico, antes que intentar traducciones literales que carezcan de naturalidad.  
+
+h2. <a name="java">Ponte en contacto con la comunidad hispano-hablante</a>
+
+No dudes en ponerte en contacto con nosotros a través de la "lista de discusión de Play para desarrolladores hispano-hablantes":http://groups.google.com/group/play-latam. Allí podrás proponer nuevas ideas y coordinar con el resto de la comunidad para impulsar la adopción de Play! y difundirlo entre los desarroladores de habla hispana.
+

@@ -1,29 +1,26 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Controladores
 
-h1. Controllers
+La lógica de negocio es atendida por la capa del dominio de objetos o modelo de datos. Dado que el cliente (típicamente un explorador web) no puede invocar de manera directa este código, la funcionalidad del dominio de objetos es expuesta como recursos representados por URIs. 
 
-Business logic is managed in the domain model layer. As a client (typically a web browser) cannot directly invoke this code, the functionality of a domain object is exposed as resources represented by URIs.
+Un cliente utiliza la API provista por el protocolo HTTP para manipular estos recursos, accediendo de esta manera a la lógica de negocio subyacente. Sin embargo, esta correlación entre recursos y objetos del modelo no es bidireccional: la granularidad puede ser expresada a distintos niveles, algunos recursos pueden ser virtuales, o pueden definirse diversos alias para acceder a ellos…
 
-A client uses the uniform API provided by the HTTP protocol to manipulate these resources, and by implication the underlying business logic. However, this mapping of resources to domain objects is not a bijection: the granularity can be expressed at different levels, some resources may be virtual, for some resources aliases may be defined…
+Éste es precisamente el rol jugado por la capa de los Controladores: **unir** los objetos del modelo con los eventos de la capa de transporte. Al igual que la capa de Modelo, los controladores son escritos exclusivamente en Java, facilitando la tarea de acceder o modificar objetos del Modelo. Al igual que la interfaz HTTP, los Controladores son precedurales y responden a un esquema de Pedido/Respuesta, más que estar orientados a objetos.
 
-This is precisely the role played by the Controller layer: providing a **glue** between the domain model objects and transport layer events. As the Model layer, controllers are written in pure Java, making it easy to access or modify Model objects. Like the HTTP interface, Controllers are procedural and Request/Response oriented.
+En definitiva, la capa de Controladores reduce la brecha (**impedance mismatch**) entre la capa HTTP y la capa de Modelo.
 
-The Controller layer reduces the **impedance mismatch** between HTTP and the Domain Model.
-
-p(note). **Note**
+p(note). **Nota**
  
-There are different architectural models with different strategies. Some protocols give you direct access to the domain model objects. This is typically what EJB or Corba protocols do. In these cases, the architectural style used is RPC (Remote Procedure Call). These communication styles are hardly compatible with web architecture.
+Existen diversos modelos de arquitectura con diferentes estrategias. Algunos protocolos permiten acceder de manera directa a los objetos del modelo. Tal es el caso de los protocolos EJB o Corba. En estos casos, el estilo de arquitectura utilizado es RPC (Remote Procedure Call). Estos estilos de comunicación difícilmente son compatibles con la arquitectura web.
  
-Some technologies like SOAP try to give access to the model object domain through the Web. However, SOAP is just another RPC-style protocol, in this case using HTTP as a transport protocol. It is not an application protocol.
+Algunas tecnologías, como SOAP, intentan brindar acceso al modelo de objetos a través de la Web. Sin embargo, SOAP no es más que otro protocolo de estilo RPC, en este caso utilizando HTTP como un protocolo de transporte. No es un protocolo de aplicación.
 
-The web’s principles are not fundamentally object-oriented. So a layer is needed to adapt HTTP to your favorite language. 
+Los principios de la web no son orientados a objetos. De manera que se requiere una capa intermedia para adaptar HTTP a su lenguaje favorito. 
 
+h2. <a name="overview">Introducción a los controladores</a>
 
-h2. <a name="overview">Controller overview</a>
+Un Controlador es una clase de Java, perteneciente al package @controllers@, que extiende la clase @play.mvc.Controller@.
 
-A Controller is a Java class, hosted by the @controllers@ package, and subclassing @play.mvc.Controller@.
-
-This is a Controller:
+Aquí tenemos un típico controlador:
 
 bc. package controllers;
  
@@ -44,68 +41,68 @@ public class Clients extends Controller {
  
 }
 
-Each public, static method in a Controller is called an action. The signature for an action method is always:
+Llamamos método de acción a todo método de un Controlador que es público, estático y que retorna void. Es decir que un método de acción siempre tiene la siguiente firma:
 
 bc. public static void action_name(params...);
 
-You can define parameters in the action method signature. These parameters will be automatically resolved by the framework from the corresponding HTTP parameters.
+Puede definir parámetros a ser recibidos por el método de acción. Estos parámetros serán automáticamente resueltos por el framework a partir de los correspondientes parámetros HTTP.
 
-Usually, an action method doesn’t include a return statement. The method exit is done by the invocation of a **result** method. In this example, @render(…)@ is a result method that executes and displays a template.
+Comúnmente un método de acción no incluye un comando return. La salida del método se efectúa al invocar un método de **resultado**. En este ejemplo, la llamada a @render(…)@ es un método de resultado que ejecuta y despliega un template. 
 
-h2. <a name="params">Retrieving HTTP parameters</a>
+h2. <a name="params">Recuperando parámetros HTTP</a>
 
-An HTTP request contains data. This data can be extracted from:
+Un pedido HTTP contiene información. Esta información puede ser obtenida a partir de:
 
-* The URI path: in @/clients/1541@, 1541 is the dynamic part of the URI Pattern.
-* The Query String: @/clients?id=1541@.
-* The request body: if the request was sent from an HTML form, the request body contains the form data encoded as @x-www-urlform-encoded@.
+* El camino URI: en @/clients/1541@, 1541 es la parte dinámica del patrón URI.
+* El "Query String":glossary#queryString: @/clients?id=1541@.
+* El cuerpo del pedido HTTP: si el pedido fue enviado desde un form HTTP, el cuerpo del pedido contiene la información del form codificado como @x-www-urlform-encoded@.
 
-In all cases, Play extracts this data and builds a @Map<String, String[]>@ which contains all the HTTP parameters. The key is the parameter name. The parameter name is derived from:
+En todos los casos Play extrae esta información y construye un @Map<String, String[]>@ que contiene toda la información contenida en los parámetros HTTP. La clave de cada ítem del map es el nombre del parámetro. El nombre del parámetros se obtiene a partir de:
 
-* The name of the dynamic part of the URI (as specified in the route)
-* The name portion of a name-value pair taken from the Query String
-* The contents of a x-www-urlform-encoded body.
+* El nombre de la parte dinámica del URI (tal como fuera especificado en el archivo routes) 
+* La parte del nombre del par nombre-valor extraido del Query String. 
+* El contenido del cuerpo del pedido HTTP codificado en x-www-urlform-encoded.
 
-h3. <a name="paramsmap">Using the params map</a>
+h3. <a name="paramsmap">Utilizando el objeto params</a>
 
-The @params@ object is available to any Controller class (it is defined in the @play.mvc.Controller@ super class). This object contains all the HTTP parameters found for the current request.
+El objeto @params@ está disponible para cualquier Controlador (de hecho, se encuenta definido en la clase @play.mvc.Controllers@, de la cual heredan todos los Controladores). Este objeto contiene todos los parámetros HTTP encontrados para el pedido HTTP en curso.
 
-For example:
+Por ejemplo:
 
 bc. public static void show() {
     String id = params.get("id");
     String[] names = params.getAll("names");
 }
 
-You can also ask Play to do the type conversion for you:
+También puede pedirle a Play que se encargue de la conversión de tipos de datos:
 
 bc. public static void show() {
     Long id = params.get("id", Long.class);
 }
 
-But wait, there are better ways to do this :)
+Pero hay incluso una manera más fácil de hacerlo :)
 
-h3. <a name="methodsignature">From the action method signature</a>
+h3. <a name="methodsignature">A partir de los parámetros del método de acción</a>
 
-You can retrieve HTTP parameters directly from the action method signature. The Java parameter’s name must be the same as the HTTP parameter’s.
+Puede recuperar los parámetros HTTP directamente a partir de los parámetros del método de acción. El nombre de los parámetros del método en Java deben conincidir con el nombre de los parámetros HTTP. 
 
-For example, in this request:
+Por ejemplo, en el caso de este pedido HTTP:
 
 bc. /clients?id=1451
 
-An action method can retrieve the @id@ parameter value by declaring an @id@ parameter in its signature:
+Un método de acción puede recuperar el parámetro HTTP @id@ declarando un parámetro @id@ en la firma del método, de la siguiente manera:
 
 bc. public static void show(String id) {
     System.out.println(id); 
 }
 
-You can use other Java types than String. In this case the framework will try to cast the parameter value to the correct Java type:
+Puede utilizar otros tipos de datos de Java además de String. En tal caso el framework intentará hacer un _cast_ del valor del parámetro según el tipo de dato especificado:
 
 bc. public static void show(Long id) {
     System.out.println(id);  
 }
 
-If the parameter is multivalued, you can declare an Array argument:
+Si el parámetro soporta más de un valor, puede declarar un Array como argumento:
 
 bc. public static void show(Long[] id) {
     for(String anId : id) {
@@ -113,7 +110,7 @@ bc. public static void show(Long[] id) {
     }
 }
 
-or even a collection type:
+o incluso un tipo de dato collection:
 
 bc. public static void show(List<Long> id) {
     for(String anId : id) {
@@ -121,23 +118,23 @@ bc. public static void show(List<Long> id) {
     }
 }
 
-p(note). **Exceptions**
+p(note). **Excepciones**
  
-If the HTTP parameter corresponding to the action method argument is not found, the corresponding method argument is set to its default value (typically null for objects and 0 for primitive numeric types). If a value is found but can’t be properly cast to the required Java type, an error is added to the validation error collection and the default value is used.
+Si no se encuentra ningún parámetro HTTP que corresponda con el argumento del método de acción, dicho argumento es inicializado con su valor por defecto (null para objetos y 0 para tipos numéricos primitivos). Si se encuentra un valor pero no puede ser _casteado_ al tipo requerido, un error será agregado a la colección de errores de validación y se utilizará el valor por defecto. 
 
-h2. <a name="binding">Advanced HTTP to Java binding</a>
+h2. <a name="binding">Técnicas avanzadas de vinculación de datos de HTTP a Java</a>
 
-h3. <a name="simpletypes">Simple types</a>
+h3. <a name="simpletypes">Tipos simples</a>
 
-All the native and common Java types are automatically bound:
+Todos los tipos de datos comunes de Java son automáticamente vinculados:
 
 @int@, @long@, @boolean@, @char@, @byte@, @float@, @double@, @Integer@, @Long@, @Boolean@, @Char@, @String@, @Byte@, @Float@, @Double@.
 
-Note that if the parameter is missing in the HTTP Request, or if automatic conversion fails, Object types will be set to null and native types will be set to their default values.
+Tenga en cuenta que si el parámetro no figura en el pedido HTTP, o si la conversión automática falla, las variables de tipo Object serán inicializadas a null, y los tipos nativos serán inicializados a su valor por defecto.
 
-h3. <a name="date">Date</a>
+h3. <a name="date">Fechas</a>
 
-A date object can be automatically bound if the date’s string representation matches one of the following patterns:
+Un objeto de tipo _Date_ puede ser automáticamente vinculado si la representación como cadena de texto de la fecha coincide con alguno de los siguientes patrones:
 
 * yyyy-MM-dd'T'hh:mm:ss'Z' // ISO8601 + timezone
 * yyyy-MM-dd'T'hh:mm:ss" // ISO8601
@@ -151,9 +148,9 @@ A date object can be automatically bound if the date’s string representation m
 * MM-dd-yy
 * MM'/'dd'/'yy
 
-Using the <code>@As</code> annotation, you can specify the date format.
+Puede especificar el formato de fecha a utilizar utilizando la anotación <code>@As</code>.
 
-For example:
+Por ejemplo:
 
 bc. archives?from=21/12/1980
 
@@ -162,7 +159,7 @@ bc. public static void articlesSince(@As("dd/MM/yyyy") Date from) {
     render(articles);
 }
 
-You can of course refine the date format according to the language. For example:
+También puede establecer el formato de fecha a utilizar según el idioma. Por ejemplo:
 
 bc.  public static void articlesSince(@As(lang={"fr,de","*"}, 
         value={"dd-MM-yyyy","MM-dd-yyyy"}) Date from) {
@@ -170,18 +167,17 @@ bc.  public static void articlesSince(@As(lang={"fr,de","*"},
     render(articles);
 }
 
-In this example, we specified that for the French and German languages the date format is @dd-MM-yyyy@ and for all the other languages it's @MM-dd-yyyy@. Please note that the lang value can be comma separated. The important thing is that the number of parameters for lang matches the number of parameters for value. 
+En este ejemplo, hemos especificado que para los idiomas Francés y Alemán el formato de fecha a utilizar es @dd-MM-yyyy@ y para los demás idiomas es @MM-dd-yyyy@. Tenga en cuenta que puede especificar más de un idioma para el valor de _lang_ separándolos por comas. Lo único que hay que tener en cuenta es que la cantidad de parámetros para _lang_ sea la misma que para _value_.  
 
-If no <code>@As</code> annotation is specified, then Play! uses the default date format according to your locale. The "date.format configuration":configuration#date.format specifies the default date format to use.
-
+Si no es especifica ninguna anotación <code>@As</code>, Play! utilizará el formato de fecha por defecto especificado para su locale. La "configuración date.format":configuration#date.format especifica el formato de fecha a utilizar por defecto. 
 
 h3. <a name="calendar">Calendar</a>
 
-The calendar binding works exactly as with the date, except that Play is choosing the Calendar object according to your locale. The <code>@Bind</code> annotation can also be used.
+La vinculación a un parámetro de tipo _Calendar_ funciona exactamente igual que con un parámetro de tipo _Date_, sólo que Play utilizará el objeto _Calendar_ correspondiente a su locale. También puede utilizar la anotación <code>@Bind</code>.
 
 h3. <a name="file">File</a>
 
-File upload is easy with Play. Use a @multipart/form-data@ encoded request to post files to the server, and then use the @java.io.File@ type to retrieve the file object:
+Subir archivos es súmamente fácil con Play. Utilice un pedido HTTP codificado como @multipart/form-data@ para enviar archivos al servidor, y luego use el tipo de dato @java.io.File@ para recuperar el archivo subido: 
 
 bc. public static void create(String comment, File attachment) {
     String s3Key = S3.post(attachment);
@@ -190,109 +186,108 @@ bc. public static void create(String comment, File attachment) {
     show(doc.id);
 }
 
-The created file has the same name as the original file. It’s stored in a temporary directory and deleted at the end of the request. So you have to copy it in a safe directory or it will be lost.
+El archivo creado tendrá el mismo nombre que el archivo enviado en el pedido HTTP. Será almacenado en un directorio temporal y será eliminado al finalizar el pedido HTTP, de forma tal que deberá grabarlo en un medio persistente o perderá su contenido.
 
-The uploaded file's MIME type should normally be specified by the HTTP request’s @Content-type@ header. However, when uploading files from a web browser, this might not happen for uncommon types. In this case, you can map the file name’s extension to a MIME type, using the @play.libs.MimeTypes@ class.
+El tipo de archivo MIME del archivo subido al servidor, por lo general vendrá especificado en el header @Content-type@ del pedido HTTP. Sin embargo, al subir archivos desde un explorador web, puede ser que esto no ocurra de esta manera para archivos cuyo tipo sea poco habitual. En este caso, puede vincular la extensión del archivo con un tipo MIME utilizando la clase @play.libs.MimeTypes@.
 
 bc. String mimeType = MimeTypes.getContentType(attachment.getName()); 
 
-The @play.libs.MimeTypes@ class looks up the MIME type for the given file name’s extension in the file @$PLAY_HOME/framework/src/play/libs/mime-types.properties@ 
+La clase @play.libs.MimeTypes@ busca el tipo de archivo MIME para la extensión del archivo especificado en el archivo @$PLAY_HOME/framework/src/play/libs/mime-types.properties@ 
 
-You can also add your own types using the "Custom MIME types configuration":configuration#mimetype.
+También puede agregar sus propios tipos de archivos utilizando la "configuración de tipos MIME personalizados":configuration#mimetype.
 
+h3. <a name="array">Arrays o colecciones de tipos de datos soportados</a>
 
-h3. <a name="array">Arrays or collections of supported types</a>
-
-All supported types can be retrieved as an Array or a collection of objects:
+Todos los tipos de datos soportados pueden ser recuperados como un Array o una colección de objetos:
 
 bc. public static void show(Long[] id) {
     …
 }
 
-or:
+o:
 
 bc. public static void show(List<Long> id) {
     …
 }
 
-or:
+o también:
 
 bc. public static void show(Set<Long> id) {
     …
 }
 
-Play also handles the special case of binding a Map<String, String> like this:
+Play también se encarga del caso particular de vincular una colección de la forma Map<String, String> de la siguiente manera:
 
 bc. public static void show(Map<String, String> client) {
     …
 }
 
-
-A query string like the following:
+Con un query string como el siguiente:
 
 bc. ?client.name=John&client.phone=111-1111&client.phone=222-2222
 
-would bind the client variable to a map with two elements. The first element with key @name@ and value @John@, and the second with key @phone@ and value @111-1111, 222-2222@.
+Play recuperará la variable client como un map con dos elementos. El primer elemento con la clave @name@ y el valor @John@ y el segundo elemento con la clave @phone@ y el valor @111-1111, 222-2222@.
 
-h3. <a name="pojo">POJO object binding</a>
+h3. <a name="pojo">Vinculación de un POJO</a>
 
-Play also automatically binds any of your model classes using the same simple naming convention rules.
+Play también se encarga de vincular automáticamente cualquiera de sus clases del modelo utilizando la siguiente convención:
 
-bc. public static void create(Client client ) {
+bc. public static void create(Client client) {
     client.save();
     show(client);
 }
 
-A query string to create a client using this action would look like:
+Un query string para crear un client utilizando este método de acción tendrá la siguiente forma:
 
 bc. ?client.name=Zenexity&client.email=contact@zenexity.fr
 
-Play creates a Client instance and resolves HTTP parameter names to properties on the Client object. Unresolved parameters are safely ignored. Type mismatches are also safely ignored.
+Play creará una instancia de la clase Client y vinculará los parámetros HTTP con las propiedades del objeto Client. Los parámetros que no sean resueltos serán simplemente ignorados, al igual que los parámetros que no coincidan con el tipo de dato especificado.
 
-Parameter binding is done recursively, which means you can address complete object graphs:
+Esta vinculación de parámetros es realizada de manera recursiva, lo que significa que puede vincular objetos complejos como el siguiente:
 
 bc. ?client.name=Zenexity
 &client.address.street=64+rue+taitbout
 &client.address.zip=75009
 &client.address.country=France
 
-In order to update a list of model objects, use array notation and reference the object’s ID. For example imagine the Client model has a list of Customer models declared as @List Customer customers@. To update the list of Customers you would provide a query string like the following:
+Para actualizar una lista de objetos de modelo, puede usar la notación de arrays referenciando el id de los objetos. Por ejemplo imagine que la clase Client contiene una lista de Customer declarada como @List Customer customers@. Para actualizar la lista de Customers, podrá utilizar un query string como el siguiente:
 
 bc. ?client.customers[0].id=123
 &client.customers[1].id=456
 &client.customers[2].id=789
 
+h2. <a name="objectbinding">Vinculación de objetos JPA</a>
 
-h2. <a name="objectbinding">JPA object binding</a>
+Puede vincular automáticamente un objeto JPA utilizando la vinculación automática de parámetros HTTP a objetos Java.
 
-You can automatically bind a JPA object using the HTTP to Java binding.
-
-You can provide the @user.id@ field yourself in the HTTP parameters. When Play finds the @id@ field, it loads the matching instance from the database before editing it. The other parameters provided by the HTTP request are then applied. So you can save it directly.
+Puede proveer un campo @user.id@ en los parámetros HTTP. Cuando play encuentre el campo @id@, consultará la base de datos para cargar la correspondiente instancia antes de proceder a su edición. Entonces se aplicarán el resto de los parámetros especificados en el pedido HTTP. De manera que puede guardarlo directamente de la siguiente manera:
 
 bc. public static void save(User user) {
     user.save(); // ok with 1.0.1
 }
 
-You can use JPA binding to modify complete object graphs in the same way as POJO mapping works, but you have to supply the ID for each sub object you intend to modify:
+Puede utilizar la vinculación JPA para modificar objetos anidados complejos de la misma manera como lo haría con objetos POJO, pero debe proveer el id de cada sub-objeto que quiera modificar:
 
 bc. user.id = 1
 &user.name=morten
 &user.address.id=34
 &user.address.street=MyStreet 
 
-h2. <a name="custombinding">Custom binding</a>
+h2. <a name="custombinding">Vinculaciones personalizadas</a>
 
-The binding system now supports more customization.
+Denominamos @binder@ (vinculador) a una clase de Java que sabe cómo vincular un parámetro HTTP a un tipo de dato particular de Java.
+
+Puede personalizar la manera en que se comportan estos @binders@, e incluso definirlos usted mismo.
 
 h3. <a name="as">@play.data.binding.As</a>
 
-The first thing is the new <code>@play.data.binding.As</code> annotation that makes it possible to contextually configure a binding. You can use it for example to specify the date format that must be used by the @DateBinder@:
+La anotación <code>@play.data.binding.As</code> permite especificar la manera en que se vincularán los parámetros de acuerdo al contexto. Puede utilizarlo para especificar, por ejemplo, el formato de fecha a ser utilizado por el vinculador de fechas o @DateBinder@:
 
 bc. public static void update(@As("dd/MM/yyyy") Date updatedAt) {
     …
 }
 
-The <code>@As</code> annotation also has internationalisation support, which means that you can provide a specific annotation for each locale:
+La anotación <code>@As</code> provee soporte para internacionalización, permitiéndole especificar una anotación específica para cada locale:
 
 bc. public static void update(
         @As(
@@ -304,17 +299,18 @@ bc. public static void update(
     …
 }
 
-The <code>@As</code> annotation can work with all binders that support it, including your own binder. For example, using the @ListBinder@:
+
+La anotación <code>@As</code> funciona con todos los binders que lo soportan, incluyendo sus propios binders. Por ejemplo, utilizando el @ListBinder@:
 
 bc. public static void update(@As(",") List<String> items) {
     …
 }
 
-This binds a simple comma separated @String@ as a @List@.
+Esto le permite cargar un @List<String>@ a partir del parámetro _items_ interpretándolo como una lista de términos separados por comas.  
 
 h3. <a name="nobinding">@play.data.binding.NoBinding</a>
 
-The new <code>@play.data.binding.NoBinding</code> annotation allows yous to mark non-bindable fields, resolving potential security issues. For example:
+La anotación <code>@play.data.binding.NoBinding</code> le permite indicar campos que no deben ser vinculados, a fin de evitar potenciales problemas de seguridad. Por ejemplo:
 
 bc. public class User extends Model {
     @NoBinding("profile") public boolean isAdmin;
@@ -326,11 +322,11 @@ public static void editProfile(@As("profile") User user) {
     …
 }
 
-In this case, the @isAdmin@ field will never be bound from the @editProfile@ action, even if an malicious user includes a @user.isAdmin=true@ field in a fake form post.
+En este caso, el campo @isAdmin@ no será vinculado desde la acción @editProfile@, aún cuando un usuario malicioso incluya un campo @user.isAdmin=true@ en un form HTTP fraudulento. 
 
 h3. <a name="typebinder">play.data.binding.TypeBinder</a>
 
-The *@As* annotation also allows you to define a completely custom binder. A custom binder is subclass of @TypeBinder@ that you define in your project. For example:
+La anotación *@As* también le permite definir su propio binder personalizado. Un binder personalizado es una clase que extiende @TypeBinder@ que usted define en su proyecto. Por ejemplo:
 
 bc. public class MyCustomStringBinder implements TypeBinder<String> {
  
@@ -340,7 +336,7 @@ bc. public class MyCustomStringBinder implements TypeBinder<String> {
     }
 }
 
-You can use it in any action, like:
+Puede utilizarlo en cualquier acción de la siguiente manera:
 
 bc. public static void anyAction(@As(binder=MyCustomStringBinder.class) 
 String name) {
@@ -349,7 +345,7 @@ String name) {
 
 h3. <a name="global">@play.data.binding.Global</a>
 
-Alternatively, you can define a global custom binder that will apply for the corresponding type. For example, you define a binder for the @java.awt.Point@ class like this:
+Alternativamente, puede definir un binder personalizado de manera global a ser aplicado para cualquier parámetro de un tipo específico. Por ejemplo, puede definir un binder para la clase @java.awt.Point@ de la siguiente manera:
 
 bc. @Global
 public class PointBinder implements TypeBinder<Point> {
@@ -364,14 +360,13 @@ public class PointBinder implements TypeBinder<Point> {
     }
 }
 
-As you see a global binder is a classical binder annotated with *@play.data.binding.Global*. An external module can contribute binders to a project, which makes it possible to define reusable binder extensions.
+Como puede ver, un binder global no es más que un típico binder con la anotación *@play.data.binding.Global*. Un módulo externo puede aportar binders a ser utilizados en su proyecto, lo que permite definir extensiones personalizadas y reutilizarlas en diversos proyectos. 
 
+h2. <a name="result">Tipos de resultados</a>
 
-h2. <a name="result">Result types</a>
+Un método de acción tiene que generar una respuesta HTTP. La forma más fácil de hacerlo es emitir un objecto de Resultado. Cuando un objeto de Resultado es emitido, el flujo normal de ejecución se interrumpe y el método retorna, finalizando su ejecución.
 
-An action method has to generate an HTTP response. The easiest way to do this is to emit a Result object. When a Result object is emitted, the normal execution flow is interrupted and the method returns.
-
-For example:
+Por ejemplo:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
@@ -379,29 +374,29 @@ bc. public static void show(Long id) {
     System.out.println("This message will never be displayed !");
 }
 
-The @render(…)@ method emits a Result object and stops further method execution.
+La llamada al método @render(…)@ emite un objeto de Resultado y evita que se ejecute el resto del método.
 
-h3. <a name="text">Return some textual content</a>
+h3. <a name="text">Retornando contenido textual</a>
 
-The @renderText(…)@ method emits a simple Result event which writes some text directly to the underlying HTTP Response.
+El método @renderText(…)@ emite un simple objeto de Resultado que escribe una cadena de texto directamente en la respuesta HTTP. 
 
-Example:
+Por ejemplo:
 
 bc. public static void countUnreadMessages() {
     Integer unreadMessages = MessagesBox.countUnreadMessages();
     renderText(unreadMessages);
 }
 
-You can format the text message using the Java standard formatting syntax:
+Puede dar formato al mensaje de texto usando la sintaxis estándar de formateo de Strings de Java:
 
 bc. public static void countUnreadMessages() {
     Integer unreadMessages = MessagesBox.countUnreadMessages();
     renderText("There are %s unread messages", unreadMessages);
 }
 
-h3. <a name="binary">Return binary content</a>
+h3. <a name="binary">Retornando contenido binario</a>
 
-To serve binary data, such as a "file stored on the server":jpa#file, use the @renderBinary@ method. For example, if you have a @User@ model with a @play.db.jpa.Blob photo@ property, add a controller method to load the model object and render the image with the stored MIME type:
+Para retornar información binaria, como puede ser "un archivo almacenado en el servidor":jpa#file, puede utilizar el método @renderBinary@. Por ejemplo, si tiene un modelo @User@ con una propiedad @play.db.jpa.Blob photo@, agregue un método al controlador para cargar el objeto de modelo y desplegar la imagen con el tipo de archivo MIME: 
 
 bc. public static void userPhoto(long id) { 
    final User user = User.findById(id); 
@@ -410,16 +405,15 @@ bc. public static void userPhoto(long id) {
    renderBinary(binaryData);
 } 
 
-h3. <a name="attachment">Download a file as an attachment</a>
+h3. <a name="attachment">Descargue contenido binario como un archivo adjunto</a>
 
-You can set an HTTP header to instruct the web browser to treat a binary response as an ‘attachment’, which generally results in the web browser downloading the file to the user’s computer. To do this, pass a file name as a parameter to the @renderBinary@ method, which causes Play to set the @Content-Disposition@ response header, providing a file name. For example, supposing the @User@ model from the previous example as a @photoFileName@ property:
+Puede utilizar un header HTTP para indicarle al explorador web que trate la respuesta HTTP con contenido binario como si fuera un archivo adjunto o 'attachment', lo que por lo general implica que el explorador web descargará el archivo en la computadora del usuario. Para hacer esto, deberá incluir un segundo parámetro con el nombre del archivo en el método @renderBinary@, lo que hará que Play incluya un header @Content-Disposition@ en la respuesta HTTP, especificando el nombre del archivo. Por ejemplo, suponiendo que contemos con una propiedad @photoFilename@ en el objeto @User@ del ejemplo anterior: 
 
 bc. renderBinary(binaryData, user.photoFileName); 
 
+h3. <a name="template">Ejecutando un template</a>
 
-h3. <a name="template">Execute a template</a>
-
-If the generated content is complex, you should use a template to generate the response content.
+Si el contenido generado es complejo, podrá utilizar un template para generar el contenido de la respuesta.
 
 bc. public class Clients extends Controller {
  
@@ -428,15 +422,15 @@ bc. public class Clients extends Controller {
     }
 }
 
-A template name is automatically deduced from the Play conventions. The default template path is resolved using the Controller and action names. 
+Como siempre, el nombre del template es deducido a partir de las convenciones de Play. Por defecto el template a utilizar será inferido a partir del nombre del controlador y el método de acción.
 
-In this example the invoked template is:
+En el ejemplo anterior el template a invocar será:
 
 bc. app/views/Clients/index.html
 
-h4. Add data to the template scope
+h4. Agregando información al contexto del template
 
-Often the template needs data. You can add these data to the template scope using the @renderArgs@ object:
+A menudo el template precisará contar con cierta información. Puede poner información en el contexto del template utilizanto el objeto @renderArgs@:
 
 bc. public class Clients extends Controller {
  
@@ -447,62 +441,60 @@ bc. public class Clients extends Controller {
     }
 }
 
-During template execution, the @client@ variable will be defined.
+De esta manera la variable @client@ estará disponible al momento de ejecutarse el template.
 
-For example:
+Por ejemplo: 
 
 bc. <h1>Client ${client.name}</h1>
 
-h4. A simpler way to add data to the template scope
+h4. Una manera más simple de agregar información al contexto del template 
 
-You can pass data directly to the template using @render(…)@ method arguments:
+Puede pasar información directamente al template pasando parámetros al método @render(…)@:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
     render(client);    
 }
 
-In this case, the variables accessible by the template have the same name as the local Java variables.
+En este caso, la variable disponible en el template tendrá el mismo nombre que la variable local de Java.
 
-You can pass more than one variable:
+De esta forma, puede pasar más de una variable:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
     render(id, client);    
 }
 
-p(note). **Important!**
+p(note). **¡Importante!**
  
-You can only pass **local variables** in this way.
+Sólo puede pasar **variables locales** de esta manera.
 
+h4. Especificando otro template
 
-h4. Specify another template
+Si no desea utilizar el template por defecto, puede especificar su propio archivo de template utilizando el método @renderTemplate(…)@ y especificando el nombre del template como primer parámetro:
 
-If you don’t want to use the default template, you can specify your own template file using the @renderTemplate(…)@ method, by passing the template name as the first parameter:
-
-Example:
+Por ejemplo:
 
 bc. public static void show(Long id) {
     Client client = Client.findById(id);
     renderTemplate("Clients/showClient.html", id, client);    
 }
 
-h3. <a name="redirect">Redirect to another URL</a>
+h3. <a name="redirect">Redireccionando a otro URL</a>
 
-The @redirect(…)@ method emits a Redirect event that in turn generates an HTTP Redirect response.
+El método @redirect(…)@ emite otro evento que a su vez genera una respuesta HTTP con el código Redirect. 
 
 bc. public static void index() {
     redirect("http://www.zenexity.fr");
 }
 
+h3. <a name="chaining">Encadenamiento de acciones</a>
 
-h3. <a name="chaining">Action chaining</a>
+No existe en play un equivalente al método @fordward@ de la API de Servlet. Un pedido HTTP puede invocar una única acción. Si precisa invocar otra acción, debe redireccionar el browser al URL capaz de invocar dicha acción. De esta manera, la URL del browser siempre será consistente con la acción ejecutada, facilitando de esta manera el manejo de las opciones **Atrás/Adelante/Refrescar** en el explorador.
 
-There is no equivalent to the Servlet API @forward@. An HTTP request can only invoke one action. If you need to invoke another action, you have to redirect the browser to the URL able to invoke that action. In this way, the browser URL is always consistent with the executed action, and the **Back/Forward/Refresh** management is much easier.
+Puede enviar una respuesta Redirect a cualquier acción simplemente invocando el método de acción desde Java. La llamada al método será interceptada por el framework y se generará automáticamente la respuesta HTTP con el correspondiente Redirect.
 
-You can send a Redirect response to any action, simply by invoking the action method in a Java way. The Java call is intercepted by the framework and the correct HTTP Redirect is generated.
-
-For example:
+Por ejemplo:
 
 bc. public class Clients extends Controller {
  
@@ -518,51 +510,50 @@ bc. public class Clients extends Controller {
     }
 }
 
-With these routes:
+Con las siguiente rutas:
 
 bc. GET    /clients/{id}            Clients.show
 POST   /clients                 Clients.create 
 
-* The browser sends a POST to the @/clients@ URL.
-* The Router invokes the @Clients@ controller’s @create@ action.
-* The action method calls the @show@ action method directly.
-* The Java call is intercepted and the Router reverse route generation creates the URL needed to invoke Clients.show with an id parameter.
-* The HTTP Response is @302 Location:/clients/3132@.
-* The browser then issues @GET /clients/3132@.
+* El browser envía un POST a la URL @/clients@.
+* El Router invoca la acción @create@ del controlador @Client@. 
+* El método de acción @create@ llama directamente al método de acción @show@. 
+* La llamada Java a @show@ es interceptada por el framework, y el Router genera el URL necesario para invocar el método de acción Clients.show con el parámetro id. 
+* La respuesta HTTP generado retorna @302 Location:/clients/3132@.
+* El explorador, al recibir el Redirect, responde con un @GET /clients/3132@.
 * …
 
-h3. <a name="encoding">Customise web encoding</a>
+h3. <a name="encoding">Personalizando la codificación web</a>
 
-Play emphasises the use of UTF-8, but there are situations where some responses, or the whole application, must use a different encoding.
+Play pone énfasis en el uso de UTF-8, pero hay casos en los cuales alguna respuesta, o incluso toda la aplicación, requiere la utilización de otra codificación.
 
-h4. Custom encoding for current response
+h4. Codificación personalizada para la respuesta en curso 
 
-To change encoding for current response, you can do it like this in your controller:
+Para cambiar la codificación para la respuesta en curso, puede incluir la siguiente línea de código en su controlador:
 
 bc. response.encoding = "ISO-8859-1";
 
-When posting a form using an encoding other than the server default, you should include the encoding/charset twice in the form, both in the @accept-charset@ attribute and in a special hidden form field named @_charset_@. The @accept-charset@ attribute tells the browser which encoding to use when posting the from, and the form-field @_charset_@ tells Play what that encoding is:
+Al enviar un form con método post utlizando una codificación distinta a la que por defecto viene configurada en el servidor, debe incluir la codificación a utilizar tanto en el atributo @accept-charset@ de la form, como en un input oculto llamado @_charset_@. El atributo @accept-charset@ le indica al explorador la codificación utilizar para enviar la información, mientras que el input oculto @_charset_@ le indica a Play cuál fue la codificación utilizada:
 
 bc. <form action="@{application.index}" method="POST" accept-charset="ISO-8859-1">
     <input type="hidden" name="_charset_" value="ISO-8859-1">
 </form>
 
-h4. Custom encoding for the entire application
+h4. Codificación personalizada para toda la aplicación
 
-Configure "application.web_encoding":configuration#application.web_encoding to specify which encoding Play uses when communicating with the browser.
+Utilice la configuración "application.web_encoding":configuration#application.web_encoding para especificar la codificación a ser utilizada por Play al comunicarse con el explorador. 
 
+h2. <a name="interceptions">Interceptores</a>
 
-h2. <a name="interceptions">Interceptions</a>
+Un controlador puede definir métodos interceptores. Los interceptores son invocados para todas las acciones de la clase del controlador y las clases que hereden de él. Es una manera simple de definir tratamientos especiales que son comunes a todas las acciones: por ejemplo para verificar que un usuario está autenticado o cargar información que debe estar disponible en el ámbito del pedido HTTP.
 
-A controller can define interception methods. Interceptors are invoked for all actions of the controller class and its descendants. It’s a useful way to define treatments that are common to all actions: verifying that a user is authenticated, loading request-scope information…
-
-These methods have to be @static@ but not @public@. You have to annotate these methods with a valid interception marker.
+Estos métodos deben ser estáticos pero no públicos. Además debe anotar estos métodos con un marcador de intercepción válido.
 
 h3. <a name="before">@Before</a>
 
-Methods annotated with the <code>@Before</code> annotation are executed before each action call for this Controller.
+Los métodos anotados con <code>@Before</code> son ejecutados antes de cada llamada a un método de acción para este controlador.
 
-So, to create a security check:
+Por ejemplo, para crear una verificación de seguridad:
 
 bc. public class Admin extends Controller {
  
@@ -578,7 +569,7 @@ bc. public class Admin extends Controller {
     …
 }
 
-If you don’t want the @Before method to intercept all action calls, you can specify a list of actions to exclude:
+Si no desea que el método @Before intercepte todas las llamadas a métodos de acción, puede especificar una lista de acciones a ser excluidas:
 
 bc. public class Admin extends Controller {
  
@@ -595,7 +586,7 @@ bc. public class Admin extends Controller {
     …
 }
 
-Or if you want the @Before method to intercept a list of action calls, you can specify a only param :
+O si desea ejecutar el método @Before antes de tan sólo algunas acciones, puede especificar un parámetro @only@:
 
 bc. public class Admin extends Controller {
  
@@ -606,11 +597,11 @@ bc. public class Admin extends Controller {
     …
 }
 
-The @unless@ and @only@ parameters are available for the <code>@After</code>, <code>@Before</code> and <code>@Finally</code> annotations.
+Los parámetros @unless@ y @only@ están disponibles para las anotaciones <code>@After</code>, <code>@Before</code> y <code>@Finally</code>.
 
 h3. <a name="after">@After</a>
 
-Methods annotated with the <code>@After</code> annotation are executed after each action call for this Controller.
+Los métodos anotados con <code>@After</code> son ejecutados luego de cada llamada a una acción para el controlador actual. 
 
 bc. public class Admin extends Controller {
  
@@ -629,7 +620,7 @@ bc. public class Admin extends Controller {
 
 h3. <a name="catch">@Catch</a>
 
-Methods annotated with <code>@Catch</code> are called if another action method throws the specified exception. The thrown exception is passed as a parameter to the @Catch method.
+Los métodos anotados con <code>@Catch</code> con llamados si algún método de acción lanza una exception específica. La exception lanzada es pasada como parámetro al método @Catch.
 
 bc. public class Admin extends Controller {
 	
@@ -647,7 +638,7 @@ bc. public class Admin extends Controller {
     }
 }
 
-As with normal Java exception handling, you can catch a super-class to catch more exception types. If you have more than one catch method, you can specify their **priority** so that they are executed in order of priority (priority 1 is executed first).
+Al igual que ocurre con el manejo de excepciones en Java, puede capturar caputar una super-clase a fin de capturar más tipos de excepciones. Si tiene más de un método catch, puede especificar su **prioridad** (priority), de manera de especificar el orden en que serán ejecutadas (la prioridad 1 será ejecutada primero). 
 
 bc. public class Admin extends Controller {
  
@@ -674,8 +665,7 @@ bc. public class Admin extends Controller {
 
 h3. <a name="finally">@Finally</a>
 
-Methods annotated with the <code>@Finally</code> annotation are always executed after each action call to this Controller.
-@Finally-methods are called both after successful action calls and if an error occurred.
+Los métodos anotados con <code>@Finally</code> serán ejecutados siempre luego de cada llamada a una acción para el controlador actual. Estos métodos son ejecutados ya sea que la acción haya sido ejecutada correctamente o si ocurrió algún error.
 
 bc. public class Admin extends Controller {
  
@@ -691,7 +681,7 @@ bc. public class Admin extends Controller {
     …
 }
 
-If the method annotated with @Finally takes one argument of type Throwable, The Exception will be passed in if available:
+Si el método anotado con @Finally acepta un argumento de tipo Throwable, la excepción será pasada como argumento en caso de estar disponible:
 
 bc. public class Admin extends Controller {
  
@@ -712,15 +702,15 @@ bc. public class Admin extends Controller {
 }
 
 
-h3. <a name="hierarchy">Controller hierarchy</a>
+h3. <a name="hierarchy">Jerarquía de controladores</a>
 
-If a Controller class is a subclass of another Controller class, interceptions are applied to the full Controller hierarchy.
+Si la clase de un controlador extiende otro controlador, los interceptores serán aplicados a toda la jerarquía de controladores, es decir, los interceptores son heredados entre controladores.
 
-h3. <a name="with">Adding more interceptors using the @With annotation</a>
+h3. <a name="with">Agregando más controladores con la anotación @With</a>
 
-Because Java does not allow multiple inheritance, it can be very limiting to rely on the Controller hierarchy to apply interceptors. But you can define some interceptors in a totally different class, and link them with any controller using the <code>@With</code> annotation.
+Dado que Java no permite herencia múltiple, puede resultar bastante limitado confiar exclusivamente en la jerarquía de controladores para aplicar interceptores. Por eso, puede especificar interceptores en una clase completamente independiente, y luego incluirlos en cualquier otro controlador utilizando la anotación <code>@With</code>.
 
-Example:
+Por ejemplo:
 
 bc. public class Secure extends Controller {
     
@@ -732,7 +722,7 @@ bc. public class Secure extends Controller {
     }
 }    
 
-And on another Controller:
+Y en otro controlador:
 
 bc. @With(Secure.class)
 public class Admin extends Controller {
@@ -740,15 +730,15 @@ public class Admin extends Controller {
     …
 }
 
-h2. <a name="session">Session and Flash scopes</a>
+h2. <a name="session">Contextos Session y Flash</a>
 
-If you have to keep data across multiple HTTP Requests, you can save them in the Session or the Flash scope. Data stored in the Session are available during the whole user session, and data stored in the flash scope are available to the next request only.
+Si precisa mantener información a través de múltiples pedidos HTTP, puede guardar la información en el contexto Sessión o Flash. La información almacenada en la Session estará disponible durante toda la sesión del usuario, mientras que la información guardada en el Flash, tan sólo estará disponible para el próximo pedido HTTP.
 
-It’s important to understand that Session and Flash data are not stored in the server but are added to each subsequent HTTP Request, using the Cookie mechanism. So the data size is very limited (up to 4 KB) and you can only store String values.
+Es importante tener en cuenta que tanto el contexto de la Session como del Flash no son almacenados en el servidor, sino que son agregados a cada pedido HTTP, utilizando para ellos Cookies. De manera tal que el tamaño de la información a almacenar estará limitado (sólo 4 KB) y tan sólo podrá guardar cadenas de texto. 
 
-Of course, cookies are signed with a secret key so the client can’t modify the cookie data (or it will be invalidated). The Play session is not aimed to be used as a cache. If you need to cache some data related to a specific session, you can use the Play built-in cache mechanism and use the *session.getId()* key to keep them related to a specific user session. 
+Por supuesto, las cookies serán firmadas con una clave secreta para que el cliente no puede alterar su contenido (o serán invalidadas). La sesión de Play no está pensada para ser utilizada como un cache de datos. Si precisa guardar en cache información relacionada con una sesión específica, puede usar el soporte de cache que viene incluido en Play y utilizar la función *session.getId()** como clave para mantener la información relacionada con la sesión específica de un usuario.
 
-Example:
+Por ejemplo:
 
 bc. public static void index() {
     List messages = Cache.get(session.getId() + "-messages", List.class);
@@ -760,10 +750,10 @@ bc. public static void index() {
     render(messages);
 }
 
-The session expires when you close your web browser, unless you configure "application.session.maxAge":configuration#application.session.maxAge.
+La sesión expirará cuando el usuario cierre su explorador web, a menos que especifique la configuración "application.session.maxAge":configuration#application.session.maxAge.
 
-The cache has different semantics to the classic Servlet HTTP session object. You can’t assume that these objects will be always in the cache. So it forces you to handle the cache miss cases, and keeps your application fully stateless.
+El cache se comporta de manera distinta al clásico objeto session  definido por la API Servlet HTTP. No puede asumir que estos objetos estarán siempre disponibles en el cache. De forma tal que está obligado a encargarse de los casos en que dicho elemento no se encuentre en el cache, manteniendo su aplicación completamente stateless.
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
  
-The next important layer of the MVC model is the View layer, for which Play provides an efficient templating system with its %(next)"Template engine":templates%.
+La próxima capa del modelo MVC es la capa de Vistas, para la cual Play provee un eficiente %(next)"Sistema de templates":templates%.

@@ -1,0 +1,86 @@
+h1. Guía de instalación
+
+h2. <a>Prerequisitos</a>
+
+Para ejecutar el framework Play necesita "Java 5 o superior":http://java.sun.com. Si desea compilar el framework a partir de su código fuente, necesitará el "Cliente de control de código de Git":http://git-scm.com/ a fin de obtener el código fuente y "Ant":http://ant.apache.org/ para compilarlo.
+
+Asegúrese de tener el directorio de Java en el path (ingrese @java -version@ para verificarlo). Play utiliza la instalación de Java por defecto, o el que esté disponible en el path indicado por la variable @$JAVA_HOME@ si es que se encuentra definida.
+
+La utilidad de línea de comandos *play* utiliza Python. Así que debería funcionar sin problemas en cualquier sistema UNIX (si bien requiere por lo menos la versión 2.5 de Python). 
+
+h2. <a>Instalando Play! desde el paquete binario</a>
+
+h3. Instrucciones generales
+
+En términos generales, los pasos a llevar adelante para instalar el framework son los siguientes:
+
+# Instalar Java
+# Descargar la ultima versión del "Paquete binario de Play":http://download.playframework.org/ y descomprimir el archivo.
+# Agregar el comando "play" al path de su sistema y asegurarse de que esté configurado como un archivo ejecutable.
+
+h3. Mac OS X
+
+Java viene incluido, o es instalado automáticamente, en Mac OS, así que puede saltear el primer paso.
+
+# Descargue la ultima versión del "Paquete binario de Play":http://download.playframework.org/ y descromprímalo en @/Applications@.
+# Edite el archivo @/etc/paths@ y agrege la línea @/Applications/play-1.2.4@ (por ejemplo).
+
+Otra alternativa para OS X es:
+
+# Instalar "HomeBrew":http://mxcl.github.com/homebrew/
+# ejecutar @brew install play@
+
+h3. Linux
+
+Para instalar Java en Linux, aségurese de usar Sun-JDK u OpenJDK (y no gcj que es la instalación de Java por defecto en varias distribuciones de Linux)
+
+
+h3. Windows
+
+Para instalar Java en Windows, simplemente tiene que descargar e instalar la última versión del JDK (Java Development Kit). No necesita instalar Python por separado, ya que play trae incluido un runtime de Python.
+
+h2. <a>Compilando el framework desde el código fuente más reciente</a>
+
+Para aprovechar las más recientes mejoras y arreglos de errores, puede compilar Play a partir del código fuente. Precisará un "Cliente Git":http://git-scm.com/ para obtener los fuentes y "Ant":http://ant.apache.org/ para compilar el framework.
+
+En la línea de comandos ejecute:
+
+bc. # git clone git://github.com/playframework/play.git
+# cd play/framework
+# ant
+
+El framework Play estará listo para ser usado.
+
+h2. <a>Usando el comando play</a>
+
+Una vez que el framework haya sido correctamente instalado, abra una consola y ejecute *play*.
+
+bc. $ play
+
+Debería ver el mensaje por defecto de Play:
+
+!images/help!
+
+Puede obtener más ayuda sobre cualquier comando específico usando *play help tipee-cualquier-comando-aquí*. Por ejemplo, intente con:
+
+bc. # play help run
+
+h2. <a>Creando una nueva aplicación</a>
+
+Use el comando @new@ para crear una nueva aplicación. Debe ingresar un directorio que no exista para que la aplicación sea creada allí.
+
+bc. # play new myApp
+
+!images/guide1-1!
+
+Creará una nueva aplicación. Ejecútela con:
+
+bc. # play run myApp
+
+Puede entonces abrir un explorador web en "http://localhost:9000":http://localhost:9000 y ver la página por defecto de la aplicación.
+
+!images/guide1-2!
+
+p(note). **Su instalación de Play está lista**
+ 
+Próximo: %(next)"Configurando tu IDE favorito":ide%.
