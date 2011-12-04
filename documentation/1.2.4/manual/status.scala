@@ -13,10 +13,11 @@ val translated = docs.filter(_.isTranslated)    // only already translated files
 //Other ways to do it 
 //val translatedLength = translated.foldLeft(0L)( (acum, element) => acum + element.length )
 //val translatedLength = translated.foldLeft(0L)( _ + _.length )
+//val translatedLength = if (translated.length == 0) 0 else translated.map(_.length).sum
 
-val translatedLength = if (translated.length == 0) 0 else translated.map(_.length).sum
+val translatedLength = translated.map(_.length).sum
 
-val docsLength = if (docs.length == 0) 0 else docs.map(_.length).sum
+val docsLength = docs.map(_.length).sum
 
 println( 
   status("translated size", translatedLength, docsLength, (length) => asKB(length) ) 
