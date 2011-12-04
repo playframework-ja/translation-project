@@ -19,7 +19,7 @@ println(
 )
 
 println( 
-  status("translated files", translated.length, docs.length ) 
+  status("translated files", translated.length, docs.length) 
 )
 
 def status(title: String = "status", current: Long, total: Long, format: (Long) => String = (x) => x.toString): String = {

@@ -2,7 +2,7 @@ h1. Documentación
 
 Bienvenido a la documentación del framework de desarrollo play! Esta documentación se refiere a la **versión 1.2.4** y puede presentar diferencias respecto a versiones anteriores del framework.
 
-Verifique las "notas de lanzamiento de la versión 1.2.4":releasenotes-1.2.4.
+Verifique los "cambios de la versión 1.2.4":releasenotes-1.2.4.
 
 h2. <a name="started">Comenzando a usar play!</a>
 

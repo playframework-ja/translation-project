@@ -1,4 +1,4 @@
-h1. Play 1.2 -- Notas de lanzamiento de la versión 1.2
+h1. Play 1.2 -- Cambios de la versión 1.2
 
 Puedes consultar las lista de bugs solucionados en Play 1.2 en la "hoja de ruta":http://www.playframework.org/roadmap/1.2. Esta página resume los cambios más importantes.
 
