@@ -28,10 +28,13 @@ println(
 )
 
 def status(title: String = "status", current: Long, total: Long, format: (Long) => String = (x) => x.toString): String = {
+
+  val percent = current * 100 / total
+
   title + ": " + format(current) + "/" + format(total) + " " +
-  (current * 100 / total) + "%" +
+  percent + "%" +
   " (pending " + format(total - current) + " " +
-  (100-(current * 100 / total)) + "%)"
+  (100-percent) + "%)"
 }
 
 def asKB(length: Long) = (length / 1000) + "kb"
