@@ -10,9 +10,13 @@ val docs = new File(".").listFiles
 
 val translated = docs.filter(_.isTranslated)    // only already translated files
 
-val translatedLength = translated.map(_.length).sum
+//Other ways to do it 
+//val translatedLength = translated.foldLeft(0L)( (acum, element) => acum + element.length )
+//val translatedLength = translated.foldLeft(0L)( _ + _.length )
 
-val docsLength = docs.map(_.length).sum
+val translatedLength = if (translated.length == 0) 0 else translated.map(_.length).sum
+
+val docsLength = if (docs.length == 0) 0 else docs.map(_.length).sum
 
 println( 
   status("translated size", translatedLength, docsLength, (length) => asKB(length) ) 
@@ -25,7 +29,8 @@ println(
 def status(title: String = "status", current: Long, total: Long, format: (Long) => String = (x) => x.toString): String = {
   title + ": " + format(current) + "/" + format(total) + " " +
   (current * 100 / total) + "%" +
-  " (" + format(total - current) + " to go)"
+  " (pending " + format(total - current) + " " +
+  (100-(current * 100 / total)) + "%)"
 }
 
 def asKB(length: Long) = (length / 1000) + "kb"
