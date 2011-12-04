@@ -38,9 +38,7 @@ class DocumentationFile(val file: File) {
 
   override def toString = "name: " + name + ", length: " + length + ", isTranslated: " + isTranslated
 
-  def firstLine = {
-    new BufferedReader(new FileReader(file)).readLine
-  }
+  def firstLine = new BufferedReader(new FileReader(file)).readLine
 
 }
 
