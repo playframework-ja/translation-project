@@ -23,9 +23,9 @@ switch(version) {
 }
 	
 
-h2. Nueva implementación del binder de datos 
+h2. Nueva implementación del "binder":glossary#binder de datos 
 
-La nueva implementación del binder es más flexible y le permite vincular datos fácilmente entre jQuery y Play. También es posible vincular objetos más complejos usando esta nueva implementación.
+La nueva implementación del "binder":glossary#binder es más flexible y le permite vincular datos fácilmente entre jQuery y Play. También es posible vincular objetos más complejos usando esta nueva implementación.
 
 h2. Soporte para la última especificación de WebSockets
 

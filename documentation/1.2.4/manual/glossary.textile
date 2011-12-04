@@ -8,6 +8,28 @@ h2. <a name="actionMethod">Action method</a>
 
 "Ayudanos a completar el glosario":translation: Incluir aquí la definición de un action method.
 
+h2. <a name="binder">Binder</a>
+
+Un @binder@ o vinculador de datos es una clase Java que especifica cómo vincular un parámetro que viene de un pedido HTTP a un tipo de dato particular de Java. 
+
+Play utiliza estos binders para cargar automáticamente el contenido de los argumentos de los métodos de acción de los controladores a partir de los valores recibidos en el pedido HTTP.
+
+Para implementar sus propios binder personalizados debe crear una clase que extienda @TypeBinder<Type>@ e implementar el método bind, por ejemplo:
+
+bc. public class PointBinder implements TypeBinder<Point> {
+ 
+    public Object bind(String name, Annotation[] anns, String value, 
+    Class class) {
+        String[] values = value.split(",");
+        return new Point(
+            Integer.parseInt(values[0]),
+            Integer.parseInt(values[1])
+        );
+    }
+}
+
+Para más información consulte la documentación sobre "vinculaciones personalizadas":controllers#custombinding
+
 h2. <a name="catchAll">Catch all route</a>
 
 Ruta 'atrapa todo' o comodín. En el archivo de rutas que puedes encontrar en @conf/routes@, por defecto viene definida una ruta genérica 'catch all' que coincidirá con cualquier acción de cualquier controlador. La ruta en cuestión es la siguiente:

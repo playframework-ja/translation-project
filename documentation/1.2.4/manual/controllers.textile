@@ -275,7 +275,7 @@ bc. user.id = 1
 
 h2. <a name="custombinding">Vinculaciones personalizadas</a>
 
-Denominamos @binder@ (vinculador) a una clase de Java que sabe cómo vincular un parámetro HTTP a un tipo de dato particular de Java.
+Denominamos "binder":glossary#binder (vinculador) a una clase de Java que sabe cómo vincular un parámetro HTTP a un tipo de dato particular de Java.
 
 Puede personalizar la manera en que se comportan estos @binders@, e incluso definirlos usted mismo.
 
