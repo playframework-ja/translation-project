@@ -2,7 +2,7 @@ h1. ドキュメント
 
 Play framework ドキュメントへようこそ。このドキュメントは **リリース 1.2.3** を対象としており、以前のバージョンのドキュメントとは大きく異なるかもしれません。
 
-"バージョン 1.2 リリースノート":releasenotes-1.2 を確認してください。
+"バージョン 1.2.4 リリースノート":releasenotes-1.2.4 を確認してください。
 
 h2. <a name="started">はじめよう</a>
 
@@ -163,8 +163,8 @@ h2. <a name="references">リファレンス</a>
 
 日々のハックのための広範囲なリファレンスです。
 
-# "クイックインデックス":index
-# "API ドキュメント (Javadoc)":/@api/index.html
+# <a class="navigation" href="index">クイックインデックス</a>
+# <a class="navigation" href="/@api/index.html">API ドキュメント (Javadoc)</a>
 # "チートシート":cheatsheet/commandLine
 ## "コマンドライン":cheatsheet/commandLine
 ## "コントローラ":cheatsheet/controllers
@@ -176,7 +176,7 @@ h2. <a name="references">リファレンス</a>
 ## "テンプレートタグ":tags
 ## "Java エクステンション":javaextensions
 ## "バリデーション":validation-builtin
-# "設定リファレンス":configuration
+# <a class="navigation" href="configuration">設定リファレンス</a>
 
 h2. <a name="modules">配布モジュール</a>
 
@@ -189,6 +189,7 @@ h2. <a name="versionnotes">リリースノート</a>
 
 新しいバージョンの Play には、いくつかの変更点が含まれます。古いリリースノートを確認してください:
 
+# "Play 1.2":releasenotes-1.2
 # "Play 1.1":releasenotes-1.1
 # "Play 1.0.3":releasenotes-1.0.3
 # "Play 1.0.2":releasenotes-1.0.2
