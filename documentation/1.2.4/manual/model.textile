@@ -206,27 +206,6 @@ Product product = Product.findById(2L);
 product.save();
 product.delete();
 
-h3. <a name="multiple">複数データベースのサポート</a>
-
-Playでは複数の (分離した) データベースを使うように設定することが可能です。
-
-標準のデータベースは設定パラメーター @conf/application.conf@ の `db` で始めるキー (例: @db.url) で設定されます。追加データベースを設定する場合、以下のように `db` にアンダースコアとサフィックスを追加します。:
-
-bc. db_other.url=jdbc:mysql://localhost/test
-db_other.driver=com.mysql.jdbc.Driver
-db_other.user=root
-db_other.pass=
-
-このデータベース設定は Play では 'other' と呼ばれます。例えば、この 'other' の JPA設定は以下のように設定します。: 
-
-bc. db_other.jpa.dialect=<dialect>
-
-アプリケーションの以下の Java コードからこの設定にアクセスできます。
-
-bc. Connection conn = DB.getDBConfig("other").getConnection()
-
-@DB.getDBConfig(configName)@ は @play.db.DB@ クラスでスタティックメソッドとして宣言されている全メソッドを持ったオブジェクトを返します。:
-
 h2. <a name="stateless">ステートレスモデル</a>
 
 Play は、‘何も共有しない’ アーキテクチャで機能するように設計されています。この考えは、アプリケーションを完全にステートレスに保ちます。これをすることによって、アプリケーションは同時に必要とされる複数のサーバノード上で動作するようになります。
