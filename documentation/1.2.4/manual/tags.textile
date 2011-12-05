@@ -285,7 +285,7 @@ h2. <a name="if">if</a>
 
 指定された条件を評価し、true の場合はタグボディを評価します。
 
-bc. #{if user.countryCode == 'en"' }
+bc. #{if user.countryCode == 'en' }
     Connected user is ${user}
 #{/if}
 
@@ -349,6 +349,27 @@ bc. <script type="text/javascript">
     var displayUserDetail = function(userId) {
         $('userDetail').load( showUserAction({id: userId}) )
     }
+</script>
+
+
+h2. <a name="jsroute">jsRoute</a>
+
+@#{jsRoute /}@ タグは @#{jsAction /}@ タグに似ていて,サーバーアクションおよび対応するHTTPメソッド(GET, POST など)に基づくURLを構築する両方の関数を含むオブジェクトを返します。
+
+
+Example:
+
+bc. PUT     /users/{id}        Users.update
+
+Then, in a template:
+
+bc. <script type="text/javascript">
+    var updateUserRoute = #{jsRoute @Users.update(':id') /}
+    $.ajax({
+      url: updateUserRoute.url({id: userId}),
+      type: updateUserRoute.method,
+      data: 'user.name=Guillaume'
+    });
 </script>
 
 
@@ -466,7 +487,7 @@ bc. <select name="booking.beds" size="1" id="select1" >
 このタグは @items@ 属性を使って options を生成することもできます。
 
 * @items@ (オプション) - @options@ を作成するために使われるオブジェクトのリスト
-* @value@ (オプション) - @items@ の中の選択された要素
+* @value@ (オプション) - @items@ の中の選択された要素(注意: 複数選択はサポートしません)
 * @labelProperty@ (オプション) - それぞれのアイテムについて option のラベルとして使用される属性 
 * @valueProperty@ (オプション) - それぞれのアイテムについて option の値として使用される属性。デフォルトでは @id@ が使用される
 
