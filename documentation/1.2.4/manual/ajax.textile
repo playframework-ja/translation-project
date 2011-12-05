@@ -38,7 +38,7 @@ jQuery にデータを解釈させるために JSON または XML を返すこ�
 
 jQuery メソッドを以下のように変更することで POST も発行できることに注意してください:
 
-bc. $.post(listAction, function(data) {
+bc. $.post(listAction(), function(data) {
   $('#result').html(data);
 });
 
