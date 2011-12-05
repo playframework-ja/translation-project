@@ -147,8 +147,8 @@ validation.past(expectedDepartureDate, expectedArrivalDate);
 
 アノテーション構文:
 
-bc. @Past String actualDepartureDate
-@Past("1980-01-01") String birthDate
+bc. @InPast String actualDepartureDate
+@InPast("1980-01-01") String birthDate
 
 メッセージキー: @validation.past@
 
