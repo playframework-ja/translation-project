@@ -276,21 +276,6 @@ bc. for(Post p : Post.<Post>findAll()) {
     p.delete();
 }
 
-h2. <a name="multiple">JPA複数データベースを使う</a>
-
-"model":model#multiple の章で説明されているように、Playで複数データベースを使うように設定できます。
-
-標準ではデータベースへの Entity,Model を作成するときに、 クラスに <code>@PersistenceUnit(name="other")</code> アノテーションをつけます。この場合 'other' は DB設定名 'other' に対応します。（詳しくはModelのドキュメントを参照してください。）
-
-@package-info.java@ とアノテーション <code>@PersistenceUnit</code> を使うことができ、Java パッケージ内のエンティティクラスすべての特定の JPA 設定を実行可能です。
-
-JPA非標準設定の特定の Hibernate 設定パラメータが使いたければ、application.conf内で @db_other.hibernate.some.special.setting=true@ のように、'db_configName.' を @hibernate.@ の前につけなければいけません。
-
-Entityクラスとオブジェクトでのメソッドを実行するときに、コードでアクセスする際に、 Play は自動的現在のデータべース設定に使います。
-
-bc. EntityManager em = JPA.getJPAConfig("other").em();
-
-@JPA.getJPAConfig(configName)@ はJPAで見つかる全てのメソッドを持つオブジェクトを返します。
 
 p(note). Play は XA (two-phase commits) をサポートしていません。 同じリクエストでそれぞれの違ったJPA設定を使う場合、 **Play はできる限り多くのトランザクションでコミットしようとします** 。 最初のデータベースでコミットに成功し、次に別データベースでコミットに失敗しても、最初のコミットはロールバックされません。同一リクエストの中で複数のJPA設定を使用する場合には、このことを覚えておいてください。
 
