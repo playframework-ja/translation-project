@@ -21,15 +21,9 @@
         <h2>バージョン選択</h2>
         <div id="bc">
             <ul>
-                <li><a class="#{if version == '1.2.2'}selected#{/if}" href="/documentation?version=1.2.2">1.2.2</a> #{if version == '1.2.2'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.2.1'}selected#{/if}" href="/documentation?version=1.2.1">1.2.1</a> #{if version == '1.2.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.2'}selected#{/if}" href="/documentation?version=1.2">1.2</a> #{if version == '1.2'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.1.1'}selected#{/if}" href="/documentation?version=1.1.1">1.1.1</a> #{if version == '1.1.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.1'}selected#{/if}" href="/documentation?version=1.1">1.1</a> #{if version == '1.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0.3.2'}selected#{/if}" href="/documentation?version=1.0.3.2">1.0.3.2</a> #{if version == '1.0.3.2'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0.2.1'}selected#{/if}" href="/documentation?version=1.0.2.1">1.0.2.1</a> #{if version == '1.0.2.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0.1'}selected#{/if}" href="/documentation?version=1.0.1">1.0.1</a> #{if version == '1.0.1'}⬅#{/if}</li>
-                <li><a class="#{if version == '1.0'}selected#{/if}" href="/documentation?version=1.0">1.0</a> #{if version == '1.0'}⬅#{/if}</li>
+            #{list items:versions, as:'item'}
+                <li><a class="#{if version == item}selected#{/if}" href="/documentation?version=${item}">${item}</a> #{if version == item}⬅#{/if}</li>
+            #{/list}
             </ul>
         </div>
 
@@ -88,14 +82,14 @@
     $(document).ready(function() {
         // Fix @API link
         $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/${version}/index.html");
-
-        var top = Math.floor(($(window).height() - $("#original_link").height()) / 2);
+        
+        var top  = Math.floor(($(window).height() - $("#original_link").height()) / 2);
         $("#original_link").css('top', top);
         $("#original_link").click(function() {
-            window.open('http://www.playframework.org/documentation/${version}/${id}', '_blank');
-            return false;
+        	window.open('http://www.playframework.org/documentation/${version}/${id}', '_blank');
+        	return false;
         });
-    });
+    });    
     </script>
 
 </div>
