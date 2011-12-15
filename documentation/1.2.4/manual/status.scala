@@ -10,13 +10,7 @@ val docs = new File(".").listFiles
 
 val translated = docs.filter(_.isTranslated)    // only already translated files
 
-//Other ways to do it 
-//val translatedLength = translated.foldLeft(0L)( (acum, element) => acum + element.length )
-//val translatedLength = translated.foldLeft(0L)( _ + _.length )
-//val translatedLength = if (translated.length == 0) 0 else translated.map(_.length).sum
-
 val translatedLength = translated.map(_.length).sum
-
 val docsLength = docs.map(_.length).sum
 
 println( 
@@ -27,7 +21,10 @@ println(
   status("translated files", translated.length, docs.length) 
 )
 
-def status(title: String = "status", current: Long, total: Long, format: (Long) => String = (x) => x.toString): String = {
+def status(
+  title: String = "status", 
+  current: Long, total: Long, 
+  format: (Long) => String = (x) => x.toString): String = {
 
   val percent = current * 100 / total
 
