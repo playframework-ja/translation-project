@@ -19,26 +19,26 @@ Por ejemplo:
 
 bc. <h1>Client ${client.name}</h1>
 
-If you can’t be sure of client being null, there is a Groovy shortcut:
+Si no puede asegurar que el nombre del cliente no será null, Groovy provee un práctico atajo para estos casos:
 
 bc. <h1>Client ${client?.name}</h1>
 
-Which will only display the client name if the client is not null.
+De forma tal que sólo mostrará el nombre del cliente si el mismo no es null.
 
-h3. Template decorators : #{extends  /} and  #{doLayout  /}
+h3. Decoradores: #{extends  /} and  #{doLayout  /}
 
-Decorators provide a clean solution to share a page layout (or design) across several templates. 
+Los decoradores proveen una simple y elegante solución para compartir el diseño de una página ente múltiples templates.
 
-p(note). Use "#{get}":tags#ageta and "#{set}":tags#aseta tags to share variables between the template and the decorator. 
+p(note). Utilice los tags "#{get}":tags#ageta y "#{set}":tags#aseta para compartir variables entre el template y el decorador.
 
-Embedding a page in a decorator is the matter of a one liner:
+De esta manera, puede incluir una página en un decorador con una línea de código:
 
 bc. #{extends 'simpledesign.html' /}
  
 #{set title:'A decorated page' /}
 This content will be decorated.
 
-The decorator : @simpledesign.html@
+El decorador : @simpledesign.html@
 
 bc. <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -52,23 +52,23 @@ bc. <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 </body>
 </html>
 
-h3. Tags: #{tagName /}
+h3. Tags: #{nombreDeTag /}
 
-A tag is a template fragment that can be called with parameters. If the tag has only one parameter, by convention it is called "arg" and its name can be omitted.
+Un tag es un framento de un template que puede ser llamado con parametros, como si se tratara de una función. Si el tag cuenta con un único parámetro, por convención dicho parámetros se llamará "arg" y su nombre puede ser omitido.
 
-For example, this tag inserts a SCRIPT tag to load a JavaScript file:
-
-bc. #{script 'jquery.js' /}
-
-A tag has to be closed, either directly or by an end tag:
+Por ejemplo, este tag inserta un tag SCRIPT para cargar un archivo JavaScript:
 
 bc. #{script 'jquery.js' /}
 
-or
+Un tag necesariamente tiene que ser cerrado, ya sea directamente o mediante un tag de cierre:
+
+bc. #{script 'jquery.js' /}
+
+o
 
 bc. #{script 'jquery.js'}#{/script}
 
-For example the @list@ tag allows iteration over any collection. It takes two mandatory parameters:
+Por ejemplo, el tag @list@ le permite iterar sobre los elementos de cualquier colección. Requiere dos parámetros obligatorios:
 
 bc. <h1>Client ${client.name}</h1>
 <ul>
@@ -77,25 +77,25 @@ bc. <h1>Client ${client.name}</h1>
     #{/list}
 </ul>
 
-All dynamic expressions are escaped by the template engine to avoid XSS security issues in your application. So the @title@ variable containing <code>==&lt;h1>Title&lt;/h1>==</code> is now escaped:
+Todas las expresiones dinámicas son automáticamente escapadas por el motor de templates para evitar ataques XSS en su aplicación. De forma tal que la variable @title@ que contiene <code>==&lt;h1>Title&lt;/h1>==</code> será escapada de la siguiente manera:
 
 bc. ${title} --> &lt;h1&gt;Title&lt;/h1&gt;
 
-If you really want to display it in an unescaped way, you need to explicitely call the @raw()@ method:
+Si desea evitar que Play escape el contenido de la expresión, debe llamar al método @raw()@:
 
 bc. ${title.raw()} --> <h1>Title</h1>
 
-Also, if you want to display a large part of raw HTML, you can use the @#{verbatim /}@ tag:
+Si desea evitar que una porción grande de código HTML sea escapada, puede utilizar el tag @#{verbatim /}@:
 
 bc. #{verbatim}
     ${title} --> <h1>Title</h1>
 #{/verbatim}
 
-h3. Actions: @{…} or @@{…}
+h3. Acciones: @{…} o @@{…}
 
-You can use the Router to (reverse) generate a URL corresponding to a specified route. From a template you can use the special <code>@{…}</code> syntax to do that.
+Puede utilizar el Router para generar (o incluso generar de manera inversa) el URL correspondiente a una ruta especificada. Desde un template puede utilizar la sintaxis <code>@{…}</code> para alcanzar el mismo efecto.
 
-For example:
+Por ejemplo:
 
 bc. <h1>Client ${client.name}</h1>
 <p>
@@ -104,23 +104,23 @@ bc. <h1>Client ${client.name}</h1>
 <hr />
 <a href="@{Clients.index()}">Back</a>
 
-The <code>@@{…}</code> syntax does the same but generates an absolute URL (notably useful for e-mail).
+La sintaxis <code>@@{…}</code> hace lo mismo pero genera un URL absoluto (lo cual es particulamente útil para general e-mails)
 
-h3. Messages: &{…}
+h3. Mensajes: &{…}
 
-If your application needs internationalization you can use the @&{…}@ syntax to display an internationalized message:
+Si su aplicación requiere poder ser internacionalizada, puede utilizar la sintaxis @&{…}@ para desplegar un mensaje internacionalizado:
 
-For example in the files @conf/messages@ we specify:
+Por ejemplo en el archivo @conf/messages@ especificamos:
 
 bc. clientName=The client name is %s
 
-To display this message in a template, simply use:
+Para mostrar este mensaje en un template simplemente use:
 
 bc. <h1>&{'clientName', client.name}</h1>
 
-h3. Comment: ==*{…}*==
+h3. Comentarios: ==*{…}*==
 
-Comments aren’t evaluated by the template engine. They are just comments…
+Los cometarios no son evaluados por el motor de template. Simplemente son comentarios…
 
 bc. *{**** Display the user name ****}*
 <div class="name">
@@ -129,7 +129,7 @@ bc. *{**** Display the user name ****}*
 
 h3. Scripts: ==%{…}%==
 
-A script is a more complicated set of expressions. A script can declare some variables and define some statements. Use the @%{…}%@ syntax to insert a script.
+Un script es un conjunto de expresiones con una lógica más compleja. Un script puede declarar algunas variables y definir varios comandos. Utilice la sintaxis @%{…}%@ para insertar scripts.
 
 bc. %{
    fullName = client.name.toUpperCase()+' '+client.forname;
@@ -137,14 +137,14 @@ bc. %{
  
 <h1>Client ${fullName}</h1>
 
-A script can write dynamic content directly using the @out@ object:
+Mediante un script puede escribir contenido dinámico directamente usando el objeto @out@:
 
 bc. %{
    fullName = client.name.toUpperCase()+' '+client.forname;
    out.print('<h1>'+fullName+'</h1>');
 }%
 
-You can use a script to create a structure such as an iteration in your template:
+Puede utilizar un script para crear una estructura que le permita interar sobre los elementos de una colección:
 
 bc. <h1>Client ${client.name}</h1>
 <ul>
@@ -157,19 +157,19 @@ bc. <h1>Client ${client.name}</h1>
 }%
 </ul>
 
-Bear in mind that a template is not a place to do complex things. So, use a tag when you can, or move the computations into the controller or the model object.
+Tenga en cuenta que los templates no es el mejor lugar para introducir lógica completa. En tal caso es aconsejable crear un tag, o mover esa lógica hace el controlador o el modelo de objetos.
 
-h2. <a name="inheritance">Template inheritance</a>
+h2. <a name="inheritance">Herencia de templates</a>
 
-A template can inherit another template, i.e. it can be included as a part of an other template.
+Un template puede heredar el contenido de otro template, es decir que puede ser incluido como parte de otro template.
 
-To inherit another template, use the @extends@ tag:
+Para heredar de otro template, utilice el tag @extends@:
 
 bc. #{extends 'main.html' /}
  
 <h1>Some code</h1>
 
-The @main.html@ template is a standard template, but it uses the @doLayout@ tag to include the content:
+El template @main.html@ es un template común y corriente, pero utiliza el tag @doLayout@ para incluir el contenido de aquél template que lo herede:
 
 bc. <h1>Main template</h1>
  
@@ -178,41 +178,44 @@ bc. <h1>Main template</h1>
 </div>
 
 
-h2. <a name="tags">Custom template tags</a>
+h2. <a name="tags">Tags personalizados</a>
 
-You can easily create specific tags for your application. A tag is a simple template file, stored in the @app/views/tags@ directory. The template’s file name is used as the tag name.
+Puede crear sus propios tags de manera muy simple. Un tag no es más que un archivo de template, almacenado en la carpeta @app/views/tags@. El nombre del archivo del tag es utilizado como nombre del tag.
 
-To create a @hello@ tag, just create the @app/views/tags/hello.html@ file.
+Para crear un tag @hello@, simplemente cree el archivo @app/views/tags/hello.html@.
 
 bc. Hello from tag!
 
-No need to configure anything. You can use the tag directly:
+No hay necesidad de configurar nada. Puede usar el tag directamente de la siguiente manera:
 
 bc. #{hello /}
 
-h3. Retrieve tag parameters
+h3. Definiendo tags con parámetros
 
-Tag parameters are exposed as template variables. The variable names are constructed with the ‘_’ character prepended to the parameter name. 
+Los parámetros de los tags son expuestos como variables de un tempalte. Los nombres de variables con construido con el prefijo ‘_’.
 
-For example: 
+Por ejemplo, dado el siguiente tag: 
 
 bc. Hello ${_name} !
 
-And you can pass the name parameter to the tag:
+Puede pasar el nombre como un parámetro al tag:
 
 bc. #{hello name:'Bob' /}
 
-If your tag has only one parameter, you can use the fact than the default parameter name is @arg@ and that its name is implicit.
+Si el tag cuenta con tan sólo un parámetro, puede acceder al mismo de manera implícita mediante el nombre @arg@.
 
-Example:
+Por ejemplo:
 
 bc. Hello ${_arg}!
 
-And you can call it easily using:
+Y puede llamarlo fácilmente usando:
 
 bc. #{hello 'Bob' /}
 
-h3. Invoke tag body
+h3. Invocando el body (cuerpo) de un tag
+
+Si su tag trae soporte para un body (cuerpo), puede .... ###TODO
+
 
 If your tag supports a @body@, you can include it at any point in the tag code, using the @doBody@ tag.
 
