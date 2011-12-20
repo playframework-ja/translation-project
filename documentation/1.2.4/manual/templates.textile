@@ -214,16 +214,13 @@ bc. #{hello 'Bob' /}
 
 h3. Invocando el body (cuerpo) de un tag
 
-Si su tag trae soporte para un body (cuerpo), puede .... ###TODO
+Si su tag acepta un body (cuerpo), puede incluirlo en el código de su tag usando el tag @doBody@.
 
-
-If your tag supports a @body@, you can include it at any point in the tag code, using the @doBody@ tag.
-
-For example:
+Por ejemplo:
 
 bc. Hello #{doBody /}!
 
-And you can then pass the name as tag body:
+Y luego puede pasar el nombre en el cuerpo del tag:
 
 bc. #{hello}
    Bob
