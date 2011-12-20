@@ -22,7 +22,7 @@ bc. %production%.application.baseUrl=http://www.yourdomain.com/
 
 h3(#application.defaultCookieDomain). application.defaultCookieDomain
 
-サブドメイン間で共有される session/cookie を有効にします。例えば、@foo.example.com@ や @bar.example.com@ などのように ‘.example.com’ で終わる全てのドメインで有効な cookie を生成するには次のようにします:
+サブドメイン間で共有される session/cookie を有効にします。例えば、 @foo.example.com@ や @bar.example.com@ などのように ‘.example.com’ で終わる全てのドメインで有効な cookie を生成するには次のようにします:
 
 bc. application.defaultCookieDomain=.example.com
 
@@ -40,7 +40,7 @@ bc. application.lang.cookie=MYAPP_LANG
 
 h3(#application.langs). application.langs
 
-アプリケーションで使われるロケールを定義します。@conf/messages.{locale}@ ファイルにローカライズされたメッセージを置くことができます。設定する値はカンマ区切りの言語コードのリストです。設定例:
+アプリケーションで使われるロケールを定義します。 @conf/messages.{locale}@ ファイルにローカライズされたメッセージを置くことができます。設定する値はカンマ区切りの言語コードのリストです。設定例:
 
 bc. application.langs=fr,en,ja
 
@@ -382,7 +382,7 @@ bc. http.address=127.0.0.1
 
 h3(#http.cacheControl). http.cacheControl
 
-静的ファイルを制御するための HTTP レスポンスヘッダ: 秒単位でデフォルトの最大期間を設定すると、ユーザのブラウザにページをどれだけの期間キャッシュすべきかを伝えます。この値は @prod@ モードの時のみ読み取られ、@dev@ モードではキャッシュは無効になります。例えば、@no-cache@ を送りたいときは次のようにします:
+静的ファイルを制御するための HTTP レスポンスヘッダ: 秒単位でデフォルトの最大期間を設定すると、ユーザのブラウザにページをどれだけの期間キャッシュすべきかを伝えます。この値は @prod@ モードの時のみ読み取られ、 @dev@ モードではキャッシュは無効になります。例えば、 @no-cache@ を送りたいときは次のようにします:
 
 bc. http.cacheControl=0
 
@@ -571,7 +571,7 @@ bc. keystore.file=conf/certificate.jks
 
 h3(#keystore.password). keystore.password
 
-keystore.file":#keystore.file の設定を使うためのキーストア設定です。
+"keystore.file":#keystore.file の設定を使うためのキーストア設定です。
 
 bc. keystore.password=secret
 
@@ -737,7 +737,7 @@ h2(#play). Play run-time
 
 h3(#play.bytecodeCache). play.bytecodeCache
 
-@dev@ モードでバイトコードキャッシュを無効にするときに使用します。@prod@ モードには影響しません。
+@dev@ モードでバイトコードキャッシュを無効にするときに使用します。 @prod@ モードには影響しません。
 
 bc. play.bytecodeCache=false
 
@@ -851,7 +851,7 @@ h2(#upload). ファイルアップロード
 
 h3(#upload.threshold). upload.threshold
 
-ディスクに書き出されるファイルのアップロード時のバイト単位でのしきい値です。@org.apache.commons.io.output.DeferredFileOutputStream@ に使われます。設定例:
+ディスクに書き出されるファイルのアップロード時のバイト単位でのしきい値です。 @org.apache.commons.io.output.DeferredFileOutputStream@ に使われます。設定例:
 
 bc. upload.threshold=20480
 
