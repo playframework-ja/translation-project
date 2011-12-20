@@ -1,5 +1,3 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
-
 h1. El motor de templates
 
 Play cuenta con un eficiente motor de templates que le permite generar HTML, XML, JSON o cualquier documento de texto de manera dinámica. El motor de templates utiliza "Groovy":http://groovy.codehaus.org/ como lenguaje de expresiones. Un sistema de tags le permite crear funciones reutilizables.
@@ -9,7 +7,6 @@ Los templates son almacenados en la carpeta @app/views@.
 h2. <a name="syntax">Sintaxis de los templates</a>
 
 Un template es un archivo de texto en el cual algunas de sus partes serán remplazadas por contenido generado dinámicamente. Los elementos dinámicos de los templates son escritos utilizando el lenguaje "Groovy":http://groovy.codehaus.org/ language. Groovy es un lenguaje cuya sintaxis es muy similar a la de Java.
-Groovy’s syntax is very close to Java’s. 
 
 h3. Expresiones: ${…}
 
@@ -226,25 +223,24 @@ bc. #{hello}
    Bob
 #{/hello}
 
-h3. Format-specific tags
+h3. Tags para formatos específicos
 
-You can have different versions of a tag for different "content types":routes#content-types and Play will select the appropriate tag. For example, Play will use the @app/views/tags/hello.html@ tag when @request.format@ is @html@, and @app/views/tags/hello.xml@ when the format is @xml@.
+Puede tener varias versiones de un tag para diferentes "content types":routes#content-types, dejando que Play seleccione el que resulte apropiado. Por ejemplo, Play utilzará el tag @app/views/tags/hello.html@ cuando el @request.format@ sea @html@, y @app/views/tags/hello.xml@ cuando el formato requerido sea @xml@.
 
-Whatever the content type, Play will fall back to the @.tag@ extension if a format-specific tag is not available, e.g. @app/views/tags/hello.tag@.
+Cualquiera sea el content type, Play utilizará el tag con extension @.tag@ si no encuentra un tag para el formato específico, por ejemplo: @app/views/tags/hello.tag@.
 
+h2. <a name="fasttags">Tags personalizados en Java (FastTags)</a>
 
-h2. <a name="fasttags">Custom Java tags</a>
-
-You can also define custom tags in Java code. Similarly to how JavaExtensions work by extending the @play.templates.JavaExtensions@ class, to create a FastTag you need to create a method in a class that extends @play.templates.FastTags@. Each method that you want to execute as a tag must have the following method signature.
+También puede definir los tags en código Java. De la misma manera en que puede definir sus propias extensiones de Java extendiendo la clase @play.templates.JavaExtensions@, para crear un FastTag necesita crear un método en una clase que extienda @play.templates.FastTags@. Cada método que desea que sea ejecutado como un tag, debe tener los siguientes parámetros:
 
 bc. public static void _tagName(Map<?, ?> args, Closure body, PrintWriter out, 
    ExecutableTemplate template, int fromLine)
 
-p(note). Note the underscore before the tag name.
+p(note). Preste atención al guión bajo '_' delante del nombre del tag.
 
-To understand how to build an actual tag, let’s look at two of the built-in tags.
+Para comprender como construir un tag real, echemos una mirada a dos de los tags que vienen incluidos con Play.
 
-For example, the @verbatim@ tag is implemented by a one-line method that simply calls the toString method on the JavaExtensions, and passes in the body of the tag.
+Por ejemplo, el tag @verbatim@ está implementado mediante un método de tan sólo una línea, que simplemente llama al método toString de JavaExtensions, pasando como parámetro el body del tag.
 
 bc. public static void _verbatim(Map<?, ?> args, Closure body, PrintWriter out, 
    ExecutableTemplate template, int fromLine) {
@@ -252,15 +248,15 @@ bc. public static void _verbatim(Map<?, ?> args, Closure body, PrintWriter out,
    out.println(JavaExtensions.toString(body));
 }
 
-The body of the tag would be anything between the open and close tag. So
+El body del tag es cualquier cosa que se encuentre entre el tag de apertura y cierre, de forma tal que en el siguiente caso:
 
 bc. <verbatim>My verbatim</verbatim>
 
-The body value would be 
+El body sería:
 
 bc. My verbatim
 
-The second example is the @option@ tag, which is slightly more complex because it relies on a parent tag to function.
+El segundo ejemplo es el tag @option@, que es un poco más complejo porque precisa de un tag padre o contenedor para funcionar.
 
 bc. public static void _option(Map<?, ?> args, Closure body, PrintWriter out, 
       ExecutableTemplate template, int fromLine) {
@@ -277,15 +273,15 @@ bc. public static void _option(Map<?, ?> args, Closure body, PrintWriter out,
    out.print("</option>");
 }
 
-This code works by outputting an HTML @option@ tag, and sets the selected value by checking which value is selected from the parent tag. The first three lines set variables for use in the output output. Then, the final three lines output the result of the tag.
+Este tag despliega un tag HTML de tipo @option@, y establece el valor _selected_ verificando cuál es el valor seleccionado en el tag padre. Las primeras tres líneas preparan las variables que serán utilizadas en la salida html. Luego, las últimas tres líneas despliegan la salida del tag.
 
-There are many more examples in the source code for the built in tags, with varying degrees of complexity. See "FastTags.java in github":https://github.com/playframework/play/blob/master/framework/src/play/templates/FastTags.java.
+Puede encontrar muchos ejemplos en el código fuente de los tags provistos por Play, con diversos grados de complejidad. Vea el archivo "FastTags.java en github":https://github.com/playframework/play/blob/master/framework/src/play/templates/FastTags.java.
 
 h3. Tag namespaces
 
-To ensure that your tags do not conflict between projects, or with the core Play tags, you can set up namespaces, using the class level annotation <code>@FastTags.Namespace</code>.
+Para asegurarse de que sus tags no entren en conflicto con otros tags de otros proyectos, o con los propios tags de Play, puede establecer namespaces, utilizando la anotación de clase <code>@FastTags.Namespace</code>.
 
-So, for a @hello@ tag, in a @my.tags@ namespace, you would do the following
+De forma tal que, para un tag llamado @hello@, en el namespace @my.tags@, debería anotarlo de la siguiente manera:
 
 bc. @FastTags.Namespace("my.tags") 
 public class MyFastTag extends FastTags {
@@ -295,19 +291,17 @@ public class MyFastTag extends FastTags {
    }
 }
 
-and then in your templates, you would reference the hello tag as
+y luego, en sus templates, lo llamaría de la siguiente manera:
 
 bc. #{my.tags.hello/}
 
+h2. <a name="extensions">Extensiones de objetos de Java en los templates</a>
 
+Cuando utiliza sus objetos de Java dentro del motor de templates, nuevos métodos son agregados a los mismos. Estos métodos no existen en la clase Java original, y son agregados dinámicamente por el motor de templates.
 
-h2. <a name="extensions">Java object extensions in templates</a>
+Por ejemplo, para facilitar el formateo de número, el método @format@ es agregado dinámicamente a la clase @java.lang.Number@.
 
-When you use your Java object within the template engine, new methods are added to it. These methods don’t exist in the original Java class and are dynamically added by the template engine.
-
-For example, to allow easy number formatting in a template, a @format@ method is added to @java.lang.Number@.
-
-It’s then very easy to format a number:
+De esta manera, es muy fácil formatear un número:
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -315,18 +309,17 @@ bc. <ul>
 #{/list}
 </ul>
 
-The same applies to @java.util.Date@.
+Lo mismo sucede con la clase @java.util.Date@.
 
-The "Java extensions":javaextensions manual page lists the available methods, by type.
+La documentación sobre las "extensiones de java":javaextensions contiene la lista de los métodos disponibles, por tipo de dato.
 
+h3. Creando extensiones personalizadas
 
-h3. Create custom extensions
+Su proyecto puede tener necesidades de formateo específicas, en tal caso puede crear sus propias extensiones personalizadas.
 
-Your project may have specific formatting needs, in which case you can provide your own extensions.
+Tan sólo precisa crear una clase de Java que extienda @play.templates.JavaExtensions@.
 
-You only need to create a Java class extending @play.templates.JavaExtensions@.
-
-For instance, to provide a custom currency formatter for a number:
+Por ejemplo, para proveer un formateador personalizado de tipo moneda para los valores númericos:
 
 bc. package ext;
  
@@ -341,35 +334,35 @@ public class CurrencyExtensions extends JavaExtensions {
  
 }
 
-Each extension method is a static method and should return a @java.lang.String@ to be written back in the page. The first parameter will hold the enhanced object.
+Cada método de extensión es un método estático que debe retornar un @java.lang.String@ que será escrito en la página de salida. El primer parámetro contendrá el objeto a ser enriquecido con el nuevo método.
 
-Use your formatter like this:
+Puede entonces utilizar su formateador de la siguiente manera:
 
 bc. <em>Price: ${123456.324234.ccyAmount()}</em>
 
-Template extension classes are automatically detected by Play at start-up. You just have to restart your application to make them available.
+Las clases con extensiones para los templates son detectadas automáticamente por Play al inicial la aplicación. Tan sólo tiene que reiniciar su aplicación para que estén disponibles.
 
-h2. <a name="implicits">Implicit objects available in a template</a>
+h2. <a name="implicits">Objetos implícitos disponibles en los templates</a>
 
-All objects added to the @renderArgs@ scope are directly injected as template variables. 
+Todos los objetos agregados a la colección @renderArgs@ son automáticamente inyectadas como variables de los templates.
 
-For instance, to inject a ‘user’ bean into the template from a controller:
+Por ejemplo, para inyectar un bean 'user' en el template desde un controlador:
 
 bc. renderArgs.put("user", user );
 
-When you render a template from an action, the framework also adds implicit objects:
+Cuando despliega un template desde una acción, el framework también agrega los siguientes objetos implícitos:
 
-|| Variable || Description || API documentation || See also ||
-| @errors@ | Validation errors | "play.data.validation.Validation.errors()":/@api/play/data/validation/Validation.html#errors%28%29 | "Validating HTTP data":validation |
-| @flash@ | Flash scope | "play.mvc.Scope.Flash":/@api/play/mvc/Scope.Flash.html  | "Controllers - Session & Flash Scope":controllers#session |
-| @lang@ | The current language | "play.i18n.Lang":/@api/play/i18n/Lang.html | "Setting up I18N - Define languages":i18n#languages |
-| @messages@ | The messages map | "play.i18n.Messages":/@api/play/i18n/Messages.html | "Setting up I18N - Externalize messages":i18n#messages |
-| @out@ | The output stream writer | java.io.PrintWriter |  |
-| @params@ | Current parameters | "play.mvc.Scope.Params":/@api/play/mvc/Scope.Params.html  | "Controllers - HTTP parameters":controllers#params |
-| @play@ | Main framework class | "play.Play":/@api/play/Play.html |  |
-| @request@ | The current HTTP request | "play.mvc.Http.Request":/@api/play/mvc/Http.Request.html  |  |
-| @session@ | Session scope | "play.mvc.Scope.Session":/@api/play/mvc/Scope.Session.html  | "Controllers - Session & Flash Scope":controllers#session |
+|| Variable || Descripción || Documentación de la API || Vea también ||
+| @errors@ | Errores de validación | "play.data.validation.Validation.errors()":/@api/play/data/validation/Validation.html#errors%28%29 | "Validando información HTTP":validation |
+| @flash@ | El contexto Flash | "play.mvc.Scope.Flash":/@api/play/mvc/Scope.Flash.html  | "Controladores - El contexto de la Session y el Flash":controllers#session |
+| @lang@ | El idioma actual | "play.i18n.Lang":/@api/play/i18n/Lang.html | "Configurando I18N - Definiendo idiomas":i18n#languages |
+| @messages@ | El mapa de mensajes | "play.i18n.Messages":/@api/play/i18n/Messages.html | "Configurando I18N - Internacionalización de mensajes":i18n#messages |
+| @out@ | El stream de salida de datos | java.io.PrintWriter |  |
+| @params@ | Parámetros actuales | "play.mvc.Scope.Params":/@api/play/mvc/Scope.Params.html  | "Controladores - parámetros HTTP":controllers#params |
+| @play@ | La clase principal del framework | "play.Play":/@api/play/Play.html |  |
+| @request@ | El pedido HTTP actual | "play.mvc.Http.Request":/@api/play/mvc/Http.Request.html  |  |
+| @session@ | El contexto Session | "play.mvc.Scope.Session":/@api/play/mvc/Scope.Session.html  | "Controladores - El contexto de la Session y el Flash":controllers#session |
 
-In addition to the list above the names @owner@, @delegate@ and @it@ are reserved in Groovy and shouldn't be used as variable names in templates.
+Además de estos objetos, los nombres @owner@, @delegate@ e @it@ son palabras reservadas de Groovy y no deberían ser utilizadas como nombres de variables en los templates.
 
-p(note). Next: %(next)"Form data validation":validation%
+p(note). Próximos pasos: %(next)"Validando los datos de los formularios HTTP":validation%
