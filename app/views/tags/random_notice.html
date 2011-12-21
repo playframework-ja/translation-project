@@ -1,0 +1,30 @@
+%{
+    int random = 1 + (int)(Math.random() * ((4 - 1) + 1));
+}%
+
+#{if random==1}
+	#{notice}
+	Play ahora es parte del stack de <a href="http://www.typesafe.com">Typesafe</a> &mdash; 
+	Más información en el <a href="http://groups.google.com/group/play-framework/browse_thread/thread/6d5783e28efb6931#">anuncio oficial</a>.
+	#{/notice}
+#{/if}
+#{if random==2}
+    #{notice}
+    ¿Te gusta play framework?
+    Únete a la <a href="https://groups.google.com/group/play-latam">lista de discusión en español</a>
+    y conoce a los usuarios de play de habla hispana.
+    #{/notice}
+#{/if}
+#{if random==3}
+    #{notice}
+    ¿Te gusta play framework?
+    Anótate en el <a href="http://maps.google.com/maps/ms?ie=UTF8&oe=UTF8&msa=0&msid=207454583624912240450.0004990d22aafc925bbb7">mapa de usuarios de play</a>
+    y ponte en contacto con los colegas de tu ciudad.
+    #{/notice}
+#{/if}
+#{if random==4}
+    #{notice}
+    ¿Sabes hablar inglés?
+    Colabora con nosotros y ayudanos con <a href="/documentation/latest/translation">la traducción de la documentación de play</a>.
+    #{/notice}
+#{/if}

@@ -23,7 +23,7 @@ a:hover {
     text-decoration: none;
 }
 
-#important_notice {
+#security_notice {
     background: #E9554A;
     background: -webkit-gradient(linear, left top, left bottom, from(#E9554A), to(#C4473E));
     background: -moz-linear-gradient(-90deg, #E9554A, #C4473E);
@@ -33,6 +33,18 @@ a:hover {
     color: #fff;
     text-shadow: #444 -1px -1px 0px;
     font-size: 13px;
+}
+
+#important_notice {
+    background: #0A8BB1;
+    background: -webkit-gradient(linear, left top, left bottom, from(#0A8BB1), to(#0B97C0));
+    background: -moz-linear-gradient(-90deg, #0A8BB1, #0A8BB1);
+    border-bottom: 1px solid #011D24;
+    padding: 10px 3px;
+    text-shadow: none;
+    color: #fff;
+    text-shadow: #444 -1px -1px 0px;
+    font-size: 15px;
 }
 
 #badge20 {

@@ -15,11 +15,12 @@ lang = play.i18n.Lang.get();
         <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png">
         #{script src="jquery-1.4.2.min.js" /}
         #{get 'moreScripts' /}
-        #{include 'tags/analytics.html' /}
+        #{analytics /}
     </head>
     <body class="#{get 'body' /}">
 
     	<a href="/2.0" id="badge20"><img src="/public/2.0/images/badge.png"></a>
+    	#{random_notice /}
 
         <div id="header">
             <div class="wrapper">
