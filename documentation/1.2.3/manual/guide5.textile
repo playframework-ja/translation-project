@@ -1,51 +1,49 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Agregando un captcha
 
-h1. Setting up a captcha
+Dado que cualquier persona puede escribir comentarios en nuestro blog, deberíamos protegerlo un poco a fin de evitar mensajes spam. Una manera simple de proteger un formulario es agregando un "captcha":http://en.wikipedia.org/wiki/Captcha.
 
-Because anyone can post a comment to our blog engine, we should protect it a little to avoid automated spam. A simple way to protect a form from this is to add a "captcha":http://en.wikipedia.org/wiki/Captcha image.
+h2. <a>Generado la imagen del captcha</a>
 
-h2. <a>Generating the captcha image</a>
+A continuación veremos cuán simple es generar una imagen captcha con Play. Básicamente lo que haremos será desarrollar un método de acción, pero en este caso retornaremos un stream de datos binarios en vez de una página HTML como lo veníamos haciendo hasta el momento.
 
-We’ll start to see how we can easily generate a captcha image using Play. Basically we will just use another action, except that it will return a binary stream instead of the HTML responses like we’ve returned so far.
+Dado que Play es un **stack completo**, procuramos incluir herramientas para las necesidades más comunes en toda aplicación web; generar un captcha es una de ellas. Podemos recurrir a la librería @play.libs.Images@ para generar un simple captcha, y luego enviarlo en la respuesta HTTP. 
 
-Since Play is a **full-stack** web framework, we try to include built-in constructs for web applications’ most typical needs; generating a captcha is one of them. We can use the @play.libs.Images@ utility to simply generate a captcha image, and then write it to the HTTP response. 
-
-As usual, we will start with a simple implementation. Add the @captcha@ action to the @Application@ controller:
+Como de costumbre, comenzaremos con una implementación lo más simple posible. Agregaremos la accion @captcha@ al controlador @Application@: 
 
 bc. public static void captcha() {
     Images.Captcha captcha = Images.captcha();
     renderBinary(captcha);
 }
 
-Note that we can pass the captcha object directly to the renderBinary() method because the Images.Captcha class implements java.io.InputStream. 
+Note que podemos pasar el objeto captcha directamente al método renderBinary() dado que la clase Images.Captcha implementa java.io.InputStream.
 
-p(note). **Don’t forget** to import @play.libs.*@.
+p(note). **Recuerde** importar @play.libs.*@.
 
-Now add a new route to the @/yabe/conf/routes@ file:
+Ahora agregue una nueva ruta al archivo @/yabe/conf/routes@:
 
 bc. GET     /captcha                                Application.captcha
 
-And try the @captcha@ action by opening "http://localhost:9000/captcha":http://localhost:9000/captcha.
+Y pruebe el nuevo captcha abriendo un explorador en "http://localhost:9000/captcha":http://localhost:9000/captcha.
 
 !images/guide5-1!
 
-It should generate a random text for each refresh.
+Debería generar un texto diferente cada vez que refresca la página.
 
-h2. <a>How do we manage the state?</a>
+h2. <a>¿Cómo podemos manejar el estado de la página?</a>
 
-Until now it was easy, but the most complicated part is coming. To validate the captcha we need to save the random text written to the captcha image somewhere and then check it at the form submission time. 
+Hasta el momento todo ha resultado bastante fácil, pero la parte más complicada está por comenzar. Para validar el captcha necesitamos guardar el texto de la imagen, generado al azar, en algún lugar, para luego poder verificar que el usuario haya ingresado el texto correcto.
 
-Of course we could just put the text to the user session at the image generation time and then retrieve it later. But this solution has two drawbacks:
+Una solución trivial, sería poner el texto en la session del usuario al momento de generar la imagen, para recuperarlo más tarde. Pero esta solución presenta dos inconvenientes:
 
-**First**, the Play session is stored as a cookie. It solves a lot of problems in terms of architecture but has a lot of implications. Data written to the session cookie are signed (so the user can’t modify them) but not encrypted. If we write the captcha code to the session anybody could easily resolve it by reading the session cookie.
+**Primero**, la session de Play es almacenada en una cookie. Esta decisión resuelve muchos problemas en términos de arquitectura, pero tiene múltiples implicancias. La información guardada en la cookie de la session está firmada (de forma tal que el usuario no puede modificarla) pero no está encriptada. Si escribimos el código del captcha en la session, cualquiera podría fácilmente resolverlo leyendo la cookie.
 
-**Second**, remember that Play is a **stateless** framework. We want to manage things in a purely stateless way. Typically, what happens if a user simultaneously opens two different blog pages with two different captcha images? We have to track the captcha code for each form.
+**Segundo**, recuerde que Play es un framework **sin estado** o **stateless**. Nuestra intención es manejar las cosas sin guardar ningún tipo de estado. Típicamente, cuando un usuario abre simultáneamente dos páginas distintas de nuestro blog con dos captchas diferentes, tenemos que guardar el código de cada captcha.
 
-So to resolve the problem we need two things. We will store the captcha secret key on the server side. Because it is transient data we can easily use the Play **Cache**. Moreover because cached data have a limited life time it will add one more security mechanism (let’s say that a captcha code will be available for only 10mn). Then to resolve the code later we need to generate a **unique ID**. This unique ID will be added to each form as an hidden field and implicitly references a generated captcha code.
+Para resover este problema precisamos dos cosas. Necesitamos guardar el código secreto del captcha del lado del servidor. Dado que se trata de información transitoria, podemos fácilmente almacenarla en el **Cache** de Play. Más aún, dado que la información guardada en el cache tiene un tiempo limitado de vida, esto le agregará un nuevo mecanismo de seguridad (por ejemplo, la código del captcha podría estar disponible por tan sólo 10 minutos). Entonces para resolver el código tendremos que generar un **ID único**. Este identificador único será agregado a cada formulario como un campo oculto y hará referencia de manera implícita al código generado por el captcha. 
 
-This way we elegantly solve our state problem.
+De esta manera resolvemos con elegancia la cuestión de mantener el estado del formulario.
 
-Modify the @captcha@ action as is:
+Modifiquemos la action @captcha@ de la siguiente manera:
 
 bc. public static void captcha(String id) {
     Images.Captcha captcha = Images.captcha();
@@ -54,15 +52,15 @@ bc. public static void captcha(String id) {
     renderBinary(captcha);
 }
 
-Note that the @getText()@ method takes any color as parameter. It will use this color to draw the text.
+Note que el método @getText()@ acepta cualquier color como parámetro. Ése será el color utilizado para dibujar el texto.
 
-p(note). **Don’t forget** to import @play.cache.*@.
+p(note). **Recuerde** importar @play.cache.*@.
 
-h2. <a>Adding the captcha image to the comment form</a>
+h2. <a>Agregar el captcha al formulario de comentarios</a>
 
-Now, before displaying a comment form we will generate a unique ID. Then we will modify the HTML form to integrate a captcha image using this ID, and add the ID to another hidden field.
+Ahora, antes de mostrar en pantalla el formulario para los comentarios, tendremos que generar el ID único. Entonces modificaremos el formulario HTML para integrar el captcha utilizando este ID, y guardaremos el ID en un campo oculto.
 
-Let’s rewrite the @Application.show@ action:
+Modifiquemos la acción @Application.show@:
 
 bc. public static void show(Long id) {
     Post post = Post.findById(id);
@@ -70,7 +68,7 @@ bc. public static void show(Long id) {
     render(post, randomID);
 }
 
-And now the form in the @/yable/app/views/Application/show.html@ template:
+Y ahora el formulario en el template @/yable/app/views/Application/show.html@:
 
 bc. …
 <p>
@@ -89,15 +87,15 @@ bc. …
 </p>
 …
 
-Good start. The comment form now has a captcha image.
+Todo marcha bien. El formulario de comentarios ahora tiene una imagen captcha. 
 
 !images/guide5-2!
 
-h2. <a>Validating the captcha</a>
+h2. <a>Validando el captcha</a>
 
-Now we just have to validate the captcha. We have added the @randomID@ as an hidden field right? So we can retrieve it in the @postComment@ action, then retrieve the actual code from Cache and finally compare it to the submitted code.
+Ahora tan sólo tenemos que validar el captch. Ya hemos agregado el @randomID@ como un campo oculto, de manera que podemos recuperarlo en la acción @postComment@, luego traeremos del cache el código del captcha y finalmente lo compararemos con el código enviado por el usuario.
 
-Not that difficult. Let’s modify the @postComment@ action.
+No es tan complicado. Modifiquemos la acción @postComment@:
 
 bc. public static void postComment(
         Long postId, 
@@ -119,7 +117,7 @@ bc. public static void postComment(
     show(postId);
 }
 
-Because we now have more error messages, modify the way we display errors in the @show.html@ template (yes we will just display the first error, it’s good enough):
+Dado que ahora tenemos más mensajes de error, modificaremos el template @show.html@ para mostrarlos (sí, por el momento será suficiente con mostrar tan sólo el primer error)
 
 bc. .. 
 #{ifErrors}
@@ -129,12 +127,12 @@ bc. ..
 #{/ifErrors}
 …
 
-p(note). Typically for more complex forms, error messages are not managed this way but externalized in the @messages@ file and each error is printed inside the corresponding field.
+p(note). Por lo común, para formularios complejos, los mensajes de error no son manejados de esta manera, sino mediante mensajes internacionalizados en el archivo @messages@, y cada error es desplegado junto con su correspondiente campo. 
 
-Check that the captcha is now fully functional.
+Verifique que el captcha funciona según lo esperado.
 
 !images/guide5-3!
 
-Great!
+Bravo!
 
-p(note). Next: %(next)"Add tagging support":guide6%. 
+p(note). Vaya a %(next)"Agregando soporte para tags":guide6%. 

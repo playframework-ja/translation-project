@@ -1,45 +1,41 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. El motor de templates
 
-h1. The template engine
+Play cuenta con un eficiente motor de templates que le permite generar HTML, XML, JSON o cualquier documento de texto de manera dinámica. El motor de templates utiliza "Groovy":http://groovy.codehaus.org/ como lenguaje de expresiones. Un sistema de tags le permite crear funciones reutilizables.
 
-Play has an efficient templating system which allows to dynamically generate HTML, XML, JSON or any text-based formatted document. The template engine uses "Groovy":http://groovy.codehaus.org/ as an expression language. A tag system allows you to create reusable functions.
+Los templates son almacenados en la carpeta @app/views@. 
 
-Templates are stored in the @app/views@ directory. 
+h2. <a name="syntax">Sintaxis de los templates</a>
 
-h2. <a name="syntax">Template syntax</a>
+Un template es un archivo de texto en el cual algunas de sus partes serán remplazadas por contenido generado dinámicamente. Los elementos dinámicos de los templates son escritos utilizando el lenguaje "Groovy":http://groovy.codehaus.org/ language. Groovy es un lenguaje cuya sintaxis es muy similar a la de Java.
 
-A template file is a text file, some parts of which have placeholders for dynamically generated content. The  template’s dynamic elements are written using the "Groovy":http://groovy.codehaus.org/ language. Groovy’s syntax is very close to Java’s. 
+h3. Expresiones: ${…}
 
-Dynamic elements are resolved during template execution. The rendered result is then sent as part of the HTTP response.
+La manera más simple de crear un elemento dinámico es declarando una expresión. La sintaxis utilizada es @${…}@. De esta manera, el resultado de evaluar dicha expresión será insertado en lugar de la expresión misma.
 
-h3. Expressions: ${…}
-
-The simplest way to make a dynamic element is to declare an expression. The syntax used here is @${…}@. The result of evaluating the expression is inserted in place of the expression.
-
-For example:
+Por ejemplo:
 
 bc. <h1>Client ${client.name}</h1>
 
-If you can’t be sure of client being null, there is a Groovy shortcut:
+Si no puede asegurar que el nombre del cliente no será null, Groovy provee un práctico atajo para estos casos:
 
 bc. <h1>Client ${client?.name}</h1>
 
-Which will only display the client name if the client is not null.
+De forma tal que sólo mostrará el nombre del cliente si el mismo no es null.
 
-h3. Template decorators : #{extends  /} and  #{doLayout  /}
+h3. Decoradores: #{extends  /} and  #{doLayout  /}
 
-Decorators provide a clean solution to share a page layout (or design) across several templates. 
+Los decoradores proveen una simple y elegante solución para compartir el diseño de una página ente múltiples templates.
 
-p(note). Use "#{get}":tags#ageta and "#{set}":tags#aseta tags to share variables between the template and the decorator. 
+p(note). Utilice los tags "#{get}":tags#ageta y "#{set}":tags#aseta para compartir variables entre el template y el decorador.
 
-Embedding a page in a decorator is the matter of a one liner:
+De esta manera, puede incluir una página en un decorador con una línea de código:
 
 bc. #{extends 'simpledesign.html' /}
  
 #{set title:'A decorated page' /}
 This content will be decorated.
 
-The decorator : @simpledesign.html@
+El decorador : @simpledesign.html@
 
 bc. <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 <head>
@@ -53,23 +49,23 @@ bc. <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
 </body>
 </html>
 
-h3. Tags: #{tagName /}
+h3. Tags: #{nombreDeTag /}
 
-A tag is a template fragment that can be called with parameters. If the tag has only one parameter, by convention it is called "arg" and its name can be omitted.
+Un tag es un framento de un template que puede ser llamado con parametros, como si se tratara de una función. Si el tag cuenta con un único parámetro, por convención dicho parámetros se llamará "arg" y su nombre puede ser omitido.
 
-For example, this tag inserts a SCRIPT tag to load a JavaScript file:
-
-bc. #{script 'jquery.js' /}
-
-A tag has to be closed, either directly or by an end tag:
+Por ejemplo, este tag inserta un tag SCRIPT para cargar un archivo JavaScript:
 
 bc. #{script 'jquery.js' /}
 
-or
+Un tag necesariamente tiene que ser cerrado, ya sea directamente o mediante un tag de cierre:
+
+bc. #{script 'jquery.js' /}
+
+o
 
 bc. #{script 'jquery.js'}#{/script}
 
-For example the @list@ tag allows iteration over any collection. It takes two mandatory parameters:
+Por ejemplo, el tag @list@ le permite iterar sobre los elementos de cualquier colección. Requiere dos parámetros obligatorios:
 
 bc. <h1>Client ${client.name}</h1>
 <ul>
@@ -78,25 +74,25 @@ bc. <h1>Client ${client.name}</h1>
     #{/list}
 </ul>
 
-All dynamic expressions are escaped by the template engine to avoid XSS security issues in your application. So the @title@ variable containing <code>==&lt;h1>Title&lt;/h1>==</code> is now escaped:
+Todas las expresiones dinámicas son automáticamente escapadas por el motor de templates para evitar ataques XSS en su aplicación. De forma tal que la variable @title@ que contiene <code>==&lt;h1>Title&lt;/h1>==</code> será escapada de la siguiente manera:
 
 bc. ${title} --> &lt;h1&gt;Title&lt;/h1&gt;
 
-If you really want to display it in an unescaped way, you need to explicitely call the @raw()@ method:
+Si desea evitar que Play escape el contenido de la expresión, debe llamar al método @raw()@:
 
 bc. ${title.raw()} --> <h1>Title</h1>
 
-Also, if you want to display a large part of raw HTML, you can use the @#{verbatim /}@ tag:
+Si desea evitar que una porción grande de código HTML sea escapada, puede utilizar el tag @#{verbatim /}@:
 
 bc. #{verbatim}
     ${title} --> <h1>Title</h1>
 #{/verbatim}
 
-h3. Actions: @{…} or @@{…}
+h3. Acciones: @{…} o @@{…}
 
-You can use the Router to (reverse) generate a URL corresponding to a specified route. From a template you can use the special <code>@{…}</code> syntax to do that.
+Puede utilizar el Router para generar (o incluso generar de manera inversa) el URL correspondiente a una ruta especificada. Desde un template puede utilizar la sintaxis <code>@{…}</code> para alcanzar el mismo efecto.
 
-For example:
+Por ejemplo:
 
 bc. <h1>Client ${client.name}</h1>
 <p>
@@ -105,23 +101,23 @@ bc. <h1>Client ${client.name}</h1>
 <hr />
 <a href="@{Clients.index()}">Back</a>
 
-The <code>@@{…}</code> syntax does the same but generates an absolute URL (notably useful for e-mail).
+La sintaxis <code>@@{…}</code> hace lo mismo pero genera un URL absoluto (lo cual es particulamente útil para general e-mails)
 
-h3. Messages: &{…}
+h3. Mensajes: &{…}
 
-If your application needs internationalization you can use the @&{…}@ syntax to display an internationalized message:
+Si su aplicación requiere poder ser internacionalizada, puede utilizar la sintaxis @&{…}@ para desplegar un mensaje internacionalizado:
 
-For example in the files @conf/messages@ we specify:
+Por ejemplo en el archivo @conf/messages@ especificamos:
 
 bc. clientName=The client name is %s
 
-To display this message in a template, simply use:
+Para mostrar este mensaje en un template simplemente use:
 
 bc. <h1>&{'clientName', client.name}</h1>
 
-h3. Comment: ==*{…}*==
+h3. Comentarios: ==*{…}*==
 
-Comments aren’t evaluated by the template engine. They are just comments…
+Los cometarios no son evaluados por el motor de template. Simplemente son comentarios…
 
 bc. *{**** Display the user name ****}*
 <div class="name">
@@ -130,7 +126,7 @@ bc. *{**** Display the user name ****}*
 
 h3. Scripts: ==%{…}%==
 
-A script is a more complicated set of expressions. A script can declare some variables and define some statements. Use the @%{…}%@ syntax to insert a script.
+Un script es un conjunto de expresiones con una lógica más compleja. Un script puede declarar algunas variables y definir varios comandos. Utilice la sintaxis @%{…}%@ para insertar scripts.
 
 bc. %{
    fullName = client.name.toUpperCase()+' '+client.forname;
@@ -138,14 +134,14 @@ bc. %{
  
 <h1>Client ${fullName}</h1>
 
-A script can write dynamic content directly using the @out@ object:
+Mediante un script puede escribir contenido dinámico directamente usando el objeto @out@:
 
 bc. %{
    fullName = client.name.toUpperCase()+' '+client.forname;
    out.print('<h1>'+fullName+'</h1>');
 }%
 
-You can use a script to create a structure such as an iteration in your template:
+Puede utilizar un script para crear una estructura que le permita interar sobre los elementos de una colección:
 
 bc. <h1>Client ${client.name}</h1>
 <ul>
@@ -158,19 +154,19 @@ bc. <h1>Client ${client.name}</h1>
 }%
 </ul>
 
-Bear in mind that a template is not a place to do complex things. So, use a tag when you can, or move the computations into the controller or the model object.
+Tenga en cuenta que los templates no es el mejor lugar para introducir lógica completa. En tal caso es aconsejable crear un tag, o mover esa lógica hace el controlador o el modelo de objetos.
 
-h2. <a name="inheritance">Template inheritance</a>
+h2. <a name="inheritance">Herencia de templates</a>
 
-A template can inherit another template, i.e. it can be included as a part of an other template.
+Un template puede heredar el contenido de otro template, es decir que puede ser incluido como parte de otro template.
 
-To inherit another template, use the @extends@ tag:
+Para heredar de otro template, utilice el tag @extends@:
 
 bc. #{extends 'main.html' /}
  
 <h1>Some code</h1>
 
-The @main.html@ template is a standard template, but it uses the @doLayout@ tag to include the content:
+El template @main.html@ es un template común y corriente, pero utiliza el tag @doLayout@ para incluir el contenido de aquél template que lo herede:
 
 bc. <h1>Main template</h1>
  
@@ -179,73 +175,72 @@ bc. <h1>Main template</h1>
 </div>
 
 
-h2. <a name="tags">Custom template tags</a>
+h2. <a name="tags">Tags personalizados</a>
 
-You can easily create specific tags for your application. A tag is a simple template file, stored in the @app/views/tags@ directory. The template’s file name is used as the tag name.
+Puede crear sus propios tags de manera muy simple. Un tag no es más que un archivo de template, almacenado en la carpeta @app/views/tags@. El nombre del archivo del tag es utilizado como nombre del tag.
 
-To create a @hello@ tag, just create the @app/views/tags/hello.html@ file.
+Para crear un tag @hello@, simplemente cree el archivo @app/views/tags/hello.html@.
 
 bc. Hello from tag!
 
-No need to configure anything. You can use the tag directly:
+No hay necesidad de configurar nada. Puede usar el tag directamente de la siguiente manera:
 
 bc. #{hello /}
 
-h3. Retrieve tag parameters
+h3. Definiendo tags con parámetros
 
-Tag parameters are exposed as template variables. The variable names are constructed with the ‘_’ character prepended to the parameter name. 
+Los parámetros de los tags son expuestos como variables de un tempalte. Los nombres de variables con construido con el prefijo ‘_’.
 
-For example: 
+Por ejemplo, dado el siguiente tag: 
 
 bc. Hello ${_name} !
 
-And you can pass the name parameter to the tag:
+Puede pasar el nombre como un parámetro al tag:
 
 bc. #{hello name:'Bob' /}
 
-If your tag has only one parameter, you can use the fact than the default parameter name is @arg@ and that its name is implicit.
+Si el tag cuenta con tan sólo un parámetro, puede acceder al mismo de manera implícita mediante el nombre @arg@.
 
-Example:
+Por ejemplo:
 
 bc. Hello ${_arg}!
 
-And you can call it easily using:
+Y puede llamarlo fácilmente usando:
 
 bc. #{hello 'Bob' /}
 
-h3. Invoke tag body
+h3. Invocando el body (cuerpo) de un tag
 
-If your tag supports a @body@, you can include it at any point in the tag code, using the @doBody@ tag.
+Si su tag acepta un body (cuerpo), puede incluirlo en el código de su tag usando el tag @doBody@.
 
-For example:
+Por ejemplo:
 
 bc. Hello #{doBody /}!
 
-And you can then pass the name as tag body:
+Y luego puede pasar el nombre en el cuerpo del tag:
 
 bc. #{hello}
    Bob
 #{/hello}
 
-h3. Format-specific tags
+h3. Tags para formatos específicos
 
-You can have different versions of a tag for different "content types":routes#content-types and Play will select the appropriate tag. For example, Play will use the @app/views/tags/hello.html@ tag when @request.format@ is @html@, and @app/views/tags/hello.xml@ when the format is @xml@.
+Puede tener varias versiones de un tag para diferentes "content types":routes#content-types, dejando que Play seleccione el que resulte apropiado. Por ejemplo, Play utilzará el tag @app/views/tags/hello.html@ cuando el @request.format@ sea @html@, y @app/views/tags/hello.xml@ cuando el formato requerido sea @xml@.
 
-Whatever the content type, Play will fall back to the @.tag@ extension if a format-specific tag is not available, e.g. @app/views/tags/hello.tag@.
+Cualquiera sea el content type, Play utilizará el tag con extension @.tag@ si no encuentra un tag para el formato específico, por ejemplo: @app/views/tags/hello.tag@.
 
+h2. <a name="fasttags">Tags personalizados en Java (FastTags)</a>
 
-h2. <a name="fasttags">Custom Java tags</a>
-
-You can also define custom tags in Java code. Similarly to how JavaExtensions work by extending the @play.templates.JavaExtensions@ class, to create a FastTag you need to create a method in a class that extends @play.templates.FastTags@. Each method that you want to execute as a tag must have the following method signature.
+También puede definir los tags en código Java. De la misma manera en que puede definir sus propias extensiones de Java extendiendo la clase @play.templates.JavaExtensions@, para crear un FastTag necesita crear un método en una clase que extienda @play.templates.FastTags@. Cada método que desea que sea ejecutado como un tag, debe tener los siguientes parámetros:
 
 bc. public static void _tagName(Map<?, ?> args, Closure body, PrintWriter out, 
    ExecutableTemplate template, int fromLine)
 
-p(note). Note the underscore before the tag name.
+p(note). Preste atención al guión bajo '_' delante del nombre del tag.
 
-To understand how to build an actual tag, let’s look at two of the built-in tags.
+Para comprender como construir un tag real, echemos una mirada a dos de los tags que vienen incluidos con Play.
 
-For example, the @verbatim@ tag is implemented by a one-line method that simply calls the toString method on the JavaExtensions, and passes in the body of the tag.
+Por ejemplo, el tag @verbatim@ está implementado mediante un método de tan sólo una línea, que simplemente llama al método toString de JavaExtensions, pasando como parámetro el body del tag.
 
 bc. public static void _verbatim(Map<?, ?> args, Closure body, PrintWriter out, 
    ExecutableTemplate template, int fromLine) {
@@ -253,15 +248,15 @@ bc. public static void _verbatim(Map<?, ?> args, Closure body, PrintWriter out,
    out.println(JavaExtensions.toString(body));
 }
 
-The body of the tag would be anything between the open and close tag. So
+El body del tag es cualquier cosa que se encuentre entre el tag de apertura y cierre, de forma tal que en el siguiente caso:
 
 bc. <verbatim>My verbatim</verbatim>
 
-The body value would be 
+El body sería:
 
 bc. My verbatim
 
-The second example is the @option@ tag, which is slightly more complex because it relies on a parent tag to function.
+El segundo ejemplo es el tag @option@, que es un poco más complejo porque precisa de un tag padre o contenedor para funcionar.
 
 bc. public static void _option(Map<?, ?> args, Closure body, PrintWriter out, 
       ExecutableTemplate template, int fromLine) {
@@ -278,15 +273,15 @@ bc. public static void _option(Map<?, ?> args, Closure body, PrintWriter out,
    out.print("</option>");
 }
 
-This code works by outputting an HTML @option@ tag, and sets the selected value by checking which value is selected from the parent tag. The first three lines set variables for use in the output output. Then, the final three lines output the result of the tag.
+Este tag despliega un tag HTML de tipo @option@, y establece el valor _selected_ verificando cuál es el valor seleccionado en el tag padre. Las primeras tres líneas preparan las variables que serán utilizadas en la salida html. Luego, las últimas tres líneas despliegan la salida del tag.
 
-There are many more examples in the source code for the built in tags, with varying degrees of complexity. See "FastTags.java in github":https://github.com/playframework/play/blob/master/framework/src/play/templates/FastTags.java.
+Puede encontrar muchos ejemplos en el código fuente de los tags provistos por Play, con diversos grados de complejidad. Vea el archivo "FastTags.java en github":https://github.com/playframework/play/blob/master/framework/src/play/templates/FastTags.java.
 
 h3. Tag namespaces
 
-To ensure that your tags do not conflict between projects, or with the core Play tags, you can set up namespaces, using the class level annotation <code>@FastTags.Namespace</code>.
+Para asegurarse de que sus tags no entren en conflicto con otros tags de otros proyectos, o con los propios tags de Play, puede establecer namespaces, utilizando la anotación de clase <code>@FastTags.Namespace</code>.
 
-So, for a @hello@ tag, in a @my.tags@ namespace, you would do the following
+De forma tal que, para un tag llamado @hello@, en el namespace @my.tags@, debería anotarlo de la siguiente manera:
 
 bc. @FastTags.Namespace("my.tags") 
 public class MyFastTag extends FastTags {
@@ -296,19 +291,17 @@ public class MyFastTag extends FastTags {
    }
 }
 
-and then in your templates, you would reference the hello tag as
+y luego, en sus templates, lo llamaría de la siguiente manera:
 
 bc. #{my.tags.hello/}
 
+h2. <a name="extensions">Extensiones de objetos de Java en los templates</a>
 
+Cuando utiliza sus objetos de Java dentro del motor de templates, nuevos métodos son agregados a los mismos. Estos métodos no existen en la clase Java original, y son agregados dinámicamente por el motor de templates.
 
-h2. <a name="extensions">Java object extensions in templates</a>
+Por ejemplo, para facilitar el formateo de número, el método @format@ es agregado dinámicamente a la clase @java.lang.Number@.
 
-When you use your Java object within the template engine, new methods are added to it. These methods don’t exist in the original Java class and are dynamically added by the template engine.
-
-For example, to allow easy number formatting in a template, a @format@ method is added to @java.lang.Number@.
-
-It’s then very easy to format a number:
+De esta manera, es muy fácil formatear un número:
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -316,18 +309,17 @@ bc. <ul>
 #{/list}
 </ul>
 
-The same applies to @java.util.Date@.
+Lo mismo sucede con la clase @java.util.Date@.
 
-The "Java extensions":javaextensions manual page lists the available methods, by type.
+La documentación sobre las "extensiones de java":javaextensions contiene la lista de los métodos disponibles, por tipo de dato.
 
+h3. Creando extensiones personalizadas
 
-h3. Create custom extensions
+Su proyecto puede tener necesidades de formateo específicas, en tal caso puede crear sus propias extensiones personalizadas.
 
-Your project may have specific formatting needs, in which case you can provide your own extensions.
+Tan sólo precisa crear una clase de Java que extienda @play.templates.JavaExtensions@.
 
-You only need to create a Java class extending @play.templates.JavaExtensions@.
-
-For instance, to provide a custom currency formatter for a number:
+Por ejemplo, para proveer un formateador personalizado de tipo moneda para los valores númericos:
 
 bc. package ext;
  
@@ -342,35 +334,35 @@ public class CurrencyExtensions extends JavaExtensions {
  
 }
 
-Each extension method is a static method and should return a @java.lang.String@ to be written back in the page. The first parameter will hold the enhanced object.
+Cada método de extensión es un método estático que debe retornar un @java.lang.String@ que será escrito en la página de salida. El primer parámetro contendrá el objeto a ser enriquecido con el nuevo método.
 
-Use your formatter like this:
+Puede entonces utilizar su formateador de la siguiente manera:
 
 bc. <em>Price: ${123456.324234.ccyAmount()}</em>
 
-Template extension classes are automatically detected by Play at start-up. You just have to restart your application to make them available.
+Las clases con extensiones para los templates son detectadas automáticamente por Play al inicial la aplicación. Tan sólo tiene que reiniciar su aplicación para que estén disponibles.
 
-h2. <a name="implicits">Implicit objects available in a template</a>
+h2. <a name="implicits">Objetos implícitos disponibles en los templates</a>
 
-All objects added to the @renderArgs@ scope are directly injected as template variables. 
+Todos los objetos agregados a la colección @renderArgs@ son automáticamente inyectadas como variables de los templates.
 
-For instance, to inject a ‘user’ bean into the template from a controller:
+Por ejemplo, para inyectar un bean 'user' en el template desde un controlador:
 
 bc. renderArgs.put("user", user );
 
-When you render a template from an action, the framework also adds implicit objects:
+Cuando despliega un template desde una acción, el framework también agrega los siguientes objetos implícitos:
 
-|| Variable || Description || API documentation || See also ||
-| @errors@ | Validation errors | "play.data.validation.Validation.errors()":/@api/play/data/validation/Validation.html#errors%28%29 | "Validating HTTP data":validation |
-| @flash@ | Flash scope | "play.mvc.Scope.Flash":/@api/play/mvc/Scope.Flash.html  | "Controllers - Session & Flash Scope":controllers#session |
-| @lang@ | The current language | "play.i18n.Lang":/@api/play/i18n/Lang.html | "Setting up I18N - Define languages":i18n#languages |
-| @messages@ | The messages map | "play.i18n.Messages":/@api/play/i18n/Messages.html | "Setting up I18N - Externalize messages":i18n#messages |
-| @out@ | The output stream writer | java.io.PrintWriter |  |
-| @params@ | Current parameters | "play.mvc.Scope.Params":/@api/play/mvc/Scope.Params.html  | "Controllers - HTTP parameters":controllers#params |
-| @play@ | Main framework class | "play.Play":/@api/play/Play.html |  |
-| @request@ | The current HTTP request | "play.mvc.Http.Request":/@api/play/mvc/Http.Request.html  |  |
-| @session@ | Session scope | "play.mvc.Scope.Session":/@api/play/mvc/Scope.Session.html  | "Controllers - Session & Flash Scope":controllers#session |
+|| Variable || Descripción || Documentación de la API || Vea también ||
+| @errors@ | Errores de validación | "play.data.validation.Validation.errors()":/@api/play/data/validation/Validation.html#errors%28%29 | "Validando información HTTP":validation |
+| @flash@ | El contexto Flash | "play.mvc.Scope.Flash":/@api/play/mvc/Scope.Flash.html  | "Controladores - El contexto de la Session y el Flash":controllers#session |
+| @lang@ | El idioma actual | "play.i18n.Lang":/@api/play/i18n/Lang.html | "Configurando I18N - Definiendo idiomas":i18n#languages |
+| @messages@ | El mapa de mensajes | "play.i18n.Messages":/@api/play/i18n/Messages.html | "Configurando I18N - Internacionalización de mensajes":i18n#messages |
+| @out@ | El stream de salida de datos | java.io.PrintWriter |  |
+| @params@ | Parámetros actuales | "play.mvc.Scope.Params":/@api/play/mvc/Scope.Params.html  | "Controladores - parámetros HTTP":controllers#params |
+| @play@ | La clase principal del framework | "play.Play":/@api/play/Play.html |  |
+| @request@ | El pedido HTTP actual | "play.mvc.Http.Request":/@api/play/mvc/Http.Request.html  |  |
+| @session@ | El contexto Session | "play.mvc.Scope.Session":/@api/play/mvc/Scope.Session.html  | "Controladores - El contexto de la Session y el Flash":controllers#session |
 
-In addition to the list above the names @owner@, @delegate@ and @it@ are reserved in Groovy and shouldn't be used as variable names in templates.
+Además de estos objetos, los nombres @owner@, @delegate@ e @it@ son palabras reservadas de Groovy y no deberían ser utilizadas como nombres de variables en los templates.
 
-p(note). Next: %(next)"Form data validation":validation%
+p(note). Próximos pasos: %(next)"Validando los datos de los formularios HTTP":validation%
