@@ -239,4 +239,4 @@ bc. POST    /posts/{postId}/comments                Application.postComment
 
 Terminado. Como de costumbre, comitea la versión a bazaar.
 
-p(note). Siguiente: %(next)"Configurando un Captcha":guide5%.
+p(note). Vaya a %(next)"Configurando un Captcha":guide5%.
