@@ -2,7 +2,7 @@ h1. Validando información HTTP con Play
 
 Las validaciones nos permiten asegurar que la información ingresada por el usuario cumplirá con ciertos requerimientos específicos. Puede utilizar las validaciones para verificar que la información de sus modelos sea correcta antes de grabarlos a la base de datos, o utilizarlas directamente para validar los parámetros HTTP recibidos desde un formulario.
 
-h2. <a name="how">Cómo funcionan la validaciones en Play</a>
+h2. <a name="how">Cómo funcionan las validaciones en Play</a>
 
 Cada pedido HTTP tiene su propio objeto @Validation@ en el cual se guardan los errores. Hay tres maneras de definir validaciones.
 
