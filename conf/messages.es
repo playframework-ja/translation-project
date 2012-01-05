@@ -122,7 +122,7 @@ index.help.content=\
   Únete a la <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a>, \
   pregunta en <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, \
   comparte tu <a href="/community/snippets">&{index.help.code}</a>, \
-  asiste a <a href="/community/events">&{index.help.events}</a> y \
+  asiste a <a href="http://www.playframework.org/community/events">&{index.help.events}</a> y \
   conoce a los <a href="http://devmap.herokuapp.com/map/1/playframework">&{index.help.colleagues}</a>.
 index.help.googleGroup=lista de discusión
 index.help.stackOverflow=Stackoverflow

@@ -122,7 +122,7 @@ index.help.content=\
   Join the <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a> to discuss, \
   get help on <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, \
   share <a href="/community/snippets">&{index.help.code}</a> with the community, \
-  assist to <a href="/community/events">&{index.help.events}</a> and \
+  assist to <a href="http://www.playframework.org/community/events">&{index.help.events}</a> and \
   meet <a href="http://devmap.herokuapp.com/map/1/playframework">&{index.help.colleagues}</a>.
 
 index.help.googleGroup=Google group
@@ -272,7 +272,7 @@ ecosystem.zenexity.text=\
 ecosystem.zenexity.text2=\
   We audit your Play applications, train your teams, \
   bootstrap your project and help you to integrate it in your existing information system. \
-  We also offer professionnal support for mission critical applications running on Play.
+  We also offer professional support for mission critical applications running on Play.
 
 ecosystem.lunatech.title=Lunatech Research, Netherlands
 ecosystem.lunatech.text=\
@@ -325,7 +325,7 @@ modules.details=Get details and version
 
 about.title=About this site
 about.welcome=Welcome to playdoces
-about.welcome.text=Welcome to the Play framework site for spanish speaking community. Information on this site is shown below. 
+about.welcome.text=Welcome to the Play framework site for Spanish speaking community. Information on this site is shown below. 
 about.disclaimer=This is not an official play framework site. 
 about.disclaimer.text=This project IS NOT made by <a href="http://www.playframework.org/">playframework.org</a>.
 about.disclaimer.text2=Please do not make any question about the contents of this project to playframework.org.
@@ -334,10 +334,10 @@ about.acknowledment.text=Based on %s, developed and maintained by %s.
 
 about.contribute=Contribute to Play! framework translation
 about.contribute.text=\
-Play! framework documentation is very very clear and detailes, and it's one of it's best selling points. \
-Achieving a precise and pleasent translation is no easy task, \ 
+Play! framework documentation is very very clear and details, and it's one of it's best selling points. \
+Achieving a precise and pleasant translation is no easy task, \ 
 that's why we rely on the community to achieve such a goal. \
-If you'd like to contribute read our <a href="%s">traslator contribution guide</a>.  
+If you'd like to contribute read our <a href="%s">translator contribution guide</a>.  
 
 about.translators=Translators
 about.translators.text=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
