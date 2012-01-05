@@ -122,12 +122,14 @@ index.help.content=\
   Join the <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a> to discuss, \
   get help on <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, \
   share <a href="/community/snippets">&{index.help.code}</a> with the community, \
-  and <a href="/community/events">&{index.help.meet}</a> other developers.
+  assist to <a href="/community/events">&{index.help.events}</a> and \
+  meet <a href="http://devmap.herokuapp.com/map/1/playframework">&{index.help.colleagues}</a>.
 
 index.help.googleGroup=Google group
 index.help.stackOverflow=Stackoverflow
 index.help.code=code snippets
-index.help.meet=meet
+index.help.events=events
+index.help.colleagues=nearby colleagues
 
 # right panel contribute section
 index.contribute.title=Contribute
@@ -339,4 +341,11 @@ If you'd like to contribute read our <a href="%s">traslator contribution guide</
 
 about.translators=Translators
 about.translators.text=This project is managed on <a href="https://github.com/garbagetown/playdocja"/>github</a> by translators bellow.
-  
+
+### views/errors/404.html
+#-------------------------
+notFound.title=Page not found
+notFound.content=\
+  Sorry, the page you were looking for could not be located on this site. \
+  If you think there is something missing on this website, please ask on the \
+  <a href="http://groups.google.com/group/play-framework">Play Google group</a>.
