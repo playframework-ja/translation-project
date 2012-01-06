@@ -1,30 +1,30 @@
 p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
 
-h1. Setting up a basic administration area using CRUD
+h1. Configuración básica de un área de administración usando CRUD
 
-Currently, we have no way to create new blog posts or moderate comments using the blog UI. Play provides an out of the box **CRUD** module that will help quickly generate a basic administration area.
+En este momento, no tenemos ninguna forma de crear nuevos posts o moderar los comentarios a través de la interfaz de usuario del blog. Play provee un módulo **CRUD**, listo para usar, que nos ayudará a generar un área de administración básica.
 
-h2. <a>Enabling the CRUD module</a>
+h2. <a>Habilitar el módulo CRUD</a>
 
-A Play application can be assembled from several application modules. This lets you reuse components across several applications or split a large application into several smaller ones.
+Una aplicación Play puede ser ensamblada a partir de varios módulos de aplicación. Esto permite reusar componentes en diferentes aplicaciones o separar una aplicación grande en varias más pequeñas.
 
-The CRUD module is a generic application that introspects the model classes to create simple lists and forms.
+El módulo CRUD es una aplicación genérica que realiza un análisis de las clases del modelo para crear listas y formularios sencillos.
 
-To enable the CRUD module, add a line in the @/conf/dependencies.yml@ file, after @require:@
+Para habilitar el módulo CRUD, agregue una línea en el archivo @/conf/dependencies.yml@, después de @require:@
 
 bc. require:
     - play -> crud
 
-Now run the @play dependencies@ command to resolve the new module dependency.
+Ahora ejecute el comando @play dependencies@ para resolver la nueva dependencia del módulo.
 
-Then this module comes with a generic set of **routes** that we can reuse for now. To import these routes just add this line to the @/yabe/conf/routes@ file:
+Este módulo viene con un conjunto genérico de **routes** que podemos reutilizar por ahora. Para importar estas **routes** solo hay que agregar esta línea al archivo @/yabe/conf/routes@:
 
-bc. # Import CRUD routes
+bc. # Importar routes del módulo CRUD
 *      /admin              module:crud
 
-This will import all the CRUD routes using the @/admin@ prefix for the URL paths.
+Esto importará todas las **routes** del módulo CRUD usando el prefijo @/admin@ en las direcciones URL.
 
-You have to restart the application to take the new module into account.
+Tiene que reiniciar la aplicación para poder utilizar el nuevo módulo.
 
 h2. <a>Declaring the CRUD controllers</a>
 
