@@ -121,12 +121,15 @@ index.help.title=Recibe ayuda
 index.help.content=\
   Únete a la <a href="http://groups.google.com/group/play-framework" target="_blank">&{index.help.googleGroup}</a>, \
   pregunta en <a href="http://stackoverflow.com/tags/playframework" target="_blank">&{index.help.stackOverflow}</a>, \
-  comparte tu <a href="/community/snippets">&{index.help.code}</a> \
-  y <a href="/community/events">&{index.help.meet}</a> a otros desarrollares.
-
+  comparte tu <a href="/community/snippets">&{index.help.code}</a>, \
+  asiste a <a href="http://www.playframework.org/community/events">&{index.help.events}</a> y \
+  conoce a los <a href="http://devmap.herokuapp.com/map/1/playframework">&{index.help.colleagues}</a>.
 index.help.googleGroup=lista de discusión
 index.help.stackOverflow=Stackoverflow
 index.help.code=código
+index.help.events=eventos
+index.help.colleagues=colegas de tu ciudad
+
 index.help.meet=conoce
 
 # right panel contribute section
@@ -344,3 +347,12 @@ Si estás interesado en colaborar lee nuestra <a href="%s">guía para colaborar 
 
 about.translators=Traductores
 about.translators.text=Este sitio se encuentra en <a href="https://github.com/opensas/playdoces"/>github</a> y es mantenido por los siguientes traductores.
+
+### views/errors/404.html
+#-------------------------
+notFound.title=Página no encontrada
+notFound.content=\
+  Lo lamentamos, pero no pudimos encontrar la página que está buscando. \
+  Si piensa que se trata de un error, puede consultar en la \
+  <a href="https://groups.google.com/group/play-latam">lista de discusión de play! para hispano-hablantes</a> o \
+  <a href="https://github.com/opensas/playdoces/issues/new">reportar un incidente</a> en el sitio del proyecto.
