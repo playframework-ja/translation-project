@@ -1,36 +1,37 @@
 p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
 
-h1. Setting up a basic administration area using CRUD
+h1. Configurando un área de administración básica utilizando CRUD
 
-Currently, we have no way to create new blog posts or moderate comments using the blog UI. Play provides an out of the box **CRUD** module that will help quickly generate a basic administration area.
+Por ahora, no tenemos forma de crear nuevos posts o moderar los comentarios utilizando la interface del blog. Play nos provee el módulo **CRUD** que nos ayudará a generar rápidamente un área básica de administración.
 
-h2. <a>Enabling the CRUD module</a>
 
-A Play application can be assembled from several application modules. This lets you reuse components across several applications or split a large application into several smaller ones.
+h2. <a>Habilitando el módulo CRUD</a>
 
-The CRUD module is a generic application that introspects the model classes to create simple lists and forms.
+Una aplicación Play puede ser ensamblada con un conjunto de módulos. Esto nos permite reutilizar componentes a través de varias aplicaciones o separar una gran aplicación en aplicaciones más pequeñas.
 
-To enable the CRUD module, add a line in the @/conf/dependencies.yml@ file, after @require:@
+El módulo CRUD es una aplicación genérica que inspecciona las clases del modelo para crear listas y formularios simples.
+
+Para habilitar el módulo CRUD, agrega ésta línea en el archivo @/conf/dependencies.yml@, luego de @require:@
 
 bc. require:
     - play -> crud
 
-Now run the @play dependencies@ command to resolve the new module dependency.
+Ahora ejecuta el comando @play dependencies@ para que Play reconozca al módulo.
 
-Then this module comes with a generic set of **routes** that we can reuse for now. To import these routes just add this line to the @/yabe/conf/routes@ file:
+Este módulo trae un set genérico de **routes** que podremos reutilizar. Para importar éstas rutas simplemente agrega ésta linea al archivo @/yabe/conf/routes@: 
 
 bc. # Import CRUD routes
 *      /admin              module:crud
 
-This will import all the CRUD routes using the @/admin@ prefix for the URL paths.
+Esto importará todas las rutas CRUD utilizando el prefijo @/admin@ en las URL.
 
-You have to restart the application to take the new module into account.
+Deberás correr nuevamente la aplicación para habilitar el módulo.
 
-h2. <a>Declaring the CRUD controllers</a>
+h2. <a>Declarando los controladores de CRUD </a>
 
-For each model object that we want to integrate to the administration area, we have to declare a controller that extends the @controllers.CRUD@ super controller. This is very easy.
+Para cada objeto del modelo que integremos al área de administración, deberemos declarar un controlador que herede del controlador @controllers.CRUD@. Esto es muy fácil.
 
-Create one controller for each model object. For example, for the @Post@ object create the @Posts@ controller in the @/yabe/app/controllers/Posts.java@ file. 
+Crea un controlador por cada objeto del modelo. Por ejemplo, para el objeto @Post@ crea el controlador @Posts@ en el archivo @/yabe/app/controllers/Posts.java@.
 
 bc. package controllers;
  
@@ -40,9 +41,9 @@ import play.mvc.*;
 public class Posts extends CRUD {    
 }
 
-p(note). The convention is to pluralize the model object name to create the corresponding controller. This way, Play will automatically find the associated model object for each controller. If you need to use a different name, you can still use the <code>@CRUD.For</code> annotation. Check the "manual page":crud.
+p(note). Por convención, nombramos al controlador con el plural del objeto del modelo. De ésta manera, Play encontrará automáticamente el objeto del modelo asociado a cada controlador. Si necesitas utilizar un nombre diferente, puedes utilizar igualmente la anotación <code>@CRUD.For</code>. Echa un vistazo a la "página del manual":crud.
 
-Create the same for all model objects:
+Haz lo mismo con todos los objetos del modelo:
 
 bc. package controllers;
  
@@ -68,13 +69,12 @@ import play.mvc.*;
 public class Tags extends CRUD {    
 }
 
-Now just open the "http://localhost:9000/admin/":http://localhost:9000/admin/ URL, and you should get to the administration area.
+Ahora simplemente abre en tu navegador "http://localhost:9000/admin/":http://localhost:9000/admin/, y deberías acceder al área de administración.
 
 !images/guide7-1!
 
-If you browse it a little, you will notice that the object names in the lists are a little rough. This is because the default is to use a simple @toString()@ to get a readable representation of the model objects.
-
-We can easily fix that, by providing correct implementations of the @toString()@ method for all models. For example, for the User class:
+Si la navegas un poco, notarás que los nombres de los objetos son un poco complicados. Lo normal es utilizar un simple @toString()@ para obtener una representación legible de los objetos del modelo.
+Podemos arreglarlo fácilmente agregando las implementaciones correctas del método @toString()@ a todos los modelos. Por ejemplo, para la clase User:
 
 bc. …
 public String toString() {
@@ -82,11 +82,11 @@ public String toString() {
 }
 …
 
-h2. <a>Adding validation</a>
+h2. <a>Agregando validación</a>
 
-The generated administration area’s main problem is that forms don’t contain any validation rules. But actually the CRUD module is able to extract the validation rules from the validation annotations if the model class is correctly annotated.
+El problema principal de nuestra área de administración es que los formularios no contienen ninguna regla de validación. Por suerte, el módulo CRUD es capaz de extraer las reglas de validación directamente de las anotaciones de validación si la clase está declarada correctamente.
 
-Let’s add some annotations to the @User@ class:
+Agreguemos algunas anotaciones a la clase @User@:
 
 bc. package models;
  
@@ -110,11 +110,11 @@ public class User extends Model {
     public boolean isAdmin;
 …
 
-Now if you go to the edition or creation form for the @User@ model object, you will see that validation rules are auto-magically added to the form:
+Si ahora te diriges al formulario de edición o creación del objeto @User@, verás que las reglas de validación son mágicamente agregadas al formulario:
 
 !images/guide7-2!
 
-Let’s do the same for the @Post@ class:
+Hagamos lo mismo con la clase @Post@:
 
 bc. package models;
  
@@ -149,13 +149,13 @@ public class Post extends Model {
     public Set<Tag> tags;
 …
 
-And check the result:
+Y chequea el resultado:
 
 !images/guide7-3!
 
-Here you see an interesting side effect: the <code>@MaxSize</code> validation rule has changed the way Play displays the Post form. It now uses a large text area for the content field.
+Aquí verás un efecto secundario interesante: la regla de validación <code>@MaxSize</code> cambió el modo en que Play muestra el formulario de los Post. Ahora utiliza una gran área de texto para el campo del contenido.
 
-Finally we can add validation rules to the @Comment@ and @Tag@ classes as well:
+Finalmente, podemos agregar reglas de validación también a las clases @Comment@ y @Tag@:
 
 bc. package models;
  
@@ -199,13 +199,13 @@ public class Comment extends Model {
     public Post post; 
 …
 
-h2. <a>Better form labels</a>
+h2. <a>Mejorando las etiquetas del formulario</a>
 
-As you can see the form labels are a little rough. Play uses the Java field name as form label. To customize it, we just have to provide better labels in the @/yabe/conf/messages@ file.
+Como puedes ver, las etiquetas del formulario son poco agradables. Play utiliza el nombre del campo Java como etiqueta del formulario. Para retocarlo, debemos simplemente agregar mejores etiquetas en el archivo @/yabe/conf/messages@.
 
-p(note). In fact, you can have a separate @messages@ file for each language supported by your application. For example, you could put French messages in the @/yabe/conf/messages.fr@ file. You will see how to add language localisation in part 12: "Internationalisation and localisation":guide12.
+p(note). De hecho, puedes tener un archivo @messages@ distinto por cada lenguaje soportado por tu aplicación. Por ejemplo, podrías poner mensajes en Francés en el archivo @/yabe/conf/messages.fr@. Podrás ver como agregar localización de lenguajes en la parte 12: "Internacionalización y localización":guide12.
 
-Add these labels to the @messages@ file:
+Agrega éstas etiquetas al archivo @messages@:
 
 bc. title=Title
 content=Content
@@ -219,21 +219,21 @@ password=Password
 fullname=Full name
 isAdmin=User is admin
 
-Then refresh any form, and you will see the new form labels:
+Ahora refresca cualquier formulario y verás las nuevas etiquetas:
 
 !images/guide7-4!
 
-h2. <a>Customizing the ‘Comments’ data list</a>
+h2. <a>Retocando la lista de ‘Comentarios’</a>
 
-The CRUD module is made to be fully customizable. For example if you look at the comments list page, the way that data is listed is not great. We would like to add more columns, especially the ‘related post’ column to help us filter the list easily.
+El módulo CRUD fue creado para ser totalmente customizable. Por ejemplo, si miras la página de comentarios, la manera en que la información es listada no es muy atractiva. Nos gustaría agregarle algunas columnas, especialmente la columna de ‘post relacionados’ para ayudarnos a filtrar la lista fácilmente.
 
-In fact, as your applications keep the master, you can really override any **action** or **template** provided by the CRUD module. For example if we want to customize the ‘comments list’ view, we just have to provide another @/yabe/app/views/Comments/list.html@ template.
+De hecho, mientras tus aplicaciones sigan siendo las master, puedes sobreescribir cualquier **action** ó **template** provistos por el módulo CRUD. Por ejemplo, si quisieramos retocar la vista de la ‘lista de comentarios’, simplemente deberíamos proveer otro template @/yabe/app/views/Comments/list.html@.
 
-The **CRUD** module provides more Play commands when it’s enabled. The @crud:ov@ command helps you override any template. From a command line, type:
+El módulo **CRUD** nos provee todavía más comandos Play cuando está habilitado. El comando @crud:ov@ te ayudará a sobreescribir cualquier template. Desde la línea de comandos, tipea:
 
 bc. $ play crud:ov --template Comments/list
 
-Now you have a new template at @/yabe/app/views/Comments/list.html@:
+Ya tienes un nuevo template en @/yabe/app/views/Comments/list.html@:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -259,19 +259,21 @@ bc. #{extends 'CRUD/layout.html' /}
  
 </div>
 
-The first new thing here is @&{'crud.list.title', type.name}@, which outputs the localized message whose key is @crud.list.title@, using @type.name@ as a message parameter. The CRUD module’s @conf/messages@ file contains the entry @crud.list.title=&{%s}@, in which the parameter is used as the key for another message look-up, i.e. @&{'Comments'}@ in this case, because @type@ is a @CRUD.ObjectType@ for @models.Comments@. This defaults to outputting the message key - @Comments@, since we have not defined a corresponding message file entry. You will learn more about localized messages in the section on "internationalisation and localisation":guide12 at the end of the tutorial.
+Lo nuevo aquí es @&{'crud.list.title', type.name}@, que muestra el mensaje que tenga como clave a @crud.list.title@, utilizando @type.name@ como un parámetro del mensaje. El archivo de configuración del módulo CRUD contiene la entrada @crud.list.title=&{%s}@, en la cual el parámetro es utilizado como la clave para acceder a otro mensaje relacionado, por ejemplo  @&{'Comments'}@ en éste caso, ya que @type@ es un @CRUD.ObjectType@ para @models.Comments@. 
 
-The @#{crud.table /}@ tag actually generates the table. We can customize it using the @fields@ parameter to add more columns. Try this:
+Esto muestra por default la clave del mensaje - @Comments@, ya que no hemos definido una entrada con su correspondiente mensaje. Aprenderás más sobre mensajes localizados en la sección "Internacionalización y localización":guide12 al final de éste tutorial.
+
+El tag @#{crud.table /}@ en realidad genera la tabla. Podemos retocarla utilizando el parámetro @fields@ para agregar más columnas. Prueba ésto:
 
 bc. #{crud.table fields:['content', 'post', 'author'] /}
 
-And now we have three columns in the table:
+Y ahora tenemos 3 columnas en la tabla:
 
 !images/guide7-5!
 
-The problem is that the @content@ field could be very long for some comments. We will specialize the way that the @#{crud.table /}@ handles it to be able to truncate it if needed.
+El problema es que el campo de contenido @content@ puede ser demasiado extenso en algunos comentarios. Vamos a definir la manera en que la tabla @#{crud.table /}@ se las arregla para achicarlo cuando sea necesario.
 
-We can specify a custom way to display each field using the @#{crud.custom /}@ tag as is:
+Podemos especificar una manera a medida para mostrar cada campo utilizando el tag @#{crud.custom /}@ de la siguiente manera:
 
 bc. #{crud.table fields:['content', 'post', 'author']}
  #{crud.custom 'content'}
@@ -281,15 +283,15 @@ bc. #{crud.table fields:['content', 'post', 'author']}
  #{/crud.custom}
 #{/crud.table}
 
-p(note). Yes, there is some Groovy syntactic sugar at work here.
+p(note). Si, tenemos un poco de Groovy aquí.
 
-h2. <a>Customizing the ‘Post’ form</a>
+h2. <a>Retocando el formulario ‘Post’</a>
 
-We can customize the generated forms as well. For example, the way we enter tags in the Post form is not really easy. We could build something better. Let’s override the @Posts/show@ template:
+Podemos retocar también los formularios que hemos generado. Por ejemplo, la manera en que agregamos tags en un Post no es muy simple. Podríamos construir algo mejor. Sobreescribamos el template @Posts/show@:
 
 bc. $ play crud:ov --template Posts/show
 
-Now you have a new template at @/yabe/app/views/Posts/show.html@:
+Ahora tienes un nuevo template en @/yabe/app/views/Posts/show.html@:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -317,7 +319,7 @@ bc. #{extends 'CRUD/layout.html' /}
  
 </div>
 
-You can modify the @#{crud.form /}@ tag in @Posts/show.html@ to customise the @tags@ field by adding a @crud.custom@ tag to the @#{crud.form /}@ tag body:
+Puedes modificar el tag @#{crud.form /}@ en @Posts/show.html@ para retocar el campo @tags@ agregando un tag @crud.custom@ en el cuerpo del tag @#{crud.form /}@:
 
 bc. #{crud.form}
     #{crud.custom 'tags'}
@@ -349,11 +351,11 @@ bc. #{crud.form}
     #{/crud.custom}
 #{/crud.form}
 
-This is a little hacky and we could do better here, but we have now a simpler tags selector using a little bit of JavaScript:
+Esto es un poco complicado y podríamos hacerlo mejor, pero ya tenemos un selector de tags mucho más simple utilizando un poquito de JavaScript:
 
 !images/guide7-6!
 
-To customize the appearance of the tag list, create a new css file in @public/stylesheets/tags.css@ with the following content:
+Para retocar la apariencia de la lista de tags, crea un nuevo archivo css en @public/stylesheets/tags.css@ con el siguiente contenido:
 
 bc.  .tags-list .tag {
      cursor: pointer;
@@ -364,13 +366,13 @@ bc.  .tags-list .tag {
      color: #fff;
 }
 
-Then, in @views/CRUD/layout.html@, change the @#{set 'moreStyles'}@ block to make it look like the following:
+Luego, en @views/CRUD/layout.html@, cambia el bloque @#{set 'moreStyles'}@ para que quede como el que sigue:
 
 bc. #{set 'moreStyles'}
     <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/crud.css'}" />
     <link rel="stylesheet" type="text/css" media="screen" href="@{'/public/stylesheets/tags.css'}" />
 #{/set}
 
-This is a good start for the administration area!
+Es un buen comienzo para nuestra área de administración!
 
-p(note). Next: %(next)"Adding authentication":guide8%.
+p(note). Continúa con: %(next)"Agregando autenticación":guide8%.

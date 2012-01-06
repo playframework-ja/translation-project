@@ -2,7 +2,7 @@ h1. Agregando un captcha
 
 Dado que cualquier persona puede escribir comentarios en nuestro blog, deberíamos protegerlo un poco a fin de evitar mensajes spam. Una manera simple de proteger un formulario es agregando un "captcha":http://en.wikipedia.org/wiki/Captcha.
 
-h2. <a>Generado la imagen del captcha</a>
+h2. <a>Generando la imagen del captcha</a>
 
 A continuación veremos cuán simple es generar una imagen captcha con Play. Básicamente lo que haremos será desarrollar un método de acción, pero en este caso retornaremos un stream de datos binarios en vez de una página HTML como lo veníamos haciendo hasta el momento.
 
@@ -39,7 +39,7 @@ Una solución trivial, sería poner el texto en la session del usuario al moment
 
 **Segundo**, recuerde que Play es un framework **sin estado** o **stateless**. Nuestra intención es manejar las cosas sin guardar ningún tipo de estado. Típicamente, cuando un usuario abre simultáneamente dos páginas distintas de nuestro blog con dos captchas diferentes, tenemos que guardar el código de cada captcha.
 
-Para resover este problema precisamos dos cosas. Necesitamos guardar el código secreto del captcha del lado del servidor. Dado que se trata de información transitoria, podemos fácilmente almacenarla en el **Cache** de Play. Más aún, dado que la información guardada en el cache tiene un tiempo limitado de vida, esto le agregará un nuevo mecanismo de seguridad (por ejemplo, la código del captcha podría estar disponible por tan sólo 10 minutos). Entonces para resolver el código tendremos que generar un **ID único**. Este identificador único será agregado a cada formulario como un campo oculto y hará referencia de manera implícita al código generado por el captcha. 
+Para resover este problema precisamos dos cosas. Necesitamos guardar el código secreto del captcha del lado del servidor. Dado que se trata de información transitoria, podemos fácilmente almacenarla en el **Cache** de Play. Más aún, dado que la información guardada en el cache tiene un tiempo limitado de vida, esto le agregará un nuevo mecanismo de seguridad (por ejemplo, el código del captcha podría estar disponible por tan sólo 10 minutos). Entonces para resolver el código tendremos que generar un **ID único**. Este identificador único será agregado a cada formulario como un campo oculto y hará referencia de manera implícita al código generado por el captcha. 
 
 De esta manera resolvemos con elegancia la cuestión de mantener el estado del formulario.
 
@@ -93,7 +93,7 @@ Todo marcha bien. El formulario de comentarios ahora tiene una imagen captcha.
 
 h2. <a>Validando el captcha</a>
 
-Ahora tan sólo tenemos que validar el captch. Ya hemos agregado el @randomID@ como un campo oculto, de manera que podemos recuperarlo en la acción @postComment@, luego traeremos del cache el código del captcha y finalmente lo compararemos con el código enviado por el usuario.
+Ahora tan sólo tenemos que validar el captcha. Ya hemos agregado el @randomID@ como un campo oculto, de manera que podemos recuperarlo en la acción @postComment@, luego traeremos del cache el código del captcha y finalmente lo compararemos con el código enviado por el usuario.
 
 No es tan complicado. Modifiquemos la acción @postComment@:
 
@@ -127,7 +127,7 @@ bc. ..
 #{/ifErrors}
 …
 
-p(note). Por lo común, para formularios complejos, los mensajes de error no son manejados de esta manera, sino mediante mensajes internacionalizados en el archivo @messages@, y cada error es desplegado junto con su correspondiente campo. 
+p(note). Por lo común, para formularios complejos, los mensajes de error no son manejados de ésta manera, sino mediante mensajes internacionalizados en el archivo @messages@, y cada error es desplegado junto con su correspondiente campo. 
 
 Verifique que el captcha funciona según lo esperado.
 
