@@ -1,12 +1,12 @@
 h1. Creando un área para editores personalizada
 
-En la parte anterior creamos un área de administración para _yabe_ y preparamos la sección 'My Posts'. Esta sección mostrará a cada autor su lista de publicaciones (_posts_), y tendrá la opción de editarlas o crear unas nuevas.
+En la parte anterior creamos un área de administración para _yabe_ y preparamos la sección 'My Posts'. Esta sección mostrará a cada autor una lista de sus propias publicaciones (_posts_), y tendrá la opción de editarlas o crear nuevas entradas.
 
 Podríamos fácilmente reutilizar el módulo CRUD como base para esta página, pero en este caso la crearemos desde cero; ya que el área de editores necesita muchas características personalizadas.
 
 h2. <a>Comencemos con la lista de posts del usuario</a>
 
-Solo necesitamos consultar y mostrar los posts escritos por el usuario que ha iniciado sesión. Muy fácil. Empecemos por mejorar la acción @Admin.index@:
+Sólo necesitamos consultar y mostrar los posts escritos por el usuario que ha iniciado la sesión. Esto es muy fácil. Empecemos por mejorar la acción @Admin.index@:
 
 bc. public static void index() {
     String user = Security.connected();
@@ -107,11 +107,11 @@ bc. ...
 </p>
 ...
 
-Ya puede revisar el reusltado:
+Ya puede revisar el resultado:
 
 !images/guide9-2!
 
-Ahora tenemos que completar la acción @Admin.save@ para capturar correctamente los datos del formulario. Esta acción creará un nuevo objeto @Post@, convertirá la lista de etiquetas en una colección de objetos @Tag@, validará todos los campos y los guardará. Si hay algún problema entonces volverá a mostrar el formulario con los mensajes de error correspondientes.
+Ahora tenemos que completar la acción @Admin.save@ para capturar correctamente los datos del formulario. Esta acción creará un nuevo objeto @Post@, convertirá la lista de etiquetas en una colección de objetos @Tag@, validará todos los campos y los guardará. Si hay algún problema entonces volverá a mostrar el formulario con los correspondientes mensajes de error.
 
 bc. public static void save(String title, String content, String tags) {
     // Create post
@@ -133,15 +133,15 @@ bc. public static void save(String title, String content, String tags) {
     index();
 }
 
-p(note). Aquí usamos la instrucción <code>==render("@form")==</code> que viene a ser una versión simplificada de la instrucción <code>==render("Admin/form.html")==</code>. Esta versión simplificada le dice a Play que utilice la plantilla por defecto de la acción ‘form’.
+p(note). Aquí usamos la instrucción <code>==render("@form")==</code> que viene a ser una versión simplificada de la instrucción <code>==render("Admin/form.html")==</code>. Esta instrucción simplemente le dice a Play que utilice la plantilla por defecto de la acción ‘form’.
 
 ¡Hagan la prueba!
 
 h2. <a>Reutilizando todo esto para editar Posts</a>
 
-Hemos construido el formulario HTML y la acción Java capaces de crear un nuevo Post en el blog, sin embargo, aún nos falta permitir la edición de los posts existentes. Podemos, de manera muy sencilla, reutilizar exactamente el mismo código anterior, solo que haciéndole unas pequeñas modificaciones.
+Hemos construido el formulario HTML y la acción Java capaces de crear un nuevo Post en el blog, sin embargo, aún nos falta permitir la edición de los posts existentes. Podemos, de manera muy sencilla, reutilizar exactamente el mismo código anterior, sólo que haciéndole unas pequeñas modificaciones.
 
-Primero necesitamos que @Admin.form@ consulte los datos de un @Post@ existente:
+Primero necesitamos que @Admin.form@ pueda además obtener los datos de un @Post@ existente:
 
 bc. public static void form(Long id) {
     if(id != null) {
@@ -151,7 +151,7 @@ bc. public static void form(Long id) {
     render();
 }
 
-Como puede observar, lo colocamos como una opción; de esta forma la misma acción consultará los datos de un post solo si se proporciona un valor a través del parámetro @id@. Ahora puede enlazar los posts de la lista en la página principal para que apunten al formulario de edición. Modifique la plantilla @yabe/app/views/Admin/index.html@:
+Como puede observar, lo colocamos de manera opcional; de esta forma la misma acción consultará los datos de un post sólo si se proporciona un valor a través del parámetro @id@. Ahora puede enlazar los posts de la lista en la página principal para que apunten al formulario de edición. Modifique la plantilla @yabe/app/views/Admin/index.html@:
 
 bc. #{extends 'admin.html' /}
  
@@ -178,7 +178,7 @@ GET     /admin/new                          Admin.form
 
 Cabe destacar que colocamos la definicion de esta nueva ruta por encima de la vieja, con el fin de que tenga mayor prioridad. Esto significa que si se utiliza el parámetro @id@, Play utilizará el patrón URL nuevo. En caso contrario, utilizará el viejo.
 
-Actualice la pagína **My posts** y debería ver mejores URL en estos enlaces.
+Actualice la página **My posts** y debería ver los nuevos URL en estos enlaces.
 
 También necesitamos modificar la plantilla @yabe/app/views/Admin/form.html@:
 
@@ -232,9 +232,9 @@ bc. #{extends 'admin.html' /}
     
 #{/form}
 
-Como puede ver, hemos actualizado la acción de destino del formulario para que agregue el ID del post como parámetro de la acción, en caso de que este exista. Por lo tanto cuando el post tenga un campo @id@ con valor asignado (es decir que el post ya existe en el sistema), el formulario lo enviará a la acción @Admin.save@.
+Como puede ver, hemos actualizado la acción de destino del formulario para que agregue el ID del post como primer parámetro de la acción, en caso de que éste exista. Por lo tanto cuando el post tenga un campo @id@ con valor asignado (es decir que el post ya existe en el sistema), el formulario lo enviará a la acción @Admin.save@.
 
-Ahora podemos cambiar un poco el método @save()@ para manejar ambos casos de creación y edición:
+Ahora podemos adaptar el método @save()@ para que pueda manejar ambos casos de creación y edición:
 
 bc. public static void save(Long id, String title, String content, String tags) {
     Post post;
