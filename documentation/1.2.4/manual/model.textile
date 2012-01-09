@@ -17,7 +17,7 @@ bq. El síntoma básico de que el modelo de dominio es Anémico a primera vista 
 El horror fundamental de este antipatrón es que va completamente en contra de la idea básica del diseño orientado a objetos, que es combinar datos y proceso juntos. El modelo de dominio anémico es realmente un diseño de estilo procedimiental, exactamente la clase de cosa contra la que los geeks de los objetos como yo mismo (y Eric) hemos estado luchando desde nuestros días de juventud en Smalltalk. Y lo que es peor, mucha gente cree que los objetos anémicos son objetos reales y por tanto, pierden por completo la idea de lo que va todo esto del diseño orientado a objetos.
 
 
-h2. <a name="properties">Properties simulation</a>
+h2. <a name="properties">Simulación de propiedades</a>
 
 Si echas un vistazo a las aplicaciones ejemplo de Play, verás a menudo que las clases declaran variables públicas. Si eres un desarrollador Java con alguna experiencia, te estarán sonando campanas y alarmas de todos los colores a la simple vista de una variable pública. En Java (como en otros lenguajes orientados a objetos), las best practices dicen que hay que hacer todos los campos privados y proporcionar métodos de acceso y de modificación. Esto es así para fomentar la encapsulación, un concepto crítico en el diseño orientado a objetos.
 
@@ -26,11 +26,9 @@ Java no incluye un sistema de definición de propiedades real. Usa una convenci�
 Aunque el sistema funciona bien, es muy tedioso de escribir. Para cada propiedad tienes que declarar una variable privada y escribir dos métodos. De esta forma, la mayoría de los getters y setters son siempre iguales:
 
 bc. private String name;
- 
 public String getName() {
     return name;
 }
- 
 public void setName(String value) {
     name = value;
 }
@@ -40,7 +38,6 @@ La parte Modelo de la Play framework automáticamente genera este patrón manten
 Por ejemplo, cuando defines una clase como esta:
 
 bc. public class Product {
- 
     public String name;
     public Integer price;
 }
@@ -48,22 +45,17 @@ bc. public class Product {
 La clase cargada será:
 
 bc. public class Product {
- 
     public String name;
     public Integer price;
- 
     public String getName() {
         return name;
     }
- 
     public void setName(String name) {
         this.name = name;
     }
- 
     public Integer getPrice() {
         return price;
     }
- 
     public void setPrice(Integer price) {
         this.price = price;
     }
@@ -88,10 +80,8 @@ Por supuesto, puedes definir tus propios métodos getter y setter. Si existen, P
 Así que para proteger el valor de la propiedad price de la clase Product, puedes escribir:
 
 bc. public class Product {
- 
     public String name;
     public Integer price;
- 
     public void setPrice(Integer price) {
         if (price < 0) {
             throw new IllegalArgumentException("¡El precio no puede ser negativo!");
@@ -108,18 +98,15 @@ Play siempre usará el getter o setter definido si existe. Veamos este código:
 
 bc. @Entity
 public class Data extends Model {
- 
    @Required
    public String value;
    public Integer anotherValue;
- 
    public Integer getAnotherValue() {
        if(anotherValue == null) {
            return 0;
        }
        return anotherValue;
    }
- 
    public void setAnotherValue(Integer value) {
        if(value == null) {
            this.anotherValue = null;
@@ -127,14 +114,12 @@ public class Data extends Model {
            this.anotherValue = value * 2;
        }
    }
- 
    public String toString() {
        return value + " - " + anotherValue;
    }
- 
 }
 
-Desde otra claes, puedes intentar estas assertions:
+Desde otra clase, puedes intentar estas assertions:
 
 bc. Data data = new Data();
 data.anotherValue = null;
@@ -169,64 +154,61 @@ conn.createStatement().execute("select * from products");
 
 h2. <a name="hibernate">Persiste tu modelo de objetos con Hibernate</a>
 
-You can use Hibernate (through JPA) to persist your Java objects in the Database automatically.
+Puedes usar Hibernate (a través de JPA) para persistir tus objetos Java en la Base de Datos automáticamente.
 
-When you define JPA entities by adding <code>@javax.persistence.Entity</code> annotations to any Java object, Play will automatically start a JPA entity manager.
+Cuando defines entidades JPA añadiendo anotaciones <code>@javax.persistence.Entity</code> a cualquier objeto Java, Play arrancará automáticamente un gestor de entidades JPA.
 
 bc. @Entity
 public class Product {
- 
     public String name;
     public Integer price;
 }
 
-p(note). **Warning!**
+p(note). **¡Atención!**
  
-A common mistake is to use the Hibernate <code>@Entity</code> annotation instead of the JPA one. Remember that Play uses Hibernate through the JPA API.
+Un error común es usar la anotación <code>@Entity</code> de Hibernate en vez de la de JPA. Recuerda que Play usa Hibernate a través de la API de JPA:
 
-You can then obtain the EntityManager from the @play.db.jpa.JPA@ object:
+Puede obtenerse el EntityManager a partir del objeto @play.db.jpa.JPA@:
 
 bc. EntityManager em = JPA.em();
 em.persist(product);
 em.createQuery("from Product where price > 50").getResultList();
 
-Play provides a nice support class to help you to deal with JPA. Just extend @play.db.jpa.Model@.
+Play proporciona una bonita clase de soporte para ayudarte a manejar ls JPA. Basta extender @play.db.jpa.Model@.
 
 bc. @Entity
 public class Product extends Model {
- 
     public String name;
     public Integer price;
 }
 
-And then manipulate the @Product@ object using simple methods on the @Product@ instances:
+Y luego manipular el objeto @Product@ usando métodos simples de las instancias @Product@:
 
 bc. Product.find("price > ?", 50).fetch();
 Product product = Product.findById(2L);
 product.save();
 product.delete();
 
-h2. <a name="stateless">Keep the model stateless</a>
+h2. <a name="stateless">El modelo ha de permanecer sin estados</a>
 
-Play is designed to operate in a ‘share nothing’ architecture. The idea is to keep the application completely stateless. By doing this you will allow your application to run on as many server nodes as needed at the same time.
+Play está diseñado para operar en una arquitectura 'share nothing'. La idea es conservar la aplicación completamente sin estado. Con ello permitirás que tu aplicación se ejecute en tantos nodos de servidor como haga falta al mismo tiempo.
+¿Cuáles son las trampas comunes que debes evitar para que el modelo sea completamente sin estado? **No guardes ningún objeto en la Java heap para requests múltiples**
 
-What are the common traps you should avoid to keep the model stateless? **Do not store any object on the Java heap for multiple requests**
+h4. Cuando quieres mantener datos a través de múltiples requests tienes varias opciones:
 
-h4. When you want to keep data across multiple requests you have several choices:
+# Si los datos son pequeños y simples, se pueden guardar en el flash o en el ámbito de sesión. No obstante, estos ámbitos están limitados a más o menos 4 KB cada uno, y sólo pueden contener datos de tipo String.
+# Salva los datos permanentemente en un almacenaje persistente (como una base de datos). Por ejemplo, si tienes que creaar un objeto con un "wizard" que se extiende a varias requests:
+#* Inicializa y persiste el objeto en la base de datos a la primera request.
+#* Salva el ID del objeto recién creado en el ámbito flash.
+#* Durante las requests sucesivas, recupera el objeto de la base de datos usando el ID del objeto, actualízalo y vuelve a salvarlo.
+# Salva los datos temporalmente en un almacenaje transitorio (como la Cache). Por ejemplo, si necesitas crear un objeto con un "wizard" que se extiende a varias requests:
+#* Inicializa el objeto y sálvalo en la Cache a la primera request.
+#* Salva la clave del nuevo objeto en el ámbito flash
+#* Durante las requests sucesivas, recupera el objeto de la cache (vía su clave), actualízalo y sálvalo de nuevo en la cache.
+#* Al final de la última request de la cadena, salva el objeto permanentemente (en la base de datos, por ejemplo).
 
-# If data is small and simple enough, store it into the flash or the session scope. However these scopes are limited to about 4 KB each, and allow only String data.
-# Save the data permanently into persistent storage (like a database). For example if you need to create an object with a "wizard" that spans multiple requests:
-#* Initialize and persist the object into the database at the first request.
-#* Save the newly-created object’s ID into the flash scope.
-#* During successive requests, retrieve the object from the database using the object ID, update it, and save it again. 
-# Save the data temporarily into a transient storage (such as the Cache). For example if you need to create an object with a "wizard" that spans multiple requests:
-#* Initialize the object and save it into the Cache at the first request.
-#* Save the newly-created object’s key into the flash scope
-#* During successive requests, retrieve the object from the cache (with the correct key), update it, and save it into the cache again. 
-#* At the end of the last request in the chain, save the object permanently (into the database for example)
+La Cache no es un almacenaje confiable, pero si pones un objeto en la cache, lo normal es que puedas recuperarlo. Dependiendo de tus requerimientos, la Cache puede ser una buena elección y una buena alternativa a la sesión de Java Servlet.
 
-The Cache is not a reliable storage but if you put an object in the cache you should be able to retrieve it. Depending on your requirements, the Cache can be a very good choice and a good replacement for the Java Servlet session.
-
-p(note). **Continuing the discussion**
+p(note). **Continuando la discusión**
  
-Now we’ll check how to persist the model using %(next)"JPA persistence":jpa%.
+Ahora veremos cómo persistir el modelo usando  %(next)"Persistencia JPA":jpa%.
