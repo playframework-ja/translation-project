@@ -1,28 +1,26 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Agregando autenticación
 
-h1. Adding authentication
+Ahora que tenemos un área de administración necesitamos agregarle la autenticación. Por suerte, Play tiene un módulo para esto, cuyo nombre es **Secure**.
 
-Now that we have an administration area we need to plug in some authentication. Fortunately, Play has a module for that. It’s called the **Secure** module.
+h2. <a>Habilitando el módulo Secure</a>
 
-h2. <a>Enabling the Secure module</a>
+Habilite el módulo **Secure** en el archivo @yabe/conf/application.conf@ y reinicie la aplicación.
 
-Enable the **Secure** module in the @yabe/conf/application.conf@ file and restart the application.
-
-bc. # Import the secure module
+bc. # Importar el módulo Secure
 module.secure=${play.path}/modules/secure
 
-After restarting, Play should say that the module is loaded.
+Después de reiniciar, Play debería reportar que el módulo está cargado.
 
-The **Secure** module comes with a set of default routes that you can easily enable in the @yabe/conf/routes@ file (or we could define our own routes as well):
+El módulo **Secure** viene con un conjunto de rutas ('_routes_') por defecto que usted puede habilitar fácilmente en el archivo @yabe/conf/routes@ (o también podríamos declarar nuestras propias rutas):
 
-bc. # Import Secure routes
+bc. # Importar rutas de Secure
 *       /                                       module:secure
 
-h2. <a>Protecting the admin controllers</a>
+h2. <a>Protegiendo los controladores de administración (_admin_)</a>
 
-The module provides a @controllers.Secure@ controller that declares all needed interceptors. Of course we could just inherit from this controller but because Java is limited to simple inheritance it would be problematic.
+El módulo proporciona un controlador llamado @controllers.Secure@ que declara todos los "interceptores":glossary#interceptor necesarios. Por supuesto, nosotros simplemente podría heredar de este controlador, pero debido a que Java tan sólo soporta herencia simple, este enfoque presentaría ciertas limitaicones.
 
-Instead of directly inheriting from the @Secure@ controller, we can annotate the admin controllers using the <code>@With</code> annotation to tell Play to invoke the corresponding interceptors as well:
+Por lo tanto, en vez de heredar directamente del controlador @Secure@, podemos anotar los controladores de administración con la anotación <code>@With</code> para decirle a Play que invoque al "interceptor":glossary#interceptor correspondiente:
 
 bc. package controllers;
  
@@ -33,45 +31,45 @@ import play.mvc.*;
 public class Posts extends CRUD {    
 }
 
-Do the same for the @Comments@, @Users@ and @Tags@ controllers.
+Repita el procedimiento para los controladores @Comments@, @Users@ y @Tags@.
 
-Now if you try to access any admin action, you should get a log-in page:
+Ahora si intenta acceder a cualquier acción de administración, debería ver una página para inicio de sesión:
 
 !images/guide8-1!
 
-In fact, for now you can try any user name/password pair, and it will just work.
+De hecho, por ahora puede probar con cualquier combinación de nombre de usuario y contraseña, y funcionará.
 
-h2. <a>Customizing the authentication process</a>
+h2. <a>Personalizando el proceso de autenticación</a>
 
-The application has to provide an instance of @controllers.Secure.Security@ to customize the authentication process. By creating our own version of this class we will be able to specify exactly how users should be authenticated.
+La aplicación debe proporcionar una instancia de @controllers.Secure.Security@ para personalizar el proceso de autenticación. Al crear nuestra versión particular de esta clase podremos especificar con exactitud la manera en que deberían autenticarse los usuarios.
 
-Create a @yabe/app/controllers/Security.java@ file and override the @authenticate()@ method:
+Cree el archivo @yabe/app/controllers/Security.java@ y redefina el método @authenticate()@:
 
 bc. package controllers;
  
 import models.*;
  
 public class Security extends Secure.Security {
-	
+    
     static boolean authenticate(String username, String password) {
         return true;
     }
     
 }
 
-As we already have the User objects part of the blog model, it is easy to implement a working version of this method:
+Como ya tenemos los objetos User como parte del modelo del blog, es fácil implementar una versión de este método que valide el usuario y password correctamente:
 
 bc. static boolean authenticate(String username, String password) {
     return User.connect(username, password) != null;
 }
 
-Now go to "http://localhost:9000/logout":http://localhost:9000/logout to log out and you can try logging in with one of the users imported in the @initial-data.yml@ file, like <code>bob@gmail.com/secret</code>.
+Ahora vaya a "http://localhost:9000/logout":http://localhost:9000/logout para finalizar la sesión de usuario e intente iniciar una nueva con uno de los usuarios importados desde el archivo @initial-data.yml@, como por ejemplo: <code>bob@gmail.com/secret</code>.
 
-h2. <a>Refactoring the administration area</a>
+h2. <a>Mejorando el área de administración</a>
 
-We’ve started the administration area using the CRUD module, but it is not yet well integrated with the blog UI. We will start to work on a new administration area. This one will give each author access to his/her own posts. The full-featured administration using CRUD will still be available for super administrator users.
+Hemos creado el área de administracion usando el módulo CRUD, pero todavía no está bien integrada con la interfaz de usuario blog. Por lo que empezaremos a trabajar en una nueva área de administración, la cual dará a cada autor acceso a sus propias publicaciones (_posts_). Todas las funciones CRUD de administración seguirán disponibles para los usuarios con perfil (_profile_) de super administrador.
 
-Let’s create a new @Admin@ controller for the administration part:
+Vamos a crear un nuevo controlador @Admin@ para la parte de administración:
 
 bc.  package controllers;
  
@@ -99,13 +97,15 @@ public class Admin extends Controller {
     
 }
 
-And refactor the routes definition in @yabe/conf/routes@:
+Y ajuste la definición de rutas (_routes_) en @yabe/conf/routes@:
 
-bc. # Administration
+bc. # Administracion
 GET     /admin/?                                Admin.index
 *       /admin                                  module:crud
 
-Now link the ‘Log in to write something’ text from the @yabe/app/views/main.html@ template to this controller:
+Recuerde que el orden en que definimos las entradas en el archivo @routes@ es significativo; ya que la primera línea que concuerde con la petición HTTP será utilizada. Esto significa que las entradas que corresponden al controlador @Admin@ deben venir antes de la segunda línea mostrada en el código de arriba, la cual corresponde a todas las otras peticiones de las páginas @/admin@ del módulo CRUD. De lo contrario, la dirección @/admin/@, sería capturada por la línea @module:crud@ e invocaría a la acción @CRUD.index@ en vez de @Admin.index@.
+
+Ahora cree un enlace con el texto ‘Log in to write something’ en la plantilla @yabe/app/views/main.html@ que llame a este controlador:
 
 bc. …
 <ul id="tools">
@@ -115,22 +115,22 @@ bc. …
 </ul>
 …
 
-The last thing to make all this new stuff work is to create the @yabe/app/views/Admin/index.html@ template. Let’s start with something simple:
+Lo último para lograr que todo funcione es crear la plantilla @yabe/app/views/Admin/index.html@. Vamos a comenzar con algo simple:
 
 bc. Welcome ${user}!
 
-Now, go to the blog home page, click the ‘Log in to write something’ link and you should get to the new administration area:
+Ahora, vaya a la página de inicio (_home_) del blog, haga clic en el enlace ‘Log in to write something’ y debería ver la nueva área de administración:
 
 !images/guide8-2!
 
-Good start! But since we will have several pages in this administration area, we need a super-template. Let’s create it in the @yabe/app/views/admin.html@ file:
+¡Buen comienzo! Pero como tendremos varias páginas en esta área de administración, necesitamos una super-plantilla. Vamos a crearla en el archivo @yabe/app/views/admin.html@:
 
 bc. <!DOCTYPE html>
 <html>
     <head>
-        <title>Administration</title>		
+        <title>Administration</title>       
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        #{get 'moreStyles' /}	
+        #{get 'moreStyles' /}   
         <link rel="stylesheet" type="text/css" media="screen" 
                 href="@{'/public/stylesheets/main.css'}" />
         <link rel="shortcut icon" type="image/png" 
@@ -164,39 +164,39 @@ bc. <!DOCTYPE html>
     </body>
 </html>
 
-As you can see, it’s very close to the template used for the front part of the blog engine. You have replaced the **Log in** link by a **Log out** link that calls the @Secure@ controller’s @logout@ action provided by the secure module.
+Como pueden ver, es muy similar a la plantilla usada para la parte frontal del sistema de blog. En esta plantilla se ha reemplazado el enlace de **Log in** por el enlace **Log out** que invoca la accion @logout@ del controlador @Secure@ que proporciona el módulo secure.
 
-Now let’s use it in the @yabe/app/views/Admin/index.html@ template:
+Ahora vamos a utilizarla en la plantilla @yabe/app/views/Admin/index.html@:
 
 bc. #{extends 'admin.html' /}
  
 Welcome ${user}!
 
-And refresh!
+¡Y actualice la página!
 
 !images/guide8-3!
 
-If you try the **log out** link it will send you back to the login form:
+Si hace clic en el enlace **Log out** la aplicación lo enviará de nuevo al formulario de inicio de sesión:
 
 !images/guide8-4!
 
-That’s the default way for the secure module to handle log out events. But it’s easily customizable simply by overriding the @onDisconnected()@ method in the @controllers.Security@ class:
+Ese es el comportamiento por defecto del módulo secure para manejar los eventos de cierre de sesión (_log out_). Pero esto también puede ser fácilmente personalible redefiniendo el método @onDisconnected()@ en la clase @controllers.Security@:
 
 bc. static void onDisconnected() {
     Application.index();
 }
 
-You can do the same for the @onAuthenticated()@ event:
+Puede hacer lo mismo para el evento @onAuthenticated()@:
 
 bc. static void onAuthenticated() {
     Admin.index();
 }
 
-h2. <a>Adding roles</a>
+h2. <a>Agregando roles</a>
 
-Actually, we need two administration areas: one for simple editors and another one for the super administrator. As you’ve seen the @User@ model object has an @isAdmin@ field that indicates whether the user has super administrator rights.
+En realidad, necesitamos dos areas de administración: una para los simples editores y otra para el super administrador. Como puede observar, el objeto @User@ del modelo tiene un campo @isAdmin@ que indica si el usuario tiene derechos de super administrador o no.
 
-The secure module not only provides @authentication@ but @authorization@ management too. It’s called @profiles@. To create an @admin@ profile, you just need to override the @check()@ method in the @controllers.Security@ class:
+El módulo secure no sólo provee manejo de autenticación sino tambien manejo de autorización, a través de los llamados perfiles (@profiles@). Para crear un perfil de administrador (@admin@), solo necesita redefinir el método @check()@ de la clase @controllers.Security()@:
 
 bc. static boolean check(String profile) {
     if("admin".equals(profile)) {
@@ -205,7 +205,7 @@ bc. static boolean check(String profile) {
     return false;
 }
 
-Now we can show an administration menu if the user has the admin role. Update the @yabe/views/admin.html@ to integrate a top level menu:
+Ahora podemos mostrar un menú de administración si el usuario tiene el rol (_role_) de administrador (_admin_). Modifique el archivo @views/admin.html@ para integrar un menú en la parte superior de la página:
 
 bc. …
 <div id="main">
@@ -234,11 +234,11 @@ bc. …
 </div>
 …
 
-Note how we used the @#{secure.check /}@ tag to show part of the menu only to @admin@ users.
+Note como usamos el tag @#{secure.check /}@ para mostrar parte del menú solo a los usuarios con el rol @admin@.
 
 !images/guide8-5!
 
-But that’s not yet enough to secure the site’s CRUD section! If a user knows the URL he can still access it. We have to protect the controllers as well. We can do so easily using the <code>@Check</code> annotation. For example, for the @Posts@ controller:
+Sin embargo ¡esto no es suficiente para resguardar la sección CRUD del área de administración! Si un usuario conoce la URL aún puede acceder a esa parte del sitio. Por lo que también tenemos que proteger los controladores; lo cual podemos hacer fácilmente usando la anotación <code>@Check</code>. Por ejemplo, para el controlador @Posts@ haríamos lo siguiente:
 
 bc. package controllers;
  
@@ -250,17 +250,17 @@ import play.mvc.*;
 public class Posts extends CRUD {    
 }
 
-Do the same for the @Tags@, @Comments@ and @Users@ controllers. Now try to log out and log in again with a standard user (like <code>jeff@gmail.com/secret</code>). You should not see the CRUD admin links. And if you try to access the "http://localhost:9000/admin/users":http://localhost:9000/admin/users URL directly you will get a **403 Forbidden** response.
+Repita el procedimiento para los controladores @Tags@, @Comments@ y @Users@. Ahora pruebe cerrando sesión e iniciando una nueva con un usuario estándar (tal como <code>jeff@gmail.com/secret</code>). No debería ver los enlaces de administración CRUD. Y si intenta acceder directamente al URL "http://localhost:9000/admin/users":http://localhost:9000/admin/users obtendrá una respuesta HTTP **403 Forbidden**.
 
 !images/guide8-6!
 
-h2. <a>Customizing the CRUD layout</a>
+h2. <a>Personalizando la apariencia de las páginas CRUD</a>
 
-That’s fun but when we go to the CRUD part of the administration area, we lose the administration layout. That’s because the CRUD module provides its own layout. But we can of course override it. Use this Play command:
+Todo esto está muy bien, pero cuando vamos a la parte CRUD del área de administración perdemos el estilo (_layout_) de nuestra página inicial. Esto se debe a que el módulo CRUD proporciona su propio estilo. Pero por supuesto nosotros podemos redefinirlo. Use el siguiente comando Play:
 
 bc. play crud:ov --layout
 
-And you get a new @/yabe/app/views/CRUD/layout.html@ template. Let’s replace its content to integrate it nicely with our @admin.html@ layout:
+Y verá una nueva plantilla @/yabe/app/views/CRUD/layout.html@. Vamos a reemplazar su contenido para integrarla elegantemente con nuestro estilo descrito en el archivo @admin.html@:
 
 bc. #{extends 'admin.html' /}
 #{set 'moreStyles'}
@@ -271,40 +271,40 @@ bc. #{extends 'admin.html' /}
 <div id="crud">
  
     #{if flash.success}
-    	<div class="crudFlash flashSuccess">
-    		${flash.success}
-    	</div>
+        <div class="crudFlash flashSuccess">
+            ${flash.success}
+        </div>
     #{/if}
     #{if flash.error || error}
-    	<div class="crudFlash flashError">
-    		${error ?: flash.error}
-    	</div>
+        <div class="crudFlash flashError">
+            ${error ?: flash.error}
+        </div>
     #{/if}
  
     <div id="crudContent">
-    	#{doLayout /}
+        #{doLayout /}
     </div>
  
 </div>
 
-As you can see, we reuse @crud.css@ and include it in @admin.html@ using the **get/set** template variables mechanism. Now if you try the CRUD part of the administration area, it’s correctly integrated with the administration layout:
+Como pueden ver, reutilizamos @crud.css@ y lo incluimos en @admin.html@ usando el mecanismo para manejar variables de plantillas **get/set**. Ahora si prueba la parte CRUD del área de administración, verá que está correctamente integrada con el estilo del área de administración:
 
 !images/guide8-7!
 
 !images/guide8-9!
 
-h2. <a>Styling the login page</a>
+h2. <a>Aplicando estilo a la página de inicio de sesión</a>
 
-The administration area is almost graphically coherent now. The last thing to style is the log-in page. As always it is easily customizable by overriding the default CSS:
+El área de administración ya está casi completa desde el punto de vista gráfico. Lo último que queda por ajustar es la página de inicio de sesión. Como siempre, esto es fácilmente personalizable haciendo una redefinicion del archivo CSS que usa por defecto:
 
 bc. play secure:ov --css
 
-We will just keep the CSS as is, but import our @main.css@ at the top. Just add this first line to the @yabe/public/stylesheets/secure.css@:
+Dejaremos el archivo CSS tal como está, pero importaremos nuestro @main.css@ al principio. Sólo agregue esto en la primera línea del archivo @yabe/public/stylesheets/secure.css@:
 
 bc. @import url(main.css);
 …
 
-And customize the log-in screen messages, by adding these lines to your own @yabe/conf/messages@ file:
+Y personalice los mensajes de la página de inicio de sesión, agregando estás líneas al archivo @yabe/conf/messages@:
 
 bc. secure.username=Your email:
 secure.password=Your password:
@@ -312,4 +312,4 @@ secure.signin=Log in now
 
 !images/guide8-8!
 
-p(note). Next: %(next)"Creating a custom editor area":guide9%. 
+p(note). Continúa con: %(next)"Creando un área para editores personalizada":guide9%.
