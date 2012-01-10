@@ -1,25 +1,24 @@
 h1. El modelo de objetos de dominio
 
-El modelo tiene una posición central en una aplicación Play. Es la representación específica al dominio de la información sobre la que la aplicación opera.
+El modelo de objetos de dominio tiene una posición central en una aplicación de Play. Es la representación específica del dominio de la información sobre la que la aplicación opera.
 
 Martin Fowler lo define como:
 
-bq. Responsable de representar los conceptos del negocio, información sobre la situación del negocio, y las reglas de negocio. El estado que refleja la situación del negocio se controla y se usa aquí, aunque los detalles técnicos de su almacenaje se delegan a la infraestructura. Esta capa es el corazón del software empresarial.
+bq. Responsable de representar los conceptos del negocio, información sobre la situación del negocio, y las reglas del negocio. El estado que refleja la situación del negocio se controla y se usa aquí, aunque los detalles técnicos de su almacenamiento se delegan a la infraestructura. Esta capa es el corazón del software empresarial.
+
 Un antipatrón común en Java es conservar el modelo como un conjunto de Java Beans simples y poner la lógica de la aplicación en una capa de "servicios" que operan sobre los objetos del modelo.
-"service" layer which operates on the model objects.
 
-Martin Fowler ha bautizado a este antipatrón como "El modelo de objetos anémico" "Anemic object model": http://www.martinfowler.com/bliki/AnemicDomainModel.html: 
+Martin Fowler ha bautizado a este antipatrón como "El modelo de objetos anémico":http://www.martinfowler.com/bliki/AnemicDomainModel.html o "Anemic object model":http://www.martinfowler.com/bliki/AnemicDomainModel.html: 
 
-bq. El síntoma básico de que el modelo de dominio es Anémico a primera vista es que se parece al objeto real. Hay objetos, muchos de ellos nombrados según los nombres del espacio de dominio, y esos objetos están conectados con las ricas relaciones y estructura que los objetos reales tienen en el dominio. El problema viene cuando miras al comportamiento, y te das cuenta de que apenas existe en estos objetos, lo que los convierte en poco más que sacos de getters y setters. Además, estos modelos vienen con reglas de diseño que dicen que no puedes poner lógica del dominio en los objetos del dominio. Para ello están una serie de objetos de servicio que capturan toda la lógica del ominio. Estos servicios residen encima del modelo de capture all the domain logic. These services live on top of the domain model and use the domain model for data.
+bq. El síntoma básico de un modelo de dominio anémico, es que a primera vista se parece al objeto real. Hay objetos, muchos de ellos nombrados según los nombres del espacio de dominio, y esos objetos están conectados con las relaciones copmlejas y estructuras que los objetos reales tienen en el dominio. El problema viene cuando miras al comportamiento, y te das cuenta de que apenas si existe en estos objetos, lo que los convierte en poco más que un conjunto de getters y setters agrupados en una clase. De hecho, a menudo estos modelos vienen con reglas de diseño que explícitamente prohíben poner lógica del dominio en los objetos del dominio. Por el contrario, hay una serie de objetos de servicio que capturan toda la lógica del dominio. Estos servicios residen encima del modelo de dominio y utilizan el modelo de dominio simplemente para contener la información.  
 
-El horror fundamental de este antipatrón es que va completamente en contra de la idea básica del diseño orientado a objetos, que es combinar datos y proceso juntos. El modelo de dominio anémico es realmente un diseño de estilo procedimiental, exactamente la clase de cosa contra la que los geeks de los objetos como yo mismo (y Eric) hemos estado luchando desde nuestros días de juventud en Smalltalk. Y lo que es peor, mucha gente cree que los objetos anémicos son objetos reales y por tanto, pierden por completo la idea de lo que va todo esto del diseño orientado a objetos.
-
+El error y "horror" fundamental de este antipatrón es que va completamente en contra de la idea básica del diseño orientado a objetos, que es combinar datos y proceso de manera conjunta. El modelo de dominio anémico es realmente un diseño de estilo procedimental, exactamente la clase de cosas contra la que los geeks de los objetos como yo mismo (y Eric) hemos estado luchando desde nuestros días de juventud en Smalltalk. Y lo que es peor, mucha gente cree que los objetos anémicos son objetos reales y por tanto, pierden por completo la idea de lo que va todo esto del diseño orientado a objetos.
 
 h2. <a name="properties">Simulación de propiedades</a>
 
-Si echas un vistazo a las aplicaciones ejemplo de Play, verás a menudo que las clases declaran variables públicas. Si eres un desarrollador Java con alguna experiencia, te estarán sonando campanas y alarmas de todos los colores a la simple vista de una variable pública. En Java (como en otros lenguajes orientados a objetos), las best practices dicen que hay que hacer todos los campos privados y proporcionar métodos de acceso y de modificación. Esto es así para fomentar la encapsulación, un concepto crítico en el diseño orientado a objetos.
+Si echas un vistazo a las aplicaciones de ejemplo de Play, a menudo verás que las clases declaran variables públicas. Si eres un desarrollador Java con alguna experiencia, te estarán sonando campanas y alarmas de todos los colores a la simple vista de una variable pública. En Java (como en otros lenguajes orientados a objetos), las _mejores prácticas_ dicen que hay que declarar todos los campos privados y proporcionar los correspondientes métodos de acceso y modificación. Esto es así para fomentar el encapsulamiento, un concepto central en el diseño orientado a objetos.
 
-Java no incluye un sistema de definición de propiedades real. Usa una convención llamada Java Beans: una propiedad de un objeto Java se define por una pareja de métodos getXxx/setXxx. Si la propiedad es de sólo lectura, entonces sólo habrá un getter.
+El lenguaje Java no incluye un verdadero sistema de de propiedades. Para ello, utiliza una convención llamada Java Beans: una propiedad de un objeto Java se define por una pareja de métodos getXxx/setXxx. Si la propiedad es de sólo lectura, entonces sólo habrá un getter.
 
 Aunque el sistema funciona bien, es muy tedioso de escribir. Para cada propiedad tienes que declarar una variable privada y escribir dos métodos. De esta forma, la mayoría de los getters y setters son siempre iguales:
 
@@ -31,7 +30,7 @@ public void setName(String value) {
     name = value;
 }
 
-La parte Modelo de la Play framework automáticamente genera este patrón manteniendo tu código limpio. Efectivamente, todas las variables públicas se convierten en propiedades de instancia. La convención es que cualquier campo  **public**, **non-static**, **non-final** de una clase se ve como una propiedad.
+La parte del Modelo de Play framework automáticamente genera este patrón manteniendo tu código limpio. De esta manera, todas las variables públicas se convierten en propiedades de instancia. La convención es que cualquier campo  **public**, **non-static**, **non-final** de una clase se ve como una propiedad.
 
 Por ejemplo, cuando defines una clase como esta:
 
@@ -59,7 +58,7 @@ bc. public class Product {
     }
 }
 
-Así que cuando quieras acceder a una propiedad basta que escribas:
+Así que cuando quieras acceder a una propiedad bastará con que escribas:
 
 bc. product.name = "My product";
 product.price = 58;
@@ -71,11 +70,11 @@ product.setPrice(58);
 
 p(note). **¡Atención!**
  
-No puedes usar directamente los métodos getter y setter para acceder a las propiedades si delegas en la generación automática. Estos métodos se generan en tiempo de ejecución, así que si los referencias en el código, el compilador no los encontrará y arrojará un error.
+No puedes usar directamente los métodos getter y setter para acceder a las propiedades si las delegas en la generación automática. Estos métodos se generan en tiempo de ejecución, así que si los referencias en el código, el compilador no los encontrará y arrojará un error.
 
 Por supuesto, puedes definir tus propios métodos getter y setter. Si existen, Play los usará.
 
-Así que para proteger el valor de la propiedad price de la clase Product, puedes escribir:
+Así que para proteger el valor de la propiedad _price_ de la clase _Product_, puedes escribir:
 
 bc. public class Product {
     public String name;
@@ -92,7 +91,7 @@ Luego si intentas cargar un valor negativo aparecerá una excepción:
 
 bc. product.price = -10: // Oops! IllegalArgumentException
 
-Play siempre usará el getter o setter definido si existe. Veamos este código:
+Play siempre usará el getter o setter definido si existe. Veamos este ejemplo:
 
 bc. @Entity
 public class Data extends Model {
@@ -125,18 +124,18 @@ assert data.anotherValue == 0;
 data.anotherValue = 4
 assert data.anotherValue == 8;
 
-Sí, funciona. Y porque la clase mejorada sigue la convención Java Beans, cuando usas tu objeto con una librería que espera un JavaBean, funcionará perfectamente.
+Sí, funciona. Y dado que la clase mejorada cumple con la convención de los Java Beans, cuando utilices tu objeto con una librería que espera un JavaBean, funcionará perfectamente.
 
 
 h2. <a name="database">Configura una base de datos para persistir tu modelo</a>
 
-La mayoría de las veces necesitarás salvar los datos del objeto del modelo permanentemente. Lo más natural es salvarlos a una base de datos.
+Por lo genaral necesitarás salvar los datos del objeto del modelo de manera permanente. Lo más natural es salvarlos a una base de datos.
 
-Durante el desarrollo puedes configurar rápidamente una base de datos integrada, bien en memoria, o salvada en un subdirectorio dentro de la aplicación, usando la "db configuration":configuration#db.
+Durante el desarrollo puedes configurar rápidamente la base de datos integrada provista por Play en memoria, o salvada en un subdirectorio dentro de la aplicación, usando la "db configuration":configuration#db.
 
 La distribución de Play incluye drivers JDBC para H2 y MySQL en el directorio @$PLAY_HOME/framework/lib/@. Si quieres usar una base de datos PostreSQL u Oracle, por ejemplo, tienes que añadir la librería del driver JDBC en ese directorio o en el directorio @lib/@ de la aplicación.
 
-Para conectar a cualquier base de datos que implemente JDBC. Añade la librería del driver y define las propiedades JDBC "db.url":configuration#db.url, "db.driver":configuration#db.driver, "db.user":configuration#db.user y  "db.pass":configuration#db.pass:
+Para conectar a cualquier base de datos que implemente JDBC, simplemente añade la librería del driver y define las propiedades JDBC "db.url":configuration#db.url, "db.driver":configuration#db.driver, "db.user":configuration#db.user y  "db.pass":configuration#db.pass:
 
 bc. db.url=jdbc:mysql://localhost/test
 db.driver=com.mysql.jdbc.Driver
@@ -145,7 +144,7 @@ db.pass=
 
 También puedes configurar un dialecto JPA con "jpa.dialect":configuration#jpa.dialect.
 
-Desde el código puede obtenerse una @java.sql.Connection@ a partir del @play.db.DB@ y usarlo de la forma estándar.
+Desde el código puede obtenerse un objeto @java.sql.Connection@ a partir del @play.db.DB@ y usarlo de la forma estándar.
 
 bc. Connection conn = DB.getConnection();
 conn.createStatement().execute("select * from products");
@@ -154,7 +153,7 @@ h2. <a name="hibernate">Persiste tu modelo de objetos con Hibernate</a>
 
 Puedes usar Hibernate (a través de JPA) para persistir tus objetos Java en la Base de Datos automáticamente.
 
-Cuando defines entidades JPA añadiendo anotaciones <code>@javax.persistence.Entity</code> a cualquier objeto Java, Play arrancará automáticamente un gestor de entidades JPA.
+Cuando defines entidades JPA añadiendo anotaciones <code>@javax.persistence.Entity</code> a cualquier objeto Java, Play iniciará automáticamente un gestor de entidades JPA.
 
 bc. @Entity
 public class Product {
@@ -166,13 +165,13 @@ p(note). **¡Atención!**
  
 Un error común es usar la anotación <code>@Entity</code> de Hibernate en vez de la de JPA. Recuerda que Play usa Hibernate a través de la API de JPA:
 
-Puede obtenerse el EntityManager a partir del objeto @play.db.jpa.JPA@:
+Puede obtener el EntityManager a partir del objeto @play.db.jpa.JPA@:
 
 bc. EntityManager em = JPA.em();
 em.persist(product);
 em.createQuery("from Product where price > 50").getResultList();
 
-Play proporciona una bonita clase de soporte para ayudarte a manejar ls JPA. Basta extender @play.db.jpa.Model@.
+Play proporciona una clase de soporte súmamente útil para ayudarte a trabajar con JPA. Basta extender @play.db.jpa.Model@.
 
 bc. @Entity
 public class Product extends Model {
@@ -180,33 +179,34 @@ public class Product extends Model {
     public Integer price;
 }
 
-Y luego manipular el objeto @Product@ usando métodos simples de las instancias @Product@:
+Y luego podrá manipular el objeto @Product@ usando simples métodos de las instancias @Product@:
 
 bc. Product.find("price > ?", 50).fetch();
 Product product = Product.findById(2L);
 product.save();
 product.delete();
 
-h2. <a name="stateless">El modelo ha de permanecer sin estados</a>
+h2. <a name="stateless">Manteniendo el modelo _sin estado_ (stateless)</a>
 
-Play está diseñado para operar en una arquitectura 'share nothing'. La idea es conservar la aplicación completamente sin estado. Con ello permitirás que tu aplicación se ejecute en tantos nodos de servidor como haga falta al mismo tiempo.
-¿Cuáles son las trampas comunes que debes evitar para que el modelo sea completamente sin estado? **No guardes ningún objeto en la Java heap para requests múltiples**
+Play está diseñado para operar en una arquitectura "share nothing":http://es.wikipedia.org/wiki/Arquitecturas_Shared_Nothing. La idea es conservar la aplicación completamente sin estado. Con ello permitirás que tu aplicación se ejecute en tantos nodos de servidor como haga falta al mismo tiempo.
+
+¿Cuáles son las _trampas_ más comunes que debes evitar para que el modelo sea completamente sin estado? **No guardes ningún objeto en la Java heap para múltiples requests**
 
 h4. Cuando quieres mantener datos a través de múltiples requests tienes varias opciones:
 
-# Si los datos son pequeños y simples, se pueden guardar en el flash o en el ámbito de sesión. No obstante, estos ámbitos están limitados a más o menos 4 KB cada uno, y sólo pueden contener datos de tipo String.
-# Salva los datos permanentemente en un almacenaje persistente (como una base de datos). Por ejemplo, si tienes que creaar un objeto con un "wizard" que se extiende a varias requests:
-#* Inicializa y persiste el objeto en la base de datos a la primera request.
+# Si los datos son pequeños y simples, se pueden guardar en el ámbito del flash o en la sesión de usuario. No obstante, estos ámbitos están limitados a aproximadamente 4 KB cada uno, y sólo pueden contener datos de tipo String.
+# Salva los datos permanentemente en un almacenamiento persistente (como una base de datos). Por ejemplo, si tienes que crear un objeto con un "wizard" que se extienda a varios requests:
+#* Inicializa y persiste el objeto en la base de datos al primer request.
 #* Salva el ID del objeto recién creado en el ámbito flash.
-#* Durante las requests sucesivas, recupera el objeto de la base de datos usando el ID del objeto, actualízalo y vuelve a salvarlo.
-# Salva los datos temporalmente en un almacenaje transitorio (como la Cache). Por ejemplo, si necesitas crear un objeto con un "wizard" que se extiende a varias requests:
-#* Inicializa el objeto y sálvalo en la Cache a la primera request.
-#* Salva la clave del nuevo objeto en el ámbito flash
-#* Durante las requests sucesivas, recupera el objeto de la cache (vía su clave), actualízalo y sálvalo de nuevo en la cache.
-#* Al final de la última request de la cadena, salva el objeto permanentemente (en la base de datos, por ejemplo).
+#* Durante los sucesivos requests, recupera el objeto de la base de datos usando el ID del objeto, actualízalo y vuelve a salvarlo.
+# Salva los datos temporalmente en un almacenamiento transitorio (como la Cache). Por ejemplo, si necesitas crear un objeto con un "wizard" que se extiende a varias requests:
+#* Inicializa el objeto y sálvalo en la Cache al primer request.
+#* Salva la clave del nuevo objeto en el ámbito flash.
+#* Durante los sucesivos requests, recupera el objeto de la cache (usando su clave), actualízalo y sálvalo de nuevo en la cache.
+#* Al final del último request de la cadena, salva el objeto permanentemente (en la base de datos, por ejemplo).
 
-La Cache no es un almacenaje confiable, pero si pones un objeto en la cache, lo normal es que puedas recuperarlo. Dependiendo de tus requerimientos, la Cache puede ser una buena elección y una buena alternativa a la sesión de Java Servlet.
+La Cache, por definición, no es un almacenamiento permanente confiable, pero si pones un objeto en la cache, lo normal es que puedas recuperarlo. Dependiendo de tus requerimientos, la Cache puede ser una buena elección y una buena alternativa a la sesión de Java Servlet.
 
-p(note). **Continuando la discusión**
+p(note). **Próximos pasos**
  
 Ahora veremos cómo persistir el modelo usando  %(next)"Persistencia JPA":jpa%.
