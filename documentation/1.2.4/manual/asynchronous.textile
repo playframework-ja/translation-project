@@ -4,11 +4,11 @@ Esta sección explica cómo enfrentarse a la asincronía en una aplicación Play
 
 h2. Suspensión de solicitudes HTTP
 
-Play está pensada para trabajar con requests muy cortas. Usa una pool de hilos (__thread pool__) de longitud fija para procesar las requests encoladas por el conector HTTP. Para obtener resultados óptimos, la pool de hilos ha de ser tan pequeña como sea posible. Normalmente usamos el valor óptimo de @number of processors + 1@ como valor por defecto del tamaño de la pool.
+Play está pensada para trabajar con requests muy cortas. Usa una pool de hilos (__thread pool__) de longitud fija para procesar las requests encoladas por el conector HTTP. Para obtener resultados óptimos, la pool de hilos ha de ser tan pequeña como sea posible. Normalmente usamos el valor óptimo de @número de procesadores + 1@ como valor por defecto del tamaño de la pool.
 
 Esto significa que si el tiempo de proceso de una request es muy largo (por ejemplo, esperando a un cálculo muy largo) bloqueará la pool y penalizará la responsividad de la aplicación. Por supuesto, se podrían añadir más hilos a la pool, pero esto implica recursos desperdiciados y además, el tamaño de la pool nunca será infinito.
 
-Sea una aplicación de char en la que los navegadores envían una request HTTP bloqueante y esperan que se muestre un mensaje nuevo. Estas requests pueden ser muy largas (normalmente varioa segundos) y bloquean la pool de hilos. Si tu plan es permitir que se conecten simultáneamente 100 usuarios a la aplicación de chat, necesitarás una pool de al menos 100 hilos. Vale, esto es factible. Pero, ¿y si queremos 1000 usuarios? ¿o 10.000?
+Sea una aplicación de chat en la que los navegadores envían una request HTTP bloqueante y esperan que se muestre un mensaje nuevo. Estas requests pueden ser muy largas (normalmente varios segundos) y bloquean la pool de hilos. Si tu plan es permitir que se conecten simultáneamente 100 usuarios a la aplicación de chat, necesitarás una pool de al menos 100 hilos. Vale, esto es factible. Pero, ¿y si queremos 1000 usuarios? ¿o 10.000?
 
 Para resolver estos casos de uso, Play permite suspender temporalmente una request. La request HTTP seguirá conectada, pero la ejecución de la request se sacará de la pool y se intentará de nuevo más tarde. Puedes decirle a Play que intente la request después de un retraso prefijado, o esperar a que el valor de una @Promise@ esté disponible.
 
@@ -26,7 +26,7 @@ Aquí usamos @await(…)@ para decirle a Play que suspenda la request hasta que 
 
 h3. Reanudaciones (__continuations__)
 
-Com el marco tiene que recuperar el hilo que estabas usando para servir otras requests, tiene que suspender tu código. En la versión anterior de Play, el equivalente del @await(…)@ era @waitFor(…)@, que suspendía tu acción, y después la llamava desde el principio. 
+Com el marco tiene que recuperar el hilo que estabas usando para servir otras requests, tiene que suspender tu código. En la versión anterior de Play, el equivalente del @await(…)@ era @waitFor(…)@, que suspendía tu acción, y después la llamaba desde el principio. 
 
 Para que sea más fácil enfrentarse al código asíncrono hemos introducido las reanudaciones (__continuations__). Las reanudaciones permiten que se suspenda tu código y se reanude transparentemente. Así puedes escribir tu código de forma muy imperativa:
 
@@ -36,7 +36,7 @@ bc. public static void computeSomething() {
     render(result);
 }
 
-De hecho aquí, tu código se ejecutará en dos pasos, en dos hilos diferentes. Pero como ver, esto es transparente para el código de tu apliación.
+De hecho aquí, tu código se ejecutará en dos pasos, en dos hilos diferentes. Pero como ves, esto es transparente para el código de tu aplicación.
 
 Mediante el uso de @await(…)@ y las reanudaciones, podrías escribir un bucle: 
 
@@ -58,7 +58,7 @@ bc. public class AsyncTest extends Controller {
     F.Promise<WS.HttpResponse> r2 = WS.url("http://example.org/2").getAsync();
     F.Promise<WS.HttpResponse> r3 = WS.url("http://example.org/3").getAsync();
     F.Promise<List<WS.HttpResponse>> promises = F.Promise.waitAll(r1, r2, r3);
-    // Suspend processing here, until all three remote calls are complete.
+    // Se suspende el proceso aqui, hasta que las tres llamadas remotas acaben.
     List<WS.HttpResponse> httpResponses = await(promises);
     render(httpResponses);
   }
@@ -159,9 +159,9 @@ bc. public class MyWebSocket extends WebSocketController {
     }
 }
 
-En el ejemplo anterior, hay un batiburrillo de 'if' anidados y 'cast', tedioso de escribir y propenso a errores. Y es aquí donde Java apesta. Incluso en el caso sencillo que vemos aquí no es fácil de manejar. Y para casos más complicados conde pueden combinarse varios streams, y tener más tipos de eventos, se vuelve una pesadilla.
+En el ejemplo anterior, hay un batiburrillo de 'if' anidados y 'cast', tedioso de escribir y propenso a errores. Y es aquí donde Java apesta. Incluso en el caso sencillo que vemos aquí no es fácil de manejar. Y para casos más complicados donde pueden combinarse varios streams, y tener más tipos de eventos, se vuelve una pesadilla.
 
-Por eso hemos introducir una comparación de patrones básica en Java en la biblioteca "play.libs.F":libs#FunctionalprogrammingwithJava.
+Por eso hemos introducido una comparación de patrones básica en Java en la biblioteca "play.libs.F":libs#FunctionalprogrammingwithJava.
 
 Así que podemos escribir el ejemplo del eco de esta forma:
 
