@@ -1,37 +1,36 @@
 h1. Las Bibliotecas de Play
 
-El paquete @play.libs@ contiene varias bibliotecas útiles que te ayudarán a conseguir las tareas de programación más comunes. 
+El paquete @play.libs@ contiene varias bibliotecas súmamente útiles que te ayudarán a llevar adelante las tareas de programación más comunes. 
 
-La mayoría de estas bibliotecas son simples helpers que se usan de forma muy directa:
+La mayoría de estas bibliotecas son simples helpers que se usan de forma muy simple:
 
 * "Codec":/@api/play/libs/Codec.html: Utilidades para codificar y decodificar datos.
 * "Crypto":/@api/play/libs/Crypto.html: Utilidades criptográficas.
-* "Expression":/@api/play/libs/Expression.html: Evaluar expresiones dinámicas.
+* "Expression":/@api/play/libs/Expression.html: Utilidades para evaluar expresiones dinámicas.
 * "F":/@api/play/libs/F.html: Programación funcional con Java.
 * "Files":/@api/play/libs/Files.html: Ayudas para manipulación de sistemas de ficheros.
 * "I18N":/@api/play/libs/I18N.html: Ayudas para internacionalización.
 * "IO":/@api/play/libs/IO.html: Gestión de Streams.
 * "Images":/@api/play/libs/Images.html: Utilidades de manejo de Imágenes.
 * "Mail":/@api/play/libs/Mail.html: Funciones de correo.
-* "MimeTypes":/@api/play/libs/MimeTypes.html: Para enfrentarse a los tipos MIME.
-* "OAuth":/@api/play/libs/OAuth.html: Protocolo OAuth cliente.
-* "OAuth2":/@api/play/libs/OAuth2.html: Protocolo OAuth2 cliente.
-* "OpenID":/@api/play/libs/OpenID.html: Protocolo OpenID cliente.
+* "MimeTypes":/@api/play/libs/MimeTypes.html: Para trabajar con los tipos MIME.
+* "OAuth":/@api/play/libs/OAuth.html: Cliente de protocolo OAuth.
+* "OAuth2":/@api/play/libs/OAuth2.html: Cliente de protocolo OAuth2.
+* "OpenID":/@api/play/libs/OpenID.html: Cliente de protocolo OpenID.
 * "Time":/@api/play/libs/Time.html: Utilidades de tiempo y duración.
-* "WS":/@api/play/libs/WS.html: Potente cliente de Web Service.
+* "WS":/@api/play/libs/WS.html: Potente cliente para Web Services.
 * "XML":/@api/play/libs/XML.html: Carga de estructuras XML.
-* "XPath":/@api/play/libs/XPath.html: Analizar XML con XPath.
+* "XPath":/@api/play/libs/XPath.html: Procesamiento de XML utilizando XPath.
 
-Las secciones que siguen aportan más información sobre las bibliotecas más importantes.
+Las secciones que siguen aportan más información acerca de las bibliotecas más importantes.
 
+h2. Procesamiento de XML con XPath
 
-h2. Análisis de XML con XPath
-
-"XPath":http://en.wikipedia.org/wiki/XPath es probablemente el método más sencillo para analizar un documento XML sin tener que usar herramientas de generación de códigos. La biblioteca @play.libs.XPath@ ofrece todas las primitivas para métodos necesarias para conseguir eficientemente esta tarea.
+"XPath":http://en.wikipedia.org/wiki/XPath es probablemente el método más sencillo para procesar un documento XML sin tener que usar herramientas de generación de código. La biblioteca @play.libs.XPath@ ofrece todas las primitivas necesarias para efectuar estas tareas.
 
 Las operaciones @XPath@ operan sobre todos los tipos de @org.w3.dom.Node@:
 
-bc.. org.w3.dom.Document xmlDoc = … // recuperar un documento de algun sitio
+bc. org.w3.dom.Document xmlDoc = … // recuperar un documento de algún sitio
 
 for(Node event: XPath.selectNodes("events//event", xmlDoc)) {
 
@@ -45,15 +44,15 @@ for(Node event: XPath.selectNodes("events//event", xmlDoc)) {
     …
 }
 
-h2. Cliente de Web Service
+h2. Cliente de Web Services
 
-@play.libs.WS@ aporta un poderoso cliente HTTP. En el fondo usa "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client. 
+@play.libs.WS@ aporta un poderoso cliente HTTP. Internamente utiliza "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client. 
 
-Es sencillo hacer una request:
+Efectuar un pedido HTTP es muy sencillo:
 
 bc. HttpResponse res = WS.url("http://www.google.com").get();
 
-Una vez que tienes el objeto @HttpResponse@ puedes acceder a todas las propiedades de la response:
+Una vez que tienes el objeto @HttpResponse@ puedes acceder a todas las propiedades del response:
 
 bc. int status = res.getStatus();
 String type = res.getContentType();
@@ -65,7 +64,7 @@ Document xml = res.getXml();
 JsonElement json = res.getJson();
 InputStream is = res.getStream();
 
-También puedes usar el API *async* para hacer solicitudes HTTP de forma no bloqueante. Recibirás un @Promise<HttpResponse>@. Cuando se ejecute, puedes usar el @HttpResponse@ como de costumbre:
+También puedes usar el API *async* para hacer solicitudes HTTP de forma no bloqueante. Entonces, recibirás un @Promise<HttpResponse>@. Cuando se ejecute, podrás usar el @HttpResponse@ como de costumbre:
 
 bc. Promise<HttpResponse> futureResponse = WS.url(
     "http://www.google.com"
@@ -73,7 +72,7 @@ bc. Promise<HttpResponse> futureResponse = WS.url(
 
 h2. Programación funcional con Java
 
-La biblioteca @play.libs.F@ aporta varios constructores útiles que vienen de la programación funcional. Estos constructores se usan para manejar casos de abstracción compleja. Para los que están acostumbrados a la programación funcional, tenemos:
+La biblioteca @play.libs.F@ aporta varias estructuras súmamente útiles que vienen de la programación funcional. Estas estructuras se usan para manejar casos de abstracción compleja. Para los que están acostumbrados a la programación funcional, tenemos:
 
 * @Option<T>@ (un valor T que puede inicializarse o no)
 * @Either<A,B>@ (contiene un valor A o bien un valor B)
@@ -81,7 +80,7 @@ La biblioteca @play.libs.F@ aporta varios constructores útiles que vienen de la
 
 h3. @Option<T>@, @Some<T>@ y @None<T>@
 
-Cuando escribes una función que puede no devolver un resultado en algunos casos (por ejemplo, un método @find@), un patrón común (malo) en Java es devolver @null@ cuando no hay resultado. Esta práctica es peligrosa porque el tipo de retorno de la función no muestra cláramente que puede no devolver un objeto y ha sido reconocido por el inventor de las referencias anulables como un "“error de mil millones de dólares“":http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer.
+Cuando escribes una función que puede no devolver un resultado en algunos casos (por ejemplo, un método @find@), un patrón común (malo) en Java es devolver @null@ cuando no hay resultado. Esta práctica es peligrosa porque el tipo de retorno de la función no muestra de manera evidente que puede no devolver un objeto, e incluso ha sido reconocido por el inventor de estas _referencias anulables_ (nullable references) como un "“error de mil millones de dólares“":http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer.
 
 @Option<T>@ es una solución elegante a este problema: en vez de devolver un objeto de tipo @T@, la función devuelve un @Option<T>@. Si la función tiene éxito, devuelve un objeto de tipo @Some<T>@ (envolviendo al resultado real). Si no, se devuelve un objeto del tipo @None<T>@, siendo ambos subtipos de @Option<T>@.
 
@@ -110,10 +109,9 @@ bc. for (double q : div(42, 5)) {
 
 El cuerpo del bucle se ejecuta una vez, sólo si la función @div@ tiene éxito.
 
-
 h3. @Tuple<A, B>@
 
-La práctica clase @Tuple<A, B>@ envuelve a dos objetos del tipo @A@ y @B@. Pueden recuperarse estos objetos usando los campos @_1@ y @_2@, respectivamente. Por ejemplo:
+La clase @Tuple<A, B>@ envuelve a dos objetos del tipo @A@ y @B@. Pueden recuperarse estos objetos usando los campos @_1@ y @_2@, respectivamente. Por ejemplo:
 
 bc. public Option<Tuple<String, String>> parseEmail(String email) {
     final Matcher matcher = Pattern.compile("(\\w+)@(\\w+)").matcher(email);
@@ -132,17 +130,17 @@ bc. for (Tuple<String, String> email : parseEmail("foo@bar.com")) {
 
 p(note). La clase @T2<A, B>@ es un alias para @Tuple<A, B>@. Para manejar tuplas de 3 elementos usa @T3<A, B, C>@ y así hasta @T5<A, B, C, D, E>@.
 
-h3. Coincidencia de patrones
+h3. Coincidencia de patrones (Pattern matching)
 
-A veces nos vemos en la necesidad de tener coincidencia de patrones en Java. Desafortunadamente, Java no lleva incluída la coincidendia de patrones y debido a la falta de construcciones funcionales, es difícil añadirlo como una biblioteca. De cualquier forma, nosotros hemos desarrollado una solución que no es mala del todo.
+A veces sentimos que necesitamos contar con coincidencia de patrones (pattern matching) en Java. Desafortunadamente, Java no trae incluida esta funcionalidad, y debido a la falta de construcciones funcionales, es difícil añadirlo como una biblioteca. De cualquier forma, nosotros hemos desarrollado una solución que no es tan mala.
 
-Nuestra idea fue utilizar la última sintaxis de bucles for para conseguir una coincidencia de patrones básica para Java. La coincidencia de patrones ha de comprobar si el objeto cumple las condiciones obligatorias y también ha de extraer el valor interesante. La biblioteca de coincidencia de patrones para Play va es parte de @play.libs.F@.
+Nuestra idea fue utilizar la más reciente sintaxis de _bucles for_ para lograr implementar una coincidencia de patrones básica para Java. La coincidencia de patrones ha de comprobar si el objeto cumple las condiciones obligatorias y al mismo tiempo ha de extraer el valor que estamos buscando. La biblioteca de coincidencia de patrones para Play es parte de @play.libs.F@.
 
-Veamos un ejemplo sencillo; tenemos una referencia de tipo Object y queremos comprobar que es una cadena que empieza por 'command:'.
+Veamos un ejemplo sencillo; tenemos una referencia de tipo Object y queremos comprobar si se trata de una cadena que empieza por 'command:'.
 
 El modo estándar sería:
 
-bc.. Object o = anything();
+bc. Object o = anything();
  
 if(o instanceof String && ((String)o).startsWith("command:")) {
     String s = (String)o;
@@ -155,11 +153,11 @@ bc. for(String s: String.and(StartsWith("command:")).match(o)) {
     System.out.println(s.toUpperCase());
 }
 
-El bucle for se ejecuta una vez, sólo si la condición se cumple, y automáticamente extrae el valor String sin necesidad de hacer casting. Como no hay casting explícito, todo es seguro en tipos y aprobado por el compilador.
+El bucle for se ejecuta una vez, sólo si la condición se cumple, y automáticamente extrae el valor String sin necesidad de hacer casting. Como no hay casting explícito, todo es seguro en tipos (type-safe) y verificado por el compilador.
 
 h3. Promesas
 
-Las @Promise@ son tipos particularizados del tipo @Future@ de Play. De hecho un @Promise<T>@ es también un @Future<T>@ de modo que puede usarse como un @Future@ estándar. Pero también tiene una propiedad interesante: la capacidad de registrar callback usando @onRedeem(…)@ que será invocada tan pronto como el valor prometido esté disponible.
+Las @Promise@ son tipos particularizados por Play del tipo @Future@. De hecho un @Promise<T>@ es también un @Future<T>@ de modo que puede usarse como un @Future@ estándar. Pero también tiene una propiedad interesante: la capacidad de registrar un método callback usando @onRedeem(…)@ que será invocado tan pronto como el valor prometido esté disponible.
 
 Las instancias de @Promise@ se usan en todas partes en Play en vez de las instancias de @Future@ (para Jobs, @WS.async@, etc…).
 
@@ -171,16 +169,16 @@ Promise p = Promise.waitEither(p1, p2, p3)
 
 h2. OAuth
 
-"OAuth":http://oauth.net/ es un protocolo abierto para un API de autorización, usando un enfoque simple y estándar, para las aplicaciones de escritorio y de la web.
+"OAuth":http://oauth.net/ es un protocolo abierto para un API de autorización segura, usando un enfoque simple y estándar, tanto para las aplicaciones de escritorio como para las aplicaciones web.
 
-Hay dos especificaciones diferentes: OAuth 1.0 y OAuth 2.0. Play incluye bibliotecas para conectarse como consumidor a servicios que propongan cualquiera de estas dos especificaciones.
+Hay dos especificaciones diferentes: OAuth 1.0 y OAuth 2.0. Play incluye bibliotecas para conectarse como consumidor a servicios que soporten cualquiera de estas dos especificaciones.
 
 El proceso general es el siguiente:
 * Redirigir al usuario a la página de autorización del proveedor
-* Una vez que el usuario consigue la autorización, se le redirige de nuevo al servidor junto con un toker no-autorizado
+* Una vez que el usuario consigue la autorización, se le redirige de nuevo al servidor junto con un token no-autorizado
 * Nuestro servidor intercambia el token no-autorizado por un token de acceso específico para el usuario actual, que ha de ser salvado para ejecutar requests al servicio. Este paso se hace en una comunicacion servidor-a-servidor.
 
-La Play framework se ocupa de la mayor parte del proceso.
+Afortunafamente, Play se ocupa de la mayor parte del proceso.
 
 h3. <a>OAuth 1.0</a>
 
@@ -193,8 +191,7 @@ Para conectarte a un servicio, tienes que crear una instancia de OAuth.ServiceIn
 * clave de consumidor
 * "secret" de consumidor
 
-El token de acceso puede recuperarse de esta forma:
-
+El token de acceso puede ser obtenido de la siguiente manera:
 
 bc. public static void authenticate() {
     // TWITTER es un objeto OAuth.ServiceInfo
@@ -224,9 +221,9 @@ Ahora podemos hacer llamadas firmando las requests con la pareja de token:
 
 bc. mentions = WS.url(url).oauth(TWITTER, getUser().token, getUser().secret).get().getString();
 
-El ejemplo no controla errores, pero en producción deberías hacerlo. El objeto OAuth.Response tiene un campo de errores que es no nulo cuando ha habido algún error. Si lo hay suele ser que el usuario no ha conseguido acceder, o que el proveedor está muerto o tiene problemas.
+Este ejemplo no controla errores, pero en producción deberías hacerlo. El objeto OAuth.Response tiene un campo de errores que es no nulo cuando ha habido algún error. Si lo hay suele ser que el usuario no ha conseguido acceder, o que el proveedor está muerto o tiene problemas.
 
-Hay un ejemplo completo de uso de esto en @samples-and-tests/twitter-oauth@.
+Hay un ejemplo completo de uso de esta librería en @samples-and-tests/twitter-oauth@.
 
 h3. <a>OAuth 2.0</a>
 
@@ -269,7 +266,7 @@ Hay un ejemplo de uso completo en @samples-and-tests/facebook-oauth2@.
 
 h2. OpenID
 
-"OpenID":http://openid.net/ es un sistema de identidades abierto y descentralizado. Puedes aceptar fácilmente nuevos usuarios en la aplicación sin tener que guardar información específica de cada uno de ellos. Basta con que conserves traza de los usuarios autorizados mediante su **OpenID**.
+"OpenID":http://openid.net/ es un sistema de identidades abierto y descentralizado. Puedes aceptar fácilmente nuevos usuarios en la aplicación sin tener que guardar información específica de cada uno de ellos. Basta con que conserves el registro de los usuarios autorizados mediante su **OpenID**.
 
 Este ejemplo aporta una vista de alto nivel de cómo puede usarse la autentificación OpenID con una aplicación Play:
 
@@ -331,6 +328,6 @@ bc. GET   /                     Application.index
 GET   /login                Application.login
 *     /authenticate         Application.authenticate
 
-p(note). **Continuamos la discusión**
+p(note). **Próximos pasos**
  
-Ahora veremos cómo ejecutar operaciones fuera de cualquier request HTTP usando  %(next)"Jobs Asíncronos":jobs%.
+Ahora veremos cómo ejecutar operaciones fuera de cualquier pedido HTTP utilizando %(next)"Tareas aincrónicas (Jobs)":jobs%.
