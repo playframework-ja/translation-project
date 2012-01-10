@@ -272,9 +272,8 @@ bc. for(Post p : Post.<Post>findAll()) {
     p.delete();
 }
 
-
 p(note). Es importante advertir que Play no soporta XA (commits en dos fases). Si usas diferentes configuraciones JPA en el mismo pedido HTTP, **Play intentará hacer commit en tantas transacciones como pueda**. Si el commit a la primera base de datos tiene éxito y el segundo commit a otra base de datos falla, el primer commit no podrá deshacerse (no podrá hacer rollback). Ten esto en cuenta cuando uses múltiples configuraciones JPA en el mismo request.
 
 p(note). **Próximos pasos**
-
+ 
 Ahora veremos algunas %(next)"Bibliotecas de Play":libs%.
