@@ -1,16 +1,16 @@
 h1. Persistencia JPA
 
-Play incluye un conjunto de helpers muy útiles para simplificar la gestión de tus entidades JPA.
+Play incluye un conjunto de funciones (_helpers_) muy útiles para simplificar la gestión de tus entidades JPA.
 
-p(note). **Nota** que siempre puedes volverte a la API JPA pura cuando quieras.
+p(note). **Note** que siempre puedes volver a utilizar la API pura de JPA cuando quieras.
 
-h2. <a name="starting">Arrancando el gestor de entidades JPA</a>
+h2. <a name="starting">Iniciando el gestor de entidades JPA</a>
 
-Play arrancará automáticamente el gestor de entidades de Hibernate cuando encuentre una o más clases anotadas con la anotación <code>@javax.persistence.Entity</code>. No obstante, asegúrate de que has configurado correctamente la fuente de datos JDBC o fallará.
+Play iniciará automáticamente el gestor de entidades de Hibernate cuando encuentre una o más clases anotadas con la anotación <code>@javax.persistence.Entity</code>. No obstante, asegúrate de que hayas configurado correctamente la fuente de datos JDBC o fallará.
 
-h2. <a name="obtaining">Obtención del gestor de entidades JPA</a>
+h2. <a name="obtaining">Obteniendo el gestor de entidades JPA</a>
 
-Cuando se arranca el gestor de entidades JPA puedes obtenerlo desde el código de la aplicación usando el helper de JPA. Por ejemplo:
+Una vez que se haya iniciado el gestor de entidades JPA, puedes obtenerlo desde el código de la aplicación usando el helper de JPA. Por ejemplo:
 
 bc. public static index() {
     Query query = JPA.em().createQuery("select * from Article");
@@ -20,7 +20,7 @@ bc. public static index() {
 
 h2. <a name="transactions">Gestión de transacciones</a>
 
-Play gestionará automáticamente las transacciones por tí. Iniciará una transacción para cada request HTTP y la cerrará cuando se envíe la HTTP response. Si el código arroja una excepción, la transacción hará rollback automáticamente.
+Play gestionará automáticamente las transacciones por tí. Iniciará una transacción para cada pedido HTTP y la cerrará cuando se envíe la respuesta HTTP. Si el código arroja una excepción, la transacción hará rollback automáticamente.
 
 Si necesitas forzar un rollback de la transacción desde el código fuente, puedes usar el método  @JPA.setRollbackOnly()@, que le dice a JPA que no haga commit de la transacción actual.
 
@@ -32,12 +32,12 @@ Si quieres evitar que Play arranque transacciones, puedes anotar el método con 
 
 Para evitar las transacciones para todos los métodos, puedes anotar la clase Controller con <code>@play.db.jpa.NoTransaction</code>.
 
-Cuando se usa <code>@play.db.jpa.NoTransaction</code>, Play no obtiene conexiones de la pool, lo que mejora la velocidad.
+Cuando se usa <code>@play.db.jpa.NoTransaction</code>, Play no obtiene conexiones de la pool, lo que mejora la velocidad de la aplicación.
 
 
 h2. <a name="support">La clase de soporte **play.db.jpa.Model**</a>
 
-Esta es la clase helper principal para JPA. Si haces que una de tus entidades JPA extienda la clase @play.db.jpa.Model@ obtendrás un montón de métodos de ayuda para simplificar el acceso JPA.
+Esta es la clase helper principal para JPA. Si haces que una de tus entidades JPA extienda la clase @play.db.jpa.Model@ obtendrás muchos métodos de ayuda para simplificar el acceso JPA.
 
 Por ejemplo, veamos este objeto del modelo Post:
 
@@ -53,11 +53,11 @@ public class Post extends Model {
     public List<Comment> comments;
 }
 
-p. La clase @play.db.jpa.Model@ automáticamente proporciona un campo @Long id@ autogenerado. Creemos que es buena idea en general usar el @Long id@ autogenerado como clave primaria para los modelos JPA (la clave primaria técnica) y gestionar la clave primaria funcionar usando otro campo.
+p. La clase @play.db.jpa.Model@ automáticamente proporciona un campo @Long id@ autogenerado. Creemos que es buena idea en general usar el @Long id@ autogenerado como clave primaria para los modelos JPA (la clave primaria técnica) y gestionar la clave primaria funcional usando otro campo.
 
 Hemos usado el hecho de que Play automáticamente considera a los miembros **public** de la clase Post como **properties**. Así que no tenemos que escribir los métodos setter/getter para este objeto.
 
-h2. <a name="genericmodel">Asignación particularizada de id con GenericModel</a>
+h2. <a name="genericmodel">Manejo personalizado de id con GenericModel</a>
 
 Nada te obliga a basar tus entidades en @play.db.jpa.Model@. Tus entidades JPA también pueden extender la clase @play.db.jpa.GenericModel@. Esto es lo que tienes que hacer si no quieres usar el @Long id@ como clave primaria para tu entidad.
 
@@ -77,9 +77,9 @@ public class User extends GenericModel {
     public String mail;
 }
 
-h2. <a name="finding">Buscar objetos</a>
+h2. <a name="finding">Busncado objetos</a>
 
-La clase @play.db.jpa.Model@ te proporciona varios modos de encontrar los datos. Por ejemplo:
+La clase @play.db.jpa.Model@ te proporciona varios modos de consultar la información de los modelos. Por ejemplo:
 
 h3. Buscar por ID
 
@@ -150,7 +150,7 @@ Incluso se puede especificar sólo el comando @order by@:
 
 bc. Post.find("order by postDate desc").fetch();
 
-h2. <a name="counting">Contar objetos</a>
+h2. <a name="counting">Contando objetos</a>
 
 Puedes fácilmente contar objetos.
 
@@ -165,7 +165,7 @@ h2. <a name="files">Guardando los ficheros cargados con play.db.jpa.Blob</a>
 
 Puedes usar el tipo @play.db.jpa.Blob@ para guardar los ficheros cargados (con upload) en el sistema de ficheros (no en la base de datos). En el servidor, Play guarda la imagen o fichero cargados en la carpeta @attachments/@, dentro de la aplicación. El nombre de fichero (un "UUID":http://en.wikipedia.org/wiki/Uuid) y el tipo MIME se guardan en un atributo de la base de datos cuyo tipo SQL es @VARCHAR@.
 
-El caso de uso básico de cargar (upload), almacenar y servir un fichero es extremadamente fácil en Play. Esto es porque el marco vinculante automáticamente asigna un fichero cargado desde un formulario HTML al modelo JPA, y porque Play incluye métodos convenientes que hacen que servir datos binarios sea tan sencillo como si fueran texto plano. Para guardar los ficheros cargados en el modelo, añade una propiedad del tipo @play.db.jpa.Blob@.
+El caso de uso básico de cargar (upload), almacenar y servir un fichero es extremadamente fácil en Play. Esto es porque Play automáticamente asigna un fichero cargado desde un formulario HTML al modelo JPA, y porque Play incluye métodos que hacen que servir datos binarios sea tan sencillo como si fueran texto plano. Para guardar los ficheros cargados en el modelo, añade una propiedad del tipo @play.db.jpa.Blob@.
 
 bc. import play.db.jpa.Blob;
 @Entity
@@ -189,13 +189,13 @@ bc. public static void addUser(User user) {
    index();
 }
 
-Este código no parece que haga nada más que salvar la entidad JPA, porque la carga del fichero la gestiona automáticamente Play. Primero, antes de arrancar el método de acción, el fichero cargado se salva en una subcarpeta de @tmp/uploads/@. Luego, cuando se salva la entidad, el fichero se copia a la carpeta @attachments/@, con un UUID como nombre de fichero. Finalmente, cuando la acción se ha completado, se borra el fichero temporal.
+Este código no parece hacer otra cosa más que salvar la entidad JPA, porque la carga del fichero la gestiona automáticamente Play. Primero, antes de arrancar el método de acción, el fichero cargado se salva en una subcarpeta de @tmp/uploads/@. Luego, cuando se salva la entidad, el fichero se copia a la carpeta @attachments/@, con un UUID como nombre de fichero. Finalmente, cuando la acción se ha completado, se borra el fichero temporal.
 
-Si cargar otro fichero para el mismo usuario, éste se salvará como un nuevo fichero en el servidor, cuyo nombre es un nuevo UUID. Esto significa que el fichero original estará ahora huérfano. Si no tienes espacio en disco ilimitado, tendrás que implementar tu propio esquema para limpiar, quizás con un "job asíncrono":jobs.
+Al cargar otro fichero para el mismo usuario, éste se salvará como un nuevo fichero en el servidor, cuyo nombre es un nuevo UUID. Esto significa que el fichero original estará ahora huérfano. Si no tienes espacio ilimitado en disco, tendrás que implementar tu propio esquema para limpiar estos archivos, quizás con un "job asincrónico":jobs.
 
-Si la request HTTP no especifica el tipo MIME correcto del fichero, puedes asignarlo mediante la extensión del nombre de fichero, como se describe en "subida de ficheros desde el controlador":controllers#file.
+Si el pedido HTTP no especifica el tipo MIME correcto del fichero, puedes asignarlo mediante la extensión del nombre de fichero, como se describe en "subiendo ficheros desde el controlador":controllers#file.
 
-Para salvar los adjuntos en una carpeta diferente, hay que configurar "attachments.path":configuration#attachments.path.
+Para salvar los fichers adjuntos en una carpeta diferente, hay que configurar "attachments.path":configuration#attachments.path.
 
 Para servir un fichero guardado, se pasa @Blob.get()@ al método @renderBinary@ del Controlador, como se ve en "respuesta binaria del controlador":controllers#binary.
 
@@ -205,7 +205,7 @@ h2. <a name="save">Salvado explícito</a>
 
 Hibernate mantiene una cache de objetos que han sido solicitados a la base de datos. Estos objetos se llaman objetos persistentes, y lo son mientras el EntityManager que se usó para recuperarlos esté activo. Esto quiere decir que los cambios a estos Objetos entre los límites de una transacción se persisten automáticamente cuando se finaliza la transacción. En el estándar JPA, estas actualizaciones son implícitas dentro de los límites de la transacción; no tienes que llamar explícitamente a ningún método para persistir los valores.
 
-El principal problema de esto es que tenemos que gestionar todos nuestros objetos manualmente. En vez de decirle al EntityManager que actualice un objeto (lo que sería más intuitivo), tenemos que decirle qué objetos NO ha de actualizar. Lo hacemos llamando a la función @refresh()@, que esencialmente hace rollback sobre una sola entidad. Hacemos esto justo antes de llamar a commit en la transacción o cuando decidimos que el objeto no ha de ser actualizado.
+La principal desventaja de este enfoque, es que tenemos que gestionar todos nuestros objetos manualmente. En vez de decirle al EntityManager que actualice un objeto (lo que sería más intuitivo), tenemos que decirle qué objetos NO ha de actualizar. Lo hacemos llamando a la función @refresh()@, que esencialmente hace rollback sobre una sola entidad. Hacemos esto justo antes de llamar a commit en la transacción o cuando decidimos que el objeto no ha de ser actualizado.
 
 Este es un caso de uso común, cuando se está editando un objeto persistente después de enviar el formulario:
 
@@ -221,7 +221,7 @@ bc. public static void save(Long id) {
     show(id);
 }
 
-Hasta donde yo sé, la mayoría de los desarrolladores no se han dado cuenta de esto, y olvidan desechar el estado del objeto en caso de errores, asumiendo que el objeto no se salvará sin una llamada explícita a @save()@.
+Según mi experiencia, la mayoría de los desarrolladores no tienen presente este comportamiento, y olvidan desechar el estado del objeto en caso de errores, asumiendo que el objeto no se salvará sin una llamada explícita a @save()@.
 
 Así que eso es exactamnte lo que hemos cambiado en Play. Todos los objetos persistentes que extienden JPASupport/JPAModel no se salvarán sin una llamada explícita al método @save()@. Así que podríamos reescribir el código anterior de esta forma:
 
@@ -237,11 +237,11 @@ bc. public static void save(Long id) {
     }
 }
 
-Esto es mucho más intuitivo. Además, como puede ser tedioso llamar a @save()@ sobre un grafo grande de objetos, la llamada al método @save()@ se hace automáticamente en cascada a las relaciones anotadas con el atributo @cascade=CascadeType.ALL@.
+Esto es mucho más intuitivo. Además, como puede ser tedioso llamar a @save()@ sobre un grafo grande de objetos, la llamada al método @save()@ se hace automáticamente en cascada, grabando también los cambios en las entidades cuyas relaciones hayan sido anotadas con el atributo @cascade=CascadeType.ALL@.
 
 h2. <a name="typing">Más sobre problemas genéricos de tipos</a>
 
-El @play.db.jpa.Model@ define un conjunto de métodos genéricos. Estos métodos usan un parámetro type para especificar el tipo de retorno del método. Cuando se usan estos métodos, el tipo concreto a utilizar como valor de retorno se deriva a partir del contexto de la invocación mediante inferencia de tipos.
+La clase @play.db.jpa.Model@ define un conjunto de métodos genéricos. Estos métodos usan un parámetro _type_ para especificar el tipo de retorno del método. Cuando se usan estos métodos, el tipo concreto a utilizar como valor de retorno se deriva a partir del contexto de la invocación mediante inferencia de tipos.
 
 Por ejemplo, el método @findAll@ se define como:
 
@@ -253,7 +253,7 @@ bc. List<Post> posts = Post.findAll();
 
 Aquí el compilador Java resuelve el tipo real de @T@ mediante el hecho de que asignas el resultado del método a un  ==List&lt;Post&gt;==. Luego T se resuelve como de tipo Post.
 
-Desafortunadamente, esto no funciona si el el valor de retorno genérico del método se usa como parámetro para la invocación a otro método o en un bucle, así que el código siguiente fallará con un error del compilador que dice "Type mismatch: cannot convert from element type Object to Post":
+Desafortunadamente, esto no funciona si el valor de retorno genérico del método se usa como parámetro para la invocación a otro método o en un bucle, así que el código siguiente fallará con un error del compilador que dice "Type mismatch: cannot convert from element type Object to Post" (Error de tipos: no puedo convertir de elemento de tipo Object a Post):
 
 bc. for(Post p : Post.findAll()) {
     p.delete();
@@ -261,20 +261,20 @@ bc. for(Post p : Post.findAll()) {
 
 Por supuesto, puede resolverse mediante una variable local temporal, como en :
 
-bc. List<Post> posts = Post.findAll(); // aqui si funciona la inferencia de tipos
+bc. List<Post> posts = Post.findAll(); // aqui sí funciona la inferencia de tipos
 for(Post p : posts) {
     p.delete();
 }
 
-Pero hay un método mejor. Puedes ussar una característica de Java muy práctica pero poco conocida, que hace el código más corto y más legible a la vez:
+Pero hay una manera más simple. Puedes usar una característica de Java muy práctica pero poco conocida, que hace el código más corto y más legible a la vez:
 
 bc. for(Post p : Post.<Post>findAll()) {
     p.delete();
 }
 
 
-p(note). Es importante advertir que Play no soporta XA (commits en dos fases). Si usas diferentes configuraciones JPA en la misma request, **Play va a intentar hacer commit en tantas transacciones como pueda**. Si el commit a la primera base de datos tiene éxito y el segundo commit a otra base de datos falla, el primer commit no podrá recuperarse (no rollback). Ten esto en cuenta cuando user múltiples configuraciones JPA en la misma request.
+p(note). Es importante advertir que Play no soporta XA (commits en dos fases). Si usas diferentes configuraciones JPA en el mismo pedido HTTP, **Play intentará hacer commit en tantas transacciones como pueda**. Si el commit a la primera base de datos tiene éxito y el segundo commit a otra base de datos falla, el primer commit no podrá deshacerse (no podrá hacer rollback). Ten esto en cuenta cuando uses múltiples configuraciones JPA en el mismo request.
 
-p(note). **Continúa la discusión**
+p(note). **Próximos pasos**
 
 Ahora veremos algunas %(next)"Bibliotecas de Play":libs%.
