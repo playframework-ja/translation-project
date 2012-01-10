@@ -1,93 +1,93 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Las Bibliotecas de Play
 
-h1. Play libs
+El paquete @play.libs@ contiene varias bibliotecas útiles que te ayudarán a conseguir las tareas de programación más comunes. 
 
-The @play.libs@ package contains several useful libraries that will help you to achieve common programming tasks. 
+La mayoría de estas bibliotecas son simples helpers que se usan de forma muy directa:
 
-Most of these libraries are simple helpers that are really straightforward to use: 
+* "Codec":/@api/play/libs/Codec.html: Utilidades para codificar y decodificar datos.
+* "Crypto":/@api/play/libs/Crypto.html: Utilidades criptográficas.
+* "Expression":/@api/play/libs/Expression.html: Evaluar expresiones dinámicas.
+* "F":/@api/play/libs/F.html: Programación funcional con Java.
+* "Files":/@api/play/libs/Files.html: Ayudas para manipulación de sistemas de ficheros.
+* "I18N":/@api/play/libs/I18N.html: Ayudas para internacionalización.
+* "IO":/@api/play/libs/IO.html: Gestión de Streams.
+* "Images":/@api/play/libs/Images.html: Utilidades de manejo de Imágenes.
+* "Mail":/@api/play/libs/Mail.html: Funciones de correo.
+* "MimeTypes":/@api/play/libs/MimeTypes.html: Para enfrentarse a los tipos MIME.
+* "OAuth":/@api/play/libs/OAuth.html: Protocolo OAuth cliente.
+* "OAuth2":/@api/play/libs/OAuth2.html: Protocolo OAuth2 cliente.
+* "OpenID":/@api/play/libs/OpenID.html: Protocolo OpenID cliente.
+* "Time":/@api/play/libs/Time.html: Utilidades de tiempo y duración.
+* "WS":/@api/play/libs/WS.html: Potente cliente de Web Service.
+* "XML":/@api/play/libs/XML.html: Carga de estructuras XML.
+* "XPath":/@api/play/libs/XPath.html: Analizar XML con XPath.
 
-* "Codec":/@api/play/libs/Codec.html: Utilities to encode and decode data.
-* "Crypto":/@api/play/libs/Crypto.html: Cryptographics utilities.
-* "Expression":/@api/play/libs/Expression.html: Evaluate dynamic expressions.
-* "F":/@api/play/libs/F.html: Functional programming with Java.
-* "Files":/@api/play/libs/Files.html: File system manipulation helpers.
-* "I18N":/@api/play/libs/I18N.html: Internationalization helpers.
-* "IO":/@api/play/libs/IO.html: Stream manipulation helpers.
-* "Images":/@api/play/libs/Images.html: Image manipulation utilities.
-* "Mail":/@api/play/libs/Mail.html: E-mail functions.
-* "MimeTypes":/@api/play/libs/MimeTypes.html: Dealing with MIME types.
-* "OAuth":/@api/play/libs/OAuth.html: OAuth client protocol.
-* "OAuth2":/@api/play/libs/OAuth2.html: OAuth2 client protocol.
-* "OpenID":/@api/play/libs/OpenID.html: OpenID client protocol.
-* "Time":/@api/play/libs/Time.html: Time and duration utilities.
-* "WS":/@api/play/libs/WS.html: Powerful Web Service client.
-* "XML":/@api/play/libs/XML.html: Loading XML structures.
-* "XPath":/@api/play/libs/XPath.html: Parsing XML using XPath.
+Las secciones que siguen aportan más información sobre las bibliotecas más importantes.
 
-The following sections provide more information about the most important libraries.
 
-h2. Parsing XML using XPath
+h2. Análisis de XML con XPath
 
-"XPath":http://en.wikipedia.org/wiki/XPath is probably the easiest way to parse an XML document without having to use code generation tools. The @play.libs.XPath@ library offers all the needed primitives to efficiently achieve this task.
+"XPath":http://en.wikipedia.org/wiki/XPath es probablemente el método más sencillo para analizar un documento XML sin tener que usar herramientas de generación de códigos. La biblioteca @play.libs.XPath@ ofrece todas las primitivas para métodos necesarias para conseguir eficientemente esta tarea.
 
-The @XPath@ operations operate on all @org.w3.dom.Node@ types:
+Las operaciones @XPath@ operan sobre todos los tipos de @org.w3.dom.Node@:
 
-bc. org.w3.dom.Document xmlDoc = … // retrieve a Document somewhere
-  
+bc.. org.w3.dom.Document xmlDoc = … // recuperar un documento de algun sitio
+
 for(Node event: XPath.selectNodes("events//event", xmlDoc)) {
-    
+
     String name = XPath.selectText("name", event);
     String data = XPath.selectText("@date", event);
-    
     for(Node place: XPath.selectNodes("//place", event)) {
         String place = XPath.selectText("@city", place);
         …
     }
-    
+
     …
 }
 
-h2. Web Service client
+h2. Cliente de Web Service
 
-The @play.libs.WS@ provides a powerful HTTP client. Under the hood it uses "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client. 
+@play.libs.WS@ aporta un poderoso cliente HTTP. En el fondo usa "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client. 
 
-Making a request is easy:
+Es sencillo hacer una request:
 
 bc. HttpResponse res = WS.url("http://www.google.com").get();
 
-Once you have an @HttpResponse@ object you can access all the response properties.
+Una vez que tienes el objeto @HttpResponse@ puedes acceder a todas las propiedades de la response:
 
 bc. int status = res.getStatus();
 String type = res.getContentType();
 
-You can also retrieve the body content in several content types:
+También puedes recuperar el contenido del cuerpo de varios tipos de contenidos:
 
 bc. String content = res.getString();
 Document xml = res.getXml();
 JsonElement json = res.getJson();
 InputStream is = res.getStream();
 
-You can also use the *async* API to make HTTP requests in a non-blocking way. Then you will receive a @Promise<HttpResponse>@. Once redeemed, you can use the @HttpResponse@ as usual:
+También puedes usar el API *async* para hacer solicitudes HTTP de forma no bloqueante. Recibirás un @Promise<HttpResponse>@. Cuando se ejecute, puedes usar el @HttpResponse@ como de costumbre:
 
 bc. Promise<HttpResponse> futureResponse = WS.url(
     "http://www.google.com"
 ).getAsync();
 
-h2. Functional programming with Java
+h2. Programación funcional con Java
 
-The @play.libs.F@ library provide several useful constructs coming from functional programming. These constructs are used to handle complex abstraction cases. For those that are accustomed to functional programming we provide:
+La biblioteca @play.libs.F@ aporta varios constructores útiles que vienen de la programación funcional. Estos constructores se usan para manejar casos de abstracción compleja. Para los que están acostumbrados a la programación funcional, tenemos:
 
-* @Option<T>@ (a T value that can be or not set)
-* @Either<A,B>@ (contains either a A value or a B value)
-* @Tuple<A,B>@ (contains both A and B values)
+* @Option<T>@ (un valor T que puede inicializarse o no)
+* @Either<A,B>@ (contiene un valor A o bien un valor B)
+* @Tuple<A,B>@ (contiene tanto el valor A como el B)
 
-h3. @Option<T>@, @Some<T>@ and @None<T>@
+h3. @Option<T>@, @Some<T>@ y @None<T>@
 
-When you write a function that may not return a result in some cases (e.g. a @find@ method), a common (bad) Java pattern is to return @null@ when there is no result. This practice is dangerous because the function return type does not clearly shows that it may not return an object and it has been recognized by the nullable references inventor to be a "“billion-dollar mistake”":http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer.
-@Option<T>@ is an elegant solution to this problem: instead of returning an object of type @T@, the function returns an @Option<T>@. If the function succeeds, it returns an object of type @Some<T>@ (wrapping the real result), otherwise an object of type @None<T>@, which both are subtypes of @Option<T>@.
-Here is an example:
+Cuando escribes una función que puede no devolver un resultado en algunos casos (por ejemplo, un método @find@), un patrón común (malo) en Java es devolver @null@ cuando no hay resultado. Esta práctica es peligrosa porque el tipo de retorno de la función no muestra cláramente que puede no devolver un objeto y ha sido reconocido por el inventor de las referencias anulables como un "“error de mil millones de dólares“":http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer.
 
-bc. /* Safe division (will never throw a runtime ArithmeticException) */
+@Option<T>@ es una solución elegante a este problema: en vez de devolver un objeto de tipo @T@, la función devuelve un @Option<T>@. Si la función tiene éxito, devuelve un objeto de tipo @Some<T>@ (envolviendo al resultado real). Si no, se devuelve un objeto del tipo @None<T>@, siendo ambos subtipos de @Option<T>@.
+
+Veamos un ejemplo:
+
+bc. /* Division segura (nunca arrojara un error ArithmeticException) */
 public Option<Double> div(double a, double b) {
     if (b == 0)
         return None();
@@ -95,24 +95,25 @@ public Option<Double> div(double a, double b) {
         return Some(a / b);
 }
 
-Here is a way to use this function:
+Y esta es una forma de usar esta función:
 
 bc. Option<Double> q = div(42, 5);
 if (q.isDefined()) {
     Logger.info("q = %s", q.get()); // "q = 8.4"
 }
 
-But there is a more convenient syntax to use it, leveraging the fact that @Option<T>@ implements @Iterable<T>@:
+Pero hay una sintaxis mejor para usarla, basada en el hecho de que @Option<T> implementa @Iterable<T>@:
 
 bc. for (double q : div(42, 5)) {
     Logger.info("q = %s", q); // "q = 8.4"
 }
 
-The body of the for loop is be executed once, only if the @div@ function succeeded.
+El cuerpo del bucle se ejecuta una vez, sólo si la función @div@ tiene éxito.
+
 
 h3. @Tuple<A, B>@
 
-The handy @Tuple<A, B>@ class wraps two objects of type @A@ and @B@. You can retrieve the objects using the @_1@ and @_2@ fields, respectively. For example:
+La práctica clase @Tuple<A, B>@ envuelve a dos objetos del tipo @A@ y @B@. Pueden recuperarse estos objetos usando los campos @_1@ y @_2@, respectivamente. Por ejemplo:
 
 bc. public Option<Tuple<String, String>> parseEmail(String email) {
     final Matcher matcher = Pattern.compile("(\\w+)@(\\w+)").matcher(email);
@@ -122,47 +123,47 @@ bc. public Option<Tuple<String, String>> parseEmail(String email) {
     return None();
 }
 
-Then:
+Luego:
 
 bc. for (Tuple<String, String> email : parseEmail("foo@bar.com")) {
     Logger.info("name = %s", email._1); // "name = foo"
     Logger.info("server = %s", email._2); // "server = bar.com"
 }
 
-p(note). The @T2<A, B>@ class is an alias for @Tuple<A, B>@. To handle tuples of 3 elements use the @T3<A, B, C>@ class, and so on up to @T5<A, B, C, D, E>@.
+p(note). La clase @T2<A, B>@ es un alias para @Tuple<A, B>@. Para manejar tuplas de 3 elementos usa @T3<A, B, C>@ y así hasta @T5<A, B, C, D, E>@.
 
-h3. Pattern Matching
+h3. Coincidencia de patrones
 
-Sometimes we feel that we need pattern matching in Java. Unfortunately Java does not have built-in pattern matching, and because of the lack of functional constructs, it is difficult to add it as a library. Anyway we’ve worked on a solution that is not so bad.
+A veces nos vemos en la necesidad de tener coincidencia de patrones en Java. Desafortunadamente, Java no lleva incluída la coincidendia de patrones y debido a la falta de construcciones funcionales, es difícil añadirlo como una biblioteca. De cualquier forma, nosotros hemos desarrollado una solución que no es mala del todo.
 
-Our idea was to use the latest ‘for loop’ syntax to achieve basic pattern matching for Java. Pattern matching must both check if your object matches the required conditions and extract the interesting value. The Pattern matching library for Play is part of the @play.libs.F@ library.
+Nuestra idea fue utilizar la última sintaxis de bucles for para conseguir una coincidencia de patrones básica para Java. La coincidencia de patrones ha de comprobar si el objeto cumple las condiciones obligatorias y también ha de extraer el valor interesante. La biblioteca de coincidencia de patrones para Play va es parte de @play.libs.F@.
 
-Let’s see a simple example; you have a reference of type Object and you want to check that it is a string that starts by ‘command:’. 
+Veamos un ejemplo sencillo; tenemos una referencia de tipo Object y queremos comprobar que es una cadena que empieza por 'command:'.
 
-The standard way would be:
+El modo estándar sería:
 
-bc. Object o = anything();
+bc.. Object o = anything();
  
 if(o instanceof String && ((String)o).startsWith("command:")) {
     String s = (String)o;
     System.out.println(s.toUpperCase());
 }
 
-Using the Play pattern matching library, you can write it as:
+p. Usando la biblioteca de coincidencia de patrones de Play puede escribirse como:
 
 bc. for(String s: String.and(StartsWith("command:")).match(o)) {
     System.out.println(s.toUpperCase());
 }
 
-The for loop is executed once, only if the condition is met, and it automatically extracts the String value without the need for casting. Because there is no explicit cast, everything is type-safe, and checked by the compiler.
+El bucle for se ejecuta una vez, sólo si la condición se cumple, y automáticamente extrae el valor String sin necesidad de hacer casting. Como no hay casting explícito, todo es seguro en tipos y aprobado por el compilador.
 
-h3. Promises
+h3. Promesas
 
-A @Promise@ is Play’s custom @Future@ type. In fact a @Promise<T>@ is also a @Future<T>@ so you can use it as a standard @Future@. But it has also a very interesting property: the ability to register callback using @onRedeem(…)@ that will be called as soon as the promised value is available. 
+Las @Promise@ son tipos particularizados del tipo @Future@ de Play. De hecho un @Promise<T>@ es también un @Future<T>@ de modo que puede usarse como un @Future@ estándar. Pero también tiene una propiedad interesante: la capacidad de registrar callback usando @onRedeem(…)@ que será invocada tan pronto como el valor prometido esté disponible.
 
-@Promise@ instances are used everywhere in Play in place of @Future@ instances (for Jobs, @WS.async@, etc…).
+Las instancias de @Promise@ se usan en todas partes en Play en vez de las instancias de @Future@ (para Jobs, @WS.async@, etc…).
 
-Promises can be combined in several ways. For example:
+Pueden conbinarse de varias formas. Por ejemplo:
 
 bc. Promise p = Promise.waitAll(p1, p2, p3)
 Promise p = Promise.waitAny(p1, p2, p3)
@@ -170,116 +171,116 @@ Promise p = Promise.waitEither(p1, p2, p3)
 
 h2. OAuth
 
-"OAuth":http://oauth.net/ is an open protocol for secure API authorization, using a simple and standard approach, from desktop and web applications.
+"OAuth":http://oauth.net/ es un protocolo abierto para un API de autorización, usando un enfoque simple y estándar, para las aplicaciones de escritorio y de la web.
 
-Two different specifications exist: OAuth 1.0 and OAuth 2.0. Play provides libraries to connect as a consumer to services proposing either of these specifications.
+Hay dos especificaciones diferentes: OAuth 1.0 y OAuth 2.0. Play incluye bibliotecas para conectarse como consumidor a servicios que propongan cualquiera de estas dos especificaciones.
 
-The general process is the following:
+El proceso general es el siguiente:
+* Redirigir al usuario a la página de autorización del proveedor
+* Una vez que el usuario consigue la autorización, se le redirige de nuevo al servidor junto con un toker no-autorizado
+* Nuestro servidor intercambia el token no-autorizado por un token de acceso específico para el usuario actual, que ha de ser salvado para ejecutar requests al servicio. Este paso se hace en una comunicacion servidor-a-servidor.
 
-* Redirect the user to the provider’s authorization page
-* After the user grants authorization, he is redirected back to your server along with an unauthorized token
-* Your server exchanges the unauthorized token with an access token specific to the current user, that needs to be saved in order to perform requests to the service. This step is done as server-to-server communication.
-
-The Play framework takes care of most of the process.
+La Play framework se ocupa de la mayor parte del proceso.
 
 h3. <a>OAuth 1.0</a>
 
-The OAuth 1.0 functionality is provided by the @play.libs.OAuth@ class and is based on "oauth-signpost":http://code.google.com/p/oauth-signpost/. It is used by services such as "Twitter":http://apiwiki.twitter.com/ or "Google":http://code.google.com/apis/accounts/docs/OAuth.html
+La funcionalidad para OAuth 1.0 está en la clase @play.libs.OAuth@ y se basa en "oauth-signpost":http://code.google.com/p/oauth-signpost/. La usan servicios como "Twitter":http://apiwiki.twitter.com/ o "Google":http://code.google.com/apis/accounts/docs/OAuth.html
 
-To connect to a service, you need the create a OAuth.ServiceInfo instance using the following information, obtained from the service provider:
-* Request token URL
-* Access token URL
-* Authorize URL
-* Consumer key
-* Consumer secret
+Para conectarte a un servicio, tienes que crear una instancia de OAuth.ServiceInfo con la siguiente información, obtenida del proveedor del servicio:
+* URL del token de petición
+* URL del token de acceso
+* URL de autorización
+* clave de consumidor
+* "secret" de consumidor
 
-The access token can be retrieved this way:
+El token de acceso puede recuperarse de esta forma:
+
 
 bc. public static void authenticate() {
-    // TWITTER is a OAuth.ServiceInfo object
-    // getUser() is a method returning the current user 
+    // TWITTER es un objeto OAuth.ServiceInfo
+    // getUser() es un metodo que devuelve el usuario actual 
     if (OAuth.isVerifierResponse()) {
-        // We got the verifier; 
-        // now get the access tokens using the request tokens
+        // Ya hemos obtenido el verificador;
+        // ahora conseguimos los tokens de acceso usando los tokens de request
         OAuth.Response resp = OAuth.service(TWITTER).retrieveAccessToken(
             getUser().token, getUser().secret
         );
-        // let's store them and go back to index
+        // los guardamos y volvemos al indice
         getUser().token = resp.token; getUser().secret = resp.secret;
         getUser().save()
         index();
     }
     OAuth twitt = OAuth.service(TWITTER);
     Response resp = twitt.retrieveRequestToken();
-    // We received the unauthorized tokens 
-    // we need to store them before continuing
+    // Hemos recibido los tokens de no-autorizado
+    // tenemos que guardarlos antes de continuar
     getUser().token = resp.token; getUser().secret = resp.secret;
     getUser().save()
-    // Redirect the user to the authorization page
+    // Redirigimos al usuario a la pagina de autorizacion
     redirect(twitt.redirectUrl(resp.token));
 }
 
-Calls can now be done by signing the requests using the token pair:
+Ahora podemos hacer llamadas firmando las requests con la pareja de token:
 
 bc. mentions = WS.url(url).oauth(TWITTER, getUser().token, getUser().secret).get().getString();
 
-While the example doesn't check for errors, in production you should. The OAuth.Response object holds an error field that is non-null when an error occurred. Most likely it could be that the user didn't grant you access, that the provider is down or buggy.
+El ejemplo no controla errores, pero en producción deberías hacerlo. El objeto OAuth.Response tiene un campo de errores que es no nulo cuando ha habido algún error. Si lo hay suele ser que el usuario no ha conseguido acceder, o que el proveedor está muerto o tiene problemas.
 
-The full example usage is available in @samples-and-tests/twitter-oauth@.
+Hay un ejemplo completo de uso de esto en @samples-and-tests/twitter-oauth@.
 
 h3. <a>OAuth 2.0</a>
 
-OAuth 2.0 is much simpler than OAuth 1.0 because it doesn’t involve signing requests. It is used by "Facebook":http://developers.facebook.com/docs/authentication/ and "37signals":http://37signals.com.
+OAuth 2.0 es mucho más sencilla que OAuth 1.0 porque no necesita firmar las requests. Lo usan "Facebook":http://developers.facebook.com/docs/authentication/ y "37signals":http://37signals.com.
 
-Functionality is provided by @play.libs.OAuth2@.
+La funcionalidad para esto viene en @play.libs.OAuth2@.
 
-To connect to a service, you need the create a OAuth2 instance using the following information, obtained from the service provider:
-* Access token URL
-* Authorize URL
+Para conectarse a un servicio, hay que crear una instancia de OAuth2 con la siguiente información, que se obtiene del proveedor del servicio:
+* URL del token de acceso
+* URL de autorización
 * Client ID
 * Secret
 
 bc. public static void auth() {
-    // FACEBOOK is a OAuth2 object
+    // FACEBOOK es un objeto OAuth2
     if (OAuth2.isCodeResponse()) {
-        // authUrl must be the same as the retrieveVerificationCode call
+        // authUrl ha de ser la misma que en la llamada a retrieveVerificationCode
         OAuth2.Response response = FACEBOOK.retrieveAccessToken(authUrl);
-        // null if an error occurred
+        // nulo si ha habido error
         String accessToken = response.accessToken;
-        // null if the call was a success
+        // nulo si la llamada ha tenido exito
         OAuth2.Error = response.error;
-        // Save accessToken, you will need it to request the service
+        // salvar accessToker, lo necesitaremos para solicitar el servicio
         index();
     }
-    // authUrl is a String containing an absolute URL where the service 
-    // should redirect the user back
-    // This will trigger a redirect
+    // authUrl es una String que contiene una URL absoluta donde el servicio
+    // tendra que redirigir al usuario
+    // Esto levantara una redireccion
     FACEBOOK.requestVerificationCode(authUrl);
 }
 
-Once you have the access token associated to the current user, you can use it to query the service on behalf of the user:
+Una vez que tienes el token de acceso asociado al usuario actual, puede usarse para solicitar al servicio en nombre del usuario:
 
 bc. WS.url(
     "https://graph.facebook.com/me?access_token=%s", access_token
 ).get().getJson();
 
-The full example usage is available in @samples-and-tests/facebook-oauth2@.
+Hay un ejemplo de uso completo en @samples-and-tests/facebook-oauth2@.
 
 
 h2. OpenID
 
-"OpenID":http://openid.net/ is an open and decentralized identity system. You can easily accept new users in your application without having to keep specific user information. You just have to keep track of authorized users through their **OpenID**.
+"OpenID":http://openid.net/ es un sistema de identidades abierto y descentralizado. Puedes aceptar fácilmente nuevos usuarios en la aplicación sin tener que guardar información específica de cada uno de ellos. Basta con que conserves traza de los usuarios autorizados mediante su **OpenID**.
 
-This example provides a high-level view of how OpenID authentication can be used within a Play application:
+Este ejemplo aporta una vista de alto nivel de cómo puede usarse la autentificación OpenID con una aplicación Play:
 
-* For each request, check if the user is connected
-* If not, display a page where the user can submit his OpenID
-* Redirect the user to the OpenID provider
-* When the user comes back, get the verified OpenID and save it in the HTTP session.
+* Para cada request, comprobar si el usuario está conectado
+* Si no, mostrar una página donde el usuario pueda introducir su OpenID
+* Redirigir al usuario al proveedor OpenID
+* Cuando el usuario vuelva, obtener el OpenID verificado y salvarlo en la sesión HTTP.
 
-The OpenID functionality is provided by the @play.libs.OpenID@ class.
+La funcionalidad para OpenID está en la clase @play.libs.OpenID@.
 
-bc. @Before(unless={"login", "authenticate"})
+bc.. @Before(unless={"login", "authenticate"})
 static void checkAuthenticated() {
     if(!session.contains("user")) {
         login();
@@ -298,38 +299,38 @@ public static void authenticate(String user) {
     if(OpenID.isAuthenticationResponse()) {
         UserInfo verifiedUser = OpenID.getVerifiedID();
         if(verifiedUser == null) {
-            flash.error("Oops. Authentication has failed");
+            flash.error("Oops. La autentificación ha fallado");
             login();
         } 
         session.put("user", verifiedUser.id);
         index();
     } else {
-        if(!OpenID.id(user).verify()) { // will redirect the user
+        if(!OpenID.id(user).verify()) { // redirigimos al usuario
             flash.error("Cannot verify your OpenID");
             login();
         } 
     }
 }
 
-And the @login.html@ template:
+p. Y la plantilla @login.html@:
 
-bc. #{if flash.error}
+bc.. #{if flash.error}
 <h1>${flash.error}</h1>
 #{/if}
  
 <form action="@{Application.authenticate()}" method="POST">
-    <label for="user">What’s your OpenID?</label>
+    <label for="user">¿Cuál es su OpenID?</label>
     <input type="text" name="user" id="user" />
     <input type="submit" value="login…" />
 </form>
 </code>
 
-And finally the @routes@ definitions:
+p. Y finalmente las definiciones de @routes@:
 
 bc. GET   /                     Application.index
 GET   /login                Application.login
 *     /authenticate         Application.authenticate
 
-p(note). **Continuing the discussion**
+p(note). **Continuamos la discusión**
  
-Now we’ll check how to perform operations outside any HTTP request using %(next)"Ansynchronous Jobs":jobs%.
+Ahora veremos cómo ejecutar operaciones fuera de cualquier request HTTP usando  %(next)"Jobs Asíncronos":jobs%.
