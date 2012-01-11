@@ -1,12 +1,10 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Jobs Asincrónicos
 
-h1. Asynchronous Jobs
+Dado que Play es un framework de aplicaciones web, la mayor parte de la lógica de la aplicación es llevada a cabo por controladores en respuesta a solicitudes HTTP. 
 
-Because Play is a web application framework, most of the application logic is done by controllers responding to HTTP requests. 
+Pero a veces necesitas ejecutar parte de la lógica de la aplicación fuera de cualquier request HTTP. Esto puede ser útil para tareas de inicialización, de mantenimiento, o para ejecutar tareas largas sin bloquear el pool de ejecución de los pedidos HTTP.
 
-But sometimes you will need to execute some application logic outside of any HTTP request. It can be useful for initialization tasks, maintenance tasks or to run long tasks without blocking the HTTP request execution pool.
-
-Jobs are fully managed by the framework. That means that Play will manage all the database connection stuff, JPA entity manager synchronization and transactions management for you. To create a job you just need to extend the @play.jobs.Job@ super class.
+Los _Jobs_, o tareas, son gestionados completamente por el framework. Esto quiere decir que Play se encargará de todo el tema de conexión a la base de datos, el gestor de entidades JPA, el control de la sincronización y las transacciones. Para crear un job basta con extender la clase @play.jobs.Job@.
 
 bc. package jobs;
  
@@ -15,12 +13,12 @@ import play.jobs.*;
 public class MyJob extends Job {
     
     public void doJob() {
-        // execute some application logic here ...
+        // ejecutar aqui la lógica de la aplicación ...
     }
     
 }
 
-Sometimes you need to create jobs that return a result. You then override the @doJobWithResult()@ method.
+A veces precisará crear jobs que retornen un resultado. En estos casos tendrá que sobrecargar el método @doJobWithResult()@.
 
 bc. package jobs;
  
@@ -29,17 +27,17 @@ import play.jobs.*;
 public class MyJob extends Job<String> {
     
     public String doJobWithResult() {
-        // execute some application logic here ...
+        // ejecutar aqui la logica de la aplicacion ...
         return result;
     }
     
 }
 
-Here the use of @String@ is just for the example, of course a job can return any object type.
+Aquí el uso de @String@ es sólo un ejemplo. Por supuesto un job puede devolver cualquier tipo de objeto.
 
-h2. <a name="concepts">Bootstrap jobs</a>
+h2. <a name="concepts">Jobs de arranque (Bootstrap)</a>
 
-Bootstrap jobs are executed by Play at application start time. To mark your job as a bootstrap job you just need to add the <code>@OnApplicationStart</code> annotation.
+Los jobs de arranque (bootstrap jobs) son ejecutados por Play al iniciar la aplicación. Para indicarle al framework que se trata de un job de  arranque, basta añadir la anotación <code>@OnApplicationStart</code>.
 
 bc. import play.jobs.*;
  
@@ -49,27 +47,27 @@ public class Bootstrap extends Job {
     public void doJob() {
         if(Page.count() == 0) {
             new Page("root").save();
-            Logger.info("A root page has been created.");
+            Logger.info("Se ha creado una pagina principal.");
         }
     }
     
 }
 
-You don’t need to return a result. Even if you do it, the result will be lost.
+No necesita devolver un resultado. Incluso si lo hace, el resultado se perderá.
 
-The default is that all jobs annotated with <code>@OnApplicationStart</code> will be executed in sequence. When all jobs are finished, your application is ready to start processing incoming requests.
+Por defecto, todos los jobs anotados con <code>@OnApplicationStart</code> se ejecutarán secuencialmente. Cuando se terminen todos los jobs, la aplicación está lista para empezar a procesar las request que lleguen al servidor.
 
-If you want your jobs to start when your application starts, but you want to start processing incoming requests immediately, you can annotate your job like this: <code>@OnApplicationStart(async=true)</code>. Then your job will be started in the background when the application starts. All async jobs will be started at the same time.
+Si desea que sus jobs inicien junto con la aplicación, pero quiere empezar a procesar los request inmediatamente, puede anotar el job con: <code>@OnApplicationStart(async=true)</code>. De esta forma el job se iniciará en background cuando arranque la aplicación. Todos los jobs asincrónicos se iniciarán a la vez.
 
-p(note). **Warning**
+p(note). **Atención**
  
-When you run the application in DEV mode, the application waits for the first HTTP request to start. Moreover when you are in DEV mode, the application will sometimes automatically restart when needed. 
- 
-When you run in PROD mode, the application will start synchronously with the server start.
+Cuando ejecute la aplicación en modo DEV, la aplicación espera al primer pedido HTTP para arrancar. Además, cuando se ejecuta en el modo DEV, la aplicación se reiniciará automáticamente cuando sea necesario.
 
-h2. <a name="scheduling">Scheduled jobs</a>
+Cuando está en modo PROD, la aplicación arrancará sincrónicamente al iniciarse el servidor.
 
-Scheduled jobs are run periodically by the framework. You can ask Play to run a job at a specific interval using the <code>@Every</code> annotation.
+h2. <a name="scheduling">Jobs Programados</a>
+
+Los jobs programados son ejecutados periódicamente por el framework. Puede pedirle a Play que ejecute un job cada cierto intervalo específico de tiempo mediante la anocación <code>@Every</code>.
 
 bc. import play.jobs.*;
  
@@ -85,11 +83,11 @@ public class Bootstrap extends Job {
     
 }
 
-If the <code>@Every</code> annotation is not enough you can use the <code>@On</code> annotation to run your jobs using a CRON expression.
+Si la anotación <code>@Every</code> no es suficiente, puede usar la anotación <code>@On</code> para ejecutar los jobs usando una expresión CRON.
 
 bc. import play.jobs.*;
  
-/** Fire at 12pm (noon) every day **/ 
+/** Ejecutar a las 12pm (mediodía) cada día **/ 
 @On("0 0 12 * * ?")
 public class Bootstrap extends Job {
     
@@ -100,26 +98,26 @@ public class Bootstrap extends Job {
     
 }
 
-p(note). **Tip**
- 
-We use the CRON expression parser from the "Quartz library":http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html.
+p(note). **Nota**
 
-You don’t need to return a result. Even if you do it, the result will be lost.
+Para interpretar las expresiones CRON, utilizamos el analizador de "Quartz library":http://www.quartz-scheduler.org/docs/tutorials/crontrigger.html.
 
-h2. <a name="tasks">Triggering task jobs</a>
+No necesitas devolver un resultado. Si lo haces, el resultado se perderá.
 
-You can also trigger a Job at any time to perform a specific task by simply calling @now()@ on a Job instance. Then this job will be run immediately in a non blocking way. 
+h2. <a name="tasks">Invocando jobs de tareas</a>
+
+También puede invocar un Job en cualquier momento para que ejecute una tarea específica simplemente llamando al método @now()@ de una instancia de un Job. En tal caso, el job se ejecutará inmediatamente de forma no bloqueante.
 
 bc. public static void encodeVideo(Long videoId) {
     new VideoEncoder(videoId).now();
-    renderText("Encoding started");
+    renderText("Empieza Codificacion");
 }
 
-Calling @now()@ on a Job returns a @Promise@ value that you can use to retrieve the task result once finished.
+Una llamada al método @now()@ de un Job retorna un valor @Promise@ que puede usarse para recuperar el resultado de la tarea cuando la misma finalice.
 
-h2. <a name="concepts">Stopping the application</a>
+h2. <a name="concepts">Deteniendo la aplicación</a>
 
-Because you sometimes need to perform some action before the application shutdown, Play also provides a <code>@OnApplicationStop</code> annotation.
+Como a veces tienes que ejecutar alguna acción antes de detener la aplicación, Play también incluye una anotación <code>@OnApplicationStop</code>.
 
 bc. import play.jobs.*;
  
@@ -131,8 +129,6 @@ public class Bootstrap extends Job {
     }
 }
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
 
-Let's see how to combine Jobs with more powerful %(next)"Asynchronous programming with HTTP":asynchronous%.
-
-
+Veamos ahora cómo combinar los Jobs con el poder de la %(next)"Programación Asincrónica con HTTP":asynchronous%.
