@@ -1,20 +1,20 @@
-h1. Programación asíncrona con HTTP
+h1. Programación asincrónica con HTTP
 
-Esta sección explica cómo enfrentarse a la asincronía en una aplicación Play para obtener las aplicaciones típicas __long-polling, streaming__ y otras aplicaciones "Comet-style":http://en.wikipedia.org/wiki/Comet_(programming%29 que pueden escalar hasta miles de conexiones concurrentes.
+Esta sección explica cómo trabjar con pedidos http de manera asincrónica en una aplicación de Play para obtener las aplicaciones típicas "long-polling":http://en.wikipedia.org/wiki/Push_technology, "streaming":http://en.wikipedia.org/wiki/Streaming_media y otras aplicaciones del "estilo comet":http://en.wikipedia.org/wiki/Comet_(programming%29 que pueden escalar hasta miles de conexiones concurrentes.
 
-h2. Suspensión de solicitudes HTTP
+h2. Suspendiendo solicitudes HTTP
 
-Play está pensada para trabajar con requests muy cortas. Usa una pool de hilos (__thread pool__) de longitud fija para procesar las requests encoladas por el conector HTTP. Para obtener resultados óptimos, la pool de hilos ha de ser tan pequeña como sea posible. Normalmente usamos el valor óptimo de @número de procesadores + 1@ como valor por defecto del tamaño de la pool.
+Play está pensado para trabajar con requests HTTP muy cortos. Usa conjunto de hilos de ejecución (_thread pool_) de longitud fija para procesar los pedidos HTTP encolados por el conector HTTP. Para obtener resultados óptimos, el pool de hilos ha de ser tan pequeño como sea posible. Normalmente usamos el valor óptimo de @número de procesadores + 1@ como valor por defecto del tamaño del pool.
 
-Esto significa que si el tiempo de proceso de una request es muy largo (por ejemplo, esperando a un cálculo muy largo) bloqueará la pool y penalizará la responsividad de la aplicación. Por supuesto, se podrían añadir más hilos a la pool, pero esto implica recursos desperdiciados y además, el tamaño de la pool nunca será infinito.
+Esto significa que si el tiempo de proceso de un request es muy largo (por ejemplo, esperando a un cálculo muy extenso) bloqueará el pool y la aplicación no podrá atender otros request con la misma eficiencia. Por supuesto, se podrían añadir más hilos al pool de ejecución, pero esto implica recursos desperdiciados y además, el tamaño del pool nunca será infinito.
 
-Sea una aplicación de chat en la que los navegadores envían una request HTTP bloqueante y esperan que se muestre un mensaje nuevo. Estas requests pueden ser muy largas (normalmente varios segundos) y bloquean la pool de hilos. Si tu plan es permitir que se conecten simultáneamente 100 usuarios a la aplicación de chat, necesitarás una pool de al menos 100 hilos. Vale, esto es factible. Pero, ¿y si queremos 1000 usuarios? ¿o 10.000?
+Tomemos como ejemplo una aplicación de chat en la que los navegadores envían un request HTTP bloqueante y esperan a que aparezca un nuevo mensaje. Estos requests pueden ser muy largos (normalmente varios segundos) y bloquean el pool de hilos de ejecución. Si tu plan es permitir que se conecten simultáneamente 100 usuarios a la aplicación de chat, necesitarás un pool de al menos 100 hilos. Vale, esto es factible. Pero, ¿y si queremos 1000 usuarios? ¿o 10.000?
 
-Para resolver estos casos de uso, Play permite suspender temporalmente una request. La request HTTP seguirá conectada, pero la ejecución de la request se sacará de la pool y se intentará de nuevo más tarde. Puedes decirle a Play que intente la request después de un retraso prefijado, o esperar a que el valor de una @Promise@ esté disponible.
+Para resolver estos casos, Play permite suspender temporalmente un request. El pedido HTTP seguirá conectado, pero la ejecución del mismo se sacará del pool y se intentará de nuevo más tarde. Puede decirle a Play que intente retomar la ejecución del pedido HTTP luego de un lapso de tiempo espcífico, o esperar a que el valor de una @Promise@ esté disponible.
 
 p(note). **Nota**. Puedes ver un ejemplo real en @samples-and-tests/chat@.
 
-Por ejemplo, esta acción lanza un job muy largo y espera a su terminación antes de devolver los resultados a la response HTTP.
+Por ejemplo, esta acción lanza un job muy largo y espera a su terminación antes de devolver los resultados al response HTTP.
 
 bc. public static void generatePDF(Long reportId) {
     Promise<InputStream> pdf = new ReportAsPDFJob(report).now();
@@ -22,13 +22,13 @@ bc. public static void generatePDF(Long reportId) {
     renderBinary(pdfStream);
 }
 
-Aquí usamos @await(…)@ para decirle a Play que suspenda la request hasta que se redima el valor de @Promise<InputStream>@. 
+Aquí usamos @await(…)@ para decirle a Play que suspenda la atención del request hasta que el proceso retorne el valor de @Promise<InputStream>@. 
 
-h3. Reanudaciones (__continuations__)
+h3. Reanudaciones (_continuations_)
 
-Com el marco tiene que recuperar el hilo que estabas usando para servir otras requests, tiene que suspender tu código. En la versión anterior de Play, el equivalente del @await(…)@ era @waitFor(…)@, que suspendía tu acción, y después la llamaba desde el principio. 
+Como play tiene que recuperar el hilo que estaba utilizando para servir otras requests, necesariamente tiene que suspender tu código. En la versión anterior de Play, el equivalente del @await(…)@ era @waitFor(…)@, que suspendía tu acción, y después la llamaba desde el principio. 
 
-Para que sea más fácil enfrentarse al código asíncrono hemos introducido las reanudaciones (__continuations__). Las reanudaciones permiten que se suspenda tu código y se reanude transparentemente. Así puedes escribir tu código de forma muy imperativa:
+Para que sea más fácil trabajar con código asincrónico hemos introducido las reanudaciones (__continuations__). Las reanudaciones permiten que se suspenda tu código y se reanude transparentemente. Así puedes escribir tu código de forma sumamente imperativa:
 
 bc. public static void computeSomething() {
     Promise<String> delayedResult = veryLongComputation(…);
@@ -38,7 +38,7 @@ bc. public static void computeSomething() {
 
 De hecho aquí, tu código se ejecutará en dos pasos, en dos hilos diferentes. Pero como ves, esto es transparente para el código de tu aplicación.
 
-Mediante el uso de @await(…)@ y las reanudaciones, podrías escribir un bucle: 
+Mediante el uso de @await(…)@ y las reanudaciones, podrías escribir el siguiente bucle: 
 
 bc. public static void loopWithoutBlocking() {
     for(int i=0; i<=10; i++) { 
@@ -48,9 +48,9 @@ bc. public static void loopWithoutBlocking() {
     renderText("Fin del bucle");
 }
 
-Incluso cuando se usa un sólo hilo para procesar las requests, que es lo normal en modo desarrollo, Play es capaz de ejecutar concurrentemente estos bucles para varias requests al mismo tiempo.
+Incluso cuando se usa un sólo hilo para procesar las requests, que es el comportamiento por defecto en modo desarrollo, Play es capaz de ejecutar concurrentemente estos bucles para varios requests al mismo tiempo.
 
-Un ejemplo más realista es recuperar de forma asíncrona contenido de URLs remotas. El ejemplo siguiente ejecuta tres solicitudes HTTP en paralelo: cada llamada al método @play.libs.WS.WSRequest.getAsync()@ ejecuta una request GET asíncrona y devuelve un @play.libs.F.Promise@. El método de acción suspende la request HTTP entrante mediante la llamada a  @await(…)@ en la combinación de las tres instancias de @Promise@. Cuando las tres llamadas remotas tienen una respuesta, otro hilo resume el proceso y genera una response.
+Un ejemplo más realista consiste en recuperar asincrónicamente el contenido de URLs remotas. El siguiente ejemplo ejecuta tres solicitudes HTTP en paralelo: cada llamada al método @play.libs.WS.WSRequest.getAsync()@ ejecuta un request GET de manera asincrónica y devuelve un @play.libs.F.Promise@. El método de acción suspende la request HTTP entrante mediante la llamada a @await(…)@ a la espera de que se completen las tres instancias de @Promise@. Cuando estas llamadas remotas tengan una respuesta, otro hilo resumirá el proceso y generará una response.
 
 bc. public class AsyncTest extends Controller {
   public static void remoteData() {
@@ -58,16 +58,15 @@ bc. public class AsyncTest extends Controller {
     F.Promise<WS.HttpResponse> r2 = WS.url("http://example.org/2").getAsync();
     F.Promise<WS.HttpResponse> r3 = WS.url("http://example.org/3").getAsync();
     F.Promise<List<WS.HttpResponse>> promises = F.Promise.waitAll(r1, r2, r3);
-    // Se suspende el proceso aqui, hasta que las tres llamadas remotas acaben.
+    // Se suspende el proceso aqui, hasta la finalización de las tres llamadas remotas.
     List<WS.HttpResponse> httpResponses = await(promises);
     render(httpResponses);
   }
 }
 
+h3. Callbacks
 
-h3. Retrollamadas (__Callbacks__)
-
-Una forma diferente de implementar el ejemplo anterior de tres llamadas remotas asíncronas es usar una retrollamada. Eta vez, la llamada a @await(…)@ incluye una implementación de @play.libs.F.Action@, que es una retrollamada que se ejecuta cuando las @promises@ han terminado.
+Una forma diferente de implementar el ejemplo anterior de tres llamadas remotas asincrónicas es mediante el uso de Callbacks. Esta vez, la llamada a @await(…)@ incluye una implementación de @play.libs.F.Action@, que es un callback, es decir un método que se ejecuta cuando las @promises@ han terminado.
 
 bc. public class AsyncTest extends Controller {
   public static void remoteData() {
@@ -87,9 +86,9 @@ bc. public class AsyncTest extends Controller {
 
 h2. Streaming de respuestas HTTP
 
-Una vez que ya puedes hacer bucles sin bloquear la request, puede que quieras enviar los datos al navegador tan pronto como tengas alguna parte de los resultados disponibles. Este es el punto del tipo de respuesta HTTP @Content-Type:Chunked@. Te permite enviar la response HTTP varias veces dividiéndola en varios trozos. El navegador recibirá los trozos tan pronto como se publiquen.
+Ahora que ya sabe como hacer bucles sin bloquear el request, puede que quiera enviar los datos al navegador tan pronto como tenga alguna parte de los resultados disponibles. Este es el objetivo del tipo de respuesta HTTP @Content-Type:Chunked@. Permite enviar la response HTTP varias veces dividiéndola en varias porciones (_chunks_). El navegador recibirá las porciones tan pronto como sean publicadas.
 
-Mediante el uso de @await(…)@ y las reanudaciones, puedes hacerlo de esta forma:
+Mediante el uso de @await(…)@ y las reanudaciones, puede hacerlo de esta forma:
 
 bc. public static void generateLargeCSV() {
     CSVGenerator generator = new CSVGenerator();
@@ -100,12 +99,12 @@ bc. public static void generateLargeCSV() {
     }
 }
 
-Incluso si la generación de CSV tarda una hora, Play es capaz de procesar simultáneamente varias request usando un solo hilo, devolviendo los datos generados al cliente tan pronto como están disponibles.
+Incluso si la generación de CSV tarda una hora, Play es capaz de procesar simultáneamente varias request usando un solo hilo, devolviendo los datos generados al cliente tan pronto como estén disponibles.
 
 
 h2. Uso de WebSockets
 
-Los WebSockets son una forma de abrir un canal de comunicaciones bidireccional entre un navegador y tu aplicación. En el lado del navegador, se abre un socket utilizando urls del tipo "ws://":
+Los WebSockets son una forma de abrir un canal de comunicación bidireccional entre un navegador web y tu aplicación. En el lado del navegador, se abre un socket utilizando urls del tipo "ws://":
 
 bc. new Socket("ws://localhost:9000/helloSocket?name=Guillaume")
 
@@ -113,13 +112,13 @@ En el lado de Play se declara una ruta WS:
 
 bc. WS   /helloSocket            MyWebSocket.hello
 
-@MyWebSocket@ es un @WebSocketController@. Un controlador de WebSocket es como el controlador estándar HTTP pero gestiona diferentes conceptos.
+@MyWebSocket@ es un controlador de tipo @WebSocketController@. Un controlador de WebSocket es como el controlador estándar HTTP pero con algunas diferencias:
 
 * Tiene un objeto request, pero no un objeto response.
-* Tiene acceso a la sesión, pero en sólo lectura.
-* No tiene @renderArgs@, @routeArgs@ ni flash scope.
+* Tiene acceso a la sesión, pero sólo para lectura.
+* No tiene @renderArgs@, @routeArgs@ ni flash.
 * Puede leer parámetros sólo a partir del patrón de la ruta o desde la cadena QueryString.
-* Tiene dos canales de comunicación: inbound (__entrada__) y outbound (__salida__).
+* Tiene dos canales de comunicación: inbound (_entrada_) y outbound (_salida_).
 
 Cuando el cliente se conecta al socket @ws://localhost:9000/helloSocket@, Play invoca al método de acción @MyWebSocket.hello@. Cuando el método termina, se cierra el socket.
 
@@ -131,7 +130,7 @@ bc. public class MyWebSocket extends WebSocketController {
     }
 }
 
-Aquí cuando el ciente se conecta al socket, recibe el mensaje 'Hello Guillaume', y luego Play cierra el socket.
+En este caso, cuando el cliente se conecta al socket, recibe el mensaje 'Hello Guillaume', y luego Play cierra el socket.
 
 Normalmente, no querremos cerrar el socket inmediatamente, pero es fácil lograrlo con @await(…)@ y las reanudaciones.
 
@@ -159,9 +158,9 @@ bc. public class MyWebSocket extends WebSocketController {
     }
 }
 
-En el ejemplo anterior, hay un batiburrillo de 'if' anidados y 'cast', tedioso de escribir y propenso a errores. Y es aquí donde Java apesta. Incluso en el caso sencillo que vemos aquí no es fácil de manejar. Y para casos más complicados donde pueden combinarse varios streams, y tener más tipos de eventos, se vuelve una pesadilla.
+En el ejemplo anterior, la serie de 'if' anidados y 'cast', es sumamente tediosa de escribir y propensa a errores. Y es aquí donde Java muestra sus limitaciones. Incluso en el caso sencillo que vemos aquí no es fácil de manejar. Y para casos más complicados donde pueden combinarse varios streams, y tener más tipos de eventos, se vuelve una verdadera pesadilla.
 
-Por eso hemos introducido una comparación de patrones básica en Java en la biblioteca "play.libs.F":libs#FunctionalprogrammingwithJava.
+Por eso hemos introducido la librería "play.libs.F":libs#FunctionalprogrammingwithJava que implementa una comparación de báisca patrones en Java.
 
 Así que podemos escribir el ejemplo del eco de esta forma:
 
@@ -181,6 +180,6 @@ bc. public static void echo() {
     }
 }
 
-p(note). **Continuando la discusión**
+p(note). **Próximos pasos**
  
-Ahora, haremos %(next)"Requests Ajax":ajax%.
+Ahora, veremos como hacer %(next)"Requests con Ajax":ajax%.
