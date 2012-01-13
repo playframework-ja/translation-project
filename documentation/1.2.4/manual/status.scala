@@ -1,5 +1,5 @@
 #!/bin/sh
-exec scala "$0" "$@"
+exec scala -savecompiled "$0" "$@"
 !#
 
 import java.io._
