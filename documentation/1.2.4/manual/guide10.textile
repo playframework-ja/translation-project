@@ -2,15 +2,15 @@ h1. Completando las pruebas de la aplicación
 
 Ya hemos terminado el sistema de blog que queríamos crear en esta guía. Sin embargo el proyecto en sí no está terminado aún. Para estar totalmente seguros de nuestro código necesitamos agregar más pruebas al proyecto.
 
-Por supuesto nosotros ya hemos escritos pruebas unitarias con el fin de probar la funcionalidad de la capa modelo de yabe. Y es genial, ya que garantizará que el nucleo (_core_) del sistema de blog está bien probado. Pero una aplicación web no se basa solomente en el ‘modelo’. Necesitamos garantizar que la interfaz web funciona correctamente. Es decir, que necesitamos probar la capa controlador del sistema de blog. Pero también necesitamos probar la interfaz de usuario en sí, como por ejemplo, nuestro código JavaScript.
+Por supuesto nosotros ya hemos escrito pruebas unitarias con el fin de probar la funcionalidad de la capa de modelo de yabe. Y es genial, ya que garantizará que la parte principal del sistema de blog está bien probado. Pero una aplicación web no se basa sólamente en el ‘modelo’. Necesitamos garantizar que la interfaz web funciona correctamente. Es decir, que necesitamos probar la capa del controlador de nuestro sistema de blogs. Pero también necesitamos probar la interfaz de usuario en sí, como por ejemplo, nuestro código JavaScript.
 
-h2. <a name="controller">Probando la capa controlador</a>
+h2. <a name="controller">Probando la capa del controlador</a>
 
-Play provee una forma de probar directamente la capa controlador de la aplicación usando JUnit. A estas pruebas se le conoce con el nombre de **‘Pruebas Funcionales’**, ya que se utilizan para probar la funcionalidad completa de la aplicación web.
+Play provee una forma de probar directamente la capa del controlador de la aplicación usando JUnit. A estas pruebas se las conoce con el nombre de **‘Pruebas Funcionales’**, ya que se utilizan para probar la funcionalidad completa de la aplicación web.
 
-Básicamente una prueba funcional llama al @ActionInvoker@ de Play directamente, simulando una petición HTTP. A la que le espeficamos un método HTTP, una URI y parámetros HTTP. Entonces Play enruta la petición, invoca la acción correspondiente y devuelve la respuesta. Luego puedes analizarla para verificar que el contenido de la respuesta sea el esperado.
+Básicamente una prueba funcional llama al @ActionInvoker@ de Play directamente, simulando una petición HTTP. De manera tal que le especificamos un método HTTP, una URI y parámetros HTTP. Entonces Play resolverá la ruta determinando el controlador al cual derivar la petición HTTP, invocará la acción correspondiente y devuelverá la respuesta. Luego podrás analizar el resultado para verificar que el contenido de la respuesta sea el esperado.
 
-Vamos a escribir una primera prueba funcional. Abra le prueba unitaria @yabe/test/ApplicationTest.java@:
+Vamos a escribir nuestra primera prueba funcional. Abra el archivo con la prueba unitaria que Play crea por defecto en @yabe/test/ApplicationTest.java@:
 
 bc. import org.junit.*;
 import play.test.*;
@@ -30,7 +30,7 @@ public class ApplicationTest extends FunctionalTest {
     
 }
 
-Esto es muy similar a una prueba JUnit estándar por ahora. Note que usamos la super clase @FunctionalTest@ de Play con el fin de obtener todos los métodos de utilidad. Esta prueba está bien y solo verifica que la página de inicio (_home_) de la aplicación (normalmente el URL @/@) devuelve una respuesta HTML con código de estado **‘200 OK’**.
+Por el momento, se ve muy similar a una prueba JUnit estándar. Note que usamos la super clase @FunctionalTest@ de Play con el fin de obtener varios métodos súmamente útiles a la hora de trabajar con pruebas funcionales.. Esta prueba se ejecuta correctamente y sólo verifica que la página de inicio (_home_) de la aplicación (normalmente el URL @/@) devuelve una respuesta HTML con código de estado **‘200 OK’**.
 
 Ahora revisaremos que la seguridad del área de administración funcione correctamente. Agregue esta nueva prueba al archivo @ApplicationTest.java@:
 
@@ -43,25 +43,25 @@ public void testAdminSecurity() {
 }
 …
 
-Ahora ejecute la aplicación yabe en modo de prueba usando el comando @play test@, abra "http://localhost:9000/@tests":http://localhost:9000/@tests, seleccione el caso de prueba @ApplicationTest.java@ y ejecútelo.
+Ejecute la aplicación yabe en modo de prueba usando el comando @play test@, abra "http://localhost:9000/@tests":http://localhost:9000/@tests, seleccione el caso de prueba @ApplicationTest.java@ y ejecútelo.
 
 ¿Se muestra en color verde?
 
 !images/guide10-1!
 
-Bien, podríamos continuar probando todas las funcionalidades de la aplicación de esta forma, pero no es la mejor manera de probar una aplicación web basada en HTML. Como nuestro sistema de blog está destinado a ser ejecutado en un navegador web, sería mejor probarlo directamente en un **navegador web de verdad**. Y esto es exactamente lo que hacen las **‘pruebas Selenium’** de Play.
+Bien, podríamos continuar probando todas las funcionalidades de la aplicación de esta forma, pero no es la mejor manera de probar una aplicación web basada en HTML. Como nuestro sistema de blog está destinado a ser ejecutado en un navegador web, sería mejor probarlo directamente en un **navegador web de verdad**. Y esto es exactamente lo que hacen las **‘pruebas Selenium’** o **‘pruebas de aceptación’** de Play.
 
-Este tipo de **‘Pruebas Funcionales’** basadas en Junit son útiles aún, normalmente para probar Servicios Web que devuelven respuestas que no son HTML, tales como JSON o XML sobre HTTP.
+De todas, este tipo de **‘Pruebas Funcionales’** basadas en Junit resultan de gran utilidad, especialmente para probar Servicios Web que devuelven respuestas que no son HTML, tales como JSON o XML sobre HTTP.
 
 h2. <a name="selenium">Escribiendo pruebas Selenium</a>
 
 "Selenium":http://seleniumhq.org es una herramienta de pruebas diseñada específicamente para probar aplicaciones web. Lo interesante aquí es que Selenium permite ejecutar la _suite_ de pruebas directamente en cualquier navegador existente. Como no utiliza ningun ‘navegador simulado’, usted puede estar seguro de que lo que está probando es lo que los usuarios usarán.
 
-Normalmente, una _suite_ de prueba Selenium se escribe en un archivo HTML. La sintaxis HTML que requiere Selenium es un poco tediosa de escribir (formateado usando una tabla HTML). La buena noticia es que Play le ayuda a generarla usando el sistema de plantillas de Play y un conjunto de tags que soportan una sintaxis simplificada para esceneraios Selenium. Un efecto secundario interesante de usar plantillas es que usted ya no está atado a ‘escenarios estáticos’ y puede usar el poder de las plantillas Play (bloques condicionales, ciclos, etc) para escribir pruebas más complicadas.
+Normalmente, una _suite_ de prueba Selenium se escribe en un archivo HTML. La sintaxis HTML que requiere Selenium es un poco tediosa de escribir (formateado usando una tabla HTML). La buena noticia es que Play le ayuda a generarla usando el sistema de plantillas de Play y un conjunto de tags que soportan una sintaxis simplificada para trabajar con Selenium. Un efecto secundario interesante de usar plantillas es que usted ya no está atado a ‘escenarios estáticos’ y puede usar el poder de las plantillas de Play (bloques condicionales, ciclos, etc) para escribir pruebas más complicadas.
 
-p(note). Sin embargo, todavía puede utilizar la sintaxis HTML normal de Selenium en la plantilla y olvidarse de los tags específicos de Selenium si es necesario. Puede ser interesante si usa una de las diversas herramientas Selenium que generan los escenarios de prueba por usted, como por ejemplo "Selenium IDE":http://seleniumhq.org/projects/ide.
+p(note). Sin embargo, todavía puede utilizar la sintaxis HTML normal de Selenium en la plantilla y olvidarse de los tags específicos de Selenium provistos por Play si así lo desea. Este enfoque puede ser muy útil si utiliza alguna de las diversas herramientas de Selenium que generan los escenarios de prueba por usted, como por ejemplo "Selenium IDE":http://seleniumhq.org/projects/ide.
 
-La _suite_ de prueba por defecto de una aplicación Play recien creada ya contiene una prueba Selenium. Abra el archivo @yabe/test/Application.test.html@:
+La _suite_ de prueba por defecto de una aplicación Play recién creada ya contiene una prueba Selenium. Abra el archivo @yabe/test/Application.test.html@:
 
 bc. *{ You can use plain Selenium commands using the selenium tag }*
  
@@ -72,9 +72,9 @@ bc. *{ You can use plain Selenium commands using the selenium tag }*
     assertNotTitle('Application error')
 #{/selenium}
 
-Esta prueba debería ejecutarse sin ningún problema con la aplicación yabe. Ya que solo abre la página de inicio y verifica que el contenido de la página no incluya el texto ‘Application error’.
+Esta prueba debería ejecutarse sin ningún problema con la aplicación yabe. Tan sólo abre la página de inicio y verifica que el contenido de la página no incluya el texto ‘Application error’.
 
-No obstante, como cualquier prueba compleja, necesita configurar un conjunto de datos bien conocidos antes de navegar la aplicación y probarla. Por supuesto reutilizaremos el concepto de _fixture_ y el archivo @yabe/test/data.yml@ que usamos anteriormente. Para importar estos datos antes de ejecutar la _suite_ de prueba, solo utilice el tag @#{fixture /}@:
+No obstante, como cualquier prueba compleja, necesita configurar un conjunto de datos conocidos de antemano antes de probarla on un explorador web. Por supuesto reutilizaremos el concepto de _fixture_ y el archivo @yabe/test/data.yml@ que usamos anteriormente. Para importar estos datos antes de ejecutar la _suite_ de prueba, sólo utilice el tag @#{fixture /}@:
 
 bc. #{fixture delete:'all', load:'data.yml' /}
  
@@ -85,7 +85,7 @@ bc. #{fixture delete:'all', load:'data.yml' /}
     assertNotTitle('Application error')
 #{/selenium}
 
-Otro aspecto importante que se debe revisar es que tengamos una sesión de usuario limpia al inicio de la prueba. La sesión se almacena en un _cookie_ temporal del navegador, la cual mantendría la misma sesión durante dos ejecuciones de prueba sucesivas.
+Otro aspecto importante que debe verificar es que tengamos una sesión de usuario limpia al inicio de la prueba. Dado que la sesión se almacena en un _cookie_ temporal del navegador, existe la posibilidad de que mantenga la misma sesión durante dos ejecuciones de prueba sucesivas.
 
 Así que vamos a empezar nuestra prueba con un comando especial:
 
@@ -123,13 +123,13 @@ bc. #{fixture delete:'all', load:'data.yml' /}
     assertTextPresent('Just a test of YABE')
 #{/selenium}
 
-Usamos la sintaxis estándar de Selenium, llamada "Selenese":http://seleniumhq.org/docs/02_selenium_ide.html#selenium-commands-selenese.
+En este caso estamos usando la sintaxis estándar de Selenium, llamada "Selenese":http://seleniumhq.org/docs/02_selenium_ide.html#selenium-commands-selenese.
 
-Ejecútela (puede ejecutarla en una ventana diferente solo con abrir el enlace de prueba en una ventana nueva).
+Ejecútela (puede ejecutarla en una ventana diferente sólo con abrir el enlace de prueba en una ventana nueva).
 
 !images/guide10-2!
 
-Ahora probaremos el formulario de comentarios. Solo agregue un nuevo tag @#{selenium /}@ a la plantilla:
+Ahora probaremos el formulario de comentarios. Sólo agregue un nuevo tag @#{selenium /}@ a la plantilla:
 
 bc. #{selenium 'Test comments'}
  
@@ -154,7 +154,7 @@ bc. #{selenium 'Test comments'}
     assertTextPresent('Hello')
 #{/selenium}
 
-Y ejecútela. Se produce un error; y tenemos un serio problema aquí.
+Y ejecútela. Bueno, nos encontramos con un error; y aquí tenemos un serio problema.
 
 !images/guide10-3!
 
@@ -166,7 +166,7 @@ if(!Play.id.equals("test")) {
 }
 …
 
-Ahora solo modifique el caso de prueba para que escriba cualquier código en el campo de texto, de esta manera:
+Ahora sólo modifique el caso de prueba para que escriba cualquier código en el campo de texto, de esta manera:
 
 bc. …
 type('author', 'Me')
@@ -184,7 +184,7 @@ El "módulo Cobertura":http://www.playframework.org/modules/cobertura genera rep
 
 bc. play install cobertura-{version}
 
-Necesitamos habilitar este módulo solo para el modo de prueba. Así que agregue esta línea al archivo @application.conf@, y reinicie la aplicación en modo de prueba.
+Necesitamos habilitar este módulo sólo para el modo de prueba. Así que agregue esta línea al archivo @application.conf@, y reinicie la aplicación en modo de prueba.
 
 bc. # Import the cobertura module in test mode
 %test.module.cobertura=${play.path}/modules/cobertura

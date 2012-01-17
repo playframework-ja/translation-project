@@ -1,18 +1,16 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Completando las pruebas de la aplicación
 
-loadModels:h1. Completing the application tests
+Ya hemos terminado el sistema de blog que queríamos crear en esta guía. Sin embargo el proyecto en sí no está terminado aún. Para estar totalmente seguros de nuestro código necesitamos agregar más pruebas al proyecto.
 
-We’ve now finished the blog engine we wanted to create in this tutorial. However the project itself is not yet completely finished. To be totally confident with our code we need to add more tests to the project. 
+Por supuesto nosotros ya hemos escrito pruebas unitarias con el fin de probar la funcionalidad de la capa de modelo de yabe. Y es genial, ya que garantizará que la parte principal del sistema de blog está bien probado. Pero una aplicación web no se basa sólamente en el ‘modelo’. Necesitamos garantizar que la interfaz web funciona correctamente. Es decir, que necesitamos probar la capa del controlador de nuestro sistema de blogs. Pero también necesitamos probar la interfaz de usuario en sí, como por ejemplo, nuestro código JavaScript.
 
-Of course we’ve already written unit tests in order to test all the yabe model layer functionality. And it’s great as it will ensure that the blog engine’s core functionality is well tested. But a web application is not only about the ‘model’ part. We need to ensure that the web interface works as expected. That means testing the yabe blog engine’s controller layer. But we even need to test the UI itself, as for example, our JavaScript code.
+h2. <a name="controller">Probando la capa del controlador</a>
 
-h2. <a name="controller">Testing the controller part</a>
+Play provee una forma de probar directamente la capa del controlador de la aplicación usando JUnit. A estas pruebas se las conoce con el nombre de **‘Pruebas Funcionales’**, ya que se utilizan para probar la funcionalidad completa de la aplicación web.
 
-Play gives you a way to test directly the application’s controller part using JUnit. We call these tests **‘Functional tests’**. This is because we want to test the web application’s complete functionality.
+Básicamente una prueba funcional llama al @ActionInvoker@ de Play directamente, simulando una petición HTTP. De manera tal que le especificamos un método HTTP, una URI y parámetros HTTP. Entonces Play resolverá la ruta determinando el controlador al cual derivar la petición HTTP, invocará la acción correspondiente y devuelverá la respuesta. Luego podrás analizar el resultado para verificar que el contenido de la respuesta sea el esperado.
 
-Basically a functional test calls the Play @ActionInvoker@ directly, simulating an HTTP request. So we give an HTTP method, a URI and HTTP parameters. Play then routes the request, invokes the corresponding action and sends you back the filled response. You can then analyze it to check that the response content is like you expected.
-
-Let’s write a first functional test. Open the @yabe/test/ApplicationTest.java@ unit test:
+Vamos a escribir nuestra primera prueba funcional. Abra el archivo con la prueba unitaria que Play crea por defecto en @yabe/test/ApplicationTest.java@:
 
 bc. import org.junit.*;
 import play.test.*;
@@ -32,38 +30,38 @@ public class ApplicationTest extends FunctionalTest {
     
 }
 
-It looks like a standard JUnit test for now. Note that we use the Play @FunctionalTest@ super class in order to get all useful utility helpers. This test is correct and just checks that the application home page (typically the @/@ URL renders an HTML response with **‘200 OK’** as status code).
+Por el momento, se ve muy similar a una prueba JUnit estándar. Note que usamos la super clase @FunctionalTest@ de Play con el fin de obtener varios métodos súmamente útiles a la hora de trabajar con pruebas funcionales.. Esta prueba se ejecuta correctamente y sólo verifica que la página de inicio (_home_) de la aplicación (normalmente el URL @/@) devuelve una respuesta HTML con código de estado **‘200 OK’**.
 
-Now we will check that the administration area’s security works as expected. Add this new test to the @ApplicationTest.java@ file:
+Ahora revisaremos que la seguridad del área de administración funcione correctamente. Agregue esta nueva prueba al archivo @ApplicationTest.java@:
 
 bc. …
 @Test
 public void testAdminSecurity() {
     Response response = GET("/admin");
     assertStatus(302, response);
-    assertHeaderEquals("Location", "http://localhost/login", response);
+    assertHeaderEquals("Location", "/login", response);
 }
 …
 
-Now run the yabe application in test mode using the @play test@ command, open "http://localhost:9000/@tests":http://localhost:9000/@tests, select the @ApplicationTest.java@ test case and run it.
+Ejecute la aplicación yabe en modo de prueba usando el comando @play test@, abra "http://localhost:9000/@tests":http://localhost:9000/@tests, seleccione el caso de prueba @ApplicationTest.java@ y ejecútelo.
 
-Is it green?
+¿Se muestra en color verde?
 
 !images/guide10-1!
 
-Well, we could continue to test all the application functionalities this way, but it’s not the best way to test an HTML-based web application. As our blog engine is intended to be executed in a web browser, it would be better to test it directly in a **real web browser**. And that’s exactly what Play’s **‘Selenium tests’** do.
+Bien, podríamos continuar probando todas las funcionalidades de la aplicación de esta forma, pero no es la mejor manera de probar una aplicación web basada en HTML. Como nuestro sistema de blog está destinado a ser ejecutado en un navegador web, sería mejor probarlo directamente en un **navegador web de verdad**. Y esto es exactamente lo que hacen las **‘pruebas Selenium’** o **‘pruebas de aceptación’** de Play.
 
-These kinds of JUnit based **‘Functional tests’** are still useful, typically to test Web services returning non-HTML responses such as JSON or XML over HTTP.
+De todas, este tipo de **‘Pruebas Funcionales’** basadas en Junit resultan de gran utilidad, especialmente para probar Servicios Web que devuelven respuestas que no son HTML, tales como JSON o XML sobre HTTP.
 
-h2. <a name="selenium">Writing Selenium tests</a>
+h2. <a name="selenium">Escribiendo pruebas Selenium</a>
 
-"Selenium":http://seleniumhq.org is a testing tool specifically for testing web applications. The cool thing here is that Selenium allows to run the test suite directly in any existing browser. As it does not use any ‘browser simulator’, you can be sure that you’re testing what your users will use.
+"Selenium":http://seleniumhq.org es una herramienta de pruebas diseñada específicamente para probar aplicaciones web. Lo interesante aquí es que Selenium permite ejecutar la _suite_ de pruebas directamente en cualquier navegador existente. Como no utiliza ningun ‘navegador simulado’, usted puede estar seguro de que lo que está probando es lo que los usuarios usarán.
 
-A Selenium test suite is typically written as an HTML file. The HTML syntax required by Selenium is a little tedious to write (formatted using an HTML table element). The good news is that Play helps you generate it using the Play template engine and a set of tags that support a simplified syntax for Selenium scenarios. An interesting side effect of using templates is that you are not tied to ‘static scenarios’ any more and you can use the power of Play templates (looping, conditional blocks) to write more complicated tests.
+Normalmente, una _suite_ de prueba Selenium se escribe en un archivo HTML. La sintaxis HTML que requiere Selenium es un poco tediosa de escribir (formateado usando una tabla HTML). La buena noticia es que Play le ayuda a generarla usando el sistema de plantillas de Play y un conjunto de tags que soportan una sintaxis simplificada para trabajar con Selenium. Un efecto secundario interesante de usar plantillas es que usted ya no está atado a ‘escenarios estáticos’ y puede usar el poder de las plantillas de Play (bloques condicionales, ciclos, etc) para escribir pruebas más complicadas.
 
-p(note). However you can still write plain HTML Selenium syntax in the template and forget the specific Selenium tags if needed. It can become interesting if you use one of the several Selenium tools that generates the test scenarios for you, like "Selenium IDE":http://seleniumhq.org/projects/ide.
+p(note). Sin embargo, todavía puede utilizar la sintaxis HTML normal de Selenium en la plantilla y olvidarse de los tags específicos de Selenium provistos por Play si así lo desea. Este enfoque puede ser muy útil si utiliza alguna de las diversas herramientas de Selenium que generan los escenarios de prueba por usted, como por ejemplo "Selenium IDE":http://seleniumhq.org/projects/ide.
 
-The default test suite of a newly-created Play application already contains a Selenium test. Open the @yabe/test/Application.test.html@ file:
+La _suite_ de prueba por defecto de una aplicación Play recién creada ya contiene una prueba Selenium. Abra el archivo @yabe/test/Application.test.html@:
 
 bc. *{ You can use plain Selenium commands using the selenium tag }*
  
@@ -74,9 +72,9 @@ bc. *{ You can use plain Selenium commands using the selenium tag }*
     assertNotTitle('Application error')
 #{/selenium}
 
-This test should run without any problem with the yabe application. It just opens the home page and checks that the page content does not contain the ‘Application error’ text.
+Esta prueba debería ejecutarse sin ningún problema con la aplicación yabe. Tan sólo abre la página de inicio y verifica que el contenido de la página no incluya el texto ‘Application error’.
 
-However like any complex test, you need to set-up a set of well-known data before navigating the application and testing it. We will of course reuse the fixture concept and the @yabe/test/data.yml@ file that we’ve used before. To import this data set before the test suite, just use the @#{fixture /}@ tag:
+No obstante, como cualquier prueba compleja, necesita configurar un conjunto de datos conocidos de antemano antes de probarla on un explorador web. Por supuesto reutilizaremos el concepto de _fixture_ y el archivo @yabe/test/data.yml@ que usamos anteriormente. Para importar estos datos antes de ejecutar la _suite_ de prueba, sólo utilice el tag @#{fixture /}@:
 
 bc. #{fixture delete:'all', loadModels:'data.yml' /}
  
@@ -87,9 +85,9 @@ bc. #{fixture delete:'all', loadModels:'data.yml' /}
     assertNotTitle('Application error')
 #{/selenium}
 
-Another important thing to check is that we have a fresh user session at the test start. The session being stored in a browser transient cookie, you would keep the same session during two successive test runs.
+Otro aspecto importante que debe verificar es que tengamos una sesión de usuario limpia al inicio de la prueba. Dado que la sesión se almacena en un _cookie_ temporal del navegador, existe la posibilidad de que mantenga la misma sesión durante dos ejecuciones de prueba sucesivas.
 
-So let’s start our test with a special command:
+Así que vamos a empezar nuestra prueba con un comando especial:
 
 bc. #{fixture delete:'all', loadModels:'data.yml' /}
  
@@ -102,9 +100,9 @@ bc. #{fixture delete:'all', loadModels:'data.yml' /}
     assertNotTitle('Application error')
 #{/selenium}
 
-Run it to be sure that there is no mistake. It should be green.
+Ejecútela para estar seguros de que no hay errores. Debería mostrarse en color verde.
 
-So we can write a more specific test. Open the home page and check that the default posts are present:
+Ahora podemos escribir una prueba más específica. Abrir la página de inicio y revisar que los posts por defecto están presentes:
 
 bc. #{fixture delete:'all', loadModels:'data.yml' /}
  
@@ -125,13 +123,13 @@ bc. #{fixture delete:'all', loadModels:'data.yml' /}
     assertTextPresent('Just a test of YABE')
 #{/selenium}
 
-We use the standard Selenium syntax, called "Selenese":http://seleniumhq.org/docs/02_selenium_ide.html#selenium-commands-selenese.
+En este caso estamos usando la sintaxis estándar de Selenium, llamada "Selenese":http://seleniumhq.org/docs/02_selenium_ide.html#selenium-commands-selenese.
 
-Run it (you can run in a different window just by opening the test link in a new window).
+Ejecútela (puede ejecutarla en una ventana diferente sólo con abrir el enlace de prueba en una ventana nueva).
 
 !images/guide10-2!
 
-We will now test the comments form. Just add a new @#{selenium /}@ tag to the template:
+Ahora probaremos el formulario de comentarios. Sólo agregue un nuevo tag @#{selenium /}@ a la plantilla:
 
 bc. #{selenium 'Test comments'}
  
@@ -156,11 +154,11 @@ bc. #{selenium 'Test comments'}
     assertTextPresent('Hello')
 #{/selenium}
 
-And run it. Well it fails; and we have a serious problem here.
+Y ejecútela. Bueno, nos encontramos con un error; y aquí tenemos un serio problema.
 
 !images/guide10-3!
 
-We can’t really correctly test the captcha mechanism, so we have to cheat. In test mode we will validate any code as a correct captcha. We know that we’re in test mode when the framework id is @test@. So let’s modify the @postComment@ action in the @yabe/app/controllers/Application.java@ file to skip this validation in test mode:
+En realidad no podemos probar correctamente el mecanismo de _captcha_, así que tenemos que engañarlo. En modo de prueba validaremos cualquier código como un captcha correcto. Sabemos que estamos en modo de prueba cuando el id del framework es @test@. Así que vamos a modificar la acción @postComment@ en el archivo @yabe/app/controllers/Application.java@ para saltar está validación cuando estemos en modo de prueba:
 
 bc. …
 if(!Play.id.equals("test")) {
@@ -168,7 +166,7 @@ if(!Play.id.equals("test")) {
 }
 …
 
-Now just modify the test case to type any code in the text field, as is:
+Ahora sólo modifique el caso de prueba para que escriba cualquier código en el campo de texto, de esta manera:
 
 bc. …
 type('author', 'Me')
@@ -176,29 +174,31 @@ type('code', 'XXXXX')
 clickAndWait('css=input[type=submit]')
 …
 
-And now run the test again, it should work.
+Y ahora ejecute la prueba otra vez, debería funcionar.
 
-h2. <a name="cobertura">Measuring code coverage</a>
+h2. <a name="cobertura">Midiendo la cobertura de código</a>
 
-Of course we haven’t written all required test cases for the application. But it’s enough for this tutorial. Now in a real-world project, how can we know if we have written enough test cases? We need something called **‘code coverage’**. 
+Está claro que no hemos escrito todos los casos de prueba que requiere la aplicación. Pero esto es suficiente para este tutorial. Ahora en un proyecto de verdad, ¿cómo podemos saber si hemos escrito suficientes casos de prueba? Necesitamos algo llamado **‘cobertura de código’**.
 
-The ""Cobertura module":http://www.playframework.org/modules/cobertura generates code coverage reports using the "Cobertura":http://cobertura.sourceforge.net/ tool. Install the module using the @install@ command:
+El "módulo Cobertura":http://www.playframework.org/modules/cobertura genera reportes de cobertura de código usando la herramienta "Cobertura":http://cobertura.sourceforge.net/. Instale el módulo utilizando el comando @install@:
 
 bc. play install cobertura-{version}
 
-We need to enable this module only for test mode. So add this line to the @application.conf@ file, and restart the application in test mode.
+Necesitamos habilitar este módulo sólo para el modo de prueba. Así que agregue esta línea al archivo @application.conf@, y reinicie la aplicación en modo de prueba.
 
 bc. # Import the cobertura module in test mode
 %test.module.cobertura=${play.path}/modules/cobertura
 
-Now reopen the browser at the "http://localhost:9000/@tests":http://localhost:9000/@tests URL, select all tests and run them. All should be green.
+Ahora abra nuevamente la URL "http://localhost:9000/@tests":http://localhost:9000/@tests en el navegador, seleccione todas las pruebas y ejecútelas. Todo debería mostrarse en verde.
 
 !images/guide10-5!
 
-When all tests are passed, stop the application and cobertura will then generate the code coverage report. You can then open the @yabe/test-result/code-coverage/index.html@ in your browser and check the report.
+Cuando todas las pruebas sean exitosas, detenga la aplicación y Cobertura generará entonces el reporte de cobertura de código. Luego puede abrir el archivo @yabe/test-result/code-coverage/index.html@ en su navegador y revisar el reporte.
 
 !images/guide10-4!
 
-As you see we’re far from testing all of the application’s cases. A good testing suite should approach 100%, even if it is of course nearly impossible to check all the code. Typically because we often need to hack in test mode, like we did for the captcha.
+Si inicia la aplicación nuevamente, también puede verlo en "http://localhost:9000/@cobertura":http://localhost:9000/@cobertura.
 
-p(note). Next: %(next)"Preparing for production":guide11%. 
+Como puede ver estamos lejos de probar todos los casos de la aplicación. Una buena _suite_ de pruebas debería estár cerca del 100%, aunque por supuesto es casi imposible probar todo el código. Normalmente porque con frecuencia necesitamos saltar códigos cuando estamos en modo de prueba, tal como hicimos con el captcha.
+
+p(note). Continúa con: %(next)"Preparando la puesta en producción":guide11%. 
