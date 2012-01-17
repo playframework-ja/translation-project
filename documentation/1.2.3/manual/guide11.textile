@@ -1,56 +1,54 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Preparando la puesta en producción
 
-h1. Preparing for production
+Ahora que ya hemos terminado el sistema de blog, vamos a ver cuán fácil resulta poner una aplicación Play en producción.
 
-This time we’ve finished the blog engine. Let’s see the few common steps we need to put a Play application in production.
+h2. <a>Definiendo un framework ID</a>
 
-h2. <a>Defining a framework ID</a>
+Normalmente usted desplegará su aplicación en una computadora (un servidor) diferente a la que utilizó para el desarrollo. Por lo tanto tendrá una instalación diferente de Play.
 
-You will typically deploy your application on a different computer (a server) than the one you used for development. So you will have a different Play installation.
+Play permite asignar a cada instalación del framework un ID diferente, para después poder manejar diferentes configuraciones desde el mismo archivo @application.conf@. Supongamos que su servidor de producción se llamará @server01@.
 
-Play allows to assign each framework installation a different ID, then to manage different configurations in the same @application.conf@ file. Let’s say that the @server01@ will host your production application.
-
-Once the Play framework is installed on this server, let’s define the framework ID using the @play id@ command. Type:
+Una vez que el framework Play sea instalado en ese servidor, vamos a definir el framework ID usando el comando @play id@. Escriba:
 
 bc. $ play id
 
-And assign @server01@ as id. Now we can define special keys in the yabe configuration file that will be used only when the application is running on the server.
+Y asigne @server01@ como el id. Ahora podemos definir claves especiales en el archivo de configuración de yabe que seran utilizadas sólo cuando la aplicación se esté ejecutando en el servidor.
 
-h2. <a>Setting the application in PROD mode</a>
+h2. <a>Configurando la aplicación en modo PROD</a>
 
-The first configuration key we want specialize for the server deployment is the @application.mode@ property. So far we have used the **DEV** mode that allows Play to hot reload and recompile Java files and display detailed messages when an error occurs. In **PROD** mode however, Play will compile all Java sources and templates at startup time and will never check again for changes.
+La primera clave de configuración que querremos definir para el despliegue en el servidor de producción es la propiedad @application.mode@. Desde el principio hemos utilizado el modo **DEV** que permite a Play recargar y recompilar 'al vuelo' los archivos Java y mostrar mensajes detallados cuando ocurre un error. En modo **PROD** sin embargo, Play compilará todas los fuentes Java y las plantillas al arrancar la aplicación y no volverá a revisar si hay nuevos cambios.
 
-In the @yabe/conf/application.conf@ file, define:
+En el archivo @yabe/conf/application.conf@, defina:
 
 bc. %server01.application.mode=PROD
 
-Now when you run the yabe application on the server, it will automatically start in **PROD** mode.
+Ahora cuando ejecute la aplicación yabe en el servidor, automáticamente arrancará en modo **PROD**.
 
-h2. <a>Configuring a MySQL server</a>
+h2. <a>Configurando un servidor MySQL</a>
 
-For production use, we will use a MySQL server as database server instead of the in-memory H2 Database we have used so far. Play comes with the JDBC driver for MySQL so we don’t need to install anything more.
+En producción, utilizaremos un servidor MySQL como servidor de base de datos en vez de la base de datos en memoria H2 que hemos usado desde el principio. Play viene con el driver JDBC para MySQL así que no necesitamos instalar nada más.
 
-Edit the database configuration in the @yabe/conf/application.conf@ file:
+Edite la configuración de la base de datos en el archivo @yabe/conf/application.conf@:
 
 bc. %server01.db=mysql:root:secret@yabe
 
-We will now tweak the way Hibernate manages the database schema for us. It’s very useful when Hibernate automatically updates the database schema as the Java model objects change. 
+Ahora ajustaremos la forma en que Hibernate maneja el esquema de la base de datos por nosotros. Cuando estamos desarrollando, resulta muy útil que Hibernate automáticamente actualice el esquema de la base de datos a medida que los objetos Java del modelo cambian.
 
-Change the @jpa.ddl@ configuration key:
+Cambie la clave de configuración @jpa.ddl@:
 
 bc. %server01.jpa.ddl=update
 
-However it’s kind of unpredictable, and running magical things on a production database is never a good thing. So you should always have a backup before a new deployement. If you don't want Hibernate to update your database, change the @jpa.ddl@ configuration key to @validate@:
+Sin embargo esto es en cierta forma impredecible, y ejecutar cosas 'mágicas' en una base de datos de producción nunca es bueno. Por lo tanto siempre debería hacer un respaldo antes de cada nuevo despliegue. Si no quiere que Hibernate actualice su base de datos, cambie la clave de configuración @jpa.ddl@ a @validate@:
 
 bc. %server01.jpa.ddl=validate
 
-h2. <a>Setting up a frontal HTTP server</a>
+h2. <a>Configurando un servidor HTTP frontal</a>
 
-Now we could just change the embedded HTTP server’s default port to 80 in order to have a real production server. However it will limit us to installing only one Play application on a given server. As we typically want to install several applications in the same server (but using different IP host names), we need to use a frontal HTTP server as reverse proxy.
+Ahora podríamos solo cambiar el puerto por defecto del servidor HTTP integrado a 80 con el fin de tener un servidor de producción verdadero. Sin embargo, des esta manera tan sólo podremos instalar una única aplicación Play en un servidor dado. Como normalmente querremos instalar varias aplicaciones en el mismo servidor (pero utilizando diferentes nombres de dominio), necesitamos usar un servidor HTTP frontal como proxy invertido.
 
-You can choose any HTTP server and configure it as reverse proxy, however it is generally a good choice to take something light and fast like "LIGHTTPD":http://www.lighttpd.net/. 
+Puede elegir cualquier servidor HTTP y configurarlo como proxy invertido, sin embargo generalmente es una buena elección buscar algo rápido y ligero como "LIGHTTPD":http://www.lighttpd.net/. 
 
-The exact configuration of LIGHTTPD is beyond the scope of this tutorial, but should be something like:
+La configuración exacta de LIGHTTPD está más allá del ámbito de este tutorial, pero debería ser algo como esto:
 
 bc. server.modules = (
       "mod_access",
@@ -63,18 +61,18 @@ $HTTP["host"] =~ "www.yabe.com" {
         ( ( "host" => "127.0.0.1", "port" => 9000 ) ) )
 }
 
-And then allow a local reverse proxy to connect to your Play application by adding this key to the @application.conf@ file:
+Y después habilite un proxy invertido local para que se conecte a su aplicación Play agregando esta clave al archivo @application.conf@:
 
 bc. %server01.XForwardedSupport=127.0.0.1
 
-h2. <a>This is just the beginning</a>
+h2. <a>Esto es solo el principio</a>
 
-p(note). If you have read and followed this tutorial, you’re now a seasoned Play developer. You know most of the concepts that drive Play application development.
+p(note). Si ha leido y seguido este tutorial, usted ahora es un desarrollador Play experto. Conoce la mayoría de los conceptos que precisa para desarrollar aplicaciones con Play.
  
-At this stage, you may want to continue the tutorial with %(next)"internationalisation and localisation":guide12%.
+En esta etapa, es posible que desee continuar con el tutorial de %(next)"Internacionalización y localización de aplicaciones":guide12%.
 
-There are still more features we haven’t explored yet, especially related to Web services, like JSON or XML. Also Play comes with more modules that provide more features. And Play itself still evolves every day.
+Todavía hay más características que no hemos explorado aún, especialmente las relacionadas con los servicios Web, como JSON o XML. Play también viene con más modulos que proveen más prestaciones. Y el propio framework Play evoluciona día a día.
 
-If you are convinced that Play will help you save time for your next Java web application, you’re now ready to start. And don’t hesitate to ask us any question on the "Play Google Group":http://groups.google.com/group/play-framework.
+Si está convencido que Play le ayudará a ahorrar tiempo en su próxima aplicación web Java, ahora ya está listo para empezar. Y no dude en hacernos cualquier pregunta en el "Grupo Google de Play para hispanohablantes":http://groups.google.com/group/play-latam.
  
-**Thank you!**
+**¡Gracias!**

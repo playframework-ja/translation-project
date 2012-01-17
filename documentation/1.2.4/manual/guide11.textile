@@ -1,22 +1,22 @@
 h1. Preparando la puesta en producción
 
-En este momento que hemos terminado el sistema de blog, vamos a ver los pocos pasos necesarios para poner una aplicación Play en producción.
+Ahora que ya hemos terminado el sistema de blog, vamos a ver cuán fácil resulta poner una aplicación Play en producción.
 
 h2. <a>Definiendo un framework ID</a>
 
-Normalmente usted desplegará su apliación en una computadora (un servidor) diferente al que utilizó para el desarrollo. Por lo tanto tendrá una instalación diferente de Play.
+Normalmente usted desplegará su aplicación en una computadora (un servidor) diferente a la que utilizó para el desarrollo. Por lo tanto tendrá una instalación diferente de Play.
 
-Play permite asignar a cada instalación del framework un ID diferente, para después manejar configuraciones diferentes en el mismo archivo @application.conf@. Vamos a decir que el @server01@ hospedará su aplicación en producción.
+Play permite asignar a cada instalación del framework un ID diferente, para después poder manejar diferentes configuraciones desde el mismo archivo @application.conf@. Supongamos que su servidor de producción se llamará @server01@.
 
 Una vez que el framework Play sea instalado en ese servidor, vamos a definir el framework ID usando el comando @play id@. Escriba:
 
 bc. $ play id
 
-Y asigne @server01@ como el id. Ahora podemos definir claves especiales en el archivo de configuración de yabe que seran utilizadas solo cuando la aplicación se esté ejecutando en el servidor.
+Y asigne @server01@ como el id. Ahora podemos definir claves especiales en el archivo de configuración de yabe que seran utilizadas sólo cuando la aplicación se esté ejecutando en el servidor.
 
 h2. <a>Configurando la aplicación en modo PROD</a>
 
-La primera clave de configuración que queremos definir para el despliegue en el servidor es la propiedad @application.mode@. Desde el principio hemos utilizado el modo **DEV** que permite a Play recargar y recompilar en vivo los archivos Java y mostrar mensajes detallados cuando ocurre un error. En modo **PROD** sin embargo, Play compilará todas los fuentes Java y las plantillas al arrancar la aplicación y nunca revisará si hay cambios.
+La primera clave de configuración que querremos definir para el despliegue en el servidor de producción es la propiedad @application.mode@. Desde el principio hemos utilizado el modo **DEV** que permite a Play recargar y recompilar 'al vuelo' los archivos Java y mostrar mensajes detallados cuando ocurre un error. En modo **PROD** sin embargo, Play compilará todas los fuentes Java y las plantillas al arrancar la aplicación y no volverá a revisar si hay nuevos cambios.
 
 En el archivo @yabe/conf/application.conf@, defina:
 
@@ -26,25 +26,25 @@ Ahora cuando ejecute la aplicación yabe en el servidor, automáticamente arranc
 
 h2. <a>Configurando un servidor MySQL</a>
 
-En producción, utilizaremos un servidor MySQL como servidor de base de datos en vez de la base de datos en memoria H2 que hemos usado desde el principio. Play viene con el driver JDBC para MySQL así que no necesitamos instalar más nada.
+En producción, utilizaremos un servidor MySQL como servidor de base de datos en vez de la base de datos en memoria H2 que hemos usado desde el principio. Play viene con el driver JDBC para MySQL así que no necesitamos instalar nada más.
 
 Edite la configuración de la base de datos en el archivo @yabe/conf/application.conf@:
 
 bc. %server01.db=mysql:root:secret@yabe
 
-Ahora ajustaremos la forma en que Hibernate maneja el esquema de la base de datos por nosotros. Es muy útil cuando Hibernate automáticamente actualiza el esquema de la base de datos a medida que los objetos Java del modelo cambian.
+Ahora ajustaremos la forma en que Hibernate maneja el esquema de la base de datos por nosotros. Cuando estamos desarrollando, resulta muy útil que Hibernate automáticamente actualice el esquema de la base de datos a medida que los objetos Java del modelo cambian.
 
 Cambie la clave de configuración @jpa.ddl@:
 
 bc. %server01.jpa.ddl=update
 
-Sin embargo esto es en cierta forma impredecible, y ejecutar cosas mágicas en una base de datos de producción nunca es bueno. Por lo tanto siempre debería hacer un respaldo antes de un nuevo despliegue. Si no quiere que Hibernate actualice su base de datos, cambie la clave de configuración @jpa.ddl@ a @validate@:
+Sin embargo esto es en cierta forma impredecible, y ejecutar cosas 'mágicas' en una base de datos de producción nunca es bueno. Por lo tanto siempre debería hacer un respaldo antes de cada nuevo despliegue. Si no quiere que Hibernate actualice su base de datos, cambie la clave de configuración @jpa.ddl@ a @validate@:
 
 bc. %server01.jpa.ddl=validate
 
 h2. <a>Configurando un servidor HTTP frontal</a>
 
-Ahora podríamos solo cambiar el puerto por defecto del servidor HTTP integrado a 80 con el fin de tener un servidor de producción verdadero. Sin embargo esto nos limitará a instalar una sola aplicación Play en un servidor dado. Como normalmente queremos instalar varias aplicaciones en el mismo servidor (pero utilizando diferentes nombres de dominio), necesitamos usar un servidor HTTP frontal como proxy invertido.
+Ahora podríamos solo cambiar el puerto por defecto del servidor HTTP integrado a 80 con el fin de tener un servidor de producción verdadero. Sin embargo, des esta manera tan sólo podremos instalar una única aplicación Play en un servidor dado. Como normalmente querremos instalar varias aplicaciones en el mismo servidor (pero utilizando diferentes nombres de dominio), necesitamos usar un servidor HTTP frontal como proxy invertido.
 
 Puede elegir cualquier servidor HTTP y configurarlo como proxy invertido, sin embargo generalmente es una buena elección buscar algo rápido y ligero como "LIGHTTPD":http://www.lighttpd.net/. 
 
@@ -61,18 +61,18 @@ $HTTP["host"] =~ "www.yabe.com" {
         ( ( "host" => "127.0.0.1", "port" => 9000 ) ) )
 }
 
-Y después permitir que un proxy invertido local se conecte a su aplicación Play agregando esta clave al archivo @application.conf@:
+Y después habilite un proxy invertido local para que se conecte a su aplicación Play agregando esta clave al archivo @application.conf@:
 
 bc. %server01.XForwardedSupport=127.0.0.1
 
 h2. <a>Esto es solo el principio</a>
 
-p(note). Si ha leido y seguido este tutorial, usted ahora es un desarrollador Play experto. Conoce la mayoría de los conceptos para el desarrollo de aplicaciones Play.
+p(note). Si ha leido y seguido este tutorial, usted ahora es un desarrollador Play experto. Conoce la mayoría de los conceptos que precisa para desarrollar aplicaciones con Play.
  
- En esta etapa, es posible que desee continuar el tutorial con %(next)"Internacionalización y localización":guide12%.
+En esta etapa, es posible que desee continuar con el tutorial de %(next)"Internacionalización y localización de aplicaciones":guide12%.
 
-Todavía hay más características que no hemos explorado aún, especialmente las relacionadas con los servicios Web, como JSON o XML. Play también viene con más modulos que proveen más características. Y el mismo Play aún evoluciona cada día.
+Todavía hay más características que no hemos explorado aún, especialmente las relacionadas con los servicios Web, como JSON o XML. Play también viene con más modulos que proveen más prestaciones. Y el propio framework Play evoluciona día a día.
 
-Si estás convencido que Play te ayudará a ahorrar tiempo en tu próxima aplicación web Java, ahora ya estás listos para empezar. Y no dudes en hacernos cualquier pregunta en el "Grupo Google de Play - Latinoamérica":http://groups.google.com/group/play-latam.
+Si está convencido que Play le ayudará a ahorrar tiempo en su próxima aplicación web Java, ahora ya está listo para empezar. Y no dude en hacernos cualquier pregunta en el "Grupo Google de Play para hispanohablantes":http://groups.google.com/group/play-latam.
  
 **¡Gracias!**
