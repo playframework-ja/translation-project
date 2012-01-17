@@ -1,78 +1,79 @@
 h1. Internationalización
 
-La internacionalización (I18N) es un medio de adaptar tu aplicación a diferentes idiomas para permitir diferencias regionales. Sigue estos pasos para habilitar la internacionalización en tu aplicación.
+La internacionalización (I18N) le permite adaptar su aplicación a diferentes idiomas a fin de contemplar diferencias regionales. Siga estos pasos para habilitar la internacionalización en su aplicación.
 
-h2. <a name="utf8">¡Usa sólo UTF-8!</a>
+h2. <a name="utf8">¡Utilice solamente UTF-8!</a>
 
-Play soporta sólo una codificación: UTF-8. Como los problemas de codificación pueden ser misteriosos y difíciles de encontrar, hemos elegido soportar sólo una codificación. UTF-8 permite mostrar todos los caracteres para todos los idiomas.
+Play soporta tan sólo una codificación: UTF-8. Dado que los problemas de codificación pueden ser misteriosos y difíciles de encontrar, hemos elegido soportar sólo una codificación. UTF-8 permite mostrar todos los caracteres para todos los idiomas.
 
-Asegúrate de que eres consistente con el uso de UTF-8 en toda tu aplicación:
+Asegúrese de ser consistente con el uso de UTF-8 en toda su aplicación:
 
-* Edita todos tus ficheros fuente como UTF-8
-* Define cabeceras de codificación adecuadas en HTTP
-* Configura los meta tags de HTML a UTF-8
-* Si usas una base de datos, configúrala para que use UTF-8, y siempre conéctate a ella usando UTF-8
+* Edite todos tus ficheros fuente como UTF-8
+* Defina cabeceras de codificación adecuadas en HTTP
+* Configure los meta tags de HTML a UTF-8
+* Si usa una base de datos, configúrela para que use UTF-8, y siempre conéctese a ella usando UTF-8
 
 p(note). **Nota**
-El problema con UTF-8 es la razón por la que la mayoría de los ficheros de configuración de Play, aunque son ficheros de propiedades Java, no se llaman @*.properties@. Java impone el requerimiento de que los ficheros de propiedades han de ir codificados en **ISO-8859-1**. Los ficheros de configuración de Play han de ir en UTF-8. ¿Hace falta decir más?
 
-h2. <a name="messages">Externaliza tus mensajes</a>
+El problema con UTF-8 es la razón por la que la mayoría de los ficheros de configuración de Play, aunque son ficheros de propiedades Java, no se llaman @*.properties@. Java impone el requerimiento de que los ficheros de propiedades deban ser codificados en **ISO-8859-1**. Los ficheros de configuración de Play tienen que estar codificados UTF-8. ¿Hace falta decir más?
 
-Para soportar I18N tienes que externalizat todos los mensajes de tu aplicación.
+h2. <a name="messages">Externalice sus mensajes</a>
 
-Crea un fichero llamado @messages@ en el directorio @conf/@ de la aplicación. Este fichero no es en realidad más que un fichero de propiedades de Java.
+Para soportar I18N tiene que externalizar todos los mensajes de su aplicación.
+
+Cree un fichero llamado @messages@ en el directorio @conf/@ de la aplicación. Este fichero no es en realidad más que un fichero de propiedades de Java.
 
 bc. hello=Hello!
 back=Back
 
-Luego puedes definir un fichero @message@ específico para cada idioma que se pueda usar en tu aplicación. Basta añadir el código ISO del idioma como extensión.
+Luego puede definir un fichero @message@ específico para cada idioma que se pueda usar en su aplicación. Basta añadir el código ISO del idioma como extensión.
 
-Por ejemplo, el fichero de mensajes que contiene las traducciones francesas es @conf/messages.fr@:
+Por ejemplo, el fichero de mensajes que contiene las traducciones al francés será @conf/messages.fr@:
 
 bc. hello=Bonjour!
 back=Retour
 
-h2. <a name="languages">Define los idiomas soportados por la aplicación</a>
+h2. <a name="languages">Defina los idiomas soportados por la aplicación</a>
 
-Define una lista de idiomas soportados en "application.langs configuration":configuration#application.langs.
+Defina una lista de idiomas soportados en "application.langs configuration":configuration#application.langs.
 
-En la primera solicitud de un usuario nuevo, Play intentará adivinar el lenguaje por defecto a utilizar. Lo hace parseando la cabecera HTTP @Accept-language@. Luego salva el idioma elegido en la cookie @PLAY_LANG@. Así, a la siguiente entrada, utilizará el mismo idioma.
+Al recibir la primera solicitud de un usuario nuevo, Play intentará adivinar el lenguaje por defecto a utilizar. Lo hace parseando la cabecera HTTP @Accept-language@. Luego salva el idioma elegido en la cookie @PLAY_LANG@. Así, a la siguiente entrada, utilizará el mismo idioma.
 
-Puedes usar una pareja idioma/país si quieres distinguir entre variantes, como en_US y en_GB, o zh_CN y zh_TW. No obstante, ten en cuenta que algunos usuarios puede que sólo expongan el idioma y no el país en su Accept-language. Por esta razón, siempre debes incluir además el idioma "desnudo" (p. ej. en).
+Puede usar una pareja idioma/país si quiere distinguir entre variantes, como en_US y en_GB, o zh_CN y zh_TW. No obstante, tenga en cuenta que es probable que algunos usuarios sólo expongan el idioma y no el país en su Accept-language. Por esta razón, siempre debes incluir además el idioma "base" (p. ej. en).
 
-Por ejemplo, si la mayoría de tus usuarios son de US pero también quieres soportar inglés británico, se recomienda usar solamente "en" para el inglés de USA y "en_GB" para el inglés británico.
+Por ejemplo, si la mayoría de sus usuarios son de US pero también quiere soportar inglés británico, se recomienda usar solamente "en" para el inglés de USA y "en_GB" para el inglés británico.
 
-Desde el código de la aplicación pueden recuperar el idioma actual del usuario accediendo al objeto @play.i18n.Lang@:
+Desde el código de la aplicación puede recuperar el idioma actual del usuario accediendo al objeto @play.i18n.Lang@:
 
 bc. String lang = Lang.get();
 
-Si quieres cambiar permanentemente el idioma del usuario, usa el método change():
+Si quiere cambiar permanentemente el idioma del usuario, use el método change():
 
 bc. Lang.change("ja");
 
 El nuevo valor se salvará en la cookie de idioma del usuario.
 
 
-h2. <a name="dates">Define el formato de fecha de acuerdo al idioma local</a>
+h2. <a name="dates">Defina el formato de fecha de acuerdo al idioma local</a>
 
-Configura "date.format":configuration#date.format para especificar el formato por defecto:
+Configure "date.format":configuration#date.format para especificar el formato por defecto:
 
 
-h2(#retrieve). <a>Recupera los mensajes localizados</a>
+h2(#retrieve). <a>Recupere los mensajes localizados</a>
 
 h3(#argument). Argumentos del mensaje
 
-Desde el código de la aplicación, puedes recuperar los mensajes definidos en los ficheros de mensajes. Desde Java, se usa el objeto @play.i18n.Messages@.
+Desde el código de la aplicación, puede recuperar los mensajes definidos en los ficheros de mensajes. Desde Java, utilice el objeto @play.i18n.Messages@.
 
 bc. public static void hello() {
     renderText(Messages.get("hello"));
 }
 
-Soportamos el formateado de mensajes mediante la sintaxis de formateo estándar @java.util.Formatter@ ‘Format string syntax’. También puedes definir contenido dinámico en el mensaje:
+Soportamos el formateado de mensajes mediante la sintaxis de formateo estándar del @java.util.Formatter@ ‘Format string syntax’. También puede definir contenido dinámico en el mensaje:
 
 bc. hello=Hello %s!
 
-donde @%s@ representa un argumento de mensaje que se devolverá como una @String@. Los argumentos de mensaje van como argumentos adicionales (varargs) a @Messages.get@:
+donde @%s@ representa un argumento del mensaje que se devolverá como un @String@. Los argumentos del mensaje van como argumentos adicionales (varargs) a @Messages.get@:
 
 bc. public static void hello(String user) {
     renderText(Messages.get("hello", user));
@@ -80,29 +81,29 @@ bc. public static void hello(String user) {
 
 h3(#template). Salida de Plantilla
 
-Desde una plantilla puedes usar la sintaxis especial @&{…}@ para mostrar mensajes localizados:
+Desde una plantilla puede usar la sintaxis especial @&{…}@ para mostrar mensajes localizados:
 
 bc. <h1>&{'hello'}</h1>
 
-o usar contenido dinámico en los argumentos a los mensajes:
+o usar contenido dinámico en los argumentos de los mensajes:
 
 bc. <h1>&{'hello', params.user}</h1>
 
 
 h3(#arguments). Argumentos Múltiples
 
-Pueden definirse argumentos múltiples para mensajes, como este mensaje que se refiere a dos argumentos 'decimal integer':
+Pueden definirse argumentos múltiples para mensajes, como este mensaje que se refiere a dos argumentos de tipo 'decimal integer':
 
 bc. guess=Por favor elige un número entre %d y %d
 
-que muestras especificando los argumentos del mensaje en el orden adecuado:
+que puede desplegar desde una plantilla especificando los argumentos del mensaje en el orden adecuado:
 
 bc. <p>&{'guess', low, high}</p>
 
 
 h3(#indices). Indices de argumentos
 
-También puedes especificar el argumento del mensaje explícitamente, para ponerlos en orden diferente. Por ejemplo, sea un mensaje en inglés que tiene dos parámetros:
+También puede especificar el argumento del mensaje explícitamente, a fin de utilizarlos en un orden diferente. Por ejemplo, dado un mensaje en inglés que tiene dos parámetros:
 
 bc. guess.characteristic=Guess %s’s %s.
 
@@ -114,7 +115,7 @@ La traducción francesa tiene los dos mensajes en el orden inverso, así que en 
 
 bc. guess.characteristic=Devinez %2$s de %1$s.
 
-donde @%2$s@ muestra el **segundo** argumento como un entero decimal.
+donde @%2$s@ muestra el **segundo** argumento como una cadena de texto.
 
 Finalmente, queremos localizar el nombre característico 'age' también, así que cambiamos la salida para mostrar la clave de mensaje @person.age@ y cambiamos la definición del mensaje así:
 
