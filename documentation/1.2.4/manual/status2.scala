@@ -32,3 +32,4 @@ class DocumentationFile(val file: File) {
       indexOf("Esta página todavía no ha sido traducida al castellano") == -1
   )
 }
+
