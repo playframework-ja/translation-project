@@ -1,16 +1,14 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Usa una cache
 
-h1. Use a cache
+Para crear sistemas de alto rendimiento, a veces tienes que utilizar una cache de datos. Play trae incluida una biblioteca de cache y usará "Memcached":http://www.danga.com/memcached/ cuando esté en un entorno distribuido.
 
-To create high-performance systems, sometimes you need to cache data. Play has a cache library and will use "Memcached":http://www.danga.com/memcached/ when used in a distributed environment.
+Si no configura Memcached, Play usará una cache independiente que almacena los datos en el heap de la JVM. Al almancenar la información de la cache en la JVM, play rompe el principio de "sin información compartida" (share nothing): es decir que no podrás correr tu aplicación en varios servidores, y esperar que la aplicación se comporte de forma consistente. Cada instancia de la aplicación tendrá una copia diferente de los datos.
 
-If you don’t configure Memcached, Play will use a standalone cache that stores data in the JVM heap. Caching data in the JVM application breaks the ‘share nothing’ assumption made by Play: you can’t run your application on several servers, and expect the application to behave consistently. Each application instance will have a different copy of the data.
+Es importante entender que el contrato de uso de la cache es claro: cuando pones datos en una cache, no puedes esperar que los datos se queden en ella para siempre. De hecho, no deberías. Una cache es rápida, pero los valores expiran, y la caché suele existir sólamente en la memoria (sin copia persistente).
 
-It is important to understand that the cache contract is clear: when you put data in a cache, you can’t expect that data to remain there forever. In fact you shouldn’t. A cache is fast, but values expire, and the cache generally exists only in memory (without persistent backup). 
+Es decir que al utilizar una cache cache, debes estar en condiciones de repopularla cuando no contenga la información que esperas:
 
-So the best way to use the cache is to repopulate it when it doesn’t have what you expect:
-
-bc. public static void allProducts() {
+bc.. public static void allProducts() {
     List<Product> products = Cache.get("products", List.class);
     if(products == null) {
         products = Product.findAll();
@@ -19,11 +17,11 @@ bc. public static void allProducts() {
     render(products);
 }
 
-h2. <a name="api">The cache API</a>
+h2. <a name="api">La API de la cache</a>
 
-The cache API is provided by the @play.cache.Cache@ class. This class contains the set of methods to set, replace, and get data from the cache. Refer to the Memcached documentation to understand the exact behavior of each method.
+La API de la cache está incluida en la clase @play.cache.Cache@. Esta clase contiene un conjunto de métodos que le permite colocar, sustituir y extraer datos de la cache. El comportamiento exacto de cada método puedes consultarlo en la documentación de Memcached.
 
-Some examples:
+Algunos ejemplos:
 
 bc. public static void showProduct(String id) {
     Product product = Cache.get("product_" + id, Product.class);
@@ -55,51 +53,52 @@ public static void deleteProduct(String id) {
     allProducts();
 }
 
-Some methods start with the @safe@ prefix - e.g. @safeDelete@, @safeSet@. The standard methods are non-blocking. That means that when you issue the call:
+Algunos métodos comienzan con el prefijo @safe@, por ejemplo, @safeDelete@, @safeSet@. Los métodos estándard son no-bloqueantes. Esto significa que cuando ejecutas la llamada:
 
 bc. Cache.delete("product_" + id);
 
-The @delete@ method will return immediately and will not wait until the cached object is actually deleted. So if an error occurs - e.g. an IO error - the object may still be present.
+El método @delete@ volverá inmediatamente y no esperará hasta que el objeto en cache se borre realmente. Así que si hay un error, por ejemplo de entrada/salida, el objeto aún puede estar presente.
 
-When you need to make sure that the object is deleted before continuing, you can use the @safeDelete@ method:
+Cuando necesite asegurarse de que el objeto se haya borrado antes de continuar, puede usar el método @safeDelete@:
 
 bc. Cache.safeDelete("product_" + id);
 
-This method is blocking and returns a boolean value indicating whether the object has been deleted or not. So the full pattern that ensures an item is deleted from the cache is:
+Este método es bloqueante y devuelve un valor booleano que indica si el objeto se ha borrado o no. Así, el patrón completo que asegura que un item se ha borrado de la cache es:
 
 bc. if(!Cache.safeDelete("product_" + id)) {
     throw new Exception("Oops, the product has not been removed from the cache");
 }
 ...
 
-Note that those being blocking calls, @safe@ methods will slow down your application. So use them only when needed.
+Hay que tener en cuenta que dado que se trata de llamadas bloqueantes, los métodos @safe@ ralentizarán su aplicación. De modo que úselos sólo cuando sean necesarios.
 
-Also note that when specifying @expiration == "0s"@ (zero seconds) the actual expiration-time may vary between different cache implementations.
+También hay que notar que cuando se especifica @expiration == "0s"@ (cero segundos), el tiempo de expiración real puede variar entre las diferentes implementaciones de cache.
 
-h2. <a name="session">Don’t use the Session as a cache!</a>
+h2. <a name="session">¡No use la Sesión como cache!</a>
 
-If you come from a framework that uses an in-memory Session implementation, you may be frustrated to see that Play allows only a small set of String data to be saved in the HTTP Session. But this is much better because a session is not the place to cache your application data! 
+Si viene de trabajar con un framework de desarrollo que usa una implementación en memoria del objeto Session, puede sentirse frustado al ver que Play sólo permite que se salven en la sesión HTTP un conjunto pequeño de cadenas de texto. Pero esto es mucho mejor, porque una sesión no es el lugar para usar como caché de los datos de tu aplicación.
 
-So if you have been accustomed to doing things similar to:
+Así que si está acostumbrado a hacer cosas como estas:
 
 bc. httpServletRequest.getSession().put("userProducts", products);
 ...
-// and then in subsequent requests
+// y en los requests siguientes
 products = (List<Product>)httpServletRequest.getSession().get("userProducts");
 
-In Play you achieve the same effect a little differently. We think it’s a better approach:
+En Play puede hacerse lo mismo de forma algo diferente. Creemos que esta es una forma mejor:
+
 
 bc. Cache.set(session.getId(), products);
 ...
-// and then in subsequent requests
+// y en los requests siguientes
 List<Product> products = Cache.get(session.getId(), List.class)
 
-Here we have used a unique UUID to keep unique information in the Cache for each user. Remember that, unlike a session object, the cache is not bound to any particular User!
+Aquí hemos usado un UUID único para mantener información única en la cache para cada usuario. Recuerda que, a diferencia de un objeto sesión, la cache no está vinculada a ningún usuario en particular.
 
-h2. <a name="memcached">Configure memcached</a>
+h2. <a name="memcached">Configuración de memcached</a>
 
-When you want to enable a real Memcached implementation, enable Memcached  with the "memcached configuration":configuration#memcached and define the daemon address in the "memcached.host configuration":configuration#memcached.host.
+Cuando quieras habilitar una implementación real de Memcached, habilita Memcached con "memcached configuration":configuration#memcached y define la dirección del proceso en la "configuración memcached.host":configuration#memcached.host.
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
  
-Learn about %(next)"Sending emails":emails%.
+Aprenderemos a %(next)"Enviar emails":emails%.
