@@ -1,4 +1,4 @@
-h1. Usa una cache
+h1. Use una cache
 
 Para crear sistemas de alto rendimiento, a veces tienes que utilizar una cache de datos. Play trae incluida una biblioteca de cache y usará "Memcached":http://www.danga.com/memcached/ cuando esté en un entorno distribuido.
 
