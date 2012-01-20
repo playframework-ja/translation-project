@@ -30,12 +30,12 @@ Navega al sitio de "github":https://github.com e ingresa con tu usuario y passwo
 
 h2. <a name="clone">Clonar nuestro repositorio origin en un repositorio local</a>
 
-En nuestra estación de trabajo ejecutamos las siguientes instrucciones (debes ajustarlas según tu nombre de usuario, remplazando _traductor-play_ por tu nombre):
+En nuestra estación de trabajo ejecutamos las siguientes instrucciones (debes ajustarlas según tu nombre de usuario, remplazando *[tu_cuenta_de_github]* por tu nombre):
 
 bc. cd ~
 mkdir apps
 cd apps
-git clone git@github.com:traductor-play/playdoces.git
+git clone git@github.com:[tu_cuenta_de_github]/playdoces.git
 
 De esta manera nos quedará la aplicación _playdoces_ instalada en ~/apps/playdoces. Para ejecutar la aplicación y traducir la documentación sigue los pasos en la "guía para traducir play":translation 
 
