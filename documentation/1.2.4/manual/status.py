@@ -5,7 +5,7 @@ import fnmatch
 import os
 
 total_files = [file for file in os.listdir('.') if fnmatch.fnmatch(file, '*.textile')]
-translated_files = [file for file in total_files if "Esta página todavía no ha sido traducida al castellano" not in open(file).read()]
+translated_files = [file for file in total_files if "Esta página todavía no ha sido traducida al castellano" not in open(file).readline()]
 
 total_size = sum([os.path.getsize(file) for file in total_files]) / 1000
 translated_size = sum([os.path.getsize(file) for file in translated_files]) / 1000

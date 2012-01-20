@@ -1,6 +1,6 @@
 h1. Envio de correos electrónicos
 
-La funcionalidad E-mail utiliza la biblioteca "Apache Commons Email":http://commons.apache.org/email/userguide.html. Puede usarse la clase de utilidad @play.libs.Mail@ para enviar emails muy fácilmente.
+La funcionalidad de envío de emails internamente utiliza la biblioteca "Apache Commons Email":http://commons.apache.org/email/userguide.html. Puede usar la clase de utilidad @play.libs.Mail@ para enviar emails muy fácilmente.
 
 Un email sencillo
 
@@ -11,31 +11,31 @@ email.setSubject("subject");
 email.setMsg("Message");
 Mail.send(email); 
 
-Un email en HTML:
+Un email con contenido HTML:
 
 bc. HtmlEmail email = new HtmlEmail();
 email.addTo("info@lunatech.com");
 email.setFrom(sender@lunatech.com", "Nicolas");
-email.setSubject("Test email with inline image");
+email.setSubject("Prueba de email con una imagen");
 // incrustar la imagen y obtener su contenido
 URL url = new URL("http://www.zenexity.fr/wp-content/themes/images/logo.png");
 String cid = email.embed(url, "Zenexity logo");
 // configurar el mensaje html
 email.setHtmlMsg("<html>Zenexity logo - <img src=\"cid:"+cid+"\"></html>");
 // configurar el mensaje alternativo
-email.setTextMsg("Your email client does not support HTML, too bad :(");
+email.setTextMsg("Qué lástima, su cliente de email no soporta HTML :(");
 
-Para más información ver la "Documentación de Commons Email":http://commons.apache.org/email/userguide.html.
+Para más información vea la "Documentación de Commons Email":http://commons.apache.org/email/userguide.html.
 
 h2. <a name="mvc">Integración de Mail y MVC</a>
 
-También se pueden enviar mensajes complejos y dinámicos usando los mecanismos y sintaxis estándar de plantillas.
+También puede enviar mensajes complejos y dinámicos usando la sintaxis estándar de plantillas.
 
-Primero, define un **Mailer notifier** (Notificador de correo) en tu aplicación. Tu notificador ha de derivar de @play.mvc.Mailer@ y ha de formar parte del paquete @notifiers@.
+Primero, defina un **Mailer notifier** (Notificador de correo) en su aplicación. Su notificador tiene que extender @play.mvc.Mailer@ y debe formar parte del paquete @notifiers@.
 
-Cada uno de los métodos public static será un remitente de mensaje, de forma análoga a las acciones para un controlador MVC. por ejemplo
+Cada uno de los métodos public static enviarán un email, de forma análoga a las acciones para un controlador MVC. Por ejemplo
 
-bc.. package notifiers;
+bc. package notifiers;
  
 import play.*;
 import play.mvc.*;
@@ -44,11 +44,11 @@ import java.util.*;
 public class Mails extends Mailer {
  
    public static void welcome(User user) {
-      setSubject("Welcome %s", user.name);
+      setSubject("Bienvenido %s", user.name);
       addRecipient(user.email);
       setFrom("Me <me@me.com>");
       EmailAttachment attachment = new EmailAttachment();
-      attachment.setDescription("A pdf document");
+      attachment.setDescription("Un documento pdf");
       attachment.setPath(Play.getFile("rules.pdf").getPath());
       addAttachment(attachment);
       send(user);
@@ -57,16 +57,16 @@ public class Mails extends Mailer {
    public static void lostPassword(User user) {
       String newpassword = user.password;
       setFrom("Robot <robot@thecompany.com>");
-      setSubject("Your password has been reset");
+      setSubject("Su clave ha sido reinicializada");
       addRecipient(user.email);
       send(user, newpassword);
    }
  
 }
 
-h3. Emails en text/html
+h3. Emails con contenido text/html
 
-La llamada al método @send@ rendirá la plantilla @app/views/Mails/welcome.html@ como cuerpo del mensaje.
+La llamada al método @send@ utilizará la plantilla @app/views/Mails/welcome.html@ como cuerpo del mensaje.
 
 bc. <html><body><p>Welcome <b>${user.name}</b>, </p>
 ...
@@ -80,16 +80,16 @@ bc. <html>
 <body><head>...</head><body>
 <img src="mycompany.com/images"/>
 <p>
-    Hello ${user.name}, Your new password is <b>${newpassword}</b>.
+    Hola ${user.name}, su nueva clave es <b>${newpassword}</b>.
 </p>
 </body>
 </html>
 
-h3. Emails en text/plain
+h3. Emails con contenido text/plain
 
-Si no se define una plantilla HTML, se envía un mensaje en texto plano usando la plantilla de texto.
+Si no define una plantilla HTML, se enviará un mensaje en texto plano usando la plantilla de texto.
 
-La llamada al método @send@ rendirá la plantilla @app/views/Mails/welcome.txt@ como cuerpo del mensaje.
+La llamada al método @send@ utilizará la plantilla @app/views/Mails/welcome.txt@ como cuerpo del mensaje.
 
 
 bc. Welcome ${user.name},
@@ -99,17 +99,17 @@ La plantilla para el método lostPassword podría ser como esta:
 
 @app/views/Mails/lostPassword.txt@
 
-bc.. Hello ${user.name},
+bc. Hola ${user.name},
  
-Your new password is ${newpassword}.
+Su nueva clave es ${newpassword}.
 
-h3. Emails en text/html con alternativa en text/plain
+h3. Emails con contenido text/html con text/plain como mensaje alternativo
 
 Si se define una plantilla HTML y existe una plantilla de texto, entonces se usará la plantilla de texto como mensaje alternativo. En nuestro ejemplo anterior, si existen tanto @app/views/Mails/lostPassword.html@ como  @app/views/Mails/lostPassword.txt@, entonces el mensaje se enviará en text/html como se define en lostPassword.html con una parte alternativa como está definido en lostPassword.txt. Puedes enviar bonitos emails HTML a tus amigos y a la vez complacer a tus amigos geeks que siguen usando mutt ;)
 
 h3. Enlaces a la aplicación en el email
 
-Pueden incluirse links a la aplicación en el email de esta forma:
+Puede incluir links a la aplicación en el cuerpo del email de esta forma:
 
 bc. @@{application.index}
 
@@ -121,14 +121,14 @@ bc. application.baseUrl=http://www.playframework.org/
 
 h2. <a name="smtp">Configuración SMTP</a>
 
-La funcionalidad E-mail se configura mediante varias propiedades "mail configuration":configuration#mail:
+La funcionalidad de envío de emails se configura mediante varias propiedades de la "configuración de mail":configuration#mail:
 
 * servidor SMTP - "mail.smtp.host":configuration#mail.smtp.host
 * autentificación en el servidor SMTP - "mail.smtp.user":configuration#mail.smtp.user y  "mail.smtp.pass":configuration#mail.smtp.pass
 * canal cifrado - "mail.smtp.channel":configuration#mail.smtp.channel
-* auditoría de transacciones SMTP de JavaMail - "mail.debug":configuration#mail.debug.
+* log de transacciones SMTP de JavaMail - "mail.debug":configuration#mail.debug.
 
-Dos propiedades de configuración adicionales permiten sustituir el comportamiento por defecto.
+Dos propiedades de configuración adicionales permiten redefinir el comportamiento por defecto.
 
 * "mail.smtp.socketFactory.class":configuration#mail.smtp.socketFactory.class
 * "mail.smtp.port":configuration#mail.smtp.port
@@ -141,7 +141,7 @@ mail.smtp=mock
 
 h3. <a name="gmail">Uso de Gmail</a>
 
-Para usar los servidores de Gmail, por ejemplo, cuando despliegas con "playapps":http://www.playframework.org/modules/playapps, sirve esta configuración:
+Para usar los servidores de Gmail, por ejemplo, cuando despliegas con "playapps":http://www.playframework.org/modules/playapps, utilice esta configuración:
 
 bc. mail.smtp.host=smtp.gmail.com
 mail.smtp.user=tuLoginEnGmail
