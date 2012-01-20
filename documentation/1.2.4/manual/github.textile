@@ -56,7 +56,7 @@ git add .
 git commit -m "traduje una nueva página"
 git push origin master
 
-p(note). En caso de haber cargado un incidente para esa página, es súmamente útil incluir el texto _fixes_ seguido del signo _#_ y el número del incidente en el texto que utilizamos al hacer el commit, de la siguiente manera `git commit -m "fixes #34 - traduje una nueva página". De esta manera github relacionará nuestros cambios con el incidente y lo cerrará automáticamente.
+p(note). En caso de haber cargado un incidente para esa página, es súmamente útil incluir el texto _fixes_ seguido del signo _#_ y el número del incidente en el texto que utilizamos al hacer el commit, de la siguiente manera @git commit -m "fixes #34 - traduje una nueva página"@. De esta manera github relacionará nuestros cambios con el incidente y lo cerrará automáticamente.
 
 Luego navegamos a nuestro repositorio *origin*, en este caso https://github.com/traductor-play/playdoces, en donde ya deberías poder ver los cambios que acabas de impactar. Para solicitar al repositorio *upstream* que integre nuestros cambios simplemente hacemos click en el botón *pull request*. Y ahora tan sólo resta esperar que los administradores del repositorio *upstream* (en este caso nosotros) revisen los cambios y los impacten en la aplicación.
 
