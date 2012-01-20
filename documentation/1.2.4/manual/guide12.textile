@@ -1,59 +1,57 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Internacionalización y localización
 
-h1. Internationalisation and localisation
+Habiendo construido nuestro sistema de blog completamente funcional, ahora consideraremos un valor agregado opcional: internacionalización y localización de idioma de la aplicación web. Aunque podríamos haber hecho esto desde el principio, es más realista contruir la primera versión de una aplicación en un solo idioma, y luego agregar multiples idiomas. 
 
-Having built our fully-functional blog engine, we will now consider an optional extra: web application internationalisation and language  localisation. Although we could have done this from the start, it is more realistic to build the first version of an application in a single language, and add multiple languages later.
+h2. <a>Internacionalización y localización</a>
 
-h2. <a>Internationalisation and localisation</a>
+Son dos pasos a seguir: "internacionalización":http://en.wikipedia.org/wiki/Internationalization_and_localization y "localización":http://en.wikipedia.org/wiki/Language_localisation. Ambos principalmente se refieren al texto.
 
-There are two steps to perform: "internationalisation":http://en.wikipedia.org/wiki/Internationalization_and_localization and "localisation":http://en.wikipedia.org/wiki/Language_localisation. Both are mostly about text. 
+*Internacionalización*, en términos de programación, es una reestructaración para eliminar código específico de un idioma del código de la aplicación. En una aplicación web, esto se trata casi completamente sobre reemplazar el texto de la interfaz de usuario en las plantillas de la capa vista con referencias a mensajes. También incluye el formato de tipos de datos que no son textos: fechas, moneda y otros números.
 
-*Internationalisation*, in programming terms, is a refactoring to remove locale-specific code from the application code. In a web application, this is almost entirely about replacing user-interface text in view templates with references to messages. It also includes formatting non-text data types: dates, currency and other numbers. 
+*Localización* es hacer una versión específica para una localidad de una aplicación. Si la aplicación está internacionalizada, quiere decir que tiene una o más versiones para varias localidades entre las cuales se puede elegir. En una aplicación web, esta localización principalmente se refiere a la traducción del texto de la interfaz de usuario al idioma natal seleccionado. La selección del idioma se realiza normalmente como una combinación del conjunto de preferencias de idioma del navegador web, y la lista de idiomas mostrada en la interfaz de usuario de la aplicación en sí.
 
-*Localisation* is making a locale-specific version of an application. If the application is internationalised, this means having one or more selectable locale-specific versions. In a web application, this localisation is mostly about translating the user-interface text into the chosen natural language. Language selection is typically a combination of language preferences set in the web browser, and a language selection user-interface in the application itself.
-
-In practice, the two steps go together: you both internationalise and localise one part of the application at a time. 
+En la práctica, los dos pasos van juntos: usted internacionaliza y localiza una parte de la aplicación  al mismo tiempo.
 
 h2. <a>Yet Another Blog Engine</a>
 
-p(note). The starting point for this section is the finished tutorial code, which you can find in the Play distribution's @samples-and-tests/yabe@ directory. The goal is to fully internationalise the application, and add French and Dutch language localisations.
+p(note). El punto de partida de esta sección es el código terminado del tutorial, el cual puede encontrar en el directorio de instalación de Play @samples-and-tests/yabe@. El objetivo es internacionalizar completamente la aplicación, y agregar localización para los idiomas Francés y Alemán.
 
-To get started, first edit @conf/application.conf@ and uncomment (in the default configuration file) or add a line with three supported languages: 
+Para empezar, primero edite el archivo @conf/application.conf@ y quite el caracter de comentario (en el archivo de configuración por defecto) o agregue una liínea con tres idiomas soportados:
 
 bc. # Localisations for English, Dutch and French. 
 application.langs=en,nl,fr 
 
-If you load a page in the application now, the Play console will show three warnings because you do not have any locale-specific message files yet: 
+Ahora si abre una página de la aplicación, la consola Play mostrará tres advertencias porque usted aún no tiene ningún archivo de mensajes localizados: 
 
 bc. 16:19:04,728 WARN ~ Messages file missing for locale en 
 16:19:04,729 WARN ~ Messages file missing for locale nl 
 16:19:04,729 WARN ~ Messages file missing for locale fr 
 
-h2. <a>UTF-8 message files</a>
+h2. <a>Archivos de mensajes UTF-8</a>
 
-The warnings above mean that you need to replace the existing @conf/messages@ file with one message file for each language: 
+Las advertencias anteriores quieren decir que usted necesita reemplazar el archivo @conf/messages@ existente con un archivo de mensajes para cada idioma:
 
 * @messages.en@ 
 * @messages.nl@ 
 * @messages.fr@ 
 
-At this point we encounter the first improvement over the normal Java way of doing things. These files use the same syntax as Java properties files, but they are not properties files because they must use UTF-8 encoding. Java "Properties":http://java.sun.com/javase/6/docs/api/java/util/Properties.html, on the other hand, specifies ISO-8859-1 'Latin-1' character encoding for streaming to and from text files. 
+En este punto encontramos la primera mejora respecto a la forma en que Java hace normalmente las cosas. Estos archivos usan la misma sintaxis de los archivos de propiedades (_properties_) de Java, pero no son archivos de propiedades porque ellos deben usar la codificación UTF-8.  Los archivo de "Propiedades":http://java.sun.com/javase/6/docs/api/java/util/Properties.html Java, por otro lado, utilizan la codificación de caracteres ISO-8859-1 'Latin-1' para transferencia de datos desde y hacia archivos de texto.
 
-Being able to use UTF-8 message files is a big deal for language localisation, because it means that you can write localised language messages in 'plain text'. For example, this means that for a Greek localisation, instead of: 
+Ser capaz de usar archivos de mensajes UTF-8 es una gran ventaja para la localización en un idioma, porque esto significa que usted puede escribir los mensajes localizados en un idioma en 'texto plano'. Por ejemplo, esto significa que para una localización en Griego, en vez de usar:
 
 bc. hello.morning = \u0152\u222b\u0152\u00b1\u0152\u00aa\u0152\u2211\u0152\u00ba\u0152\u2260\u0153\u00c5\u0152\u00b1
 hello.informal = \u0152\u2265\u0152\u00b5\u0152\u03c0\u0152\u00b1 \u0153\u00c9\u0152\u00f8\u0153\u00d6 
 
-you can use Greek letters instead of those Unicode character escapes:
+usted puede usar las letras Griegas en el lugar de esos códigos de caracteres Unicode:
 
 bc. hello.morning = καλημέρα 
 hello.informal = γεια σου 
 
-For the rest of this tutorial, code samples will either define messages in one of these files, or show internationalised mark-up in one of the HTML view templates. 
+Por el resto de este tutorial, los ejemplos de código definiran los mensajes en uno de estos archivos, o mostrarán al marcado internacional en uno de las plantillas HTML de la vista.
 
-h2. <a>Simple messages</a>
+h2. <a>Mensajes simples</a>
 
-The simple case is a text string that does not change, and that is not interrupted by other markup. For example, the first such text in the @yabe/app/views/main.html@ template, in the @tools@ list: 
+El caso simple es una cadena de texto que no cambia, y que no es interrumpida por otro marcado. Por ejemplo, el primero de tales textos está en la plantilla @yabe/app/views/main.html@, en la lista @tools@:
 
 bc. <ul id="tools"> 
 <li> 
@@ -61,7 +59,7 @@ bc. <ul id="tools">
 </li> 
 </ul> 
 
-To internationalise this, we replace the text with a message look-up, using the @&{'key'}@ syntax: 
+Para internacionalizar esto, reemplazamos el texto con una búsqueda de mensaje, usando la sintanxis @&{'clave'}@:
 
 bc. <ul id="tools"> 
 <li> 
@@ -69,32 +67,31 @@ bc. <ul id="tools">
 </li> 
 </ul> 
 
-To add the localisations, add the corresponding line in each of the three message files. In @conf/messages.en@ 
+Para agregar la localización, agregue la línea respectiva en cada uno de los tres archivos de mensajes. En @conf/messages.en@
 
 bc. views.main.tools.login = Log in to write something 
 
-In @conf/messages.nl@ 
+En @conf/messages.nl@ 
 
 bc. views.main.tools.login = Inloggen om iets te schrijven 
 
-In @conf/messages.fr@ 
+En @conf/messages.fr@ 
 
 bc. views.main.tools.login = Connectez-vous pour écrire quelque chose 
 
-The message key can be anything you like; in this example I have used a key to indicate the location @views/main.html#tools@ 
+La clave del mensaje puede ser cualquiera de su preferencia; en este ejemplo he utilizado una clave para indicar la ubicación @views/main.html#tools@
 
-Once you have saved these changes, you can see the different language versions in your web browser by changing the setting that results in a different @Accept-Language@ HTTP request header. In Firefox, select _Preferences » Content » Languages » Choose…_, add _French [fr]_ and _Dutch [nl]_ if they are not already in the list, change which one is at the top of the list, close the dialogue box and reload the page. 
+Una vez que haya guardado estos cambios, puede ver las versiones de los diferentes idiomas en su navegador web cambiando la configuración que modifica el valor del encabezado de petición HTTP @Accept-Language@. En Firefox, seleccione _Opciones » Contenido » Idiomas » Seleccionar…_, agregue _Francés [fr]_ y _Alemán [nl]_ si es que ya no están en la lista, cambie el que está de primero, cierre el cuadro de diálogo y recargue la página.
 
 !images/guide12-1! 
 
+h2. <a>Localización del modelo de la aplicación</a>
 
-h2. <a>Application model localisation</a>
+Si usas ese enlace para entrar en las páginas 'admin' del blog, puedes acceder a la lista de publicaciones, etiquetas, comentarios y usarios. Estas páginas son proporcionadas por el módulo "CRUD":http://www.playframework.org/documentation/1.0.1/crud. Para cada una de estas páginas, el título (rosado claro) y el encabezado de las columnas son términos del modelo de la aplicación, por ejemplo: clases JavaBeans y nombres de propiedades.
 
-If you use that link to log in to the blog's 'admin' pages, you can access lists of posts, tags, comments and users. These pages are provided by the "CRUD":http://www.playframework.org/documentation/1.0.1/crud module. For each of these pages, the title (light pink) and the column headers are terms from the application's model, i.e. JavaBean class and property names. 
+El módulo CRUD internacionaliza estos nombres usando la clase JavaBeans o el nombre de la propiedad como la clave del mensaje, lo cual significa que usted puede localizarlos con mensajes como los que se muestran a continuación:
 
-The CRUD module internationalises these names using the JavaBean class or property name as the message key, which means you can localise them with messages such as the following. 
-
-In @conf/messages.nl@ 
+En @conf/messages.nl@ 
 
 bc. post = artikel 
 Post = Artikel 
@@ -109,7 +106,7 @@ User = Gebruiker
 users = gebruikers 
 Users = Gebruikers 
 
-In @conf/messages.fr@ 
+En @conf/messages.fr@ 
 
 bc. post = article 
 Post = Article 
@@ -124,11 +121,11 @@ User = Utilisateur
 users = utilisateur 
 Users = Utilisateurs 
 
-You will notice that this does not change the rounded purple navigation links: 
+Notará que esto no cambia el enlace redondeado y púrpura del panel de navegación:
 
 !images/guide12-2! 
 
-Those are defined in @views/admin.html@ which you can internationalise to use the same localisations simply by surrounding the existing text with @&{'…'}@ as follows:
+Estos están definidos en el archivo @views/admin.html@ el cual puede internacionalizar para que usen las mismas localizaciones simplemente rodeando el texto existente con @&{'…'}@ tal como se muestra a continuación:
 
 bc. <a href="@{Posts.list()}">&{'Posts'}</a> 
 … 
@@ -138,42 +135,41 @@ bc. <a href="@{Posts.list()}">&{'Posts'}</a>
 … 
 <a href="@{Users.list()}">&{'Users'}</a> 
 
-h2. <a>Parameterised messages</a>
+h2. <a>Mensajes parametrizados</a>
 
-As well as simple messages, our application includes messages that contain a variable, such as _Posts tagged with Play_ 
+Al igual que mensajes simples, nuestra aplicación incluye mensajes que contienen una variable, tales como _Posts tagged with Play_
 
-To localise a message that contains a single parameter, use a "Java format string":http://java.sun.com/javase/6/docs/api/java/util/Formatter.html#syntax to insert the parameter value in the message: 
+Para localizar un mensaje que contiene un solo parámetro, use una "cadena de formato Java":http://java.sun.com/javase/6/docs/api/java/util/Formatter.html#syntax para intsertar el valor del parámetro en el mensaje:
 
 bc. views.Application.listTagged.title = Posts tagged with %s 
 
-and in the template, add the parameter like this: 
+y en la plantilla, agregue el parámetro así:
 
 bc. &{'views.Application.listTagged.title', tag} 
 
-When a message contains multiple parameters, add an index to the format string to allow for different word order in another language: 
+Cuando un mensaje contiene multiples parámetros, agregue un índice a la cadena de formato para permitir un orden diferente de las palabras en otros idiomas:
 
 bc. views.Admin.index.welcome = Welcome %1$s, <span>you have written %2$s posts so far</span> 
 
-… with a list in the template: 
+… con una lista en la plantilla:
 
 bc. &{'views.Admin.index.welcome', user, posts.size()} 
 
-In this example, we would also like to use the correct plural form for the word 'post', so make that word a parameter too: 
+En este ejemplo, incluso nos gustaría usar la forma plural correcta para la palabra 'post', así que hagamos de esa palabra un parámetro también:
 
 bc. views.Admin.index.welcome = Welcome %1$s, <span>you have written %2$s %3$s so far</span> 
 
-… and use the @pluralize@ extension in the template 
+… y utilice la extensión @pluralize@ en la plantilla
 
 bc. &{'views.Admin.index.welcome', user, posts.size(), posts.pluralize(messages.get('post'), messages.get('posts'))} 
 
-Note that we have to use @messages.get@ to look up the localised singular and plural. 
+Note que hemos usado @messages.get@ para buscar el singular y el plural localizados.
 
+h2. <a>Localización de módulos Play</a>
 
-h2. <a>Play module localisation</a>
+La localización de módulos Play funciona de la misma manera que la localización dentro de su aplicación. Esta aplicación usa los módulos CRUD y Secure, lo cual significa que debemos localizar los mensajes en @play/modules/crud/conf/messages@ y @play/modules/secure/conf/messages@ que nuestra aplicación usa.
 
-Play module localisation works the same way as localisation within your application. This application uses the CRUD and Secure modules, which means that we must localise the messages in @play/modules/crud/conf/messages@ and @play/modules/secure/conf/messages@ that our application uses.
-
-In @conf/messages.nl@ 
+En @conf/messages.nl@ 
 
 bc. # play/modules/crud (administration) 
 crud.title = Beheer 
@@ -223,7 +219,7 @@ secure.username = Uw e-mailadres:
 secure.password = Uw wachtwoord: 
 secure.signin = Nu inloggen 
 
-In @conf/messages.fr@ 
+En @conf/messages.fr@ 
 
 bc. # play/modules/crud (administration) 
 crud.title = Administration 
@@ -273,60 +269,59 @@ secure.username = Votre adresse e-mail:
 secure.password = Votre mot de passe: 
 secure.signin = Connectez-vous maintenant 
 
-Of course, once you have done this it is also a good idea to contribute the localisations back to the module. 
+Por supuesto, una vez que haya hecho esto es también una buena idea contribuir con el desarrollo del módulo agregando estas localizaciones. 
 
+h2. <a>Casos Especiales</a>
 
-h2. <a>Special cases</a>
+Cuando está localizando una aplicación web, hay unos casos especiales que pueden ser difíciles de implementar si está usando un framework de apliación web basado en componentes, tales como JavaServer Faces:
 
-When you are localising a web application, there are a few special cases that can be awkward to implement if you are using a component-based web application framework, such as JavaServer Faces:
+# <span>Mensajes parametrizados utilizados en el valor de un atributo</span>
+# <span>Parámetros de mensajes con formato</span>
+# <span>Enlaces dentro de los mensajes</span>
 
-# <span>Parameterised message used in an attribute value</span>
-# <span>Formatted message parameter</span>
-# <span>Link within message</span>
+Todos los tres casos resultan ser directos en Play.
 
-All three cases turn out to be straightforward in Play. 
-
-The first case happens when you want to use a phrase with a parameter in an attribute value in the template, such as: 
+El primer caso ocurre cuando quiere usar una frase con un parámetro dentro del valor de un atributo en la plantilla, tal como:
 
 bc. <a href="@{Application.show(_post.id)}" title="By Bob"> 
 
-This is a problem in JSF, because you would normally use an XML tag to perform the parameter replacement, which you cannot do in an attribute value. The Play syntax simply avoids this problem, and you can just do: 
+Esto es un problema en JSF, porque normalmente usted usaria un tag XML para desarrollar el reemplazo del parámetro, lo cual no puede hacer en el valor de un atributo. La sintáxis Play sencillamente evita estos problemas, y usted puede simplemente hacer esto:
 
 bc. <a href="@{Application.show(_post.id)}" title="&{'views.tags.display.author', _post.author.fullname}"> 
 
-The second case is when you want to format a value, such as a date, for use as a message parameter in a phrase like @By Bob on 2009-06-14@. Again, the problem in JSF is caused by having to use an XML tag to format the value, while needing to be able to use the result in an XML attribute value. In Play the formatting extensions do not get in the way of the message parameter syntax, so you can do:
+El segundo caso es cuando quiere dar formato a un valor, tal vez una fecha, para usar como un parámetro del mensaje en una frase como @By Bob on 2009-06-14@. Otra vez, el problema en JSF se debe al tener que usar un tag XML para dar formato al valor, y al mismo tiempo se necesita ser capaz de usar el resultado en el valor de un atributo XML. En Play la extensión para dar formato no se interpone en el camino de la sintáxis de parámetros de los mensajes, por lo que puede hacer lo siguiente:
 
 bc. <span>&{'views.tags.display.author', _post.author.fullname, comment.postedAt.format('yyyy-MM-dd')}"}</span> 
 
-You can, of course, localise the format pattern as well: 
+También puede, por supuesto, localizar el patrón de formato:
 
 bc. <span>&{'views.tags.display.author', _post.author.fullname, comment.postedAt.format(messages.get('views.dateFormat'))}"}</span> 
 
-The third case typically occurs when you want part of a localised message to be a hyperlink, as in the message <code><u>Log in</u> to write something</code>. This is a problem in JSF because the hyperlink is a JSF component that is rendered in a way that means the link's mark-up cannot be in the message file. Play, on the other hand, lets you use plain HTML in your templates, so you can just put the mark-up in your message with a parameter for the URL:
+El tercer caso típicamente ocurre cuando quiere que parte del mensaje localizado sea un enlace, como en el mensaje <code><u>Log in</u> to write something</code>. Esto es un problema en JSF porque el enlace es un componente JSF que es interpretado de una forma tal que el marcado del enlace no puede estar dentro del archivo de mensajes. Play, por otro lado, le permite usar HTML plano en sus plantillas, así que usted puede colocar el marcado en su mensaje con un parámetro para la URL: 
 
 bc. logIn = <a href="%s">Log in</a> to write something
 
 bc. &{'logIn', '/admin'} 
 
-Our application was using the
+Nuestra aplicación estaba usando la sintáxis
 
 bc. <a href="@{Admin.index()}">
 
-syntax in the hyperlink to get the framework to generate the URL based on the routes file. To do this in the message parameter, do: 
+en el enlace para conseguir que el framework genere la URL basada en el archivo _routes_. Para hacer esto en el parámetro del mensaje, escriba:
 
 bc. &{'logIn', actionBridge.Admin.index()} 
 
 
-h2. <a>The localised 'Yet Another Blog Engine' example</a>
+h2. <a>El ejemplo localizado 'Yet Another Blog Engine'</a>
 
-The end result of applying the above steps is a localised version of the 'Yet Another Blog Engine' example that works in English, Dutch and French.
+El resultado final de aplicar los pasos anteriores es una versión localizada del ejemplo 'Yet Another Blog Engine' que funciona en Inglés, Alemán y Francés
 
 !images/guide12-3! 
 
-The 'Yet Another Blog Engine' admin interface in Dutch (above) and French (below). 
+La interfaz de administración de 'Yet Another Blog Engine' in Alemán (arriba) y Francés (abajo).
 
 !images/guide12-4! 
 
-p(note). Next: Now you have finished the tutorial, move on to The Essential Documentation - %(next)"Main concepts":main%. 
+p(note). Continúa con: Ahora que ha terminado el tutorial, continúe con La Documentación Esencial - %(next)"Conceptos principales":main%.
 
-p(note). By "Peter Hilton":http://hilton.org.uk/about_ph.phtml, originally published on the "Lunatech Research":http://www.lunatech-research.com/archives/2010/04/12/how-localise-play-framework-web-application blog.
+p(note). Por "Peter Hilton":http://hilton.org.uk/about_ph.phtml, originalmente publicado en el blog  "Lunatech Research":http://www.lunatech-research.com/archives/2010/04/12/how-localise-play-framework-web-application.
