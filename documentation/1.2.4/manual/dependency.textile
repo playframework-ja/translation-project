@@ -37,7 +37,7 @@ Por ejemplo:
 * @[1.0,2.0]@ concuerda con todas las versiones mayores o iguales que 1.0 y menores o iguales que 2.0
 * @[1.0,2.0[@ concuerda con todas las versiones mayores o iguales que 1.0 y menores que 2.0
 * @]1.0,2.0]@ concuerda con todas las versiones mayores que 1.0 y menores o iguales que 2.0
-* @]1.0,2.0[@concuerda con todas las versiones mayores que 1.0 y menores que 2.0
+* @]1.0,2.0[@ concuerda con todas las versiones mayores que 1.0 y menores que 2.0
 * @[1.0,)@ concuerda con todas las versiones mayores o iguales que 1.0
 * @]1.0,)@ concuerda con todas las versiones mayores que 1.0
 * @(,2.0]@ concuerda con todas las versiones menores o iguales que 2.0
@@ -47,14 +47,14 @@ h2. <a name="yml">dependencies.yml</a>
 
 Cuando creas una nueva aplicación, un descriptor @dependencies.yml@ es creado automáticamente en el directorio @conf/@:
 
-bc. # Dependencias de aplicaciones
+bc. # Application dependencies
     
 require:
     - play 1.2
 
-La sección @require@ muestra una lista de todas las dependencias necesarias por tu aplicación. Aquí, la nueva aplicación solo depende de **Play versión 1.2**. Pero imaginemos que tu aplicación necesita "Google Guava":http://code.google.com/p/guava-libraries/; you would have:
+La sección @require@ muestra una lista de todas las dependencias necesarias para tu aplicación. Aquí, la nueva aplicación solo depende de **Play versión 1.2**. Pero imaginemos que tu aplicación necesita "Google Guava":http://code.google.com/p/guava-libraries/; tendríamos:
 
-bc. # Dependencias de aplicaciones
+bc. # Application dependencies
     
 require:
     - play 1.2
@@ -129,7 +129,7 @@ require:
         exclude:
             - com.google.code.findbugs -> *
 
-h3. Mantiene los directorios lib/ y modulces/ sincronizados
+h3. Mantiene los directorios lib/ y modules/ sincronizados
 
 Ahora, si ejecutas nuevamente @play dependencies@, la dependencia findbugs será omitida:
 
@@ -163,7 +163,7 @@ bc. $ play deps
 
 Igualmente, el archivo **jsr305-1.3.7.jar** descargado antes, todavía está presente en el directorio @lib/@ de nuestra aplicación.
 
-Para mantener los directorios @lib/@ y @modules/@ sincronizados con el sistema de administración de dependencias, puedes agregar el comando @--sync@ al comando @dependencies@:
+Para mantener los directorios @lib/@ y @modules/@ sincronizados con el sistema de administración de dependencias, puedes agregar la opción @--sync@ al comando @dependencies@:
 
 bc. play dependencies --sync
 
@@ -189,7 +189,7 @@ require:
         transitive: false
     - commons-lang 3.0
 
-Running @play dependencies@ will evict @commons-lang 3.0@ even if this version is newer:
+Ejecutando @play dependencies@ se ignorará @commons-lang 3.0@ aún siendo una versión más actual:
 
 bc. play dependencies
 ~        _            _ 
@@ -290,7 +290,7 @@ bc. myplayapp/
 myfirstmodule/
 mysecondmodule/
 
-El siguiente archivo @myplayapp/conf/depencencies.yml@ logrará nuestro objetivo.
+el siguiente archivo @myplayapp/conf/depencencies.yml@ logrará nuestro objetivo.
 
 bc. # Application dependencies
     
@@ -367,7 +367,7 @@ bc. <!-- .ivy2/ivysettings.xml -->
 
 Hay varias cosas que puedes configurar: chequea la "Documentación de configuración de Ivy":http://ant.apache.org/ivy/history/2.1.0/settings.html.
 
-h3. Limpiano la caché de Ivy
+h3. Limpiando la caché de Ivy
 
 La caché de Ivy puede volverse corrupta, especialmente cuando utilizamos el tipo @http@ en la sección de repositorios de @conf/dependencies.yml@. Si ésto sucede, y la resolución de dependencias no funciona, puedes limpiar la caché con la opción @--clearcache@.
 
@@ -378,4 +378,4 @@ Esto es quivalente a @rm -r ~/.ivy2/cache@.
 
 p(note). **Continuamos con la discusión**
 
-Next: %(next)"Evolución de las bases de datos":evolutions%.
+Siguiente: %(next)"Evolución de las bases de datos":evolutions%.
