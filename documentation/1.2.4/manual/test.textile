@@ -1,29 +1,27 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Probando su aplicación
 
-h1. Test your application
+Una buena forma de hacer aplicaciones robustas es crear suites de pruebas automáticas, lo que le permite trabajar de una forma muy ágil y segura.
 
-Creating automatic test suites for your application is a good way to make it robust. It allows you to work in a very agile way.
+Las pruebas de Play se construyen usando "JUnit 4":http://www.junit.org/ ó "Selenium":http://seleniumhq.org/ dependiendo de lo que se pretenda probar.
 
-Play tests are built using "JUnit 4":http://www.junit.org/ or "Selenium":http://seleniumhq.org/ depending what you want to test. 
+h2. <a name="writing">Creando pruebas</a>
 
-h2. <a name="writing">Writing tests</a>
+Las pruebas deben ser creadas en el directorio @test/@. Esta carpeta sólo se añadirá al path de fuentes cuando la aplicación se ejecute en modo @test@. Puede escribir tres clases de pruebas.
 
-The tests must be created in the @test/@ directory. This folder will only be added to the sources path when the application is run in @test@ mode. You can write 3 different kinds of tests.
+h3. Pruebas unitarias
 
-h3. Unit test
+Se escriben usando JUnit. En esta clase de pruebas puede probar el modelo de la aplicación (incluyendo algunas utilidades).
 
-A unit test is written using JUnit. In this kind of test you can test the model of your application (including some utilities). 
+Este es un ejemplo de una prueba unitaria:
 
-Here is an example of a Unit test:
-
-bc. import play.test.*;
+bc.. import play.test.*;
 import org.junit.*;
  
 public class MyTest extends UnitTest {
      
     @Test
     public void aTest() {
-        assertEquals(2, 1 + 1); // A really important thing to test
+        assertEquals(2, 1 + 1); // Una cosa que es realmente importante probar
     }
  
     @Test
@@ -32,11 +30,11 @@ public class MyTest extends UnitTest {
     }
 }
 
-h3. Functional test
+h3. Pruebas funcionales
 
-A functional test is written using JUnit. In this kind of test you can test your application by accessing directly the controller objects.
+También se usa JUnit. Mediante este tipo de pruebas puede probar la aplicación accediendo directamente a los objetos del controlador.
 
-Here is an example of a Functional test:
+Este es un ejemplo de una prueba funcional:
 
 bc. import play.test.*;
 import play.mvc.*;
@@ -53,7 +51,7 @@ public class ApplicationTest extends FunctionalTest {
      
 }
 
-Using the @renderArgs()@ method, you can also get direct access to the arguments passed to the view, instead of having to make assertions about the response itself.  For example:
+Usando el método @renderArgs()@, también puede acceder a los argumentos que se pasen a la vista, en vez de tener que hacer assertions sobre la respuesta en sí misma. Por ejemplo:
 
 bc. @Test
 public void testUserIsFoundAndPassedToView() {
@@ -63,17 +61,17 @@ public void testUserIsFoundAndPassedToView() {
     assertThat(user.name, is("mark"));
 }
 
-h3. Selenium test
+h3. Pruebas Selenium o pruebas de aceptación
 
-Acceptance tests are written using Selenium. Here you can test your application by running it in an automated browser. 
+Las pruebas de aceptación se escriben usando Selenium. De esta manera podrá probar la aplicación ejecutándola directamente en un navegador web automatizado.
 
-Selenium tests are written using HTML tables. You can either use this native syntax or use the @#{selenium /}@ tag.
+Las pruebas Selenium se escriben usando tablas HTML. Puede usarse esta sintaxis nativa o mediante el tag @#{selenium /}@.
 
-Here is an example of a Selenium test:
+Ejemplo de prueba Selenium:
 
 bc. #{selenium 'Test security'}
  
-    // Try to log in the administration area
+    // Intento de registrarse en el área de administración
     clearSession()
     open('/admin')
     assertTextPresent('Login')
@@ -81,36 +79,36 @@ bc. #{selenium 'Test security'}
     type('password', 'secret')
     clickAndWait('signin')
  
-    // Verify that the user in correctly logged in
-    assertText('success', 'Welcom admin!')
+    // Verificar que el usuario se ha registrado correctamente
+    assertText('success', 'Welcome admin!')
  
 #{/selenium}
 
-Because Selenium tests are run within your browser access to emails sent by the mock email and to String values placed in the Play Cache must be made using extensions to Selenium.
+Como las pruebas de Selenium se ejecutan dentro del navegador, hay que utilizar extensiones de Selenium para acceder a los mensajes enviados por el mail simulado (mock email) y a los valores de tipo String colocados en la Play Cache.
 
-Here is an example of accessing the most recent email sent to a specific email account:
+En el siguiente ejemplo, accedemos al último email enviado a una cuenta específica:
 
 bc. #{selenium 'Test email sending'}
  
-    // Open email form and send an email to boron@localhost
+    // Abrir formulario email y enviar un email a to boron@localhost
     open('/sendEmail')
     assertTextPresent('Email form')
     type('To', 'boron@localhost')
     type('Subject', 'Berillium Subject')
     clickAndWait('send')
  	
-	// Extract the last email sent to boron@localhost into a JavaScript
-	// variable called email
+	// Extraer el último email enviado a boron@localhost en una variable
+    // JavaScript llamada email
 	storeLastReceivedEmailBy('boron@localhost', 'email')
-	// Extract the subject line from the email variable into a variable 
-	// called subject
+	// Extraer el asunto de la variable email a una
+    // variable llamada subject
 	store('javascript{/Subject:\s+(.*)/.exec(storedVars["email"])[1]}', 'subject')
-	// Test the contents of the subject variable
+	// Probar el contenido de la variable subject
 	assertEquals('Berillium Subject', '$[subject]')
  
 #{/selenium}
 
-Here is an example of accessing a String stored in the Play Cache (for example the correct answer to a CAPTCHA):
+En este ejemplo accedemos a un String guardado en la Cache de Play (por ejemplo, la respuesta correcta a un CAPTCHA):
 
 bc. #{selenium 'Get string from cache'}
  
@@ -119,32 +117,32 @@ bc. #{selenium 'Get string from cache'}
 	type('Email', 'my@email.com')
 	type('Password', 'secretpass')
 	type('Password2', 'secretpass')
-	// .. Fill in the registration form ..
+	// .. Rellenar aqui el formulario de registro ...
  
-	// Get the value of the magicKey variable from the cache
-	// (set to the CAPTCHA answer in the application)
+	// Obtener el valor de la variable magicKey de la cache
+	// (cargarlo en la respuesta al CAPTCHA de la aplicacion)
 	storeCacheEntry('magicKey', 'captchaAnswer')
-	// Type it into the form
+	// Escribirlo en el formulario
 	type('Answer', '$[captchaAnswer]')
  
     clickAndWait('register')
  
 #{/selenium}
 
-h2. <a name="fixtures">Fixtures</a>
+h2. <a name="fixtures">Trabajando con Fixtures</a>
 
-When you run tests, you need to have stable data for your application. The simplest way is to reset your database before each test.
+Cuando se hacen pruebas, hay que tener datos bien conocidos para probar la aplicación. Lo más sencillo para esto es resetear la base de datos antes de cada prueba.
 
-The @play.test.Fixtures@ class helps you to manipulate your database and to inject test data. You typically use it in a <code>@Before</code> method of a JUnit test.
+La clase @play.test.Fixtures@ ayuda a manipular la base de datos y a inyectar datos de prueba. Se suele usar en el método <code>@Before</code> de una prueba JUnit.
 
 bc. @Before
 public void setUp() {
     Fixtures.deleteAll();
 }
 
-To import data, it is simpler to define them in a YAML file that the Fixtures helper can automatically import.
+Para importar los datos, los más sencillo es definirlos en un fichero YAML, de manera que el helper de Fixtures pueda importarlos automáticamente.
 
-bc. # Test data
+bc. # Datos de prueba
  
 Company(google):
    name:    Google
@@ -156,7 +154,7 @@ User(guillaume):
    name:    guillaume
    company: zen
 
-And then: 
+Y luego: 
 
 bc. @Before
 public void setUp() {
@@ -164,70 +162,70 @@ public void setUp() {
     Fixtures.loadModels("data.yml");
 }
 
-p(note). You can read more about Play and YAML in the "YAML manual page":yaml.
+p(note). Puede leer más detalles acerca de Play y YAML en la "página del manual de YAML":yaml.
 
-For Selenium tests, you can use the @#{fixture /}@ tag:
+En el caso de las pruebas Selenium puede usar el tag @#{fixture /}@
 
 bc. #{fixture delete:'all', load:'data.yml' /}
  
 #{selenium}
     
-    // Write your test here
+    // Escribe aquí tu prueba
  
 #{/selenium}
 
-Sometimes it is convenient to split data into several YAML files. You can load fixtures from multiple files at once:
+A veces es conveniente organizar los datos en varios ficheros YAML. Puede cargar los fixtures a partir de múltiples ficheros a la vez:
 
 bc. Fixtures.loadModels("users.yml", "roles.yml", "permissions.yml");
 
-and for Selenium tests:
+y para las pruebas Selenium:
 
 bc. #{fixture delete:'all', load:['users.yml', 'roles.yml', 'permissions.yml'] /}
 
-h2. <a name="running">Running the tests</a>
+h2. <a name="running">Ejecutando las pruebas</a>
 
-To run the tests, you must run your application in @test@ mode using the @play test@ command.
+Para ejecutar las pruebas, hay que correr la aplicación en modo @test@ con el comando @play test@.
 
 bc. # play test myApp
 
-In this mode, Play will automatically load the @test-runner@ module. This module provides a Web based test runner, available at the "http://localhost:9000/@tests":http://localhost:9000/@tests URL.
+Al ejecutarse en este modo, Play carga automáticamente el módulo @test-runner@. Este módulo contiene un ejecutador de pruebas Web, disponible en la URL: "http://localhost:9000/@tests":http://localhost:9000/@tests.
 
 !images/test-runner!
 
-When you run a test, the result is saved into the @/test-result@ directory of your application.
+Cuando se ejecuta una prueba, el resultado se salva en el directorio @/test-result@ de la aplicación.
 
-On the test runner page, each test is a link. You can ‘right click’ and ‘Open in a new tab’, to run the test directly outside of the test-runner. 
+En la página del ejecutador, cada prueba es un enlace. Puede hacer click con el botón derecho y seleccionar 'Abrir en una nueva pestaña' para ejeuctar directamente fuera del ejecutador.
 
-When you run tests this way, Play will start with a special @test@ framework ID. So you can define special configurations in the @application.conf@ file.
+Al ejecutar las pruebas de esta manera, Play arrancará framework ID especial llamado @test@. Así que puede definir configuraciones especiales en el fichero @application.conf@ para ser usadas en modo @test@.
 
-If you want several different test configurations, you can use framework IDs matching the pattern @test-?.*@ (e.g: @test-special@).
+Si queremos tener diferentes configuraciones de pruebas, puede usar diversos frameworks ID  que coincidan con el patrón @test-?.*@ (p.ej.: @test-special@).
 
-If you use a framework ID other then the default @test@, you must make sure ALL test configuration in @application.conf@ is available with that framework ID. When launching test with special test framework ID you do it like this: @play test --%test-your-special-id@
+Si usamos un framework ID distinto de @test@, que es el ID por defecto, hay que asegurarse de que TODA la configuración de pruebas en @application.conf@ esté disponible con ese framework ID. Para lanzar pruebas con un ID especial utilice el siguiente comando: @play test --%test-your-special-id@
 
-For example:
+Por ejemplo:
 
 bc. %test.db=mem
 %test.jpa.ddl=create-drop
 
-h2. <a name="continuous">Continuous integration, and running the tests automatically</a>
+h2. <a name="continuous">Integración continua y ejecución automática de pruebas</a>
 
-The @auto-test@ command does the same as the @test@ command, but it automatically launches a browser, runs all the tests, and stops.
+El comando @auto-test@ hace lo mismo que el comando @test@, pero abre automáticamente un navegador, ejecuta todas las pruebas, y luego se detiene.
 
-This is a useful command if you want to set up a continuous integration system; 
+Es un comando muy útil cuando se quiere configurar un sistema de integración continua.
 
-After the run, all results are saved to the @/test-result@ directory. Moreover, this directory contains a marker file (either @result.failed@ or @result.passed@) for the test suite’s final result. Finally, this directory contains all the logs, in an @application.log@ file.
+Tras la ejecución, se salvan todos los resultados en el directorio @/test-result@. Además, este directorio contiene un fichero (ya sea @result.fail@ o bien @result.passed@) que contiene el resultado final. Por último, este directorio contiene todos los logs en el fichero @application.log@.
 
-So setting up a continuous integration system to test your application, could be:
+De modo que para configurar un sistema de integración continua para probar la aplicación, usted podría hacer lo siguiente:
 
-* Checkout the latest version of your application
-* Run @play auto-test@
-* Wait for the end of the process
-* Check for the marker file @result.passed@ or @result.failed@ in the @/test-result@ directory
+* Checkout de la última versión de la aplicación
+* Ejecutar @play auto-test@
+* Esperar a que el proceso finalice
+* Comprobar el fichero @result.passed@ o @result.failed@ en el directorio @/test-result@
 
-Run these steps in a CRON tab, and you’re done!
+Configurar una tarea CRON para ejecutar estos pasos y eso es todo.
 
-You can change the web browser compatibility mode used by the headless browser by configuring "headlessBrowser":configuration#headlessBrowser.
+Puede cambiarse el modo de compatiblidad del navegador para utilizar uno sin interfaz gráfica (lo que se conoce como headless browser) usando el parámetro"headlessBrowser":configuration#headlessBrowser.
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
  
-Next: %(next)"Security guide":security%.
+Seguimos con %(next)"Guía de Seguridad":security%.

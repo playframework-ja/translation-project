@@ -1,10 +1,8 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Índice
 
-h1. Index
+Utilice esta página para acceder rápidamente a una función específica de Play.
 
-Use this page to navigate quickly to a specific Play framework function.
-
-h2. Implicit template variables
+h2. Variables implícitas en los templates
 
 <div class="index">
 # "errors":/@api/play/data/validation/Validation.html#errors%28%29
@@ -18,7 +16,7 @@ h2. Implicit template variables
 # "session":/@api/play/mvc/Scope.Session.html
 </div>
 
-h2. Built-in tags
+h2. Tags provistos por Play
 
 <div class="index">
 # "a":tags#a
@@ -51,10 +49,10 @@ h2. Built-in tags
 # "verbatim":tags#verbatim
 </div>
 
-h2. Built-in Java Extensions
+h2. Extensiones a Java provistas por Play
 
 <div class="index">
-# "Collection extensions":javaextensions#collection
+# "Exntesiones para trabajar con colecciones":javaextensions#collection
 # "join(separator)":javaextensions#join
 # "pluralize()":javaextensions#pluralize
 # "pluralize(plural)":javaextensions#pluralize-plural
@@ -107,7 +105,7 @@ h2. Built-in Java Extensions
 # "remove(string) ":javaextensions#remove
 </div>
 
-h2. Built-in validation
+h2. Validaciones provistas por Play
 
 <div class="index">
 # "email":validation-builtin#email
