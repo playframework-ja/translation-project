@@ -1,98 +1,96 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Guía de Seguridad
 
-h1. Security Guide
+El framework Play se diseña pensando en la seguridad - pero es imposible evitar que los desarrolladores usen el framework para sabotear y abrir brechas. Esta guía describe los problemas de seguridad comunes en las aplicaciones web y cómo evitarlos en las aplicaciones Play.
 
-The Play framework is designed with security in mind - but it is impossible to prevent developers using the framework to mess up and open holes. The guide describes the common security issues in web applications and how to avoid them in Play applications.
+h2. <a name="sessions">Sesiones</a>
 
-h2. <a name="sessions">Sessions</a>
+Con frecuencia usted necesita guardar información asociada a un usuario, particularmente conocer si está registrado o no. Sin una sesión, el usuario necesitaría proporcionar sus credenciales con cada petición. 
 
-Often you need to keep information associated with a user, in particular the logged-in status. Without a session, the user would need to pass credentials with each request.
+Para eso son las sesiones: un conjunto de cookies almacenadas en el navegador del usuario que lo identifican ante el sitio web, y proporcionan otra información que su aplicación posiblemente decidió alamcenar allí y no en la capa de datos; como por ejemplo el idioma.
 
-That’s what sessions are for: a set of cookies stored in the user’s browser that identify him or her to the web site, and provide other information your web application may choose to store there rather than in the data layer; for example the language.
+h3. Mantega su clave secreta... secreta
 
-h3. Keep your secret… secret
+La sesión es un conjunto de pares clave/valor, firmadas mas no encriptadas. Es decir que en la medida que su clave secreta esté segura, no es posible que terceras personas falsifiquen la sesión.
 
-The session is a hash of key/values, signed but not encrypted. That means that as long as your secret is safe, it is not possible for a third-party to forge sessions.
+La clave secreta se almacena en el archivo @conf/application.conf@. Es muy importante mantenerla en privado: no la consigne (_commit_) en un repositorio público, y cuando instale una aplicación desarrollada por otra persona cambie la clave secreta por una propia. Puede hacer esto con el comando @play secret@.
 
-The secret is stored in @conf/application.conf@. It is very important to keep it private: do not commit it in a public repository, and when you install an application written by someone else change the secret key to your own. You can do that with the command @play secret@.
+h3. No guarde datos importantes
 
-h3. Don’t store critical data
+Sin embargo, debido a que no está encriptado, no debería guardar datos importantes en la sesión. Ya que pueden ser vistos revisando el cookie del usuario, monitoreando la conexión en una red de área local o por wifi.
 
-However, since it is not encrypted, you should not store critical data in the session. It can be seen by looking at the user cookie, by sniffing the connection on a local network or over wifi.
-
-The session is stored in a cookie, and cookies are limited to 4 KB. In addition to this limit, only strings can be stored.
+La sesión se almacena en un cookie, y los cookies tienen un límite de 4 KB. Adicionalmente, solo se pueden guardar cadenas de texto (_strings_).
 
 h2. <a name="xss">Cross-Site Scripting</a>
 
-Cross-site scripting is one of the most common vulnerabilities in web applications. It consists of injecting malicious JavaScript into web pages using forms that your application provides.
+El Cross-site scripting es una de las vulnerabilidades más común en las aplicaciones web. Consiste en la inyección de código JavaScript malicioso en las páginas web usando los formularios de su aplicación.
 
-Let’s say you’re writing a blog, and anyone can add a comment. If you blindly include what commenters have written into your HTML page, you’re opening your site to attacks. It can be:
-* Show a popup to your visitors
-* Redirect your visitors to a site controlled by the attacker
-* Steal information supposed to be visible only to the current user, and send it back to the attacker’s site
+Digamos que está escribiendo un blog, y cualquier persona puede agregar un comentario. Si usted incluye ciegamente lo escrito por los comentaristas en su página HTML, estará abriendo su sitio a diversos ataques. Tales como:
+* Mostrar una ventana emergente (_popup_) a sus visitantes
+* Redireccionar sus visitantes a un sitio controlado por el atacante
+* Plagiar información que supuestamente solo es visible por el usuario actual, y enviarla al sitio del atacante
 
-Consequently it is very important to be protected from those attacks.
+Por lo tanto es muy importante protegerse de esos ataques.
 
-Play’s template engine automatically escapes strings. If you really need to insert unescaped HTML in your templates, you can do so using the "raw()":javaextensions#raw Java extension on the string. But if the string comes from a user input, you need to make sure it is sanitized first.
+El sistema de plantillas de Play automáticamente aplica los _escapes_ necesarios a las cadenas de texto (_strings_). Si verdaderamente necesita insertar texto HTML sin _escapes_ en sus plantillas, puede hacerlo usando la extensión Java "raw()":javaextensions#raw sobre la cadena de texto. Pero si el texto fue proporcionado por el usuario desde un formulario, primero debe asegurarse de que está limpio (_sanitized_).
 
-When sanitizing user inputs, always prefer whitelisting (only allow a list of safe tags) to blacklisting (forbid a list of unsafe tags and allow all the rest).
+Cuando limpie los textos introducidos por los usuarios, siempre utilice la 'lista blanca' (permitir solamente una lista de tags seguros) en vez de la 'lista negra' (prohibir una lista de tags inseguros y permitir todos los demás).
 
-"More on cross-site scripting":http://en.wikipedia.org/wiki/Cross-site_scripting
+"Más sobre cross-site scripting":http://es.wikipedia.org/wiki/Cross-site_scripting
 
-h2. <a name="sql">SQL Injection</a>
+h2. <a name="sql">Inyección SQL</a>
 
-SQL injection is an exploit consisting in using user input to execute a SQL query that was not intended by the developer. This can be used to destroy data, or to get access to data that shouldn’t be visible to the current user.
+La inyección SQL es un _"exploit":http://es.wikipedia.org/wiki/Exploit_ que consiste en usar los campos de los formularios para introducir y luego ejecutar consultas SQL no contempladas por el desarrollador. Esto puede ser utilizado para destruir los datos, u obtener acceso a datos que no deberían ser visibles por el usuario actual.
 
 !http://imgs.xkcd.com/comics/exploits_of_a_mom.png!
 
-When you are using high level "find" methods, you should be covered against SQL injection. When you build your own queries manually, you need to be careful not to concatenate strings with @+@ but use @?@ placeholders.
+Al utilizar los métodos "find" de alto nivel, debe protegerse de las inyecciones SQL. Y cuando construya sus propias consultas manualmente, debe tener cuidado de no concatenar cadenas de texto con el operador @+@ sino utilizar los _placeholders_ @?@.
 
-This is good:
+Esto está bien:
 
 bc. createQuery("SELECT * from Stuff WHERE type= ?1").setParameter(1, theType);
 
-This is NOT:
+Esto no:
 
 bc. createQuery("SELECT * from Stuff WHERE type=" + theType;
 
-h2. <a name="csrf">Cross-Site Request Forgery</a>
+h2. <a name="csrf">Cross-Site Request Forgery (Falsificación de petición)</a>
 
-The CSRF attack can be really problematic in web applications:
+El ataque CSRF puede ser verdaderamente problemático para las aplicaciones web:
 
-bq. This attack method works by including malicious code or a link in a page that accesses a web application that the user is believed to have authenticated. If the session for that web application has not timed out, an attacker may execute unauthorized commands.
+bq. Este tipo de ataque consiste en la inclusión de código malicioso o un enlace en una página que accede a una aplicación web haciendole creer que el usuario ha sido autentificado. Si la sesión para esa aplicación web no tiene tiempo de expiración, un atacante puede ejecutar comandos no autorizados.
 
-To prevent this attack, the first thing to do is to use GET and POST methods appropriately. That means that only the POST method should be used to change the application’s state.
+Para prevenir este tipo de ataques, lo primero que debe hacer es usar apropiadamente los métodos GET y POST. Es decir, que solo debería ustilizar el método POST para cambiar el estado de la aplicación.
 
-For POST requests the only way to secure critical actions properly is to issue an authenticity token. Play now has a built-in helper to handle that:
+Para las peticiones POST la única manera de proteger adecuadamente las acciones importantes es usar una clave (_token_) de autenticidad. Play ya tiene incorporado unos métodos _helpers_ para manejar esto:
 
-* a @checkAuthenticity()@ method available in controllers, that checks for a valid authenticity token in the request parameters and sends a forbidden response if something is bad.
-* @session.getAuthenticityToken()@ generates an authenticity token only valid for the current session.
-* @#{authenticityToken /}@ creates a hidden input field that you can add to any form.
+* un método @checkAuthenticity()@ disponible en los controladores, que verifica la autenticidad del token de los parámetros de la petición y devuelve una respuesta de 'prohibición' si algo está incorrecto.
+* el método @session.getAuthenticityToken()@ genera un token de autenticidad solamente válido para la sesión actual.
+* el tag @#{authenticityToken /}@ crea un campo _input_ oculto que puede agregar a cualquier formulario.
 
-So for example:
+Ejemplos:
 
 bc. public static destroyMyAccount() {
     checkAuthenticity();
     …
 }
 
-Will only work when called from a form including a proper authenticity token:
+Esto solamente funcionará cuando sea llamado por un formulario que incluya un token de autenticidad correcto, tal como este:
 
 bc. <form method="post" action="/account/destroy">
     #{authenticityToken /}
     <input type="submit" value="destroy my account">
 </form>
 
-For POST requests, Play’s "form tag":tags#form automatically generates the authenticity token:
+Para peticiones POST, el "tag form":tags#form de Play genera automáticamente el token de autenticidad:
 
 bc. #{form @destroyMyAccount()}
     <input type="submit" value="destroy my account">
 #{/form}
 
-You can of course add the @checkAuthenticity()@ method call as a "before filter":controllers#before if you want to protect all actions of a hierarchy of controllers.
+Por supuesto usted puede agregar la llamada al método @checkAuthenticity()@ como un "filtro before":controllers#before si quiere proteger todas las acciones de una jerarquía de controladores.
 
-"More on cross-site request forgery":http://en.wikipedia.org/wiki/Cross-site_request_forgery
+"Más sobre cross-site request forgery":http://en.wikipedia.org/wiki/Cross-site_request_forgery
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
  
-Next: %(next)"Play modules":modules%.
+Continúa con: %(next)"Módulos de Play":modules%.
