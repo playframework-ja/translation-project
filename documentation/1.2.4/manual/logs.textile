@@ -1,31 +1,31 @@
-h1. Configuración de la bitácora
+h1. Configuración de los logs de auditoría
 
-La bitácora de Play está construida sobre "Log4j":http://logging.apache.org/log4j/1.2/index.html. Ya que la mayoría de las librerías de Java usan Log4j o una envoltura que puede usar Log4j como base, puedes fácilmente configurar la bitácora que mejor funciona para la aplicación.
+El "logger":http://es.wikipedia.org/wiki/Log_(registro) (también conocido como bitácora o sistema de trazas) de Play está basado en "Log4j":http://logging.apache.org/log4j/1.2/index.html. Ya que la mayoría de las librerías de Java usan Log4j o una librería que puede usar Log4j como base, puede fácilmente configurar el log que mejor funcione para su aplicación.
 
 
-h2. <a name="logging">Escribir en la bitácora desde la aplicación</a>
+h2. <a name="logging">Escribir en el log desde la aplicación</a>
 
-Play provee un escritor de bitácora por defecto con la clase @play.Logger@. Esta clase usa Log4j para escribir los mensajes y las excepciones a un escritor llamado @play@.
+Play provee un logger por defecto con la clase @play.Logger@. Esta clase usa Log4j para escribir los mensajes y las excepciones a un logger llamado @play@.
 
-Escribir en la bitácora desde la aplicación es fácil:
+Escribir en el log desde su aplicación es fácil:
 
 bc. Logger.info("Un mensaje en la bitácora");
 Logger.error(ex, "Oops");
 
-Los métodos del escritor de bitácora @play.Logger@ pueden dar formato fácilmente mediante la sintáxis estándar del formateador Java:
+Los métodos de @play.Logger@ pueden dar formato fácilmente mediante la sintáxis estándar del formateador Java:
 
 bc. Logger.debug("El parámetro fue %s", param);
 Logger.info("Quiero escribir %s y %s y %s", a, b, c);
 
-Puedes usar Log4j directamente para crear escritores alternativos para propósitos específicos:
+Puedes usar Log4j directamente para crear loggers alternativos para propósitos específicos:
 
 bc. org.apache.log4j.Logger.getLogger("another.logger");
 
-h2. <a name="levels">Configurar los niveles de bitácora</a>
+h2. <a name="levels">Configurar los niveles de log</a>
 
-Puedes definir el nivel del escritor de bitácora del Play configurando la propiedad "application.log":configuration#application.log y puedes cambiar este valor sin necesidad de reiniciar el servidor. Nota que este nivel sólo aplica para mensajes generados por la aplicación.
+Puede definir el nivel del logger del Play configurando la propiedad "application.log":configuration#application.log y puede cambiar este valor sin necesidad de reiniciar el servidor. Tenga en cuenta que este nivel solo aplica para los mensajes generados por la aplicación.
 
-Si necesitas configurar completamente Log4j, puedes crear un archivo @log4j.properties@ en el directorio @conf/@. Ya que éste directorio es el primer elemento en el classpath, este archivo va a ser el usado por todas las librerías.
+Si necesita configurar completamente Log4j, puede crear un archivo @log4j.properties@ en el directorio @conf/@. Ya que este directorio es el primer elemento en el classpath, este archivo va a ser el usado por todas las librerías.
 
 La configuración de Log4j por defecto es la siguiente:
 
@@ -38,14 +38,14 @@ log4j.appender.Console=org.apache.log4j.ConsoleAppender
 log4j.appender.Console.layout=org.apache.log4j.PatternLayout
 log4j.appender.Console.layout.ConversionPattern=%d{ABSOLUTE} %-5p ~ %m%n
 
-¡Copia este archivo y modifícalo para tus necesidades específicas!
+¡Copie este archivo y modifíquelo para sus necesidades específicas!
 
 
 h3. <a name="production">Configuración en Producción</a>
 
-Mira "Configuración de la bitácora para producción":production#logging para otro ejemplo.
+Mire "Configuración del log para producción":production#logging para otro ejemplo.
 
 
-p(note). **Continúa con la discusión**
+p(note). **Próximos pasos**
 
-Continuamos la configuración con %(next)"configurando en distintos entornos":ids%.
+Continuamos con %(next)"configurando play en distintos entornos":ids%.
