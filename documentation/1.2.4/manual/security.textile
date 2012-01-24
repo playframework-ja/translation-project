@@ -1,6 +1,6 @@
 h1. Guía de Seguridad
 
-El framework Play se diseña pensando en la seguridad - pero es imposible evitar que los desarrolladores usen el framework para sabotear y abrir brechas. Esta guía describe los problemas de seguridad comunes en las aplicaciones web y cómo evitarlos en las aplicaciones Play.
+El framework Play ha sido diseñado pensando en la seguridad - pero ningún framework puede evitar que los desarrolladores arruinen todo y abran brechas de seguridad. Esta guía describe los problemas de seguridad comunes en las aplicaciones web y cómo evitarlos en las aplicaciones Play.
 
 h2. <a name="sessions">Sesiones</a>
 
@@ -8,32 +8,32 @@ Con frecuencia usted necesita guardar información asociada a un usuario, partic
 
 Para eso son las sesiones: un conjunto de cookies almacenadas en el navegador del usuario que lo identifican ante el sitio web, y proporcionan otra información que su aplicación posiblemente decidió alamcenar allí y no en la capa de datos; como por ejemplo el idioma.
 
-h3. Mantega su clave secreta... secreta
+h3. Mantega su clave secreta… secreta
 
-La sesión es un conjunto de pares clave/valor, firmadas mas no encriptadas. Es decir que en la medida que su clave secreta esté segura, no es posible que terceras personas falsifiquen la sesión.
+La sesión es un conjunto de pares clave/valor, firmadas pero no encriptadas. Esto signifca que en la medida que su clave secreta esté segura, no es posible que terceras personas falsifiquen la sesión.
 
-La clave secreta se almacena en el archivo @conf/application.conf@. Es muy importante mantenerla en privado: no la consigne (_commit_) en un repositorio público, y cuando instale una aplicación desarrollada por otra persona cambie la clave secreta por una propia. Puede hacer esto con el comando @play secret@.
+La clave secreta se almacena en el archivo @conf/application.conf@. Es muy importante mantenerla en privado: no la grabe (_commit_) en un repositorio público, y cuando instale una aplicación desarrollada por otra persona cambie la clave secreta por una propia. Puede hacer esto con el comando @play secret@.
 
 h3. No guarde datos importantes
 
-Sin embargo, debido a que no está encriptado, no debería guardar datos importantes en la sesión. Ya que pueden ser vistos revisando el cookie del usuario, monitoreando la conexión en una red de área local o por wifi.
+Sin embargo, debido a que no está encriptada, no debería guardar datos importantes en la sesión. Los mismo pueden ser vistos revisando la cookie del usuario, monitoreando la conexión en una red de área local o por wifi.
 
-La sesión se almacena en un cookie, y los cookies tienen un límite de 4 KB. Adicionalmente, solo se pueden guardar cadenas de texto (_strings_).
+La sesión se almacena en una cookie, y las cookies tienen un límite de 4 KB. Adicionalmente, solo se pueden guardar cadenas de texto (_strings_).
 
 h2. <a name="xss">Cross-Site Scripting</a>
 
-El Cross-site scripting es una de las vulnerabilidades más común en las aplicaciones web. Consiste en la inyección de código JavaScript malicioso en las páginas web usando los formularios de su aplicación.
+El Cross-site scripting es una de las vulnerabilidades más comunes en las aplicaciones web. Consiste en la inyección de código JavaScript malicioso en las páginas web usando los formularios de su aplicación.
 
-Digamos que está escribiendo un blog, y cualquier persona puede agregar un comentario. Si usted incluye ciegamente lo escrito por los comentaristas en su página HTML, estará abriendo su sitio a diversos ataques. Tales como:
+Digamos que está escribiendo un blog, y cualquier persona puede agregar un comentario. Si usted incluye directamente lo escrito por los comentaristas en su página HTML, estará abriendo su sitio a diversos ataques. Tales como:
 * Mostrar una ventana emergente (_popup_) a sus visitantes
 * Redireccionar sus visitantes a un sitio controlado por el atacante
 * Plagiar información que supuestamente solo es visible por el usuario actual, y enviarla al sitio del atacante
 
 Por lo tanto es muy importante protegerse de esos ataques.
 
-El sistema de plantillas de Play automáticamente aplica los _escapes_ necesarios a las cadenas de texto (_strings_). Si verdaderamente necesita insertar texto HTML sin _escapes_ en sus plantillas, puede hacerlo usando la extensión Java "raw()":javaextensions#raw sobre la cadena de texto. Pero si el texto fue proporcionado por el usuario desde un formulario, primero debe asegurarse de que está limpio (_sanitized_).
+El sistema de plantillas de Play automáticamente _escapará_ las cadenas de texto (_strings_). Si verdaderamente necesita insertar texto HTML sin _escapar_ en sus plantillas, puede hacerlo usando la extensión Java "raw()":javaextensions#raw sobre la cadena de texto. Pero si el texto fue proporcionado por el usuario desde un formulario, primero debe asegurarse de que está limpio (_sanitized_), es decir escapar cualquier código javascript para que no sea ejecutado por el explorador web del usuario.
 
-Cuando limpie los textos introducidos por los usuarios, siempre utilice la 'lista blanca' (permitir solamente una lista de tags seguros) en vez de la 'lista negra' (prohibir una lista de tags inseguros y permitir todos los demás).
+Cuando limpie los textos introducidos por los usuarios, siempre utilice una 'lista blanca' (permitir solamente una lista de tags seguros) en vez de una 'lista negra' (prohibir una lista de tags inseguros y permitir todos los demás).
 
 "Más sobre cross-site scripting":http://es.wikipedia.org/wiki/Cross-site_scripting
 
@@ -49,7 +49,7 @@ Esto está bien:
 
 bc. createQuery("SELECT * from Stuff WHERE type= ?1").setParameter(1, theType);
 
-Esto no:
+Esto está MAL:
 
 bc. createQuery("SELECT * from Stuff WHERE type=" + theType;
 
@@ -57,7 +57,7 @@ h2. <a name="csrf">Cross-Site Request Forgery (Falsificación de petición)</a>
 
 El ataque CSRF puede ser verdaderamente problemático para las aplicaciones web:
 
-bq. Este tipo de ataque consiste en la inclusión de código malicioso o un enlace en una página que accede a una aplicación web haciendole creer que el usuario ha sido autentificado. Si la sesión para esa aplicación web no tiene tiempo de expiración, un atacante puede ejecutar comandos no autorizados.
+bq. Este tipo de ataque consiste en la inclusión de código malicioso o un enlace en una página que accede a una aplicación web haciéndole creer que el usuario ha sido autentificado. Si la sesión para esa aplicación web no tiene tiempo de expiración, un atacante puede ejecutar comandos no autorizados.
 
 Para prevenir este tipo de ataques, lo primero que debe hacer es usar apropiadamente los métodos GET y POST. Es decir, que solo debería ustilizar el método POST para cambiar el estado de la aplicación.
 
