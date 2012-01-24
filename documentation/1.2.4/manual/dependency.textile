@@ -1,18 +1,18 @@
 h1. Administrando las dependencias
 
-El sistema de administración de dependencias de Play, nos permite expresar las dependencias externas de nuestra aplicación en un sólo archivo @dependencies.yml@.
+El sistema de administración de dependencias de Play, le permite expresar las dependencias externas de su aplicación en un único archivo @dependencies.yml@.
 
-Una aplicación Play puede tener 3 tipos de dependencias:
+Una aplicación Play puede tener tres tipos de dependencias:
 
-* El mismo framework Play, ya que una aplicación Play siempre depende del framework Play.
-* Cualquier librería Java, instalada como un archivo **JAR** en el directorio @lib/@ de tu aplicación.
-* Un módulo Play (de hecho, un fragmento de una aplicación) instalado en el directorio @modules/@ de tu aplicación.
+* El propio framework Play, ya que una aplicación Play siempre depende del framework.
+* Cualquier librería Java, instalada como un archivo **JAR** en el directorio @lib/@ de su aplicación.
+* Un módulo Play (de hecho, un fragmento de una aplicación) instalado en el directorio @modules/@ de su aplicación.
 
-Una vez que has expresado éstas dependencias en el archivo @conf/dependencies.yml@ de tu aplicación, Play resolverá, descargará e instalará todas las dependencias requeridas. 
+Una vez que ha definido estas dependencias en el archivo @conf/dependencies.yml@ de su aplicación, Play resolverá, descargará e instalará todas las dependencias requeridas. 
 
-h2. <a name="format">El formato de las dependencias</a>
+h2. <a name="format">El formato del archivo de dependencias</a>
 
-Una dependendencia se describe como una organización, un nombre, y un número de revisión. En el archivo @dependencies.yml@ deberás escribirla así:
+Una dependencia se define mediante una organización, un nombre, y un número de revisión. En el archivo @dependencies.yml@ deberá escribirla de la siguiente manera:
 
 bc. organisation -> name revision
 
@@ -24,7 +24,7 @@ A veces, el nombre de la organización coincide con el nombre de la dependencia,
 
 bc. commons-lang -> commons-lang 2.5
 
-En éste caso, puedes omitir el nombre de la organización y dejar sólo la dependencia:
+En este caso, puede omitir el nombre de la organización y dejar solamente la dependencia:
 
 bc. commons-lang 2.5
 
@@ -45,14 +45,14 @@ Por ejemplo:
 
 h2. <a name="yml">dependencies.yml</a>
 
-Cuando creas una nueva aplicación, un descriptor @dependencies.yml@ es creado automáticamente en el directorio @conf/@:
+Cuando usted crea una nueva aplicación, el archivo @dependencies.yml@ es creado automáticamente en el directorio @conf/@:
 
 bc. # Application dependencies
     
 require:
     - play 1.2
 
-La sección @require@ muestra una lista de todas las dependencias necesarias para tu aplicación. Aquí, la nueva aplicación solo depende de **Play versión 1.2**. Pero imaginemos que tu aplicación necesita "Google Guava":http://code.google.com/p/guava-libraries/; tendríamos:
+La sección @require@ muestra una lista de todas las dependencias necesarias para su aplicación. Aquí, la nueva aplicación solo depende de **Play versión 1.2**. Pero imaginemos que su aplicación necesita "Google Guava":http://code.google.com/p/guava-libraries/; en tal caso tendríamos:
 
 bc. # Application dependencies
     
@@ -62,7 +62,7 @@ require:
 
 h3. El comando ‘play dependencies’
 
-Para pedirle a Play que resuelva, descargue e instale las nuevas dependencias, ejecuta @play dependencies@:
+Para pedirle a Play que resuelva, descargue e instale las nuevas dependencias, ejecute @play dependencies@:
 
 bc. $ play dependencies
 ~        _            _ 
@@ -92,15 +92,15 @@ bc. $ play dependencies
 ~ Done!
 ~
 
-Ahora Play ha descargado dos archivos JAR (**guava-r07.jar**, **jsr305-1.3.7.jar**) del repositorio Maven central, y los ha instalado en el directorio @lib/@.
+Ahora Play ha descargado dos archivos JAR (**guava-r07.jar**, **jsr305-1.3.7.jar**) del repositorio dentral de Maven, y los ha instalado en el directorio @lib/@.
 
-Pero, ¿Por qué dos JAR, si sólo declaramos una dependencia? Porque Google Guava tiene una dependencia transitiva. En realidad, ésta dependencia no es necesaria realmente y nos gustaría excluírla.
+Pero, ¿Por qué dos JAR, si solo declaramos una dependencia? Porque Google Guava tiene una dependencia transitiva. En realidad, esta dependencia no es necesaria realmente y nos gustaría excluírla.
 
 h3. Dependencias transitivas
 
 Las dependencias transitivas son agregadas por defecto. Pero existen varias maneras de excluírlas si es necesario.
 
-1. Puedes deshabilitar las dependencias transitivas para una dependencia en particular:
+1. Puede deshabilitar las dependencias transitivas para una dependencia en particular:
 
 bc. # Application dependencies
     
@@ -109,7 +109,7 @@ require:
     - com.google.guava -> guava r07:
         transitive: false
 
-2. Puedes deshabilitar las dependencias transitivas para el proyecto completo:
+2. Puede deshabilitar las dependencias transitivas para el proyecto completo:
 
 bc. # Application dependencies
     
@@ -119,7 +119,7 @@ require:
     - play 1.2
     - com.google.guava -> guava r07
 
-3. Puedes excluir una dependencia específica explicitamente:
+3. Puede excluir explícitamente una dependencia específica:
 
 bc. # Application dependencies
     
@@ -129,9 +129,9 @@ require:
         exclude:
             - com.google.code.findbugs -> *
 
-h3. Mantiene los directorios lib/ y modules/ sincronizados
+h3. Manteniendo los directorios lib/ y modules/ sincronizados
 
-Ahora, si ejecutas nuevamente @play dependencies@, la dependencia findbugs será omitida:
+Ahora, si ejecuta nuevamente @play dependencies@, la dependencia findbugs será omitida:
 
 bc. $ play deps
 ~        _            _ 
@@ -161,19 +161,19 @@ bc. $ play deps
 ~ Done!
 ~
 
-Igualmente, el archivo **jsr305-1.3.7.jar** descargado antes, todavía está presente en el directorio @lib/@ de nuestra aplicación.
+Sin emabargo, el archivo **jsr305-1.3.7.jar** descargado anteriormente, todavía está presente en el directorio @lib/@ de nuestra aplicación.
 
-Para mantener los directorios @lib/@ y @modules/@ sincronizados con el sistema de administración de dependencias, puedes agregar la opción @--sync@ al comando @dependencies@:
+Para mantener los directorios @lib/@ y @modules/@ sincronizados con el sistema de administración de dependencias, puede agregar la opción @--sync@ al comando @dependencies@:
 
 bc. play dependencies --sync
 
-Si ejectuas el comando de nuevo, los archivos **JAR** ignorados serán eliminados.
+Si ejecuta el comando de nuevo, los archivos **JAR** ignorados serán eliminados.
 
-Cuando pasas a producción una aplicación, puedes reducir el tamaño de los módulos eliminando los códigos fuente y la documentación. Puedes hacer ésto agregando la opción @--forProd@ al comando:
+Cuando pasa a producción una aplicación, puede reducir el tamaño de los módulos eliminando el códigos fuente y la documentación. Puede hacer ésto agregando la opción @--forProd@ al comando:
 
 bc. play dependencies --forProd
 
-Así eliminarás los directorios @documentation/@, @src/@, @tmp/@, @*sample*/@ y @*test*/@ de cada módulo.
+Así eliminará los directorios @documentation/@, @src/@, @tmp/@, @*sample*/@ y @*test*/@ de cada módulo.
 
 h2. <a name="conflicts">Resolución de conflictos</a>
 
@@ -216,11 +216,11 @@ bc. play dependencies
 ~ Done!
 ~
 
-Además, nota que las dependencias disponibles en @$PLAY/framework/lib@ no serán instaladas en el directorio @lib/@ de tu aplicación.
+Además, tenga en cuenta que las dependencias disponibles en @$PLAY/framework/lib@ no serán instaladas en el directorio @lib/@ de tu aplicación.
 
-Algunas veces desearás forzar una versión específica de una dependencia, ya sea para sobreescribir una dependencia del núcleo o para elegir una versión distinta a la última disponible.
+Algunas veces deseará forzar una versión específica de una dependencia, ya sea para sobreescribir una dependencia del núcleo o para elegir una versión distinta a la última disponible.
 
-Entonces puedes especificar la opción @force@ en cualquier dependencia:
+En tal caso podrá especificar la opción @force@ en cualquier dependencia:
 
 bc. # Application dependencies
     
@@ -233,9 +233,9 @@ require:
 
 h2. <a name="repositories">Agregando nuevos repositorios</a>
 
-Por defecto, Play buscará las dependencias **JAR** en el "Repositorio Central Maven":http://repo1.maven.org/maven2/, y buscará **Play modules** en el "Repositorio central de módulos Play":http://www.playframework.org/modules. 
+Por defecto, Play buscará las dependencias **JAR** en el "Repositorio Central de Maven":http://repo1.maven.org/maven2/, y buscará **Play modules** en el "Repositorio central de módulos Play":http://www.playframework.org/modules. 
 
-Claro que también puedes especificar nuevos repositorios en la sección:
+Claro que también puedes especificar nuevos repositorios en la sección @repositories@:
 
 bc. # Application dependencies
     
@@ -247,7 +247,7 @@ require:
         force: true
     - com.zenexity -> sso 1.0
         
-# My custom repositories
+# Mis repositorios personalizados
 repositories:
     
     - zenexity:
@@ -256,11 +256,11 @@ repositories:
         contains:
             - com.zenexity -> *
 
-Utilizando ésta configuración, todas las dependencias de la organización @com.zenexity@ serán descargadas de un servidor HTTP remoto.
+Utilizando esta configuración, todas las dependencias de la organización @com.zenexity@ serán descargadas de un servidor HTTP remoto.
 
 h3. Repositorios Maven
 
-También puedes agregar repositorios compatibles con maven2 utilizando el tipo @iBiblio@ así:
+También puede agregar repositorios compatibles con maven2 utilizando el tipo @iBiblio@ así:
 
 bc. # Application dependencies
     
@@ -282,7 +282,7 @@ repositories:
 
 h3. Repositorios locales
 
-Finalmente y probablemente lo más importante, podríamos querer definir un repositorio que haga referencia a módulos locales. Con éste escenario, las dependencias funcionan casi como la resolución que utiliza el módulo @application.conf@ (ahora obsoleta).
+Finalmente y probablemente lo más importante, podríamos querer definir un repositorio que haga referencia a módulos locales. Con este escenario, las dependencias funcionan casi como la resolución de módulos del archivo @application.conf@ (ahora obsoleta).
 
 Entonces dada la siguiente estructura de carpetas,
 
@@ -307,21 +307,21 @@ repositories:
             - myfirstmodule
             - mysecondmodule
 
-Note: No olvides ejecutar @play dependencies myplayapp@.
+Nota: No olvides ejecutar @play dependencies myplayapp@.
 
 
 h3. Configuración personalizada de Ivy
 
-Play utiliza Ivy. Si deseas alguna configuración especial para un proxy ó autenticación básica para el nexo con un repositorio maven interno, puedes editar el archivo ivysettings.xml que se encuentra en la carpeta @.ivy2@ en tu directorio home.
+Internamente, Play utiliza Ivy para la resolución de dependencias. Si desea alguna configuración especial para un proxy o autenticación básica para acceder a un repositorio maven interno, puede editar el archivo ivysettings.xml que se encuentra en la carpeta @.ivy2@ en su directorio home.
 
-Ejemplo 1, deseas que Ivy ignore checksums:
+Ejemplo 1, configurando Ivy para que ignore checksums:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
   <property name="ivy.checksums" value=""/>
 </ivysettings>
 
-Ejemplo 2, deseas utilizar autenticación básica:
+Ejemplo 2, utilizar autenticación básica:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
@@ -369,13 +369,13 @@ Hay varias cosas que puedes configurar: chequea la "Documentación de configurac
 
 h3. Limpiando la caché de Ivy
 
-La caché de Ivy puede volverse corrupta, especialmente cuando utilizamos el tipo @http@ en la sección de repositorios de @conf/dependencies.yml@. Si ésto sucede, y la resolución de dependencias no funciona, puedes limpiar la caché con la opción @--clearcache@.
+La caché de Ivy puede volverse corrupta, especialmente cuando utilizamos el tipo @http@ en la sección de repositorios de @conf/dependencies.yml@. Si esto sucede, y la resolución de dependencias no funciona, puede limpiar la caché con la opción @--clearcache@.
 
 bc. $ play dependencies --clearcache
 
 Esto es quivalente a @rm -r ~/.ivy2/cache@.
 
 
-p(note). **Continuamos con la discusión**
+p(note). **Próximos pasos**
 
 Siguiente: %(next)"Evolución de las bases de datos":evolutions%.

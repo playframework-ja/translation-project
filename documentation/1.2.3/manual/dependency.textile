@@ -1,60 +1,58 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Administrando las dependencias
 
-h1. Dependency management
+El sistema de administración de dependencias de Play, le permite expresar las dependencias externas de su aplicación en un único archivo @dependencies.yml@.
 
-Play’s dependency management system allows you to express your application’s external dependencies in a single @dependencies.yml@ file. 
+Una aplicación Play puede tener tres tipos de dependencias:
 
-A Play application can have three kinds of dependencies:
+* El propio framework Play, ya que una aplicación Play siempre depende del framework.
+* Cualquier librería Java, instalada como un archivo **JAR** en el directorio @lib/@ de su aplicación.
+* Un módulo Play (de hecho, un fragmento de una aplicación) instalado en el directorio @modules/@ de su aplicación.
 
-* The Play framework itself, since a Play application always depends on the Play framework.
-* Any Java library, provided as **JAR** file installed in your application’s @lib/@ directory.
-* A Play module (in fact an application fragment) installed in your application’s @modules/@ directory.
+Una vez que ha definido estas dependencias en el archivo @conf/dependencies.yml@ de su aplicación, Play resolverá, descargará e instalará todas las dependencias requeridas. 
 
-Once you have expressed these dependencies in your application’s @conf/dependencies.yml@ file, Play will resolve, download and install all required dependencies.
+h2. <a name="format">El formato del archivo de dependencias</a>
 
-h2. <a name="format">Dependency format</a>
-
-A dependency is described by an organisation a name and a revision number. In the @dependencies.yml@ file you will write it like this:
+Una dependencia se define mediante una organización, un nombre, y un número de revisión. En el archivo @dependencies.yml@ deberá escribirla de la siguiente manera:
 
 bc. organisation -> name revision
 
-So, for instance version 1.0 of the "Play PDF module":http://www.playframework.org/modules/pdf is expressed like this:
+Entonces, por ejemplo para la versión 1.0 del "Módulo PDF Play":http://www.playframework.org/modules/pdf se expresaría así:
 
 bc. play -> pdf 1.0
 
-Sometimes the organisation name exactly matches the dependency name, as is the case for "commons-lang":http://commons.apache.org/lang/:
+A veces, el nombre de la organización coincide con el nombre de la dependencia, como en el caso de "commons-lang":http://commons.apache.org/lang/:
 
 bc. commons-lang -> commons-lang 2.5
 
-In this case, you can omit the organisation from the dependency declaration:
+En este caso, puede omitir el nombre de la organización y dejar solamente la dependencia:
 
 bc. commons-lang 2.5
 
-h3. Dynamic revisions
+h3. Revisiones dinámicas
 
-The revision can be fixed (1.2, for instance) or dynamic. A dynamic revision expresses a range of allowed revisions. 
+Una revisión puede ser estática (1.2, por ejemplo) o dinámica. Una revisión dinámica expresa un rango de revisiones permitidas.
 
-For example:
+Por ejemplo:
 
-* @[1.0,2.0]@ matches all versions greater or equal to 1.0 and lower or equal to 2.0
-* @[1.0,2.0[@ matches all versions greater or equal to 1.0 and lower than 2.0
-* @]1.0,2.0]@ matches all versions greater than 1.0 and lower or equal to 2.0
-* @]1.0,2.0[@ matches all versions greater than 1.0 and lower than 2.0
-* @[1.0,)@ matches all versions greater or equal to 1.0
-* @]1.0,)@ matches all versions greater than 1.0
-* @(,2.0]@ matches all versions lower or equal to 2.0
-* @(,2.0[@ matches all versions lower than 2.0
+* @[1.0,2.0]@ concuerda con todas las versiones mayores o iguales que 1.0 y menores o iguales que 2.0
+* @[1.0,2.0[@ concuerda con todas las versiones mayores o iguales que 1.0 y menores que 2.0
+* @]1.0,2.0]@ concuerda con todas las versiones mayores que 1.0 y menores o iguales que 2.0
+* @]1.0,2.0[@ concuerda con todas las versiones mayores que 1.0 y menores que 2.0
+* @[1.0,)@ concuerda con todas las versiones mayores o iguales que 1.0
+* @]1.0,)@ concuerda con todas las versiones mayores que 1.0
+* @(,2.0]@ concuerda con todas las versiones menores o iguales que 2.0
+* @(,2.0[@ * @(,2.0[@ concuerda con todas las versiones menores que 2.0
 
 h2. <a name="yml">dependencies.yml</a>
 
-When you create a new Play application, a @dependencies.yml@ descriptor is automatically created in the @conf/@ directory:
+Cuando usted crea una nueva aplicación, el archivo @dependencies.yml@ es creado automáticamente en el directorio @conf/@:
 
 bc. # Application dependencies
     
 require:
     - play 1.2
 
-The @require@ section list all dependencies needed by your application. Here the new application only depends on **Play version 1.2**. But let’s say your application needs "Google Guava":http://code.google.com/p/guava-libraries/; you would have:
+La sección @require@ muestra una lista de todas las dependencias necesarias para su aplicación. Aquí, la nueva aplicación solo depende de **Play versión 1.2**. Pero imaginemos que su aplicación necesita "Google Guava":http://code.google.com/p/guava-libraries/; en tal caso tendríamos:
 
 bc. # Application dependencies
     
@@ -62,47 +60,47 @@ require:
     - play 1.2
     - com.google.guava -> guava r07
 
-h3. The ‘play dependencies’ command
+h3. El comando ‘play dependencies’
 
-To ask Play to resolve, download and install the new dependencies, run @play dependencies@:
+Para pedirle a Play que resuelva, descargue e instale las nuevas dependencias, ejecute @play dependencies@:
 
 bc. $ play dependencies
 ~        _            _ 
 ~  _ __ | | __ _ _  _| |
 ~ | '_ \| |/ _' | || |_|
 ~ |  __/|_|\____|\__ (_)
-~ |_|            |__/   
+~ |_|            |__/   s
 ~
 ~ play! 1.2, http://www.playframework.org
 ~ framework ID is gbo
 ~
 ~ Resolving dependencies using ~/Documents/coco/conf/dependencies.yml,
 ~
-~ 	com.google.guava->guava r07 (from mavenCentral)
-~ 	com.google.code.findbugs->jsr305 1.3.7 (from mavenCentral)
+~   com.google.guava->guava r07 (from mavenCentral)
+~   com.google.code.findbugs->jsr305 1.3.7 (from mavenCentral)
 ~
 ~ Downloading required dependencies,
 ~
-~ 	downloaded http://repo1.maven.org/maven2/com/google/guava/guava/r07/guava-r07.jar
-~ 	downloaded http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/1.3.7/jsr305-1.3.7.jar
+~   downloaded http://repo1.maven.org/maven2/com/google/guava/guava/r07/guava-r07.jar
+~   downloaded http://repo1.maven.org/maven2/com/google/code/findbugs/jsr305/1.3.7/jsr305-1.3.7.jar
 ~
 ~ Installing resolved dependencies,
 ~
-~ 	lib/guava-r07.jar
-~ 	lib/jsr305-1.3.7.jar
+~   lib/guava-r07.jar
+~   lib/jsr305-1.3.7.jar
 ~
 ~ Done!
 ~
 
-Now Play has downloaded two JARs (**guava-r07.jar**, **jsr305-1.3.7.jar**) from the central Maven repository, and installed them into the application @lib/@ directory. 
+Ahora Play ha descargado dos archivos JAR (**guava-r07.jar**, **jsr305-1.3.7.jar**) del repositorio dentral de Maven, y los ha instalado en el directorio @lib/@.
 
-Why two jars, since we only declared one dependency? Because Google Guava has a transitive dependency. In fact this dependency is not really required and we would like to exclude it. 
+Pero, ¿Por qué dos JAR, si solo declaramos una dependencia? Porque Google Guava tiene una dependencia transitiva. En realidad, esta dependencia no es necesaria realmente y nos gustaría excluírla.
 
-h3. Transitive dependencies
+h3. Dependencias transitivas
 
-By default, any transitive dependencies are automatically retrieved. But there are several ways to exclude them if needed.
+Las dependencias transitivas son agregadas por defecto. Pero existen varias maneras de excluírlas si es necesario.
 
-1. You can disable transitive dependencies for a particular dependency:
+1. Puede deshabilitar las dependencias transitivas para una dependencia en particular:
 
 bc. # Application dependencies
     
@@ -111,7 +109,7 @@ require:
     - com.google.guava -> guava r07:
         transitive: false
 
-2. You can disable transitive dependencies for the whole project:
+2. Puede deshabilitar las dependencias transitivas para el proyecto completo:
 
 bc. # Application dependencies
     
@@ -121,7 +119,7 @@ require:
     - play 1.2
     - com.google.guava -> guava r07
 
-3. You can exclude any specific dependency explicitely:
+3. Puede excluir explícitamente una dependencia específica:
 
 bc. # Application dependencies
     
@@ -131,9 +129,9 @@ require:
         exclude:
             - com.google.code.findbugs -> *
 
-h3. Keep lib/ and modules/ directory in sync
+h3. Manteniendo los directorios lib/ y modules/ sincronizados
 
-Now if you run @play dependencies@ again, the findbugs dependency will be omitted:
+Ahora, si ejecuta nuevamente @play dependencies@, la dependencia findbugs será omitida:
 
 bc. $ play deps
 ~        _            _ 
@@ -147,42 +145,41 @@ bc. $ play deps
 ~
 ~ Resolving dependencies using ~/Documents/coco/conf/dependencies.yml,
 ~
-~ 	com.google.guava->guava r07 (from mavenCentral)
+~   com.google.guava->guava r07 (from mavenCentral)
 ~
 ~ Installing resolved dependencies,
 ~
-~ 	lib/guava-r07.jar
+~   lib/guava-r07.jar
 ~
 ~ ********************************************************************
 ~ WARNING: Your lib/ and modules/ directories and not synced with 
 ~ current dependencies (use --sync to automatically delete them)
 ~
-~ 	Unknown: ~/Documents/coco/lib/jsr305-1.3.7.jar
+~   Unknown: ~/Documents/coco/lib/jsr305-1.3.7.jar
 ~ ********************************************************************
 ~
 ~ Done!
 ~
 
-However the **jsr305-1.3.7.jar** artifact downloaded before is still present in the application @lib/@ directory. 
+Sin emabargo, el archivo **jsr305-1.3.7.jar** descargado anteriormente, todavía está presente en el directorio @lib/@ de nuestra aplicación.
 
-To keep the @lib/@ and @modules/@ directory synced with the dependency management system, you can specify the @--sync@ command to the @dependencies@ command:
+Para mantener los directorios @lib/@ y @modules/@ sincronizados con el sistema de administración de dependencias, puede agregar la opción @--sync@ al comando @dependencies@:
 
 bc. play dependencies --sync
 
-If you run this command again the unwanted **JAR** will be deleted. 
+Si ejecuta el comando de nuevo, los archivos **JAR** ignorados serán eliminados.
 
-When you deploy an application in production, you can reduce the size of its modules by removing module source code and documentation. You can do this by adding the @--forProd@ option to the command:
+Cuando pasa a producción una aplicación, puede reducir el tamaño de los módulos eliminando el códigos fuente y la documentación. Puede hacer ésto agregando la opción @--forProd@ al comando:
 
 bc. play dependencies --forProd
 
-This removes the @documentation/@, @src/@, @tmp/@, @*sample*/@ and @*test*/@ directories from each module.
+Así eliminará los directorios @documentation/@, @src/@, @tmp/@, @*sample*/@ y @*test*/@ de cada módulo.
 
+h2. <a name="conflicts">Resolución de conflictos</a>
 
-h2. <a name="conflicts">Conflict resolution</a>
+Cuando dos componentes necesitan diferentes revisiones de la misma dependencia, el administrador de conflictos deberá elegir alguno. Por defecto, se quedará con la revisión más actual e ignorará a las restantes.
 
-Whenever two components need different revisions of the same dependency, the conflicts manager will choose one. The default is to keep the latest revision and to evict the others. 
-
-But there is an exception. When a core dependency of Play framework itself is involved in a conflict, the version available in @$PLAY/framework/lib@ is preferred. For instance, Play depends on @commons-lang 2.5@. If your application requires @commons-lang 3.0@:
+Pero hay una excepción. Cuando una dependencia del núcleo del propio framework Play se encuentra en conflicto, la versión disponible en @$PLAY/framework/lib@ será la preferida. Por ejemplo, Play depende de @commons-lang 2.5@ pero si tu aplicación requiere @commons-lang 3.0@:
 
 bc. # Application dependencies
     
@@ -192,7 +189,7 @@ require:
         transitive: false
     - commons-lang 3.0
 
-Running @play dependencies@ will evict @commons-lang 3.0@ even if this version is newer:
+Ejecutando @play dependencies@ se ignorará @commons-lang 3.0@ aún siendo una versión más actual:
 
 bc. play dependencies
 ~        _            _ 
@@ -206,24 +203,24 @@ bc. play dependencies
 ~
 ~ Resolving dependencies using ~/Documents/coco/conf/dependencies.yml,
 ~
-~ 	com.google.guava->guava r07 (from mavenCentral)
+~   com.google.guava->guava r07 (from mavenCentral)
 ~
 ~ Some dependencies have been evicted,
 ~
-~	commons-lang 3.0 is overriden by commons-lang 2.5
+~   commons-lang 3.0 is overriden by commons-lang 2.5
 ~
 ~ Installing resolved dependencies,
 ~
-~ 	lib/guava-r07.jar
+~   lib/guava-r07.jar
 ~
 ~ Done!
 ~
 
-Also, note that dependencies already available in @$PLAY/framework/lib@ will not be installed in your application’s @lib/@ directory.
+Además, tenga en cuenta que las dependencias disponibles en @$PLAY/framework/lib@ no serán instaladas en el directorio @lib/@ de tu aplicación.
 
-Sometimes you want to force a specific dependency version, either to override a core dependency or to choose another revision that the latest version available. 
+Algunas veces deseará forzar una versión específica de una dependencia, ya sea para sobreescribir una dependencia del núcleo o para elegir una versión distinta a la última disponible.
 
-So you can specify the @force@ option on any dependency:
+En tal caso podrá especificar la opción @force@ en cualquier dependencia:
 
 bc. # Application dependencies
     
@@ -234,11 +231,11 @@ require:
     - commons-lang 3.0:
         force: true
 
-h2. <a name="repositories">Adding new repositories</a>
+h2. <a name="repositories">Agregando nuevos repositorios</a>
 
-By default, Play will search for **JAR** dependencies in the "central Maven repository":http://repo1.maven.org/maven2/, and will search for **Play modules** in the "central Play modules repository":http://www.playframework.org/modules. 
+Por defecto, Play buscará las dependencias **JAR** en el "Repositorio Central de Maven":http://repo1.maven.org/maven2/, y buscará **Play modules** en el "Repositorio central de módulos Play":http://www.playframework.org/modules. 
 
-You can, of course, specify new custom repositories in the @repositories@ section:
+Claro que también puedes especificar nuevos repositorios en la sección @repositories@:
 
 bc. # Application dependencies
     
@@ -250,7 +247,7 @@ require:
         force: true
     - com.zenexity -> sso 1.0
         
-# My custom repositories
+# Mis repositorios personalizados
 repositories:
     
     - zenexity:
@@ -259,11 +256,11 @@ repositories:
         contains:
             - com.zenexity -> *
 
-Using this configuration all dependencies of the @com.zenexity@ organisation will be retrieved and downloaded from a remote HTTP server.
+Utilizando esta configuración, todas las dependencias de la organización @com.zenexity@ serán descargadas de un servidor HTTP remoto.
 
-h3. Maven repositories
+h3. Repositorios Maven
 
-You can also add maven2-compatible repositories using the @iBiblio@ type, like this:
+También puede agregar repositorios compatibles con maven2 utilizando el tipo @iBiblio@ así:
 
 bc. # Application dependencies
     
@@ -283,17 +280,17 @@ repositories:
             - org.jbpm -> *
             - org.drools -> *
 
-h3. Local repositories
+h3. Repositorios locales
 
-Finally and probably foremost, you may want to define a repository that references local modules. With this scenario, dependencies work very much like @application.conf@’s module resolution (now deprecated).
+Finalmente y probablemente lo más importante, podríamos querer definir un repositorio que haga referencia a módulos locales. Con este escenario, las dependencias funcionan casi como la resolución de módulos del archivo @application.conf@ (ahora obsoleta).
 
-So given the following folder structure,
+Entonces dada la siguiente estructura de carpetas,
 
 bc. myplayapp/
 myfirstmodule/
 mysecondmodule/
 
-The following @myplayapp/conf/depencencies.yml@ will achieve its goal.
+el siguiente archivo @myplayapp/conf/depencencies.yml@ logrará nuestro objetivo.
 
 bc. # Application dependencies
     
@@ -310,21 +307,21 @@ repositories:
             - myfirstmodule
             - mysecondmodule
 
-Note: don't forget to run @play dependencies myplayapp@.
+Nota: No olvides ejecutar @play dependencies myplayapp@.
 
 
-h3. Custom ivy settings
+h3. Configuración personalizada de Ivy
 
-Play is using Ivy under the hood. If you require a special configuration such as setting a proxy, basic authentication for an internal maven nexus repository, you can edit the ivysettings.xml file. It is located in the @.ivy2@ folder in your home directory.
+Internamente, Play utiliza Ivy para la resolución de dependencias. Si desea alguna configuración especial para un proxy o autenticación básica para acceder a un repositorio maven interno, puede editar el archivo ivysettings.xml que se encuentra en la carpeta @.ivy2@ en su directorio home.
 
-Example 1, you want Ivy to ignore checksums:
+Ejemplo 1, configurando Ivy para que ignore checksums:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
   <property name="ivy.checksums" value=""/>
 </ivysettings>
 
-Example 2, you want to use basic authentication:
+Ejemplo 2, utilizar autenticación básica:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
@@ -332,7 +329,7 @@ bc. <!-- .ivy2/ivysettings.xml -->
     username="user" passwd="reallygreatpassword"/>
 </ivysettings>
 
-Example 3, reuse local maven repository and repository manager:
+Ejemplo 3, reutilizar el repositorio local maven y el repositorio manager:
 
 bc. <!-- .ivy2/ivysettings.xml -->
 <ivy-settings>
@@ -368,18 +365,17 @@ bc. <!-- .ivy2/ivysettings.xml -->
   </resolvers>
 </ivy-settings>
 
-There are many things you can configure: see the "Ivy settings documentation":http://ant.apache.org/ivy/history/2.1.0/settings.html.
+Hay varias cosas que puedes configurar: chequea la "Documentación de configuración de Ivy":http://ant.apache.org/ivy/history/2.1.0/settings.html.
 
+h3. Limpiando la caché de Ivy
 
-h3. Clearing the Ivy cache
-
-The Ivy cache can become corrupted, especially when using the @http@ type in the repositories section of @conf/dependencies.yml@. If this happens, and dependency resolution does not work, you can clear the cache with the @--clearcache@ option.
+La caché de Ivy puede volverse corrupta, especialmente cuando utilizamos el tipo @http@ en la sección de repositorios de @conf/dependencies.yml@. Si esto sucede, y la resolución de dependencias no funciona, puede limpiar la caché con la opción @--clearcache@.
 
 bc. $ play dependencies --clearcache
 
-This is equivalent to @rm -r ~/.ivy2/cache@.
+Esto es quivalente a @rm -r ~/.ivy2/cache@.
 
 
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
 
-Next: %(next)"Database evolutions":evolutions%.
+Siguiente: %(next)"Evolución de las bases de datos":evolutions%.
