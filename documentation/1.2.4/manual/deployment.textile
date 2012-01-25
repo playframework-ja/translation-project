@@ -1,22 +1,22 @@
 p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
 
-h1. Deployment options
+h1. Opciones de puesta en producción
 
-Play applications can be deployed virtually anywhere: inside Servlet containers, as standalone servers, on Heroku, Google Application Engine, Stack, a Cloud, etc...
+Las aplicaciones hechas con Play pueden ser desplegadas prácticamente en donde sea: dentro de Servlet containers, en servidores independientes, en Heroku, Google Application Engine, Stack, en la nube computacional (cloud computing), etc...
 
-h2. <a name="standalone">Standalone Play applications</a>
+h2. <a name="standalone">Aplicacinoes Play independientes (standalone)</a>
 
-The simplest and the most robust way is to simply run your Play application without any container. You can use a frontal HTTP server like Lighttpd or Apache if you need more advanced HTTP features like virtual hosting.
+La manera mas simple y robusta de poner en producción una aplicación hecha con Play, es corriéndola sin ningún tipo de contenedor. Puede usar un servidor HTTP frontal como Lighttp o Apache si precisa prestaciones avanzadas de HTTP como puede ser hosts virtuales.
 
-The built-in HTTP server can serve thousands of HTTP requests per second so it will never be the performance bottleneck. Moreover it uses a more efficient threading model (where a Servlet container uses 1 thread per request). Different "modules":http://playframework.org/modules allow you to use different servers (Grizzly, Netty, etc...) as well.
+El servidor HTTP que viene incluido con Play puede atender miles de pedidos HTTP por segundo, de manera que nunca se transformará en el cuello de botella de su aplicación. Más aún, utilizad un modelo de threads mucho más eficiente que el estándar (un Servlet container utiliza un único thread por request). También dispone de diferentes "módulos":http://playframework.org/modules que le permitirá utilizar otros servidores (Grizzly, Netty, etc...).
 
-Those servers support long polling and allow to manage very long requests (waiting for a long task to complete), and direct streaming of File objects (and any InputStream if you specify the Content-Length), without blocking the execution thread.
+Esos servidores soportan lon polling y le permiten manejan pedidos HTTP largos (por ejemplo, cuando espera que se complete una tarea larga), así como efectuar streaming directo de objetos File (y de cualquier InputStream si especifica la propiedad Content-Length), sin por ello bloquear la ejecución del thread.
 
-You will have fewer problems running your application this way, as you will use the same environment that you used during the development process. A lot of bugs can be discovered only when you deploy to a JEE application server (different home dir, classloader issues, library conflicts, etc...).
+Va a tener menos problemas al ejecutar su aplicación de esta manera, dado que estará utilizando el mismo entorno para desarrollar que al poner en producción. Muchos bugs pueden ser descubiertos únicamente al poner en producción su aplicación en un servidor JEE (diferentes directorios, problemas con el classloader, conflictos con librerías, etc...).
 
-Please refer to the "'Put your application in production' page":production for more information.
+Para más información consulte "Poniendo su aplicación en producción"::production.
 
-h2. <a name="appservers">Java EE application servers</a>
+h2. <a name="appservers">Servidores de aplicaciones Java EE</a>
 
 Your Play application can also run inside your favorite application server. Most application servers are supported out of the box.
 
