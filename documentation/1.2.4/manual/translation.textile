@@ -14,7 +14,7 @@ La documentación de play está almacenada en formato "textile":http://en.wikipe
 
 Afortunadamente "github":http://github.com viene integrado con un editor de archivos .textile, por lo que ni siquiera precisas tener instalado git ni play, tan sólo con contar con un explorador web y registrarte en github ya podrás colaborar con nosotros.
 
-Dirígete a "https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual":https://github.com/opensas/playdoces/tree/master/documentation/1.2.3/manual, selecciona el archivo que quieres editar y presiona el botón _Fork and edit this file_. 
+Dirígete a "https://github.com/opensas/playdoces/tree/master/documentation/1.2.4/manual":https://github.com/opensas/playdoces/tree/master/documentation/1.2.4/manual, selecciona el archivo que quieres editar y presiona el botón _Fork and edit this file_. 
 
 Cuando termines de editar el archivo presiona el botón _Propose file change_ y luego _Send pull request_ para enviarnos los cambios. ¡Y eso es todo!
 
@@ -22,7 +22,7 @@ h2. <a name="translating">Trabajando con una copia local del proyecto</a>
 
 Otra opción es instalarte localmente la aplicación "playdoces":http://playdoces.appspot.com para ir viendo cómo quedarán los cambios en producción mientras vas traduciendo las páginas. Para ello puedes obtener el proyecto bajándote la "aplicación comprimida":https://github.com/opensas/playdoces/downloads o clonando el "repositorio de la aplicación":https://github.com/opensas/playdoces. Si no tienes experiencia colaborando con otros proyectos de github, puedes consultar nuestra "guía para colaborar con un proyecto en github":github.
 
-Luego de hacer esto tendrás que editar los archivos de _/playdoces/documentation/1.2.3/manual_ con cualquier editor de texto.
+Luego de hacer esto tendrás que editar los archivos de _/playdoces/documentation/1.2.4/manual_ con cualquier editor de texto.
 
 Para ir viendo cómo quedará la traducción una vez subida a producción, tendrás que iniciar la aplicación. Para eso ejecuta:
 
