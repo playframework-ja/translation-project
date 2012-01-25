@@ -1,18 +1,18 @@
 h1. Administrar application.conf en múltiples entornos
 
-Cuando trabajas en un equipo, diferentes desarrolladores usan diferentes parámetros de configuración en el archivo @application.conf@. Por ejemplo, el nivel de log o alguna configuración de la base de datos. Esto generalmente lleva a conflictos recurrentes cuando actualizas la aplicación en tu sistema de control de versiones.
+Cuando trabajas en un equipo, diferentes desarrolladores utilizarán diferentes parámetros de configuración en el archivo @application.conf@. Por ejemplo, el nivel de log o alguna configuración de la base de datos. Esto generalmente lleva a conflictos recurrentes cuando alguno de ellos actualiza la aplicación en su sistema de control de versiones.
 
 Además, diferentes entornos de despliegue - por ejemplo desarrollo, pruebas, transición y producción - necesitan diferente configuración.
 
 h2. <a name="id">El ID del Framework</a>
 
-Para resolver este problema, Play te permite asignar un **ID** para cada instalación del framework. Usa el comando @id@ de la línea de comando de play para definir éste ID:
+Para resolver este problema, Play le permite asignar un **ID** para cada instalación del framework. Utilice el comando @id@ de la línea de comando de play para definir este ID:
 
 bc. play id
 
 !images/id!
 
-De esta forma puedes anteponer las llaves de tu configuración con el ID del framework para el cual la configuración está destinada:
+De esta forma podrá anteponer a los parámetros de configuración el ID del framework para el cual la configuración está destinada:
 
 bc. application.name=Cool app
 application.mode=dev
@@ -30,9 +30,9 @@ application.log=INFO
 %prod.application.log=INFO
 %prod.application.mode=prod
 
-h2. <a name="command">Estableciendo el ID del framework desde la línea de comandos</a>
+h2. <a name="command">Configurando el ID del framework desde la línea de comandos</a>
 
-Puedes especificar el ID del framework a usar para una instalación particular directamente al iniciar el servidor. Por ejemplo para ejecutar la aplicación en modo de producción puedes usar:
+Puede especificar el ID del framework a usar directamente desde la línea de comandos al iniciar el servidor. Por ejemplo para ejecutar la aplicación en modo de producción puede usar:
 
 bc. play run --%production
 
@@ -47,6 +47,6 @@ Por cierto, @play test@ es entonces equivalente a:
 
 bc. play run --%test
 
-p(note). **Continuar con la discusión**
+p(note). **Próximos pasos**
  
 Ahora podemos avanzar a %(next)"Despliegue en producción":production%.
