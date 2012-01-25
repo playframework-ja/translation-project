@@ -1,29 +1,29 @@
 p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
 
-h1. Play 1.0.3 -- Release notes
+h1. Play 1.0.3 -- Cambios de la versiòn 1.0.3
 
-**Play 1.0.3** is a maintenance release of the Play 1.0 branch. There is no new major feature in this version, as the development focus is now set to the 1.1 version. The documentation has been updated with missing references, the yabe tutorial now includes a new chapter about "Internationalisation and localisation":guide12, and a new sample application has been added.
+**Play 1.0.3** es una versiòn de mantenimiento de la rama 1.0 de Play. No hay mayores cambios en esta version, ya que las tareas de desarrollo están concentradas en la versión 1.1. La documentación ha sido actualizada con referencias que estaban faltando, al tutorial de yabe se le ha agregado un nuevo capítulo acerca  de "Internacionalización y localización":guide12, y también se ha agregado una nueva aplicación de ejemplo.
 
-p(note). **Play 1.0.3** is a maintenance release and is fully compatible with the 1.0 series. If you encounter any problems please ask us on the "Google Group":http://groups.google.com/group/play-framework.
+p(note). Al ser una versión de mantenimiento, **Play 1.0.3** es totalmente compatible con la serie 1.0. Si encuentra algún problema por favor consulte en la "lista de discusión de google":http://groups.google.com/group/play-framework.
 
-You can read about the fixed bugs on the "1.0.3 road map page":http://www.playframework.org/roadmap/1.0.3. The most important changes are highlighted on this page.
+Puede enterarse de los bugs solucionados consultando la "Hoja de ruta de la versión 1.0.3":http://www.playframework.org/roadmap/1.0.3. Podrá encontrar los cambios más importantes en esa página.
 
-h2. <a>New sample application: validation</a>
+h2. <a>Nueva aplicación de ejemplo: validaciones</a>
 
-A new sample application has been added. It demonstrates the different ways to create a form with the Play validation support.
+Hemo agregado una nueva aplicación de ejemplo. En ella se demuestran las diferentes maneras de crear un formulario con el soporte de validaciones de Play.
 
 !images/validation!
 
-h2. <a>New yabe tutorial chapter</a>
+h2. <a>Nuevo capítulo del tutorial yabe</a>
 
-"Internationalisation and localisation":guide12 completes the existing yabe tutorial with application. Although we could have done this from the start, it is more realistic to build the first version of an application in a single language, and add multiple languages later.
+"Internacionalización y localización":guide12 viene a completar el tutorial de yabe. A pesar de que podríamos haberlo hecho desde el principio, es más realista construir una primera versión de una aplicación en un único idioma, y luego agregar soporte para otros idiomas.
 
-"Read the new chapter":guide12
+"Lea el nuevo capítulo":guide12
 
-h2. <a>playapps.net support</a>
+h2. <a>Soporte para playapps.net</a>
 
-The 1.0.3 release is the first one to be officially supported by the new "http://www.playapps.net":http://www.playapps.net on the cloud-hosting platform.
+La versión 1.0.3 es la primera en contar con soporte oficial en la nueva plataforma de cloud-hosting,  "http://www.playapps.net":http://www.playapps.net..
 
 !images/dashboard_preview!
 
-p(note). Next release: %(next)"Play 1.1 release notes":releasenotes-1.1%
+p(note). Próxima versión: %(next)"Cambios en la versión 1.1 de Play":releasenotes-1.1%
