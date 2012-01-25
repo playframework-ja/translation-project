@@ -1,20 +1,18 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Administrar application.conf en múltiples entornos
 
-h1. Manage application.conf in several environments
+Cuando trabajas en un equipo, diferentes desarrolladores usan diferentes parámetros de configuración en el archivo @application.conf@. Por ejemplo, el nivel de log o alguna configuración de la base de datos. Esto generalmente lleva a conflictos recurrentes cuando actualizas la aplicación en tu sistema de control de versiones.
 
-When you work in a team, different developers will use different configuration keys in their @application.conf@. For example, the log level or some database configuration. This generally leads to recurrent conflicts when you commit the file using your VCS. 
+Además, diferentes entornos de despliegue - por ejemplo desarrollo, pruebas, transición y producción - necesitan diferente configuración.
 
-Furthermore, different deployment environments - e.g. dev, test, staging and production - need different configurations.
+h2. <a name="id">El ID del Framework</a>
 
-h2. <a name="id">The framework ID</a>
-
-To resolve this problem, Play allows you to give an **ID** to each framework installation. Use the play tool’s @id@ command to define this ID:
+Para resolver este problema, Play te permite asignar un **ID** para cada instalación del framework. Usa el comando @id@ de la línea de comando de play para definir éste ID:
 
 bc. play id
 
 !images/id!
 
-You can then prefix your configuration keys with the framework ID for which the configuration option is intended:
+De esta forma puedes anteponer las llaves de tu configuración con el ID del framework para el cual la configuración está destinada:
 
 bc. application.name=Cool app
 application.mode=dev
@@ -32,23 +30,23 @@ application.log=INFO
 %prod.application.log=INFO
 %prod.application.mode=prod
 
-h2. <a name="command">Setting the framework ID from the command line</a>
+h2. <a name="command">Estableciendo el ID del framework desde la línea de comandos</a>
 
-You can specify the framework ID to use for a particular command directly from the command line. For example to run an application in production mode you can use:
+Puedes especificar el ID del framework a usar para una instalación particular directamente al iniciar el servidor. Por ejemplo para ejecutar la aplicación en modo de producción puedes usar:
 
 bc. play run --%production
 
-with these lines defined in the @application.conf@ file:
+con estas lineas definidas en el archivo @application.conf@:
 
 bc. application.mode=dev
 %production.application.mode=prod
 
-It should be compatible with all commands using the framework ID information. The default ID is still defined using the @play id@ command.
+De esta forma Play usa todos los parámetros que tienen un ID de framework específico. El ID por defecto sigue estando definido usando el comando @play id@.
 
-By the way, @play test@ is then equivalent to:
+Por cierto, @play test@ es entonces equivalente a:
 
 bc. play run --%test
 
-p(note). **Continuing the discussion**
+p(note). **Continuar con la discusión**
  
-Now we shall move on to %(next)"Production deployment":production%.
+Ahora podemos avanzar a %(next)"Despliegue en producción":production%.
