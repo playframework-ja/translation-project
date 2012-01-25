@@ -1,6 +1,6 @@
 h1. Internacionalización y localización
 
-Dado que ya hemos completado la funcionalidad de nuestro sistema de blog, ahora le aportaremos un valor agregado adicional: internacionalización y localización del idioma de la aplicación web. Aunque podríamos haber hecho esto desde el principio, es más realista contruir la primera versión de una aplicación en un solo idioma, y luego agregar múltiples idiomas. 
+Dado que ya hemos completado la funcionalidad de nuestro sistema de blog, ahora le aportaremos un valor agregado adicional: internacionalización y localización del idioma de la aplicación web. Aunque podríamos haber hecho esto desde el principio, es más realista construir la primera versión de una aplicación en un solo idioma, y luego agregar múltiples idiomas. 
 
 h2. <a>Internacionalización y localización</a>
 
@@ -21,7 +21,7 @@ Para empezar, primero edite el archivo @conf/application.conf@ y quite el caract
 bc. # Localizaciones para Inglés, Alemán, Francés y Español. 
 application.langs=en,nl,fr,es 
 
-Ahora si abre una página de la aplicación, la consola Play mostrará tres advertencias porque aún ha definido ningún archivo de mensajes localizados: 
+Ahora si abre una página de la aplicación, la consola Play mostrará cuatro advertencias porque aún no ha definido ningún archivo de mensajes localizados: 
 
 bc. 16:19:04,728 WARN ~ Messages file missing for locale en 
 16:19:04,729 WARN ~ Messages file missing for locale nl 
@@ -69,7 +69,7 @@ bc. <ul id="tools">
 </li> 
 </ul> 
 
-Para agregar la localización, agregue la línea respectiva en cada uno de los tres archivos de mensajes. En @conf/messages.en@
+Para agregar la localización, agregue la línea respectiva en cada uno de los cuatro archivos de mensajes. En @conf/messages.en@
 
 bc. views.main.tools.login = Log in to write something 
 
@@ -83,7 +83,7 @@ bc. views.main.tools.login = Connectez-vous pour écrire quelque chose
 
 En @conf/messages.es@ 
 
-bc. views.main.tools.login = Regístrese para escribir algún mensaje 
+bc. views.main.tools.login = Inicie sesión para escribir algún mensaje 
 
 La clave del mensaje puede ser cualquiera de su preferencia; en este ejemplo he utilizado una clave para indicar la ubicación @views/main.html#tools@
 
@@ -303,7 +303,7 @@ crud.index.add = Agregar
 crud.add = Agregar &{%s} 
 crud.list.title = &{%s} 
 crud.list.size = %d &{%s} 
-crud.list.totalSize = %d total 
+crud.list.totalSize = %d en total 
 crud.pagination.previous = « Anterior 
 crud.pagination.next = Siguiente » 
 crud.pagination.last = Último »» 
@@ -316,8 +316,8 @@ crud.hasErrors = Por favor, corrija los errores.
 crud.blank.title = Agregar &{%s} 
 crud.saveAndAddAnother = Guardar y agregar uno nuevo 
 crud.delete = Eliminar &{%s} 
-crud.created = &{%s} Ha sido creado 
-crud.saved = &{%s} a sido guardado
+crud.created = &{%s} ha sido creado 
+crud.saved = &{%s} ha sido guardado
 crud.deleted = &{%s} ha sido eliminado
 crud.delete.error = No puede eliminar el objeto 
 crud.search = Buscar
@@ -338,7 +338,7 @@ crud.help.range = Entre %d y %d
 # play/modules/secure 
 secure.username = Su dirección de correo: 
 secure.password = Su clave: 
-secure.signin = Regístrese 
+secure.signin = Entrar 
 
 
 Por supuesto, una vez que haya hecho esto es también una buena idea contribuir con el desarrollo del módulo agregando estas localizaciones. 
