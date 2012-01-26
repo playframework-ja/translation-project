@@ -1,24 +1,29 @@
 package controllers;
 
-import java.io.*;
-import java.net.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-import models.*;
-import net.htmlparser.jericho.*;
+import models.Download;
+import models.Module;
+import net.htmlparser.jericho.Element;
+import net.htmlparser.jericho.HTMLElementName;
+import net.htmlparser.jericho.Source;
 
-import org.apache.commons.httpclient.*;
-import org.apache.commons.httpclient.methods.*;
-import org.apache.commons.lang.*;
-import org.yaml.snakeyaml.*;
+import org.apache.commons.lang.StringUtils;
+import org.yaml.snakeyaml.Yaml;
 
-import play.*;
-import play.Logger;
-import play.mvc.*;
-import twitter4j.*;
-
-import com.google.gson.*;
-import com.google.gson.annotations.*;
+import play.Play;
+import play.mvc.Controller;
+import twitter4j.TwitterException;
 
 public class Application extends Controller {
 
