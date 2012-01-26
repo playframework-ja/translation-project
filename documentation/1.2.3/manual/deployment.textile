@@ -1,28 +1,28 @@
 p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
 
-h1. Deployment options
+h1. Opciones de puesta en producción
 
-Play applications can be deployed virtually anywhere: inside Servlet containers, as standalone servers, on Heroku, Google Application Engine, Stack, a Cloud, etc...
+Las aplicaciones hechas con Play pueden ser desplegadas prácticamente en donde sea: dentro de Servlet containers, en servidores independientes, en Heroku, Google Application Engine, Stack, en la nube computacional (cloud computing), etc...
 
-h2. <a name="standalone">Standalone Play applications</a>
+h2. <a name="standalone">Aplicaciones Play independientes (standalone)</a>
 
-The simplest and the most robust way is to simply run your Play application without any container. You can use a frontal HTTP server like Lighttpd or Apache if you need more advanced HTTP features like virtual hosting.
+La manera mas simple y robusta de poner en producción una aplicación hecha con Play, es corriéndola sin ningún tipo de contenedor. Puede usar un servidor HTTP frontal como Lighttp o Apache si precisa prestaciones avanzadas de HTTP como puede ser hosts virtuales.
 
-The built-in HTTP server can serve thousands of HTTP requests per second so it will never be the performance bottleneck. Moreover it uses a more efficient threading model (where a Servlet container uses 1 thread per request). Different "modules":http://playframework.org/modules allow you to use different servers (Grizzly, Netty, etc...) as well.
+El servidor HTTP que viene incluido con Play puede atender miles de pedidos HTTP por segundo, de manera que nunca se transformará en el cuello de botella de su aplicación. Más aún, utilizad un modelo de threads mucho más eficiente que el estándar (un Servlet container utiliza un único thread por request). También dispone de diferentes "módulos":http://playframework.org/modules que le permitirá utilizar otros servidores (Grizzly, Netty, etc...).
 
-Those servers support long polling and allow to manage very long requests (waiting for a long task to complete), and direct streaming of File objects (and any InputStream if you specify the Content-Length), without blocking the execution thread.
+Esos servidores soportan lon polling y le permiten manejan pedidos HTTP largos (por ejemplo, cuando espera que se complete una tarea larga), así como efectuar streaming directo de objetos File (y de cualquier InputStream si especifica la propiedad Content-Length), sin por ello bloquear la ejecución del thread.
 
-You will have fewer problems running your application this way, as you will use the same environment that you used during the development process. A lot of bugs can be discovered only when you deploy to a JEE application server (different home dir, classloader issues, library conflicts, etc...).
+Va a tener menos problemas al ejecutar su aplicación de esta manera, dado que estará utilizando el mismo entorno para desarrollar que al poner en producción. Muchos bugs pueden ser descubiertos únicamente al poner en producción su aplicación en un servidor JEE (diferentes directorios, problemas con el classloader, conflictos con librerías, etc...).
 
-Please refer to the "'Put your application in production' page":production for more information.
+Para más información consulte "Poniendo su aplicación en producción"::production.
 
-h2. <a name="appservers">Java EE application servers</a>
+h2. <a name="appservers">Servidores de aplicaciones Java EE</a>
 
-Your Play application can also run inside your favorite application server. Most application servers are supported out of the box.
+Su aplicación hecha con Play también puede correr dentro de su servidor de aplicaciones favorito. La mayoría de los servidores de aplicaciones son soportados sin ninguna configuración en especial.
 
-h3. Supported application servers
+h3. Servidores de aplicaciones soportados
 
-The following application servers are known to work with Play. Please feel free to report any other working deployment.
+Los siguientes servidores de aplicaciones funcionan correctamente con Play. Por favor, no deje de hacernos saber de cualquier otro entorno que funcione.
 
 * JBoss 4.2.x
 * JBoss 5.x
@@ -35,21 +35,21 @@ The following application servers are known to work with Play. Please feel free 
 * Jetty 7.x
 * Resin 4.0.5
 
-h3. Deploying
+h3. Poniendo en producción
 
-You need to package your application as a WAR file. This is easily done with the following command:
+Necesita empaquetar su aplicación en un archivo WAR. Puede hacerlo fácilmente mediante el siguiente comando:
 
 bc. play war myapp -o myapp.war
 
-p(note). Please note that your application server must support deployment of exploded WAR files.
+p(note). Tenga en cuenta que su servidor de aplicaciones debe soportar el despliegue de archivos WAR explotados (exploded WAR files). 
 
-You are now ready to deploy your application.
+Ahora ya está listo para poner en producción su aplicación.
 
-You are advised to ‘isolate’ your Play application from the other applications to avoid version mismatches between the application libraries. This step is not standardized by the JEE/Servlet specification, and is therefore vendor-specific.
+Es recomendable 'aislar' su aplicación Play del resto de las aplicaciones para evitar conflictos de versiones entre las librerías. No hay un procedimiento estándar para realizar esto en la especificación JEE/Servlet, y los pasos a seguir varían según el proveedor.
 
-We recommend you refer to your application server manual in order to ‘isolate’ your WAR. As an example below is how you isolate a war file in JBoss Application server. Note that this is an optional step:
+Le recomendamos recurrir al manual de su servidor de aplicaciones para 'aislar' su archivo WAR. A modo de ejemplo, a continuación le mostramos cómo aislar un archivo war en un servidor de aplicaciones JBoss. Tenga en cuenta que este paso es opcional:
 
-Insert the following content (or create the file) in your application war directory at @myapp.war/WEB-INF/jboss-web.xml@:
+Inserte el siguiente contenido (o cree el archivo) en el archivo  @myapp.war/WEB-INF/jboss-web.xml@ del directorio de su aplicación war:
 
 bc. 
 <jboss-web>
@@ -61,25 +61,23 @@ bc.
 </class-loading>
 </jboss-web>
 
-Replace com.example:archive=unique-archive-name with whatever you wish as long as it is unique.            
+Remplace com.example:archive=unique-archive-name con lo que usted quiera, siempre y cuando se trate de un nombre único. 
 
+h3. Fuentes de datos
 
-h3. Datasource
-
-Play also supports Datasource and resource look-up. To use a JNDI Datasource, set the "database configuration":configuration#dbconf as shown below:
+Play también soporta búsqueda de fuentes de datos (Datasource) y demás recursos. Para utilizar una fuente de datos JNDI, especifique la siguiente "configuración de base de datos":configuration#dbconf:
 
 bc. db=java:comp/env/jdbc/mydb
 jpa.dialect=org.hibernate.dialect.Oracle10gDialect
 jpa.ddl=verify
 
-The database plugin detects the pattern @db=java:@ and will de-activate the default JDBC system.
+El plugin de base de datos detectará el patrón @db=java:@ y desactivará el sistema JDBC que viene activado por defecto.
 
+h3. Personalizando el archivo web.xml
 
-h3. Custom web.xml
+Algunos servidores de aplicaciones, como IBM Websphere, requieren que declare una fuente de datos en un element @resource-ref@ en el archivo de configuración @web.xml@ de la API de Servlet. Por defecto, Play generará el archivo @web.xml@ cuando ejecute el comando @play war@. Para personalizar el archivo @web.xml@ generado, debe generar el archivo WAR 'explotado', y luego copiar el archivo @web.xml@ personalizado a la carpeta @war/WEB-INF@ dentro de su aplicación. La próxima vez que ejecute @play war@, Play copiará el archivo @web.xml@ que usted ha modificado de la carpeta generada. 
 
-Some application servers, such as IBM Websphere, require you to declare a datasource in a @resource-ref@ element in the Servlet API’s @web.xml@ configuration file. By default, @web.xml@ is a file that is generated by Play when you execute the @play war@ command. To customise the generated @web.xml@, generate the exploded WAR version, then copy the generated @web.xml@ file to the @war/WEB-INF@ folder in your application. The next time you will execute the @play war@ command, it will copy your custom @web.xml@ from to the generated folder.
-
-For instance, to declare a datasource for IBM Websphere 7, we can declare a @resource-ref@ in our @war/WEB-INF/web.xml@ file:
+Por ejemplo, para declarar una fuente de datos para IBM Websphere 7, puede declarar un @resource-ref@ en su archivo @war/WEB-INF/web.xml@:
 
 bc. <?xml version="1.0" ?>
 <web-app xmlns="http://java.sun.com/xml/ns/j2ee"
@@ -96,7 +94,7 @@ bc. <?xml version="1.0" ?>
   </listener>
   <servlet>
     <servlet-name>play</servlet-name>
-    <servlet-class>play.server.ServletWrapper</servlet-class>	
+    <servlet-class>play.server.ServletWrapper</servlet-class>   
   </servlet>
   <servlet-mapping>
     <servlet-name>play</servlet-name>
@@ -110,22 +108,23 @@ bc. <?xml version="1.0" ?>
   </resource-ref>
 </web-app>
 
-h2. <a name="heroku">Heroku</a>
 
-To deploy and run your Play application on the cloud with "Heroku cloud application platform":http://www.heroku.com/, follow these steps:
+h3. <a name="heroku">Heroku</a>
 
-1. Install the Heroku command line client on "Linux":http://toolbelt.herokuapp.com/linux/readme, "Mac":http://toolbelt.herokuapp.com/osx/download, or "Windows":http://toolbelt.herokuapp.com/windows/download.
-2. Install "git":http://git-scm.com/ and setup your SSH key.
-3. Create an account on "Heroku.com":http://heroku.com/signup.
-4. Log in to Heroku from the command line:
+Para deplegar y ejecutar su aplicación hecho con Play en "Heroku cloud application platform":http://www.heroku.com/, siga los siguientes pasos:
+
+1. Instale el cliente de línea de comandos de Heroku, siguiendo las instrucciones para "Linux":http://toolbelt.herokuapp.com/linux/readme, "Mac":http://toolbelt.herokuapp.com/osx/download, o "Windows":http://toolbelt.herokuapp.com/windows/download.
+2. Instale "git":http://git-scm.com/ y configure su clave SSH.
+3. Cree una cuenta en "Heroku.com":http://heroku.com/signup.
+4. Regístrese en Heroku desde la línea de comandos:
 
 bc. heroku auth:login
 
-5. Create a git repository:
+5. Cree un repositorio git:
 
 bc. git init
 
-6. Create a @.gitignore@ file containing the following content, to ignore files generated by Play:
+6. Cree un archivo @.gitignore@ con el siguiente contenido, a fin de ignorar los archivos creados por Play:
 
 bc. /tmp
 /modules
@@ -133,55 +132,39 @@ bc. /tmp
 /test-result
 /logs
 
-7. Add the files to the git repository and commit them:
+7. Agregue los archivos al repostirio git y grábelos (commit):
 
 bc. git add .
 git commit -m init
 
-8. Create a new application on Heroku:
+8. Cree una nueva aplicación en Heroku:
 
 bc. heroku create -s cedar
 
-9. Push the application to Heroku:
+9. Haga un 'push' de la aplicación a Heroku:
 
 bc. git push heroku master
 
-10. Open the application in your browser:
+10. Abra la aplicación en un navegador web:
 
 bc. heroku open
 
-
-To view the logs run:
+Para ver los logs, ejecute:
 
 bc. heroku logs
 
-To scale the application to multiple ‘dynos’ run:
+Para 'escalar' la aplicación a múltiples 'dynos' ejecute:
 
 bc. heroku scale web=2
 
-To use the "Heroku Shared Database":http://devcenter.heroku.com/articles/database in production add the following to your @conf/application.conf@ file:
+Para utilizar la "Base de datos compartida de Heroku":http://devcenter.heroku.com/articles/database en producción agregue la siguiente configuración a su archivo @conf/application.conf@:
 
 bc. %prod.db=${DATABASE_URL}
 %prod.jpa.dialect=org.hibernate.dialect.PostgreSQLDialect
 %prod.jpa.ddl=update
 
-Learn more in the "Heroku Dev Center":http://devcenter.heroku.com.
-
+Para más información consulte "Heroku Dev Center":http://devcenter.heroku.com.
 
 h2. <a name="gae">Google Application Engine (GAE)</a>
 
-A Play application can very easily be deployed to the GAE. It is a matter of installing the relevant "GAE module.":http://playframework.org/modules/gae
-
-bc. play install gae
-
-Deploying to the Google Application Engine is again really easy:
-
-bc. play gae:deploy myapp
-
-Refer to the "module documentation":http://playframework.org/modules/gae-1.0.2/home for more information.
-
-h2. <a name="stax">Stax</a>
-
-Easy deployment to the "Stax cloud hosting platform":http://www.stax.net: again nothing could be easier. Install the Stax module and deploy within seconds.
-
-Refer to the "module documentation":http://www.playframework.org/modules/stax-1.0.1/home for more information.
+Una aplicación hecha con Play puede ser fácilmente desplegada en GAE. Simplemente es cuestión de instalar el correspondiente "módulo GAE":http://playframework.org/modules/gae
