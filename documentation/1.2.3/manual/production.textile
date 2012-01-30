@@ -1,58 +1,55 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Poniendo su aplicación en producción
 
-h1. Put your application in production
-
-Here some simple tips to optimize your application for production.
+Aquí le damos algunos consejos para optimizar su aplicación para que corra en un ambiente productivo.
 
 h2. <a name="application">application.conf</a>
 
-First off, the best way to specify production mode is to give a specific ID to your production framework. Let’s pick @production@ as an example. Refer "manage application.conf in several environments":ids to see how.
+Antes que nada, la mejor forma de configurar la aplicación para modo productivo es dar un ID específico para el framework de producción. Tomemos @production@ como un ejemplo. Visite "administración del archivo application.conf en diferentes ambientes":ids para ver cómo puede hacerlo.
 
-h3. Set the framework in prod mode:
+h3. Configure el framework en modo de producción
 
 bc. %production.application.mode=prod
 
-In this mode, the framework will pre-compile all Java sources and templates. If an error is found at this step, the application will not start. Source modifications will not be hot reloaded.
+En este modo, el framework pre-compilará todos los archivos fuente java y las plantillas. Si un error es encontrado en este paso, la aplicación no iniciará. Además, los cambios en los archivos fuente no serán recompilados automáticamente como ocure en modo desarrollo, sino que tendrá que reiniciar el framework para tomar los cambios hechos al código fuente.
 
-h3. Define a real database:
+h3. Defina una base de datos real
 
-If you have used a development database (either @db=mem@ or @db=fs@), you should configure a more robust database engine:
+Si usó una base de datos de desarrollo (ya sea @db=mem@ o @db=fs@), debería configurar un motor de base de datos más robusto:
 
 bc. %production.db.url=jdbc:mysql://localhost/prod
 %production.db.driver=com.mysql.jdbc.Driver
 %production.db.user=root
 %production.db.pass=1515312
 
-h3. Disable JPA automatic schema update:
+h3. Deshabilite la actualización automática del esquema en JPA
 
-If you have used the automatic schema update feature provided by Hibernate, you should disable this feature for production. 
+Si usó la actualización automática del esquema de base de datos que proveé Hibernate, debe deshabilitar esta característica en el ambiente de producción.
 
-For your production server, it’s usually a bad idea to let Hibernate automatically ALTER your production database’s schema and data…
+En el servidor de producción, generalmente es mala idea dejar que Hibernate ejecute automáticamente ALTER's en la base de datos, tanto en el esquema como en los datos…
 
-The initial deployment is potentially a different issue. In this case only specify:
+El despliegue inicial puede ser es una excepción. Si desea que Hibernate genere una base de datos límpia en el ambiente productivo tan sólo especifique:
 
 bc. %production.jpa.ddl=create
 
-h3. Define a secure secret key:
+h3. Defina una clave secreta segura
 
-The Play secret key is used to secure cryptographic functions, like the session signature. Your application must keep this key very secret.
+La clave secreta de Play es usada por las funciones criptográficas, como la firma de la sesión. Su aplicación debe conservar esta clave muy bien guardada.
 
 bc. %production.application.secret=c12d1c59af499d20f4955d07255ed8ea333
 
-You can use the @play secret@ command to generate a new secure and random key (at least on a ‘real’ OS). If you plan to distribute your application to several servers, remember to use the @same key@ for all application instances!
+Puede usar el comando @play secret@ para generar una nueva clave aleatoria segura (por lo menos en un Sistema Operativo ‘de verdad’). Si tiene pensado distribuir la aplicación en muchos servidores recuerde que debes usar la **misma clave** para todas las instancinas de la aplicación.
 
+h2. <a name="logging">Configuración del Log de auditoría</a>
 
-h2. <a name="logging">Logging configuration</a>
+Para el ambiente productivo, es una buena idea usar archivos de log continuos. No direccione el log a la consola, ya que esta salida será dirigida al archivo @logs/system.out@ y crecerá sin límite.
 
-For production it’s a good idea to use rolling log files. Do not send logging to the Console, since it will be written to the @logs/system.out@ file and it will grow without bound!
-
-Create a custom @log4j.properties@ in the @conf/@ directory:
+Cree un archivo @log4j.properties@ personalizado en el directorio @conf/@:
 
 bc. log4j.rootLogger=ERROR, Rolling
  
 log4j.logger.play=INFO
  
-# Rolling files
+# Archivos continuos
 log4j.appender.Rolling=org.apache.log4j.RollingFileAppender
 log4j.appender.Rolling.File=application.log
 log4j.appender.Rolling.MaxFileSize=1MB
@@ -60,21 +57,21 @@ log4j.appender.Rolling.MaxBackupIndex=100
 log4j.appender.Rolling.layout=org.apache.log4j.PatternLayout
 log4j.appender.Rolling.layout.ConversionPattern=%d{ABSOLUTE} %-5p ~ %m%n
 
-h2. <a name="server">Front-end HTTP server</a>
+h2. <a name="server">Servidor HTTP frontal</a>
 
-You can easily deploy your application as a stand-alone server by setting the application HTTP port to @80@:
+Puede poner en producción fácilmente su aplicación como un servidor independiente configurando el puerto HTTP @80@:
 
 bc. %production.http.port=80
 
-But if you plan to host several applications in the same server or load balance several instances of your application for scalability or fault tolerance, you can use a front-end HTTP server.
+Pero si planea desplegar distintas aplicaciones en el mismo servidor o balancear la carga de distintas instancias de la aplicacion para mayor escalabilidad y tolerancia a errores, entonces puedes usar un servidor HTTP frontal.
 
-**Note that using a front-end HTTP server will never give you better performance than using Play server directly!**
+**Nota: Un servidor HTTP frontal nunca le dará mejor desempeño que usando el servidor HTTP de Play directamente**
 
-h3. Set-up with lighttpd
+h3. Configuración de lighttpd
 
-This example shows you how to configure "lighttpd":http://www.lighttpd.net/ as a front-end web server. Note that you can do the same with Apache, but if you only need virtual hosting or load balancing, lighttpd is a very good choice and much easier to configure!
+Este ejemplo muestra cómo configurar "lighttpd":http://www.lighttpd.net/ como servidor web frontal. Tenga en cuenta que puede hacer lo mismo con Apache, pero si sólo necesita alojamiento virtual o balanceo de cargas, lighttpd es una muy buena elección y mucho más fácil de configurar.
 
-The @/etc/lighttpd/lighttpd.conf@ file should define things like this:
+En el archivo @/etc/lighttpd/lighttpd.conf@ debería definir parámetros como los siguientes:
 
 bc. server.modules = (
       "mod_access",
@@ -94,9 +91,9 @@ $HTTP["host"] =~ "www.loadbalancedapp.com" {
     )
 }
 
-h3. Set-up with Apache
+h3. Configuración de Apache
 
-The example below shows a simple set-up with "Apache httpd server":http://httpd.apache.org/ running in front of a standard Play configuration. 
+El siguiente ejemplo muestra una configuración simple usando el "servidor httpd de Apache":http://httpd.apache.org/ como servidor frontal de una configuración de Play estándar.
 
 bc. LoadModule proxy_module modules/mod_proxy.so
 …
@@ -107,22 +104,21 @@ bc. LoadModule proxy_module modules/mod_proxy.so
   ProxyPassReverse / http://127.0.0.1:9000/
 </VirtualHost>
 
+h3. Apache como proxy frontal que permite actualizar de manera transparente su aplicación
 
-h3. Apache as a front proxy to allow transparent upgrade of your application
+La idea básica es correr dos instancias de Play dentro de la aplicación web y de manera que el proxy frontal pueda balancear la carga entre ellos. En caso de que alguno no esté disponible, todas las solicitudes HTTP serán dirigidas a la instancia disponible.
 
-The basic idea is to run two Play instances of your web application and let the front-end proxy load-balance them. In case one is not available, it will forward all the requests to the available one.
+Ahora iniciemos la misma aplicación de Play dos veces, una en el puerto 9999 y otra en el puerto 9998.
 
-Let’s start the same Play application two times: one on port 9999 and one on port 9998.
+Haga una copia de la aplicación y edite el archivo @application.conf@ dentro del directorio @conf@ para cambiar los números de puerto.
 
-Make a copy of the application and edit the @application.conf@ in the @conf@ directory to change the port numbers.
-
-For each web application directory:
+Para cada directorio de la aplicación web:
 
 bc. play start mysuperwebapp
 
-Now, let’s configure our Apache web server to have a load balancer.
+Ahora vamos a examinar la configuración de nuestro servidor web de Apache para tener un balanceador de carga:
 
-In Apache, I have the following configuration:
+En Apache, debe tener la siguiente configuración:
 
 bc. <VirtualHost mysuperwebapp.com:80>
   ServerName mysuperwebapp.com
@@ -147,67 +143,67 @@ bc. <VirtualHost mysuperwebapp.com:80>
   ProxyPassReverse / http://localhost:9998/
 </VirtualHost>
 
-The important part is balancer://mycluster. This declares a load balancer. The +H option means that the second Play application is on stand-by. But you can also instruct it to load-balance.
+La parte importante es @balancer://mycluster@. Esto define un balanceador de carga. El parámetro @+H@ significa que la segunda aplicación de Play está en modo de espera, pero también puede configurarlo para balanceo de cargas.
 
-Every time you want to upgrade mysuperwebapp, here is what you need to do:
+Cada vez que quiera actualizar @mysuperwebapp@, esto es lo que necesita hacer:
 
 bc. play stop mysuperwebapp1
 
-The load-balancer then forwards everything to mysuperwebapp2. In the meantime update mysuperwebapp1. Once you are done:
+El balanceador de cargas dirige todo el tráfico a @mysuperwebapp2@ mientras actualizas @mysuperwebapp1@. Una vez que estés listo:
 
 bc. play start mysuperwebapp1
 
-You can now safely update mysuperwebapp2.
+Ahora puedes actualizar @mysuperwebapp2@ con seguridad.
 
-Apache also provides a way to view the status of your cluster. Simply point your browser to /balancer-manager to view the current status of your clusters.
+Apache además provee una forma de ver el estado de su cluster. Simplemente dirija su navegador a @/balancer-manager@ para ver el estado actual de su cluster.
 
-Because Play is completely stateless you don’t have to manage sessions between the 2 clusters. You can actually easily scale to more than 2 Play instances.
+Dado que Play usa un __modelo sin estado__ no necesita administrar las sesiones entre las aplicaciones. Así puede fácilmente esclar mas de dos instancias de Play.
 
-h3. Advanced proxy settings
+h3. Configuración avanzada del proxy
 
-When using an HTTP frontal server, request addresses are seen as coming from the HTTP server. In a usual set-up, where you both have the Play app and the proxy running on the same machine, the Play app will see the requests coming from 127.0.0.1.
+Cuando usa un servidor frontal HTTP las direcciones del __request__ son vistas como vienen del servidor HTTP. En una configuración usual donde tiene aplicaciones de Play y el proxy corriendo en la misma máquina, la aplicación de Play ve los __request__ que vienen de 127.0.0.1.
 
-Proxy servers can add a specific header to the request to tell the proxied application where the request came from. Most web servers will add an X-Forwarded-For header with the remote client IP address as first argument. If you enable the forward support in the "XForwardedSupport configuration":configuration#XForwardedSupport, Play will change the request.remoteAddress from the proxy’s IP to the client’s IP. You have to list the IP addresses of your proxy servers for this to work.
+Los servidores proxy también pueden agregar un encabezado HTTP específico al __request__ para decirle a la aplicación que ha pasado a través del proxy de dónde vino el __request__. La mayoría de los servidores web van a agregar un encabezado @X-Forwarded-For@ con la dirección IP del cliente remoto en el primer argumento. Si habilita la opción de direccionamiento en "Configuración de XForwardedSupport":configuration#XForwardedSupport, Play cambiará el parámetro @request.remoteAddress@ de la dirección IP del proxy a la dirección IP del cliente remoto. Para que funcione esta opción, debe listar las direcciones IP de sus servidores proxy.
 
-However, the host header is untouched, it’ll remain issued by the proxy. If you use Apache 2.x, you can add a directive like: 
+Sin embargo, el encabezado del host permanece intacto, sigue estando configurado por el proxy. Si usas Apach 2.x puedes agregar esta directiva de la siguiente forma:
 
 bc. ProxyPreserveHost on
 
-The host: header will be the original host request header issued by the client. By combining theses two techniques, your app will appear to be directly exposed.
+El encabezado host será el mismo encabezado que mandó el cliente. Combinando estas dos técnicas, tu aplicación se comportará como si estuviera directamente expuesta en internet.
 
-h2. <a name="https">HTTPS configuration</a>
+h2. <a name="https">Configuración HTTPS</a>
 
-The built-in server supports the HTTPS protocol, which you can use it in production. It supports certificate management, either via the classical Java **keystore** or simple @cert@ and @key@ files. To start an HTTPS connector for your application, just declare the @https.port@ configuration property in your @application.conf@ file:
+El servidor HTTP interno provisto por Play soporta el protocolo HTTPS, que también puede ser utilizado en producción. Trae soporte para administración de certificados ya sea de la forma clásica de Java **keystore** o simplemente configurando los archivos @cert@ y @key@. Para iniciar el conector HTTPS para su aplicación solo tiene que configurar la opción @https.port@ en su archivo @application.conf@:
 
 bc. http.port=9000
 https.port=9443
 
-You need to put your certificates in the @conf@ directory. Play supports X509 certificates and keystore certificates. The X509 certificates must be named as follows:
-*host.cert* for the certificate and *host.key* for the key. If you are using keystore, then, by default it should be named *certificate.jks*.
+Debe colocar los certificados en el directorio @conf@. Play soporta certificados X509 y de tipo __keystore__. Los certificados X509 deben ser llamados de la siguiente forma:
+*host.cert* para el certificado y *host.key* para la llave. Si está usando __keystore__ entonces, por defecto debe ser llamado *certificate.jks*.
 
-If you are using X509 certificates, then the following parameters can be configured in your @application.conf@ file:
+Si está usando certificados X509, entonces puede configurar los siguientes parámetros en su archivo @application.conf@:
 
 bc. # X509 certificates
 certificate.key.file=conf/host.key
 certificate.file=conf/host.cert
-# In case your key file is password protected
+# En caso de que su archivo llave esté protegido por password:
 certificate.password=secret
 trustmanager.algorithm=JKS
 
-If you are using keystore:
+Si está usando un __keystore__:
 
 bc. keystore.algorithm=JKS
 keystore.password=secret
 keystore.file=conf/certificate.jks
 
-Note that the values above are the default values.
+Tenga en cuenta que la configuración mencionada son los valores por defecto.
 
-You can generate self-signed certificates using *openssl*: 
+Puede generar certificados auto firmados usando la herramienta *openssl*:
 
 bc. openssl genrsa 1024 > host.key
 openssl req -new -x509 -nodes -sha1 -days 365 -key host.key > host.cert
 
-If you are using the Java keystore mechanism, then the following properties can be configured in your @application.conf@ file:
+Si está usando el mecanismo de __keystore__ de Java, entonces las siguientes propiedades pueden ser configuradas en su archivo @application.conf@: 
 
 bc. # Keystore 
 ssl.KeyManagerFactory.algorithm=SunX509
@@ -215,26 +211,26 @@ trustmanager.algorithm=JKS
 keystore.password=secret
 keystore.file=certificate.jks
 
-The values above are the default values.
+Los valores mencionados también corresponden a la configuración por defecto.
 
-h2. <a name="nopython">Deploying Without Python</a>
+h2. <a name="nopython">Poniendo en producción sin usar Python</a>
 
-Python is installed by default on most Unix machines, and a Windows version is embedded with Play. However there may be cases where you need to deploy an application on a server without any Python executable.
+Python viene instalado por defecto en la mayoría de los equipos Unix, y Play incluye una versión de Windows. Sin embargo puede haber casos en los que necesita desplegar la aplicación en un servidor que no tiene ningún ejecutable de Python.
 
-For that, a build.xml file providing limited functionalities is provided with Play applications.
+Para eso, Las aplicaciones de Play proveen un archivo @build.xml@ de Ant con funcionalidad limitada.
 
-From the application folder, you can start the server using:
+Desde el directorio de la aplicación, puedes iniciar el servidor usando:
 
 bc. ant start -Dplay.path=/path/to/playdirectory
 
-Warning: using the @play@ command the output will be redirected to @System.out@; however using Ant the standard output is not accessible. It is necessary to provide a Log4j properties file where you specify a file appended.
+Precaución: Usando el comando @play@ la salida se direcciona a @System.out@; sin embargo si se usa Ant la salida estándar no estará disponible. Es necesario proveer un archivo de configuración Log4j donde se especifique una salida a archivo.
 
-To stop the server:
+Para detener el servidor:
 
 bc. ant stop -Dplay.path=/path/to/playdirectory
 
-Note that you can also specify the path to Play framework in an environment variable or directly in your application's @build.xml@.
+También puede especificar la ruta al framework de Play en una variable de entorno o directamente en el archivo @build.xml@ de la aplicación.
 
-p(note). **Continuing the discussion**
- 
-Next: %(next)"Deployment options":deployment%.
+p(note). **Próximos pasos**
+
+Siguiente: %(next)"Opciones de puesta en producción":deployment%.

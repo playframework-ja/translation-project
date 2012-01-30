@@ -1,6 +1,6 @@
 h1. Managing database evolutions
 
-When you use a relational database, you need a way to track and organize your database schema evolutions. Typically there are several situation where you need a more sophisticated way to track your database schema changes:
+When you use a relational database, you need a way to track and organize your database schema evolutions. Typically there are several situations where you need a more sophisticated way to track your database schema changes:
 
 * When you work within a team of developers, each person needs to know about any schema change.
 * When you deploy on a production server, you need to have a robust way to upgrade your database schema.
@@ -16,10 +16,10 @@ The first script is named @1.sql@, the second script @2.sql@, and so on…
 
 Each script contains two parts:
 
-* The *Ups* part the describe the required transformations.
-* The *Downs* part that describe how to revert them.
+* The *Ups* part the describes the required transformations.
+* The *Downs* part that describes how to revert them.
 
-For example, take a look at this first evolution script that bootstrap a basic application:
+For example, take a look at this first evolution script that bootstraps a basic application:
 
 bc. # Users schema
  
@@ -52,7 +52,7 @@ p(note). If you use an in-memory database (*db=mem*), Play will automatically ru
 
 h2. Synchronizing concurrent changes
 
-Now let’s imagine that we have two developers working on this project. Developer A will work on a feature that requires a new database table. So he will create the following @2.sql@ evolution script:
+Now let's imagine that we have two developers working on this project. Developer A will work on a feature that require a new database table. So he will create the following @2.sql@ evolution script:
 
 bc. # Add Post
  
@@ -72,7 +72,7 @@ DROP TABLE Post;
 
 Play will apply this evolution script to Developer A’s database.
 
-On the other hand, developer B will work on a feature that requires altering the @User@ table. So he will also create the following @2.sql@ evolution script:
+On the other hand, developer B will work on a feature that requires to alter the User table. So it will also create the following @2.sql@ evolution script:
 
 bc. # Update User
  
@@ -218,19 +218,19 @@ Your database needs evolution!
 An SQL script will be run on your database.
  
 play.db.Evolutions$InvalidDatabaseRevision
-	at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
-	at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
-	at play.Play.start(Play.java:452)
-	at play.Play.init(Play.java:298)
-	at play.server.Server.main(Server.java:141)
+    at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
+    at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
+    at play.Play.start(Play.java:452)
+    at play.Play.init(Play.java:298)
+    at play.server.Server.main(Server.java:141)
 Exception in thread "main" play.db.Evolutions$InvalidDatabaseRevision
-	at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
-	at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
-	at play.Play.start(Play.java:452)
-	at play.Play.init(Play.java:298)
-	at play.server.Server.main(Server.java:141)
+    at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
+    at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
+    at play.Play.start(Play.java:452)
+    at play.Play.init(Play.java:298)
+    at play.server.Server.main(Server.java:141)
 
-The error message ask you to run the @play evolutions@ command:
+The error message asks you to run the @play evolutions@ command:
 
 bc. $ play evolutions
 ~        _            _ 
@@ -287,11 +287,11 @@ If you want Play to automatically run this evolution for you, then run:
 
 bc. $ play evolutions:apply
 
-If you prefer running this script manually on your production database, you need to tell Play that you database is up-to-date by running:
+If you prefer running this script manually on your production database, you need to tell Play that your database is up-to-date by running:
 
 bc. $ play evolutions:markApplied
 
-If there are any errors while automatically running the evolutions scripts, as in DEV mode, you need to manually resolve them, and mark your database schema a fixed by running:
+If there are any errors while automatically running the evolutions scripts, as in DEV mode, you need to manually resolve them, and mark your database schema as fixed by running:
 
 bc. $ play evolutions:resolve
 

@@ -1,29 +1,27 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Administrando las actualizaciones de la base de datos
 
-h1. Managing database evolutions
+Cuando utiliza una base de datos relacional, necesita de alguna manera monitorear y organizar las actualizaciones del esquema de su base de datos. Normalmente existen varias situaciones donde usted necesita una forma más sofisticada de monitorear los cambios del esquema de su base de datos, tales como:
 
-When you use a relational database, you need a way to track and organize your database schema evolutions. Typically there are several situations where you need a more sophisticated way to track your database schema changes:
+* Cuando trabaja dentro de un equipo de desarrolladores, cada persona necesita estar al tanto de cualquier cambio en el esquema.
+* Cuando poner en producción una nueva versión de su aplicación, usted debe tener un método robusto de actualizar el esquema de su base de datos.
+* Si trabaja en varias computadoras, necesita mantener todos los esquemas de base de datos sincronizados.
 
-* When you work within a team of developers, each person needs to know about any schema change.
-* When you deploy on a production server, you need to have a robust way to upgrade your database schema.
-* If you work on several machines, you need to keep all database schemas synchronized.
+p(note). Si usted trabaja con JPA, Hibernate puede manejar por usted las actualizaciones de la base de datos de forma automática. Los _scrips de evolución_ son útiles si no usa JPA o si prefiere encargarse del esquema de su base datos de forma manual para un ajuste más fino. 
 
-p(note). If you work with JPA, Hibernate can handle database evolutions for you automatically. Evolutions are useful if you don't use JPA or if you prefer to manually take care of your database schema for finer tuning. 
+h2. <a name="script">Scripts de evolución</a>
 
-h2. <a name="script">Evolutions scripts</a>
+Play registra las actualizaciones de su base de datos utilizando varios **scripts de evolución**. Estos scripts se escriben en el conocido SQL plano y deberíann guardarse en el directorio @db/evolutions@ de su aplicación.
 
-Play tracks your database evolutions using several **evolutions script**. These scripts are written in plain old SQL and should be located in the @db/evolutions@ directory of your application.
+Al primer script se le coloca el nombre @1.sql@, al segundo @2.sql@, y así sucesivamente…
 
-The first script is named @1.sql@, the second script @2.sql@, and so on…
+Cada script contiene dos partes:
 
-Each script contains two parts:
+* La parte *Ups* (dar de alta) que describe las transformaciones necesarias para pasar de una versión del esquema de datos a la siquiente.
+* La parte *Downs* (dar de baja) que describe como revertir esas transformaciones.
 
-* The *Ups* part the describes the required transformations.
-* The *Downs* part that describes how to revert them.
+Por ejemplo, observe el primer script de evolución de una aplicación básica:
 
-For example, take a look at this first evolution script that bootstraps a basic application:
-
-bc. # Users schema
+bc. # Esquema de datos de Usuarios
  
 # --- !Ups
  
@@ -40,21 +38,21 @@ CREATE TABLE User (
  
 DROP TABLE User; 
 
-As you see you have to delimitate the both *Ups* and *Downs* section by using comments in your SQL script.
+Como puede ver, usted tiene que delimitar las dos secciones *Ups* y *Downs* usando comentarios en su script SQL.
 
-Evolutions are automatically activated if a database is configured in @application.conf@ and evolution scripts are present. You can disable them by setting "evolutions.enabled":configuration#evolutions.enabled to @false@. For example when tests set up their own database you can disable evolutions for the test environment.
+Las evoluciones son activadas automáticamente cuando una base de datos está configurada en el archivo @application.conf@ y los script de evolución están presentes. Puede desactivarlas asignando el valor @false@ a la clave "evolutions.enabled":configuration#evolutions.enabled. Por ejemplo, si las pruebas cuentan con su propia base de datos puede desactivar las evoluciones para el entorno de pruebas.
 
-When **evolutions** are activated, Play will check your database schema state before each request in DEV mode, or before starting the application in PROD mode. In DEV mode, if your database schema is not up to date, an error page will suggest that you synchronise your database schema by running the appropriate SQL script.
+Cuando las **evoluciones** están activadas, Play revisará el estado del esquema de su base de datos antes de cada petición en el modo DEV, o antes de iniciar la aplicación en modo PROD. En modo DEV, si el esquema de su base de datos no está actualizado, una página de error le sugerirá que lo sincronice ejecutando el script SQL apropiado.
 
 !images/evolutions!
 
-If you agree with the SQL script, you can apply it directly by clicking on the 'Apply evolutions' button.
+Si está conforme con el script SQL, puede aplicarlo directamente haciendo clic en el botón 'Apply evolutions'.
 
-p(note). If you use an in-memory database (*db=mem*), Play will automatically run all evolutions scripts if your database is empty.
+p(note). Si usa una base de datos en memoria (*db=mem*), Play ejecutará automáticamente todos los scripts de evolución si su base de datos está vacía.
 
-h2. Synchronizing concurrent changes
+h2. Sincronizando cambios concurrentes
 
-Now let's imagine that we have two developers working on this project. Developer A will work on a feature that require a new database table. So he will create the following @2.sql@ evolution script:
+Ahora imaginemos que tenemos dos desarrolladores trabajando en un mismo proyecto. El Desarrollador A trabajará en una funcionalidad que requiere una nueva tabla en la base de datos. Por lo tanto creará el siguiente script de evolución @2.sql@:
 
 bc. # Add Post
  
@@ -72,9 +70,9 @@ CREATE TABLE Post (
 # --- !Downs
 DROP TABLE Post;
 
-Play will apply this evolution script to Developer A’s database.
+Play aplicacará este script de evolución a la base de datos del Desarrollador A.
 
-On the other hand, developer B will work on a feature that requires to alter the User table. So it will also create the following @2.sql@ evolution script:
+Por otro lado, el desarrollador B trabajará en una funcionalidad que requiere alterar la tabla @User@. Por lo que él también creará el siguiente script de evolución @2.sql@:
 
 bc. # Update User
  
@@ -84,13 +82,13 @@ ALTER TABLE User ADD age INT;
 # --- !Downs
 ALTER TABLE User DROP age;
 
-Developer B finishes his feature and commits (let's say they are using Git). Now developer A has to merge the his colleague’s work before continuing, so he runs @git pull@, and the merge has a conflict, like:
+El Desarrollador B termina su trabajo y lo graba (_commit_, supongamos que están usando Git). Ahora el desarrollador A debe unir (_merge_) el trabajo de su colega antes de continuar, así que ejecutará el comando @git pull@, y al hacerlo se encontrará con el siguiente conflicto:
 
 bc. Auto-merging db/evolutions/2.sql
 CONFLICT (add/add): Merge conflict in db/evolutions/2.sql
 Automatic merge failed; fix conflicts and then commit the result.
 
-Each developer has created a @2.sql@ evolution script. So developer A needs to merge the contents of this file:
+Cada desarrollador ha creado un script de evolución @2.sql@. Por lo tanto el desarrollador A tendrá que unir (merge) el contenido de estos archivos:
 
 bc. <<<<<<< HEAD
 # Add Post
@@ -118,7 +116,7 @@ ALTER TABLE User ADD age INT;
 ALTER TABLE User DROP age;
 >>>>>>> devB
 
-The merge is really easy to do:
+En realidad la unión es fácil de hacer:
 
 bc. # Add Post and update User
  
@@ -140,17 +138,17 @@ ALTER TABLE User DROP age;
  
 DROP TABLE Post;
 
-This evolution script represents the new **revision 2** of the database, that is different of the previous revision 2 that developer A has already applied. 
+Este script de evolución representa la nueva **versión 2** de la base de datos, que es diferente de la versión 2 anterior que el desarrollador A habia aplicado con anterioridad.
 
-So Play will detect it and ask developer A to synchronize his database by first reverting the old revision 2 already applied, and by applying the new revision 2 script:
+Play detectará esta nueva versión, y le pedirá al desarrollador A que sincronice su base de datos primero revirtiendo la antigua versión 2 ya aplicada, y luego aplicando el nuevo script versión 2:
 
 !images/evolutions-conflict!
 
-h2. Inconsistent states
+h2. Estados inconsistentes
 
-Sometimes you will make a mistake in your evolution scripts, and they will fail. In this case, Play will mark your database schema as being in an inconsistent state and will ask you to manually resolve the problem before continuing.
+Es probable que en algún momento cometa algún error en sus scripts de evolución, y la misma fallará. En ese caso, Play marcará su esquema de base de datos como inconsistente y le pedirá que resuelva manualmente el problema antes de continuar. 
 
-For example, the **Ups** script of this evolution has an error:
+Por ejemplo, el script **Ups** de está evolución @3.sql@ tiene un error:
 
 bc. # Add another column to User
   
@@ -160,17 +158,17 @@ ALTER TABLE Userxxx ADD company varchar(255);
 # --- !Downs
 ALTER TABLE User DROP company;
 
-So trying to apply this evolution will fail, and Play will mark your database schema as inconsistent:
+Por lo que el intento de aplicar esta evolución fallará, y Play marcará el esquema de su base de datos como inconsistente:
 
 !images/evolutions-inconsistent!
 
-Now before continuing you have to fix this inconsistency. So you run the fixed SQL command:
+Antes de continuar usted tiene que arreglar la inconsistencia. Así que ejecute el comando SQL correcto:
 
 bc. ALTER TABLE User ADD company varchar(255);
 
-… and then mark this problem as manually resolved by clicking on the button.
+… y después marque este problema como resuelto manualmente haciendo clic en el botón.
 
-But because your evolution script has errors, you probably want to fix it. So you modify the @3.sql@ script:
+Pero debido a que su script de evolución tiene errores, probablemente usted quiera corregirlos. Así que modifique el script @3.sql@:
 
 bc. # Add another column to User
   
@@ -180,19 +178,19 @@ ALTER TABLE User ADD company varchar(255);
 # --- !Downs
 ALTER TABLE User DROP company;
 
-Play detects this new evolution that replaces the previous *3* one, and will run the following script:
+Play detectará esta nueva evolución que reemplaza la **versión 3** previa, y ejecutará  el siguiente script:
 
 !images/evolutions-resolve!
 
-Now everything is fixed, and you can continue to work.
+Ahora todo está arreglado, y usted puede continuar con su trabajo.
 
-p(note). In developement mode however it is often simpler to simply trash your developement database and reapply all evolutions from the beginning.
+p(note). Sin embargo, en modo de desarrollo suele ser más fácil borrar su base de datos de desarrollo y volver a aplicar todas las evoluciones desde el principio.
 
-h2. Evolutions commands
+h2. Comandos de evolución
 
-The evolutions run interactively in DEV mode. However in PROD mode you will have to use the @evolutions@ command to fix your database schema before running your application.
+Las evoluciones se ejecutan interactivamente en modo DEV. Sin embargo en modo PROD tendrá que utilizar el comando @evolutions@ para ajustar el esquema de su base de datos antes de iniciar su aplicación.
 
-If you try to run a application in production mode on a database that is not up to date, the application will not start.
+Si intenta ejecutar una apliación en modo producción con una base de datos no actualizada, la aplicación no se iniciará.
 
 bc. ~        _            _ 
 ~  _ __ | | __ _ _  _| |
@@ -220,19 +218,19 @@ Your database needs evolution!
 An SQL script will be run on your database.
  
 play.db.Evolutions$InvalidDatabaseRevision
-	at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
-	at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
-	at play.Play.start(Play.java:452)
-	at play.Play.init(Play.java:298)
-	at play.server.Server.main(Server.java:141)
+    at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
+    at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
+    at play.Play.start(Play.java:452)
+    at play.Play.init(Play.java:298)
+    at play.server.Server.main(Server.java:141)
 Exception in thread "main" play.db.Evolutions$InvalidDatabaseRevision
-	at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
-	at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
-	at play.Play.start(Play.java:452)
-	at play.Play.init(Play.java:298)
-	at play.server.Server.main(Server.java:141)
+    at play.db.Evolutions.checkEvolutionsState(Evolutions.java:323)
+    at play.db.Evolutions.onApplicationStart(Evolutions.java:197)
+    at play.Play.start(Play.java:452)
+    at play.Play.init(Play.java:298)
+    at play.server.Server.main(Server.java:141)
 
-The error message asks you to run the @play evolutions@ command:
+El mensaje de error le dice que ejecute el comando @play evolutions@:
 
 bc. $ play evolutions
 ~        _            _ 
@@ -285,18 +283,18 @@ ALTER TABLE User ADD company varchar(255);
 ~ or apply it yourself and mark it done using `play evolutions:markApplied`
 ~
 
-If you want Play to automatically run this evolution for you, then run:
+Si desea que Play aplique automáticamente esta evolución por usted, entonces ejecute el comando:
 
 bc. $ play evolutions:apply
 
-If you prefer running this script manually on your production database, you need to tell Play that your database is up-to-date by running:
+Si prefiere ejecutar este script manualmente en su base de datos de producción, luego debe decirle a Play que su base de datos fue actualizada ejecutando el comando:
 
 bc. $ play evolutions:markApplied
 
-If there are any errors while automatically running the evolutions scripts, as in DEV mode, you need to manually resolve them, and mark your database schema as fixed by running:
+Si hay algún error mientras ejecuta automáticamente los scripts de evolución, como en el modo DEV, debe resolverlo manualmente, y luego marcar el esquema de su base de datos como corregida, ejecutando el comando:
 
 bc. $ play evolutions:resolve
 
-p(note). **Continuing the discussion**
-
-Learn how to configure %(next)"Logging":logs%.
+p(note). **Próximos Pasos**
+ 
+Aprenda cómo configurar el %(next)"Logging":logs%.
