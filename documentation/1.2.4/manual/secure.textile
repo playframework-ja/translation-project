@@ -1,30 +1,30 @@
 h1. Módulo de Seguridad
 
-El módulo **Secure** te ayuda a configurar en tu aplicación la administración básica de autenticación y autorización. Provee un controlador simple @controllers.Secure@ que define un conjunto de interceptores que fácilmente puedes agregar a tus controladores usando la anotación <code>@With</code>.
+El módulo **Secure** le permite crear de manera muy simple una administración básica de la autenticación y autorización en su aplicación. Provee un controlador simple @controllers.Secure@ que define un conjunto de interceptores que fácilmente puede agregar a sus controladores usando la anotación <code>@With</code>.
 
 h2. <a name="setup">Configuración del Módulo</a>
 
 h3. <a name="enable">Habilitar el módulo de seguridad de la aplicación</a>
 
-Habilita el módulo de seguridad en el archivo @/conf/dependencies.yml@ agregando una línea después de @require:@
+Habilite el módulo de seguridad en el archivo @/conf/dependencies.yml@ agregando la siguiente línea después de @require:@
 
 bc. require:
     - play -> secure
 
-Despues ejecuta el comando @play dependencies@ para agregar el módulo a tu aplicación.
+Después ejecute el comando @play dependencies@ para agregar el módulo a su aplicación.
 
-h3. <a name="routes">Importa las rutas default del módulo @Secure@</a>
+h3. <a name="routes">Importe las rutas por defecto del módulo @Secure@</a>
 
-Importa el módulo default modificando el archivo @conf/routes@ con la siguiente línea:
+Importe las rutas por defecto del módulo agregando al archivo @conf/routes@ la siguiente línea:
 
 bc. # Import Secure routes
 *      /                module:secure
 
-p(note). **Nota** que no es requerido usar el archivo por defecto de rutas. Puedes además definir tus propias rutas, o alguna mezcla de las dos.
+p(note). **Nota**: no es obligatorio utilizar el archivo de rutas por defecto. Puede definir sus propias rutas, o también mezclarlos ambos enfoques.
 
 h2. <a name="controller">Protegiendo un controlador</a>
 
-Para proteger un controlador sólamente necesitas anotarl usando <code>@With</code>. Por ejemplo:
+Para proteger un controlador solo necesita anotarlo usando <code>@With</code>. Por ejemplo:
 
 bc. @With(Secure.class)
 public class Application extends Controller {
@@ -34,11 +34,11 @@ public class Application extends Controller {
     }
 }
 
-Este controlador será automáticamente protegido con la página de autenticación por defecto.
+Este controlador será automáticamente protegido mediante la página de autenticación por defecto.
 
 h2. <a name="custom">Personalizado el mecanismo de autenticación</a>
 
-Por defecto, la página de autenticación aceptará cualquier combinación de usuario/contraseña. Para personalizar esto en tu aplicación debes de especificar un proovedor del tipo **Security**. Solo crea una clase en el paquete @controllers@ que herede de la clase @controllers.Secure.Security@, entonces puedes sobreescribir el método @authenticate(String username, String password)@.
+Por defecto, la página de autenticación aceptará cualquier combinación de usuario/contraseña. Para personalizar este comportamiento, en su aplicación debe especificar un proovedor del tipo **Security**. Tan solo cree una clase en el paquete @controllers@ que herede de la clase @controllers.Secure.Security@, entonces podrá sobreescribir el método @authenticate(String username, String password)@.
 
 bc. package controllers;
  
@@ -50,11 +50,11 @@ public class Security extends Secure.Security {
     }
 }
 
-p(note). **Nota** que también puedes sobreescribir otros métodos para personalizar cómo la aplicación debe reaccionar en los eventos de autenticación (@onAuthenticated@, @onDisconnected@).
+p(note). **Nota**: también puede sobreescribir otros métodos para personalizar cómo la aplicación debe reaccionar frente a los eventos de autenticación (@onAuthenticated@, @onDisconnected@).
 
-h2. <a name="user">Obtener el usuario autenticado</a>
+h2. <a name="user">Obteniendo el usuario autenticado</a>
 
-Desde el código de tu aplicación puedes usar la clase que acabas de crear para obtener el usuario conectado:
+Desde el código de su aplicación puede usar la clase que acaba de crear para obtener el usuario conectado:
 
 bc. @With(Secure.class)
 public class Application extends Controller {
@@ -69,7 +69,7 @@ h2. <a name="auth">Agregando validaciones de Autorización</a>
 
 h3. <a name="authcontroller">Anotaciones en el @Controller@</a>
 
-Puedes usar la anotación <code>@Check</code> ya sea en una clase @controller@ o un método dentro de éstos para decirle al módulo de seguridad que valide que el usuario autenticado tiene la autorización requerida para invocar una acción.
+Puede usar la anotación <code>@Check</code> ya sea en una clase @controller@ o en un método dentro de éstos para decirle al módulo de seguridad que valide que el usuario autenticado efectivamente tiene la autorización requerida para invocar esa acción.
 
 Por ejemplo, para restringir un método de acción a usuarios autorizados:
 
@@ -83,7 +83,7 @@ public class Application extends Controller {
    }
 }
 
-Para restringir todas las acciones en un controlador, usa la anotación <code>@Check</code> en la clase controlador:
+Para restringir todas las acciones en un controlador, use la anotación <code>@Check</code> en la clase del controlador:
 
 bc. @With(Secure.class)
 @Check("administrator")
@@ -99,36 +99,7 @@ public class Application extends Controller {
    }
 }
 
-
-Por ejemplo, para restringir a usuarios autorizados en un método mapeado por un acción:
-
-bc. @With(Secure.class)
-public class Application extends Controller { 
-   …
-   
-   @Check("administrator")
-   public static void delete(Long id) {
-       …
-   }
-}
-
-Para restringir todos los métódos en un controlador, puedes usar la anotación <code>@Check</code> en la clase controlador:
-
-bc. @With(Secure.class)
-@Check("administrator")
-public class Application extends Controller { 
-   …
-   
-   public static void delete(Long id) {
-       …
-   }
-   
-   public static void edit(Long id) {
-       …
-   }
-}
-
-Por defecto, el módulo de seguridad siempre autoriza todas las revisiones. Debes de personalizarlo sobreescribiendo uno o más métodos en la clase @Security@:
+Por defecto, todos los Checks del módulo de seguridad retornarán Verdadero, autorizando el acceso especificado. Debe personalizarlo sobreescribiendo uno o más métodos en la clase @Security@:
 
 bc. package controllers;
  
@@ -146,31 +117,30 @@ public class Security extends Secure.Security {
     }    
 }
 
-h3. <a name="authtag">Etiquetas para las plantillas</a>
+h3. <a name="authtag">Tags para las plantillas</a>
 
-Además puedes usar la etiqueta @secure.check@ para verificar la autorización en las plantillas. Esto es muy útil cuando necesitas desplegar condicionalmente en la interfaz de usuario controles para operaciones que están protegidas en el controlador, por ejemplo:
+Además puedes usar el tag @secure.check@ para verificar la autorización en las plantillas. Esto es muy útil cuando necesite mostrar condicionalmente en la interfaz de usuario controles para operaciones que están protegidas en el controlador, por ejemplo:
 
 bc. #{secure.check "administrator"}
     <a href="@{delete(item.id)}">Delete</a>
 #{/secure.check}
 
-La etiqueta sólo despliega su contenido para usuarios autorizados, así que la liga @‘Delete’@ sólo es desplegada cuando un usuario está autorizado para ejecutar la acción @delete@ en el controlador.
+El tag solamente muestra su contenido (body) para los usuarios autorizados, así que el link @‘Delete’@ sólo es mostrado en pantalla cuando un usuario está autorizado para ejecutar la acción @delete@ en el controlador.
 
 h2. <a name="commands">Commandos</a>
 
-El módulo @Secure@ provee un comando @play secure:override@ que puedes usar para sobreescribir la página de autenticación, así que puedes personalizarlo en tu aplicación. Esto lo puedes hacer copiando el archivo correspondiente del módulo a un archivo que será usado en tu aplicación.
+El módulo @Secure@ provee un comando @play secure:override@ que puede usar para sobreescribir la página de autenticación, de manera que pueda personalizarlo en su aplicación. Esto lo puede hacer copiando el archivo correspondiente del módulo a un archivo que será usado en stu aplicación.
 
 Puedes abreviar @play secure:override@ con @play secure:ov@.
 
 h3. <a name="css">Sobreescribir CSS</a>
 
-Usa el comando @play secure:override --css@ para copiar un archivo CSS a tu aplicación donde puedes personalizar los estilos de la página de autenticación.
+Use el comando @play secure:override --css@ para copiar un archivo CSS a su aplicación, a través del cual podrá personalizar los estilos de la página de autenticación.
 
-h3. <a name="login">Sobreescribir la plantilla de autenticación</a>
+h3. <a name="login">Sobreescribiendo la plantilla de autenticación</a>
 
-Usa el comando @play secure:override --login@ para copiar una platilla de la página de autenticación que sobreescribe la platilla de autenticación por defecto.
+Use el comando @play secure:override --login@ para copiar la plantilla con la página de autenticación (login), a través del cual podrá personalizar su presentación.
 
-h3. <a name="layout">Sobreescribir la disposición principal</a>
+h3. <a name="layout">Sobreescribiendo el layout</a>
 
-Usa el comando @play secure:override --layout@ para copiar la platilla con la disposición principal que va a sobreescribir la disposición usada en la página de autenticación.
-
+Use el comando @play secure:override --layout@ para copiar la plantilla con la plantilla con el layout de su aplicación, a través del cual podrá personalizar su presentación.
