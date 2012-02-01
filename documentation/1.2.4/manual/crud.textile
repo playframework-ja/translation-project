@@ -1,37 +1,35 @@
-h1. CRUD: Generando la administración
+h1. CRUD: Generador de interfaz de administración
 
-El módulo CRUD (Create, Read, Update, Delete) genera una interfaz completamente usable para tus objetos JPA.
+El módulo CRUD (cuyas siglas provienen del inglés Create, Read, Update, Delete, que en español significan Crear, Leer, Actualizar, Eliminar) genera una interfaz completamente utilizable para administrar sus objetos JPA.
 
 h2. <a name="usage">Utilizando el módulo CRUD</a>
 
 Veamos un simple ejemplo de cómo manejar la información de los usuarios utilizando el módulo CRUD.
 
-
 h3. <a name="enable">Habilitando el módulo CRUD en nuestra aplicación</a>
 
-Para habilitar el módulo CRUD, agrega al archivo @/conf/dependencies.yml@ la siguiente línea luego de @require:@ 
+Para habilitar el módulo CRUD, agregue al archivo @/conf/dependencies.yml@ la siguiente línea luego de @require:@ 
 
 bc. require:
     - play -> crud
 
-Ahora ejecuta el comando @play dependencies@ para resolver la dependencia del nuevo módulo.
+Ahora ejecute el comando @play dependencies@ para resolver la dependencia del nuevo módulo.
 
 
 h3. <a name="routes">Importando las rutas CRUD por defecto</a>
 
-En el archivo @conf/routes@, importa el módulo por defecto agregando ésta línea:
+En el archivo @conf/routes@, importe las rutas del módulo agregando ésta línea:
 
 bc. # Import CRUD routes
 *     /admin           module:crud
 
 Esto agrega varias rutas por cada uno de tus controladores CRUD, que agregaremos a continuación.
 
-p(note). **Ten en cuenta** que no es obligatorio utilizar el archivo de rutas por defecto. Puedes definir tu propio archivo de rutas, o también mezclarlos.
-
+p(note). **Tenga en cuenta** que no es obligatorio utilizar el archivo de rutas por defecto. Puede definir sus propias rutas, o también mezclarlos ambos enfoques.
 
 h3. <a name="model">Creando una clase User</a>
 
-El módulo CRUD provee una interfaz de usuario para las clases del módelo. Comenzaremos creando una interfaz de usuario para la clase User, que es una entidad "JPA":jpa:
+El módulo CRUD provee una interfaz de usuario para las clases del modelo. Comenzaremos creando una interfaz de usuario para la clase User, que es una entidad "JPA":jpa:
 
 bc. package models;
  
@@ -60,11 +58,11 @@ public class Users extends CRUD {
    
 }
 
-Ahora abre "http://localhost:9000/admin":http://localhost:9000/admin  y deberías ver el área de administración de User.
+Ahora abra "http://localhost:9000/admin":http://localhost:9000/admin  y debería ver el área de administración para el modelo User.
 
 !images/crud1!
 
-El nombre de la clase del controlador debe ser igual al nombre de la clase del modelo que queremos administrar, pero con una ‘s’ al final. Si quieres utilizar otro nombre, puedes hacerlo utilizando una anotación.
+Por convención, el nombre de la clase del controlador debe ser igual al nombre de la clase del modelo que queremos administrar, pero con una ‘s’ al final. Si quiere utilizar otro nombre, puede hacerlo utilizando la anotación @CRUD.For@.
 
 bc. package controllers;
  
@@ -75,14 +73,13 @@ public class AdminUsers extends CRUD {
    
 }
 
-
 h3. <a name="view">El formulario de User</a>
 
-Clickea el botón **Add** y deberías ver el formulario de User.
+Haciendo click en el botón **Add** debería ver el formulario de User.
 
 !images/crud2!
 
-Ahora podemos agregar algunas reglas de validación a la clase Usuario:
+Ahora podemos agregar algunas reglas de validación a nuestra clase User:
 
 bc. package models;
  
@@ -115,37 +112,37 @@ public class User extends Model {
 	
 }
 
-Refresca el formulario y verás que las validaciones son aplicadas automáticamente.
+Refresque el formulario y verá que las validaciones son aplicadas automáticamente.
 
 !images/crud3!
 
 h3. <a name="labels">Cambiando las etiquetas del formulario</a>
 
-Agrega éstas líneas al archivo @conf/messages@ de tu aplicación:
+Agrega estas líneas al archivo @conf/messages@ de su aplicación:
 
 bc. name=Name
 email=Email address
 address=Postal address
 
-y refresca el formulario:
+y refresque el formulario:
 
 !images/crud4!
 
-h3. <a name="list">Creando un usuario y retocando la vista de lista</a>
+h3. <a name="list">Creando un usuario y personalizando la vista de lista</a>
 
-Por defecto, la vista de lista utiliza sólo una columna que nos muestra el resultado del método @toString()@ del objeto.
+Por defecto, la vista de lista utiliza una única columna que nos muestra el resultado del método @toString()@ del objeto.
 
 !images/crud5!
 
-Para retocar ésta vista, necesitamos crear el template @/app/views/Users/list.html@ en nuestra aplicación.
+Para personalizar esta vista, necesitamos crear la plantilla (template) @/app/views/Users/list.html@ en nuestra aplicación.
 
-Abre una línea de comandos, sitúate en el directorio de la aplicación y tipea:
+Abra una línea de comandos, vaya al directorio de la aplicación y tipee:
 
 bc. play crud:ov --template Users/list
 
-Esto copiará el template por defecto @list.html@ de CRUD al template @Users/list.html@ de nuestra aplicación, sobreescribiéndolo si estuviese presente.
+Esto copiará la plantilla por defecto @list.html@ de CRUD a la plantilla @Users/list.html@ de nuestra aplicación, sobreescribiéndolo si estuviese presente.
 
-Edita el template así:
+Ahora podrá personalizar la platilla editándola de la siguiente manera:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -170,16 +167,15 @@ bc. #{extends 'CRUD/layout.html' /}
 	</p>
 </div>
 
-y refresca la lista.
+y refresque la lista.
 
 !images/crud6!
 
+h3. <a name="custom">Personalizando campos: el tag crud.custom</a>
 
-h3. <a name="custom">Mostrando campos retocados: el tag crud.custom</a>
+Puede ir un poco más lejos y personalizar también la manera en que se muestra cada campo de la entidad @User@ en las vistas de lista y formulario.
 
-Puedes ir un poco más lejos retocando la manera en que se muestra cada campo de la entidad @User@ en las vistas de lista y formulario.
-
-Para retocar un campo, utiliza el tag @#{crud.custom}@:
+Para personalizar un campo en particular, utilice el tag @#{crud.custom}@:
 
 bc. #{crud.table fields:['name', 'company']}
  
@@ -191,7 +187,7 @@ bc. #{crud.table fields:['name', 'company']}
  
 #{/crud.table}
 
-También puedes agregar columnas o inputs de formulario definiendo tus propios manejadores: 
+También puede agregar columnas o inputs de formulario definiendo tus propios manejadores: 
 
 bc. #{crud.table fields:['name', 'company', 'edit']}
  
@@ -205,10 +201,9 @@ bc. #{crud.table fields:['name', 'company', 'edit']}
  
 #{/crud.table}
 
-
 h2. <a name="collections">Listas de Strings y de enumeración</a>
 
-El módulo CRUD muestra las listas como un campo de texto. En éste campo de texto, la lista está representada por una lista de Strings separadas por comas. Por ejemplo:
+El módulo CRUD muestra las listas como un campo de texto. En este campo de texto, la lista está representada como una lista de Strings separadas por comas. Por ejemplo:
 
 bc. @Entity
 public class Account extends Model {
@@ -225,12 +220,13 @@ public class Account extends Model {
       }
 }
 
-Lo veremos como "myEnumId1","myEnumId2" para contentTypes y "string1","string2"  para los nombres de usuario. Por definición, ésto es lo primero que deberías retocar en tu módulo CRUD.
+En pantalla, lo veremos como "myEnumId1","myEnumId2" para contentTypes y "string1","string2"  para los nombres de usuario. Por definición, esto es lo primero que usted debería personalizar en su módulo CRUD.
 
-h2. <a name="objecttype">Retocando las vistas _show_ y _blank_ de manera genérica</a>
+h2. <a name="objecttype">Personalizando las vistas _show_ y _blank_ de manera genérica</a>
 
-La influencia central en el comportamiento de las vistas de CRUD es el @ObjectType@ de cada campo.
-Entonces, si quisieras cambiar el comportamiento del módulo CRUD de una manera genérica, por ejemplo esconder campos con la anotación <code>@Version</code>, puedes crear tu propia clase @ObjectType@. Deberás declarar un método estático en tu controlador o en una superclase del mismo.
+Lo más importante en el comportamiento de las vistas de CRUD es el @ObjectType@ de cada campo.
+
+Entonces, si desea cambiar el comportamiento del módulo CRUD de una manera genérica, por ejemplo esconder campos con la anotación <code>@Version</code>, puede crear su propia clase @ObjectType@. Deberá declarar un método estático en su controlador o en una superclase del mismo.
 
 bc. protected static ObjectType createObjectType(Class<? extends Model> type) {
    return new VersionObjectType(type);
@@ -282,26 +278,24 @@ bc.   public class CustomAdminCompany extends CRUD {
    }   
 }
 
-Pero eso no es todo; también puedes retocar @findPage@ y otros métodos. Echa un vistazo al código fuente.
+Pero eso no es todo; también puede personalizar @findPage@ y otros métodos. Eche un vistazo al código fuente.
 
 h2. <a name="commands">Comandos</a>
 
-El módulo CRUD nos provee el comando *crud:override* que puedes utilizar en la línea de comandos para sobreescribir los templates por defecto. Esto funciona porque CRUD carga los templates que estén presentes en tu aplicación en lugar de los propios. También puedes utilizar @crud:ov@ en lugar de @crud:override@.
+El módulo CRUD provee el comando *crud:override* que puede utilizar desde la línea de comandos para sobreescribir las plantillas que trae por defecto. Esto funciona porque CRUD carga las plantillas que estén presentes en su aplicación en lugar de las propias. También puede utilizar @crud:ov@ en lugar de @crud:override@.
 
 h3. play crud:override --template [path]
 
-Copia el template especificado en el path, por ejemplo @Users/list@, al directorio @app/views/CRUD/@ de tu aplicación. También puedes utilizar @-t@ en lugar de @--template@.
+Copia la plantilla especificada en el path, por ejemplo @Users/list@, al directorio @app/views/CRUD/@ de su aplicación. También puede utilizar @-t@ en lugar de @--template@.
 
 h3. play crud:override --layout
 
-Sobreescribe el template de la página principal, @layout.html@.
+Sobreescribe la plantilla de la página principal, @layout.html@.
 
 h3. play crud:override --css
 
 Sobreescribe la hoja de estilo, @crud.css@, copiándola al directorio @public/stylesheets/@.
 
+h2. <a name="limitation">Limitaciones</a>
 
-
-h2. <a name="limitation">Limitación</a>
-
-El módulo CRUD muestra relaciones bidireccionales sólo en una de las dos entidades: aquella que no posea el atributo @mappedBy@
+El módulo CRUD muestra las relaciones bidireccionales tan sólo en una de las dos entidades: justamente aquella que no posea el atributo @mappedBy@
