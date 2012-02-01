@@ -1,370 +1,365 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Parámetros de configuración
 
-h1. Configuration parameters
+Configure su aplicación Play asignando valores a los parámetros de configuración del archivo @conf/application.conf@. Revise también:
 
-Configure your Play application by setting values for configuration keys in @conf/application.conf@ file. See also:
+* "Conceptos principales - el directorio conf":main#conf
+* "Configurando application.conf en varios entornos":ids
+* "Puesta en producción de su aplicación":production
 
-* "Main concepts - the conf directory":main#conf
-* "Managing application.conf in several environments":ids
-* "Put your application in production":production
-
-h2(#application). Application configuration
+h2(#application). Configuración de la aplicación
 
 
 h3(#application.baseUrl). application.baseUrl
 
-The application base URL used for reverse-resolving absolute URLs. This is used by the <code>@@{..}</code> template syntax and in Jobs, which do not have an inbound @Http.Request@), such as rendering e-mail. For example, for @dev@ mode:
+La URL base de la aplicación usada para generar URLs absolutas. Esta es utilizada por la sintanxis de plantilla <code>@@{..}</code> y en los Jobs (los cuales no están vinculados a un pedido @Http.Request@), tales como la generación de e-mail. Por ejemplo, para el modo @dev@:
 
 bc. application.baseUrl=http://localhost:9000/
 
-For @prod@ mode:
+Y para el modo @prod@:
 
 bc. %production%.application.baseUrl=http://www.yourdomain.com/
 
 
 h3(#application.defaultCookieDomain). application.defaultCookieDomain
 
-Enables session/cookie sharing between subdomains. For example, to make cookies valid for all domains ending with ‘.example.com’, e.g. @foo.example.com@ and @bar.example.com@:
+Permite que la sesión/cookie sea compartida entre subdominios. Por ejemplo, para hacer que las cookies sean válidas para todos los dominios que terminan en ‘.example.com’, tales como @foo.example.com@ y @bar.example.com@:
 
 bc. application.defaultCookieDomain=.example.com
 
-Default: a cookie is only valid for a specific domain.
+Por defecto: una cookie es válida solamente para un dominio específico.
 
 
 h3(#application.lang.cookie). application.lang.cookie
 
-The name of the cookie that is used to store the current language, set by @play.i18n.Lang.change(String locale)@, which you can change if you want separate language settings for separate Play applications. For example:
+Este será el nombre de la cookie que se usa para almacenar el idioma actual, y normalmente lo asigna @play.i18n.Lang.change(String locale)@; usted puede cambiar este nombre si quiere especificar distintas configuraciones de idiomas para distintas aplicaciones Play. Por ejemplo:
 
 bc. application.lang.cookie=MYAPP_LANG
 
-Default: @PLAY_LANG@
+Por defecto: @PLAY_LANG@
 
 
 h3(#application.langs). application.langs
 
-Defines locales used by your application. You can then place localised messages in @conf/messages.{locale}@ files. The value is a comma-separated list of language codes, for example:
+Define las configuraciones regionales (en inglés "locales") soportadas por su aplicación. Luego puede colocar los mensajes traducidos en los archivos @conf/messages.{idioma}@. El valor es una lista de códigos de idioma separados por coma, por ejemplo:
 
 bc. application.langs=fr,en,ja
 
-Default: no additional languages.
+Por defecto: no viene definido ningún idioma adicional al idioma original de la aplicación.
 
 
 h3(#application.log). application.log
 
-Specifies log level for your application. For example:
+Especifica el nivel del registro de eventos (_log_) para su aplicación. Por ejemplo:
 
 bc. application.log=DEBUG
 
-Default: @INFO@
+Por defecto: @INFO@
 
-See also: "Logging configuration":logs.
+Revise también: "Configuración del logging":logs.
 
 
 h3(#application.log.path). application.log.path
 
-Path to a Log4J configuration file, to customise log output. If you do not specify a path, Play will load a @log4j.properties@ file in the @conf@ directory if present.
+Ubicación de un archivo de configuración de Log4J, usado para personalizar la salida del registro de eventos (_log_). Si no especifica una ubicación, Play cargará el archivo @log4j.properties@ del directorio @conf@ en caso de que este archivo exista.
 
 bc. application.log.path=/log4j.properties
 
-Default: @/log4j.xml@ falling back to @/log4j.properties@
+Por defecto: @/log4j.xml@ el cual redirecciona a @/log4j.properties@
 
 
 h3(#application.log.recordCaller). application.log.recordCaller
 
-Configures the value of @play.Logger.recordCaller@ to record and display the caller method. For example:
+Configura el valor de @play.Logger.recordCaller@, el cual especifica si se debe registrar y mostrar el método que hace el llamado. Por ejemplo:
 
 bc. application.log.recordCaller=true
 
-Default: @false@
+Por defecto: @false@
 
 
 h3(#application.mode). application.mode
 
-Application mode (case insensitive). For example:
+Modo de ejecución de la aplicación (sensible a las mayúsculas y minúsculas). Por ejemplo:
 
 bc. application.mode=prod
 
-Values:
+Valores posibles:
 
-* @DEV@ - enable instant reloading and other development help
-* @PROD@ - pre-compiles and caches Java sources and templates.
+* @DEV@ - habilita la recarga inmediata y otras funciones de desarrollo
+* @PROD@ - hace una compilación previa del código y guarda en cache los fuentes Java y las plantillas.
 
-Default: @DEV@
+Por defecto: @DEV@
 
 
 h3(#application.name). application.name
 
-The application’s name, usually set by the @play new@ command.
+El nombre de la aplicación, usualmente asignado por el comando @play new@.
 
-Default: no value.
+Por defecto: sin valor.
 
 
 h3(#application.secret). application.secret
 
-The secret key is used to secure cryptographic functions, usually set by the @play new@ or @play secret@ command. If you deploy your application to several instances be sure to use the same key. For example:
+La clave secreta que se usa para proteger las funciones criptográficas, usualmente asignada por el comando @play new@ o @play secret@. Si usted despliega su aplicación en varias instancias asegúrese de usar la misma clave. Por ejemplo:
 
 bc. application.secret=mNuAvlsFVjeuynN4IWZxZzFOHYVagafzjruHmWTL26VISKr46rUtyGcJuX7aYx4q
 
-If not set, @play.libs.Crypto.sign@ will not encrypt messages; in particular, sessions will not be encrypted.
+Si no está configurada, @play.libs.Crypto.sign@ no encriptará los mensajes; en particular, las sesiones no serán encriptadas.
 
-Default: no value.
+Por defecto: sin valor.
 
 
 h3(#application.session.cookie). application.session.cookie
 
-Session cookie name. The cookies are not secured by default, only set it to true if you’re serving your pages through HTTPS. For example:
+Nombre del cookie de la sesión. Por defecto, las cookies no están protegidas, configúrelo solamente si de verdad está sirviendo sus páginas a través de HTTPS. Por ejemplo:
 
 bc. application.session.cookie=PLAY
 
-Default: sessions are written to the transient @PLAY_SESSION@ cookie.
+Por defecto: la sesión se escribe en el cookie temporal @PLAY_SESSION@.
 
 
 h3(#application.session.httpOnly). application.session.httpOnly
 
-Enables the ‘HTTP only’ flag on cookies, which mitigates some XSS attacks. For example:
+Habilita el indicador ‘HTTP only’ (_solamente HTTP_) en las cookies, la cual mitiga algunos ataques XSS. Por ejemplo:
 
 bc. application.session.httpOnly=true
 
-Default: @false@
+Por defecto: @false@
 
-For more information see the "OWASP page on HttpOnly":http://www.owasp.org/index.php/HttpOnly.
+Para más información revise la "página OWASP sobre HttpOnly":http://www.owasp.org/index.php/HttpOnly.
 
 
 h3(#application.session.maxAge). application.session.maxAge
 
-Session time-out, i.e. the maximum age of the session cookie. If not set, the session expires when you close your web browser. For example, to set the session to one hour:
+Tiempo de expiración de la sesión, es decir, el tiempo máximo de vigencia de la cookie de la sesión. Si no está configurado, la sesión expira cuando cierra su navegador web. Por ejemplo, para configurar la vigencia de la sesión en una hora:
 
 bc. application.session.maxAge=1h
 
-Remember the session for one week:
+Mantener la sesión por una semana:
 
 bc. application.session.maxAge=7d
 
-Default: the session is based on a transient cookie expires when the browser is closed.
+Por defecto: la sesión se basa en una cookie temporal que expira cuando el browser se cierra.
 
 
 h3(#application.session.secure). application.session.secure
 
-Enables Cookie-based sessions for HTTPS connections. For example:
+Habilita las sesiones basadas en cookies para conexiones HTTPS. Por ejemplo:
 
 bc. application.session.secure=true
 
-Default: @false@
+Por defecto: @false@
 
 
 h3(#application.session.sendOnlyIfChanged). application.session.sendOnlyIfChanged
 
-Avoid sending the session cookie if there were no changes to the session. For example:
+Evita el envio de la cookie de la sesión si no hubo cambios en la misma. Por ejemplo:
 
 bc. application.session.sendOnlyIfChanged=true
 
-Default: @false@
+Por defecto: @false@
 
 
 h3(#application.web_encoding). application.web_encoding
 
-The text encoding that Play uses when communicating with the web browser and for the "Web Service client":libs#WebServiceclient. You do not normally need to set this, since Play defaults to using @UTF-8@. For example:
+La codificación de texto que Play usa cuando se comunica con el navegador web y para el "Cliente de servicio web":libs#WebServiceclient. Normalmente no necesita configurar esto, ya que Play por defecto usa @UTF-8@. Por ejemplo:
 
 bc. application.web_encoding=ISO-8859-1
 
-Default: @UTF-8@
+Por defecto: @UTF-8@
 
-Changing @application.web_encoding@ affects the @charset@ part of the @Content-type@ HTTP header. It also affects which encoding is used when transmitting rendered dynamic results, but it **does not** affect the bytes sent when Play serves static content: So, if you have modified the default response encoding and you have static text-files (in the @public/@ folder) that contain special characters, you must make sure that these files are stored according to the specified encoding. All other files should be stored in UTF-8.
+Cambiar @application.web_encoding@ afecta la parte @charset@ del encabezado HTTP @Content-type@. También afecta la codificación que se usa cuando se transmiten resultados interpretados dinámicamente, sin embargo **no** afecta los bytes enviados cuando Play sirve contenido estático: Por lo tanto, si ha modificado la codificación por defecto de las respuestas y tiene archivos de texto estáticos (en la carpeta @public/@) que contienen caracteres especiales, debe asegurarse que estos archivos estén almacenados de acuerdo con la codificación especificada. Todos los demás archivos deberían almacenarse en UTF-8.
 
 
-h2(#attachments). Attachments
+h2(#attachments). Archivos adjuntos (_attachments_)
 
 
 h3(#attachments.path). attachments.path
 
-Storage path for @play.db.jpa.Blob@ content. This can be an absolute path, or a relative path to a folder inside the Play application folder. For example:
+Ubicación para almacenar contenidos @play.db.jpa.Blob@. Esta puede ser una ubicación absoluta, o la ubicación relativa de una carpeta dentro de la carpeta de la aplicación Play. Por ejemplo:
 
 bc. attachments.path=data/attachments
 
-Default: @attachments@
+Por defecto: @attachments@
 
 
-h2(#certificate). X509 certificates
+h2(#certificate). Certificados X509
 
 
 h3(#certificate.key.file). certificate.key.file
 
-Specifies an X509 certificate key, for HTTPS support. The file must be named @host.key@. For example:
+Especifica una clave de certificado X509, para soporte HTTPS. Debe colocarle el nombre @host.key@ al archivo. Por ejemplo: 
 
 bc. certificate.key.file=/certificates/host.key
 
-Default: @conf/host.key@
+Por defecto: @conf/host.key@
 
 
 h3(#certificate.file). certificate.file
 
-Specifies an X509 certificate file, for HTTPS support. The file must be named @host.cert@. For example:
+Especifica un archivo de certificado X509, para soporte HTTPS. Debe colocarle el nombre @host.cert@ al archivo. Por ejemplo:
 
 bc. certificate.file=/certificates/host.cert
 
-Default: @conf/host.cert@
+Por defecto: @conf/host.cert@
 
 
 h3(#certificate.password). certificate.password
 
-Password for a password-protected X509 certificate key file, for use with the "certificate.key.file":#certificate.key.file configuration. For example:
+Contraseña de un archivo de certificado X509 protegido por contraseña, para usar con la configuración "certificate.key.file":#certificate.key.file. Por ejemplo:
 
 bc. certificate.password=secret
 
-Default: @secret@
+Por defecto: @secret@
 
 
-h2(#cron). Scheduled jobs
+h2(#cron). Jobs programados (Scheduled Jobs)
 
-You can configure cron expressions for scheduled jobs as configuration keys that start with @cron.@ and use the key as the value of a <code>@play.jobs.On</code> or <code>@Every</code> annotation. For example, <code>@On(cron.noon)</code> refers to:
+Puede configurar expresiones _cron_ para los Jobs programados como parámetros de configuración con el prefijo @cron.@ y usar esos parámetros como el valor de una anotación <code>@play.jobs.On</code> o <code>@Every</code>. Por ejemplo, <code>@On("cron.noon")</code> se refiere a:
 
 bc. cron.noon=0 0 12 * * ?
 
 
-h2(#date). Date formats
+h2(#date). Formatos para fecha
 
 
 h3(#date.format). date.format
 
-Sets the default date format, using a @java.text.SimpleDateFormat@ pattern. For example:
+Especifica el formato de fecha por defecto, usando un patrón compatible con @java.text.SimpleDateFormat@. Por ejemplo:
 
 bc. date.format=dd-MM-yyyy
 
-This property also affects how @${date.format()}@ renders dates in templates. It also set the default date format when binding a date parameter.
+Esta propiedad también afecta como @${date.format()}@ muestra las fechas en las plantillas. También establece el formato de fecha por defecto cuando se utilizan parámetros de tipo fecha en las peticiones HTTP. 
 
-Default: @yyyy-MM-dd@
+Por defecto: @yyyy-MM-dd@
 
-You can also set a different date format for specific languages that you have configured with "application.langs":#application.langs, for example:
+Adicionalmente puede configurar diferentes formatos de fecha para los idiomas que configuró en la propiedad "application.langs":#application.langs, por ejemplo:
 
 bc. date.format.fr=dd-MM-yyyy
 
 
-h2(#dbconf). Database configuration
+h2(#dbconf). Configuración de la base de datos
 
 h3(#db). db
 
-Database engine configuration. To quickly set up a development database use a transient in memory database (H2 in memory):
+Configuración del motor de base de datos. Para configurar rápidamente una base de datos de desarrollo use una base de datos temporal en memoria (H2 en memoria):
 
 bc. db=mem
 
-For a simple file written database (H2 file stored):
+Para una base de datos escrita en un archivo (H2 almacenada en archivo):
 
 bc. db=fs
 
-For a local MySQL5 database:
+Para una base de datos MySQL5 local:
 
 bc. db=mysql:user:pwd@database_name
 
-To reuse an existing Datasource from your application server:
+Para reutilizar una fuente de datos (_Datasource_) desde su servidor de aplicaciones:
 
 bc. db=java:/comp/env/jdbc/myDatasource@
 
-If you specify a @Datasource@, the database plugin detects the pattern @db=java:@ and will de-activate the default JDBC system.
+Si especifica un @Datasource@, el _plugin_ de bases de datos al detectar el patrón @db=java:@ desactivará el sistema JDBC que usa por defecto.
 
-Default: none.
-
-See also: "Support for multiple databases":model#multiple.
+Por defecto: ninguna base de datos.
 
 
 h3(#db.destroyMethod). db.destroyMethod
 
-A generic ‘destroy’ method name. When using an existing Datasource, this is sometimes needed to destroy it when the application is stopped. For example:
+Un nombre genérico de método ‘destroy’ a ser ejecutado cuando se detiene la aplicación. Cuando utiliza un _Datasource_ existente, a veces es necesario destruirlo manualmente cuando la aplicación se detiene. Por ejemplo:
 
 bc. db.destroyMethod=close
 
-Default: none.
+Por defecto: nada.
 
 
 h3(#db.driver). db.driver
 
-Database driver class name, for use with "db.url":#db.url. For example:
+Nombre de la clase del _driver_ de bases de datos, para usar con "db.url":#db.url. Por ejemplo:
 
 bc. db.driver=org.postgresql.Driver
 
-Default:
+Por defecto:
 
-* @org.h2.Driver@ when "db":#db is set to @mem@ or @fs@, or if "db.url":#db.url  starts with @jdbc:h2:mem:@
-* @com.mysql.jdbc.Driver@ if "db":#db is a @mysql:…@ configuration.
-
+* @org.h2.Driver@ cuando "db":#db tiene el valor @mem@ o @fs@, o si "db.url":#db.url empieza con @jdbc:h2:mem:@
+* @com.mysql.jdbc.Driver@ si "db":#db es una configuración del tipo @mysql:…@.
 
 h3(#db.pass). db.pass
 
-Database connection password, used with "db.url":#db.url.
+Contraseña de conexión a la base de datos, utilizada en conjunto con "db.url":#db.url.
 
-Default: no value, or an empty string when "db":#db is set to @mem@ or @fs@. 
+Por defecto: sin valor, o una cadena de texto vacía cuando "db":#db tiene el valor @mem@ o @fs@. 
 
 
 h3(#db.pool.maxIdleTimeExcessConnections). db.pool.maxIdleTimeExcessConnections
 
-The number of seconds before idle connections beyond "db.pool.minSize":#db.pool.minSize are ‘culled’. See the "c3p0 documentation":http://www.mchange.com/projects/c3p0/#maxIdleTimeExcessConnections.
+La cantidad de segundos a esperar antes de que las conexiones inactivas, que superen las "db.pool.minSize":#db.pool.minSize permitidas, sean ‘sacrificadas’. Para más información revise la "documentación de c3p0":http://www.mchange.com/projects/c3p0/#maxIdleTimeExcessConnections.
 
-Default: @0@ - ‘no enforcement’.
+Por defecto: @0@ - ‘no aplicar’.
 
 
 h3(#db.pool.maxSize). db.pool.maxSize
 
-Connection pool maximum size (number of connections). See the "c3p0 documentation":http://www.mchange.com/projects/c3p0/#maxPoolSize. For example:
+Tamaño (cantidad de conexiones) máximo del _pool_ de conexiones. Para más información revise la "documentación de c3p0":http://www.mchange.com/projects/c3p0/#maxPoolSize. Por ejemplo:
 
 bc. db.pool.maxSize=60
 
-Default: @30@
+Por defecto: @30@
 
 
 h3(#db.pool.minSize). db.pool.minSize
 
-Connection pool minimum size (number of connections). See the "c3p0 documentation":http://www.mchange.com/projects/c3p0/#minPoolSize. For example:
+Tamaño (cantidad de conexiones) mínimo del _pool_ de conexiones. Para más información revise la "documentación de c3p0":http://www.mchange.com/projects/c3p0/#minPoolSize. Por ejemplo:
 
 bc. db.pool.minSize=10
 
-Default: @1@
+Por defecto: @1@
 
 
 h3(#db.pool.timeout). db.pool.timeout
 
-Connection pool time-out in milliseconds. See the "c3p0 documentation":http://www.mchange.com/projects/c3p0/#checkoutTimeout. For example:
+Tiempo de expiración, expresado en milisegundos, del _pool_ de conexiones. Para más información revise la "documentación de c3p0":http://www.mchange.com/projects/c3p0/#checkoutTimeout. Por ejemplo:
 
 bc. db.pool.timeout=10000
 
-Default: @5000@
+Por defecto: @5000@
 
 
 h3(#db.url). db.url
 
-A full JDBC configuration, in combination with "db.user":#db.user, "db.pass":#db.pass and "db.driver":#db.driver. For example:
+Una configuración completa del JDBC, incluyendo las propiedades "db.user":#db.user, "db.pass":#db.pass y "db.driver":#db.driver. Por ejemplo:
 
 bc. db.url=jdbc:postgresql:database_name
 
-Default: none.
+Por defecto: nada.
 
 
 h3(#db.user). db.user
 
-Database connection user name, used with "db.url":#db.url.
+Nombre de usario para la conexión de la base de datos, utilizado en conjunto con "db.url":#db.url.
 
-Default: none, or @sa@ when "db":#db is set to @mem@ or @fs@. 
+Por defecto: nada, o @sa@ cuando "db":#db tiene el valor @mem@ o @fs@. 
 
 
-h2(#evolutions). Database evolutions
+h2(#evolutions). Evoluciones de base de datos
 
 
 h3(#evolutions.enabled). evolutions.enabled
 
-Used to disable "database evolutions":evolutions.
+Usado para deshabilitar las "evoluciones de base de datos":evolutions.
 
 bc. evolutions.enabled=false
 
-Default: @true@
+Por defecto: @true@
 
 
-h2(#test). Test runner
+h2(#test). Entorno de pruebas (Test runner)
 
 h3(#headlessBrowser). headlessBrowser
 
-Specifies the web browser compatibility mode for the HtmlUnit headless web browser used when running @play auto-test@.
+Especifica el modo de compatibilidad que usará el navegador _headless_ HtmlUnit, el cual será invocado cuando se ejecute el comando @play auto-test@. Ejemplo:
 
 bc. headlessBrowser=INTERNET_EXPLORER_7
 
-Values:
+Valores posibles:
 
 * @FIREFOX_3@
 * @FIREFOX_3_6@
@@ -372,141 +367,139 @@ Values:
 * @INTERNET_EXPLORER_7@
 * @INTERNET_EXPLORER_8@
 
-Default: @INTERNET_EXPLORER_8@
+Por defecto: @INTERNET_EXPLORER_8@
 
 
 h2(#hibernate). Hibernate
 
-You can specify additional Hibernate properties. For example, to enable SQL comments:
+Puede especificar propiedades adicionales de Hibernate. Por ejemplo, para habilitar los comentarios SQL:
 
 bc. hibernate.use_sql_comments=true
-
-See also: "Using JPA with multiple databases":jpa#multiple.
 
 
 h3(#hibernate.connection.datasource). hibernate.connection.datasource
 
-Hibernate datasource configuration.
+Configuración del _datasource_ de Hibernate.
 
 
-h2(#http). Server configuration
+h2(#http). Configuración del servidor
 
 
 h3(#http.address). http.address
 
-HTTP listener address, to restrict addresses the server listens on. For example:
+Dirección IP del HTTP listener, para restringir las direcciones por la cuales el servidor va a escuchar las peticiones HTTP. Por ejemplo:
 
 bc. http.address=127.0.0.1
 
-Default: the server listens for HTTP on the wildcard address.
+Por defecto: el servidor escucha peticiones HTTP a través de todas las direcciones IP.
 
 
 h3(#http.cacheControl). http.cacheControl
 
-HTTP Response headers control for static files: sets the default max-age in seconds, telling the user’s browser how long it should cache the page. This is only read in @prod@ mode, in @dev@ mode the cache is disabled. For example, to send @no-cache@:
+Control de los encabezados de la respuesta HTTP para archivos estáticos: establece el tiempo máximo de vida expresado en segundos, esto le dice al navegador del usuario cuanto tiempo puede durar una página en cache. Esta propiedad solamente se lee en modo @prod@, ya que en el modo @dev@ el cache está deshabilitado. Por ejemplo, para enviar un valor @no-cache@ (no guardar página en cache):
 
 bc. http.cacheControl=0
 
-Default: @3600@ - set cache expiry to one hour.
+Por defecto: @3600@ - establece el tiempo de expiración en una hora.
 
 
 h3(#http.exposePlayServer). http.exposePlayServer
 
-Disable the HTTP response header that identifies the HTTP server as Play. For example:
+Deshabilita el encabezado de la respuesta HTTP que identifica al servidor HTTP como Play. Ejemplo:
 
 bc. http.exposePlayServer=false
 
-Default: @true@
+Por defecto: @true@
 
 
 h3(#http.path). http.path
 
-The URL path where the application runs on the server: use this if you do not host your Play application at the root of the domain you’re serving it from. This parameter has no effect when deployed as a WAR, because the path will be handled by the application server. For example:
+La direccion URL desde donde se ejecuta la aplicación en el servidor: use esto si no hospeda su aplicación Play en la carpeta raíz (_root_) del dominio de su servidor. Este parámetro no tiene efecto cuando despliega su aplicación como un WAR, porque la dirección será administrada por el servidor de aplicaciones. Por ejemplo:
 
 bc. http.path=/myapp/
 
-Default: @/@
+Por defecto: @/@
 
 
 h3(#http.port). http.port
 
-The port that the HTTP server listens on.
+El puerto por el cual escuchará el servidor HTTP.
 
-Default: @9000@
+Por defecto: @9000@
 
 
 h3(#http.proxyHost). http.proxyHost
 
-Proxy server for web services requests. For example:
+Servidor proxy para las peticiones de servicios web. Por ejemplo:
 
 bc. http.proxyHost=localhost
 
-Default: @http.proxyHost@ system property.
+Por defecto: el valor de la propiedad del sistema @http.proxyHost@.
 
 
 h3(#http.proxyPassword). http.proxyPassword
 
-Proxy password for web services requests.
+Contraseña del proxy para las peticiones de servicios web. 
 
-Default: @http.proxyPassword@ system property.
+Por defecto: el valor de la propiedad del sistema @http.proxyPassword@.
 
 
 h3(#http.proxyPort). http.proxyPort
 
-Proxy port for web services requests. For example:
+Puerto del proxy para las peticiones de servicios web. Ejemplo:
 
 bc. http.proxyPort=3128
 
-Default: @http.proxyPort@ system property.
+Por defecto: el valor de la propiedad del sistema @http.proxyPort@.
 
 
 h3(#http.proxyUser). http.proxyUser
 
-Proxy user for web services requests.
+Nombre de usuario del proxy para las peticiones de servicios web.
 
-Default: @http.proxyUser@ system property.
+Por defecto: el valor de la propiedad del sistema @http.proxyUser@.
 
 
 
 h3(#http.useETag). http.useETag
 
-If enabled, Play will generate entity tags automatically and send a 304 when needed. For example, to deactivate use of entity tags:
+Si está habilitado, Play generará automáticamente las etiquetas de entidad (_entity tags_) y enviará una respuesta 304 cuando sea necesaria. Por ejemplo, para desactivar el uso de _entity tags_:
 
 bc. http.useETag=false
 
-Default: @true@
+Por defecto: @true@
 
 
 h3(#http.userAgent). http.userAgent
 
-Custom @USER_AGENT@ header value for web services requests. For example:
+Personaliza el valor del encabezado @USER_AGENT@ para las peticiones de servicios web. Por ejemplo:
 
 bc. http.userAgent=myApp 1.0
 
-Default: none.
+Por defecto: ningún valor.
 
 
 h3(#https.port). https.port
 
-Enables an HTTPS connector, listening on the specified port. For example:
+Habilita un conector HTTPS, que escucha por el puerto especificado. Ejemplo:
 
 bc. https.port=9443
 
-Default: none - no HTTPS configuration.
+Por defecto:  ningún valor - no se utiliza HTTPS.
 
 
-h2(#java). Java source
+h2(#java). Código fuente Java
 
 
 h3(#java.source). java.source
 
-Java source level, which overrides the @java.version@ system property. For example:
+Versión Java del código fuente, el cual sobreescribe la propiedad del sistema @java.version@. Ejemplo:
 
 bc. java.source=1.6
 
-Values:  @1.5@, @1.6@, @1.7@ (experimental).
+Posibles valores:  @1.5@, @1.6@, @1.7@ (experimental).
 
-Default: @1.5@
+Por defecto: @1.5@
 
 
 h2(#jpa). JPA
@@ -514,45 +507,45 @@ h2(#jpa). JPA
 
 h3(#jpa.dialect). jpa.dialect
 
-Specify the custom JPA dialect to use here. For example:
+Especifica el dialecto JPA personalizado para usar en la aplicación. Ejemplo:
 
 bc. jpa.dialect=org.hibernate.dialect.PostgreSQLDialect
 
-Default: Play will guess the dialect based on the "db.driver":#db.driver configuration.
+Por defecto: Play determinará el dialecto basado en la configuración "db.driver":#db.driver.
 
 
 h3(#jpa.ddl). jpa.ddl
 
-Specify the DDL generation pattern to use. For example, to enable automatic database structure updates. For example:
+Especifica el patrón DDL de generación a usar. Por ejemplo, para habilitar la actualización automática de la estructura de la base de datos. Ejemplo:
 
 bc. jpa.ddl=create-drop
 
-Default: @update@ (@dev@ mode) or @none@ (@prod@ mode).
+Por defecto: @update@ (en modo @dev@) o @none@ (en modo @prod@).
 
 
 h3(#jpa.debugSQL). jpa.debugSQL
 
-Debug SQL statements (logged using DEBUG level). For example:
+Depurar (_debug_) sentencias SQL (se registran en el log usando el nivel DEBUG). Ejemplo:
 
 bc. jpa.debugSQL=true
 
-Default: @false@
+Por defecto: @false@
 
 
 h3(#jpa.entities). jpa.entities
 
-Comma-separated list of names of additional JPA entity classes to load. This is useful when you have additional entities that are not in the @models@ package, such as model classes in a separate JAR. For example:
+Lista de nombres separados por coma de entidades JPA adicionales que deberán ser cargadas. Esto es útil cuando tiene entidades adicionales que no están en el _package_ @models@ de la aplicación, tales como clases del modelo dentro de un JAR aparte. Ejemplo:
 
-bc. org.example.model.Person, org.example.model.Organisation
+bc. jpa.entities=org.example.model.Person, org.example.model.Organisation
 
-Default: none.
+Por defecto: ningún valor.
 
 
 h3(#jpa.mapping-file). jpa.mapping-file
 
-JPA mapping file.
+Archivo de mapeo JPA.
 
-Default: none.
+Por defecto: ninguno.
 
 
 h2(#jpda). JVM
@@ -560,43 +553,43 @@ h2(#jpda). JVM
 
 h3(#jpda.port). jpda.port
 
-Defines which port is used by JPDA when application is in debug mode. For example:
+Define el puerto a ser utilizado por JPDA cuando la aplicación esté en modo debug. Ejemplo:
 
-Default: @8000@
+Por defecto: @8000@
 
 
-h2(#keystore). keystore
+h2(#keystore). keystore (Almacén de claves)
 
 
 h3(#keystore.algorithm). keystore.algorithm
 
-A JDK Security API standard algorithm name, for use with the "keystore.file":#keystore.file configuration.
+Nombre de un algoritmo estándar de la API de seguridad del JDK (JDK Security API), para usar con la configuración "keystore.file":#keystore.file. Ejemplo:
 
 bc. keystore.algorithm=pkcs12
 
-Values - ‘standard names’ from the JDK Security API:
+Valores - ‘nombres estandar’ del JDK Security API:
 
-* @jceks@ (‘SunJCE’ provider)
-* @jks@ (‘SUN" provider)
+* @jceks@ (proveedor ‘SunJCE’)
+* @jks@ (proveedor ‘SUN’)
 * @pkcs12@
 
-Default: @JKS@
+Por defecto: @JKS@
 
 
 h3(#keystore.file). keystore.file
 
-Specifies a keystore certificate, for HTTPS support. The file should be named @certificate.jks@. For example:
+Especifica un certificado del keystore, para soporte HTTPS. EL nombre del archivo debe ser @certificate.jks@. Ejemplo:
 
 bc. keystore.file=conf/certificate.jks
 
 
 h3(#keystore.password). keystore.password
 
-Keystore configuration, for use with the "keystore.file":#keystore.file configuration.
+Configuración del keystore, para usar con la configuración "keystore.file":#keystore.file.
 
 bc. keystore.password=secret
 
-Default: @secret@
+Por defecto: @secret@
 
 
 h2(#memcachedconfig). Memcached
@@ -604,291 +597,289 @@ h2(#memcachedconfig). Memcached
 
 h3(#memcached). memcached
 
-Enable "Memcached":http://www.danga.com/memcached/; if you don’t configure Memcached, Play will use a standalone cache that stores data in the JVM heap.
+Habilita "Memcached":http://www.danga.com/memcached/; si no configura Memcached, Play usará un cache independiente que almacena los datos en la pila (_heap_) de la JVM.
 
 bc. memcached=enabled
 
-Default: @disabled@
+Por defecto: @disabled@
 
-See also: "using a cache":cache.
+Revise también: "usando un cache":cache.
 
 
 h3(#memcached.host). memcached.host
 
-Specify memcached host. For example:
+Especifica el host de memcached. Por ejemplo:
 
 bc. memcached.host=127.0.0.1:11211
 
-Default: @127.0.0.1:11211@
+Por defecto: @127.0.0.1:11211@
 
-You can specify multiple hosts to build a distributed cache. For example:
+Puede especificar múltiples hosts para armar un cache distribuido. Por ejemplo:
 
 bc. memcached.1.host=127.0.0.1:11211
 memcached.2.host=127.0.0.1:11212
 
 
-h2(#mimetype). Custom MIME types
+h2(#mimetype). Tipos de archivo MIME personalizados
 
-You can declare additional MIME types. For example:
+Puede declarar tipos de archivo MIME adicionales. Por ejemplo:
 
 bc. mimetype.xpi=application/x-xpinstall
 
 
-h2(#webserviceconfig). Web services
+h2(#webserviceconfig). Servicios Web
 
 h3(#webservice). webservice
 
-Class name of the Web services implementation, or one of the built-in implementations. For example:
+Nombre de la clase de la implementacion del Servicio Web, o una de las implementacions incluidas en Play. Por ejemplo:
 
 bc. webservice=urlfetch
 
-Values:
+Valores disponibles:
 
-* @urlfetch@ - the JDK’s internal implementation
-* @async@ - the engine is Async Http Client
-* class name of a @play.libs.WS.WSImpl@ implementation
+* @urlfetch@ - la implementacion interna del JDK
+* @async@ - el sistema es Async Http Client
+* Nombre de una clase que implemente @play.libs.WS.WSImpl@
 
-Default: @async@ - the engine is Async Http Client.
+Por defecto: @async@ - el sistema es Async Http Client.
 
 
-h2(#mail). Mail
+h2(#mail). Correo electrónico
 
 
 h3(#mail.debug). mail.debug
 
-Enables SMTP transaction logging; under the hood, Play uses JavaMail to perform the actual SMTP transactions.
+Habilita el registro de eventos (_logging_) de las transacciones SMTP. Internamte, Play utiliza JavaMail para realizar las transacciones SMTP.
 
 bc. mail.debug=true
 
-Default: @false@
+Por defecto: @false@
 
 
 h3(#mail.smtp). mail.smtp
 
-Simple mail configuration key.
+Clave de configuración de correo simple.
 
-Default: @mock@ - use a mock Mailer
+Por defecto: @mock@ - usa un Mailer (gestor de correos) simulado
 
-See also: "SMTP configuration":emails#smtp.
+Vea también: "Configuración SMTP":emails#smtp.
 
 
 h3(#mail.smtp.authenticator). mail.smtp.authenticator
 
-Class name for a custom SMTP authenticator (@javax.mail.Authenticator@) implementation.
+Nombre de la clase que implementa un autenticador SMTP (@javax.mail.Authenticator@) personalizado.
 
-Default: none.
+Por defecto: ningún valor.
 
 
 h3(#mail.smtp.channel). mail.smtp.channel
 
-There are two ways to send the e-mail over an encrypted channel, which you can choose with this configuration property. Values:
+Existen dos maneras de enviar el correo electrónico a través de un canal encriptado, con esta propiedad de configuración usted puede especificar cual de ellas va a utilizar. Valores posibles:
 
-* @clear@ - no encryption
-* @ssl@ - SMTP-over-SSL (SMTPS) connector; an SSL socket listening on port 465
-* @starttls@ - a clear connection on port 25 that will switch to SSL/TLS, if your server supports the @starttls@ command (see: "RFC 2487":http://www.apps.ietf.org/rfc/rfc2487.html).
+* @clear@ - sin encriptación
+* @ssl@ - conector SMTP-over-SSL (SMTPS); un socket SSL que escucha por el puerto 465
+* @starttls@ - una conexión limpia a través del puerto 25 que cambiará a SSL/TLS, si su servidor soporta el comando @starttls@ (ver: "RFC 2487":http://www.apps.ietf.org/rfc/rfc2487.html).
 
-Default: @clear@
+Por defecto: @clear@
 
 
 h3(#mail.smtp.host). mail.smtp.host
 
-Outgoing mail server. For example:
+Servidor de correo saliente. Por ejemplo:
 
 bc. mail.smtp.host=127.0.0.1
 
-To use a GMail SMTP server:
+Para usar el servidor SMTP de GMail:
 
 bc. mail.smtp.host=smtp.gmail.com
 
-Default: @localhost@
+Por defecto: @localhost@
 
 
 h3(#mail.smtp.localhost). mail.smtp.localhost
 
-Local host name override for SMTP commands.
+Nombre del host local de reemplazo para los comandos SMTP.
 
-Default: none - use the Java Mail default.
+Por defecto: ningún valor - usa la configuración por defecto de Java Mail 
 
 
 h3(#mail.smtp.pass). mail.smtp.pass
 
-SMTP server password, used with "mail.smtp.host":#mail.smtp.host, e.g. a GMail password.
+Contraseña del servidor SMTP, se usa en conjunto con "mail.smtp.host":#mail.smtp.host, por ejemplo una contraseña para GMail.
 
-Default: none.
+Por defecto: ningún valor.
 
 
 h3(#mail.smtp.port). mail.smtp.port
 
-Port for SMTP server connections, used to override the defaults. For example:
+Puerto para las conexiones al servidor SMTP, para sobreescribir el usado por defecto. Por ejemplo:
 
 bc. mail.smtp.port=2500
 
-Default:
+Por defecto:
 
-* @25@ when "mail.smtp.channel":#mail.smtp.channel is set to @clear@ or @starttls@
-* @465@ when "mail.smtp.channel":#mail.smtp.channel is set to @ssl@
+* @25@ cuando "mail.smtp.channel":#mail.smtp.channel tiene el valor @clear@ o @starttls@
+* @465@ cuando "mail.smtp.channel":#mail.smtp.channel tiene el valor @ssl@
 
 
 h3(#mail.smtp.protocol). mail.smtp.protocol
 
-Sets whether to use SSL. Values:
+Establece el uso o no de SSL. Valores posibles:
 
 * @smtp@
 * @smtps@
 
-Default: @smtp@
+Por defecto: @smtp@
 
 
 
 h3(#mail.smtp.socketFactory.class). mail.smtp.socketFactory.class
 
-When using SSL connections with JavaMail, the default SSL behaviour is to drop the connection if the remote server certificate is not signed by a root certificate. This is the case in particular when using a self-signed certificate. Play’s default behaviour is to skip that check. You can control this using this property.
+Cuando usa conexiones SSL con JavaMail, el comportamiento por defecto de SSL es desechar la conexión si el certificado del servidor remoto no está firmado por un certificado raíz. Este es el caso particular cuando se usa un certificado autofirmado. El comportamiento por defecto de Play es omitir esta verificación. Usted puede controlar eso usando esta propiedad.
 
 
 h3(#mail.smtp.user). mail.smtp.user
 
-SMTP server user name, used with "mail.smtp.host":#mail.smtp.host, e.g. a GMail user name.
+Nombre de usuario para tener acceso al servidor SMTP, usado en conjunto con "mail.smtp.host":#mail.smtp.host, por ejemplo: un nombre de usuario de GMail.
 
-Default: none.
+Por defecto: ningún valor.
 
 
-h2(#play). Play run-time
+h2(#play). Play en tiempo de ejecución
 
 
 h3(#play.bytecodeCache). play.bytecodeCache
 
-Used to disable the bytecode cache in @dev@ mode; has no effect in @prod@ mode.
+Se usa para deshabilitar el cache de los _bytecode_ en el modo @dev@; no tiene efecto en modo @prod@.
 
 bc. play.bytecodeCache=false
 
-Default: @true@
+Por defecto: @true@
 
 
 h3(#play.editor). play.editor
 
-Open file from error pages. If your text editor supports opening files by URL, Play will dynamically link error pages to files. For Textmate, for example:
+Abrir archivo desde las páginas de error. Si su editor de texto soporta la apertura de archivos usando una URL, Play enlazará dinámicamente las páginas de error a los archivos. Para Textmate, por ejemplo: 
 
 bc. play.editor=txmt://open?url=file://%s&line=%s
 
 
 h3(#play.jobs.pool). play.jobs.pool
 
-Size of the Jobs pool. For example:
+Tamaño del pool de Jobs. Por ejemplo:
 
 bc. play.jobs.pool=20
 
-Default: @10@
+Por defecto: @10@
 
 
 h3(#play.netty.clientAuth). play.netty.clientAuth
 
-Configures @javax.net.ssl.SSLEngine@ client authentication. For example:
+Configura la autenticación del cliente @javax.net.ssl.SSLEngine@. Por ejemplo:
 
 bc. play.netty.clientAuth=need
 
-Values:
+Valores disponibles:
 
-* @want@ - the server will _request_ client authentication
-* @need@ - the server will _require_ client authentication
-* @none@ - no client authentication
+* @want@ - el servidor _pedirá_ (request) autenticación al cliente
+* @need@ - el servidor _exigirá_ (require) la autenticación del cliente
+* @none@ - sin autenticación del cliente
 
-Default: @none@
+Por defecto: @none@
 
 
 h3(#play.netty.maxContentLength). play.netty.maxContentLength
 
-HTTP server maximum content length for response streaming, in bytes.
+Longitud máxima del contenido del servidor HTTP para respuestas de tipo _streaming_, expresado en bytes.
 
-Default: none - no maximum.
+Por defecto: ningún valor - no hay longitud máxima.
 
 
 h3(#play.pool). play.pool
 
-Execution pool size. Try to keep this as low as possible. Setting this to 1 thread will serialise all requests (very useful for debugging purpose). For example:
+Tamaño del pool de ejecución. Trate de mantener esto en el valor más bajo posible. Asignarle 1 a este propiedad serializará todas las peticiones (algo muy útil para propósitos de depuración). Por ejemplo:
 
 bc. play.pool=10
 
-Default: @1@ (in @dev@ mode), number of processors + 1 (in @prod@ mode).
+Por defecto: @1@ (en modo @dev@), cantidad de procesadores + 1 (en modo @prod@).
 
 
 h3(#play.tmp). play.tmp
 
-Folder used to store temporary files. For example:
+Carpeta usada para almecenar archivos temporales. Por ejemplo:
 
 bc. play.tmp=/tmp/play
 
-Values:
+Valores posibles:
 
-* an absolute path
-* a relative path, relative to the application directory
-* @none@ so that no temporary directory will be used 
+* una dirección absoluta
+* una dirección relativa al directorio de la aplicación
+* @none@ para no usar un directorio temporal.
 
-Default: @tmp@
+Por defecto: @tmp@
 
 
 h2(#ssl). SSL
 
-See also: "https.port":#https.port.
+Vea también: "https.port":#https.port.
 
 
 h3(#ssl.KeyManagerFactory.algorithm). ssl.KeyManagerFactory.algorithm
 
-The standard name of a Java Secure Socket Extension (JSSE) trust management algorithm, for use with the "keystore.file":#keystore.file configuration.
+El nombre estándar de un algoritmo de gestión de confianza de la Java Secure Socket Extension (JSSE), para usar con la configuración "keystore.file":#keystore.file.
 
 bc. ssl.KeyManagerFactory.algorithm=SunX509
 
-Default: @SunX509@
+Por defecto: @SunX509@
 
 
-h2(#trustmanager). trustmanager
+h2(#trustmanager). trustmanager (Gestor de "confianza")
 
 
 h3(#trustmanager.algorithm). trustmanager.algorithm
 
-A JDK Security API standard algorithm name, for use with "X509 certificates":#certificate and "keystore":#keystore configurations.
+Nombre estándar de un algoritmo del JDK Security API, para usar con las configuraciones "certificados X509":#certificate y "keystore":#keystore.
 
 bc. trustmanager.algorithm=pkcs12
 
-Values - ‘standard names’ from the JDK Security API:
+Valores disponibles - ‘nombres estándar’ del JDK Security API:
 
-* @jceks@ (‘SunJCE’ provider)
-* @jks@ (‘SUN" provider)
+* @jceks@ (proveedor ‘SunJCE’)
+* @jks@ (proveedor ‘SUN’)
 * @pkcs12@
 
-Default: @JKS@
+Por defecto: @JKS@
 
 
-h2(#upload). File upload
+h2(#upload). Subida de archivos
 
 h3(#upload.threshold). upload.threshold
 
-The threshold in bytes at which upload files will be written to disk, for @org.apache.commons.io.output.DeferredFileOutputStream@. For example:
+El límite en bytes a partir del cual los archivos subidos serán escritos en el disco, por @org.apache.commons.io.output.DeferredFileOutputStream@. Por ejemplo:
 
 bc. upload.threshold=20480
 
-Default: @10240@
+Por defecto: @10240@
 
 
-h2(#xforwarded). Proxy forwarding
+h2(#xforwarded). Reenvíos del proxy (Proxy fordwarding)
 
 h3(#XForwardedHost). XForwardedHost
 
-Overrides the @X-Forwarded-Host@ HTTP header value - the original host requested by the client, for use with proxy servers.
+Sobreescribe el valor del encabezado HTTP @X-Forwarded-Host@ - el host original pedido por el cliente, para usar con servidores proxy.
 
-Default: @X-Forwarded-Host@ HTTP header value.
+Por defecto: el valor del encabezado @X-Forwarded-Host@.
 
 
 h3(#XForwardedProto). XForwardedProto
 
-Sets the proxy request to SSL, overriding the @X-Forwarded-Proto@ and @X-Forwarded-SSL@ HTTP header values - the protocol originally requested by the client. For example:
+Establece la petición de proxy en SSL, sobreescribiendo el valor de los encabezados HTTP @X-Forwarded-Proto@ y @X-Forwarded-SSL@ - el protocolo originalmente solicitado por el cliente. Por ejemplo:
 
 bc. XForwardedProto=https
 
 
 h3(#XForwardedSupport). XForwardedSupport
 
-A comma-separated list of IP addresses that are allowed @X-Forwarded-For@ HTTP request header values, used to restrict local addresses when an @X-Forwarded-For@ request header is set by a proxy server.
+Una lista de direcciones IP separadas por coma que serán permitidas como valor del encabezado de petición HTTP @X-Forwarded-For@, usada para restringir las direcciones locales cuando un servidor proxy establece el valor del encabezado @X-Forwarded-For@.
 
-Default: @127.0.0.1@
-
-
+Por defecto: @127.0.0.1@

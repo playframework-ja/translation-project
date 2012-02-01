@@ -1,9 +1,9 @@
 h1. Parámetros de configuración
 
-Configure su aplicación Play asignando valores a las claves de configuración del archivo @conf/application.conf@. Revise también:
+Configure su aplicación Play asignando valores a los parámetros de configuración del archivo @conf/application.conf@. Revise también:
 
 * "Conceptos principales - el directorio conf":main#conf
-* "Manejando application.conf en varios entornos":ids
+* "Configurando application.conf en varios entornos":ids
 * "Puesta en producción de su aplicación":production
 
 h2(#application). Configuración de la aplicación
@@ -11,7 +11,7 @@ h2(#application). Configuración de la aplicación
 
 h3(#application.baseUrl). application.baseUrl
 
-La URL base de la aplicación usada para generar URLs absolutas. Esta es utilizada por la sintanxis de plantilla <code>@@{..}</code> y en los Jobs (los cuales no tienen un @Http.Request@ entrante), tales como la generación de e-mail. Por ejemplo, para el modo @dev@:
+La URL base de la aplicación usada para generar URLs absolutas. Esta es utilizada por la sintanxis de plantilla <code>@@{..}</code> y en los Jobs (los cuales no están vinculados a un pedido @Http.Request@), tales como la generación de e-mail. Por ejemplo, para el modo @dev@:
 
 bc. application.baseUrl=http://localhost:9000/
 
@@ -22,16 +22,16 @@ bc. %production%.application.baseUrl=http://www.yourdomain.com/
 
 h3(#application.defaultCookieDomain). application.defaultCookieDomain
 
-Permite que la sesión/cookie sea compartido entre subdominios. Por ejemplo, para hacer que los cookies sean válidos para todos los dominios que terminan en ‘.example.com’, tales como @foo.example.com@ y @bar.example.com@:
+Permite que la sesión/cookie sea compartida entre subdominios. Por ejemplo, para hacer que las cookies sean válidas para todos los dominios que terminan en ‘.example.com’, tales como @foo.example.com@ y @bar.example.com@:
 
 bc. application.defaultCookieDomain=.example.com
 
-Por defecto: un cookie es válido solamente para un dominio específico.
+Por defecto: una cookie es válida solamente para un dominio específico.
 
 
 h3(#application.lang.cookie). application.lang.cookie
 
-Este será el nombre del cookie que se usa para almacenar el idioma actual, y normalmente lo asigna @play.i18n.Lang.change(String locale)@; usted puede cambiar este nombre si quiere configurariones de idiomas independientes para aplicaciones Play independientes. Por ejemplo:
+Este será el nombre de la cookie que se usa para almacenar el idioma actual, y normalmente lo asigna @play.i18n.Lang.change(String locale)@; usted puede cambiar este nombre si quiere especificar distintas configuraciones de idiomas para distintas aplicaciones Play. Por ejemplo:
 
 bc. application.lang.cookie=MYAPP_LANG
 
@@ -40,11 +40,11 @@ Por defecto: @PLAY_LANG@
 
 h3(#application.langs). application.langs
 
-Define las configuraciones regionales de su aplicación. Luego puede colocar los mensajes traducidos en los archivos @conf/messages.{idioma}@. El valor es una lista de códigos de idioma separados por coma, por ejemplo:
+Define las configuraciones regionales (en inglés "locales") soportadas por su aplicación. Luego puede colocar los mensajes traducidos en los archivos @conf/messages.{idioma}@. El valor es una lista de códigos de idioma separados por coma, por ejemplo:
 
 bc. application.langs=fr,en,ja
 
-Por defecto: no tiene idiomas adicionales al original de la aplicación.
+Por defecto: no viene definido ningún idioma adicional al idioma original de la aplicación.
 
 
 h3(#application.log). application.log
@@ -60,7 +60,7 @@ Revise también: "Configuración del logging":logs.
 
 h3(#application.log.path). application.log.path
 
-Ubicación de un archivo de configuración de Log4J, para personalizar la salida del resgistro de eventos (_log_). Si no especifica una ubicación, Play cargará el archivo @log4j.properties@ del directorio @conf@ en caso de que este archivo exista.
+Ubicación de un archivo de configuración de Log4J, usado para personalizar la salida del registro de eventos (_log_). Si no especifica una ubicación, Play cargará el archivo @log4j.properties@ del directorio @conf@ en caso de que este archivo exista.
 
 bc. application.log.path=/log4j.properties
 
@@ -99,7 +99,7 @@ Por defecto: sin valor.
 
 h3(#application.secret). application.secret
 
-La clave secreta que se usa para proteger las funciones criptográficas, usualmente asignada por el comando @play new@ o @play secret@. Si usted despliega su aplicación en varias instancias asegurese de usar la misma clave. Por ejemplo:
+La clave secreta que se usa para proteger las funciones criptográficas, usualmente asignada por el comando @play new@ o @play secret@. Si usted despliega su aplicación en varias instancias asegúrese de usar la misma clave. Por ejemplo:
 
 bc. application.secret=mNuAvlsFVjeuynN4IWZxZzFOHYVagafzjruHmWTL26VISKr46rUtyGcJuX7aYx4q
 
@@ -110,16 +110,16 @@ Por defecto: sin valor.
 
 h3(#application.session.cookie). application.session.cookie
 
-Nombre del cookie de la sesión. Los cookies no están protegidos por defecto, configurelo solamente si de verdad está sirviendo sus páginas a través de HTTPS. Por ejemplo:
+Nombre del cookie de la sesión. Por defecto, las cookies no están protegidas, configúrelo solamente si de verdad está sirviendo sus páginas a través de HTTPS. Por ejemplo:
 
 bc. application.session.cookie=PLAY
 
-Por defecto: las sessiones se escriben en el cookie temporal @PLAY_SESSION@.
+Por defecto: la sesión se escribe en el cookie temporal @PLAY_SESSION@.
 
 
 h3(#application.session.httpOnly). application.session.httpOnly
 
-Habilita la bandera ‘HTTP only’ (_solamente HTTP_) en los cookies, la cual mitiga algunos ataques XSS. Por ejemplo:
+Habilita el indicador ‘HTTP only’ (_solamente HTTP_) en las cookies, la cual mitiga algunos ataques XSS. Por ejemplo:
 
 bc. application.session.httpOnly=true
 
@@ -130,20 +130,20 @@ Para más información revise la "página OWASP sobre HttpOnly":http://www.owasp
 
 h3(#application.session.maxAge). application.session.maxAge
 
-Tiempo de expiración de la sesión, es decir, el tiempo máximo de vigencia del cookie de la sesión. Si no está configurado, la sesión expira cuando cierre su navegador web. Por ejemplo, para configurar el tiempo de la sesión en el valor una hora:
+Tiempo de expiración de la sesión, es decir, el tiempo máximo de vigencia de la cookie de la sesión. Si no está configurado, la sesión expira cuando cierra su navegador web. Por ejemplo, para configurar la vigencia de la sesión en una hora:
 
 bc. application.session.maxAge=1h
 
-Recordar la sesión por una semana:
+Mantener la sesión por una semana:
 
 bc. application.session.maxAge=7d
 
-Por defecto: la sesión se basa en un cookie temporal que expira cuando el browser se cierra.
+Por defecto: la sesión se basa en una cookie temporal que expira cuando el browser se cierra.
 
 
 h3(#application.session.secure). application.session.secure
 
-Habilita las sesiones basadas en cookie para conexiones HTTPS. Por ejemplo:
+Habilita las sesiones basadas en cookies para conexiones HTTPS. Por ejemplo:
 
 bc. application.session.secure=true
 
@@ -152,7 +152,7 @@ Por defecto: @false@
 
 h3(#application.session.sendOnlyIfChanged). application.session.sendOnlyIfChanged
 
-Evita el envio del cookie de la sesión si no hubo cambios en la misma. Por ejemplo:
+Evita el envio de la cookie de la sesión si no hubo cambios en la misma. Por ejemplo:
 
 bc. application.session.sendOnlyIfChanged=true
 
@@ -161,16 +161,16 @@ Por defecto: @false@
 
 h3(#application.web_encoding). application.web_encoding
 
-La codificación del texto que Play usa cuando se comunica con el navegador web y para el "Cliente de servicio web":libs#WebServiceclient. Normalmente no necesita configurar esto, ya que Play por defecto usa @UTF-8@. Por ejemplo:
+La codificación de texto que Play usa cuando se comunica con el navegador web y para el "Cliente de servicio web":libs#WebServiceclient. Normalmente no necesita configurar esto, ya que Play por defecto usa @UTF-8@. Por ejemplo:
 
 bc. application.web_encoding=ISO-8859-1
 
 Por defecto: @UTF-8@
 
-Cambiar @application.web_encoding@ afecta la parte @charset@ del encabezado HTTP @Content-type@. También afecta la codificación que se usa cuando se transmiten resultados interpretados dinámicamente, sin embargo **no** afecta los bytes enviados cuando Play sirve contenido estático: Por lo tanto, si ha modificado la codificación por defecto de las respuestas y tiene archivos de texto estáticos (en la carpeta @public/@) que contienen caracteres especiales, debe asegurarse que estos archivos están almacenados de acuerdo con la codificación especificada. Todos los demás archivos deberían almacenarse en UTF-8.
+Cambiar @application.web_encoding@ afecta la parte @charset@ del encabezado HTTP @Content-type@. También afecta la codificación que se usa cuando se transmiten resultados interpretados dinámicamente, sin embargo **no** afecta los bytes enviados cuando Play sirve contenido estático: Por lo tanto, si ha modificado la codificación por defecto de las respuestas y tiene archivos de texto estáticos (en la carpeta @public/@) que contienen caracteres especiales, debe asegurarse que estos archivos estén almacenados de acuerdo con la codificación especificada. Todos los demás archivos deberían almacenarse en UTF-8.
 
 
-h2(#attachments). Adjuntos (_attachments_)
+h2(#attachments). Archivos adjuntos (_attachments_)
 
 
 h3(#attachments.path). attachments.path
@@ -205,16 +205,16 @@ Por defecto: @conf/host.cert@
 
 h3(#certificate.password). certificate.password
 
-Contraseña para un archivo de certificado X509 protegido por contraseña, para usar con la configuración "certificate.key.file":#certificate.key.file. Por ejemplo:
+Contraseña de un archivo de certificado X509 protegido por contraseña, para usar con la configuración "certificate.key.file":#certificate.key.file. Por ejemplo:
 
 bc. certificate.password=secret
 
 Por defecto: @secret@
 
 
-h2(#cron). Trabajos programados
+h2(#cron). Jobs programados (Scheduled Jobs)
 
-Puede configurar expresiones _cron_ para los trabajos programados como claves de configuración con el prefijo @cron.@ y usar esas claves como el valor de una anotación <code>@play.jobs.On</code> o <code>@Every</code>. Por ejemplo, <code>@On("cron.noon")</code> se refiere a:
+Puede configurar expresiones _cron_ para los Jobs programados como parámetros de configuración con el prefijo @cron.@ y usar esos parámetros como el valor de una anotación <code>@play.jobs.On</code> o <code>@Every</code>. Por ejemplo, <code>@On("cron.noon")</code> se refiere a:
 
 bc. cron.noon=0 0 12 * * ?
 
@@ -224,7 +224,7 @@ h2(#date). Formatos para fecha
 
 h3(#date.format). date.format
 
-Establece el formato de fecha por defecto, usando un patrón de @java.text.SimpleDateFormat@. Por ejemplo:
+Especifica el formato de fecha por defecto, usando un patrón compatible con @java.text.SimpleDateFormat@. Por ejemplo:
 
 bc. date.format=dd-MM-yyyy
 
@@ -241,11 +241,11 @@ h2(#dbconf). Configuración de la base de datos
 
 h3(#db). db
 
-Configuración del gestor de base de datos. Para configurar rápidamente una base de datos de desarrollo use una base de datos temporal en memoria (H2 en memoria):
+Configuración del motor de base de datos. Para configurar rápidamente una base de datos de desarrollo use una base de datos temporal en memoria (H2 en memoria):
 
 bc. db=mem
 
-Para una base de datos escrita en un simple archivo (H2 almacenada en archivo):
+Para una base de datos escrita en un archivo (H2 almacenada en archivo):
 
 bc. db=fs
 
@@ -264,7 +264,7 @@ Por defecto: ninguna base de datos.
 
 h3(#db.destroyMethod). db.destroyMethod
 
-Un nombre genérico del método ‘destroy’. Cuando utiliza un _Datasource_ existente, a veces es necesario destruirlo cuando la aplicación es detenida. Por ejemplo:
+Un nombre genérico de método ‘destroy’ a ser ejecutado cuando se detiene la aplicación. Cuando utiliza un _Datasource_ existente, a veces es necesario destruirlo manualmente cuando la aplicación se detiene. Por ejemplo:
 
 bc. db.destroyMethod=close
 
@@ -284,7 +284,7 @@ Por defecto:
 
 h3(#db.isolation). db.isolation
 
-Nivel de aislamiento de transacción de la base de datos. Por ejemplo:
+Nivel de aislamiento de las transacciones de la base de datos. Por ejemplo:
 
 bc. db.isolation=SERIALIZABLE
 
@@ -301,7 +301,7 @@ Por defecto: sin valor, o una cadena de texto vacía cuando "db":#db tiene el va
 
 h3(#db.pool.maxIdleTimeExcessConnections). db.pool.maxIdleTimeExcessConnections
 
-La cantidad de segundos a esperar antes que las conexiones inactivas, que superan las "db.pool.minSize":#db.pool.minSize permitidas, sean ‘sacrificadas’. Para más información revise la "documentación de c3p0":http://www.mchange.com/projects/c3p0/#maxIdleTimeExcessConnections.
+La cantidad de segundos a esperar antes de que las conexiones inactivas, que superen las "db.pool.minSize":#db.pool.minSize permitidas, sean ‘sacrificadas’. Para más información revise la "documentación de c3p0":http://www.mchange.com/projects/c3p0/#maxIdleTimeExcessConnections.
 
 Por defecto: @0@ - ‘no aplicar’.
 
@@ -335,7 +335,7 @@ Por defecto: @5000@
 
 h3(#db.url). db.url
 
-Una configuración completa del JDBC, va en conjunto con las propiedades "db.user":#db.user, "db.pass":#db.pass y "db.driver":#db.driver. Por ejemplo:
+Una configuración completa del JDBC, incluyendo las propiedades "db.user":#db.user, "db.pass":#db.pass y "db.driver":#db.driver. Por ejemplo:
 
 bc. db.url=jdbc:postgresql:database_name
 
@@ -361,7 +361,7 @@ bc. evolutions.enabled=false
 Por defecto: @true@
 
 
-h2(#test). Entorno de pruebas
+h2(#test). Entorno de pruebas (Test runner)
 
 h3(#headlessBrowser). headlessBrowser
 
@@ -369,7 +369,7 @@ Especifica el modo de compatibilidad que usará el navegador _headless_ HtmlUnit
 
 bc. headlessBrowser=INTERNET_EXPLORER_7
 
-Posibles valores:
+Valores posibles:
 
 * @FIREFOX_3@
 * @FIREFOX_3_6@
@@ -397,7 +397,7 @@ h2(#http). Configuración del servidor
 
 h3(#http.address). http.address
 
-Dirección IP del oyente HTTP, para restringir las direcciones por la cuales el servidor va a escuchar las peticiones HTTP. Por ejemplo:
+Dirección IP del HTTP listener, para restringir las direcciones por la cuales el servidor va a escuchar las peticiones HTTP. Por ejemplo:
 
 bc. http.address=127.0.0.1
 
@@ -535,7 +535,7 @@ Por defecto: @update@ (en modo @dev@) o @none@ (en modo @prod@).
 
 h3(#jpa.debugSQL). jpa.debugSQL
 
-Depurar (_debug_) sentencias SQL (se registran en el log usando nivel DEBUG). Ejemplo:
+Depurar (_debug_) sentencias SQL (se registran en el log usando el nivel DEBUG). Ejemplo:
 
 bc. jpa.debugSQL=true
 
@@ -544,7 +544,7 @@ Por defecto: @false@
 
 h3(#jpa.entities). jpa.entities
 
-Lista de nombres separados por coma de entidades JPA adicionales que se deben cargar. Esto es útil cuando tiene entidades adicionales que no están en el _package_ @models@ de la aplicación, tales como clases del modelo dentro de un JAR aparte. Ejemplo:
+Lista de nombres separados por coma de entidades JPA adicionales que deberán ser cargadas. Esto es útil cuando tiene entidades adicionales que no están en el _package_ @models@ de la aplicación, tales como clases del modelo dentro de un JAR aparte. Ejemplo:
 
 bc. jpa.entities=org.example.model.Person, org.example.model.Organisation
 
@@ -563,7 +563,7 @@ h2(#jpda). JVM
 
 h3(#jpda.port). jpda.port
 
-Define cual puerto utilizará JPDA cuando la aplicación esté en modo debug. Ejemplo:
+Define el puerto a ser utilizado por JPDA cuando la aplicación esté en modo debug. Ejemplo:
 
 Por defecto: @8000@
 
@@ -573,7 +573,7 @@ h2(#keystore). keystore (Almacén de claves)
 
 h3(#keystore.algorithm). keystore.algorithm
 
-Nombre de un algoritmo estándar del JDK Security API, para usar con la configuración "keystore.file":#keystore.file. Ejemplo:
+Nombre de un algoritmo estándar de la API de seguridad del JDK (JDK Security API), para usar con la configuración "keystore.file":#keystore.file. Ejemplo:
 
 bc. keystore.algorithm=pkcs12
 
@@ -588,7 +588,7 @@ Por defecto: @JKS@
 
 h3(#keystore.file). keystore.file
 
-Especifica un certificado de keystore, para soporte HTTPS. El archivo debe ser nombrado @certificate.jks@. Ejemplo:
+Especifica un certificado del keystore, para soporte HTTPS. EL nombre del archivo debe ser @certificate.jks@. Ejemplo:
 
 bc. keystore.file=conf/certificate.jks
 
@@ -624,7 +624,7 @@ bc. memcached.host=127.0.0.1:11211
 
 Por defecto: @127.0.0.1:11211@
 
-Puede especificar multiples hosts para armar un cache distribuido. Por ejemplo:
+Puede especificar múltiples hosts para armar un cache distribuido. Por ejemplo:
 
 bc. memcached.1.host=127.0.0.1:11211
 memcached.2.host=127.0.0.1:11212
@@ -632,7 +632,7 @@ memcached.2.host=127.0.0.1:11212
 
 h2(#mimetype). Tipos de archivo MIME personalizados
 
-Usted puede declarar tipos de archivo MIME adicionales. Por ejemplo:
+Puede declarar tipos de archivo MIME adicionales. Por ejemplo:
 
 bc. mimetype.xpi=application/x-xpinstall
 
@@ -659,7 +659,7 @@ h2(#mail). Correo electrónico
 
 h3(#mail.debug). mail.debug
 
-Habilita el registro de eventos (_logging_) de las transacciones SMTP, Play usa JavaMail para realizar las transacciones SMTP reales.
+Habilita el registro de eventos (_logging_) de las transacciones SMTP. Internamte, Play utiliza JavaMail para realizar las transacciones SMTP.
 
 bc. mail.debug=true
 
@@ -684,7 +684,7 @@ Por defecto: ningún valor.
 
 h3(#mail.smtp.channel). mail.smtp.channel
 
-Existen dos maneras de enviar el correo electrónico a través de un canal encriptado, con esta propiedad de configuración usted especifica cual de ellas va a utilizar. Valores disponibles:
+Existen dos maneras de enviar el correo electrónico a través de un canal encriptado, con esta propiedad de configuración usted puede especificar cual de ellas va a utilizar. Valores posibles:
 
 * @clear@ - sin encriptación
 * @ssl@ - conector SMTP-over-SSL (SMTPS); un socket SSL que escucha por el puerto 465
@@ -791,8 +791,8 @@ bc. play.netty.clientAuth=need
 
 Valores disponibles:
 
-* @want@ - el servidor _pedirá_ autenticación al cliente
-* @need@ - el servidor _necesitará_ la autenticación del cliente
+* @want@ - el servidor _pedirá_ (request) autenticación al cliente
+* @need@ - el servidor _exigirá_ (require) la autenticación del cliente
 * @none@ - sin autenticación del cliente
 
 Por defecto: @none@
@@ -843,7 +843,7 @@ bc. ssl.KeyManagerFactory.algorithm=SunX509
 Por defecto: @SunX509@
 
 
-h2(#trustmanager). trustmanager
+h2(#trustmanager). trustmanager (Gestor de "confianza")
 
 
 h3(#trustmanager.algorithm). trustmanager.algorithm
@@ -865,14 +865,14 @@ h2(#upload). Subida de archivos
 
 h3(#upload.threshold). upload.threshold
 
-El límite en bytes al cual los archivos subidos serán escritos en el disco, por @org.apache.commons.io.output.DeferredFileOutputStream@. Por ejemplo:
+El límite en bytes a partir del cual los archivos subidos serán escritos en el disco, por @org.apache.commons.io.output.DeferredFileOutputStream@. Por ejemplo:
 
 bc. upload.threshold=20480
 
 Por defecto: @10240@
 
 
-h2(#xforwarded). Reenvíos del proxy
+h2(#xforwarded). Reenvíos del proxy (Proxy fordwarding)
 
 h3(#XForwardedHost). XForwardedHost
 
