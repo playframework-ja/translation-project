@@ -73,7 +73,8 @@ h3. <a name="authcontroller">Controller annotation</a>
 
 You can use the <code>@Check</code> annotation either on controller classes or action methods to tell the Secure module to check that the connected user has the required authorization to call this action.
 
-For example, to restrict an action method to authorized users:
+For e
+xample, to restrict an action method to authorized users:
 
 bc. @With(Secure.class)
 public class Application extends Controller { 

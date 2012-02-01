@@ -19,6 +19,7 @@ GET     /modules/{id}-{version}/images/{name}   Modules.image
 
 # Map static resources from the /app/public folder to the /public path
 GET     /public/                                staticDir:public
+GET     /repo/                                  staticDir:public/repo
 
 # Catch all
 *       /{controller}/{action}                  {controller}.{action}
