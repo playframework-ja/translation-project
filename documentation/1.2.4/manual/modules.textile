@@ -134,5 +134,5 @@ Para publicar su módulo:
 Por supuesto que puede utilizar la lista de discusión de Play para proveer ayuda y compartir información y novedades acerca de su trabajo.
 
 p(note). **Próximos pasos**
-
+ 
 Aprenda a gestionar eficientemente sus módulos utilizando la herramienta de %(next)"Administración de dependencias":dependency%.
