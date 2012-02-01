@@ -25,7 +25,7 @@ bc. # Import CRUD routes
 
 Esto agrega varias rutas por cada uno de tus controladores CRUD, que agregaremos a continuación.
 
-p(note). **Tenga en cuenta** que no es obligatorio utilizar el archivo de rutas por defecto. Puede definir sus propias rutas, o también mezclarlos ambos enfoques.
+p(note). **Nota**: no es obligatorio utilizar el archivo de rutas por defecto. Puede definir sus propias rutas, o también mezclarlos ambos enfoques.
 
 h3. <a name="model">Creando una clase User</a>
 
