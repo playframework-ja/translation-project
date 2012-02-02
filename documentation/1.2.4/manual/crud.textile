@@ -118,7 +118,7 @@ Refresque el formulario y verá que las validaciones son aplicadas automáticame
 
 h3. <a name="labels">Cambiando las etiquetas del formulario</a>
 
-Agrega estas líneas al archivo @conf/messages@ de su aplicación:
+Agregue estas líneas al archivo @conf/messages@ de su aplicación:
 
 bc. name=Name
 email=Email address
@@ -134,15 +134,15 @@ Por defecto, la vista de lista utiliza una única columna que nos muestra el res
 
 !images/crud5!
 
-Para personalizar esta vista, necesitamos crear la plantilla (template) @/app/views/Users/list.html@ en nuestra aplicación.
+Para personalizar ésta vista, necesitamos crear la plantilla (template) @/app/views/Users/list.html@ en nuestra aplicación.
 
 Abra una línea de comandos, vaya al directorio de la aplicación y tipee:
 
 bc. play crud:ov --template Users/list
 
-Esto copiará la plantilla por defecto @list.html@ de CRUD a la plantilla @Users/list.html@ de nuestra aplicación, sobreescribiéndolo si estuviese presente.
+Esto copiará la plantilla por defecto @list.html@ de CRUD a la plantilla @Users/list.html@ de nuestra aplicación, sobreescribiéndola si estuviese presente.
 
-Ahora podrá personalizar la platilla editándola de la siguiente manera:
+Ahora podrá personalizar la plantilla editándola de la siguiente manera:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -187,7 +187,7 @@ bc. #{crud.table fields:['name', 'company']}
  
 #{/crud.table}
 
-También puede agregar columnas o inputs de formulario definiendo tus propios manejadores: 
+También puede agregar columnas o inputs de formulario definiendo sus propios manejadores: 
 
 bc. #{crud.table fields:['name', 'company', 'edit']}
  
@@ -203,7 +203,7 @@ bc. #{crud.table fields:['name', 'company', 'edit']}
 
 h2. <a name="collections">Listas de Strings y de enumeración</a>
 
-El módulo CRUD muestra las listas como un campo de texto. En este campo de texto, la lista está representada como una lista de Strings separadas por comas. Por ejemplo:
+El módulo CRUD muestra las listas como un campo de texto. En éste campo de texto, la lista está representada como una lista de Strings separadas por comas. Por ejemplo:
 
 bc. @Entity
 public class Account extends Model {
