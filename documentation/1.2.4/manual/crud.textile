@@ -25,7 +25,7 @@ bc. # Import CRUD routes
 
 Esto agrega varias rutas por cada uno de tus controladores CRUD, que agregaremos a continuación.
 
-p(note). **Nota**: no es obligatorio utilizar el archivo de rutas por defecto. Puede definir sus propias rutas, o también mezclarlos ambos enfoques.
+p(note). **Nota**: no es obligatorio utilizar el archivo de rutas por defecto. Puede definir sus propias rutas, o también mezclar ambos enfoques.
 
 h3. <a name="model">Creando una clase User</a>
 
@@ -118,7 +118,7 @@ Refresque el formulario y verá que las validaciones son aplicadas automáticame
 
 h3. <a name="labels">Cambiando las etiquetas del formulario</a>
 
-Agrega estas líneas al archivo @conf/messages@ de su aplicación:
+Agregue estas líneas al archivo @conf/messages@ de su aplicación:
 
 bc. name=Name
 email=Email address
@@ -140,9 +140,9 @@ Abra una línea de comandos, vaya al directorio de la aplicación y tipee:
 
 bc. play crud:ov --template Users/list
 
-Esto copiará la plantilla por defecto @list.html@ de CRUD a la plantilla @Users/list.html@ de nuestra aplicación, sobreescribiéndolo si estuviese presente.
+Esto copiará la plantilla por defecto @list.html@ de CRUD a la plantilla @Users/list.html@ de nuestra aplicación, sobreescribiéndola si estuviese presente.
 
-Ahora podrá personalizar la platilla editándola de la siguiente manera:
+Ahora podrá personalizar la plantilla editándola de la siguiente manera:
 
 bc. #{extends 'CRUD/layout.html' /}
  
@@ -187,7 +187,7 @@ bc. #{crud.table fields:['name', 'company']}
  
 #{/crud.table}
 
-También puede agregar columnas o inputs de formulario definiendo tus propios manejadores: 
+También puede agregar columnas o inputs de formulario definiendo sus propios manejadores: 
 
 bc. #{crud.table fields:['name', 'company', 'edit']}
  
