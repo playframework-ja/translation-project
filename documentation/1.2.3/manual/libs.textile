@@ -31,16 +31,16 @@ h2. Procesamiento de XML con XPath
 Las operaciones @XPath@ operan sobre todos los tipos de @org.w3.dom.Node@:
 
 bc. org.w3.dom.Document xmlDoc = … // recuperar un documento de algún sitio
-
+ 
 for(Node event: XPath.selectNodes("events//event", xmlDoc)) {
-
+ 
     String name = XPath.selectText("name", event);
     String data = XPath.selectText("@date", event);
     for(Node place: XPath.selectNodes("//place", event)) {
         String place = XPath.selectText("@city", place);
         …
     }
-
+ 
     …
 }
 
