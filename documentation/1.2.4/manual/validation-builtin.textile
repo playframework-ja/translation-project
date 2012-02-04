@@ -1,12 +1,12 @@
-h1. Validaciones incorporadas
+h1. Validaciones provistas por Play
 
 Play trae incorporadas muchas funciones de validación, cada una es descrita en el cápitulo de "validación":validation.
 
-Cada validación tiene asociado un mensaje de error definido en el archivo @$PLAY_HOME/resources/messages@, cuya llave es @validation.@ seguido del nombre de la propiedad validada. Puedes sobreescribir este mensaje usando la misma llave en el archivo @conf/messages@, además puedes proveer localización para diferentes idiomas.
+Cada validación tiene asociado un mensaje de error definido en el archivo @$PLAY_HOME/resources/messages@, cuya clave es @validation.@ seguido del nombre de la propiedad validada. Puede sobreescribir este mensaje usando la misma clave en el archivo @conf/messages@, además puede proveer localización para diferentes idiomas.
 
 <h2><a name="email">email</a></h2>
 
-Comprueba que el valor es un correo electrónico válido.
+Comprueba que el valor es una dirección de correo electrónico válida.
 
 bc. validation.email(address);
 
@@ -14,11 +14,11 @@ Sintáxis de la anotación:
 
 bc. @Email String address
 
-Llave del mensaje: @validation.email@
+Clave del mensaje: @validation.email@
 
 <h2><a name="equals">equals</a></h2>
 
-Comprueba que el valor sea igual al valor de otro parámetro usando el método @equals@ del valor anotado, por ejemplo para Compruebar el campo de confirmación de una contraseña:
+Comprueba que el valor sea igual al valor de otro parámetro usando el método @equals@ del valor anotado, por ejemplo para comprobar el campo de confirmación de una contraseña:
 
 bc. validation.equals(password, passwordConfirmation);
 
@@ -30,7 +30,7 @@ Llave del mensaje: @validation.equals@
 
 <h2><a name="future">future</a></h2>
 
-Comprueba que el valor es una fecha en el futuro. Si una fecha es especificada como parámetro, entonces el valor debe ser una fecha en el futuro con respecto a la fecha dada como parámetro:
+Comprueba que el valor sea una fecha futura. Si una fecha es especificada como parámetro, entonces el valor debe ser una fecha posterior a la fecha pasada como parámetro:
 
 bc. validation.future(dueDate);
 validation.future(dueDate, shipmentDate);
@@ -40,7 +40,7 @@ Sintáxis de la anotación:
 bc. @InFuture String dueDate
 @InFuture("1979-12-31") String birthDate
 
-Llave del mensaje: @validation.future@
+Clave del mensaje: @validation.future@
 
 <h2><a name="ipv4Address">ipv4Address</a></h2>
 
@@ -52,7 +52,7 @@ Sintáxis de la anotación:
 
 bc. @IPv4Address String ip
 
-Llave del mensaje: @validation.ipv4@
+Clave del mensaje: @validation.ipv4@
 
 <h2><a name="ipv6Address">ipv6Address</a></h2>
 
@@ -64,11 +64,11 @@ Sintáxis de la anotación:
 
 bc. @IPv6Address String ip
 
-Llave del mensaje: @validation.ipv6@
+Clave del mensaje: @validation.ipv6@
 
 <h2><a name="isTrue">isTrue</a></h2>
 
-Comprueba que el valor sea de tipo @String@ o @Boolean@ que evalúa a @true@, por ejemplo para un checkbox que debe ser aceptado, o un @Number@ diferente de cero. Los valores nulos son considerados falsos o inválidos.
+Comprueba que el valor sea de tipo @String@ o @Boolean@ y que al ser evaluado retorne @true@, por ejemplo para un checkbox que debe ser aceptado, o un @Number@ diferente de cero. Los valores nulos son considerados falsos o inválidos.
 
 bc. validation.isTrue(agree);
 
@@ -76,11 +76,11 @@ Sintáxis de la anotación:
 
 bc. @IsTrue String agree
 
-Llave del mensaje: @validation.isTrue@
+Clave del mensaje: @validation.isTrue@
 
 <h2><a name="match">match</a></h2>
 
-Comprueba que el valor sea un string que sea acorde con la expresión regular dada. Los strings vacíos son considerados válidos.
+Comprueba que el valor sea un string que cumpla con la expresión regular dada. Los strings vacíos son considerados válidos.
 
 bc. validation.match(abbreviation, "[A-Z]{3}"); // TLA
 
@@ -92,7 +92,7 @@ Llave del mensaje: @validation.match@
 
 <h2><a name="max">max</a></h2>
 
-Comprueba que el valor sea de tipo @String@ o @Number@ que no sea mayor al número dado. Valores nulos son considerados válidos.
+Comprueba que el valor sea de tipo @String@ o @Number@ y que no sea mayor al número dado. Valores nulos son considerados válidos.
 
 bc. validation.max(wordCount, 7500); // Short story
 
@@ -104,7 +104,7 @@ Llave del mensaje: @validation.max@
 
 <h2><a name="maxSize">maxSize</a></h2>
 
-Comprueba que el valor sea de tipo @String@ cuya longitud no sea mayor a la especificada. Strings vacíos son considerados válidos.
+Comprueba que el valor sea de tipo @String@ y que su longitud no sea mayor a la especificada. Strings vacíos son considerados válidos.
 
 bc. validation.maxSize(url, 2083); // IE 4.0 - 8
 
@@ -112,11 +112,11 @@ Sintáxis de la anotación:
 
 bc. @MaxSize(2083) String value
 
-Llave del mensaje: @validation.maxSize@
+Clave del mensaje: @validation.maxSize@
 
 <h2><a name="min">min</a></h2>
 
-Comprueba que el valor sea de tipo @String@ o @Number@ que no sea menor que número dado. Valores nulos son considerados válidos.
+Comprueba que el valor sea de tipo @String@ o @Number@ y que no sea menor que número dado. Valores nulos son considerados válidos.
 
 bc. validation.min(age, 18); // Adult
 
@@ -124,11 +124,11 @@ Sintáxis de la anotación:
 
 bc. @Min(18) Long age
 
-Llave del mensaje: @validation.min@
+Clave del mensaje: @validation.min@
 
 <h2><a name="minSize">minSize</a></h2>
 
-Comprueba que el valor sea de tipo @String@ cuya longitud no sea menor a la especificada. Strings vacíos son considerados válidos.
+Comprueba que el valor sea de tipo @String@ y que su longitud no sea menor a la especificada. Strings vacíos son considerados válidos.
 
 bc. validation.minSize(value, 42);
 
@@ -140,7 +140,7 @@ Llave del mensaje: @validation.minSize@
 
 <h2><a name="past">past</a></h2>
 
-Comprueba que el valor es una fecha en el pasado. Si una fecha es especificada como parámetro, entonces el valor debe ser una fecha en el pasado con respecto a la fecha dada como parámetro:
+Comprueba que el valor sea una fecha pasada. Si una fecha es especificada como parámetro, entonces el valor debe ser una fecha anterior a la fecha dada como parámetro:
 
 bc. validation.past(actualDepartureDate);
 validation.past(expectedDepartureDate, expectedArrivalDate);
@@ -154,7 +154,7 @@ Llave del mensaje: @validation.past@
 
 <h2><a name="phone">phone</a></h2>
 
-Comprueba que un valor sea un número telefónico válido; strings vacíos son considerados válidos. La validación es laxa y no está diseñada para forzar un patrón telefónico válido. Implemente su propio @Match para validaciones particulares de un país.
+Comprueba que el valor sea un número telefónico válido; strings vacíos son considerados válidos. La validación no es estricta y está diseñada para asegurar un patrón telefónico válido. Implemente su propio @Match para validaciones particulares de un país.
 
 bc. validation.phone(value);
 
@@ -162,12 +162,12 @@ Sintáxis de la anotación:
 
 bc. @Phone String phone
 
-Llave del mensaje: @validation.phone@
+Clave del mensaje: @validation.phone@
 
 Formato: @+CCC (SSSSSS)9999999999xEEEE@
  
 * @+@          Clave opcional de acceso del país
-* @CCC@        Clave opcional de acceso del país, hasta 3 dígitos, nota que después debe haber un delimitador
+* @CCC@        Clave opcional de acceso del país, hasta 3 dígitos, note que después debe haber un delimitador
 * @(SSSSSS)@   Clave de sub-zona opcional, hasta 6 dígitos
 * @9999999999@ Número obligatorio, hasta 20 dígitos (que deben cubrir todos los casos conocidos de ahora y del futuro)
 * @x@          Extensión opcional, también puede ser escrita "ext" o "extension"
@@ -184,7 +184,7 @@ Ejemplos:
 
 <h2><a name="range">range</a></h2>
 
-Comprueba que el valor sea un número inclusivo en el rango especificado por los dos números dados.
+Comprueba que el valor sea un número comprendido (de manera inclusiva) dentro del rango especificado por los dos números dados.
 
 bc. validation.range(wordCount, 17500, 40000); // Novella
 
@@ -196,7 +196,7 @@ Llave del mensaje: @validation.range@
 
 <h2><a name="required">required</a></h2>
 
-Comprueba que el valor sea de tipo @String@, @Collection@, @File@ o un arreglo y que no sea vacío.
+Comprueba que el valor sea de tipo @String@, @Collection@, @File@ o un array y que no sea vacío.
 
 bc. validation.required(value);
 
@@ -204,11 +204,11 @@ Sintáxis de la anotación:
 
 bc. @Required String value
 
-Llave del mensaje: @validation.required@
+Clave del mensaje: @validation.required@
 
 <h2><a name="url">url</a></h2>
 
-Comprueba que el valor sea un URL válido, los strings vacíos son consideraros válidos. Nota que no todos los URL's válidos (como se definen en el RFC 1738) son aceptados; sólo los que URL's que comienzan con el esquema @http@, @https@ o @ftp@ son considerados válidos.
+Comprueba que el valor sea un URL válido, los strings vacíos son consideraros válidos. Tenga en cuenta que no todos los URL's válidos (como se definen en el RFC 1738) son aceptados; sólo los URL's que comienzan con el esquema @http@, @https@ o @ftp@ son considerados válidos.
 
 bc. validation.url(value);
 
@@ -216,5 +216,5 @@ Sintáxis de la anotación:
 
 bc. @URL String address
 
-Llave del mensaje: @validation.url@
+Clave del mensaje: @validation.url@
 

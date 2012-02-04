@@ -1,449 +1,220 @@
-h1. Validando información HTTP con Play
+h1. Validaciones provistas por Play
 
-Las validaciones nos permiten asegurar que la información ingresada por el usuario cumplirá con ciertos requerimientos específicos. Puede utilizar las validaciones para verificar que la información de sus modelos sea correcta antes de grabarlos a la base de datos, o utilizarlas directamente para validar los parámetros HTTP recibidos desde un formulario.
+Play trae incorporadas muchas funciones de validación, cada una es descrita en el cápitulo de "validación":validation.
 
-h2. <a name="how">Cómo funcionan las validaciones en Play</a>
+Cada validación tiene asociado un mensaje de error definido en el archivo @$PLAY_HOME/resources/messages@, cuya clave es @validation.@ seguido del nombre de la propiedad validada. Puede sobreescribir este mensaje usando la misma clave en el archivo @conf/messages@, además puede proveer localización para diferentes idiomas.
 
-Cada pedido HTTP tiene su propio objeto @Validation@ en el cual se guardan los errores. Hay tres maneras de definir validaciones.
+<h2><a name="email">email</a></h2>
 
-# <span>En un método de un controlador, llamando métodos en el campo @validation@ del controlador de manera directa. También puede acceder a un subconjunto de la API utilizando los métodos estáticos de la clase @play.data.validation.Validation@.</span> 
-# <span>Agregando anotaciones de validaciones a los parámetros declarados en la firma de los métodos de un controlador.</span>
-# <span>Agregando la anotación <code>@Valid</code> a los métodos de acción que reciben un POJO como parámetro, y agregando las correspondientes anotaciones de validación en las propiedades del POJO.</span> 
+Comprueba que el valor es una dirección de correo electrónico válida.
 
-El objeto @Validation@ mantiene una colección de objetos de tipo @play.data.validation.Error@. Cada uno de estos errores cuenta con dos propiedades:
+bc. validation.email(address);
 
-* La clave o @key@. Esta propiedad ayuda a determinar cuál es el elemento que causó el error. La clave puede ser fijada arbitrariamente, pero cuando Play genera un error, por defecto utiliza el nombre de la variable Java.
+Sintáxis de la anotación:
 
-* El mensaje o @message@, el cual contiene la descripción textual del error detectado. El mensaje puede ser un texto plano o referirse a la clave de un mensaje internacionalizado.
+bc. @Email String address
 
-Veamos cómo podemos validar un simple parámetro HTTP utilizando el primer enfoque:
+Clave del mensaje: @validation.email@
 
-bc. public static void hello(String name) {
-     validation.required(name);
-     …
-}
+<h2><a name="equals">equals</a></h2>
 
-Este código verifica que la variable @name@ haya sido correctamente establecida. En caso contrario, el correspondiente error será agregado a la colección de errores.
+Comprueba que el valor sea igual al valor de otro parámetro usando el método @equals@ del valor anotado, por ejemplo para comprobar el campo de confirmación de una contraseña:
 
-Puede repetir esta operación para cada validación que precise efectuar:
+bc. validation.equals(password, passwordConfirmation);
 
-bc. public static void hello(String name, Integer age) {
-     validation.required(name);
-     validation.required(age);
-     validation.min(age, 0);
-     …
-}
+Sintáxis de la anotación:
 
-h2. <a name="messages">Mensajes de error de las validaciones</a>
+bc. @Equals("passwordConfirmation") String password
 
-Al finalizar la validación de la información, puede verificar si ha ocurrido algún error y desplegarlos en la consola:
+Llave del mensaje: @validation.equals@
 
-bc. public static void hello(String name, Integer age) {
-     validation.required(name);
-     validation.required(age);
-     validation.min(age, 0);
-     
-     if(validation.hasErrors()) {
-         for(Error error : validation.errors()) {
-             System.out.println(error.message());
-         }
-     }
-}
+<h2><a name="future">future</a></h2>
 
-En caso de que name y age sean @null@, este controlador desplegaría:
+Comprueba que el valor sea una fecha futura. Si una fecha es especificada como parámetro, entonces el valor debe ser una fecha posterior a la fecha pasada como parámetro:
 
-bc. Required
-Required
+bc. validation.future(dueDate);
+validation.future(dueDate, shipmentDate);
 
-Esto se debe a que el mensaje por defecto, definido en @$PLAY_HOME/resources/messages@, es:
+Sintáxis de la anotación:
 
-bc. validation.required=Required
+bc. @InFuture String dueDate
+@InFuture("1979-12-31") String birthDate
 
-Hay tres maneras de personalizar este mensaje de validación.
+Clave del mensaje: @validation.future@
 
-# <span>Sobreescribiendo el mensaje por defecto, redefiniendo el mensaje en el archivo @messages@ de su aplicación.</span> 
-# <span>Pasando un mensaje personalizado como un parámetro adicional a la validación.</span>
-# <span>Brindando una clave en un archivo de internacionalización para ese mensaje, pasándolo como un parámetro adicional a la validación.</span> 
+<h2><a name="ipv4Address">ipv4Address</a></h2>
 
-h3. Mensajes de validación internacionalizados
+Comprueba que un valor sea una dirección IP acorde al protocolo de versión 4, los strings vacíos son considerados válidos
 
-La manera más simple de sobreescribir estos mensajes, es utilizar la misma clave del mensaje para un mensaje definido en el archivo @conf/messages@. Por ejemplo:
+bc. validation.ipv4Address(value);
 
-bc. validation.required = Please enter a value 
+Sintáxis de la anotación:
 
-También puede proveer mensajes en otros idiomas, tal como se describe en la página de "Internacionalización":i18n. 
+bc. @IPv4Address String ip
 
-h3. Parámetros de los mensajes de validación
+Clave del mensaje: @validation.ipv4@
 
-Puede utilizar un marcador de posición (placeholder) en el mensaje asociado con una clave de error:
+<h2><a name="ipv6Address">ipv6Address</a></h2>
 
-bc. validation.required=%s is required
+Comprueba que un valor sea una dirección IP acorde al protocolo de versión 6, los strings vacíos son considerados válidos
 
-De esta manera, la salida del error anterior sería:
+bc. validation.ipv6Address(value);
 
-bc. name is required
-age is required
+Sintáxis de la anotación:
 
-p(note). *Limitación*: Play no puede determinar el nombre del parámetro cuando se define más de una validación de campo requerido utilizando la sintaxis @validation.required(age)@. En ese caso, debe especificar el nombre del campo de la siguiente manera: @validation.required("age", age)@.
+bc. @IPv6Address String ip
 
-Como clave del error se asume por defecto el nombre del parámetro, y es utilizao para buscar el mensaje. Por ejemplo, el parámetro @name@ en el método de acción @hello@ podría ser internacionalizado de la siguiente manera:
+Clave del mensaje: @validation.ipv6@
 
-bc. name = Customer name
+<h2><a name="isTrue">isTrue</a></h2>
 
-De manera que la salida del error quedaría como:
+Comprueba que el valor sea de tipo @String@ o @Boolean@ y que al ser evaluado retorne @true@, por ejemplo para un checkbox que debe ser aceptado, o un @Number@ diferente de cero. Los valores nulos son considerados falsos o inválidos.
 
-bc. Customer name is required
-age is required
+bc. validation.isTrue(agree);
 
-También puede sobreescribir la clave del error utilizando el método @error.message(String key)@. Por ejemplo:
+Sintáxis de la anotación:
 
-bc. Error error = validation.required(name).error;
-if(error != null) {
-    System.out.println(error.message("Customer name"));
-}
+bc. @IsTrue String agree
 
-Buena parte de las validaciones que vienen incluidas con play aceptan parámetros de los mensajes adicionales que corresponden con los valores a ser validados. Por ejemplo, la validación 'match' acepta un segundo parámetro de tipo @String@ para especificar la expresión regular a utilizar para validar el valor ingresado. Para diferenciarlo del parámetro especificado más arriba como @%s@, especificamos el índice '2' de la siguiente manera:
+Clave del mensaje: @validation.isTrue@
 
-bc. validation.match=Must match %2$s 
+<h2><a name="match">match</a></h2>
 
-De manera similar, una validación de 'rangos' define dos parámetros numéricos adicionales, con los índices 2 y 3 respectivamente:
+Comprueba que el valor sea un string que cumpla con la expresión regular dada. Los strings vacíos son considerados válidos.
 
-bc. validation.range=Not in the range %2$d through %3$d 
+bc. validation.match(abbreviation, "[A-Z]{3}"); // TLA
 
-Consulte el archivo @$PLAY_HOME/resources/messages@ para ver qué otras validaciones aceptan parámetros adicionales. 
+Sintáxis de la anotación:
 
-h3. Mensajes de validación personalizados según el idioma (internacionalizados)
+bc. @Match("[A-Z]{3}") String abbreviation
 
-Los mensajes de validación definidos en el archivo @$PLAY_HOME/resources/messages@ utilizan las claves por defecto de los mensajes para cada una de las "validaciones predefinidas":validation-builtin. Puede especificar diferentes claves para los mensajes, de la siguiente manera:
+Llave del mensaje: @validation.match@
 
-bc. validation.required.em = You must enter the %s! 
+<h2><a name="max">max</a></h2>
 
-Utilice esta nueva clave para los mensajes de la validación, pasándolo como parámetro al método @message@:
+Comprueba que el valor sea de tipo @String@ o @Number@ y que no sea mayor al número dado. Valores nulos son considerados válidos.
 
-bc. validation.required(manualKey).message("validation.required.em"); 
+bc. validation.max(wordCount, 7500); // Short story
 
-También puede utilizar esta clave en el parámetro @message@ de la anotación:
+Sintáxis de la anotación:
 
-bc. public static void hello(@Required(message="validation.required.em") String name) { 
-   …
-} 
+bc. @Max(7500) String wordCount
 
-Puede utilizar la misma técnica con las anotaciones de validación en las propiedades de los JavaBeans:
+Llave del mensaje: @validation.max@
 
-bc. public static void hello(@Valid Person person) { 
-   …
-} 
+<h2><a name="maxSize">maxSize</a></h2>
+
+Comprueba que el valor sea de tipo @String@ y que su longitud no sea mayor a la especificada. Strings vacíos son considerados válidos.
+
+bc. validation.maxSize(url, 2083); // IE 4.0 - 8
+
+Sintáxis de la anotación:
+
+bc. @MaxSize(2083) String value
+
+Clave del mensaje: @validation.maxSize@
+
+<h2><a name="min">min</a></h2>
+
+Comprueba que el valor sea de tipo @String@ o @Number@ y que no sea menor que número dado. Valores nulos son considerados válidos.
+
+bc. validation.min(age, 18); // Adult
+
+Sintáxis de la anotación:
+
+bc. @Min(18) Long age
+
+Clave del mensaje: @validation.min@
+
+<h2><a name="minSize">minSize</a></h2>
+
+Comprueba que el valor sea de tipo @String@ y que su longitud no sea menor a la especificada. Strings vacíos son considerados válidos.
+
+bc. validation.minSize(value, 42);
+
+Sintáxis de la anotación:
+
+bc. @MinSize(42) String value
+
+Llave del mensaje: @validation.minSize@
+
+<h2><a name="past">past</a></h2>
+
+Comprueba que el valor sea una fecha pasada. Si una fecha es especificada como parámetro, entonces el valor debe ser una fecha anterior a la fecha dada como parámetro:
+
+bc. validation.past(actualDepartureDate);
+validation.past(expectedDepartureDate, expectedArrivalDate);
+
+Sintáxis de la anotación:
+
+bc. @InPast String actualDepartureDate
+@InPast("1980-01-01") String birthDate
+
+Llave del mensaje: @validation.past@
+
+<h2><a name="phone">phone</a></h2>
+
+Comprueba que el valor sea un número telefónico válido; strings vacíos son considerados válidos. La validación no es estricta y está diseñada para asegurar un patrón telefónico válido. Implemente su propio @Match para validaciones particulares de un país.
+
+bc. validation.phone(value);
+
+Sintáxis de la anotación:
+
+bc. @Phone String phone
+
+Clave del mensaje: @validation.phone@
+
+Formato: @+CCC (SSSSSS)9999999999xEEEE@
  
-public class Person extends Model { 
-   @Required(message = "validation.required.emphasis")
-   public String name; 
-   … 
-} 
+* @+@          Clave opcional de acceso del país
+* @CCC@        Clave opcional de acceso del país, hasta 3 dígitos, note que después debe haber un delimitador
+* @(SSSSSS)@   Clave de sub-zona opcional, hasta 6 dígitos
+* @9999999999@ Número obligatorio, hasta 20 dígitos (que deben cubrir todos los casos conocidos de ahora y del futuro)
+* @x@          Extensión opcional, también puede ser escrita "ext" o "extension"
+* @EEEE@       Número de extensión opcional, hasta 4 dígitos
+* Los delimitadores puede ser un _espacio_, @-@, @.@ o @/@ y pueden ser usados en cualquier lugar de la cadena.
+  
+Ejemplos:
 
-h3. Mensajes de validación personalizados (sin internacionalizar) 
+* @usa:(305) 613 09 58 ext 101@
+* @france:+33 1 47 37 62 24 x3@
+* @germany:+49-4312 / 777 777@
+* @china:+86 (10)69445464@
+* @uk:(020) 1234 1234@
 
-Play retornará directamente la clave del mensaje en caso de no encontrar un mensaje asociado a dicha clave. Esto quiere decir que puede utilizar directamente un mensaje literal en vez de una clave, si así lo prefiere. Siguiendo el mismo ejemplo anterior, para especificar manualmente el mensaje a desplegar:
+<h2><a name="range">range</a></h2>
 
-bc. validation.required(manualKey).message("Give us a name!"); 
+Comprueba que el valor sea un número comprendido (de manera inclusiva) dentro del rango especificado por los dos números dados.
 
-Y en caso de untilizar un método de acción con la anotación @Required@:
+bc. validation.range(wordCount, 17500, 40000); // Novella
 
-bc. public static void save(@Required(message = "Give us a name!") String name) { 
-   …
-} 
+Sintáxis de la anotación:
 
-De igual manera, para una propiedad de un JavaBean anotado:
+bc. @Range(min = 17500, max = 40000) String wordCount
 
-bc. public static void save(@Valid Person person) { 
-   …
-}
- 
-public class Person extends Model {
-   @Required(message = "Give us a name!")
-   public String name; 
-   … 
-} 
+Llave del mensaje: @validation.range@
 
-h2. <a name="display">Mostrando errores de validación en un template</a>
+<h2><a name="required">required</a></h2>
 
-Por lo general, querrá desplegar los errores en un template de la vista. Puede acceder a los errores a través de la colección @errors@ desde cualquier template. Algunos tags lo ayudarán a mostrar estos errores:
+Comprueba que el valor sea de tipo @String@, @Collection@, @File@ o un array y que no sea vacío.
 
-Veamos un ejemplo:
+bc. validation.required(value);
 
-bc. public static void hello(String name, Integer age) {
-   validation.required(name);
-   validation.required(age);
-   validation.min(age, 0);
-   render(name, age);
-}
+Sintáxis de la anotación:
 
-y en el template:
+bc. @Required String value
 
-bc. #{ifErrors}
- 
-   <h1>Oops…</h1>
- 
-   #{errors}
-       <li>${error}</li>
-   #{/errors}
- 
-#{/ifErrors}
-#{else}
- 
-   Hello ${name}, you are ${age}.
- 
-#{/else}
+Clave del mensaje: @validation.required@
 
-Pero en un aplicación real, seguramente querrá volver a desplegar el formulario original. De manera que tendrá dos acciones: una para mostrar el formulario, y la otra para encargarse del POST.
+<h2><a name="url">url</a></h2>
 
-Por supuesto que la validación ocurrirá en la segunda acción, y si se detecta algún error deberá redireccionar al usuario a la primera acción. En este caso precisará alguna manera de guardar los errores mientras ocurre el redirect. Para ello utilice el método @validation.keep()@. De esta manera la colección de errores estará disponible en la próxima acción.
+Comprueba que el valor sea un URL válido, los strings vacíos son consideraros válidos. Tenga en cuenta que no todos los URL's válidos (como se definen en el RFC 1738) son aceptados; sólo los URL's que comienzan con el esquema @http@, @https@ o @ftp@ son considerados válidos.
 
-Veamos un ejemplo real:
+bc. validation.url(value);
 
-bc. public class Application extends Controller {
- 
-   public static void index() {
-      render();
-   }
- 
-   public static void hello(String name, Integer age) {
-      validation.required(name);
-      validation.required(age);
-      validation.min(age, 0);
-      if(validation.hasErrors()) {
-          params.flash(); // add http parameters to the flash scope
-          validation.keep(); // keep the errors for the next request
-          index();
-      }
-      render(name, age);
-   }
- 
-}
+Sintáxis de la anotación:
 
-Y el template @view/Application/index.html@:
+bc. @URL String address
 
-bc. #{ifErrors}
-   <h1>Oops…</h1>
- 
-   #{errors}
-       <li>${error}</li>
-   #{/errors}
-#{/ifErrors}
- 
-#{form @Application.hello()}
-   <div>
-      Name: <input type="text" name="name" value="${flash.name}" />
-   </div>
-   <div>
-      Age: <input type="text" name="age" value="${flash.age}" /> 
-   </div>
-   <div>
-      <input type="submit" value="Say hello" /> 
-   </div>
-#{/form}
+Clave del mensaje: @validation.url@
 
-Puede mejorar la experiencia de usuario mostrando cada mensaje junto con el campo que generó el error:
-
-bc. #{ifErrors}
-   <h1>Oops…</h1>
-#{/ifErrors}
- 
-#{form @Application.hello()}
-   <div>
-      Name: <input type="text" name="name" value="${flash.name}" />
-      <span class="error">#{error 'name' /}</span>
-   </div>
-   <div>
-      Age: <input type="text" name="age" value="${flash.age}" /> 
-      <span class="error">#{error 'age' /}</span>
-   </div>
-   <div>
-      <input type="submit" value="Say hello" /> 
-   </div>
-#{/form}
-
-
-h2. <a name="annotations">Anotaciones de validaciones</a>
-
-Las anotaciones disponibles en el paquete @play.data.validation@ proveen una manera más concisa y simple de especificar validaciones. Para usar una de estas validaciones, simplemente anote el parámetro del método de acción del controlador con la correspondiente anotación:   
-
-bc. public static void hello(@Required String name, @Required @Min(0) Integer age) {
-   if(validation.hasErrors()) {
-       params.flash(); // add http parameters to the flash scope
-       validation.keep(); // keep the errors for the next request
-       index();
-   }
-   render(name, age);
-}
-
-h2. <a name="objects">Validando objetos complejos</a>
-
-También puede utilizar estas anotaciones para agregar validaciones a las propiedades de sus objetos del modelo, y luego en el controlador especificar que todas las validaciones deben ser verificadas. Reescribamos el anterior ejemplo utilizando la clase de modelo @User@. 
-
-Primero, anotaremos la clase @User@ agregando las validaciones de cada propiedad:
-
-bc. package models;
- 
-public class User {
-    
-    @Required
-    public String name;
- 
-    @Required
-    @Min(0)
-    public Integer age;
-}
-
-Luego modificaremos el método de acción @hello@, el cual contará con la anotación <code>@Valid</code> para especificar que todas las propiedades del objeto @User@ deben cumplir con las restricciones especificadas en las validaciones: 
-
-bc. public static void hello(@Valid User user) {
-   if(validation.hasErrors()) {
-       params.flash(); // add http parameters to the flash scope
-       validation.keep(); // keep the errors for the next request
-       index();
-   }
-   render(name, age);
-}
-
-Y finalmente, el formulario modificado para desplegar los errores:
-
-bc. #{ifErrors}
-   <h1>Oops…</h1>
-#{/ifErrors}
- 
-#{form @Application.hello()}
-   <div>
-      Name: <input type="text" name="user.name" value="${flash['user.name']}" />
-      <span class="error">#{error 'user.name' /}</span>
-   </div>
-   <div>
-      Age: <input type="text" name="user.age" value="${flash['user.age']}" /> 
-      <span class="error">#{error 'user.age' /}</span>
-   </div>
-   <div>
-      <input type="submit" value="Say hello" /> 
-   </div>
-#{/form}
-
-h2. <a name="builtin">Validaciones incluidas en Play</a>
-
-Play cuenta con varias "validaciones predefinidas":validation-builtin incluidas en el package @play.data.validation@, y que puede utilizar utilizando el objeto @Validation@ o mediante anotaciones. 
-
-h2. <a name="custom">Validaciones personalizadas utilizando @CheckWith</a>
-
-Si la validación que precisa no se encuentra en el paquere  @play.data.validation@ package, puede escribir sus propias validaciones. Para ello deberá utilizar la anotación genérica <code>@CheckWith</code> para usar su propia implementación del un objeto @Check@.
-
-Por ejemplo:
-
-bc. public class User {
-    
-    @Required
-    @CheckWith(MyPasswordCheck.class)
-    public String password;
-    
-    static class MyPasswordCheck extends Check {
-        
-        public boolean isSatisfied(Object user, Object password) {
-            return notMatchPreviousPasswords(password);
-        }
-    }
-}
-
-El mensaje de validación por defecto será @validation.invalid@. Para usar una clave diferente, llame al método @Check.setMessage@ pasando una clave y un mensaje como parámetro.
-
-bc. static class MyPasswordCheck extends Check {
- 
-    public boolean isSatisfied(Object user, Object password) {
-        final Date lastUsed = dateLastUsed(password);
-        setMessage("validation.used", JavaExtensions.format(lastUsed));
-        return lastUsed == null;
-    }
-}
-
-Este método siempre tomará el nombre del campo como primer parámetro, y los parámetros de su propio mensaje como parámetros sucesivos. De forma tal que, en el ejemplo precedente, podría definir el mensaje de error de la siguiente manera:
-
-bc. validation.used = &{%1$s} already used on date %2$s
-user.password = Password
-
-en donde @&{%1$s}@ se refiere al argumento con índice 1 (el nombre del campo) como la clave para buscar el texto del mensaje, mientras que @%2$s@ es el segundo argumento del mensaje que se refiere a la fecha formateada. 
-
-p(note). La sintaxis @%s@, @%s2$s@ and @&{…}@ es explicada en a sección "Obteniendo mensajes internacionalizados":i18n#retrieve.
-
-h2. <a name="customannotations">Anotaciones personalizadas</a>
-
-También puede escribir sus propias anotaciones de validación, lo cual es más complicado, pero simplifica el código del modelo, a la vez que le permite introducir parámetros a las validaciones. 
-
-Por ejemplo, supongamos que queremos una versión menos restrictiva de la validación "@URL":validation-builtin#url, de forma tal que podamos permitir URLs de diversos tipos, como puede ser un url del tipo @file://@, y con un parámetro que nos permita indicar qué tipo especifico de URL queremos permitir.
-
-Primero, escribiremos una anotación de validación personalizada, con un parámetro para sobreescribir el mensaje por defecto:
-
-bc. import net.sf.oval.configuration.annotation.Constraint;
-import java.lang.annotation.*;
- 
-@Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.FIELD, ElementType.PARAMETER})
-@Constraint(checkWith = URICheck.class)
-public @interface URI {
-    String message() default URICheck.message;
-}
-
-Esta anotación se refiere a una implementación de @net.sf.oval.configuration.annotation.AbstractAnnotationCheck@.
-
-bc. public class URICheck extends AbstractAnnotationCheck<URI> {
- 
-    /** Error message key. */
-    public final static String message = "validation.uri";
- 
-    /** URI schemes allowed by validation. */
-    private List<String> schemes;
- 
-    @Override
-    public void configure(URI uri) {
-        setMessage(uri.message());
-        this.schemes = Arrays.asList(uri.schemes());
-    }
- 
-    /**
-     * Add the URI schemes to the message variables so they can be included
-     * in the error message.
-     */
-    @Override
-    public Map<String, String> createMessageVariables() {
-        final Map<String, String> variables = new TreeMap<String, String>();
-        variables.put("2", JavaExtensions.join(schemes, ", "));
-        return variables;
-    }
- 
-    @Override
-    public boolean isSatisfied(Object validatedObject, Object value,
-        OValContext context, Validator validator) throws OValException {
- 
-        requireMessageVariablesRecreation();
-        try {
-            final java.net.URI uri = new java.net.URI(value.toString());
-            final boolean schemeValid = schemes.contains(uri.getScheme());
-            return schemes.size() == 0 || schemeValid;
-        } catch (URISyntaxException e) {
-            return false;
-        }
-    }
-}
-
-El método @isSatisfied@ llama a @requireMessageVariablesRecreation()@ para indicarle a OVal que llame a @createMessageVariables()@ antes de emitir el mensaje. Éste retornará un mapa de variables que serán pasadas al formateador del mensaje. Las claves del mapa no serán utilizadas, el @"2"@ en este ejemplo indica el índice del parámetro. Al igual que en el caso anterior, el primer parámetro es el nombre del campo.
-
-Para utilizar esto, use la nueva anotación en alguna propiedad de un modelo.
-
-bc. public class User {
-    
-    @URI(message = "validation.uri.schemes", schemes = {"http", "https"})
-    public String profile;
-}
-
-Y podemos definir los mensajes de la siguiente manera:
-
-bc. validation.uri = Not a valid URI
-validation.uri.schemes = &{%1$s} is not a valid URI - allowed schemes are %2$s
-
-p(note). **Próximos pasos**
- 
-La última capa de una aplicación de Play: %(next)"Objetos del modelo":model%.
