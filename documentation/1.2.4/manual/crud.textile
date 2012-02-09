@@ -134,7 +134,7 @@ Por defecto, la vista de lista utiliza una única columna que nos muestra el res
 
 !images/crud5!
 
-Para personalizar ésta vista, necesitamos crear la plantilla (template) @/app/views/Users/list.html@ en nuestra aplicación.
+Para personalizar esta vista, necesitamos crear la plantilla (template) @/app/views/Users/list.html@ en nuestra aplicación.
 
 Abra una línea de comandos, vaya al directorio de la aplicación y tipee:
 
@@ -203,7 +203,7 @@ bc. #{crud.table fields:['name', 'company', 'edit']}
 
 h2. <a name="collections">Listas de Strings y de enumeración</a>
 
-El módulo CRUD muestra las listas como un campo de texto. En éste campo de texto, la lista está representada como una lista de Strings separadas por comas. Por ejemplo:
+El módulo CRUD muestra las listas como un campo de texto. En este campo de texto, la lista está representada como una lista de Strings separadas por comas. Por ejemplo:
 
 bc. @Entity
 public class Account extends Model {
