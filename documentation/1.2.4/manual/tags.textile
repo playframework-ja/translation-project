@@ -15,12 +15,12 @@ Cuyo resultado es:
 
 bc. <a href="/application/logout">Disconnect</a>
 
-Si la acción que intenta llamar no tiene una ruta capaz de invocarlo usando el método GET, Play generará automáticamente un formulario oculto que será enviado usando JavaScript al hacer clic en el enlace.
+Si la acción que intenta llamar no tiene una ruta capaz de invocarla usando el método GET, Play generará automáticamente un formulario oculto que será enviado usando JavaScript al hacer clic en el enlace.
 
 
 h2. <a name="authenticityToken">authenticityToken</a>
 
-Genera un campo de entrada oculto que contiene una clave generada que puede usar en cualquier formulario, para prevenir el "Cross-Site Request Forgery":security#csrf
+Despliega un campo de entrada oculto que contiene una clave generada que puede usar en cualquier formulario, para prevenir el "Cross-Site Request Forgery":security#csrf
 
 bc. #{authenticityToken /}
 
@@ -38,7 +38,7 @@ bc. #{cache 'startTime'}
    ${new java.util.Date()}
 #{/cache}
 
-El cuerpo es almacenado en cache indefinidamente por defecto, pero puede especificar un tiempo de expiración con el parámetro @for@.
+Por defecto, el cuerpo es almacenado en cache indefinidamente, pero puede especificar un tiempo de expiración con el parámetro @for@.
 
 bc. #{cache 'currentTime', for:'3s'}
    ${new java.util.Date()}
@@ -67,7 +67,7 @@ bc. #{if user}
     Please log in
 #{/else}
 
-No obstante, también puede usarlo junto con el tag @list@ y se jecutará si la lista está vacía.
+No obstante, también puede usarlo junto con el tag @list@ y se ejecutará si la lista está vacía.
 
 bc. #{list items:task, as:'task'}
     <li>${task}</li>
@@ -110,7 +110,7 @@ bc. #{error 'contact.street',  field:'contact.address'/}
 
 h2. <a name="errorClass">errorClass</a>
 
-Imprime el texto @hasError@ si hay un error de validación en el campo cuyo nombre fue pasado como parámetro del tag. Esto es de utilidad para asginar una clase CSS a los campos de entrada con errores:
+Imprime el texto @hasError@ si hay un error de validación en el campo cuyo nombre fue pasado como parámetro del tag. Esto es de utilidad para asignar una clase CSS a los campos de entrada con errores:
 
 bc. <input name="name" class="#{errorClass 'name'/}">
 
@@ -129,7 +129,7 @@ bc. <ul>
 #{/errors}
 </ul>
 
-El tag define variables implicitas en su cuerpo.
+El tag define variables implícitas en su cuerpo.
 
 * @error@, el error 
 * @error_index@, el índice del error, comenzando en 1
@@ -144,7 +144,7 @@ bc. <table>
 #{/errors}
 </table>
 
-También puede usar el parámetro opcional @field@, o solo dejarlo como parámetro por defecto, para iterar solamente los errores pertenecientes a cierto campo.
+También puede usar el parámetro opcional @field@, o solo dejarlo como parámetro por defecto, para iterar únicamente los errores pertenecientes a un campo específico.
 
 bc. <ul>
 #{errors 'myField'}
@@ -188,7 +188,7 @@ Así usted no repite @user.name@ una y otra vez.
 
 h2. <a name="form">form</a>
 
-Inserta un tag @form@. Play determinará el método HTTP a partir de la ruta, usando POST como método por defecto. Si están ambas rutas, POST y GET, configuradas para la URL, el tag usará por defecto la primera ruta definida en @routes@. 
+Inserta un tag @form@. Play determinará el método HTTP a partir de la ruta, usando POST como método por defecto. Si existen ambas rutas, POST y GET, configuradas para la URL, el tag usará por defecto la primera ruta definida en @routes@. 
 
 Parámetros opcionales:
 
@@ -279,7 +279,7 @@ Y obtenga las claves desde JavaScript:
 bc. alert(i18n('hello_world'));
 alert(i18n('hello_someone', 'John'));
 
-Opcionalmente, puede restringir el tag a solo algunos mensajes. Se acepta el uso del caracter comodín:
+Opcionalmente, puede restringir el tag a solo algunos mensajes. Se acepta el uso del caracter comodín @*@ al final del nombre del tag:
 
 bc. #{i18n keys:['title', 'menu.*'] /}
 
@@ -337,7 +337,7 @@ bc. <div id="tree">
 
 h2. <a name="jsaction">jsAction</a>
 
-El tag @#{jsAction /}@ devuelve una función JavaScript que construye una URL basada en una acción del servidor y libera variables. Este tag no realiza solicitudes AJAX; estas tienen que hacerse manualmente usando la URL devuelta.
+El tag @#{jsAction /}@ devuelve una función JavaScript que construye una URL basada en una acción del servidor y variables libres. Este tag no realiza solicitudes AJAX; estas tienen que hacerse manualmente usando la URL devuelta.
 
 Veamos un ejemplo:
 
@@ -384,7 +384,7 @@ bc. <ul>
 #{/list}
 </ul>
 
-El tag define variables implicitas en su cuerpo. El nombre de las variables va prefijado con el nombre de la variable del ciclo.
+El tag define variables implícitas en su cuerpo. El nombre de las variables lleva como prefijo el nombre de la variable del ciclo.
 
 * @name_index@, el índice del elemento, comenzando en 1
 * @name_isLast@, vale @true@ cuando está en el último elemento
@@ -422,7 +422,7 @@ bc. #{list items:'a'..'z', as:'letter'}
     ${letter} ${letter_isLast ? '' : '|' }
 #{/list}
 
-El parámetro @as@ es opcional también. El tag usa @_@ como nombre por defecto de la variable:
+El parámetro @as@ es también opcional. El tag usa @_@ como nombre por defecto de la variable:
 
 bc. #{list users}
     <li>${_}</li>
@@ -468,7 +468,7 @@ Inserta un tag @select@ en la plantilla.
 
 * @name@ (obligatorio) - establece el nombre del elemento @select@.
 
-Cualquier atributo desconocido será considerado un atributo HTML, e interpretado "tal como es".
+Cualquier atributo desconocido será considerado un atributo HTML, e interpretado "tal como viene".
 
 bc. #{select 'booking.beds', value:2, id:'select1'}
 	#{option 1}One king-size bed#{/option}
@@ -529,9 +529,9 @@ bc. #{set 'title'}
 
 h2. <a name="stylesheet">stylesheet</a>
 
-Inserta a tag @link@ en la plantilla. Por convención, el tag hace referencia a un archivo CSS en el directorio @/public/stylesheets@
+Inserta un tag @link@ en la plantilla. Por convención, el tag hace referencia a un archivo CSS en el directorio @/public/stylesheets@
 
-* @src@ (obligatorio) - nombre del archivo, sin incluir el @/public/stylesheets@ en la ubicación
+* @src@ (obligatorio) - nombre del archivo, sin incluir el camino inicial @/public/stylesheets@ en la ubicación
 * @id@ (opcional) - un valor para el atributo @id@ del tag @link@ generado
 * @media@ (opcional) - un valor para el atributo @media@: _screen_, _print_, _aural_, _projection_…
 * @title@ (opcional) - el valor del atributo @title@ (o descripción)
