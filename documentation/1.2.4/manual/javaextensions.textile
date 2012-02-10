@@ -1,8 +1,8 @@
 h1. Extensiones Java
 
-Las extensiones Java agregan a nuestros objetos, métodos muy convenientes para utilizar en las plantillas de las vistas, haciendo a nuestras expresiones un poco más expresivas.
+Las extensiones Java agregan a nuestros objetos métodos muy útiles para utilizar en las plantillas de las vistas, haciendo a nuestras expresiones todavía un poco más expresivas.
 
-Los ejemplos muestran una expresión de ejemplo en una plantilla, y su resultado en la siguiente línea.
+Los ejemplos muestran una expresión de ejemplo embebida en una plantilla, y su resultado en la siguiente línea.
 
 
 
@@ -19,7 +19,7 @@ red/green/blue
 
 h3. <a name="last">last()</a>
 
-Nos devuelve el último elemento en la lista, en forma de @Object@.
+Devuelve el último elemento en la lista. Devuelve @Object@.
 
 bc. ${['red', 'green', 'blue'].last()}
 blue
@@ -74,19 +74,19 @@ bc. ${new Date(1275910970000).format('dd MMMM yyyy hh:mm:ss', 'fr')}
 
 h3. <a name="since">since()</a>
 
-Formatea la fecha como un tiempo relativo a ahora. Por ejemplo **Hace 3 minutos**. Devuelve: @String@.
+Formatea la fecha como un periodo de tiempo en relación al momento actual. Por ejemplo **3 minutes ago** (**Hace 3 minutos**). Devuelve: @String@.
 
 bc. ${new Date(new Date().getTime() - 1000000).since()}
 16 minutes ago
 
-Puede retocar la salida utilizando los siguientes mensajes: @since.seconds@, @since.minutes@, @since.hours@, @since.days@, @since.months@ and @since.years@.  
+Puede refinar la salida utilizando los siguientes mensajes: @since.seconds@, @since.minutes@, @since.hours@, @since.days@, @since.months@ and @since.years@.  
 
 
 h3. <a name="since-condition">since(condition)</a>
 
-Formatea la fecha como un tiempo relativo a ahora. Si la condición es verdadera, las fechas de hace un mes o más, son formateadas como fecha. Nos devuelve: @String@.
+Formatea la fecha como un periodo de tiempo en relación al momento actual. Si la condición es verdadera, las fechas de hace un mes o más, son formateadas como fecha. Devuelve: @String@.
 
-Además de los mensajes que acepta @since()@ para retocar la salida, puede utilizar @since.format@ para fechas de hace  más de un mes.
+Además de los mensajes que acepta @since()@ para refinar la salida, puede utilizar @since.format@ para fechas de hace más de un mes.
 
 bc. ${new Date(1262350000000).since(false)}
 5 months ago
@@ -101,7 +101,7 @@ h2. <a name="long">Extensiones del tipo Long</a>
 
 h3. <a name="asdate">asdate(format)</a>
 
-Formatea una estampilla de tiempo (timestamp) como una fecha. Devuelve: @String@ - una fecha formateada. 
+Formatea un time stamp como una fecha. Devuelve: @String@ - una fecha formateada. 
 
 bc. ${1275910970000.asdate('dd MMMM yyyy hh:mm:ss')}
 07 June 2010 01:42:50
@@ -109,7 +109,7 @@ bc. ${1275910970000.asdate('dd MMMM yyyy hh:mm:ss')}
 
 h3. <a name="asdate-language">asdate(format, language)</a>
 
-Formatea una estampilla de tiempo (timestamp) como una fecha, en el lenguaje dado. Devuelve: @String@ - una fecha formateada. 
+Formatea un timestamp como una fecha, en el lenguaje dado. Devuelve: @String@ - una fecha formateada. 
 
 bc. ${1275910970000.asdate('dd MMMM yyyy hh:mm:ss', 'fr')}
 07 juin 2010 01:42:50
@@ -213,7 +213,7 @@ h2. <a name="object">Extensiones de objeto</a>
 
 h3. <a name="addSlashes">addSlashes()</a>
 
-Escapea agregando barras invertidas, a las comillas simples y a las dobles en la representación de @String@ del objeto. Devuelve: @String@.
+Escapa las comillas simples y dobles agregando barras invertidas a la representación como @String@ del objeto. Devuelve: @String@.
 
 bc. ${"single quote (')".addSlashes().raw()} ${'double quote (")'.addSlashes().raw()}
 single quote (\') double quote (\")
@@ -221,7 +221,7 @@ single quote (\') double quote (\")
 
 h3. <a name="capAll">capAll()</a>
 
-Cambia a mayúscula la primer letra de cada palabra en la representación de @String@ del objeto. Devuelve: @String@.
+Cambia a mayúscula la primer letra de cada palabra en la representación como @String@ del objeto. Devuelve: @String@.
 
 bc. ${"lorum ipsum dolor".capAll()}
 Lorum Ipsum Dolor
@@ -229,7 +229,7 @@ Lorum Ipsum Dolor
 
 h3. <a name="capFirst">capFirst()</a>
 
-Cambia a mayúscula la primer letra de la primer palabra en la representación de @String@ del objeto. Devuelve: @String@.
+Cambia a mayúscula la primera letra de la primera palabra en la representación como @String@ del objeto. Devuelve: @String@.
 
 bc. ${"lorum ipsum dolor".capFirst()}
 Lorum ipsum dolor
@@ -245,7 +245,7 @@ lor ips dolor
 
 h3. <a name="escape">escape()</a>
 
-Escapea caractéres HTML reservados en la representación de @String@ del objeto. Devuelve: @String@.
+Escapa los caracteres reservados de HTML en la representación como @String@ del objeto. Devuelve: @String@.
 
 bc. ${"The <blink>tag</blink> is evil".escape().raw()}
 The &lt;blink&gt;tag&lt;/blink&gt; is evil
@@ -253,19 +253,19 @@ The &lt;blink&gt;tag&lt;/blink&gt; is evil
 
 h3. <a name="nl2br">nl2br()</a>
 
-Reemplaza los caractéres de nueva linea (\n) con su correspondiente tag HTML @br@. Devuelve: @String@.
+Reemplaza los caracteres de nueva linea (\n) con su correspondiente tag HTML @br@. Devuelve: @String@.
 
 bc. ${"one\ntwo".nl2br()}
 one<br/>two
 
-Note que en la salida no se escapea el contenido HTML, por lo que el tag @br@ no estará escapeado en la salida. Esto quiere decir que probablemente usted quiera utilizar "escape()":#escape para las entradas del usuario:
+Note que en la salida no se escapa el contenido HTML, por lo que el tag @br@ no estará escapado en la salida. Esto significa decir que probablemente usted quiera utilizar "escape()":#escape para las entradas del usuario:
 
 bc. ${userInput.escape().nl2br()}
 
 
 h3. <a name="raw">raw()</a>
 
-Devuelve el objeto sin escapear. Devuelve: @play.templates.Template.ExecutableTemplate.RawData@.
+Retorna el objeto sin escapar. Devuelve: @play.templates.Template.ExecutableTemplate.RawData@.
 
 bc. ${'<'}
 &lt;
@@ -276,7 +276,7 @@ ${'<'.raw()}
 
 h3. <a name="raw-condition">raw(condition)</a>
 
-Devuelve el objeto sin escapear, si la condición es verdadera. Devuelve: @play.templates.Template.ExecutableTemplate.RawData@.
+Retorna el objeto sin escapar, si la condición es verdadera. Devuelve: @play.templates.Template.ExecutableTemplate.RawData@.
 
 bc. ${'<'.raw(true)}
 <
@@ -293,7 +293,7 @@ ${"not empty".yesno('yes', 'no')}
 yes
 
 
-h2. <a name="string">Extensiones de Cadena de caractéres</a>
+h2. <a name="string">Extensiones de String</a>
 
 
 h3. <a name="asXml">asXml()</a>
@@ -318,7 +318,7 @@ Lorum Ipsum Dolor
 
 h3. <a name="escapeHtml">escapeHtml()</a>
 
-Escapea carctéres HTML reservados. Devuelve: @String@.
+Escapa caracteres reservados de HTML. Devuelve: @String@.
 
 bc. ${"The <blink>tag</blink> is evil".escapeHtml().raw()}
 The &lt;blink&gt;tag&lt;/blink&gt; is evil
@@ -326,7 +326,7 @@ The &lt;blink&gt;tag&lt;/blink&gt; is evil
 
 h3. <a name="escapeJavaScript">escapeJavaScript()</a>
 
-Escapea caractéres JavaScript reservados. Devuelve: @String@.
+Escapa los caracteres reservados de JavaScript. Devuelve: @String@.
 
 bc. ${"single quote (') double quote (\")".escapeJavaScript().raw()}
 single quote (\') double quote (\")
@@ -334,7 +334,7 @@ single quote (\') double quote (\")
 
 h3. <a name="escapeXml">escapeXml()</a>
 
-Escapea caractéres XML reservados. Devuelve: @String@.
+Escapa los caracteres reservados de XML. Devuelve: @String@.
 
 bc. ${"<>\"&".escapeXml().raw()}
 &lt;&gt;&quot;&amp;
@@ -358,7 +358,7 @@ x&nbsp;&nbsp;&nbsp;
 
 h3. <a name="slugify">slugify()</a>
 
-Formatea la cadena al estilo ‘slug’(babosa) para utilizar en URLs evitando los caractéres URL reservados. Devuelve: @String@.
+Formatea la cadena al estilo ‘slug’ (babosa) para utilizar en URLs evitando los caracteres URL reservados. Devuelve: @String@.
 
 bc. ${"The Play! framework’s manual".slugify()}
 the-play-framework-s-manual
@@ -366,18 +366,18 @@ the-play-framework-s-manual
 
 h3. <a name="urlEncode">urlEncode()</a>
 
-Escapea caractéres reservados de query string. Devuelve: @String@.
+Escapa los caracteres reservados del query string. Devuelve: @String@.
 
 bc. ${"!@#\$%^&()".urlEncode()}
 %21%40%23%24%25%5E%26%28%29
 
 
-h2. <a name="string-array">Extensiones de arreglos de cadenas</a>
+h2. <a name="string-array">Extensiones de arrays de cadenas</a>
 
 
 h3. <a name="add">add(value)</a>
 
-Agrega el valor dado al final del arreglo. Devuelve: @String[]@.
+Agrega el valor dado al final del array. Devuelve: @String[]@.
 
 bc. ${(["red", "green", "blue"] as String[]).add('pink').join(' ')}
 red green blue pink
@@ -385,7 +385,7 @@ red green blue pink
 
 h3. <a name="contains">contains(string)</a>
 
-Devuelve verdadero si el arreglo contiene la cadena dada. Devuelve: @boolean@.
+Devuelve verdadero si el array contiene la cadena dada. Devuelve: @boolean@.
 
 bc. ${(['red', 'green', 'blue'] as String[]).contains('green')}
 true
@@ -393,7 +393,7 @@ true
 
 h3. <a name="remove">remove(string)</a>
 
-Elimina del arreglo la cadena dada. Devuelve: @String[]@.
+Elimina del array la cadena dada. Devuelve: @String[]@.
 
 bc. ${(['red', 'green', 'blue'] as String[]).remove('green').join(' ')}
 red blue
