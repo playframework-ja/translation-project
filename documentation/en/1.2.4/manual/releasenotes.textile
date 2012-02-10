@@ -198,7 +198,7 @@ bc. <script type="text/javascript">
     }
 </script>
 
-As you see you use the **:ame** syntax to declare free variables. You can mix free and fixed variables together. The **#{jsAction /}** tag generates a JavaScript function. This function takes a JavaScript object as parameter that must define all the free variables.
+As you see you use the **:name** syntax to declare free variables. You can mix free and fixed variables together. The **#{jsAction /}** tag generates a JavaScript function. This function takes a JavaScript object as parameter that must define all the free variables.
 
 h2. <a>New sample application: 'booking'</a>
 
