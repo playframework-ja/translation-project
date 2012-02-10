@@ -14,7 +14,7 @@ Asegúrese de ser consistente con el uso de UTF-8 en toda su aplicación:
 * Si usa una base de datos, configúrela para que use UTF-8, y siempre conéctese a ella usando UTF-8
 
 p(note). **Nota**
-
+ 
 El problema con UTF-8 es la razón por la que la mayoría de los ficheros de configuración de Play, aunque son ficheros de propiedades Java, no se llaman @*.properties@. Java impone el requerimiento de que los ficheros de propiedades deban ser codificados en **ISO-8859-1**. Los ficheros de configuración de Play tienen que estar codificados UTF-8. ¿Hace falta decir más?
 
 h2. <a name="messages">Externalice sus mensajes</a>

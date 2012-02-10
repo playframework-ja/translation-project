@@ -1,32 +1,30 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Tags de plantilla incorporados
 
-h1. Built-in template tags 
+Estos son los tags incorporados que están disponibles además de los mostrados en "la sintaxis del sistema de plantillas":templates#syntax.
 
-These are the built-in tags that are available in addition to the core "template engine syntax":templates#syntax.
-
-p(note). There is a separate %(next)"Java extensions":javaextensions% manual page.
+p(note). Existe un manual aparte de "las extensiones Java":javaextensions%.
 
 
 h2. <a name="a">a</a>
 
-The @a@ tag inserts an HTML link to a controller action.
+El tag @a@ inserta un enlace HTML que apunta a la acción de un controlador.
 
 bc. #{a @Application.logout()}Disconnect#{/a}
 
-Rendered as:
+Cuyo resultado es:
 
 bc. <a href="/application/logout">Disconnect</a>
 
-If the action you try to call does not have any route able to invoke it using a GET method, Play will automatically generate a hidden form that will be submitted on link click using JavaScript.
+Si la acción que intenta llamar no tiene una ruta capaz de invocarlo usando el método GET, Play generará automáticamente un formulario oculto que será enviado usando JavaScript al hacer clic en el enlace.
 
 
 h2. <a name="authenticityToken">authenticityToken</a>
 
-Renders a hidden input field containing a generated token that you can use in any form, to prevent "Cross-Site Request Forgery":security#csrf.
+Genera un campo de entrada oculto que contiene una clave generada que puede usar en cualquier formulario, para prevenir el "Cross-Site Request Forgery":security#csrf
 
 bc. #{authenticityToken /}
 
-Rendered as:
+El resultado es:
 
 bc. <input type="hidden" name="authenticityToken"
        value="1c6d92fed96200347f06b7c5e1a3a28fa258ef7c">
@@ -34,13 +32,13 @@ bc. <input type="hidden" name="authenticityToken"
 
 h2. <a name="cache">cache</a>
 
-Caches the tag body using the @play.cache.Cache@ API, for the cache key specified by the tag parameter.
+Almacena en cache el cuerpo del tag usando la API @play.cache.Cache@, con la clave de cache especificada en el parámetro del tag.
 
 bc. #{cache 'startTime'}
    ${new java.util.Date()}
 #{/cache}
 
-The body is cached indefinitely by default, but you can specify an expiration duration with the @for@ parameter.
+El cuerpo es almacenado en cache indefinidamente por defecto, pero puede especificar un tiempo de expiración con el parámetro @for@.
 
 bc. #{cache 'currentTime', for:'3s'}
    ${new java.util.Date()}
@@ -49,7 +47,7 @@ bc. #{cache 'currentTime', for:'3s'}
 
 h2. <a name="dolayout">doLayout</a>
 
-Used with template inheritance, this tag inserts the evaluated sub-template’s contents.
+Usado en herencia de plantillas, este tag inserta el contenido evaluado de la subplantilla.
 
 bc. <!-- common header here -->
 <div id="content">
@@ -60,7 +58,7 @@ bc. <!-- common header here -->
 
 h2. <a name="else">else</a>
 
-Of course used with the @if@ tag.
+Por supuesto se usa junto con el tag @if@.
 
 bc. #{if user}
     Connected user is ${user}
@@ -69,7 +67,7 @@ bc. #{if user}
     Please log in
 #{/else}
 
-However, you can also use it with the @list@ tag and it will be executed if the list is empty.
+No obstante, también puede usarlo junto con el tag @list@ y se jecutará si la lista está vacía.
 
 bc. #{list items:task, as:'task'}
     <li>${task}</li>
@@ -94,16 +92,16 @@ bc. #{if tasks.size() > 1}
     Nothing to do
 #{/else}
 
-As for @else@, you can use it with the @list@ tag.
+Al igual que @else@, puede usarlo con el tag @list@.
 
 
 h2. <a name="error">error</a>
 
-Outputs the validation error message, if present, for the field specified by the tag parameter.
+Muestra los mensajes de error de validación, si los hay, para el campo especificado en el parámetro del tag.
 
 bc. #{error 'user.name'/}
 
-You can use the optional @field@ parameter to use a different field’s error message. This is useful when you want several fields to share a common error message.
+Puede usar el parámetro opcional @field@  para usar el mensaje de error de un campo diferente. Esto es útil cuando desea que varios campos compartan un mensaje de error común.
 
 bc. #{error 'contact.street',  field:'contact.address'/}
 #{error 'contact.city',    field:'contact.address'/}
@@ -112,18 +110,18 @@ bc. #{error 'contact.street',  field:'contact.address'/}
 
 h2. <a name="errorClass">errorClass</a>
 
-Outputs the text @hasError@ if there is a validation error for the field specified by the tag parameter. This is useful for setting a CSS class for input fields with errors:
+Imprime el texto @hasError@ si hay un error de validación en el campo cuyo nombre fue pasado como parámetro del tag. Esto es de utilidad para asginar una clase CSS a los campos de entrada con errores:
 
 bc. <input name="name" class="#{errorClass 'name'/}">
 
-which is equivalent to:
+Lo cual es equivalente a:
 
 bc. <input name="name" class="${errors.forKey('name') ? 'hasError' : ''}">
 
 
 h2. <a name="errors">errors</a>
 
-Iterates over the current validation errors.
+Itera a través de los errores de validación actuales.
 
 bc. <ul>
 #{errors}
@@ -131,13 +129,13 @@ bc. <ul>
 #{/errors}
 </ul>
 
-The tag defines implicit variables in its body.
+El tag define variables implicitas en su cuerpo.
 
-* @error@, the error
-* @error_index@, the error’s index, starting at 1
-* @error_isLast@, true for the last element
-* @error_isFirst@, true for the first element
-* @error_parity@, alternates between @odd@ and @even@
+* @error@, el error 
+* @error_index@, el índice del error, comenzando en 1
+* @error_isLast@, vale @true@ cuando está en el último elemento
+* @error_isFirst@, vale @true@ cuando está en el primer elemento
+* @error_parity@, alterna su valor entre @odd@ (impar) y @even@ (par)
 
 bc. <table>
 <tr><th>#</th><th>Error</th></tr>
@@ -146,7 +144,7 @@ bc. <table>
 #{/errors}
 </table>
 
-You can also use the optional field parameter, or just the default parameter, to filter only the errors belonging to a certain field.
+También puede usar el parámetro opcional @field@, o solo dejarlo como parámetro por defecto, para iterar solamente los errores pertenecientes a cierto campo.
 
 bc. <ul>
 #{errors 'myField'}
@@ -158,16 +156,16 @@ bc. <ul>
 
 h2. <a name="extends">extends</a>
 
-Makes the template inherit another template.
+Hace que una plantilla herede de otra.
 
 bc. #{extends 'main.html' /}
 
 
 h2. <a name="field">field</a>
 
-The field tag is a helper, based on the spirit of the Don’t Repeat Yourself. It works this way:
+El tag @field@ es un _helper_, basado en el lema "No se repita a usted mismo". Funciona de esta manera:
 
-Instead of writing this:
+En vez de escribir esto:
 
 bc. <p>
   <label>&{'user.name'}</label>
@@ -175,7 +173,7 @@ bc. <p>
   <span class="error">${errors.forKey('user.name')}</span>
 </p>
 
-You can just write:
+Usted puede solo escribir:
 
 bc. #{field 'user.name'}
 <p>
@@ -185,57 +183,59 @@ bc. #{field 'user.name'}
 </p>
 #{/}
 
-So you don’t repeat @user.name@ again and again.
+Así usted no repite @user.name@ una y otra vez.
 
 
 h2. <a name="form">form</a>
 
-Inserts a @form@ tag. Play will guess the HTTP method from the route, with POST as the default. If there are both GET and POST routes configured for the URL, the tag will default to using the first route defined in routes.
+Inserta un tag @form@. Play determinará el método HTTP a partir de la ruta, usando POST como método por defecto. Si están ambas rutas, POST y GET, configuradas para la URL, el tag usará por defecto la primera ruta definida en @routes@. 
 
-* Optional @method@ either POST or GET.
-* Optional @id@ attribute sets an ID to the form element.
-* Optional @enctype@ attribute sets the form’s data encoding. it defaults to ‘application/x-www-form-urlencoded’.
+Parámetros opcionales:
 
-Charset encoding is always **utf-8**.
+* @method@ - puede tener el valor @POST@ o @GET@.
+* @id@ - establece un ID para el elemento @form@.
+* @enctype@ - establece la codificación de los datos del formulario. Por defecto es ‘application/x-www-form-urlencoded’.
+
+La codificación de caracteres siempre es **utf-8**.
 
 bc. #{form @Client.details(), method:'GET', id:'detailsForm'}
    ...
 #{/form}
 
-Rendered as:
+Da como resultado lo siguiente:
 
 bc. <form action="/client/details" id="detailsForm" method="GET"
       accept-charset="utf-8">
  ...
 </form>
 
-You can also specify a target entity as part of the action method:
+También puede especificar una entidad como objetivo del método de la acción:
 
 bc. #{form @Client.details(client.id)}
    ...
 #{/form}
 
-The HTTP parameter name name is detected from what you declared in your action method.
+El nombre del parámetro HTTP se obtiene de la declaración del método de la acción. 
 
 bc. public static void details(String clientId){
        // ...
 }
 
-Play will create an action URL with clientId:
+Play creará una URL de acción con @clientId@:
 
 bc. <form action="/client/details?clientId=3442" method="GET"
       accept-charset="utf-8">
  ...
 </form>
 
-The @form@ tag also automatically includes an "authenticity token":#authenticityToken, for methods other than GET.
+El tag @form@ también incluye automáticamente una "clave de autenticidad":#authenticityToken, para los métodos diferentes de GET.
 
 bc. #{form @Client.create(), method:'POST', id:'creationForm',
        enctype:'multipart/form-data' }
    ...
 #{/form}
 
-Rendered as:
+Da como resultado:
 
 bc. <form action="/client/create" id="creationForm" method="POST"
       accept-charset="utf-8" enctype="multipart/form-data">
@@ -244,18 +244,18 @@ bc. <form action="/client/create" id="creationForm" method="POST"
  ...
 </form>
 
-If your form updates a resource on the server-side, you _should_ use the **POST** method. If your form is used to filter data and does not update your domain, you can use a GET. Please read about "idempotence":http://en.wikipedia.org/wiki/Idempotence. POST is not idempotent, whereas GET, PUT and DELETE are.
+Si su formulario actualiza un recurso en el lado del servidor, usted _debería_ usar el método **POST**. Si su formulario se usa para filtrar datos y no actualiza su dominio, usted puede usar GET. Por favor lea acerca de "idempotence (idempotencia)":http://en.wikipedia.org/wiki/Idempotence. POST no es idempotente, mientras que GET, PUT y DELETE sí lo son.
 
 
 h2. <a name="get">get</a>
 
-Retrieves a value defined with a "set":#set tag. You may use  the get/set mechanism to exchange values between templates, layouts and sub-templates.
+Recupera un valor definido con un tag "set":#set. Puede usar el mecanismo get/set para intercambiar valores entre plantillas, _layouts_ y subplantillas.
 
 bc. <head>
     <title>#{get 'title' /}
 </head>
 
-You can also use the get tag in the following way, which will display "Homepage" if title has not been specified.
+También puede usar el tag @get@ de la siguiente manera, la cual mostrará "Homepage" si @'title'@ no ha sido especificado.
 
 bc. <head>
     <title>#{get 'title'}Homepage #{/} 
@@ -263,35 +263,35 @@ bc. <head>
 
 h2. <a name="i18n">i18n</a>
 
-Exports localized messages in JavaScript. Localized messages are available from your JavaScript code using the @i18n()@ function.
+Exporta mensajes localizados dentro de JavaScript. Los mensajes localizados estarán disponibles en su código JavaScript al usar la función @i18n()@.
 
-Define your translations in the @conf/messages@ file.
+Defina sus traducciones en el archivo @conf/messages@.
 
 bc. hello_world=Hello, World !
 hello_someone=Hello %s !
 
-Include the messages in your template (or layout) page:
+Incluya los mensajes en su plantilla (o _layout_):
 
 bc. #{i18n /}
 
-And retrieve keys from JavaScript:
+Y obtenga las claves desde JavaScript:
 
 bc. alert(i18n('hello_world'));
 alert(i18n('hello_someone', 'John'));
 
-Optionally, you can restrict the tag to only some messages. The wildcard character is accepted at the end:
+Opcionalmente, puede restringir el tag a solo algunos mensajes. Se acepta el uso del caracter comodín:
 
 bc. #{i18n keys:['title', 'menu.*'] /}
 
 h2. <a name="if">if</a>
 
-Evaluates the given test, and if true, evaluates the tag body.
+Evalúa la prueba dada, y si resulta verdadera, ejecuta el cuerpo del tag.
 
 bc. #{if user.countryCode == 'en' }
     Connected user is ${user}
 #{/if}
 
-Using composite conditions:
+Usando condiciones compuestas:
 
 bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
     You are admin, allowed to administer.
@@ -300,7 +300,7 @@ bc. #{if ( request.actionMethod == 'administer'  && user.isAdmin() ) }
 
 h2. <a name="iferror">ifError</a>
 
-Renders the tag body if there is a validation error for the input field field named by the tag parameter.
+Interpreta el cuerpo del tag si hay un error de validación en el campo de entrada especificado en el parámetro del tag.
 
 bc. #{ifError 'user.name'}
   <p>
@@ -311,7 +311,7 @@ bc. #{ifError 'user.name'}
 
 h2. <a name="iferrors">ifErrors</a>
 
-Renders the tag body if any field has a validation error.
+Interpreta el cuerpo del tag si cualquier campo tiene un error de validación.
 
 bc. #{ifErrors}
   <p>Error(s) found!</p>
@@ -319,7 +319,7 @@ bc. #{ifErrors}
 
 h2. <a name="ifnot">ifnot</a>
 
-Cleaner alternative to #{if !condition}
+Alternativa más limpia que @#{if !condition}@
 
 bc. #{ifnot tasks}
     No tasks today
@@ -328,7 +328,7 @@ bc. #{ifnot tasks}
 
 h2. <a name="include">include</a>
 
-Includes another template. All of the current template’s variables are directly available in the included template.
+Incluye otra plantilla. Todas las variables de la plantilla actual estarán disponibles de forma directa en la plantilla incluida.
 
 bc. <div id="tree">
     #{include 'tree.html' /}
@@ -337,13 +337,13 @@ bc. <div id="tree">
 
 h2. <a name="jsaction">jsAction</a>
 
-The @#{jsAction /}@ tag returns a JavaScript function which constructs a URL based on a server action and free variables. It does not perform an AJAX request; these have to be done by hand using the returned URL.
+El tag @#{jsAction /}@ devuelve una función JavaScript que construye una URL basada en una acción del servidor y libera variables. Este tag no realiza solicitudes AJAX; estas tienen que hacerse manualmente usando la URL devuelta.
 
-Let’s see an example:
+Veamos un ejemplo:
 
 bc. GET     /users/{id}        Users.show
 
-Now you can import this route client side:
+Ahora puede importar esta ruta en el lado del cliente:
 
 bc. <script type="text/javascript">
     var showUserAction = #{jsAction @Users.show(':id') /}
@@ -356,13 +356,13 @@ bc. <script type="text/javascript">
 
 h2. <a name="jsroute">jsRoute</a>
 
-The @#{jsRoute /}@ tag is similar to the @#{jsAction /}@ tag, it returns an object containing both the function which consctructs the URL based on the server action, and the corresponding HTTP method (GET, POST, etc.).
+El tag @#{jsRoute /}@ funciona de forma similar al tag @#{jsAction /}@, este devuelve un objeto que contiene: la función que construye la URL basada en la acción del servidor, y el correspondiente método HTTP (GET, POST, etc.).
 
-Example:
+Ejemplo:
 
 bc. PUT     /users/{id}        Users.update
 
-Then, in a template:
+Luego, en la plantilla:
 
 bc. <script type="text/javascript">
     var updateUserRoute = #{jsRoute @Users.update(':id') /}
@@ -376,7 +376,7 @@ bc. <script type="text/javascript">
 
 h2. <a name="list">list</a>
 
-Iterates over an object collection.
+Itera a través de una colección de objetos.
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -384,12 +384,12 @@ bc. <ul>
 #{/list}
 </ul>
 
-The tag defines implicit variables in its body. The variable names are prefixed with the loop variable name.
+El tag define variables implicitas en su cuerpo. El nombre de las variables va prefijado con el nombre de la variable del ciclo.
 
-* @name_index@, the item’s index, starting at 1
-* @name_isLast@, true for the last element
-* @name_isFirst@, true for the first element
-* @name_parity@, alternates between @odd@ and @even@
+* @name_index@, el índice del elemento, comenzando en 1
+* @name_isLast@, vale @true@ cuando está en el último elemento
+* @name_isFirst@, vale @true@ cuando está en el primer elemento
+* @name_parity@, alterna entre los valores @odd@ (impar) y @even@ (par)
 
 bc. <ul>
 #{list items:products, as:'product'}
@@ -398,21 +398,21 @@ bc. <ul>
 #{/list}
 </ul>
 
-The @items@ parameter is optional and can be replaced by the default @arg@ argument.
+El parámetro @items@ es opcional y puede ser reemplazado por el argumento por defecto @arg@.
 
-So you can rewrite:
+Por lo que puede reescribir:
 
 bc. #{list items:users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-as:
+así:
 
 bc. #{list users, as:'user'}
     <li>${user}</li>
 #{/list}
 
-**for** loops are easy to create using Groovy **range** object:
+Los ciclos **for** son fáciles de crear usando el objeto **range** de Groovy:
 
 bc. #{list items:0..10, as:'i'}
     ${i}
@@ -422,7 +422,7 @@ bc. #{list items:'a'..'z', as:'letter'}
     ${letter} ${letter_isLast ? '' : '|' }
 #{/list}
 
-The @as@ parameter is optional as well. It uses @_@ as default variable name:
+El parámetro @as@ es opcional también. El tag usa @_@ como nombre por defecto de la variable:
 
 bc. #{list users}
     <li>${_}</li>
@@ -431,25 +431,25 @@ bc. #{list users}
 
 h2. <a name="option">option</a>
 
-Insert an @option@ tag in the template.
+Inserta un tag @option@ en la plantilla.
 
-* @value@ - option's value
+* @value@ - valor de la opción
 
 bc. #{option user.id} ${user.name} #{/option}
 
-Will output:
+Mostrará lo siguiente:
 
 bc. <option value="42">jto</option>
 
 h2. <a name="script">script</a>
 
-Inserts a @script@ tag in the template. By convention, the tag refers to a script in @/public/javascripts@
+Inserta un tag @script@ en la plantilla. Por convención, el tag hace referencia a un script en el directorio @/public/javascripts@
 
-* @src@ (required) - script file name, without the leading path @/public/javascripts@
-* @id@ (optional) - an @id@ attribute value for the generated @script@ tag
-* @charset@ (optional) - sets source encoding - defaults to UTF-8
+* @src@ (obligatorio) - nombre del archivo que contiene el script, sin incluir el @/public/javascripts@ en el nombre
+* @id@ (opcional) - un valor para el atributo @id@ del tag @script@ generado
+* @charset@ (opcional) - establece la codificación de caracteres del código fuente - por defecto es UTF-8
 
-The @src@ parameter can be replaced by the default @arg@ argument.
+El parámetro @src@ puede ser reemplazado por el argumento por defecto @arg@.
 
 bc. #{script 'jquery-1.4.2.min.js' /}
 #{script id:'datepicker' , src:'ui/ui.datepicker.js', charset:'utf-8' /}
@@ -457,18 +457,18 @@ bc. #{script 'jquery-1.4.2.min.js' /}
 
 h2. <a name="render">render</a>
 
-Renders the template specified by the path in the tag parameter. The path is either absolute, or relative to @/app/views@
+Reproduce la plantilla especificada por la ubicación pasada como parámetro del tag. La ubicación puede ser absoluta, o relativa a @/app/views@
 
 bc. #{render 'Application/other.html'/}
 
 
 h2. <a name="select">select</a>
 
-Insert a @select@ tag in the template.
+Inserta un tag @select@ en la plantilla.
 
-* @name@ (required) - attribute sets a name to the select element.
+* @name@ (obligatorio) - establece el nombre del elemento @select@.
 
-Any unknown attribute will be considered as an HTML attribute, and rendered "as is"
+Cualquier atributo desconocido será considerado un atributo HTML, e interpretado "tal como es".
 
 bc. #{select 'booking.beds', value:2, id:'select1'}
 	#{option 1}One king-size bed#{/option}
@@ -476,7 +476,7 @@ bc. #{select 'booking.beds', value:2, id:'select1'}
 	#{option 3}Three beds#{/option}
 #{/select}
 
-Will output:
+Dará como resultado:
 
 bc. <select name="booking.beds" size="1" id="select1" >
   <option value="1">One king-size bed</option>
@@ -485,20 +485,20 @@ bc. <select name="booking.beds" size="1" id="select1" >
 </select>
 
 
-This tag can generate options using @items@ attribute.
+Este tag puede generar opciones usando el atributo @items@.
 
-* @items@ (optional) - list of objects, used to create @options@
-* @value@ (optional) - selected element in @items@ (note that multiple selections are not supported)
-* @labelProperty@ (optional) - for each item, attribute used as option's label 
-* @valueProperty@ (optional) - for each item, attribute used as option's value. @id@ is used by default
+* @items@ (opcional) - lista de objetos, usado para crear elementos @option@
+* @value@ (opcional) - elemento de @items@ seleccionado (note que la selección múltiple no está soportada)
+* @labelProperty@ (opcional) - para cada item, propiedad a usar como etiqueta del @option@
+* @valueProperty@ (opcional) - para cada item, propiedad a usar como valor del @option@. Se usa por defecto la propiedad @id@
 
-p(note). The @labelProperty@ and @valueProperty@ shouldn't be primitive values. So, for example, use an @Integer@ or @Long@ variable instead of an @int@ or @long@.
+p(note). Los atributos @labelProperty@ and @valueProperty@ no deberían ser valores primitivos. Así que, por ejemplo, use una variable @Integer@ o @Long@ en vez de una @int@ o @long@.
 
-For example, giving a list of User, each having a name attribute:
+Por ejemplo, dada una lista de objetos @User@, cada uno con una propiedad @name@:
 
 bc. #{select 'users', items:users, valueProperty:'id', labelProperty:'name', value:5, class:'test', id:'select2' /}
 
-Will output:
+Dará como resultado:
 
 bc. <select name="users" size="1" class="test" id="select2" >
   <option value="0" >User-0</option>
@@ -511,16 +511,16 @@ bc. <select name="users" size="1" class="test" id="select2" >
 
 h2. <a name="set">set</a>
 
-Define a value which can be retrieved in the same template or any layout with the @get@ tag.
+Define un valor que puede ser recuperado en la misma plantilla o en cualquier _layout_ con el tag @get@.
 
 bc. #{set title:'Admin' /}
 #{set style:'2columns' /}
 
-You can also use variables:
+También puede hacer uso de variables:
 
 bc. #{set title:'Profile of ' + user.login /}
 
-You can define the value of variables in the body:
+Puede definir el valor de las variables en el cuerpo:
 
 bc. #{set 'title'}
     Profile of ${user.login}
@@ -529,14 +529,14 @@ bc. #{set 'title'}
 
 h2. <a name="stylesheet">stylesheet</a>
 
-Inserts a @link@ tag in the template. By convention, the tag refers to a CSS file in @/public/stylesheets@
+Inserta a tag @link@ en la plantilla. Por convención, el tag hace referencia a un archivo CSS en el directorio @/public/stylesheets@
 
-* @src@ (required) - file name, without the leading path @/public/stylesheets@
-* @id@ (optional) - an @id@ attribute value for the generated @link@ tag
-* @media@ (optional) - a @media@ attribute value: screen, print, aural, projection…
-* @title@ (optional) - @title@ attribute value (or description)
+* @src@ (obligatorio) - nombre del archivo, sin incluir el @/public/stylesheets@ en la ubicación
+* @id@ (opcional) - un valor para el atributo @id@ del tag @link@ generado
+* @media@ (opcional) - un valor para el atributo @media@: _screen_, _print_, _aural_, _projection_…
+* @title@ (opcional) - el valor del atributo @title@ (o descripción)
 
-The @src@ parameter can be replaced by the default @arg@ argument.
+El parámetro @src@ puede ser reemplazado por el argumento por defecto @arg@.
 
 bc. #{stylesheet 'default.css' /}
 #{stylesheet id:'main', media:'print', src:'print.css', title:'Print stylesheet' /}
@@ -544,11 +544,10 @@ bc. #{stylesheet 'default.css' /}
 
 h2. <a name="verbatim">verbatim</a>
 
-Disables HTML escaping in template output, like the "raw()":javaextensions#arawa Java extension, but for the whole tag body.
+Deshabilita el uso de _escapes_ en las salidas HTML de la plantilla, tal como la extensión Java "raw()":javaextensions#arawa, pero en todo el cuerpo del tag.
 
 bc. ${'&amp;'}
 #{verbatim}${'&amp;'}#{/verbatim}
 
-In this example, the first line outputs @&amp;@ while the second line outputs an ampersand. 
-
+En este ejemplo, la primera línea muestra @&amp;@ en la página mientras que la segunda línea muestra el caracter ampersand.
 

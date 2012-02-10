@@ -1,20 +1,18 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Algunas técnicas de programación funcional
 
-h1. Some functional programming techniques
+Play soporte el lenguaje de programación Scala. Una de la grandes ventajas (mas no la única) de Scala es que es una mezcla de lenguaje imperativo/funcional con la capacidad de resolver muchos problemas en una forma funcional. 
 
-Play supports the Scala programming language. One great thing (but not the only one) about Scala is that it is a mixed imperative/functional language that makes it possible to solve a lot of problems in a functional way.
+Pero ahora, ¿Qué sucede si usted prefiere seguir usando Java con Play? ¿Podríamos traer a Java algunas de las estupendas utilidades de Scala? Esta sección describe el soporte para "lambdaj":http://code.google.com/p/lambdaj/ de Play.
 
-But now, what if you prefer keep using Java with Play? Could we bring some of the nice features of Scala to Java as well ? This section describes Play’s "lambdaj":http://code.google.com/p/lambdaj/ support.
+El objetivo principal de lambdaj es eliminar parcialmente la carga de tener que escribir ciclos @while@ (con frecuencia, anidados y pobremente legibles) para recorrer colecciones de objetos. En el sitio web de lambdaj se puede leer:
 
-The main purpose of lambdaj is to partially eliminate the burden to write (often nested and poorly readable) loops while iterating over collections. From the lambdaj website:
-
-bq. How many times have you read or written the same two or three lines of code that frequently seem to go together, and even though they operate on different objects, feel like the same thing? And how often these repetitions involve some sort of collections iteration or more generically manipulation? These repetitions in the code is something that developers eventually learn to filter out and ignore when reading code, once they figure out where the interesting parts are placed. But even if the developers get used to it, it slows them down. Code like that is clearly written for computers to execute, not for developers to read.
+bq. ¿Cuántas veces has leído o escrito las mismas dos o tres líneas de código que frecuentemente parecen ir juntas, y aunque operan sobre objetos diferentes, se siente como si fuera lo mismo? ¿Y con que frecuencia estas repeticiones involucran alguna clase de recorrido o, hablando en términos generales, manipulación de colecciones? Estas repeticiones en el código son algo que los desarrolladores, eventualmente, aprenden a filtrar e ignorar cuando leen el código, una vez que han descubierto donde se ubican las partes interesantes. Pero incluso si los desarrolladores logran acostumbrarse, esto los ralentiza. Código como ese está claramente escrito para que las computadoras lo ejecuten, no para que los desarrolladores lo lean.
  
-lambdaj is a library that makes easier to address this issue by allowing to manipulate collections in a pseudo-functional and statically typed way. In our experience to iterate over collection, especially in nested loops, is often error prone and makes the code less readable. The purpose of this library is to alleviate these problems employing some functional programming techniques but without losing the static typing of java. We impose this last constraint to make refactoring easier and safer and allow the compiler to do its job.
+ lambdaj es un librería que facilita la solución de este problema permitiendo manipular colecciones en una forma seudofuncional y usando declaraciones estáticas. En nuestra experiencia el recorrido de una colección, especialemente en ciclos anidados, es a menudo propenso a errores y hace el código menos legible. El propósito de esta librería es aligerar estos problemas empleando algunas técnicas de programación funcional pero sin perder las declaraciones estáticas de Java. Imponemos esta última restricción para hacer que la reformulación del código sea más fácil y segura, y dejar que el compilador haga su trabajo.
 
-h2. <a>Let’s use lambdaj</a>
+h2. <a>Vamos a usar lambdaj</a>
 
-We will start with a fresh application that displays a Car catalogue. The @Car@ model class is:
+Comenzaremos con una aplicación nueva que muestra un catálogo de carros. La clase @Car@ (_Carro_) del modelo se muestra a continuación:
 
 bc. package models;
  
@@ -43,44 +41,44 @@ public class Car extends Model {
     
 }
 
-And let’s write a simple action that retrieve all these cars:
+Y vamos a escribir una simple acción que recupere de la base de datos todos los carros:
 
 bc. public static index() {
     List<Car> cars = Car.find().fetch();
     render(cars);
 }
 
-Now in the page it would be great to be able to order all these cars by brand, so we need to extract the brands from the car list. Let’s do it the lambdaj way:
+Ahora en la página sería grandioso poder ordenar todos estos carros según la marca, por lo que necesitamos extraer las marcas de la lista de carros. Vamos a hacerlo al estilo lambdaj:
 
 bc. List<String> brands = collect(cars, on(Car.class).brand);
 
-This line will iterate over all the retrieved cars, collect all the brands and feed them to the returned list. The cool thing is that we are able to express that stuff in a pure statically-typed way.
+Esta línea recorrerá la lista de carros, recolectará todas las marcas y las almacenerá en la lista devuelta. Lo bueno es que somos capaces de expresar todo esto usando tipos estáticos.
 
-Now we need to filter this list to remove brand duplication:
+Ahora necesitamos filtrar esta lista para remover las marcas duplicadas:
 
 bc. Collection<String> brands = selectDistinct(
     collect(cars, on(Car.class).brand)
 );
 
-Very easy.
+Muy fácil.
 
-h2. <a>Batching method calls</a>
+h2. <a>Invocando métodos por lote</a>
 
-We want to cound each time a car has been viewed, and remember the last viewed time. As we already have the @viewed()@ method that updates the @Car@ objects we just need to call this method on each retrieved car. Again, let’s do it the lambdaj way:
+Queremos contar cada vez que un carro es visto, y recordar la hora y fecha en que fue visto la última vez. Como ya tenemos el método @viewed()@ que se encarga de actualizar los objetos @Car@, solo necesitamos llamarlo desde cada carro obtenido de la base de datos. De nuevo, vamos hacerlo al estilo lambdaj:
 
 bc. forEach(cars).viewed();
 
-This line will iterate over each car object of the cars list and call the @viewed()@ method on each.
+Esta línea recorrerá la lista de objetos @Car@ y llamará al método @viewed()@ desde cada uno de los objetos.
 
-And because we modified the state of the persistent objects, we need to save them. So rewrite it as:
+Y debido a que modificamos el estado de objetos persistentes, necesitamos guardarlos. Así que reescribiremos la instrucción anterior:
 
 bc. forEach(cars).viewed().save();
 
-h2. <a>Using closures</a>
+h2. <a>Usando cierres</a>
 
-Huh? But Java doesn’t have closures! Wait, lambdaj partially fills this omission with a feature that allows you to define, in its traditional DSL style, first-class functions with free variables.
+¿Ah? ¡Pero Java no tiene cierres! Espera, lambdaj llena parcialmente este vacío con una característica que le permite definir, en su estilo DSL tradicional, funciones de primera clase con variables libres.
 
-Let’s say we have a @PriceWatcher@ utility able to fetch in real time the price of each car. 
+Vamos a suponer que tenemos una utilidad @PriceWatcher@ capaz de buscar en tiempo real el precio de un carro.
 
 bc. package models;
  
@@ -93,31 +91,31 @@ public class PriceWatcher {
     
 }
 
-Because this data need to be **in real time** we don’t want store it in the database. Before displaying the car list we need to create a PriceWatcher object and ask it to resolve the current price of each car. Again, let’s do it the lambdaj way:
+Debido a que estos datos necesitan ser **en tiempo real** no queremos almacenarlos en la base de datos. Antes de mostrar la lista de carros necesitamos crear un objeto @PriceWatcher@ y pedirle que busque el precio actual de cada carro. De nuevo, vamos a hacerlo al estilo lambdaj:
 
 bc. PriceWatcher priceWatcher = new PriceWatcher();
 Car.forEach(cars); {
     of(priceWatcher).setPrice(var(Car.class));
 }
 
-We define a function with a free variable, and then ask to the @Car@ class to call them for each element of the @cars@ list. 
+Definimos una función con una variable libre, y luego le pedimos a la clase @Car@ que la llamara por cada elemento de la lista @cars@.
 
-h2. <a>The final action code</a>
+h2. <a>El código definitivo de la accion</a>
 
-Using all these good lambdaj stuff, we can finally write the @index@ action in a very expressive fashion:
+Usando todas estas cosas buenas de lambdaj, podemos finalmente escribir la acción @index@ de una forma muy expresiva:
 
 bc. public static void index() {
     List<Car> cars = Car.find().fetch();
     
-    // Collect brands
+    // Recolectar las marcas
     Collection<String> brands = selectDistinct(
         collect(cars, on(Car.class).brand)
     );   
     
-    // Set all these cars viewed
+    // Establecer todos estos carros como vistos
     forEach(cars).viewed().save();
     
-    // Update the prices
+    // Actualizar los precios
     PriceWatcher priceWatcher = new PriceWatcher();
     Car.forEach(cars); {
         of(priceWatcher).update(var(Car.class));
@@ -125,7 +123,4 @@ bc. public static void index() {
         
     render(cars, brands);
 }
-
-
-
 
