@@ -232,5 +232,5 @@ bc. ant stop -Dplay.path=/path/to/playdirectory
 También puede especificar la ruta al framework de Play en una variable de entorno o directamente en el archivo @build.xml@ de la aplicación.
 
 p(note). **Próximos pasos**
-
+ 
 Siguiente: %(next)"Opciones de puesta en producción":deployment%.
