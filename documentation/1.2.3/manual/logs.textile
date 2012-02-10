@@ -47,5 +47,5 @@ Mire "Configuración del log para producción":production#logging para otro ejem
 
 
 p(note). **Próximos pasos**
-
+ 
 Continuamos con %(next)"configurando play en distintos entornos":ids%.

@@ -1,48 +1,46 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Módulos de Play! framework
 
-h1. Play modules
+Una aplicación de Play puede estar compuesta por múltiples módulos. De esta manera, puede reutilizar componentes de una aplicación entre varias aplicaciones, u organizar una aplicación compleja en varias aplicaciones más simples.
 
-A Play application can be assembled from several application modules. This allows you to reuse application components across several applications or split a large application into several smaller applications.
+h2. <a name="what">¿Qué es un módulo?</a>
 
-h2. <a name="what">What is a module?</a>
+Un módulo es simplemente una aplicación estándar de Play. Sin embargo existen algunas diferencias en la manera en que se cargan los recursos de un módulo:
 
-A module is just another Play application; however some differences exist in the way resources are loaded for an application module:
+* Un módulo no tiene un archivo @conf/application.conf@.
+* Un módulo puede contar con un archivo de rutas en @conf/routes@, pero estas rutas no serán cargadas de manera automática por el framework.
+* Todos los archivos son primero buscados en el aplicación principal, y luego en los archivos de los módulos cargados. 
+* Un módulo puede contener código java distribuido como un archivo JAR en la carpeta module/lib.
+* Un módulo puede incluir su propia página de documentación.
+* TODO en un módulo es opcional. 
 
-* A module does not have a @conf/application.conf@ file.
-* A module can have a @conf/routes@ file, but these routes will not be  loaded automatically.
-* All files are first searched for in the main application path, then in all loaded modules.
-* A module can contain plain Java code packaged as a JAR file in the module/lib directory.
-* A module can include a documentation page.
-* Everything in a module is optional.
+Puede crear un módulo con el comando @play new-module@.
 
-You can create a module with the @play new-module@ command.
+h2. <a name="loading">Cómo cargar un módulo desde una aplicación</a>
 
-h2. <a name="loading">How to load a module from an application</a>
+Los módulos son automáticamente cargados desde el directorio @/modules@ de la aplicación principal. Tambien pueden utilizar el "sistema de administración de dependencias":dependency para cargar automáticamente los módulos de su aplicación.
 
-Modules are automatically loaded from the @/modules@ directory of the application. You can use the "dependency management system":dependency to automatically manage your application modules.
+h2. <a name="routes">Cargar las rutas por defecto de un módulo</a>
 
-h2. <a name="routes">Load default routes from modules</a>
+Un módulo puede proveer un archivo @routes@ con las rutas por defecto. Puede cargarlas en el archivo @routes@ de la aplicación principal de la siguiente manera: 
 
-A module can provide a default @routes@ file. You can load it in the main application @routes@ file, using a special route declaration:
+bc. # Importar las rutas por defecto del módulo CRUD
+GET     /admin       module:crud
 
-bc. # Import the default CRUD routes
-GET     /admin	     module:crud
+Puede incluso cargar las rutas de todos los módulos disponibles:
 
-You can even load routes from all available modules:
+bc. GET     /        module:*
 
-bc. GET     /	     module:*
+h2. <a name="documentation">Agregar documentación a un módulo</a>
 
-h2. <a name="documentation">Add documentation to a module</a>
+Puede agregar una página de documentación a un módulo simplemente creando un archivo @documentation/manual/home.textile@ dentro de la carpeta del módulo. Utilice la sintaxis de los archivos Textile, tal como lo hace play para su propia documentación en @${play.path}/documentation/manual/@.
 
-You can add a documentation page to a module simply by adding a the file @documentation/manual/home.textile@ to the module. Use the same Textile syntax as the Play documentation itself, in @${play.path}/documentation/manual/@.
+Si está ejecutando una aplicación de Play que utiliza uno o más módulos con documentación, entonces la documentación local de play que puede consultar en "http://localhost:9000/@documentation":http://localhost:9000/@documentation incluirá los correspondientes links a las páginas de su documentación en la barra lateral bajo el rótulo de *Installed Modules*.
 
-If you are running a Play application that uses one or more modules with documentation, then the local Play documentation at "http://localhost:9000/@documentation":http://localhost:9000/@documentation will include links to their documentation pages under *Installed Modules* in the side bar.
+h2. <a name="repository">Utilizando el repositorio de módulos</a>
 
-h2. <a name="repository">Using the module repository</a>
+El "repositorio de módulos":http://www.playframework.org/modules cuenta con todos los módulos que han sido contribuidos por la comunidad. Un módulo puede tener múltiples versiones. Debe verificar la documentación del módulo para saber qué versión corresponde a la versión del framework que actualmente está utilizando. 
 
-The "module repository":http://www.playframework.org/modules identifies all modules contributed by the community. A module can have several versions. You have to check the module’s documentation for which version you need to use for your framework version.
-
-You can also browse the module repository using the @play list-modules@ command. 
+También puede consultar el repositorio de módulos mediante el comando @play list-modules@. 
 
 bc. gbo-mac:~ guillaume$ play list-modules
 ~        _            _ 
@@ -66,43 +64,43 @@ bc. gbo-mac:~ guillaume$ play list-modules
 ~   Versions: 1.0
 ...
 
-You can install a module locally using the @play install {module}-{version}@ command. Installing a module locally allows you to use it from several application without having to install a different copy in each application. It is useful for large modules that are more like framework extensions than extensions to your application.
+Puede instalar un módulo de manera local utilizando en comando @play install {module}-{version}@. Al instalar un módulo localmente podrá utilizarlo desde múltiples aplicaciones sin tener que instalar una nueva copia en cada aplicación. Esto es útil para módulos grandes que se comportan como extensiones al propio framework más que como extensiones a su aplicación. 
 
-For example, to install Scala support in the framework, use:
+Por ejemplo, para instalar el módulo que provee soporte para Scala, utilice:
 
 bc. play install scala-head
 
-By convention the @head@ version is the unstable version of the module. You can also install the default version of a module by omitting the version information. For example:
+Por convención, la versión @head@ es la versión inestable del módulo. Puede instalar la versión por defecto de un módulo omitiendo especificar la versión. Por ejemplo:
 
 bc. play install scala
 
-Modules installed this way are downloaded to the @/modules@ directory of your framework installation. 
+Los módulos instalados de esta manera son descargados y grabados en la carpeta @/modules@ del directorio de instalación del framework. 
 
-You can change the installation path using the @--path@ option:
+Puede cambiar el directorio de instalación utilizando la opción @--path@:
 
 bc. play install gwt --path=my-project
 
-h2. <a name="contributing">Contributing a new module to the module repository</a>
+h2. <a name="contributing">Contribuyendo con un nuevo módulo al repositorio</a>
 
-h3. <a name="prerequisites">Prerequisites</a>
+h3. <a name="prerequisites">Prerequisitos</a>
 
-To register a new module, the following are required.
+Para registrar un nuevo módulo debe cumplir con los siguientes requisitos:
 
-# A Google account, to post on the Google Group.
-# An OpenID for your developer log-in (you can use your Google account for this).
-# A module name that matches <code>[a-zA-Z]+</code> regular expression.
-# The module must include "documentation":#documentation.
-# A module home page with the source code available and a way to report bugs, e.g. a <a href="http://github.com/">GitHub</a>, <a href="http://code.google.com/">Google Code</a> or <a href="http://launchpad.net/">Launchpad</a> project.
+# Una cuenta de Google, para poder enviar un mensaje a la lista de discusión de Play. 
+# Una cuenta OpenID para ingresar como desarrollador (puede utilizar su cuenta de Google)
+# Un nombre para el módulo que respete la expresión regular <code>[a-zA-Z]+</code>.
+# El módulo debe incluir su propia "documentación":#documentation. 
+# Una página web donde se encuentre disponible el código del módulo así como algún medio para reportar errores, por ejemplo un proyecto en <a href="http://github.com/">GitHub</a>, <a href="http://code.google.com/">Google Code</a> or <a href="http://launchpad.net/">Launchpad</a>.
 
-h3. <a name="register">Module registration</a>
+h3. <a name="register">Registrando el módulo</a>
 
-To use your Google account as your OpenID, you need to discover its full URL, as follows.
+Para poder utilizar su cuenta de Google como su OpenId, necesita descubir el URL completo de la siguiente manera:
 
-# On "http://www.playframework.org/modules":http://www.playframework.org/modules, under _Developer login_ enter @https://www.google.com/accounts/o8/id@ and click the _Login_ button.
-# Log in to your Google account.
-# Make a note of the full Google OpenID URL under _Developer login_, e.g. @https://www.google.com/accounts/o8/id?id=BItOawk7q69CFhRarQIo@
+# Diríjase a "http://www.playframework.org/modules":http://www.playframework.org/modules, en _Developer login_ ingrese @https://www.google.com/accounts/o8/id@ y haga click en el botón _Login_.
+# Ingrese utilizando su cuenta de Google. 
+# Anote el URL completo de su cuenta OpenId que se encuentra debajo de _Developer login_, por ejemplo @https://www.google.com/accounts/o8/id?id=BItOawk7q69CFhRarQIo@
 
-Post a module registration request on the "play-framework Google Group":https://groups.google.com/forum/#!forum/play-framework. For example:
+Envíe un mensaje solicitando registrar su nuevo módulo a la "lista de discusión de Play":https://groups.google.com/forum/#!forum/play-framework. Por ejemplo:
 
 bc. Subject: Module registration request: {module name}
  
@@ -121,22 +119,20 @@ https://github.com/hilton/jqueryui-module
 OpenID:
 https://www.google.com/accounts/o8/id?id=BItOawk7q69CFhRarQIo
 
-When your module has been registered, you can publish a release.
+Una vez que su módulo haya sido registrado, puede publicar una versión.
 
+h3. <a name="release">Publicando su módulo</a>
 
-h3. <a name="release">Releasing your module</a>
+Para publicar su módulo:
 
-To release your module:
+# especifique la versión de su módulo en la primera línea del archivo @conf/dependency.yml@, por ejemplo @self: play -> jqueryui 1.0@
+# compile el módulo con el comando @play build-module@
+# ingrese a "http://www.playframework.org/modules":http://www.playframework.org/modules bajo el rótulo _Developer login_
+# navegue hasta la página de su módulo, a través del link en "http://www.playframework.org/modules/developers":http://www.playframework.org/modules/developers bajo el rótulo _Your modules_
+# Suba el archivo ZIP situado en la carpeta @dist/@ de su módulo, utilizando el fomulario bajo el rótulo de _Manage module releases_
 
-# set the module version number in the first line of @conf/dependency.yml@, e.g. @self: play -> jqueryui 1.0@
-# build the module with the @play build-module@ command
-# log in to "http://www.playframework.org/modules":http://www.playframework.org/modules under _Developer login_
-# browse to your module’s page, via the link on "http://www.playframework.org/modules/developers":http://www.playframework.org/modules/developers under _Your modules_
-# upload the generated ZIP file from your your module’s @dist/@ directory, using the form under _Manage module releases_
+Por supuesto que puede utilizar la lista de discusión de Play para proveer ayuda y compartir información y novedades acerca de su trabajo.
 
-You can of course use the offical Google Group to provide help and share information about your work.
-
-
-p(note). **Continuing the discussion**
+p(note). **Próximos pasos**
  
-Learn how to efficiently manage your modules using %(next)"Dependency management":dependency%.
+Aprenda a gestionar eficientemente sus módulos utilizando la herramienta de %(next)"Administración de dependencias":dependency%.

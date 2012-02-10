@@ -1,5 +1,3 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
-
 h1. Opciones de puesta en producción
 
 Las aplicaciones hechas con Play pueden ser desplegadas prácticamente en donde sea: dentro de Servlet containers, en servidores independientes, en Heroku, Google Application Engine, Stack, en la nube computacional (cloud computing), etc...

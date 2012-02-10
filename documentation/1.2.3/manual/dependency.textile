@@ -377,5 +377,5 @@ Esto es quivalente a @rm -r ~/.ivy2/cache@.
 
 
 p(note). **Próximos pasos**
-
+ 
 Siguiente: %(next)"Evolución de las bases de datos":evolutions%.
