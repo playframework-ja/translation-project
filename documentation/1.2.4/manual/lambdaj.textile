@@ -1,16 +1,16 @@
 h1. Algunas técnicas de programación funcional
 
-Play soporte el lenguaje de programación Scala. Una de la grandes ventajas (mas no la única) de Scala es que es una mezcla de lenguaje imperativo/funcional con la capacidad de resolver muchos problemas en una forma funcional. 
+Play brinda soporte para el lenguaje de programación Scala. Una de la grandes ventajas (si bin no es la única) de Scala es que es una mezcla de lenguaje de programación imperativo/funcional, lo que permite resolver muchos problemas en una forma funcional. 
 
-Pero ahora, ¿Qué sucede si usted prefiere seguir usando Java con Play? ¿Podríamos traer a Java algunas de las estupendas utilidades de Scala? Esta sección describe el soporte para "lambdaj":http://code.google.com/p/lambdaj/ de Play.
+Pero ahora, ¿qué sucede si usted prefiere seguir usando Java con Play? ¿Podríamos traer a Java algunas de las estupendas utilidades de Scala? Esta sección describe el soporte para "lambdaj":http://code.google.com/p/lambdaj/ de Play.
 
 El objetivo principal de lambdaj es eliminar parcialmente la carga de tener que escribir ciclos @while@ (con frecuencia, anidados y pobremente legibles) para recorrer colecciones de objetos. En el sitio web de lambdaj se puede leer:
 
-bq. ¿Cuántas veces has leído o escrito las mismas dos o tres líneas de código que frecuentemente parecen ir juntas, y aunque operan sobre objetos diferentes, se siente como si fuera lo mismo? ¿Y con que frecuencia estas repeticiones involucran alguna clase de recorrido o, hablando en términos generales, manipulación de colecciones? Estas repeticiones en el código son algo que los desarrolladores, eventualmente, aprenden a filtrar e ignorar cuando leen el código, una vez que han descubierto donde se ubican las partes interesantes. Pero incluso si los desarrolladores logran acostumbrarse, esto los ralentiza. Código como ese está claramente escrito para que las computadoras lo ejecuten, no para que los desarrolladores lo lean.
+bq. ¿Cuántas veces has leído o escrito las mismas dos o tres líneas de código que frecuentemente parecen ir juntas, y aunque operan sobre objetos diferentes, se siente como si fuera lo mismo? ¿Y con qué frecuencia estas repeticiones involucran alguna clase de recorrido o, hablando en términos generales, manipulación de colecciones? Estas repeticiones en el código son algo que los desarrolladores, eventualmente, aprenden a filtrar e ignorar cuando leen el código, una vez que han descubierto donde se ubican las partes interesantes. Pero incluso si los desarrolladores logran acostumbrarse, esto los ralentiza. Código como ese está claramente escrito para que las computadoras lo ejecuten, no para que los desarrolladores lo lean.
  
- lambdaj es un librería que facilita la solución de este problema permitiendo manipular colecciones en una forma seudofuncional y usando declaraciones estáticas. En nuestra experiencia el recorrido de una colección, especialemente en ciclos anidados, es a menudo propenso a errores y hace el código menos legible. El propósito de esta librería es aligerar estos problemas empleando algunas técnicas de programación funcional pero sin perder las declaraciones estáticas de Java. Imponemos esta última restricción para hacer que la reformulación del código sea más fácil y segura, y dejar que el compilador haga su trabajo.
+lambdaj es un librería que facilita la solución de este problema permitiendo manipular colecciones en una forma seudofuncional y usando declaraciones estáticas. En nuestra experiencia el recorrido de una colección, especialemente en ciclos anidados, es a menudo propenso a errores y hace el código menos legible. El propósito de esta librería es aligerar estos problemas empleando algunas técnicas de programación funcional pero sin perder las declaraciones estáticas de Java. Imponemos esta última restricción para hacer que el refactoring del código sea más fácil y seguro, y dejar que el compilador haga su trabajo.
 
-h2. <a>Vamos a usar lambdaj</a>
+h2. <a>Usando lambdaj</a>
 
 Comenzaremos con una aplicación nueva que muestra un catálogo de carros. La clase @Car@ (_Carro_) del modelo se muestra a continuación:
 
@@ -64,7 +64,7 @@ Muy fácil.
 
 h2. <a>Invocando métodos por lote</a>
 
-Queremos contar cada vez que un carro es visto, y recordar la hora y fecha en que fue visto la última vez. Como ya tenemos el método @viewed()@ que se encarga de actualizar los objetos @Car@, solo necesitamos llamarlo desde cada carro obtenido de la base de datos. De nuevo, vamos hacerlo al estilo lambdaj:
+Queremos contar cada vez que un carro es visto, y recordar la hora y fecha en que fue visto por última vez. Como ya tenemos el método @viewed()@ que se encarga de actualizar los objetos @Car@, solo necesitamos llamarlo desde cada carro obtenido de la base de datos. De nuevo, vamos hacerlo al estilo lambdaj:
 
 bc. forEach(cars).viewed();
 
@@ -74,11 +74,11 @@ Y debido a que modificamos el estado de objetos persistentes, necesitamos guarda
 
 bc. forEach(cars).viewed().save();
 
-h2. <a>Usando cierres</a>
+h2. <a>Usando clousures</a>
 
-¿Ah? ¡Pero Java no tiene cierres! Espera, lambdaj llena parcialmente este vacío con una característica que le permite definir, en su estilo DSL tradicional, funciones de primera clase con variables libres.
+¿Ah? ¡Pero Java no tiene clousures! Pues bien, lambdaj llena parcialmente este vacío con una característica que le permite definir, en su tradicional estilo DSL, funciones de primera clase con variables libres.
 
-Vamos a suponer que tenemos una utilidad @PriceWatcher@ capaz de buscar en tiempo real el precio de un carro.
+Supongamos que tenemos una utilidad @PriceWatcher@ capaz de buscar en tiempo real el precio de un carro.
 
 bc. package models;
  
@@ -98,7 +98,7 @@ Car.forEach(cars); {
     of(priceWatcher).setPrice(var(Car.class));
 }
 
-Definimos una función con una variable libre, y luego le pedimos a la clase @Car@ que la llamara por cada elemento de la lista @cars@.
+Definimos una función con una variable libre, y luego le pedimos a la clase @Car@ que la llame por cada elemento de la lista @cars@.
 
 h2. <a>El código definitivo de la accion</a>
 

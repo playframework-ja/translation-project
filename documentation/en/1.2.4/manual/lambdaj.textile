@@ -124,6 +124,3 @@ bc. public static void index() {
     render(cars, brands);
 }
 
-
-
-
