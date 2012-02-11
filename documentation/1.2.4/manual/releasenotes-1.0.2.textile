@@ -1,100 +1,98 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
+h1. Play 1.0.2 -- Cambios de la versión 1.0.2
 
-h1. Play 1.0.2 -- Release notes
+**Play 1.0.2** es una actualización de mantenimiento de la versión 1.0 de Play. Las principales novedades son el soporte para el repositorio de módulos y la protección integrada contra ataques CSRF. También se han solucionado numerosos bugs pequeños.
 
-**Play 1.0.2** is a maintenance release of the Play 1.0 branch. The major new features are the support for the module repository and built-in protection against CSRF attacks. It also fixes a lot of small bugs.
+p(note). **play 1.0.2** es una actualización de mantenimiento y es totalmente compatible con la versión 1.0. Si encuentra cualquier problema por favor pregúntenos en el "grupo de Google":http://groups.google.com/group/play-framework.
 
-p(note). **Play 1.0.2** is a maintenance release and is fully compatible with the 1.0 series. If you encounter any problems please ask us on the "Google Group":http://groups.google.com/group/play-framework.
+Puede consultar la lista de los bugs corregidos en la "página de avances de la versión 1.0.2":http://www.playframework.org/roadmap/1.0.2. Los cambios más importantes están mencionados en esta página.
 
-You can read about the fixed bugs on the "1.0.2 road map page":http://www.playframework.org/roadmap/1.0.2. The most important changes are highlighted on this page.
+h2. <a>Repositorio de módulos</a>
 
-h2. <a>Module repository</a>
+El objetivo del repositorio de módulos es centralizar todos los módulos que han sido desarrollados para el framework Play, y facilitar su instalación. Los nuevos comandos relacionados con la gestión de módulos son:
 
-The module repository’s goal is to centralize all contributed modules for the Play framework, and allow easy installation. The new module-related commands are:
+* @play list-modules@, lista el contenido del repositorio de módulos 
+* @play install@, instala una versión de un módulo de manera local 
+* @play new-module@, crea el esqueleto para desarrollar un módulo 
+* @play build-module@, empaqueta el módulo, preparándolo para su publicación en el repositorio. 
 
-* @play list-modules@, to list the repository’s contents 
-* @play install@, to install a version of a module locally
-* @play new-module@, to create a new module skeleton 
-* @play build-module@, to package a module and publish it to the repository.
+Además notará que la mayor parte de los módulos han sido borrados. Solo un conjunto de módulos 'esenciales' está disponible localmente: testrunner, docviewer, crud and secure.
 
-Also, you will see that almost all modules have been deleted. Only a bunch of ‘core’ modules are directly available: testrunner, docviewer, crud and secure.
+El resto de los módulos osn opcionales. De manera que si usted desea, por ejemplo, instalar soporte para GWT, solamente tendrá que tipear @play install gwt@, y obtendrá la versión más reciente del módulo.
 
-The other modules are now optional. So if you want for example to install the GWT support, just type @play install gwt@, and you will get the latest version of the module.
+¿Por qué hemos movido los módulos? Porque necesitamos concentrarnos en el propio framework, a fin de contar con un proyecto simple de administrar. Además, dado que muchas personas han empezado a contribuir con sus propios módulos, es mucho más fácil hacerlo de esta manera: cada módulo es un proyecto autónomo que tiene un desarrollador encargado de mantenerlo. De forma tal que, si desea reportar un error en un módulo específico, podrá dirigirse a la página principal del módulo y usar su propio sistema de tickets.
 
-Why have we moved modules? Because we need to focus on the core framework to have a simple project to manage. Also, as many people wanted to contributed modules, it is easier to do it this way: each module is a standalone project with a dedicated maintainer. So please, if you want to report a bug on a specific module, just use its project homepage and its dedicated bug tracker.
+Un beneficio inmediato de este enfoque, es que el ciclo de vida de un módulo ya no depende del ciclo de vida del framework. Nuevas versiones de un módulo pueden ser liberadas mucho más seguido que las versiones del propio framework. Y finalmente, dado que el framework ya no contiene módulos opcionales, el tamaño de la distribución de Play se ha visto reducido a la mitad.
 
-As an immediate benefit, the lifecycle of modules is no more tied to the framework lifecycle. A module can be released more often than the framework itself. And finally, because the framework does not contain optional modules anymore, the Play distribution size has been halved.
+Lea más acerca del repositorio de módulos en "esta página":modules.
 
-Read more about the modules repository on "this dedicated page":modules.
+h2. <a>Protección integrada contra ataques de falsificación de petición en sitios cruzado (Cross-Site Request Forgery -CSRF)</a>
 
-h2. <a>Built-in Cross-Site Request Forgery protection</a>
+Los ataques CSRF pueden crear muchos problemas en una aplicación web.
 
-CSRF attacks can be really problematic in web applications.
+bq. Esta forma de ataque funciona incluyendo código malicioso o un link a una página que accede a una aplicación web a la cual el usuario se espera que esté autenticado. Si la sesión de ese usuario no ha caducado, un atacante puede executar comandos no autorizados. 
 
-bq. This attack method works by including malicious code or a link in a page that accesses a web application that the user is believed to have authenticated. If the session for that web application has not timed out, an attacker may execute unauthorized commands.
+Para prevenir este ataque, lo primero que hay que hacer es utilizar los métodos GET y POST de manera adecuada. Eso significa que solo los métodos POST pueden ser utilizados para llevar a cabo una interacción que cambie el estado de la aplicación.
 
-To prevent this attack, the first thing to do is to use GET and POST method appropriately. That means that only POST methods must be used to run an interaction that can change the application’s state.
+Para los request de tipo POST, la única manera de asegurar una acción crítica es implementando un token de auntenticidad. Play 1.0.2 tiene ahora una serie de funciones que facilitan la tarea:
 
-For POST requests, the only way to secure critical actions properly is to issue an authenticity token. Play 1.0.2 now has a built-in helper to handle that:
-
-* a new @checkAuthenticity()@ method available in controllers, that checks for a valid authenticity token in the request parameters and sends a forbidden response if something is bad
-* @session.getAuthenticityToken()@ generates an authenticity token that is only valid for the current session
-* @#{authenticityToken /}@ creates an hidden input field that you can add to any form.
-
-So for example:
+* un nuevo método @checkAuthenticity()@ disponible en todos los controladores, que verifica que en los parámetros del pedido HTTP haya un token de autenticidad válido  y envía una respuesta de "acceso prohibido" (forbidden) si no lo puede hallar
+* @session.getAuthenticityToken()@ genera un token de autenticidad que solamente es válido para la sesión actual 
+* @#{authenticityToken /}@ crea un input oculto que puede incluir en cualquier formulario
+ 
+De manera que, por ejemplo:
 
 bc. public static destroyMyAccount() {
     checkAuthenticity();
     …
 }
 
-Will only work when called from a form including a proper authenticity token:
+Solamente funcionará cuando sea llamado desde un formulario que incluya un token de autenticidad apropiado:
 
 bc. #{form @ destroyMyAccount()}
     #{authenticityToken /}
     <input type="submit" value="destroy my account">
 #{/form}
 
-You can of course add this as a before filter if you want to protect all actions of a hierarchy of controllers. Read more in the "Security Guide":security.
+Por supuesto que puede agregar esto a un filtro 'before' si desea ejecutarlo para proteger todas las acciones de una jerarquía de controladores. Lea más en la "guía de seguridad":security.
 
-h2. <a>HEAD method supported by default</a>
+h2. <a>Soporte por defecto para el método HEAD</a>
 
-Play now responds automatically to HEAD requests if there is an existing route for the GET method. This is because it is requested by the HTTP RFC that any resource respond to HEAD request as well.
+Play ahora responde automáticamente a pedidos de tipo HEAD si existe una ruta para el método GET. Esto ha sido implementado de esta manera porque así lo establece la RFC de HTML, que indica que todo recurso debe también responder al método HEAD.
 
 "http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html":http://www.w3.org/Protocols/rfc2616/rfc2616-sec9.html 
 
-bq. The HEAD method is identical to GET except that the server MUST NOT return a message-body in the response. The metainformation contained in the HTTP headers in response to a HEAD request SHOULD be identical to the information sent in response to a GET request. This method can be used for obtaining metainformation about the entity implied by the request without transferring the entity-body itself. This method is often used for testing hypertext links for validity, accessibility, and recent modification.
+bq. El método HEAD es idéntico al método GET, salvo que el servidor NO DEBE retornar un cuerpo en la respuesta HTTP. La metainformación contenida en los encabezados HTTP en respuesta a un pedido de tipo HEAD, necesariamente DEBEN ser idénticos a la información devuelta en respuesta a un pedido de tipo GET. Este método puede ser utilizado para obtener metainformación acerca de la entidad requerida por el pedido HTTP sin transferir todo el contenido de la misma. Este método es usualmente utilizado para probar la validez de los links, la accesibilidad y las modificaciones recientes.  
 
-So any HEAD request will invoke your action method, but the response content will not be sent to the client. You can of course specialize it by adding a custom route to respond to HEAD requests with your routes file. For example:
+De manea que cualquier request de tipo HEAD invocará su método de acción, pero el contenido de la respuesta no será enviado al cliente. Por supuesto que puede especializar este comportamiento agregando una ruta personalizada  para responder a un pedido de tipo HEAD. Por ejemplo: 
 
 bc. GET     /orders/{id}         Orders.show
 HEAD    /orders/{id}         Orders.showHead
 
-h2. <a>New sample application, ‘zencontact’</a>
+h2. <a>Nueva aplicación de ejemplo: ‘zencontact’</a>
 
-A new sample, that is a port of a "Wicket-based contact management application":http://blog.zenika.com/index.php?post/2009/03/10/Concours-Développer-une-application-web-en-Wicket3. There is also a Scala version of this application available in the Scala module package, for those interested.
+Esta nueva aplicación es un port de la "aplicación de administracion de contactos basada en Wicket":http://blog.zenika.com/index.php?post/2009/03/10/Concours-Développer-une-application-web-en-Wicket3. También hay una versión en Scala disponible en el módulo scala, para aquellos que estén interesados.
 
 !images/zencontact!
 
-h2. <a>Better support for application server deployment</a>
+h2. <a>Mejor soporte para despliegue en servidores</a>
 
-We have tested the deployment of a Play generated WAR archive on several application servers. You can check the current "compatibility matrix":deployment.
+Hemos probado el despliegue de un archivo WAR generado con Play en diversos servidores de aplicaciones. Puede verificar la "matriz de compatibilidad":deployment.
 
 || JBoss 4.2.x || JBoss 5.x || JBoss 6M2 || Glasshfish v3 || IBM Websphere 6.1 ||IBM Websphere 7 || Geronimo 2.x || Tomcat 6.x || Jetty 7.x || Resin 4.0.5 ||
 | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ | ✓ |  ✓ | ✓  |
 
 
-h2. <a>New features for reversed action in templates</a>
+h2. <a>Nuevas funcionalidades para la acciones reversas en templates</a>
 
-The <code>@@</code> syntax, that allow to reverse an action to an **absolute** URL, is now available in tag parameters. For example:
+La sintaxis <code>@@</code>, que le permite revertir una acción a un url **absoluto**, ahora puede utilizarse en los parámetros de un tag. Por ejemplo:
 
 bc. #{form @@save()}
 …
 #{/}
 
-It is very useful if you use the template engine to generate stuff like e-mail, in which you need to express URL in an absolute fashion.
+Es muy útil si usa el motor de plantillas para generar e-mails, en cuyo caso necesita expresar las URLs de manera absoluta.
 
-Also, binding complex objects in now supported. So for example, with this action:
+Además, ahora contamos con soporte para el binding automático de objetos complejos. Por ejemplo, con esta acción:
 
 bc. public static void search(SearchParams params) {
     …
@@ -107,35 +105,35 @@ bc. public class SearchParams {
     public String mode;
 }
 
-You can use in a template, something like:
+Puede utilizar en una plantilla algo así:
 
 bc. @{search(params)}
 
-That would generate a URL containing several values in the queryString, like:
+Eso creará una URL con múltiples valores en el queryString, como el siguiente:
 
 bc. /search?params.keywords=xxxx&params.mode=AND
 
-h2. <a>A new command to generate the application Javadoc</a>
+h2. <a>Un nuevo comando para generar los Javadocs</a>
 
-Now you can generate the **Javadoc** for your project easily, using:
+Ahora puede generar la documentación **Javadoc** para su proyecto de una manera muy simple, utilizando:
 
 bc. play javadoc 
 
-It generates the Javadoc API documentation for your project and its modules.
+Generará los javadocs de la documentación de la API de su proyecto y sus módulos.
 
-h2. <a>An even better Eclipse plugin in this release</a>
+h2. <a>Un plugin de Eclipse mejorado en esta versión</a>
 
-The Eclipse plugin now has several new features:
+EL plugin de Eclipse trae ahora nueva funcionalidad:
 
-* Advanced route file editor, with content assist, missing action detection, and hyperlinks
-* Advanced template files editor, with some content assist, and hyperlinks
-* Wizard to create new Controllers, Models and Templates
-* Integrated test runner (using an embedded web browser)
+* Editor avanzado de rutas, con asistentes de contenido, detección de acciones faltantes e hiperlinks.
+* Editor avanzado de templates, con algunas capacidades de asistentes de contenido e hiperlinks.
+* Wizard para crear nuevos Controladores, Modelos y Templates
+* Ejecutador de pruebas integrado (utilizando un explorador web embebido)
 
 !images/route-completion!
 
 !images/eclipse-tests!
 
-To install this plugin, copy the JAR file from @$PLAY_HOME/support/eclipse@ to @$ECLIPSE_HOME/dropins@.
+Para instalar este plugin, copie el archivo JAR de @$PLAY_HOME/support/eclipse@ a @$ECLIPSE_HOME/dropins@.
 
-p(note). Next release: %(next)"Play 1.0.3 release notes":releasenotes-1.0.3%
+p(note). Próxima versión: %(next)"Cambios en la versión 1.0.3 de Play":releasenotes-1.0.3%

@@ -2,13 +2,13 @@ h1. Play 1.0.1 -- Cambios de la versión 1.0.1
 
 **Play 1.0.1** es una actualización de mantenimiento de la versión de play 1.0. En esta se corrigen muchos bugs pequeños, hay mejoras en el binding para los objetos persistentes de JPA y el reemplazo automático de código en las plantillas HTML y Javascript para evitar problemas de seguiridad XSS.
 
-p(note). **play 1.0.1** es una versión de mantenimiento y es totalmente compatible con la versión 1.0. Si encuentras cualquier problema por favor pregúntanos en el grupo de Google.
+p(note). **play 1.0.1** es una versión de mantenimiento y es totalmente compatible con la versión 1.0. Si encuentras cualquier problema por favor pregúntenos en el grupo de Google.
 
-Puede leer acerca de los bugs corregidos en la "página de avances de la versión 1.0.1":http://www.playframework.org/roadmap/1.0.1. Los cambios más importantes están mencionados en esta página:
+Puede consultar la lista de los bugs corregidos en la "página de avances de la versión 1.0.1":http://www.playframework.org/roadmap/1.0.1. Los cambios más importantes están mencionados en esta página.
 
 h2. <a>Reemplazo (escape) automático de código HTML en las plantillas</a>
 
-Ahora todas las expresiones dinámicas son reemplazadas (escaped) en el motor de plantillas para evitar ataques XSS en su aplicación. Así que si la variable **title** contiene **==&lt;h1>Title&lt;/h1>==** es reemplazada:
+Ahora todas las expresiones dinámicas son reemplazadas (escaped) en el motor de plantillas para evitar ataques XSS en su aplicación. Así que si la variable **title** contiene **==&lt;h1>Title&lt;/h1>==** es escapada de la siguiente manera:
 
 bc. ${title} --> &lt;h1&gt;Title&lt;/h1&gt;
 
