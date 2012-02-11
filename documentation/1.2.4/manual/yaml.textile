@@ -1,12 +1,10 @@
-p(note). Esta página todavía no ha sido traducida al castellano. Si quieres colaborar con nosotros y ayudar con la traducción lee nuestra "guía para colaborar con la traducción de play":translation.
-
 h1. YAML
 
-h2. <a name="syntax">YAML syntax</a>
+h2. <a name="syntax">Sintaxis YAML</a>
 
-Your application tests will often use data structures that consist of related model objects, which can be tedious to create programmatically in Java. Play includes a "YAML":http://en.wikipedia.org/wiki/YAML parser which makes the task much simpler.
+En las pruebas de las aplicaciones, comunmente, se utilizan estructuras de datos que consisten en un modelo de objetos relacionados los cuales pueden ser tediosos de crear programáticamente con Java. Play incluye un parser "YAML":http://en.wikipedia.org/wiki/YAML que hace esta tarea sumamente sencilla.
 
-Create a YAML file like the following, in the @conf@ directory.
+Cree en el directorio @conf@ un archivo YAML como el siguiente:
 
 bc.. City(capitalfederal):
     name: Capital Federal
@@ -36,17 +34,17 @@ Neighborhood(coghlan):
     tags: "cafes, bars"
     users: [john]
 
-p. Play’s YAML syntax varies slightly from the standard. Each stanza must start with the name of the model class (eg @Neighborhood@) and be followed by an identifier in brackets (eg @villalugano@), which you can use to reference the object elsewhere in the file. This is different to standard YAML syntax, which uses the ampersand character to indicate a reference.
+p. La sintaxis que utiliza Play para los archivos YAML varía ligeramente de la estándar. Cada párrafo debe comenzar con el nombre de la clase del modelo (por ejemplo @Neighborhood@) seguido de un identificador entre paréntesis (por ejemplo @villalugano@), el cual se podrá utilizar para referenciar el objeto dentro del archivo. Esto es diferente a la sintaxis estándar para archivos YAML, en la cual se usa el ampersand (**&**) para indicar una referencia.
 
-Play uses "SnakeYAML":http://code.google.com/p/snakeyaml/, which has an excellent "documentation page":http://code.google.com/p/snakeyaml/wiki/Documentation#YAML_syntax with many examples.
+Play utiliza la librería "SnakeYAML":http://code.google.com/p/snakeyaml/, la cual tiene una excelente "documentación":http://code.google.com/p/snakeyaml/wiki/Documentation#YAML_syntax colmada de ejemplos.
 
 h2. <a name="model">Model classes</a>
 
-The YAML file can contain one-to-many, many-to-one and many-to-many relationships. These relationships must be explicity annotated in the model classes, and you must indicate which is the "owning side" of the relationship.
+El archvo YAML puede contener relaciones uno-a-muchos, muchos-a-uno y muchos-a-muchos. Estas relaciones deben ser explícitamente anotadas en las clases del modelo de datos, y debe indicar cuál de ellas es la parte "dueña" de la relación.
 
 p. @City.java@
 
-bc.. package models;
+bc. package models;
 
 import java.util.List;
 import javax.persistence.*;
@@ -64,7 +62,7 @@ public class City extends Model {
 
 p. @Neighborhood.java@
 
-bc.. package models;
+bc. package models;
 
 import java.util.List;
 import javax.persistence.*;
@@ -87,7 +85,7 @@ public class Neighborhood extends Model {
 
 p. @User.java@
 
-bc.. package models;
+bc. package models;
 
 import java.util.*;
 import javax.persistence.*;
@@ -107,11 +105,11 @@ public class User extends Model {
 }
 
 
-p(note). Note that if you are using PostgreSQL you may need to explicitly set the name of the @user@ table with escape characters because @user@ is a reserved word.
+p(note). Tenga en cuenta que si utiliza PostgreSQL tendrá que indicar el nombre de la tabla @user@ escapando los caracteres, ya que @user@ es una palabra reservada.
 
-h2. <a name="loading">Loading the data structure in your application</a>
+h2. <a name="loading">Cargando la estructura de datos en su aplicación</a>
 
-Typically you will load the data structure defined in the YAML file as part of a "unit test":test#aFixturesa. But sometimes you may wish to populate the database with specific data in other circumstances, for example "when your application starts":jobs#aBootstrapjoba for the first time.
+Típicamente, usted cargará la estructura de datos definida en el archivo YAML como parte de una "prueba unitaria":test#aFixturesa. Pero en algunas ocasiones posiblemente necesite cargar los datos en su base con información específica, bajo otras circustancias. Por ejemplo, "cuando su aplicación se inicia":jobs#aBootstrapjoba por  vez primera.
 
 bc.. import play.*;
 import play.jobs.*;
@@ -128,7 +126,7 @@ public class Bootstrap extends Job {
     }
 }
 
-p. The objects will be created in the database, and you can then access them as you would any other model object.
+p. Los objetos serán creados en la base de datos, y podrá acceder a ellos como lo haría con cualquier objeto del modelo de datos.
 
 bc. City city = City.all().first();
 List<Neighborhood> neighborhoods = city.neighborhoods;
