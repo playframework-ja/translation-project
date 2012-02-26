@@ -6,5 +6,5 @@ Please DO NOT make any question about the contents of this project to playframew
 
 h2. Licence
 
-Play framework is distributed under "Apache 2 licence":http://www.apache.org/licenses/LICENSE-2.0.html.
+This project is distributed under "Apache 2 licence":http://www.apache.org/licenses/LICENSE-2.0.html.
 
