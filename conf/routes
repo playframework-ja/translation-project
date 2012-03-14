@@ -22,4 +22,4 @@ GET     /public/                                staticDir:public
 GET     /repo/                                  staticDir:public/repo
 
 # Catch all
-*       /{controller}/{action}                  {controller}.{action}
+# *       /{controller}/{action}                  {controller}.{action}

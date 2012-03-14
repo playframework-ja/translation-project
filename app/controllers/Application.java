@@ -168,7 +168,8 @@ public class Application extends Controller {
         
         Source source = new Source(new URL("http://www.playframework.org/2.0"));
 
-        String list = getString(source.getElementById("features").getChildElements().get(1));
+        //String list = getString(source.getElementById("features").getChildElements().get(1));
+        String list = "";
         
         List<Map<String, String>> details = new ArrayList<Map<String,String>>();
         details.add(getMap(source, "build"));
@@ -178,8 +179,9 @@ public class Application extends Controller {
         details.add(getMap(source, "testing"));
         details.add(getMap(source, "documentation"));
         
-        List<Element> twitters = source.getElementById("share").getChildElements();
-        String twitter = twitters.isEmpty() ? "" : getString(twitters.get(0));
+        //List<Element> twitters = source.getElementById("share").getChildElements();
+        //String twitter = twitters.isEmpty() ? "" : getString(twitters.get(0));
+        String twitter = "";
         
         renderTemplate("Application/"+lang+"/introduce20.html", list, details, twitter);
         
@@ -191,7 +193,8 @@ public class Application extends Controller {
         Map<String, String> map = new HashMap<String, String>();
         
         map.put("id", id);
-        map.put("benefits", getString(source.getElementById(id).getChildElements().get(1)));
+        //map.put("benefits", getString(source.getElementById(id).getChildElements().get(1)));
+        map.put("benefits", "");
         
         return map;
     }

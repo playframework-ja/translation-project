@@ -1,0 +1,87 @@
+p(note). Traducido del "blog de Typesafe":http://blog.typesafe.com/introducing-play-20
+
+h1. ¡Presentando Play 2.0!
+
+En noviembre del año pasado anunciábamos que Play, el framework de alta productividad para Java y Scala, pasaría a formar parte del stack de Typesafe. Hoy, apenas unos meses más tarde, nos complace poder anunciar que Play 2.0 ya está disponible como parte del Stack Open Source de Typesafe en su versión 2.0, junto con el soporte comercial de la subscripción de Typesafe. 
+
+Veamos algunas de sus principales características.
+
+h2. Soporte nativo para Java y Scala
+
+Mientras que la versión original de Play Framework estaba escrita principalmente en Java, ofreciendo soporte para scala a través de plug-in, Play 2.0 adopta Scala de una manera más decidida. No sólo el núcleo central de Play ha sido migrado a Scala, sino que esta nueva versión brinda un soporte de primer nivel para el desarrollo de aplicaciones web con Scala. De manera tal que la nueva versión del framework provee dos API totalmente completas: una para desarrolladores de Scala y otra para desarrolladores Java.  
+
+!images/play20-controller-java!
+
+_Un controlador hecho con Java_
+
+!images/play20-controller-scala!
+
+_El mismo controlador usando Scala_
+
+h2. Desarrollo rápido de aplicaciones 
+
+Una de las características que hacían a la "experiencia de usuario" del desarrollador Play de la serie 1.x, era la consola de desarrollo y el reporte de errores en el propio explorador web. Play 2.0 mejora estas prestaciones al permitirle al desarrollador ejecutar porciones de código, pruebas o scripts de la línea de comando interactuando directamente con el runtime de la aplicación, y también compilando muchas de las partes típicas de una aplicación web. 
+
+!images/play20-console!
+
+_Interactuando con los modelos de una aplicación Play 2.0 desde la consola_
+
+h2. Llevando la seguridad de tipos a un nuevo nivel 
+
+Una de las ventajas de utilizar un lenguaje estáticamente tipado para escribir aplicaciones de Play, es que el compilador podía verificar partes del código por usted, Es por ello que Play 2.0 utiliza por defecto un lenguaje de templates basado en Scala, incluso para aquéllos desarrolladores que usen Java como su principal lenguaje de programación. Esto no signifca que usted deba convertirse en un experto en Scala para escribir templates en Play 2.0. Pero ahí está Scala, sin que usted lo note, trabajando en su beneficio.
+
+Play 2.0 lleva las verificaciones en tiempo de compilación y el chequeo de tipos todavía más a fondo. Las rutas (que definen los URLs y el mapeo con las acciones), los templates, e incluso los recursos de la aplicación web son compilados (utilizando LESS, CoffeScript y el compilador de Google Clousure), poniendo a su disposición un entorno de desarrollo unificado tanto para los desarrolladores del lado del cliente como para los del lado del servidor. El resultado de todo esto es que más errores serán detectados en tiempo de compilación, acelerando el proceso de desarrollo de aplicaciones web. También hará muchísimo más simple trabajar en proyectos grandes que involucren numerosos desarrolladores.
+
+!images/play20-compilation-error!
+
+_Example route compilation failure detection_
+
+h2. Jugando limpio
+
+Play 1.x implementaba muchas de sus originales ideas (como la implementación automática de propiedades para Java y la recarga dinámica de sus clases) utilizando técnicas que requerían un runtime específico para Play. En cambio, Play 2.0 adopta un enfoque mucho más estándar para el despliegue del runtime. Esto fue posible escribiendo parte del framework en scala, y también aprovechando prestaciones de SBT, la popular herramienta de Scala para la construcción y despliegue de aplicaciones.
+
+Play 2.0 mantiene la misma experiencia de los usuarios de la versión 1.x acostumbrados a ejecutar "play new, run start", al mismo tiempo que parte de una base más fácil de extender. Play 2.0 ya trae configurado un script de compilación que funcionará sin modificaciones en la mayoría de los casos, pero si usted necesita personalizar la manera en que su aplicación es construida y desplegada, tendrá las herramientas a su alcance para adapatarla a sus necesidades. Como resultado de todo esto, hallará que será mucho más simple desplegar sus aplicaciones de Play 2.0 en los escenarios más variados.
+
+!images/play20-releases!
+
+h2. Elija tan sólo las partes que va a usar
+
+Dado que el diseño de aplicaciones web ha evolucionado en gran medida en los últimos años, Play 2.0 está construido siguiendo un criterio modular que le dará gran flexibilidad a la hora de elegir la tecnología a usar. ¿No desea usar una base de datos? Puede simplemente deshabilitar el plugin DB. ¿Quiere usar su propio motor de templates? Simplemente agrégue el plugin. ¿No necesita un framework web con todos los chiches? Use play como una simple librería. Usted decide qué tanto de la arquitectura de Play quiere usar en sus aplicaciones. 
+
+!images/play20-modular!
+
+_Deshabilitando plugins en el archivo conf/application.conf_
+
+h2. Escale su apliación con Akka 
+
+Play está basado en una arquitectura liviana, sin estado, pensada para la web, que le asegura un consumo de recursos mínimo y predecible (en términos de CPU, memoria, threads) para desarrollar aplicaciones que requieren alta escalabidad. Esto es posible en parte gracias a Akka 2.0, el middleware basado en eventos que se encuentra en el corazón de Play 2.0. Los desarrolladores tienen acceso a toda la funcionalidad provista por Akka para construir aplicaciones altamente distribuidas que puedan ser escaladas para cumplir con los más altos niveles de demanda.   
+
+!images/play20-actors-1!
+
+_En este ejemplo puede ver como el resultado de un actor encargado de realizar un cálculo complejo, puede ser mapeado a un resultado de Play de una manera no-bloqueante_
+
+!images/play20-actors-2!
+
+_En este ejemplo puede ver como el actor ChatRoom envía un mensaje en porciones al cliente utilizando Comet_
+
+h2. Manejo avanzado de entrada/salida y de Streams
+
+Una de las más recientes tendencias en el desarrollo de aplicaciones web es el énfasis puesto en tecnologías de tipo push y no-bloqueantes. Play 2.0 utiliza una implementación de entrada/salida basada en Iteratee, que provee soporte para tecnologías avanzadas de push y streaming, partiendo desde WebSockets y Comet hasta streaming de archivos.
+
+!images/play20-websockets!
+
+_Un controlador de scala que utiliza el soporte para WebSockets de Play 2.0_
+
+h2. Listos... preparados... a jugar con Play! 
+
+Play 2.0 es el resultado de una intensa colaboración entre Typesafe (liderados por Peter Hausel), el fundador del proyecto Guillaume Bort, la comunidad Play y Zenexity, la consultora orientada a la web donde Play fue creado. Ha sido una experiencia divertida y excitante trabajar junto con un grupo tan talentoso de desarrolladores.
+
+Estamos sumamente complacidos de que Play hoy sea parte del "Stack de Typesafe":http://typesafe.com/stack, junto con Scala, Akka y el soporte comercial, mantenimiento y herramientas de despliegue y administración (como la nueva consola de Typesafe) que juntas conforman el paquete de "Subscripción de Typesafe":http://typesafe.com/products/typesafe-subscription. Typesafe también ofrece cursos de capacitación y consultoría para la nueva versión 2.0, para que su equipo pueda cuanto antes comenzar a desarrollar aplicaciones con Play 2.0. 
+
+Estamos convencido de que el lanzamiento de Play 2.0 marcará un antes y un después en las comunidades de Java y Scala, poniendo al alcance de los desarrolladores una experiencia novedosa que posibilitará inéditos niveles de escalabilidad y productividad.
+
+Para que pueda empezar ya mismo con Play 2.0, hemos provisto varias "aplicaciones de ejemplo":https://github.com/playframework/Play20/tree/master/samples con esta nueva versión. Así que lo invitamos a verlo en acción para decidir por usted mismo, ¡y divertirse haciéndolo! 
+
+Ya que ha llegado hasta aquí, no pierda los anuncios recientes de la "versión 2.0 del Stack de Typesafe"::http://blog.typesafe.com/introducing-typesafe-stack-20, "Akka 2.0":http://blog.typesafe.com/introducing-akka-20-2756, y la "Consola de Typesafe":http://blog.typesafe.com/introducing-typesafe-console.
+
+p(note). Para más información, lea el anuncio original en "el blog de Typesafe":http://blog.typesafe.com/introducing-play-20

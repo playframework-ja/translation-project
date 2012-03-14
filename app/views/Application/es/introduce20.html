@@ -28,7 +28,7 @@
 				<p>¡Es hora de seguir adelante! Estamos trabajando en la próxima versión de Play framework, integrando un nuevo build system y sorprendentes capacidades asincrónicas, junto con soporte nativo para Java y Scala.</p>
 				<p>En breve anunciaremos la versión definitiva de Play 2.0, mientras tanto ya puede probar la versión candidate release.</p>
 				<dl id="download">
-					<dt><a href="http://download.playframework.org/releases/play-2.0-RC2.zip">Descargar Play-2.0-RC2</a></dt>
+					<dt><a href="http://download.playframework.org/releases/play-2.0.zip">Descargar Play-2.0</a></dt>
 					<dd><a href="http://github.com/playframework/play20">Mira el código en Github</a></dd>
 				</dl>
 			</div>
@@ -358,34 +358,6 @@
     				</div>
                 </div>
 				<a href="#" class="link">Lee el anuncio completo y descubre la hoja de ruta de Play 2.0</a>
-			</article>
-
-			<div class="tweet">
-				<q>Woah... #playframework's new #scala template language looks awesome! <a href="http://bit.ly/mCR5Tu">http://bit.ly/mCR5Tu</a></q>
-
-				<a href="http://twitter.com/#!/grandfatha/statuses/70586943544631296" class="author">
-					<img src="http://a0.twimg.com/profile_images/1175953530/NwfUx_normal.jpeg" />
-					<cite>K.D.</cite>
-					<span>@grandfatha</span>
-				</a>
-			</div>
-
-			<article id="features">
-
-				<header>
-					<h1>Sigue nuestro progreso</h1>
-					<p>y descubre qué hay de nuevo en Play 2.0.</p>
-				</header>
-				${list.raw()}
-				<div class="details">
-					#{list items:details, as:'item'}
-					<div id="${item.get('id')}" class="detail #{if item_index == 1}active#{/if}">
-						<h3>Tickets relacionados en lighthouse</h3>
-						${item.get('benefits').raw()}
-					</div>
-					#{/list}
-				</div>
-
 			</article>
 
 			<div class="tweet">

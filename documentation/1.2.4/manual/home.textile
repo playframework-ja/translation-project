@@ -4,6 +4,12 @@ Bienvenido a la documentación del framework de desarrollo play! Esta documentac
 
 Verifique los "cambios de la versión 1.2.4":releasenotes-1.2.4.
 
+h2. <a name="started">Presentando Play 2.0</a>
+
+Ya está disponible la nueva versión de Play 2.0.
+
+# "Anuncio de Typesafe la versión 2.0 de Play framework":play20
+
 h2. <a name="started">Comenzando a usar play!</a>
 
 Primeros pasos con play! y primeros 5 minutos de diversión.

@@ -1,8 +1,8 @@
 h1. Introducción a Play! framework
 
-El framework Play es una alternativa simple a la sobrecargada plataforma para desarrollo de aplicaciones empresariales de Java. Se concentra en la productividad del desarrollar y apunta a arquitecuras de aplicaciones RESTful. Play es el complemento perfecto para las *metodologías de desarrollo ágiles*.
+El framework Play es una alternativa ágil y simple a la sobrecargada plataforma para desarrollo de aplicaciones empresariales de Java. Se concentra en la productividad del desarrollador y apunta a arquitecuras de aplicaciones RESTl. Play es el complemento perfecto para las *metodologías de desarrollo ágiles*.
 
-El objetivo del framework Play es facilitar el desarrollo de apliaciones web sin renunciar al uso de Java. Veamos cómo esto es posible.
+El objetivo del framework Play es facilitar el desarrollo de apliciones web sin renunciar al uso de Java. Veamos cómo esto es posible.
 
 p(note). **¿Quiere ver ejemplos de código?** 
  
