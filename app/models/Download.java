@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Download {
 
-    public static final String DATE_FORMAT = "dd MMM yyyy";
+    public static final String DATE_FORMAT = "MMM dd yyyy";
 
     public static final DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT, Locale.US);
 

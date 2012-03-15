@@ -7,18 +7,11 @@ import java.util.*;
 import models.*;
 import net.htmlparser.jericho.*;
 
-import org.apache.commons.httpclient.*;
-import org.apache.commons.httpclient.methods.*;
 import org.apache.commons.lang.*;
 import org.yaml.snakeyaml.*;
 
 import play.*;
-import play.Logger;
 import play.mvc.*;
-import twitter4j.*;
-
-import com.google.gson.*;
-import com.google.gson.annotations.*;
 
 public class Application extends Controller {
 
@@ -56,15 +49,13 @@ public class Application extends Controller {
 
     public static void download(String action) throws MalformedURLException, IOException {
 
-        Long downloads = null;
+        Long downloads = 0L;
         Download latest = null;
         Download upcoming = null;
         List<Download> olders = null;
         List<Download> nightlies = null;
 
         Source source = new Source(new URL("http://www.playframework.org/download"));
-
-        downloads = toDownloads(source.getFirstElementByClass("category"));
 
         List<Element> tables = source.getAllElements(HTMLElementName.TABLE);
 
@@ -89,11 +80,6 @@ public class Application extends Controller {
         render(action, downloads, latest, upcoming, olders, nightlies);
     }
 
-    private static Long toDownloads(Element element) {
-        String content = element.getContent().toString().trim().replace(",", "");
-        return new Long(content.substring(0, content.indexOf(" ")));
-    }
-
     private static List<Download> toDownload(List<Element> elements) {
         List<Download> downloads = new ArrayList<Download>();
         for (Element element : elements) {
@@ -105,8 +91,8 @@ public class Application extends Controller {
     private static Download toDownload(Element element) {
         List<Element> list = element.getAllElements(HTMLElementName.TD);
         String url = list.get(0).getChildElements().get(0).getAttributeValue("href");
-        String date = list.get(1).getContent().toString();
-        String size = list.get(2).getContent().toString();
+        String date = list.get(1).getContent().toString().trim();
+        String size = list.get(2).getContent().toString().trim();
         return new Download(url, date, size);
     }
 
@@ -147,19 +133,19 @@ public class Application extends Controller {
         render(action, modules);
     }
 
-    public static void about(String action) throws TwitterException, FileNotFoundException {
-    	List<Map<String, String>> translators =
-    			(List<Map<String, String>>) new Yaml().load(new FileInputStream(Play.applicationPath + "/conf/translators.yml"));
+    public static void about(String action) throws FileNotFoundException {
+        List<Map<String, String>> translators = (List<Map<String, String>>) new Yaml().load(new FileInputStream(
+                Play.applicationPath + "/conf/translators.yml"));
         render(action, translators);
     }
-    
+
     public static void introduce20() throws MalformedURLException, IOException {
-        
+
         Source source = new Source(new URL("http://www.playframework.org/2.0"));
 
-        String list = getString(source.getElementById("features").getChildElements().get(1));
-        
-        List<Map<String, String>> details = new ArrayList<Map<String,String>>();
+        String list = getString(source, "features", 1);
+
+        List<Map<String, String>> details = new ArrayList<Map<String, String>>();
         details.add(getMap(source, "build"));
         details.add(getMap(source, "mvc"));
         details.add(getMap(source, "apis"));
@@ -167,21 +153,32 @@ public class Application extends Controller {
         details.add(getMap(source, "testing"));
         details.add(getMap(source, "documentation"));
 
-        String twitter = getString(source.getElementById("share").getChildElements().get(0));
-        
+        String twitter = getString(source, "share", 0);
+
         render(list, details, twitter);
     }
-    
+
     private static Map<String, String> getMap(Source source, String id) {
-        
+
         Map<String, String> map = new HashMap<String, String>();
-        
         map.put("id", id);
-        map.put("benefits", getString(source.getElementById(id).getChildElements().get(1)));
-        
+        map.put("benefits", getString(source, id, 1));
+
         return map;
     }
-    
+
+    private static String getString(Source source, String id, int pos) {
+        String s = "";
+        Element element = source.getElementById(id);
+        if (element != null) {
+            List<Element> elements = element.getChildElements();
+            if (elements != null && elements.size() > pos) {
+                s = getString(elements.get(pos));
+            }
+        }
+        return s;
+    }
+
     private static String getString(Element elem) {
         return elem != null ? elem.toString() : "";
     }
