@@ -1,0 +1,170 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api.test</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../lib/template.css" />
+      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../lib/package_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../../package.html">play</a>.<a name="play.api" class="extype" href="../package.html">api</a></p>
+        <h1>test</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <span class="name">test</span>
+        
+        
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Contains test helpers.
+</p></div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="play.api.test.FakeApplication" data-isabs="false">
+      <a id="FakeApplication:FakeApplication"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="FakeApplication.html"><span class="name">FakeApplication</span></a>
+        
+        <span class="params">(<span name="path">path: File</span>, <span name="classloader">classloader: ClassLoader</span>, <span name="additionalPlugins">additionalPlugins: Seq[String]</span>, <span name="withoutPlugins">withoutPlugins: Seq[String]</span>, <span name="additionalConfiguration">additionalConfiguration: Map[String, String]</span>)</span><span class="result"> extends Application with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A Fake application.</p>
+    </li><li visbl="pub" name="play.api.test.FakeHeaders" data-isabs="false">
+      <a id="FakeHeaders:FakeHeaders"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="FakeHeaders.html"><span class="name">FakeHeaders</span></a>
+        
+        <span class="params">(<span name="data">data: Map[String, Seq[String]]</span>)</span><span class="result"> extends Headers with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Fake HTTP headers implementation.</p>
+    </li><li visbl="pub" name="play.api.test.FakeRequest" data-isabs="false">
+      <a id="FakeRequest:FakeRequest[A]"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="FakeRequest.html"><span class="name">FakeRequest</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="params">(<span name="method">method: String</span>, <span name="uri">uri: String</span>, <span name="headers">headers: FakeHeaders</span>, <span name="body">body: A</span>)</span><span class="result"> extends Request[A] with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Fake HTTP request implementation.</p>
+    </li><li visbl="pub" name="play.api.test.TestBrowser" data-isabs="false">
+      <a id="TestBrowser:TestBrowser"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="TestBrowser.html"><span class="name">TestBrowser</span></a>
+        
+        <span class="params">(<span name="webDriver">webDriver: WebDriver</span>)</span><span class="result"> extends FluentAdapter with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A test browser (Using Selenium WebDriver) with the FluentLenium API (https://github.</p>
+    </li><li visbl="pub" name="play.api.test.TestServer" data-isabs="false">
+      <a id="TestServer:TestServer"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="TestServer.html"><span class="name">TestServer</span></a>
+        
+        <span class="params">(<span name="port">port: Int</span>, <span name="application">application: FakeApplication</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A test Netty web server.</p>
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="play.api.test.FakeRequest" data-isabs="false">
+      <a id="FakeRequest:FakeRequest"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="FakeRequest$.html"><span class="name">FakeRequest</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to build FakeRequest values.</p>
+    </li><li visbl="pub" name="play.api.test.Helpers" data-isabs="false">
+      <a id="Helpers:Helpers"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Helpers$.html"><span class="name">Helpers</span></a>
+        
+        <span class="result"> extends Status with HeaderNames</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper functions to run tests.</p>
+    </li><li visbl="pub" name="play.api.test.TestBrowser" data-isabs="false">
+      <a id="TestBrowser:TestBrowser"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="TestBrowser$.html"><span class="name">TestBrowser</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to build TestBrowsers
+</p>
+    </li><li visbl="pub" name="play.api.test.WebDriverFactory" data-isabs="false">
+      <a id="WebDriverFactory:WebDriverFactory"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="WebDriverFactory$.html"><span class="name">WebDriverFactory</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+
+        
+
+        
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>

@@ -1,0 +1,12 @@
+play
+play.cache
+play.data
+play.data.format
+play.data.validation
+play.db
+play.db.ebean
+play.db.jpa
+play.i18n
+play.libs
+play.mvc
+play.test

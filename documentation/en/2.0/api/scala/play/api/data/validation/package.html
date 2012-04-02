@@ -1,0 +1,173 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api.data.validation</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../lib/package_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../../../package.html">play</a>.<a name="play.api" class="extype" href="../../package.html">api</a>.<a name="play.api.data" class="extype" href="../package.html">data</a></p>
+        <h1>validation</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <span class="name">validation</span>
+        
+        
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Contains the validation API used by <code>Form</code>.</p><p>For example, to define a custom constraint:</p><pre>
+  val negative = Constraint[Int] {
+    case i if i &lt; 0 =&gt; Valid
+    case _ =&gt; Invalid(&quot;Must be a negative number.&quot;)
+  }
+</pre></div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="play.api.data.validation.Constraint" data-isabs="false">
+      <a id="Constraint:Constraint[T]"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Constraint.html"><span class="name">Constraint</span></a>
+        <span class="tparams">[<span name="T">-T</span>]</span>
+        <span class="params">(<span name="name">name: Option[String]</span>, <span name="args">args: Seq[Any]</span>, <span name="f">f: (T) ⇒ ValidationResult</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A form constraint.</p>
+    </li><li visbl="pub" name="play.api.data.validation.Constraints" data-isabs="true">
+      <a id="Constraints:Constraints"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Constraints.html"><span class="name">Constraints</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Defines a set of built-in constraints.</p>
+    </li><li visbl="pub" name="play.api.data.validation.Invalid" data-isabs="false">
+      <a id="Invalid:Invalid"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Invalid.html"><span class="name">Invalid</span></a>
+        
+        <span class="params">(<span name="errors">errors: Seq[ValidationError]</span>)</span><span class="result"> extends ValidationResult with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Validation was a failure.</p>
+    </li><li visbl="pub" name="play.api.data.validation.ValidationError" data-isabs="false">
+      <a id="ValidationError:ValidationError"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ValidationError.html"><span class="name">ValidationError</span></a>
+        
+        <span class="params">(<span name="message">message: String</span>, <span name="args">args: Any*</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A validation error.</p>
+    </li><li visbl="pub" name="play.api.data.validation.ValidationResult" data-isabs="true">
+      <a id="ValidationResult:ValidationResult"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="ValidationResult.html"><span class="name">ValidationResult</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A validation result.</p>
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="play.api.data.validation.Constraint" data-isabs="false">
+      <a id="Constraint:Constraint"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Constraint$.html"><span class="name">Constraint</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">This object provides helpers for creating <code>Constraint</code> values.</p>
+    </li><li visbl="pub" name="play.api.data.validation.Constraints" data-isabs="false">
+      <a id="Constraints:Constraints"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Constraints$.html"><span class="name">Constraints</span></a>
+        
+        <span class="result"> extends Constraints</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Defines a set of built-in constraints.</p>
+    </li><li visbl="pub" name="play.api.data.validation.Invalid" data-isabs="false">
+      <a id="Invalid:Invalid"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Invalid$.html"><span class="name">Invalid</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">This object provides helper methods to construct <code>Invalid</code> values.</p>
+    </li><li visbl="pub" name="play.api.data.validation.Valid" data-isabs="false">
+      <a id="Valid:Valid"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Valid$.html"><span class="name">Valid</span></a>
+        
+        <span class="result"> extends ValidationResult with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Validation was a success.</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>

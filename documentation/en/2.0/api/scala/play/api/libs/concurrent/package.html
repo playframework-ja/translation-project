@@ -1,0 +1,263 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api.libs.concurrent</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../lib/package_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../../../package.html">play</a>.<a name="play.api" class="extype" href="../../package.html">api</a>.<a name="play.api.libs" class="extype" href="../package.html">libs</a></p>
+        <h1>concurrent</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <span class="name">concurrent</span>
+        
+        
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Utility classes commonly useful in concurrent programming, such as Promise and Akka helpers.
+For example:</p><pre>
+  val promise1 = akka.dispatch.Future{&quot;hello&quot;}.asPromise
+  val promise2 = Promise.pure(mylongRunningJob)
+</pre></div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="play.api.libs.concurrent.AkkaFuture" data-isabs="false">
+      <a id="AkkaFuture:AkkaFuture[A]"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="AkkaFuture.html"><span class="name">AkkaFuture</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Wrapper used to transform an Akka Future to Play Promise
+</p>
+    </li><li visbl="pub" name="play.api.libs.concurrent.AkkaPlugin" data-isabs="false">
+      <a id="AkkaPlugin:AkkaPlugin"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="AkkaPlugin.html"><span class="name">AkkaPlugin</span></a>
+        
+        <span class="result"> extends Plugin</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Plugin managing the application Akka Actor System.</p>
+    </li><li visbl="pub" name="play.api.libs.concurrent.AkkaPromise" data-isabs="false">
+      <a id="AkkaPromise:AkkaPromise[A]"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="AkkaPromise.html"><span class="name">AkkaPromise</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends Promise[A]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A promise implemantation based on Akka's Future
+</p>
+    </li><li visbl="pub" name="play.api.libs.concurrent.NotWaiting" data-isabs="true">
+      <a id="NotWaiting:NotWaiting[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="NotWaiting.html"><span class="name">NotWaiting</span></a>
+        <span class="tparams">[<span name="A">+A</span>]</span>
+        <span class="result"> extends PromiseValue[A]</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.Promise" data-isabs="true">
+      <a id="Promise:Promise[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Promise.html"><span class="name">Promise</span></a>
+        <span class="tparams">[<span name="A">+A</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.PromiseValue" data-isabs="true">
+      <a id="PromiseValue:PromiseValue[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="PromiseValue.html"><span class="name">PromiseValue</span></a>
+        <span class="tparams">[<span name="A">+A</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>sealed </dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.concurrent.Redeemable" data-isabs="true">
+      <a id="Redeemable:Redeemable[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Redeemable.html"><span class="name">Redeemable</span></a>
+        <span class="tparams">[<span name="A">-A</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.package#RedeemablePromise" data-isabs="false">
+      <a id="RedeemablePromise:RedeemablePromise[A]"></a>
+      <h4 class="signature">
+      <span class="kind">type</span>
+      <span class="symbol"> 
+        <span class="name">RedeemablePromise</span>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> = <a name="play.api.libs.concurrent.Promise" class="extype" href="Promise.html">Promise</a>[A] with <a name="play.api.libs.concurrent.Redeemable" class="extype" href="Redeemable.html">Redeemable</a>[A]</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.concurrent.package" class="extype" href="package$.html">package</a></dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.concurrent.Redeemed" data-isabs="false">
+      <a id="Redeemed:Redeemed[A]"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Redeemed.html"><span class="name">Redeemed</span></a>
+        <span class="tparams">[<span name="A">+A</span>]</span>
+        <span class="params">(<span name="a">a: A</span>)</span><span class="result"> extends NotWaiting[A] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.STMPromise" data-isabs="false">
+      <a id="STMPromise:STMPromise[A]"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="STMPromise.html"><span class="name">STMPromise</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends Promise[A] with Redeemable[A]</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.Thrown" data-isabs="false">
+      <a id="Thrown:Thrown"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Thrown.html"><span class="name">Thrown</span></a>
+        
+        <span class="params">(<span name="e">e: Throwable</span>)</span><span class="result"> extends NotWaiting[Nothing] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="play.api.libs.concurrent.Akka" data-isabs="false">
+      <a id="Akka:Akka"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Akka$.html"><span class="name">Akka</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper to access the application defined Akka Actor system.</p>
+    </li><li visbl="pub" name="play.api.libs.concurrent.Promise" data-isabs="false">
+      <a id="Promise:Promise"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Promise$.html"><span class="name">Promise</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.PurePromise" data-isabs="false">
+      <a id="PurePromise:PurePromise"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="PurePromise$.html"><span class="name">PurePromise</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.STMPromise" data-isabs="false">
+      <a id="STMPromise:STMPromise"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="STMPromise$.html"><span class="name">STMPromise</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.Waiting" data-isabs="false">
+      <a id="Waiting:Waiting"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Waiting$.html"><span class="name">Waiting</span></a>
+        
+        <span class="result"> extends PromiseValue[Nothing] with Product with Serializable</span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="play.api.libs.concurrent.package#akkaToPlay" data-isabs="false">
+      <a id="akkaToPlay[A](Future[A]):AkkaFuture[A]"></a>
+      <h4 class="signature">
+      <span class="kind">implicit def</span>
+      <span class="symbol"> 
+        <span class="name">akkaToPlay</span>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="params">(<span name="future">future: <span name="akka.dispatch.Future" class="extype">Future</span>[A]</span>)</span><span class="result">: <a name="play.api.libs.concurrent.AkkaFuture" class="extype" href="AkkaFuture.html">AkkaFuture</a>[A]</span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Implicit conversion of Future to AkkaFuture, supporting the asPromise operation.</p><div class="fullcomment"><div class="comment cmt"><p>Implicit conversion of Future to AkkaFuture, supporting the asPromise operation.
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>implicit </dd><dt>Definition Classes</dt><dd><a name="play.api.libs.concurrent.package" class="extype" href="package$.html">package</a></dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>

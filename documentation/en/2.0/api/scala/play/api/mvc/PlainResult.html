@@ -1,0 +1,477 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api.mvc.PlainResult</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../lib/template.css" />
+      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <img src="../../../lib/trait_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../../package.html">play</a>.<a name="play.api" class="extype" href="../package.html">api</a>.<a name="play.api.mvc" class="extype" href="package.html">mvc</a></p>
+        <h1>PlainResult</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <span class="name">PlainResult</span>
+        
+        <span class="result"> extends <a name="play.api.mvc.Result" class="extype" href="Result.html">Result</a></span>
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A plain HTTP result.
+</p></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><a name="play.api.mvc.Result" class="extype" href="Result.html">Result</a>, <span name="scala.NotNull" class="extype">NotNull</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+        </div><div class="toggleContainer block">
+          <span class="toggle">Known Subclasses</span>
+          <div class="subClasses hiddenContent"><a name="play.api.mvc.ChunkedResult" class="extype" href="ChunkedResult.html">ChunkedResult</a>, <a name="play.api.mvc.SimpleResult" class="extype" href="SimpleResult.html">SimpleResult</a>, <a name="play.api.mvc.Results.Status" class="extype" href="Results$Status.html">Status</a></div>
+        </div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          <div id="order">
+                <span class="filtertype">Ordering</span>
+                <ol><li class="alpha in"><span>Alphabetic</span></li><li class="inherit out"><span>By inheritance</span></li></ol>
+              </div>
+          <div id="ancestors">
+                <span class="filtertype">Inherited</span>
+                <ol><li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show all</span></li></ol>
+                <ol id="linearization"><li name="play.api.mvc.PlainResult" class="in"><span>PlainResult</span></li><li name="play.api.mvc.Result" class="in"><span>Result</span></li><li name="scala.NotNull" class="in"><span>NotNull</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        
+        
+        <div class="values members" id="values">
+              <h3>Abstract Value Members</h3>
+              <ol><li visbl="pub" name="play.api.mvc.PlainResult#header" data-isabs="true">
+      <a id="header:ResponseHeader"></a>
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol"> 
+        <span class="name">header</span>
+        
+        <span class="result">: <a name="play.api.mvc.ResponseHeader" class="extype" href="ResponseHeader.html">ResponseHeader</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">The response header
+</p><div class="fullcomment"><div class="comment cmt"><p>The response header
+</p></div><dl class="attributes block"> <dt>Attributes</dt><dd>abstract </dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#withHeaders" data-isabs="true">
+      <a id="withHeaders((String, String)*):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">withHeaders</span>
+        
+        <span class="params">(<span name="headers">headers: (String, String)*</span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds HTTP headers to this result.</p><div class="fullcomment"><div class="comment cmt"><p>Adds HTTP headers to this result.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).withHeaders(ETAG -&gt; &quot;0&quot;)
+</pre></div><dl class="paramcmts block"><dt class="param">headers</dt><dd class="cmt"><p>the headers to add to this result.</p></dd><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl><dl class="attributes block"> <dt>Attributes</dt><dd>abstract </dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div class="values members" id="values">
+              <h3>Concrete Value Members</h3>
+              <ol><li visbl="pub" name="scala.AnyRef#!=" data-isabs="false">
+      <a id="!=(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">!=</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#!=" data-isabs="false">
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">!=</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef###" data-isabs="false">
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">##</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#==" data-isabs="false">
+      <a id="==(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">==</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#==" data-isabs="false">
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">==</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#as" data-isabs="false">
+      <a id="as(String):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">as</span>
+        
+        <span class="params">(<span name="contentType">contentType: String</span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Changes the result content type.</p><div class="fullcomment"><div class="comment cmt"><p>Changes the result content type.</p><p>For example:</p><pre>
+Ok(&quot;&lt;text&gt;Hello world&lt;/text&gt;&quot;).as(&quot;text/xml&quot;)
+</pre></div><dl class="paramcmts block"><dt class="param">contentType</dt><dd class="cmt"><p>the new content type.</p></dd><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">asInstanceOf</span>
+        <span class="tparams">[<span name="T0">T0</span>]</span>
+        <span class="result">: T0</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">clone</span>
+        
+        <span class="params">()</span><span class="result">: AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#discardingCookies" data-isabs="false">
+      <a id="discardingCookies(String*):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">discardingCookies</span>
+        
+        <span class="params">(<span name="names">names: String*</span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Discards cookies along this result.</p><div class="fullcomment"><div class="comment cmt"><p>Discards cookies along this result.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).discardingCookies(&quot;theme&quot;)
+</pre></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">eq</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#equals" data-isabs="false">
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">equals</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li visbl="prt" name="scala.AnyRef#finalize" data-isabs="false">
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">finalize</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#flashing" data-isabs="false">
+      <a id="flashing((String, String)*):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">flashing</span>
+        
+        <span class="params">(<span name="values">values: (String, String)*</span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds values to the flash scope for this result.</p><div class="fullcomment"><div class="comment cmt"><p>Adds values to the flash scope for this result.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).flashing(&quot;success&quot; -&gt; &quot;Done!&quot;)
+</pre></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#flashing" data-isabs="false">
+      <a id="flashing(Flash):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">flashing</span>
+        
+        <span class="params">(<span name="flash">flash: <a name="play.api.mvc.Flash" class="extype" href="Flash.html">Flash</a></span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds values to the flash scope for this result.</p><div class="fullcomment"><div class="comment cmt"><p>Adds values to the flash scope for this result.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).flashing(flash + (&quot;success&quot; -&gt; &quot;Done!&quot;))
+</pre></div><dl class="paramcmts block"><dt class="param">flash</dt><dd class="cmt"><p>the flash scope to set with this result</p></dd><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#getClass" data-isabs="false">
+      <a id="getClass():java.lang.Class[_]"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">getClass</span>
+        
+        <span class="params">()</span><span class="result">: java.lang.Class[_]</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#hashCode" data-isabs="false">
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">hashCode</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#isInstanceOf" data-isabs="false">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">isInstanceOf</span>
+        <span class="tparams">[<span name="T0">T0</span>]</span>
+        <span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">ne</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#notify" data-isabs="false">
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">notify</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#notifyAll" data-isabs="false">
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">notifyAll</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#synchronized" data-isabs="false">
+      <a id="synchronized[T0](⇒ T0):T0"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">synchronized</span>
+        <span class="tparams">[<span name="T0">T0</span>]</span>
+        <span class="params">(<span name="arg0">arg0: ⇒ T0</span>)</span><span class="result">: T0</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#toString" data-isabs="false">
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">toString</span>
+        
+        <span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">wait</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">wait</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Long" class="extype">Long</span></span>, <span name="arg1">arg1: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">wait</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Long" class="extype">Long</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#withCookies" data-isabs="false">
+      <a id="withCookies(Cookie*):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">withCookies</span>
+        
+        <span class="params">(<span name="cookies">cookies: <a name="play.api.mvc.Cookie" class="extype" href="Cookie.html">Cookie</a>*</span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Adds cookies to this result.</p><div class="fullcomment"><div class="comment cmt"><p>Adds cookies to this result.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).withCookies(Cookie(&quot;theme&quot;, &quot;blue&quot;))
+</pre></div><dl class="paramcmts block"><dt class="param">cookies</dt><dd class="cmt"><p>the cookies to add to this result</p></dd><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#withNewSession" data-isabs="false">
+      <a id="withNewSession:PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">withNewSession</span>
+        
+        <span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Discards the existing session for this result.</p><div class="fullcomment"><div class="comment cmt"><p>Discards the existing session for this result.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).withNewSession
+</pre></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#withSession" data-isabs="false">
+      <a id="withSession((String, String)*):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">withSession</span>
+        
+        <span class="params">(<span name="session">session: (String, String)*</span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Sets a new session for this result, discarding the existing session.</p><div class="fullcomment"><div class="comment cmt"><p>Sets a new session for this result, discarding the existing session.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).withSession(&quot;saidHello&quot; -&gt; &quot;yes&quot;)
+</pre></div><dl class="paramcmts block"><dt class="param">session</dt><dd class="cmt"><p>the session to set with this result</p></dd><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult#withSession" data-isabs="false">
+      <a id="withSession(Session):PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">withSession</span>
+        
+        <span class="params">(<span name="session">session: <a name="play.api.mvc.Session" class="extype" href="Session.html">Session</a></span>)</span><span class="result">: <a name="play.api.mvc.PlainResult" class="extype" href="">PlainResult</a></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Sets a new session for this result.</p><div class="fullcomment"><div class="comment cmt"><p>Sets a new session for this result.</p><p>For example:</p><pre>
+Ok(&quot;Hello world&quot;).withSession(session + (&quot;saidHello&quot; -&gt; &quot;true&quot;))
+</pre></div><dl class="paramcmts block"><dt class="param">session</dt><dd class="cmt"><p>the session to set with this result</p></dd><dt>returns</dt><dd class="cmt"><p>the new result
+</p></dd></dl></div>
+    </li></ol>
+            </div>
+
+        
+
+        <div name="play.api.mvc.Result" class="parent">
+              <h3>Inherited from <a name="play.api.mvc.Result" class="extype" href="Result.html">Result</a></h3>
+            </div><div name="scala.NotNull" class="parent">
+              <h3>Inherited from <span name="scala.NotNull" class="extype">NotNull</span></h3>
+            </div><div name="scala.AnyRef" class="parent">
+              <h3>Inherited from AnyRef</h3>
+            </div><div name="scala.Any" class="parent">
+              <h3>Inherited from <span name="scala.Any" class="extype">Any</span></h3>
+            </div>
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>

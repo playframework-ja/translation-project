@@ -1,0 +1,714 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api.mvc</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../lib/template.css" />
+      <script type="text/javascript" src="../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../lib/package_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../../package.html">play</a>.<a name="play.api" class="extype" href="../package.html">api</a></p>
+        <h1>mvc</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <span class="name">mvc</span>
+        
+        
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Contains the Controller/Action/Result API to handle HTTP requests.</p><p>For example, a typical controller:</p><pre>
+object Application extends Controller {
+
+  def index = Action {
+    Ok(&quot;It works!&quot;)
+  }
+
+}
+</pre></div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="play.api.mvc.Action" data-isabs="true">
+      <a id="Action:Action[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Action.html"><span class="name">Action</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends (Request[A]) ⇒ Result with Handler</span>
+      </span>
+      </h4>
+      <p class="comment cmt">An action is essentially a (Request[A] =&gt; Result) function that
+handles a request and generates a result to be sent to the client.</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContent" data-isabs="true">
+      <a id="AnyContent:AnyContent"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="AnyContent.html"><span class="name">AnyContent</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A request body that adapts automatically according the request Content-Type.</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContentAsFormUrlEncoded" data-isabs="false">
+      <a id="AnyContentAsFormUrlEncoded:AnyContentAsFormUrlEncoded"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AnyContentAsFormUrlEncoded.html"><span class="name">AnyContentAsFormUrlEncoded</span></a>
+        
+        <span class="params">(<span name="data">data: Map[String, Seq[String]]</span>)</span><span class="result"> extends AnyContent with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">AnyContent - Form url encoded body
+</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContentAsJson" data-isabs="false">
+      <a id="AnyContentAsJson:AnyContentAsJson"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AnyContentAsJson.html"><span class="name">AnyContentAsJson</span></a>
+        
+        <span class="params">(<span name="json">json: JsValue</span>)</span><span class="result"> extends AnyContent with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">AnyContent - Json body
+</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContentAsMultipartFormData" data-isabs="false">
+      <a id="AnyContentAsMultipartFormData:AnyContentAsMultipartFormData"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AnyContentAsMultipartFormData.html"><span class="name">AnyContentAsMultipartFormData</span></a>
+        
+        <span class="params">(<span name="mdf">mdf: MultipartFormData[TemporaryFile]</span>)</span><span class="result"> extends AnyContent with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">AnyContent - Multipart form data body
+</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContentAsRaw" data-isabs="false">
+      <a id="AnyContentAsRaw:AnyContentAsRaw"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AnyContentAsRaw.html"><span class="name">AnyContentAsRaw</span></a>
+        
+        <span class="params">(<span name="raw">raw: RawBuffer</span>)</span><span class="result"> extends AnyContent with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">AnyContent - Raw body (give access to the raw data as bytes).</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContentAsText" data-isabs="false">
+      <a id="AnyContentAsText:AnyContentAsText"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AnyContentAsText.html"><span class="name">AnyContentAsText</span></a>
+        
+        <span class="params">(<span name="txt">txt: String</span>)</span><span class="result"> extends AnyContent with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">AnyContent - Text body
+</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContentAsXml" data-isabs="false">
+      <a id="AnyContentAsXml:AnyContentAsXml"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AnyContentAsXml.html"><span class="name">AnyContentAsXml</span></a>
+        
+        <span class="params">(<span name="xml">xml: NodeSeq</span>)</span><span class="result"> extends AnyContent with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">AnyContent - XML body
+</p>
+    </li><li visbl="pub" name="play.api.mvc.AsyncResult" data-isabs="false">
+      <a id="AsyncResult:AsyncResult"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="AsyncResult.html"><span class="name">AsyncResult</span></a>
+        
+        <span class="params">(<span name="result">result: Promise[Result]</span>)</span><span class="result"> extends Result with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">An <code>AsyncResult</code> handles a <code>Promise</code> of result for cases where the result is not ready yet.</p>
+    </li><li visbl="pub" name="play.api.mvc.BodyParser" data-isabs="true">
+      <a id="BodyParser:BodyParser[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="BodyParser.html"><span class="name">BodyParser</span></a>
+        <span class="tparams">[<span name="A">+A</span>]</span>
+        <span class="result"> extends (RequestHeader) ⇒ Iteratee[Array[Byte], Either[Result, A]]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A body parser parses the HTTP request body content.</p>
+    </li><li visbl="pub" name="play.api.mvc.BodyParsers" data-isabs="true">
+      <a id="BodyParsers:BodyParsers"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="BodyParsers.html"><span class="name">BodyParsers</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default body parsers.</p>
+    </li><li visbl="pub" name="play.api.mvc.Call" data-isabs="false">
+      <a id="Call:Call"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Call.html"><span class="name">Call</span></a>
+        
+        <span class="params">(<span name="method">method: String</span>, <span name="url">url: String</span>)</span><span class="result"> extends Call with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Defines a <code>Call</code>, which describes an HTTP request and can be used to create links or fill redirect data.</p>
+    </li><li visbl="pub" name="play.api.mvc.ChunkedResult" data-isabs="false">
+      <a id="ChunkedResult:ChunkedResult[A]"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ChunkedResult.html"><span class="name">ChunkedResult</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="params">(<span name="header">header: ResponseHeader</span>, <span name="chunks">chunks: Function1[play.api.libs.iteratee.Iteratee[A,Unit], _]</span>, <span name="writeable">writeable: Writeable[A]</span>)</span><span class="result"> extends PlainResult with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A chunked result, which defines the response header and a chunks enumerator to send asynchronously to the client.</p>
+    </li><li visbl="pub" name="play.api.mvc.Codec" data-isabs="false">
+      <a id="Codec:Codec"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Codec.html"><span class="name">Codec</span></a>
+        
+        <span class="params">(<span name="charset">charset: String</span>, <span name="encode">encode: (String) ⇒ Array[Byte]</span>, <span name="decode">decode: (Array[Byte]) ⇒ String</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A Codec handle the conversion of String to Byte arrays.</p>
+    </li><li visbl="pub" name="play.api.mvc.Content" data-isabs="true">
+      <a id="Content:Content"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Content.html"><span class="name">Content</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Generic type representing content to be sent over an HTTP response.</p>
+    </li><li visbl="pub" name="play.api.mvc.Controller" data-isabs="true">
+      <a id="Controller:Controller"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Controller.html"><span class="name">Controller</span></a>
+        
+        <span class="result"> extends Results with BodyParsers with Status with HeaderNames with ContentTypes</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Defines utility methods to generate <code>Action</code> and <code>Results</code> types.</p>
+    </li><li visbl="pub" name="play.api.mvc.Cookie" data-isabs="false">
+      <a id="Cookie:Cookie"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Cookie.html"><span class="name">Cookie</span></a>
+        
+        <span class="params">(<span name="name">name: String</span>, <span name="value">value: String</span>, <span name="maxAge">maxAge: Int</span>, <span name="path">path: String</span>, <span name="domain">domain: Option[String]</span>, <span name="secure">secure: Boolean</span>, <span name="httpOnly">httpOnly: Boolean</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">An HTTP cookie.</p>
+    </li><li visbl="pub" name="play.api.mvc.CookieBaker" data-isabs="true">
+      <a id="CookieBaker:CookieBaker[T]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="CookieBaker.html"><span class="name">CookieBaker</span></a>
+        <span class="tparams">[<span name="T">T &lt;: AnyRef</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Trait that should be extended by the Cookie helpers.</p>
+    </li><li visbl="pub" name="play.api.mvc.Cookies" data-isabs="true">
+      <a id="Cookies:Cookies"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Cookies.html"><span class="name">Cookies</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The HTTP cookies set.</p>
+    </li><li visbl="pub" name="play.api.mvc.Flash" data-isabs="false">
+      <a id="Flash:Flash"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Flash.html"><span class="name">Flash</span></a>
+        
+        <span class="params">(<span name="data">data: Map[String, String]</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">HTTP Flash scope.</p>
+    </li><li visbl="pub" name="play.api.mvc.Handler" data-isabs="true">
+      <a id="Handler:Handler"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Handler.html"><span class="name">Handler</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">An Handler handles a request.</p>
+    </li><li visbl="pub" name="play.api.mvc.HandlerRef" data-isabs="false">
+      <a id="HandlerRef:HandlerRef[T]"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="HandlerRef.html"><span class="name">HandlerRef</span></a>
+        <span class="tparams">[<span name="T">T</span>]</span>
+        <span class="result"> extends HandlerRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Reference to an Handler.</p>
+    </li><li visbl="pub" name="play.api.mvc.Headers" data-isabs="true">
+      <a id="Headers:Headers"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Headers.html"><span class="name">Headers</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The HTTP headers set.</p>
+    </li><li visbl="pub" name="play.api.mvc.JavascriptLitteral" data-isabs="true">
+      <a id="JavascriptLitteral:JavascriptLitteral[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="JavascriptLitteral.html"><span class="name">JavascriptLitteral</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Transform a value to a Javascript literal.</p>
+    </li><li visbl="pub" name="play.api.mvc.MaxSizeExceeded" data-isabs="false">
+      <a id="MaxSizeExceeded:MaxSizeExceeded"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="MaxSizeExceeded.html"><span class="name">MaxSizeExceeded</span></a>
+        
+        <span class="params">(<span name="length">length: Int</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Signal a max content size exceeded
+</p>
+    </li><li visbl="pub" name="play.api.mvc.MultipartFormData" data-isabs="false">
+      <a id="MultipartFormData:MultipartFormData[A]"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="MultipartFormData.html"><span class="name">MultipartFormData</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="params">(<span name="dataParts">dataParts: Map[String, Seq[String]]</span>, <span name="files">files: Seq[FilePart[A]]</span>, <span name="badParts">badParts: Seq[BadPart]</span>, <span name="missingFileParts">missingFileParts: Seq[MissingFilePart]</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Multipart form data body.</p>
+    </li><li visbl="pub" name="play.api.mvc.PathBindable" data-isabs="true">
+      <a id="PathBindable:PathBindable[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="PathBindable.html"><span class="name">PathBindable</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Binder for URL path parameters.</p>
+    </li><li visbl="pub" name="play.api.mvc.PlainResult" data-isabs="true">
+      <a id="PlainResult:PlainResult"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="PlainResult.html"><span class="name">PlainResult</span></a>
+        
+        <span class="result"> extends Result</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A plain HTTP result.</p>
+    </li><li visbl="pub" name="play.api.mvc.QueryStringBindable" data-isabs="true">
+      <a id="QueryStringBindable:QueryStringBindable[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="QueryStringBindable.html"><span class="name">QueryStringBindable</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Binder for query string parameters.</p>
+    </li><li visbl="pub" name="play.api.mvc.RawBuffer" data-isabs="false">
+      <a id="RawBuffer:RawBuffer"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="RawBuffer.html"><span class="name">RawBuffer</span></a>
+        
+        <span class="params">(<span name="memoryThreshold">memoryThreshold: Int</span>, <span name="initialData">initialData: Array[Byte]</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Handle the request body a raw bytes data.</p>
+    </li><li visbl="pub" name="play.api.mvc.Request" data-isabs="true">
+      <a id="Request:Request[A]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Request.html"><span class="name">Request</span></a>
+        <span class="tparams">[<span name="A">+A</span>]</span>
+        <span class="result"> extends RequestHeader</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The complete HTTP request.</p>
+    </li><li visbl="pub" name="play.api.mvc.RequestHeader" data-isabs="true">
+      <a id="RequestHeader:RequestHeader"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="RequestHeader.html"><span class="name">RequestHeader</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The HTTP request header.</p>
+    </li><li visbl="pub" name="play.api.mvc.Response" data-isabs="true">
+      <a id="Response:Response"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Response.html"><span class="name">Response</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The HTTP response.</p>
+    </li><li visbl="pub" name="play.api.mvc.ResponseHeader" data-isabs="false">
+      <a id="ResponseHeader:ResponseHeader"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="ResponseHeader.html"><span class="name">ResponseHeader</span></a>
+        
+        <span class="params">(<span name="status">status: Int</span>, <span name="headers">headers: Map[String, String]</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A simple HTTP response header, used for standard responses.</p>
+    </li><li visbl="pub" name="play.api.mvc.Result" data-isabs="true">
+      <a id="Result:Result"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Result.html"><span class="name">Result</span></a>
+        
+        <span class="result"> extends NotNull</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Any Action result.</p>
+    </li><li visbl="pub" name="play.api.mvc.Results" data-isabs="true">
+      <a id="Results:Results"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Results.html"><span class="name">Results</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to generate results.</p>
+    </li><li visbl="pub" name="play.api.mvc.Session" data-isabs="false">
+      <a id="Session:Session"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Session.html"><span class="name">Session</span></a>
+        
+        <span class="params">(<span name="data">data: Map[String, String]</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">HTTP Session.</p>
+    </li><li visbl="pub" name="play.api.mvc.SimpleResult" data-isabs="false">
+      <a id="SimpleResult:SimpleResult[A]"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="SimpleResult.html"><span class="name">SimpleResult</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="params">(<span name="header">header: ResponseHeader</span>, <span name="body">body: Enumerator[A]</span>, <span name="writeable">writeable: Writeable[A]</span>)</span><span class="result"> extends PlainResult with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A simple result, which defines the response header and a body ready to send to the client.</p>
+    </li><li visbl="pub" name="play.api.mvc.WebSocket" data-isabs="false">
+      <a id="WebSocket:WebSocket[A]"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="WebSocket.html"><span class="name">WebSocket</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="params">(<span name="f">f: (RequestHeader) ⇒ (Enumerator[A], Iteratee[A, Unit]) ⇒ Unit</span>, <span name="frameFormatter">frameFormatter: FrameFormatter[A]</span>)</span><span class="result"> extends Handler with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A WebSocket handler.</p>
+    </li><li visbl="pub" name="play.api.mvc.WrappedRequest" data-isabs="false">
+      <a id="WrappedRequest:WrappedRequest[A]"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="WrappedRequest.html"><span class="name">WrappedRequest</span></a>
+        <span class="tparams">[<span name="A">A</span>]</span>
+        <span class="result"> extends Request[A]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Wrap an existing request.</p>
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="play.api.mvc.Action" data-isabs="false">
+      <a id="Action:Action"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Action$.html"><span class="name">Action</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper object to create <code>Action</code> values.</p>
+    </li><li visbl="pub" name="play.api.mvc.AnyContentAsEmpty" data-isabs="false">
+      <a id="AnyContentAsEmpty:AnyContentAsEmpty"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="AnyContentAsEmpty$.html"><span class="name">AnyContentAsEmpty</span></a>
+        
+        <span class="result"> extends AnyContent with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">AnyContent - Empty request body
+</p>
+    </li><li visbl="pub" name="play.api.mvc.BodyParser" data-isabs="false">
+      <a id="BodyParser:BodyParser"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="BodyParser$.html"><span class="name">BodyParser</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper object to construct <code>BodyParser</code> values.</p>
+    </li><li visbl="pub" name="play.api.mvc.BodyParsers" data-isabs="false">
+      <a id="BodyParsers:BodyParsers"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="BodyParsers$.html"><span class="name">BodyParsers</span></a>
+        
+        <span class="result"> extends BodyParsers</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Defaults BodyParsers.</p>
+    </li><li visbl="pub" name="play.api.mvc.Codec" data-isabs="false">
+      <a id="Codec:Codec"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Codec$.html"><span class="name">Codec</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default Codec support.</p>
+    </li><li visbl="pub" name="play.api.mvc.Cookies" data-isabs="false">
+      <a id="Cookies:Cookies"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Cookies$.html"><span class="name">Cookies</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to encode Cookies.</p>
+    </li><li visbl="pub" name="play.api.mvc.Flash" data-isabs="false">
+      <a id="Flash:Flash"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Flash$.html"><span class="name">Flash</span></a>
+        
+        <span class="result"> extends CookieBaker[Flash] with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to manage the Flash cookie.</p>
+    </li><li visbl="pub" name="play.api.mvc.JavascriptLitteral" data-isabs="false">
+      <a id="JavascriptLitteral:JavascriptLitteral"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="JavascriptLitteral$.html"><span class="name">JavascriptLitteral</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default JavaScript literals converters.</p>
+    </li><li visbl="pub" name="play.api.mvc.MultipartFormData" data-isabs="false">
+      <a id="MultipartFormData:MultipartFormData"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="MultipartFormData$.html"><span class="name">MultipartFormData</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Defines parts handled by Multipart form data.</p>
+    </li><li visbl="pub" name="play.api.mvc.PathBindable" data-isabs="false">
+      <a id="PathBindable:PathBindable"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="PathBindable$.html"><span class="name">PathBindable</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default binders for URL path part.</p>
+    </li><li visbl="pub" name="play.api.mvc.QueryStringBindable" data-isabs="false">
+      <a id="QueryStringBindable:QueryStringBindable"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="QueryStringBindable$.html"><span class="name">QueryStringBindable</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default binders for Query String
+</p>
+    </li><li visbl="pub" name="play.api.mvc.Result" data-isabs="false">
+      <a id="Result:Result"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Result$.html"><span class="name">Result</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities for Result values.</p>
+    </li><li visbl="pub" name="play.api.mvc.Results" data-isabs="false">
+      <a id="Results:Results"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Results$.html"><span class="name">Results</span></a>
+        
+        <span class="result"> extends Results</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to generate results.</p>
+    </li><li visbl="pub" name="play.api.mvc.Security" data-isabs="false">
+      <a id="Security:Security"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Security$.html"><span class="name">Security</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helpers to create secure actions.</p>
+    </li><li visbl="pub" name="play.api.mvc.Session" data-isabs="false">
+      <a id="Session:Session"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Session$.html"><span class="name">Session</span></a>
+        
+        <span class="result"> extends CookieBaker[Session] with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to manage the Session cookie.</p>
+    </li><li visbl="pub" name="play.api.mvc.package.Socket" data-isabs="false">
+      <a id="Socket:Socket"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="package$$Socket$.html"><span class="name">Socket</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Alias types for Sockets
+</p>
+    </li><li visbl="pub" name="play.api.mvc.WebSocket" data-isabs="false">
+      <a id="WebSocket:WebSocket"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="WebSocket$.html"><span class="name">WebSocket</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities to generate WebSocket results.</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>

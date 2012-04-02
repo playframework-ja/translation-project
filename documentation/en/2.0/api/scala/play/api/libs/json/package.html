@@ -1,0 +1,307 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api.libs.json</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../../../lib/package_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../../../package.html">play</a>.<a name="play.api" class="extype" href="../../package.html">api</a>.<a name="play.api.libs" class="extype" href="../package.html">libs</a></p>
+        <h1>json</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <span class="name">json</span>
+        
+        
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Json API
+For example:</p><pre>
+ case class User(id: Long, name: String, friends: List[User])
+
+ implicit object UserFormat extends Format[User] {
+  def reads(json: JsValue): User = User(
+    (json \ &quot;id&quot;).as[Long],
+    (json \ &quot;name&quot;).as[String],
+    (json \ &quot;friends&quot;).asOpt[List[User]].getOrElse(List()))
+  def writes(u: User): JsValue = JsObject(List(
+    &quot;id&quot; -&gt; JsNumber(u.id),
+    &quot;name&quot; -&gt; JsString(u.name),
+    &quot;friends&quot; -&gt; JsArray(u.friends.map(fr =&gt; JsObject(List(&quot;id&quot; -&gt; JsNumber(fr.id),
+    &quot;name&quot; -&gt; JsString(fr.name)))))))
+}
+
+//then in a controller:
+object MyController extends Controller {
+   def displayUserAsJson(id: String) = Action {
+      Ok(toJson( User(id.toLong, &quot;myName&quot;, friends: List())))
+   }
+   def saveUser(jsonString: String)= Action {
+     val user = play.api.libs.json.parse(jsonString).as[User]
+     myDataStore.save(user)
+     Ok
+   }
+}
+</pre></div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="play.api.libs.json.DefaultFormat" data-isabs="true">
+      <a id="DefaultFormat:DefaultFormat"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="DefaultFormat.html"><span class="name">DefaultFormat</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default Json formatters.</p>
+    </li><li visbl="pub" name="play.api.libs.json.DefaultReads" data-isabs="true">
+      <a id="DefaultReads:DefaultReads"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="DefaultReads.html"><span class="name">DefaultReads</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default deserializer type classes.</p>
+    </li><li visbl="pub" name="play.api.libs.json.DefaultWrites" data-isabs="true">
+      <a id="DefaultWrites:DefaultWrites"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="DefaultWrites.html"><span class="name">DefaultWrites</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default Serializers.</p>
+    </li><li visbl="pub" name="play.api.libs.json.Format" data-isabs="true">
+      <a id="Format:Format[T]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Format.html"><span class="name">Format</span></a>
+        <span class="tparams">[<span name="T">T</span>]</span>
+        <span class="result"> extends Writes[T] with Reads[T]</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Json formatter: write an implicit to define both a serializer and a deserializer for any type.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsArray" data-isabs="false">
+      <a id="JsArray:JsArray"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="JsArray.html"><span class="name">JsArray</span></a>
+        
+        <span class="params">(<span name="value">value: Seq[JsValue]</span>)</span><span class="result"> extends JsValue with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represent a Json arayy value.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsBoolean" data-isabs="false">
+      <a id="JsBoolean:JsBoolean"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="JsBoolean.html"><span class="name">JsBoolean</span></a>
+        
+        <span class="params">(<span name="value">value: Boolean</span>)</span><span class="result"> extends JsValue with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represent a Json boolean value.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsNumber" data-isabs="false">
+      <a id="JsNumber:JsNumber"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="JsNumber.html"><span class="name">JsNumber</span></a>
+        
+        <span class="params">(<span name="value">value: BigDecimal</span>)</span><span class="result"> extends JsValue with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represent a Json number value.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsObject" data-isabs="false">
+      <a id="JsObject:JsObject"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="JsObject.html"><span class="name">JsObject</span></a>
+        
+        <span class="params">(<span name="fields">fields: Seq[(String, JsValue)]</span>)</span><span class="result"> extends JsValue with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represent a Json object value.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsString" data-isabs="false">
+      <a id="JsString:JsString"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="JsString.html"><span class="name">JsString</span></a>
+        
+        <span class="params">(<span name="value">value: String</span>)</span><span class="result"> extends JsValue with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represent a Json string value.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsUndefined" data-isabs="false">
+      <a id="JsUndefined:JsUndefined"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="JsUndefined.html"><span class="name">JsUndefined</span></a>
+        
+        <span class="params">(<span name="error">error: String</span>)</span><span class="result"> extends JsValue with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represent a missing Json value.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsValue" data-isabs="true">
+      <a id="JsValue:JsValue"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="JsValue.html"><span class="name">JsValue</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Generic json value
+</p>
+    </li><li visbl="pub" name="play.api.libs.json.Reads" data-isabs="true">
+      <a id="Reads:Reads[T]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Reads.html"><span class="name">Reads</span></a>
+        <span class="tparams">[<span name="T">T</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Json deserializer: write an implicit to define a deserializer for any type.</p>
+    </li><li visbl="pub" name="play.api.libs.json.Writes" data-isabs="true">
+      <a id="Writes:Writes[T]"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Writes.html"><span class="name">Writes</span></a>
+        <span class="tparams">[<span name="T">T</span>]</span>
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Json serializer: write an implicit to define a serializer for any type
+</p>
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="play.api.libs.json.Format" data-isabs="false">
+      <a id="Format:Format"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Format$.html"><span class="name">Format</span></a>
+        
+        <span class="result"> extends DefaultFormat</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default Json formatters.</p>
+    </li><li visbl="pub" name="play.api.libs.json.Generic" data-isabs="false">
+      <a id="Generic:Generic"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Generic$.html"><span class="name">Generic</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Generic Json formatters to handle Product types.</p>
+    </li><li visbl="pub" name="play.api.libs.json.JsNull" data-isabs="false">
+      <a id="JsNull:JsNull"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="JsNull$.html"><span class="name">JsNull</span></a>
+        
+        <span class="result"> extends JsValue with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Represent a Json null value.</p>
+    </li><li visbl="pub" name="play.api.libs.json.Json" data-isabs="false">
+      <a id="Json:Json"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Json$.html"><span class="name">Json</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper functions to handle JsValues.</p>
+    </li><li visbl="pub" name="play.api.libs.json.Reads" data-isabs="false">
+      <a id="Reads:Reads"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Reads$.html"><span class="name">Reads</span></a>
+        
+        <span class="result"> extends DefaultReads</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default deserializer type classes.</p>
+    </li><li visbl="pub" name="play.api.libs.json.Writes" data-isabs="false">
+      <a id="Writes:Writes"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Writes$.html"><span class="name">Writes</span></a>
+        
+        <span class="result"> extends DefaultWrites</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Default Serializers.</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>

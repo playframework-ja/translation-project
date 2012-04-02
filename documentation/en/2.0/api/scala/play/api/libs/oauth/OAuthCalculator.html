@@ -1,0 +1,721 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api.libs.oauth.OAuthCalculator</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../../../lib/template.css" />
+      <script type="text/javascript" src="../../../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../../../lib/template.js"></script>
+      <script type="text/javascript" src="../../../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="type">
+      <div id="definition">
+        <img src="../../../../lib/class_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../../../package.html">play</a>.<a name="play.api" class="extype" href="../../package.html">api</a>.<a name="play.api.libs" class="extype" href="../package.html">libs</a>.<a name="play.api.libs.oauth" class="extype" href="package.html">oauth</a></p>
+        <h1>OAuthCalculator</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <span class="name">OAuthCalculator</span>
+        
+        <span class="params">(<span name="consumerKey">consumerKey: <a name="play.api.libs.oauth.ConsumerKey" class="extype" href="ConsumerKey.html">ConsumerKey</a></span>, <span name="token">token: <a name="play.api.libs.oauth.RequestToken" class="extype" href="RequestToken.html">RequestToken</a></span>)</span><span class="result"> extends <span name="oauth.signpost.AbstractOAuthConsumer" class="extype">AbstractOAuthConsumer</span> with <a name="play.api.libs.ws.SignatureCalculator" class="extype" href="../ws/SignatureCalculator.html">SignatureCalculator</a> with <span name="scala.Product" class="extype">Product</span> with <span name="scala.Serializable" class="extype">Serializable</span></span>
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>A signature calculator for the Play WS API.</p><p>Example:</p><pre>
+WS.url(&quot;http://example.com/protected&quot;).sign(OAuthCalculator(service, tokens)).get()
+</pre></div><div class="toggleContainer block">
+          <span class="toggle">Linear Supertypes</span>
+          <div class="superTypes hiddenContent"><span name="scala.Serializable" class="extype">Serializable</span>, <span name="scala.Product" class="extype">Product</span>, <span name="scala.Equals" class="extype">Equals</span>, <a name="play.api.libs.ws.SignatureCalculator" class="extype" href="../ws/SignatureCalculator.html">SignatureCalculator</a>, <span name="oauth.signpost.AbstractOAuthConsumer" class="extype">AbstractOAuthConsumer</span>, <span name="oauth.signpost.OAuthConsumer" class="extype">OAuthConsumer</span>, <span name="java.io.Serializable" class="extype">Serializable</span>, AnyRef, <span name="scala.Any" class="extype">Any</span></div>
+        </div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          <div id="order">
+                <span class="filtertype">Ordering</span>
+                <ol><li class="alpha in"><span>Alphabetic</span></li><li class="inherit out"><span>By inheritance</span></li></ol>
+              </div>
+          <div id="ancestors">
+                <span class="filtertype">Inherited</span>
+                <ol><li class="hideall out"><span>Hide All</span></li>
+                <li class="showall in"><span>Show all</span></li></ol>
+                <ol id="linearization"><li name="play.api.libs.oauth.OAuthCalculator" class="in"><span>OAuthCalculator</span></li><li name="scala.Serializable" class="in"><span>Serializable</span></li><li name="scala.Product" class="in"><span>Product</span></li><li name="scala.Equals" class="in"><span>Equals</span></li><li name="play.api.libs.ws.SignatureCalculator" class="in"><span>SignatureCalculator</span></li><li name="oauth.signpost.AbstractOAuthConsumer" class="in"><span>AbstractOAuthConsumer</span></li><li name="oauth.signpost.OAuthConsumer" class="in"><span>OAuthConsumer</span></li><li name="java.io.Serializable" class="in"><span>Serializable</span></li><li name="scala.AnyRef" class="in"><span>AnyRef</span></li><li name="scala.Any" class="in"><span>Any</span></li></ol>
+              </div>
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        <div class="members" id="constructors">
+              <h3>Instance Constructors</h3>
+              <ol><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#this" data-isabs="false">
+      <a id="this:OAuthCalculator"></a>
+      <h4 class="signature">
+      <span class="kind">new</span>
+      <span class="symbol"> 
+        <span class="name">OAuthCalculator</span>
+        
+        <span class="params">(<span name="consumerKey">consumerKey: <a name="play.api.libs.oauth.ConsumerKey" class="extype" href="ConsumerKey.html">ConsumerKey</a></span>, <span name="token">token: <a name="play.api.libs.oauth.RequestToken" class="extype" href="RequestToken.html">RequestToken</a></span>)</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator.WSRequestAdapter" data-isabs="false">
+      <a id="WSRequestAdapter:WSRequestAdapter"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="OAuthCalculator$WSRequestAdapter.html"><span class="name">WSRequestAdapter</span></a>
+        
+        <span class="result"> extends HttpRequest</span>
+      </span>
+      </h4>
+      
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="scala.AnyRef#!=" data-isabs="false">
+      <a id="!=(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">!=</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#!=" data-isabs="false">
+      <a id="!=(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">!=</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef###" data-isabs="false">
+      <a id="##():Int"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">##</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#==" data-isabs="false">
+      <a id="==(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">==</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#==" data-isabs="false">
+      <a id="==(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">==</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#asInstanceOf" data-isabs="false">
+      <a id="asInstanceOf[T0]:T0"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">asInstanceOf</span>
+        <span class="tparams">[<span name="T0">T0</span>]</span>
+        <span class="result">: T0</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#canEqual" data-isabs="false">
+      <a id="canEqual(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">canEqual</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → Equals</dd></dl></div>
+    </li><li visbl="prt" name="scala.AnyRef#clone" data-isabs="false">
+      <a id="clone():AnyRef"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">clone</span>
+        
+        <span class="params">()</span><span class="result">: AnyRef</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="prt" name="oauth.signpost.AbstractOAuthConsumer#collectBodyParameters" data-isabs="false">
+      <a id="collectBodyParameters(HttpRequest,HttpParameters):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">collectBodyParameters</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.http.HttpRequest" class="extype">HttpRequest</span></span>, <span name="arg1">arg1: <span name="oauth.signpost.http.HttpParameters" class="extype">HttpParameters</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="oauth.signpost" class="extype" href="../../../../oauth/signpost/package.html">signpost</a>] </dd><dt>Definition Classes</dt><dd>AbstractOAuthConsumer</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="prt" name="oauth.signpost.AbstractOAuthConsumer#collectHeaderParameters" data-isabs="false">
+      <a id="collectHeaderParameters(HttpRequest,HttpParameters):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">collectHeaderParameters</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.http.HttpRequest" class="extype">HttpRequest</span></span>, <span name="arg1">arg1: <span name="oauth.signpost.http.HttpParameters" class="extype">HttpParameters</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="oauth.signpost" class="extype" href="../../../../oauth/signpost/package.html">signpost</a>] </dd><dt>Definition Classes</dt><dd>AbstractOAuthConsumer</dd></dl></div>
+    </li><li visbl="prt" name="oauth.signpost.AbstractOAuthConsumer#collectQueryParameters" data-isabs="false">
+      <a id="collectQueryParameters(HttpRequest,HttpParameters):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">collectQueryParameters</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.http.HttpRequest" class="extype">HttpRequest</span></span>, <span name="arg1">arg1: <span name="oauth.signpost.http.HttpParameters" class="extype">HttpParameters</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="oauth.signpost" class="extype" href="../../../../oauth/signpost/package.html">signpost</a>] </dd><dt>Definition Classes</dt><dd>AbstractOAuthConsumer</dd></dl></div>
+    </li><li visbl="prt" name="oauth.signpost.AbstractOAuthConsumer#completeOAuthParameters" data-isabs="false">
+      <a id="completeOAuthParameters(HttpParameters):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">completeOAuthParameters</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.http.HttpParameters" class="extype">HttpParameters</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="oauth.signpost" class="extype" href="../../../../oauth/signpost/package.html">signpost</a>] </dd><dt>Definition Classes</dt><dd>AbstractOAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#consumerKey" data-isabs="false">
+      <a id="consumerKey:ConsumerKey"></a>
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol"> 
+        <span class="name">consumerKey</span>
+        
+        <span class="result">: <a name="play.api.libs.oauth.ConsumerKey" class="extype" href="ConsumerKey.html">ConsumerKey</a></span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="scala.AnyRef#eq" data-isabs="false">
+      <a id="eq(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">eq</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#equals" data-isabs="false">
+      <a id="equals(Any):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">equals</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → Equals → AnyRef → Any</dd></dl></div>
+    </li><li visbl="prt" name="scala.AnyRef#finalize" data-isabs="false">
+      <a id="finalize():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">finalize</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="java.lang" class="extype" href="../../../../java/lang/package.html">lang</a>] </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="prt" name="oauth.signpost.AbstractOAuthConsumer#generateNonce" data-isabs="false">
+      <a id="generateNonce():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">generateNonce</span>
+        
+        <span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="oauth.signpost" class="extype" href="../../../../oauth/signpost/package.html">signpost</a>] </dd><dt>Definition Classes</dt><dd>AbstractOAuthConsumer</dd></dl></div>
+    </li><li visbl="prt" name="oauth.signpost.AbstractOAuthConsumer#generateTimestamp" data-isabs="false">
+      <a id="generateTimestamp():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">generateTimestamp</span>
+        
+        <span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected[<a name="oauth.signpost" class="extype" href="../../../../oauth/signpost/package.html">signpost</a>] </dd><dt>Definition Classes</dt><dd>AbstractOAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#getClass" data-isabs="false">
+      <a id="getClass():java.lang.Class[_]"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">getClass</span>
+        
+        <span class="params">()</span><span class="result">: java.lang.Class[_]</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#getConsumerKey" data-isabs="false">
+      <a id="getConsumerKey():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">getConsumerKey</span>
+        
+        <span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#getConsumerSecret" data-isabs="false">
+      <a id="getConsumerSecret():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">getConsumerSecret</span>
+        
+        <span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#getRequestParameters" data-isabs="false">
+      <a id="getRequestParameters():HttpParameters"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">getRequestParameters</span>
+        
+        <span class="params">()</span><span class="result">: <span name="oauth.signpost.http.HttpParameters" class="extype">HttpParameters</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#getToken" data-isabs="false">
+      <a id="getToken():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">getToken</span>
+        
+        <span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#getTokenSecret" data-isabs="false">
+      <a id="getTokenSecret():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">getTokenSecret</span>
+        
+        <span class="params">()</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#hashCode" data-isabs="false">
+      <a id="hashCode():Int"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">hashCode</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Int" class="extype">Int</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.Any#isInstanceOf" data-isabs="false">
+      <a id="isInstanceOf[T0]:Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">isInstanceOf</span>
+        <span class="tparams">[<span name="T0">T0</span>]</span>
+        <span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>Any</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#ne" data-isabs="false">
+      <a id="ne(AnyRef):Boolean"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">ne</span>
+        
+        <span class="params">(<span name="arg0">arg0: AnyRef</span>)</span><span class="result">: <span name="scala.Boolean" class="extype">Boolean</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#notify" data-isabs="false">
+      <a id="notify():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">notify</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#notifyAll" data-isabs="false">
+      <a id="notifyAll():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">notifyAll</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#productArity" data-isabs="false">
+      <a id="productArity:Int"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">productArity</span>
+        
+        <span class="result">: <span name="scala.Int" class="extype">Int</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → Product</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#productElement" data-isabs="false">
+      <a id="productElement(Int):Any"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">productElement</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <span name="scala.Any" class="extype">Any</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → Product</dd></dl></div>
+    </li><li visbl="pub" name="scala.Product#productIterator" data-isabs="false">
+      <a id="productIterator:Iterator[Any]"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">productIterator</span>
+        
+        <span class="result">: Iterator[<span name="scala.Any" class="extype">Any</span>]</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#productPrefix" data-isabs="false">
+      <a id="productPrefix:String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">productPrefix</span>
+        
+        <span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → Product</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#setAdditionalParameters" data-isabs="false">
+      <a id="setAdditionalParameters(HttpParameters):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">setAdditionalParameters</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.http.HttpParameters" class="extype">HttpParameters</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#setMessageSigner" data-isabs="false">
+      <a id="setMessageSigner(OAuthMessageSigner):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">setMessageSigner</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.signature.OAuthMessageSigner" class="extype">OAuthMessageSigner</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#setSendEmptyTokens" data-isabs="false">
+      <a id="setSendEmptyTokens(Boolean):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">setSendEmptyTokens</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Boolean" class="extype">Boolean</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#setSigningStrategy" data-isabs="false">
+      <a id="setSigningStrategy(SigningStrategy):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">setSigningStrategy</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.signature.SigningStrategy" class="extype">SigningStrategy</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#setTokenWithSecret" data-isabs="false">
+      <a id="setTokenWithSecret(String,String):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">setTokenWithSecret</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="java.lang.String" class="extype">String</span></span>, <span name="arg1">arg1: <span name="java.lang.String" class="extype">String</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#sign" data-isabs="false">
+      <a id="sign(WSRequest):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">sign</span>
+        
+        <span class="params">(<span name="request">request: <a name="play.api.libs.ws.WS.WSRequest" class="extype" href="../ws/WS$$WSRequest.html">WSRequest</a></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <p class="shortcomment cmt">Sign it.</p><div class="fullcomment"><div class="comment cmt"><p>Sign it.
+</p></div><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → <a name="play.api.libs.ws.SignatureCalculator" class="extype" href="../ws/SignatureCalculator.html">SignatureCalculator</a></dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#sign" data-isabs="false">
+      <a id="sign(String):String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">sign</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="java.lang.String" class="extype">String</span></span>)</span><span class="result">: <span name="java.lang.String" class="extype">String</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#sign" data-isabs="false">
+      <a id="sign(Any):HttpRequest"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">sign</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="oauth.signpost.http.HttpRequest" class="extype">HttpRequest</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="oauth.signpost.AbstractOAuthConsumer#sign" data-isabs="false">
+      <a id="sign(HttpRequest):HttpRequest"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">sign</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="oauth.signpost.http.HttpRequest" class="extype">HttpRequest</span></span>)</span><span class="result">: <span name="oauth.signpost.http.HttpRequest" class="extype">HttpRequest</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AbstractOAuthConsumer → OAuthConsumer</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">()</span>
+              
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#synchronized" data-isabs="false">
+      <a id="synchronized[T0](⇒ T0):T0"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">synchronized</span>
+        <span class="tparams">[<span name="T0">T0</span>]</span>
+        <span class="params">(<span name="arg0">arg0: ⇒ T0</span>)</span><span class="result">: T0</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#toString" data-isabs="false">
+      <a id="toString():String"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">toString</span>
+        
+        <span class="params">()</span><span class="result">: String</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → AnyRef → Any</dd></dl></div>
+    </li><li visbl="pub" name="play.api.libs.oauth.OAuthCalculator#token" data-isabs="false">
+      <a id="token:RequestToken"></a>
+      <h4 class="signature">
+      <span class="kind">val</span>
+      <span class="symbol"> 
+        <span class="name">token</span>
+        
+        <span class="result">: <a name="play.api.libs.oauth.RequestToken" class="extype" href="RequestToken.html">RequestToken</a></span>
+      </span>
+      </h4>
+      
+    </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
+      <a id="wait():Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">wait</span>
+        
+        <span class="params">()</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
+      <a id="wait(Long,Int):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">wait</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Long" class="extype">Long</span></span>, <span name="arg1">arg1: <span name="scala.Int" class="extype">Int</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="pub" name="scala.AnyRef#wait" data-isabs="false">
+      <a id="wait(Long):Unit"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">wait</span>
+        
+        <span class="params">(<span name="arg0">arg0: <span name="scala.Long" class="extype">Long</span></span>)</span><span class="result">: <span name="scala.Unit" class="extype">Unit</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>final </dd><dt>Definition Classes</dt><dd>AnyRef</dd><dt>Annotations</dt><dd>
+                <span class="name">@throws</span><span class="args">()</span>
+              
+        </dd></dl></div>
+    </li><li visbl="prt" name="play.api.libs.oauth.OAuthCalculator#wrap" data-isabs="false">
+      <a id="wrap(Any):HttpRequest"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name">wrap</span>
+        
+        <span class="params">(<span name="request">request: <span name="scala.Any" class="extype">Any</span></span>)</span><span class="result">: <span name="oauth.signpost.http.HttpRequest" class="extype">HttpRequest</span></span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Attributes</dt><dd>protected </dd><dt>Definition Classes</dt><dd><a name="play.api.libs.oauth.OAuthCalculator" class="extype" href="">OAuthCalculator</a> → AbstractOAuthConsumer</dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div class="values members" id="values">
+              <h3>Deprecated Value Members</h3>
+              <ol><li visbl="pub" name="scala.Product#productElements" data-isabs="false">
+      <a id="productElements:Iterator[Any]"></a>
+      <h4 class="signature">
+      <span class="kind">def</span>
+      <span class="symbol"> 
+        <span class="name deprecated">productElements</span>
+        
+        <span class="result">: Iterator[<span name="scala.Any" class="extype">Any</span>]</span>
+      </span>
+      </h4>
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>Product</dd><dt>Annotations</dt><dd>
+                <span class="name">@deprecated</span>
+              
+        </dd><dt>Deprecated</dt><dd class="cmt"><p>use productIterator instead</p></dd></dl></div>
+    </li></ol>
+            </div>
+
+        <div name="scala.Serializable" class="parent">
+              <h3>Inherited from <span name="scala.Serializable" class="extype">Serializable</span></h3>
+            </div><div name="scala.Product" class="parent">
+              <h3>Inherited from <span name="scala.Product" class="extype">Product</span></h3>
+            </div><div name="scala.Equals" class="parent">
+              <h3>Inherited from <span name="scala.Equals" class="extype">Equals</span></h3>
+            </div><div name="play.api.libs.ws.SignatureCalculator" class="parent">
+              <h3>Inherited from <a name="play.api.libs.ws.SignatureCalculator" class="extype" href="../ws/SignatureCalculator.html">SignatureCalculator</a></h3>
+            </div><div name="oauth.signpost.AbstractOAuthConsumer" class="parent">
+              <h3>Inherited from <span name="oauth.signpost.AbstractOAuthConsumer" class="extype">AbstractOAuthConsumer</span></h3>
+            </div><div name="oauth.signpost.OAuthConsumer" class="parent">
+              <h3>Inherited from <span name="oauth.signpost.OAuthConsumer" class="extype">OAuthConsumer</span></h3>
+            </div><div name="java.io.Serializable" class="parent">
+              <h3>Inherited from <span name="java.io.Serializable" class="extype">Serializable</span></h3>
+            </div><div name="scala.AnyRef" class="parent">
+              <h3>Inherited from AnyRef</h3>
+            </div><div name="scala.Any" class="parent">
+              <h3>Inherited from <span name="scala.Any" class="extype">Any</span></h3>
+            </div>
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>

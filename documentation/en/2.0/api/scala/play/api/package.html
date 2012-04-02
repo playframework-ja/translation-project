@@ -1,0 +1,354 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html>
+        <head>
+          <title>play.api</title>
+          <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+          
+      <link type="text/css" media="screen" rel="stylesheet" href="../../lib/template.css" />
+      <script type="text/javascript" src="../../lib/jquery.js"></script>
+      <script type="text/javascript" src="../../lib/jquery-ui.js"></script>
+      <script type="text/javascript" src="../../lib/template.js"></script>
+      <script type="text/javascript" src="../../lib/tools.tooltip.js"></script>
+    
+        </head>
+        <body class="value">
+      <div id="definition">
+        <img src="../../lib/package_big.png" />
+        <p id="owner"><a name="play" class="extype" href="../package.html">play</a></p>
+        <h1>api</h1>
+      </div>
+
+      <h4 class="signature" id="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <span class="name">api</span>
+        
+        
+      </span>
+      </h4>
+      
+          <div class="fullcommenttop" id="comment"><div class="comment cmt"><p>Contains the public API for Scala developers.</p><h6> Access the current Play application </h6><pre>
+import play.api.Play.current
+</pre><h6> Read configuration </h6><pre>
+val poolSize = configuration.getInt(&quot;engine.pool.size&quot;)
+</pre><h6> Use the logger </h6><pre>
+Logger.info(&quot;Hello!&quot;)
+</pre><h6> Define a Plugin </h6><pre>
+class MyPlugin(app: Application) extends Plugin
+</pre><h6> Create adhoc applications (for testing) </h6><pre>
+val application = Application(new File(&quot;.&quot;), this.getClass.getClassloader, None, Play.Mode.DEV)
+</pre></div></div>
+        
+
+      <div id="template">
+
+        <div id="mbrsel">
+          <div id="textfilter"><span class="pre"></span><span class="input"><input accesskey="/" type="text" /></span><span class="post"></span></div>
+          
+          
+          <div id="visbl">
+              <span class="filtertype">Visibility</span>
+              <ol><li class="public in"><span>Public</span></li><li class="all out"><span>All</span></li></ol>
+            </div>
+        </div>
+
+        
+
+        <div class="types members" id="types">
+              <h3>Type Members</h3>
+              <ol><li visbl="pub" name="play.api.Application" data-isabs="false">
+      <a id="Application:Application"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="Application.html"><span class="name">Application</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A Play application.</p>
+    </li><li visbl="pub" name="play.api.Configuration" data-isabs="false">
+      <a id="Configuration:Configuration"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="Configuration.html"><span class="name">Configuration</span></a>
+        
+        <span class="params">(<span name="underlying">underlying: Config</span>)</span><span class="result"> extends Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A full configuration set.</p>
+    </li><li visbl="pub" name="play.api.GlobalPlugin" data-isabs="false">
+      <a id="GlobalPlugin:GlobalPlugin"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="GlobalPlugin.html"><span class="name">GlobalPlugin</span></a>
+        
+        <span class="result"> extends Plugin</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The Global plugin executes application's <code>globalSettings</code> <code>onStart</code> and <code>onStop</code>.</p>
+    </li><li visbl="pub" name="play.api.GlobalSettings" data-isabs="true">
+      <a id="GlobalSettings:GlobalSettings"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="GlobalSettings.html"><span class="name">GlobalSettings</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Defines an application’s global settings.</p>
+    </li><li visbl="pub" name="play.api.Logger" data-isabs="false">
+      <a id="Logger:Logger"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="Logger.html"><span class="name">Logger</span></a>
+        
+        <span class="result"> extends LoggerLike</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A Play logger.</p>
+    </li><li visbl="pub" name="play.api.LoggerLike" data-isabs="true">
+      <a id="LoggerLike:LoggerLike"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="LoggerLike.html"><span class="name">LoggerLike</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Typical logger interface.</p>
+    </li><li visbl="pub" name="play.api.PlayException" data-isabs="false">
+      <a id="PlayException:PlayException"></a>
+      <h4 class="signature">
+      <span class="kind">class</span>
+      <span class="symbol"> 
+        <a href="PlayException.html"><span class="name">PlayException</span></a>
+        
+        <span class="result"> extends RuntimeException with UsefulException</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Root exception for all Play problems.</p>
+    </li><li visbl="pub" name="play.api.Plugin" data-isabs="true">
+      <a id="Plugin:Plugin"></a>
+      <h4 class="signature">
+      <span class="kind">trait</span>
+      <span class="symbol"> 
+        <a href="Plugin.html"><span class="name">Plugin</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">A Play plugin.</p>
+    </li><li visbl="pub" name="play.api.UnexpectedException" data-isabs="false">
+      <a id="UnexpectedException:UnexpectedException"></a>
+      <h4 class="signature">
+      <span class="kind">case class</span>
+      <span class="symbol"> 
+        <a href="UnexpectedException.html"><span class="name">UnexpectedException</span></a>
+        
+        <span class="params">(<span name="message">message: Option[String]</span>, <span name="unexpected">unexpected: Option[Throwable]</span>)</span><span class="result"> extends PlayException with Product with Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Generic exception for unexpected error cases.</p>
+    </li></ol>
+            </div>
+        
+        
+
+        <div class="values members" id="values">
+              <h3>Value Members</h3>
+              <ol><li visbl="pub" name="play.api.Configuration" data-isabs="false">
+      <a id="Configuration:Configuration"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Configuration$.html"><span class="name">Configuration</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">This object provides a set of operations to create <code>Configuration</code> values.</p>
+    </li><li visbl="pub" name="play.api.DefaultGlobal" data-isabs="false">
+      <a id="DefaultGlobal:DefaultGlobal"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="DefaultGlobal$.html"><span class="name">DefaultGlobal</span></a>
+        
+        <span class="result"> extends GlobalSettings</span>
+      </span>
+      </h4>
+      <p class="comment cmt">The default global settings if not defined in the application.</p>
+    </li><li visbl="pub" name="play.api.Logger" data-isabs="false">
+      <a id="Logger:Logger"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Logger$.html"><span class="name">Logger</span></a>
+        
+        <span class="result"> extends LoggerLike</span>
+      </span>
+      </h4>
+      <p class="comment cmt">High-level API for logging operations.</p>
+    </li><li visbl="pub" name="play.api.Mode" data-isabs="false">
+      <a id="Mode:Mode"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Mode$.html"><span class="name">Mode</span></a>
+        
+        <span class="result"> extends Enumeration</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Application mode, either <code>DEV</code> or <code>PROD</code>.</p>
+    </li><li visbl="pub" name="play.api.Play" data-isabs="false">
+      <a id="Play:Play"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Play$.html"><span class="name">Play</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">High-level API to access Play global features.</p>
+    </li><li visbl="pub" name="play.api.PlayException" data-isabs="false">
+      <a id="PlayException:PlayException"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="PlayException$.html"><span class="name">PlayException</span></a>
+        
+        <span class="result"> extends Serializable</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper for <code>PlayException</code>.</p>
+    </li><li visbl="pub" name="play.api.Routes" data-isabs="false">
+      <a id="Routes:Routes"></a>
+      <h4 class="signature">
+      <span class="kind">object</span>
+      <span class="symbol"> 
+        <a href="Routes$.html"><span class="name">Routes</span></a>
+        
+        <span class="result"> extends AnyRef</span>
+      </span>
+      </h4>
+      <p class="comment cmt">Helper utilities related to <code>Router</code>.</p>
+    </li><li visbl="pub" name="play.api.cache" data-isabs="false">
+      <a id="cache:cache"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="cache/package.html"><span class="name">cache</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains the Cache access API.</p>
+    </li><li visbl="pub" name="play.api.data" data-isabs="false">
+      <a id="data:data"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="data/package.html"><span class="name">data</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains data manipulation helpers (typically HTTP form handling)</p>
+    </li><li visbl="pub" name="play.api.db" data-isabs="false">
+      <a id="db:db"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="db/package.html"><span class="name">db</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains the JDBC database access API.</p>
+    </li><li visbl="pub" name="play.api.http" data-isabs="false">
+      <a id="http:http"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="http/package.html"><span class="name">http</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains standard HTTP constants.</p>
+    </li><li visbl="pub" name="play.api.i18n" data-isabs="false">
+      <a id="i18n:i18n"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="i18n/package.html"><span class="name">i18n</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains the internationalisation API.</p>
+    </li><li visbl="pub" name="play.api.libs" data-isabs="false">
+      <a id="libs:libs"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="libs/package.html"><span class="name">libs</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains various APIs that are useful while developing web applications.</p>
+    </li><li visbl="pub" name="play.api.mvc" data-isabs="false">
+      <a id="mvc:mvc"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="mvc/package.html"><span class="name">mvc</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains the Controller/Action/Result API to handle HTTP requests.</p>
+    </li><li visbl="pub" name="play.api.templates" data-isabs="false">
+      <a id="templates:templates"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="templates/package.html"><span class="name">templates</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains Template adapters for typical Play applications.</p>
+    </li><li visbl="pub" name="play.api.test" data-isabs="false">
+      <a id="test:test"></a>
+      <h4 class="signature">
+      <span class="kind">package</span>
+      <span class="symbol"> 
+        <a href="test/package.html"><span class="name">test</span></a>
+        
+        
+      </span>
+      </h4>
+      <p class="comment cmt">Contains test helpers.</p>
+    </li></ol>
+            </div>
+
+        
+
+        
+
+      </div>
+      
+      <div id="tooltip"></div>
+      
+    </body>
+      </html>
