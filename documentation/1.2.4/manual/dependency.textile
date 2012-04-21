@@ -169,6 +169,20 @@ bc. play dependencies --sync
 
 もう一度コマンドを実行すると、不要な **JAR** は削除されます。
 
+アプリケーションを本番環境にデプロイする際、モジュールのソースコードとドキュメントを削除することでモジュールの容量を縮小することができます。これはコマンドに @--forProd@ オプションを追加することで実行できます:
+
+bc. play dependencies --forProd
+
+これは、各モジュールの @documentation/@, @src/@, @tmp/@, @*sample*/@ そして @*test*/@ ディレクトリを削除します。
+
+
+アプリケーションを本番環境にデプロイする際、モジュールのソースコードとドキュメントを削除することでモジュールの容量を縮小することができます。これはコマンドに @--forProd@ オプションを追加することで実行できます:
+
+bc. play dependencies --forProd
+
+これは、各モジュールの @documentation/@, @src/@, @tmp/@, @*sample*/@ そして @*test*/@ ディレクトリを削除します。
+
+
 h2. <a name="conflicts">競合の解決</a>
 
 ふたつのコンポーネントが同じ依存性の違うリビジョンを必要とする場合は、コンフリクトマネージャがひとつを選びます。デフォルトではもっとも新しいリビジョンを保持し、他のリビジョンを追い出します。
@@ -306,22 +320,70 @@ repositories:
 
 h3. カスタム ivy 設定
 
-Play は内部で Ivy を使っています。内部の中央 Maven リポジトリの Basic 認証といったプロキシ設定のように特別な設定が必要なら、ivysettings.xml ファイルを編集することができます。ファイルはホームディレクトリの .ivy2 フォルダにあります。
+Play は内部で Ivy を使っています。内部の中央 Maven リポジトリの Basic 認証といったプロキシ設定のように特別な設定が必要なら、ivysettings.xml ファイルを編集することができます。ファイルはホームディレクトリの @.ivy2@ フォルダにあります。
 
-bc. 例 1 ivy にチェックサムを無視させる:
-# .ivy2/ivysettings.xml
+例 1, Ivy にチェックサムを無視させる:
+
+bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
   <property name="ivy.checksums" value=""/>
 </ivysettings>
 
-bc. 例 2 Basic 認証を使う:
-# .ivy2/ivysettings.xml
+例 2, Basic 認証を使う:
+
+bc. <!-- .ivy2/ivysettings.xml -->
 <ivysettings>
-  <credentials host="maven-repo.xxx" realm="Sonatype Nexus Repository Manager" username="user" passwd="reallygreatpassword"/>
+  <credentials host="maven-repo.xxx" realm="Sonatype Nexus Repository Manager"
+    username="user" passwd="reallygreatpassword"/>
 </ivysettings>
 
+例 3, ローカル maven リポジトリとリポジトリマネージャを再利用する:
 
-設定項目はたくさんあります。参考: http://ant.apache.org/ivy/history/2.1.0/settings.html
+bc. <!-- .ivy2/ivysettings.xml -->
+<ivy-settings>
+  <!-- path to local maven repo and default maven layout -->
+  <property name="local-maven2-pattern" 
+    value="${user.home}/.m2/repository/[organisation]/[module]/[revision]/[module]-[revision]" 
+    override="false" />
+ 
+  <!-- set resolver chain as default -->
+  <settings defaultResolver="main" />
+ 
+  <!-- configure caches -->
+  <caches repositoryCacheDir="${user.home}/.ivy2/cache">
+    <!-- do not cache from local .m2-->
+    <cache name="nocache" useOrigin="true" />
+    <cache name="default" />
+  </caches>
+ 
+  <resolvers>
+    <chain name="main">
+      <!-- as this is not cached, even changing SNAPSHOT dependencies 
+        are resolved correctly -->
+      <filesystem name="local-maven-2" m2compatible="true" local="true" 
+        cache="nocache">
+        <ivy pattern="${local-maven2-pattern}.pom" />
+        <artifact pattern="${local-maven2-pattern}(-[classifier]).[ext]" />
+      </filesystem>
+      <!-- use repository manager as proxy to maven-central
+        (and all other repositories)--> 
+      <ibiblio name="repomanager" m2compatible="true"
+        root="http://your.repomanager.intra/path/to/repo" cache="default"/>
+    </chain>
+  </resolvers>
+</ivy-settings>
+
+設定項目はたくさんあります: "Ivy の設定ドキュメント":http://ant.apache.org/ivy/history/2.1.0/settings.html を参照してください。
+
+
+h3. Ivy キャッシュをクリアする
+
+Ivy のキャッシュは、特に @conf/dependencies.yml@ のリポジトリセクションにおいて @http@ タイプを使用すると壊れる場合があります。Ivy キャッシュが壊れて依存性が解決されなくなった場合は、 @--clearcache@ オプションを使ってキャッシュをクリアすることができます。
+
+bc. $ play dependencies --clearcache
+
+これは @rm -r ~/.ivy2/cache@ と等価です。
+
 
 p(note). **考察を続けます**
 
