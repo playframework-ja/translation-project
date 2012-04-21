@@ -50,6 +50,48 @@ bc. public static void loopWithoutBlocking() {
 
 リクエストを処理するためにひとつのスレッドしか使いませんが、Play はこれらのループを複数のリクエストに対して同時に並列実行することができます。
 
+より現実的な例として、リモート URL からの非同期なコンテンツ取得があります。次の例では、三つのリモート HTTP リクエストを平行して実行します: それぞれの @play.libs.WS.WSRequest.getAsync()@ メソッドに対する呼び出しは非同期に GET リクエストを実行し、 @play.libs.F.Promise@ を返却します。このアクションメソッドは、三つの @Promise@ インスタンスの組み合わせについて @await(…)@ を呼び出すことで、受け取った HTTP リクエストを中断します。三つ全てのリモート呼び出しがレスポンスを生成したら、スレッドは処理を再開し、レスポンスをレンダリングします。
+
+bc. public class AsyncTest extends Controller {
+ 
+  public static void remoteData() {
+    F.Promise<WS.HttpResponse> r1 = WS.url("http://example.org/1").getAsync();
+    F.Promise<WS.HttpResponse> r2 = WS.url("http://example.org/2").getAsync();
+    F.Promise<WS.HttpResponse> r3 = WS.url("http://example.org/3").getAsync();
+  
+    F.Promise<List<WS.HttpResponse>> promises = F.Promise.waitAll(r1, r2, r3);
+ 
+    // Suspend processing here, until all three remote calls are complete.
+    List<WS.HttpResponse> httpResponses = await(promises);
+ 
+    render(httpResponses);
+  }
+}
+
+
+h3. コールバック
+
+前述した三つの非同期リモートリクエストの例を実装する別の方法は、コールバックを使うことです。ここでは @await(…)@ の呼び出しに、すべての @promises@ が完了した時に実行されるコールバックである @play.libs.F.Action@ の実装が含まれています。
+
+bc. public class AsyncTest extends Controller {
+ 
+  public static void remoteData() {
+    F.Promise<WS.HttpResponse> r1 = WS.url("http://example.org/1").getAsync();
+    F.Promise<WS.HttpResponse> r2 = WS.url("http://example.org/2").getAsync();
+    F.Promise<WS.HttpResponse> r3 = WS.url("http://example.org/3").getAsync();
+ 
+    F.Promise<List<WS.HttpResponse>> promises = F.Promise.waitAll(r1, r2, r3);
+ 
+    // Suspend processing here, until all three remote calls are complete.
+    await(promises, new F.Action<List<WS.HttpResponse>>() {
+      public void invoke(List<WS.HttpResponse> httpResponses) {
+        render(httpResponses);
+      }
+    });
+  }
+}
+
+
 h2. HTTP レスポンスストリーミング
 
 これで、リクエストをブロックせずにループを行うことができるようになったので、処理結果の一部が利用可能になり次第、ブラウザにデータを送りたくなるのではないでしょうか。それこそが @Content-Type:Chunked@ HTTP レスポンス型のポイントです。複数のチャンクを使って HTTP レスポンスを何度も送ることができます。ブラウザはこれらのチャンクが発行され次第、これを受け取ります。
@@ -66,6 +108,7 @@ bc. public static void generateLargeCSV() {
 }
 
 もし CSV の生成に一時間かかったとしても、生成されたデータが利用可能になり次第、クライアントに送り返すことで、Play はひとつのスレッドを使って複数のリクエストを同時に処理することができます。
+
 
 h2. WebSockets の使用
 
