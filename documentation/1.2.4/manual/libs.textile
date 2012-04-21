@@ -47,7 +47,6 @@ for(Node event: XPath.selectNodes("events//event", xmlDoc)) {
 
 h2. Web サービスクライアント
 
-
 @play.libs.WS@ は、強力な HTTP クライアントを提供します。内部では "Async HTTP client":https://github.com/AsyncHttpClient/async-http-client を使用しています。
 
 リクエストの作成は簡単です:
@@ -80,17 +79,55 @@ h2. Java による関数プログラミング
 * @Either<A,B>@ (どちらかが含まれる A 値または B 値)
 * @Tuple<A,B>@ (どちらとも含まれる A 値と B 値)
 
-h3. Promises
+h3. @Option<T>@, @Some<T>@ と @None<T>@
 
-@Promise@ は Play による @Future@ 型のカスタマイズです。実際のところ、 @Promise<T>@ は @Future<T>@ でもあるので、標準的な @Future@ として使用することもできます。しかし、 @Promise@ にはとても興味深い属性: @onRedeem(…)@ を使って、期待する値が利用可能になるとできるだけ早く呼び出されるコールバックを登録する機能が備わっています。
+いくつかのケースでは結果を返さないかもしれない関数 (例えば find) を記述する場合において、一般的な（悪い）Java のパターンは結果がない場合に @null@ を返すことです。この方法は、関数の戻り値の型がオブジェクトを返さない可能性があることを明確に示していないし、null 参照の発明者によって "“billion-dollar mistake”":http://en.wikipedia.org/wiki/Pointer_(computing)#Null_pointer として認識されているおり、危険です。 
+@Option<T>@ はこの問題に対するエレガントなソリューションです: @T@ 型のオブジェクトを返す代わりに、この関数は @Option<T>@ を返します。この関数は成功した場合、(実際の結果をラップする) @Some<T>@ 型、そうでない場合は @None<T>@ 型、いずれも @Option<T>@ のサブタイプであるオブジェクトを返します。
+以下に例を示します:
 
-@Promise@ インスタンスは Play のいたるところ (Jobs や @WS.async@, その他…) で @Future@ の代わりに使用されています。
+bc. /* Safe division (will never throw a runtime ArithmeticException) */
+public Option<Double> div(double a, double b) {
+    if (b == 0)
+        return None();
+    else
+        return Some(a / b);
+}
 
-Promise はいくつかの方法で紐付けることができます。例えば:
+この関数のこのように使います:
 
-bc. Promise p = Promise.waitAll(p1, p2, p3)
-Promise p = Promise.waitAny(p1, p2, p3)
-Promise p = Promise.waitEither(p1, p2, p3)
+bc. Option<Double> q = div(42, 5);
+if (q.isDefined()) {
+    Logger.info("q = %s", q.get()); // "q = 8.4"
+}
+
+しかし、これを使うために @Option<T>@ が @Iterable<T>@ を実装していることを利用したもっと便利な構文があります:
+
+bc. for (double q : div(42, 5)) {
+    Logger.info("q = %s", q); // "q = 8.4"
+}
+
+この for ループの中身は @div@ 関数が成功した場合にのみ、一回だけ実行されます。
+
+h3. @Tuple<A, B>@
+
+便利な @Tuple<A, B>@ は、 @A@ および @B@ 型の二つのオブジェクトをラップします。これらのオブジェクトは、それぞれ @_1@ および @_2@ フィールドを使って取得することができます。例えば:
+
+bc. public Option<Tuple<String, String>> parseEmail(String email) {
+    final Matcher matcher = Pattern.compile("(\\w+)@(\\w+)").matcher(email);
+    if (matcher.matches()) {
+        return Some(Tuple(matcher.group(1), matcher.group(2)));
+    }
+    return None();
+}
+
+そして:
+
+bc. for (Tuple<String, String> email : parseEmail("foo@bar.com")) {
+    Logger.info("name = %s", email._1); // "name = foo"
+    Logger.info("server = %s", email._2); // "server = bar.com"
+}
+
+p(note). @T2<A, B>@ クラスは @Tuple<A, B>@ のエイリアスです。三要素のタプルを扱う場合は @T3<A, B, C>@ クラスを使い、 @T5<A, B, C, D, E>@ まで同様です。
 
 h3. パターンマッチング
 
@@ -117,6 +154,18 @@ bc. for(String s: String.and(StartsWith("command:")).match(o)) {
 
 この for ループは条件に合致する場合に一度だけ実行され、キャストをする必要なく自動的に String の値を抽出します。明示的なキャストが存在しないので、すべてがタイプセーフであり、コンパイラによって型チェックが行われます。
 
+h3. Promises
+
+@Promise@ は Play による @Future@ 型のカスタマイズです。実際のところ、 @Promise<T>@ は @Future<T>@ でもあるので、標準的な @Future@ として使用することもできます。しかし、 @Promise@ にはとても興味深い属性: @onRedeem(…)@ を使って、期待する値が利用可能になるとできるだけ早く呼び出されるコールバックを登録する機能が備わっています。
+
+@Promise@ インスタンスは Play のいたるところ (Jobs や @WS.async@, その他…) で @Future@ の代わりに使用されています。
+
+Promise はいくつかの方法で紐付けることができます。例えば:
+
+bc. Promise p = Promise.waitAll(p1, p2, p3)
+Promise p = Promise.waitAny(p1, p2, p3)
+Promise p = Promise.waitEither(p1, p2, p3)
+
 h2. OAuth
 
 "OAuth":http://oauth.net/ は、デスクトップアプリケーションや web アプリケーションに向けた、シンプルで標準的なアプローチを使ったセキュアな認証 API 用オープンプロトコルです。
@@ -135,8 +184,7 @@ h3. <a>OAuth 1.0</a>
 
 OAuth 1.0 の機能は "oauth-signpost":http://code.google.com/p/oauth-signpost/ に基づく @play.libs.OAuth@ クラスによって提供されます。OAuth 1.0 は "Twitter":http://apiwiki.twitter.com/ や "Google":http://code.google.com/apis/accounts/docs/OAuth.html のようなサービスで使用されています。
 
-サーバへ接続するためには、サービスプロバイダから得られる以下の情報を使って
-OAuth.ServiceInfo インスタンスを作成する必要があります:
+サーバへ接続するためには、サービスプロバイダから得られる以下の情報を使ってOAuth.ServiceInfo インスタンスを作成する必要があります:
 * リクエストトークン URL
 * アクセストークン URL
 * 認証 URL
@@ -150,26 +198,30 @@ bc. public static void authenticate() {
     // getUser() is a method returning the current user 
     if (OAuth.isVerifierResponse()) {
         // We got the verifier; 
-        // now get the access tokens using the unauthorized tokens
-        TokenPair tokens = OAuth.service(TWITTER).requestAccessToken(
-            getUser().getTokenPair()
+        // now get the access tokens using the request tokens
+        OAuth.Response resp = OAuth.service(TWITTER).retrieveAccessToken(
+            getUser().token, getUser().secret
         );
         // let's store them and go back to index
-        getUser().setTokenPair(tokens);
+        getUser().token = resp.token; getUser().secret = resp.secret;
+        getUser().save()
         index();
     }
     OAuth twitt = OAuth.service(TWITTER);
-    TokenPair tokens = twitt.requestUnauthorizedToken();
+    Response resp = twitt.retrieveRequestToken();
     // We received the unauthorized tokens 
     // we need to store them before continuing
-    getUser().setTokenPair(tokens);
+    getUser().token = resp.token; getUser().secret = resp.secret;
+    getUser().save()
     // Redirect the user to the authorization page
-    redirect(twitt.redirectUrl(tokens));
+    redirect(twitt.redirectUrl(resp.token));
 }
 
 これで、トークンペアを使って署名したリクエストによって API を呼び出すことができるようになります:
 
 bc. mentions = WS.url(url).oauth(TWITTER, getUser().getTokenPair()).get().getString();
+
+この例ではエラーをチェックしていませんが、本番環境ではチェックすべきです。 OAuth.Response オブジェクトは、エラーが起こった場合には null でないエラーフィールドを保持します。それらの多くは、ユーザがあなたにアクセス権を与えていないか、プロバイダがダウンしているか、あるいはプロバイダにバグがある場合です。
 
 完全な使用例が @samples-and-tests/twitter-oauth@ にあります。
 
