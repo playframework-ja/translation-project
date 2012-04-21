@@ -148,8 +148,7 @@ h2. <a name="database">モデルを永続化するデータベースの設定</a
 
 開発中、インメモリ、または "db 設定":configuration#db を使ってアプリケーション中のサブディレクトリにデータを保存する組み込みデータベースを素早くセットアップすることができます。
 
-Play は @$PLAY_HOME/framework/lib/@ 内にH2とMySQLのJDBCドライバーを含みます。
-PostgreSQL か Oracleデータベースを使いたければ、例えば、JDBCドライバーをそこに、または、アプリケーションの @lib/@ ディレクトリに追加します。
+Play は @$PLAY_HOME/framework/lib/@ 内にH2とMySQLのJDBCドライバーを含みます。PostgreSQL か Oracleデータベースを使いたければ、例えば、JDBCドライバーをそこに、または、アプリケーションの @lib/@ ディレクトリに追加します。
 
 任意のJDBCに従ったデータベースに接続するには、ドライバーライブラリを加え、またJDBCプロパティ "db.url":configuration#db.url , "db.driver":configuration#db.driver , "db.user":configuration#db.user , "db.pass":configuration#db.pass を定義する。:
 
@@ -176,7 +175,6 @@ public class Product {
  
     public String name;
     public Integer price;
- 
 }
 
 p(note). **警告！**
@@ -196,7 +194,6 @@ public class Product extends Model {
  
     public String name;
     public Integer price;
- 
 }
 
 その後、Product インスタンスのシンプルなメソッドを使用して Product オブジェクトを操作してください:
