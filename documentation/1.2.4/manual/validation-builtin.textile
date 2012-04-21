@@ -217,4 +217,3 @@ bc. validation.url(value);
 bc. @URL String address
 
 メッセージキー: @validation.url@
-
