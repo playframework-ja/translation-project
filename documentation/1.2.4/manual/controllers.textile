@@ -397,6 +397,48 @@ bc. public static void countUnreadMessages() {
     renderText("There are %s unread messages", unreadMessages);
 }
 
+h3. <a name="renderjson">JSON 文字列の返却</a>
+
+Play には @renderJSON(…)@ メソッドを使ってシンプルに JSON 文字列を返却するメソッドが備わっています。これらのメソッドは JSON 文字列を返却し、レスポンスのコンテントタイプに @application/json@ を設定します。
+
+自分で JSON 文字列を指定するか、または @GsonBuilder@ によってシリアライズされる @Object@ を渡すことができます。
+
+例えば:
+
+bc. public static void countUnreadMessages() {
+    Integer unreadMessages = MessagesBox.countUnreadMessages();
+    renderJSON("{\"messages\": " + unreadMessages +"}");
+}
+
+あるいはオブジェクトがより複雑な構造を持つ場合、 @GsonBuilder@ を使って JSON を組み立てたいと思うかもしれません。
+
+bc. public static void getUnreadMessages() {
+    List<Message> unreadMessages = MessagesBox.unreadMessages();
+    renderJSON(unreadMessages);
+}
+
+@renderJSON(…)@ メソッドに @Object@ を渡すときに JSON ビルダをより細かく制御する必要がある場合は、GSON シリアライザと @Type@ オブジェクトを渡して出力をカスタマイズすることも可能です。
+
+h3. <a name="renderxml">XML 文字列の返却</a>
+
+JSON メソッドと同様に、コントローラから直接 XML をレンダリングするいくつかのメソッドがあります。 @renderXml(…)@ メソッドは XML 文字列を返却し、コンテントタイプに @text/xml@ を設定します。
+
+ここでは、自分で XML 文字列を指定すること、 @org.w3c.dom.Document@ を渡すこと、あるいは XStream シリアライザによってシリアライズされる POJO を渡すことができます。
+
+例えば:
+
+bc. public static void countUnreadMessages() {
+    Integer unreadMessages = MessagesBox.countUnreadMessages();
+    renderXml("<unreadmessages>"+unreadMessages+"</unreadmessages>");
+}
+
+または @org.w3c.dom.Document@ オブジェクトを使うこともできます。
+
+bc. public static void getUnreadMessages() {
+    Document unreadMessages = MessagesBox.unreadMessagesXML();
+    renderXml(unreadMessages);
+}
+
 h3. <a name="binary">バイナリコンテンツの返却</a>
 
 "サーバに保存されたファイル":jpa#file のようなバイナリデータを提供する場合、 @renderBinary@ メソッドを使います。例えば、 @play.db.jpa.Blob photo@ プロパティを持つ @User@ モデルがある場合、このモデルオブジェクトをロードして、格納された MIME タイプで画像をレンダリングするために、コントローラメソッドを追加します:
@@ -562,7 +604,7 @@ h3. <a name="before">@Before</a>
 
 例えば、セキュリティチェックを行うには以下のようにします:
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
  
     @Before
     static void checkAuthentification() {
@@ -578,7 +620,7 @@ bc. public class Admin extends Application {
 
 @Before メソッドにすべてのアクション呼び出しをインターセプトさせたくない場合、除外アクションのリストを指定することができます:
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
  
     @Before(unless="login")
     static void checkAuthentification() {
@@ -595,7 +637,7 @@ bc. public class Admin extends Application {
 
 一連のアクション呼び出しを @Before メソッドでインターセプトさせたい場合は、only パラメータを指定することができます :
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
  
     @Before(only={"login","logout"})
     static void doSomething() {  
@@ -610,7 +652,7 @@ h3. <a name="after">@After</a>
 
 <code>@After</code> アノテーションで注釈されたメソッドは、このコントローラにおけるすべてのアクション呼び出しの後に実行されます。
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
  
     @After
     static void log() {
@@ -629,7 +671,7 @@ h3. <a name="catch">@Catch</a>
 
 <code>@Catch</code> アノテーションで注釈されたメソッドは、別のアクションメソッドが特定の例外をスローした場合に実行されます。スローされた例外は @Catch メソッドの引数に渡されます。
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
     
     @Catch(IllegalStateException.class)
     public static void logIllegalState(Throwable throwable) {
@@ -647,7 +689,7 @@ bc. public class Admin extends Application {
 
 通常の Java の例外を扱うように、より多くの型の例外をキャッチするためにスーパークラスをキャッチできます。ひとつ以上のキャッチメソッドがある場合は **priority** を指定することができるので、キャッチメソッドはこの優先度に従って実行されます (priority 1 が最初に実行されます) 。
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
  
     @Catch(value = Throwable.class, priority = 1)
     public static void logThrowable(Throwable throwable) {
@@ -675,7 +717,7 @@ h3. <a name="finally">@Finally</a>
 <code>@Finally</code> アノテーションで注釈されたメソッドは、このコントローラにおけるすべてのアクション呼び出しの結果が確定された後に実行されます。
 アクションが正常に呼び出された後でも、エラーが発生した場合でも、@Finally メソッドが呼び出されます。
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
  
     @Finally
     static void log() {
@@ -691,7 +733,7 @@ bc. public class Admin extends Application {
 
 @Finally アノテーションで注釈されたメソッドが Throwable 型の引数をひとつだけ受け取る場合、発生した例外が引き渡されます:
 
-bc. public class Admin extends Application {
+bc. public class Admin extends Controller {
  
     @Finally
     static void log(Throwable e) {
@@ -733,7 +775,7 @@ bc. public class Secure extends Controller {
 そして、別のコントローラにおいて、以下のようにします:
 
 bc. @With(Secure.class)
-public class Admin extends Application {
+public class Admin extends Controller {
     
     … 
 }
