@@ -120,14 +120,13 @@ h2. <a name="concepts">アプリケーションの停止</a>
 アプリケーションがシャットダウンする前にアクションを実行する必要がある場合があるので、Playは <code>@OnApplicationStop</code> アノテーションを提供します。
 
 bc. import play.jobs.*;
-
+ 
 @OnApplicationStop
 public class Bootstrap extends Job {
-
+ 
     public void doJob() {
         Fixture.deleteAll();
     }
-
 }
 
 p(note). **考察を続けます**
