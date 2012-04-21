@@ -261,8 +261,6 @@ bc. db=java:/comp/env/jdbc/myDatasource@
 
 デフォルト: none.
 
-関連項目: "複数データベースのサポート":model#multiple.
-
 
 h3(#db.destroyMethod). db.destroyMethod
 
@@ -284,6 +282,15 @@ bc. db.driver=org.postgresql.Driver
 * @org.h2.Driver@ "db":#db が @mem@ か @fs@、または "db.url":#db.url が @jdbc:h2:mem:@ から始まっている場合
 * @com.mysql.jdbc.Driver@ "db":#db が @mysql:…@ という設定である場合
 
+h3(#db.isolation). db.isolation
+
+データベーストランザクションの隔離レベルです。設定例:
+
+bc. db.isolation=SERIALIZABLE
+
+妥当な値は @NONE@, @READ_UNCOMMITTED@, @READ_COMMITTED@, @REPEATABLE_READ@, @SERIALIZABLE@, または @java.sql.Connection.setTransactionIsolation()@ に渡される整数型の値です。すべてのデータベースがあらゆるトランザクション隔離レベルをサポートするわけではないことに注意してください。
+
+デフォルト: データベース依存、一般的には @READ_COMMITTED@
 
 h3(#db.pass). db.pass
 
@@ -354,14 +361,30 @@ bc. evolutions.enabled=false
 デフォルト: @true@
 
 
+h2(#test). テストランナー
+
+h3(#headlessBrowser). headlessBrowser
+
+@play auto-test@ 実行時に使用される、 HtmlUnit ヘッドレス web ブラウザの互換モードを指定します。
+
+bc. headlessBrowser=INTERNET_EXPLORER_7
+
+値:
+
+* @FIREFOX_3@
+* @FIREFOX_3_6@
+* @INTERNET_EXPLORER_6@
+* @INTERNET_EXPLORER_7@
+* @INTERNET_EXPLORER_8@
+
+デフォルト: @INTERNET_EXPLORER_8@
+
+
 h2(#hibernate). Hibernate
 
 Hibernate のプロパティを追加で指定することも出来ます。例えば、SQL コメントを有効にするには次のようにします:
 
 bc. hibernate.use_sql_comments=true
-
-関連項目: "複数データベースで JPA を使う":jpa#multiple.
-
 
 h3(#hibernate.connection.datasource). hibernate.connection.datasource
 
