@@ -356,7 +356,6 @@ h2. <a name="jsroute">jsRoute</a>
 
 @#{jsRoute /}@ タグは @#{jsAction /}@ タグに似ていて,サーバーアクションおよび対応するHTTPメソッド(GET, POST など)に基づくURLを構築する両方の関数を含むオブジェクトを返します。
 
-
 Example:
 
 bc. PUT     /users/{id}        Users.update
