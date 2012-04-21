@@ -51,6 +51,16 @@ public class ApplicationTest extends FunctionalTest {
      
 }
 
+レスポンスそのものに関するアサーションを作成する代わりに、 @renderArgs()@ メソッドを使うことでビューに渡された引数に直接アクセスすることができます。例えば:
+
+bc. @Test
+public void testUserIsFoundAndPassedToView() {
+    Response response = POST("/user/find?name=mark&dob=18011977")
+    assertThat(renderArgs("user"), is(notNullValue());
+    User user = (User) renderArgs("user");
+    assertThat(user.name, is("mark"));
+}
+
 h3. Selenium テスト
 
 受入テストは Selenium を使用して書かれます。このテストでは、自動化されたブラウザでこれを実行することでアプリケーションをテストします。
@@ -86,10 +96,12 @@ bc. #{selenium 'Test email sending'}
     type('To', 'boron@localhost')
     type('Subject', 'Berillium Subject')
     clickAndWait('send')
- 	
-    // Extract the last email sent to boron@localhost into a javascript variable called email
+    
+    // Extract the last email sent to boron@localhost into a JavaScript
+    // variable called email
     storeLastReceivedEmailBy('boron@localhost', 'email')
-    // Extract the subject line from the email variable into a variable called subject
+    // Extract the subject line from the email variable into a variable 
+    // called subject
     store('javascript{/Subject:\s+(.*)/.exec(storedVars["email"])[1]}', 'subject')
     // Test the contents of the subject variable
     assertEquals('Berillium Subject', '$[subject]')
@@ -107,7 +119,8 @@ bc. #{selenium 'Get string from cache'}
     type('Password2', 'secretpass')
     // .. Fill in the registration form ..
  
-    // Get the value of the magicKey variable from the cache (set to the CAPTCHA answer in the application)
+    // Get the value of the magicKey variable from the cache
+    // (set to the CAPTCHA answer in the application)
     storeCacheEntry('magicKey', 'captchaAnswer')
     // Type it into the form
     type('Answer', '$[captchaAnswer]')
@@ -186,6 +199,7 @@ bc. # play test myApp
 この方法でテストを実行する場合、Play は特別なフレームワーク ID @test@ で始動します。このため、 @application.conf@ ファイルで特別な設定を定義することができます。
 
 いくつかの異なるテスト設定が必要な場合、パターン @test-?.*@ にマッチするフレームワーク ID (例: 'test-special') を使用することができます。
+
 デフォルトの @test@ とは違うフレームワーク ID を使用する場合は、@application.conf@ にあるすべてのテスト用設定が、そのフレームワーク ID で利用可能であることをしっかりと確認しなければなりません。特別なテストフレームワーク ID でテストを起動するときは、このようにします: 'play test --%test-your-special-id'
 
 例えば
@@ -209,6 +223,8 @@ h2. <a name="continuous">継続的統合と自動的なテストの実行</a>
 * @/test-result@ ディレクトリ内のマーカファイル @result.passed@ または @result.failed@ を確認する
 
 これらの手順が CRON タブで実行されれば完了です!
+
+"headlessBrowser":configuration#headlessBrowser を設定することで、ヘッドレスブラウザによって利用される web ブラウザ互換性を変更することができます。
 
 p(note). **考察を続けます**
  
