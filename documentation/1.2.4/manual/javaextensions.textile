@@ -17,6 +17,14 @@ bc. ${['red', 'green', 'blue'].join('/')}
 red/green/blue
 
 
+h3. <a name="last">last()</a>
+
+リストの最後のアイテムを返します。返却型: @Object@
+
+bc. ${['red', 'green', 'blue'].last()}
+blue
+
+
 h3. <a name="pluralize">pluralize()</a>
 
 コレクションのサイズが 1 でない場合に ‘s’ を返します。返却型: @String@
@@ -312,7 +320,7 @@ h3. <a name="escapeHtml">escapeHtml()</a>
 
 与えられた HTML 文字をエスケープします。返却型: @String@
 
-bc. ${"The <blink>tag</blink> is evil".escape().raw()}
+bc. ${"The <blink>tag</blink> is evil".escapeHtml().raw()}
 The &lt;blink&gt;tag&lt;/blink&gt; is evil
 
 
@@ -328,16 +336,8 @@ h3. <a name="escapeXml">escapeXml()</a>
 
 与えられた XML 文字をエスケープします。返却型: @String@
 
-bc. ${"<>\"&".escape().raw()}
+bc. ${"<>\"&".escapeXml().raw()}
 &lt;&gt;&quot;&amp;
-
-
-h3. <a name="last">last()</a>
-
-リストの最後のアイテムを返します。返却型: @Object@
-
-bc. ${['red', 'green', 'blue'].last()}
-blue
 
 
 h3. <a name="noAccents">noAccents()</a>
