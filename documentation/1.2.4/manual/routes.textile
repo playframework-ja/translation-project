@@ -203,6 +203,14 @@ URL パスをレンダリングする静的なファイルに直接マッピン�
 bc. # Serve index.html static file for home requests
 GET     /home                   staticFile:/public/html/index.html
 
+h2. URL エンコーディング
+
+URL をデコードして再度エンコードすることは不可能 (例えば、スラッシュがスラッシュなのか %2F なのかは分かりません) なので、URL はエンコードされて表現されるべきです。UTF-8 がデフォルトのエンコーディングですが、defaultWebEncoding 設定パラメータを使って ISO-8859-1, UTF-16BE, UTF-16LE, UTF-16 のうちひとつを使うことができます。詳細は http://download.oracle.com/javase/1.4.2/docs/api/java/nio/charset/Charset.html を参照してください。
+
+例えば:
+
+# map /stéphane
+bc. GET /st%C3%A9phane Application.stephane
 
 h2. <a name="reverse">リバースルーティング : URL の生成</a>
 
