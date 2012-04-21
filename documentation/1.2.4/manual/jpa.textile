@@ -34,6 +34,7 @@ Play にトランザクションを一切起動させないようにしたい場
 
 <code>@play.db.jpa.NoTransaction</code> を使うと、Play はコネクションプールから一切のコネクションを取得しません - これは速度を向上させます。
 
+
 h2. <a name="support">**play.db.jpa.Model** サポートクラス</a>
 
 このクラスは JPA の中心的なヘルパクラスです。JPA エンティティのうちの 1 つに @play.db.jpa.Model@ クラスを継承させると、ヘルパクラスは JPA アクセスを容易にする多くのヘルパトメソッドを提供します。
