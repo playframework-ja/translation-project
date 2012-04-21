@@ -13,6 +13,9 @@ h3. <a name="enable">アプリケーションで CRUD モジュールを利用�
 bc. require:
     - play -> crud
 
+新しいモジュールの依存性を取り込むために、ここで @play dependencies@ コマンドを実行します。
+
+
 h3. <a name="routes">デフォルトの CRUD ルートの取り込み</a>
 
 @conf/routes@ ファイルに次の行を追加することで、モジュールのデフォルトのルートを取り込みます:
@@ -214,7 +217,7 @@ public class Account extends Model {
       @CollectionOfElements
       public Set<String> usernames;
  
-      public Account(Set<String> usernames {
+      public Account(Set<String> usernames) {
             super();
             this.usernames = usernames;
       }
