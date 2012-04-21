@@ -82,18 +82,55 @@ bc. play install gwt --path=my-project
 
 h2. <a name="contributing">モジュールリポジトリに新しいモジュールを寄付する</a>
 
-まず最初に、OpenID が必要です。OpenID は、あなたをモジュールの作者として認証する手助けになります。その後、Google Group でモジュール登録のリクエストを送ってください。
+h3. <a name="prerequisites">前提条件</a>
 
-以下を連絡してください:
+新しいモジュールを登録するには、次のものが必要です。
 
-* モジュールに関する詳しい情報。どのようなモジュールですか?
-* モジュールの名前。 <code>==[a-zA-Z]+==</code> の正規表現にマッチしなければなりません。
-* モジュールの短い概要
-* プロジェクトホームページ
-* OpenID
-* モジュールは、ソースコードが利用可能で、かつバグを報告できるどこかで管理されていなければなりません。適当な場所を知らないのであれば、 <a href="http://github.com/">GitHub</a>, <a href="http://code.google.com/">Google Code</a> または <a href="http://launchpad.net/">Launchpad</a> が良い選択肢です。
+# Google グループに投稿するための Google アカウント。
+# 開発者ログインするための OpenID (このために Google アカウントを使用することができます) 。
+# 正規表現 <code>[a-zA-Z]+</code> にマッチするモジュール名。
+# モジュールは "ドキュメント":#documentation を含む必要があります。
+# 例えば <a href="http://github.com/">GitHub</a>, <a href="http://code.google.com/">Google Code</a> または <a href="http://launchpad.net/">Launchpad</a> プロジェクトのような、ソースコードが利用できてバグを報告する方法を備えたモジュールのホームページ。
 
-モジュールをリリースするには、単に @play build-module@ コマンドを使用してください。そして、モジュールリポジトリに接続して、生成されたパッケージをアップロードしてください。
+h3. <a name="register">モジュールの登録</a>
+
+Google アカウントを OpenID として使用するためには、以下のようにしてその完全な URL を見つける必要があります。
+
+# "http://www.playframework.org/modules":http://www.playframework.org/modules の _Developer login_ の下に @https://www.google.com/accounts/o8/id@ を入力し、 _Login_ ボタンをクリックします。
+# Google アカウントにログインします。
+# 例えば @https://www.google.com/accounts/o8/id?id=BItOawk7q69CFhRarQIo@ のように、 _Developer login_ の下の完全な Google OpenID URL をメモします。
+
+"play-framework Google Group":https://groups.google.com/forum/#!forum/play-framework にモジュール登録リクエストを投稿します。例えば:
+
+bc. Subject: Module registration request: {module name}
+ 
+Module name:
+jqueryui
+ 
+Display name:
+jQuery UI
+ 
+Description:
+Working examples of jQuery UI widgets, integrated with a Play application.
+ 
+Project home page:
+https://github.com/hilton/jqueryui-module
+ 
+OpenID:
+https://www.google.com/accounts/o8/id?id=BItOawk7q69CFhRarQIo
+
+モジュールが登録されたら、リリースを公開することができます。
+
+
+h3. <a name="release">モジュールのリリース</a>
+
+モジュールをリリースするためには:
+
+# 例えば @self: play -> jqueryui 1.0@ のように、 @conf/dependency.yml@ の最初の行にモジュールのバージョン番号を設定します
+# @play build-module@ コマンドでモジュールをビルドします
+# _Developer login_ の下から "http://www.playframework.org/modules":http://www.playframework.org/modules にログインします
+# "http://www.playframework.org/modules/developers":http://www.playframework.org/modules/developers の _Your modules_ の下にあるリンクからあなたのモジュールのページを閲覧します
+# _Manage module releases_ の下にあるフォームを使って、あなたのモジュールの @dist/@　ディレクトリから生成した ZIP ファイルをアップロードします
 
 もちろん、ヘルプを提供したり情報を共有するために公式の Google Group を使用することができます。
 
