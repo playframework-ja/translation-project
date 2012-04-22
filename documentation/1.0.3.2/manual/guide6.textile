@@ -253,7 +253,6 @@ public static void listTagged(String tag) {
 bc. GET     /posts/{tag}                    Application.listTagged
 
 うーん、新しいルートと競合するルートがすでに存在するため、問題です。これら 2 つのルートは同じ URI にマッチします:
-Well, we have a problem because we have an existing route that conflicts with this new one. These two routes will match the same URI:
 
 bc. GET     /posts/{id}                     Application.show
 GET     /posts/{tag}                    Application.listTagged
