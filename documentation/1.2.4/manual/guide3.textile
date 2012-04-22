@@ -326,4 +326,3 @@ $ bzr add
 $ bzr commit -m "Home page"
 
 p(note). 次: %(next)"コメント投稿ページ":guide4% 
-
