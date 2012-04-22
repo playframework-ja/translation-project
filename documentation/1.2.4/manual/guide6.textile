@@ -29,7 +29,6 @@ public class Tag extends Model implements Comparable<Tag> {
     public int compareTo(Tag otherTag) {
         return name.compareTo(otherTag.name);
     }
- 
 }
 
 遅延タグ生成のようなものが欲しいので、タグの取得は常に @findOrCreateByName(String name)@ ファクトリメソッドを使うことにします。これを @Tag@ クラスに追加しましょう:
@@ -109,7 +108,6 @@ public void testTags() {
     assertEquals(2, Post.findTaggedWith("Red").size());        
     assertEquals(1, Post.findTaggedWith("Blue").size());
     assertEquals(1, Post.findTaggedWith("Green").size());
-    
 }
 
 きちんと動作することを確認してください。
@@ -161,7 +159,6 @@ List<Map> cloud = Tag.getCloud();
 assertEquals(
     "[{tag=Blue, pound=1}, {tag=Green, pound=1}, {tag=Red, pound=2}]", 
     cloud.toString()
-
 );
 
 h2. <a name="data">ブログ UI へのタグの追加</a>
