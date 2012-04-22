@@ -258,6 +258,7 @@ bc. #{extends 'CRUD/layout.html' /}
 </div>
 
 まず、 @{'crud.list.title', type.name}@ が新しく追加されています、これはメッセージパラメータとして @type.name@ を使用して @crud.list.title@ をキーにローカライズされたメッセージを出力します。 CRUD モジュールの @conf/messages@ ファイルは @crud.list.title=&{%s}@ エントリを含みます。そのエントリは他のメッセージを検索するためのキーとして使用されます、 ( 今回の場合は、 @&{'Comments'}@ です。これは @type@ が @models.Comments@ のための @CRUD.Object.Type@ のインスタンスであることがその理由です。 ) @Comments@ に一致するメッセージがファイルに定義されていなかった場合、メッセージキーをデフォルトで出力します。ローカライズされたメッセージについてより詳細に知りたい場合、本チュートリアルの最後、 guide12 の "国際化とローカライズ" に記載されています。
+
 まさに @#{crud.table /}@ タグがテーブルを生成します。 @fields@ パラメータを使うことで、さらに列を追加するようカスタマイズすることができます。以下のようにしてみてください:
 
 bc. #{crud.table fields:['content', 'post', 'author'] /}
