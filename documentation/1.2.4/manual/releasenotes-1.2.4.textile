@@ -27,15 +27,13 @@ h2. 新しいバインダーの実装
 
 新しいバインダーの実装はより柔軟になり、jQueryからPlayへのマッピングを簡単にします。さらに、この新しい実装を使って、より多くの複合オブジェクトをマッピングすることができます。
 
-
 h2. 最新のWebsocketのサポート
 
 最新ドラフト(hybi-00 から hybi-10)をサポートしています。 詳しくは "websocket specification":http://tools.ietf.org/html/draft-ietf-hybi-thewebsocketprotocol-10 を参照して下さい。
 
 h2. 複合IDのサポート
 
-複合IDはFixturesでサポートされました。モデルとFixtureで次のアノテーションもサポートされました。 <code>@IdClass</code>, <code>@EmbeddedId</code> .
-より詳しくは  "hibernate documentation":http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html#d0e2177 を参照してください。
+複合IDはFixturesでサポートされました。モデルとFixtureで次のアノテーションもサポートされました。 <code>@IdClass</code>, <code>@EmbeddedId</code> . より詳しくは  "hibernate documentation":http://docs.jboss.org/hibernate/annotations/3.5/reference/en/html/entity.html#d0e2177 を参照してください。
 
 h2. IntelliJサポートの改善
 
