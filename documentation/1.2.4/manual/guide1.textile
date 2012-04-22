@@ -213,7 +213,11 @@ h3. <a>Bazaar</a>
 Bazaar のインストールはこのチュートリアルの範囲を超えていますが、どのようなシステム上においても非常に簡単です。Bazaar をインストールしたら、ブログディレクトリに戻り、以下をタイプしてアプリケーションのバージョン管理を初期化してください:
 
 bc. $ bzr init
-
+$ bzr ignore tmp
+$ bzr ignore modules
+$ bzr ignore lib
+$ bzr ignore test-result
+$ bzr ignore logs
 
 これでブログエンジンの最初のバージョンをコミットできます:
 
