@@ -40,7 +40,7 @@ bc. <form action="/Directory/add" method="POST">
 </form>
 
 
-h2. <a>対応する Java メソッドの実行よるアクションへのリダイレクト</a>
+h2. <a>対応する Java メソッドの実行によるアクションへのリダイレクト</a>
 
 Play には Java Servlet の @forward@ コマンドに該当するものは存在しません。しかし、とてもシンプルに別のアクションへリダイレクトすることができます。単に対応する Java メソッドを実行すれば、 Play は適切な HTTP 'Redirect' レスポンスを生成します。
 

@@ -41,7 +41,7 @@ bc. <form action="/Directory/add" method="POST">
 </form>
 
 
-h2. <a>2. 対応する Java メソッドの実行よるアクションへの Redirect</a>
+h2. <a>2. 対応する Java メソッドの実行によるアクションへの Redirect</a>
 
 play には Java Servlet の **forward** コマンドに該当するものは存在しません。しかし、とてもシンプルに別のアクションへリダイレクトすることができます。ただ対応する Java メソッドを実行すれば play は適切な HTTP "Redirect" レスポンスを生成します。
 
