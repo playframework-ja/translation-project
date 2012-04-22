@@ -84,7 +84,7 @@ bc. validation.required=%s is required
 bc. name is required
 age is required
 
-p(note). *制限事項*: この @validation.required(age)@ 構文を使った必須フィールドのバリデーションがひとつ以上失敗した場合、Play は正しいパラメータ名を判断することができます。この場合、フィールド名を直接、すなわち @validation.required("age", age)@ のように指定しなければなりません。
+p(note). *制限事項*: この @validation.required(age)@ 構文を使った必須フィールドのバリデーションがひとつ以上失敗した場合、Play は正しいパラメータ名を判断することができません。この場合、フィールド名を直接、すなわち @validation.required("age", age)@ のように指定しなければなりません。
 
 このエラーキーはデフォルトではパラメータ名であり、パラメータそのものをメッセージ検索に使用します。例えば、 @hello@ アクションメソッド 上の @name@ 引数は以下のようにして地域化することができます:
 
