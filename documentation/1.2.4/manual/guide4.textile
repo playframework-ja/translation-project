@@ -240,4 +240,3 @@ bc. POST    /posts/{postId}/comments                Application.postComment
 以上です。いつものようにこのバージョンを bazaar にコミットします。
 
 p(note). 次: %(next)"キャプチャの設定":guide5%. 
-
