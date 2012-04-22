@@ -178,9 +178,8 @@ bc. public class BasicTest extends UnitTest {
     public void setup() {
         Fixtures.deleteDatabase();
     }
-    
-    ...
  
+    …
 }
 
 p(note). この <code>@Before</code> は JUnit テストツールの主要な概念です。
