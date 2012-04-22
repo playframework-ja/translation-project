@@ -186,7 +186,7 @@ Tag(mvc):
     name:           MVC    
 …
 
-And then add them to posts declaration as is:
+そして、次のようにしてこれらを post 宣言に追加します:
 
 bc. …
 Post(jeffPost):
