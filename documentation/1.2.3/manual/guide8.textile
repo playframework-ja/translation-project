@@ -248,7 +248,7 @@ import play.mvc.*;
 public class Posts extends CRUD {    
 }
 
-@Tags@ 、 @Comments@ 、そして @Users@ コントローラも同じように保護してください。ここで、ログアウトして (<code>jeff@gmail.com/secret</code> のような) 一般ユーザで再度ログインしてください。管理者向け CRUD リンクが表示されないはずです。そして、URL "http://localhost:9000/admin/users":http://localhost:9000/admin/users に直接アクセスしてみると、**403 Forbidden** レスポンスが返ります。
+@Tags@ 、 @Comments@ 、そして @Users@ コントローラも同じように保護してください。ここで、ログアウトして (<code>jeff@gmail.com/secret</code> のような) 一般ユーザで再度ログインしてください。管理者向け CRUD リンクが表示されないはずです。そして、URL "http://localhost:9000/admin/users":http://localhost:9000/admin/users に直接アクセスしてみると、 **403 Forbidden** レスポンスが返ります。
 
 !images/guide8-6!
 

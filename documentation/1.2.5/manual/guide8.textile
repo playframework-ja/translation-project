@@ -205,7 +205,7 @@ bc. static boolean check(String profile) {
     return false;
 }
 
-これで、ユーザが admin 権限を持つ場合は管理メニューを表示することができるようになります。トップレベルメニューを統合するよう @views/admin.html@ を更新してください:
+これで、ユーザが admin 権限を持つ場合は管理メニューを表示することができるようになります。トップレベルメニューを統合するよう @app/views/admin.html@ を更新してください:
 
 bc. …
 <div id="main">
