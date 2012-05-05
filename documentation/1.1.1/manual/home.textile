@@ -22,8 +22,7 @@ Play framework のはじめの一歩を学ぶ楽しい 5 分間です。
 
 h2. <a name="guide">チュートリアル — リアルな Play アプリケーションを一歩ずつ作成するガイド</a>
 
-**'Yet Another Blog Engine'** を最初から最後までコーディングすることで Play について学びます。
-各章は Play の更なるクールな機能について学ぶ機会となるでしょう。
+**'Yet Another Blog Engine'** を最初から最後までコーディングすることで Play について学びます。各章は Play の更なるクールな機能について学ぶ機会となるでしょう。
 
 # "プロジェクトの立ち上げ":guide1
 # "はじめてのモデル":guide2
@@ -52,6 +51,8 @@ Play について学ばなければならない全てです。
 ## "ルーティングの優先順位":routes#priority
 ## "静的リソースの配信":routes#static
 ## "リバースルーティング : URL の生成":routes#reverse
+## "content type の設定":routes#content-types
+## "コンテントネゴシエーション":routes#content-negotiation
 # "コントローラ":controllers
 ## "コントローラの概要":controllers#overview
 ## "HTTP パラメータの取得":controllers#params

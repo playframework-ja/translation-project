@@ -1,8 +1,6 @@
 h1. ドキュメント
 
-Play framework ドキュメントへようこそ。このドキュメントは **リリース 1.2.1** を対象としており、以前のバージョンのドキュメントとは大きく異なるかもしれません。
-
-"バージョン 1.2 リリースノート":releasenotes-1.2 を確認してください。
+Play framework 1.2.5 ドキュメントへようこそ。"バージョン 1.2.5 リリースノート":releasenotes-1.2.5 を確認してください。
 
 h2. <a name="started">はじめよう</a>
 
@@ -19,7 +17,7 @@ Play framework のはじめの一歩を学ぶ楽しい 5 分間です。
 # "サンプルアプリケーション":samples
 
 
-h2. <a name="guide">チュートリアル — リアルな Play アプリケーションを一歩ずつ作成するガイド</a>
+h2. <a name="guide">チュートリアル － リアルな Play アプリケーションを一歩ずつ作成するガイド</a>
 
 **'Yet Another Blog Engine'** を最初から最後までコーディングすることで Play について学びます。各章は Play の更なるクールな機能について学ぶ機会となるでしょう。
 
@@ -66,7 +64,7 @@ Play について学ばなければならない全てです。
 ## "テンプレート言語の拡張":templates#extensions
 ## "暗黙オブジェクト":templates#implicits
 # "HTTP フォームデータのバリデーション":validation
-## "どのように動作するのでしょうか？":validation#how
+## "どのように動作するのでしょうか?":validation#how
 ## "エラーメッセージの取得":validation#messages
 ## "テンプレートへのエラーの表示":validation#display
 ## "アノテーションの使用":validation#annotations
@@ -164,8 +162,8 @@ h2. <a name="references">リファレンス</a>
 
 日々のハックのための広範囲なリファレンスです。
 
-# "クイックインデックス":index
-# "API ドキュメント (Javadoc)":/@api/index.html
+# <a class="navigation" href="index">クイックインデックス</a>
+# <a class="navigation" href="/@api/index.html">API ドキュメント (Javadoc)</a>
 # "チートシート":cheatsheet/commandLine
 ## "コマンドライン":cheatsheet/commandLine
 ## "コントローラ":cheatsheet/controllers
@@ -177,6 +175,7 @@ h2. <a name="references">リファレンス</a>
 ## "テンプレートタグ":tags
 ## "Java エクステンション":javaextensions
 ## "バリデーション":validation-builtin
+# <a class="navigation" href="configuration">設定リファレンス</a>
 
 h2. <a name="modules">配布モジュール</a>
 
@@ -189,6 +188,9 @@ h2. <a name="versionnotes">リリースノート</a>
 
 新しいバージョンの Play には、いくつかの変更点が含まれます。古いリリースノートを確認してください:
 
+# "Play 1.2.5":releasenotes-1.2.5
+# "Play 1.2.4":releasenotes-1.2.4
+# "Play 1.2":releasenotes-1.2
 # "Play 1.1":releasenotes-1.1
 # "Play 1.0.3":releasenotes-1.0.3
 # "Play 1.0.2":releasenotes-1.0.2
