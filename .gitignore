@@ -11,3 +11,5 @@ precompiled/*
 tmp/*
 tmp/bytecode/*
 test-result/*
+lib/*
+
