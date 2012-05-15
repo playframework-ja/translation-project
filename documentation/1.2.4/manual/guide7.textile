@@ -8,7 +8,7 @@ Play アプリケーションはいくつかのアプリケーションモジュ
 
 CRUD モジュールは、シンプルなリストとフォームを作るためにモデルクラスに対してイントロスペクションを行う、汎用アプリケーションです。
 
-CRUD モジュールを有効にするには、 @/yabe/conf/application.conf@ ファイルの require の後に次の行を追加します:
+CRUD モジュールを有効にするには、 @/conf/dependencies.yml@ ファイルの @require@ の後に次の行を追加します:
 
 bc. require:
     - play -> crud
