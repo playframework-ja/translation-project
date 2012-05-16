@@ -1,96 +1,108 @@
 #{extends 'main.html' /}
 #{set title:'Documentation' /}
-#{script src="navigation.js" /}
+<section id="top">
+    <div class="wrapper">
+        <h1><a href="/documentation/1.2.4">Manual, tutorials & references</a></h1>
+        <nav>
+            <form method="get" action="http://www.google.com/search" id="search">
+                <input type="search" placeholder="Search 1.2.4 on Google" name="q" results="10" size="29">
+                <input type="hidden"  name="sitesearch" value="playframework.org/documentation/1.2.4"> 
+                <input type="submit" style="position:absolute;top:-1000em">
+            </form>
+            <span class="versions">
+                <span>Version 1.2.4</span>
+                <select>
+                    <option disabled>Select version</option>
+                    
+                        <option  value="/documentation/2.0.1">Version 2.0.1</option>
+                    
+                        <option  value="/documentation/2.0">Version 2.0</option>
+                    
+                        <option  selected  value="/documentation/1.2.4">Version 1.2.4</option>
+                    
+                        <option  value="/documentation/1.2.3">Version 1.2.3</option>
+                    
+                        <option  value="/documentation/1.2.2">Version 1.2.2</option>
+                    
+                        <option  value="/documentation/1.2.1">Version 1.2.1</option>
+                    
+                        <option  value="/documentation/1.2">Version 1.2</option>
+                    
+                        <option  value="/documentation/1.1.1">Version 1.1.1</option>
+                    
+                        <option  value="/documentation/1.1">Version 1.1</option>
+                    
+                        <option  value="/documentation/1.0.3.2">Version 1.0.3.2</option>
+                    
+                        <option  value="/documentation/1.0.2.1">Version 1.0.2.1</option>
+                    
+                        <option  value="/documentation/1.0.1">Version 1.0.1</option>
+                    
+                        <option  value="/documentation/1.0">Version 1.0</option>
+                    
 
-<div id="top">
-    <p class="category">
-        マニュアル、チュートリアルとリファレンス
-    </p>
-</div>
-
-<div class="wrapper">
-    <div id="docSidebar">
-        <h2>閲覧</h2>
-        <ul>
-            <li id="gotoc"><a href="home">目次</a></li>
-        </ul>
-
-        <h2>内容</h2>
-        <div id="toc"></div>
-
-        <h2>バージョン選択</h2>
-        <div id="bc">
-            <ul>
-            #{list items:versions, as:'item'}
-                <li><a class="#{if version == item}selected#{/if}" href="/documentation?version=${item}">${item}</a> #{if version == item}⬅#{/if}</li>
-            #{/list}
-            </ul>
-        </div>
-
-        <h2>検索</h2> 
-        <p>Google で検索</p> 
-        <div id="searchBox"><form name="cse" id="cse-search-box" action="http://www.google.com/cse">
-            <input type="hidden" name="cx" value="016150910488704478090:uth5if04-bu" />
-            <input type="hidden" name="ie" value="utf-8" />
-            <input type="hidden" name="hl" value="ja" />
-            <input type="text" name="q" size="28" style="font-size:14px" />
-        </form>
-        <script type="text/javascript" src="http://www.google.com/cse/tools/onthefly?form=cse-search-box&lang=ja"></script></div>
-
-        <h2>書籍</h2>
-
-        <div id="books">
-            <a href="http://www.packtpub.com/play-framework-cookbook/book">
-                <img src="/public/images/Cookbook_Frontcover.jpg" />
-            </a>
-
-            <a href="http://www.the-play-book.co.uk/">
-                <img src="/public/images/introducing_play.gif" />
-            </a>
-        </div>
+                </select>
+            </span>
+            <span class="versions">
+                <span>Browse APIs</span>
+                <select>
+                    <option selected disabled>Select language</option>
+                    
+                        <option value="/documentation/api/1.2.4/index.html">Java API</option>
+                    
+                </select>
+            </span>
+        </nav>
     </div>
+</section>
 
-    <div id="pageContent">
-
-        <div class="wikistyle">${html.raw()}</div>
-
-        <div id="comments">
-            <h2><a name="comments">コメント</a></h2>
-
-            <p>
-                このフォームを使用して、このページのドキュメントに関する修正や追記、提案を追加してください。
-                質問はここには書かず、play-framework グループに質問してください。
-                サポート要求、バグレポート、趣旨に沿わないコメントは警告無しに削除されます。
-            </p>
-        </div>
-
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          var disqus_identifier = '${id}';
-          var disqus_title = '${title}';
-          (function() {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = 'http://playdocja.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
-        </script>
-    </div>
-
-    <script type="text/javascript">
-    $(document).ready(function() {
-        // Fix @API link
-        $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/${version}/index.html");
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $("pre").addClass("prettyprint scala")
+        window.prettyPrint && prettyPrint()
         
-        var top  = Math.floor(($(window).height() - $("#original_link").height()) / 2);
-        $("#original_link").css('top', top);
-        $("#original_link").click(function() {
-        	window.open('http://www.playframework.org/documentation/${version}/${id}', '_blank');
-        	return false;
-        });
-    });    
-    </script>
+        $("select").change(function() {
+            document.location = $(this).val()
+        })
+    });
+</script>
+<style type="text/css">
+    @import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
 
-</div>
-<div id="original_link"></div>
+    
+    <div id="content" class="wrapper doc">
+        <article>
+            ${html.raw()}
+        </article>
+        <aside>
+            
+            <h3>Browse</h3>
+            <ul>
+                <li id="gotoc"><a href="home">Table of contents</a></li>
+            </ul>
+            
+            <h3>Contents</h3>
+            <div id="toc"></div>
+            
+            <h3>Books</h3>
+            
+            <p>
+                <a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a>
+            </p>
+            
+            <p>
+                <a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li>
+            </p>
+            
+        </aside>
+    </div>
+
+    <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+    <script type="text/javascript" charset="utf-8">
+        buildNavigation()
+        
+        // Fix API link
+        $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.4/index.html')
+    </script>

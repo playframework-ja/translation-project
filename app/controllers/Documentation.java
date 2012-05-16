@@ -1,12 +1,12 @@
 package controllers;
 
-import play.Play;
-import play.libs.IO;
-import play.mvc.Controller;
-import util.*;
-
-import java.io.File;
+import java.io.*;
 import java.util.*;
+
+import play.*;
+import play.libs.*;
+import play.mvc.*;
+import util.*;
 
 public class Documentation extends Controller {
 
@@ -28,15 +28,20 @@ public class Documentation extends Controller {
         latestVersion = Play.configuration.getProperty("version.latest");
     }
 
-    public static void page(String version, String id) throws Exception {
+    /**
+     * page action.
+     * 
+     * @param version
+     * @param id
+     * @throws Exception
+     */
+    public static void page(String version, String id) {
 
         List<String> versions = Documentation.versions;
 
         String action = "documentation";
 
-        File page = new File(
-                Play.applicationPath,
-                "documentation/" + version + "/manual/" + id + ".textile");
+        File page = new File(Play.applicationPath, "documentation/" + version + "/manual/" + id + ".textile");
 
         if (!page.exists()) {
             if (!version.equals(latestVersion)) {
@@ -84,9 +89,7 @@ public class Documentation extends Controller {
 
     public static void cheatsheet(String version, String id) {
         final String action = "documentation";
-        File dir = new File(
-                Play.applicationPath,
-                String.format("documentation/%s/cheatsheets/%s", version, id));
+        File dir = new File(Play.applicationPath, String.format("documentation/%s/cheatsheets/%s", version, id));
 
         if (!dir.exists()) {
             if (!version.equals(latestVersion)) {
@@ -98,7 +101,7 @@ public class Documentation extends Controller {
         File[] files = dir.listFiles();
         Arrays.sort(files);
         String[] htmls = new String[files.length];
-        for (int i = 0; i<files.length; i++){
+        for (int i = 0; i < files.length; i++) {
             htmls[i] = Textile.toHTML(IO.readContentAsString(files[i]));
         }
         String title = StringUtils.humanize(id);
