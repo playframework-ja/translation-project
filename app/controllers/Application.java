@@ -29,15 +29,12 @@ public class Application extends Controller {
         }
     }
 
-    public static void index() throws MalformedURLException, IOException {
-
+    /**
+     * index action.
+     */
+    public static void index() {
         String action = "index";
-
-        Source source = new Source(new URL("http://www.playframework.org/"));
-        String twitter = getString(source.getElementById("twitter"));
-        String event = getString(source.getElementById("event"));
-
-        render(action, twitter, event);
+        render(action);
     }
 
     public static void documentation(String version) throws Exception {
