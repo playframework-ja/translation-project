@@ -3,22 +3,22 @@
 # ~~~~
 
 # Home page
-GET     /                                       Application.index
-GET     /2.0                                    Application.introduce20
-GET     /favicon.ico                            staticFile:public/images/favicon.png
-GET     /{action}                               Application.{action}
+GET     /                                         Application.index
+GET     /2.0                                      Application.introduce20
+GET     /favicon.ico                              staticFile:public/images/favicon.png
+GET     /{action}                                 Application.{action}
 
-GET     /documentation/{version}/{id}           Documentation.page
-GET     /documentation/{version}/images/{name}  Documentation.image
-GET     /documentation/{version}/files/{name}   Documentation.file
-GET     /documentation/{version}/cheatsheet/{id} Documentation.cheatsheet
+GET     /documentation/{version}/{id}             Documentation.page
+GET     /documentation/{version}/images/{name}    Documentation.image
+GET     /documentation/{version}/files/{name}     Documentation.file
+GET     /documentation/{version}/cheatsheet/{id}  Documentation.cheatsheet
 
-GET     /modules/{id}                           Modules.index
-GET     /modules/{id}-{version}/home            Modules.page
-GET     /modules/{id}-{version}/images/{name}   Modules.image
+GET     /modules/{id}                             Modules.index
+GET     /modules/{id}-{version}/home              Modules.page
+GET     /modules/{id}-{version}/images/{name}     Modules.image
 
 # Map static resources from the /app/public folder to the /public path
-GET     /public/                                staticDir:public
+GET     /assets/                                  staticDir:public
 
 # Catch all
-*       /{controller}/{action}                  {controller}.{action}
+*       /{controller}/{action}                   {controller}.{action}

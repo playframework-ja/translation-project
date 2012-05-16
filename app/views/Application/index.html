@@ -1,118 +1,160 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-#{set body:'home' /}
 
-<script type="text/javascript">
-$(document).ready(function() {
-  $("#event > .date > small").html('<a href="http://www.playframework.org/community/events">すべてのイベントをチェックする</a>');
-});
-</script>
-
-<div id="top">
-    <div class="wrapper">
-        <div id="side">
+    <div id="news">
+        <ul class="wrapper">
+            
+                <li>Play framework 2.0.1 Final is out!  Download it <a href="http://download.playframework.org/releases/play-2.0.1.zip">here</a>, or as part of the <a href="http://typesafe.com/stack">Typesafe Stack 2.0.1</a>.</li>
+            
+        </ul>
+    </div>
+    <section id="introduction">
+        <div class="wrapper">
+            <div id="title">
+                <h1>
+                    The Play framework<br>
+                    makes it easier to build <br>
+                    web applications with<br>
+                    Java &amp; Scala.
+                </h1>
+                <p>
+                    Play is based on a lightweight, stateless, web-friendly architecture and features predictable and minimal resource consumption (CPU, memory, threads) for highly-scalable applications - thanks to its reactive model, based on Iteratee IO.
+                </p>
+            </div>
             <div id="quicklinks">
-                <h3>はじめよう！</h3>
+                <h2>Get started</h2>
                 <p>
-                    最新の安定版リリース <a href="http://download.playframework.org/releases/play-1.2.5.zip">Play-1.2.5</a> をダウンロード。
-                    <small><a href="/download">その他のバージョン</a> の一覧はこちら。</small>
+                    
                 </p>
-                <h3>学習</h3>
                 <p>
-                    <a href="http://www.playframework.org/documentation/latest/overview">Play framework の概要</a> を読み、<a href="http://www.playframework.org/documentation/latest/guide1">チュートリアル</a> をひと通り試して、<a href="http://www.playframework.org/documentation">ドキュメント</a> を参照しましょう。
+                    Work through the tutorial for <a href="/documentation/latest/ScalaTodoList">Scala</a> or <a href="/documentation/latest/JavaTodoList">Java</a> developers, or 
+                    browse the <a href="/documentation/latest">documentation</a>.
                 </p>
-                <h3>ヘルプ</h3>
+                <h2>Get help</h2>
                 <p>
-                    <a href="http://groups.google.com/group/play-framework" target="_blank">Google group</a> に参加して話し合ったり、
-                    <a href="http://stackoverflow.com/tags/playframework" target="_blank">Stackoverflow</a> で助けてもらったり、
-                    コミュニティと <a href="http://www.playframework.org/community/snippets">ちょっとしたコード</a> を共有したり、
-                    他の開発者と <a href="http://www.playframework.org/community/events">出会う</a> ことができます。
+                    Join the <a href="http://groups.google.com/group/play-framework" target="_blank">Google group</a> to discuss and get help, or help others on 
+                    <a href="http://stackoverflow.com/tags/playframework" target="_blank">Stackoverflow</a>.
                 </p>
-                <h3>協力</h3>
+                <h2>Get involved</h2>
                 <p>
-                    <a href="http://play.lighthouseapp.com/" target="_blank">バグを報告</a> したり、<a href="http://github.com/playframework/play" target="_blank">github のソースコード</a> をチェックアウトしたり、プロジェクトに <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide" target="_blank">貢献</a> することができます。
+                    Check out the <a href="http://github.com/playframework/Play20" target="_blank">source code on Github</a>, and report issues on the project <a href="http://play.lighthouseapp.com/" target="_blank">bug tracker</a>.
                 </p>
             </div>
         </div>
-        <div id="introduction">
-            <h2>Play framework で Java と <a href="http://playscalaja.appspot.com">Scala</a> の Web アプリケーション開発をもっと簡単に</h2>
-            <p>
-                ついに Web デベロッパによって Java フレームワークが開発されました。
-                肥大化したエンタープライズ Java スタックを置き換える洗練された選択肢があります。
-                Play は開発者の生産性に注目し、RESTful アーキテクチャを目指します。
-            </p>
-            <div id="video">
-                <iframe src="http://player.vimeo.com/video/7087610?title=0&amp;byline=0&amp;portrait=0" width="600" height="337" frameborder="0"></iframe>
+    </section>
+    <section id="features">
+        <div class="wrapper">
+            <div class="item">
+                <img src="/assets/images/fast.png">
+                <h2>Strong &amp; Fast</h2>
+                <p>
+                    Play leverages the power of the Scala compiler to type check everything. 
+                    Get away from runtime errors and enjoy extreme performance!
+                </p>
             </div>
+            <div class="item">
+                <img src="/assets/images/reactive.png">
+                <h2>Reactive</h2>
+                <p>
+                    Play is architected around a reactive model: based on event-driven, non-blocking IO. Get ready for realtime!
+                </p>
+            </div>
+            <div class="item">
+                <img src="/assets/images/scalable.png">
+                <h2>Scalable</h2>
+                <p>
+                    Play is based on a stateless, web-friendly architecture. Easy to scale by adding more servers!
+                </p>
+            </div>
+            <br style="clear:both">
+            <hr>
+
+            <ul class="items">
+                <li class="reloading">
+                    Fast turnaround
+                    <p>
+                        Edit your files, save, refresh your browser and see the results immediately! No need to compile, deploy or restart the server.
+                    </p>
+                </li>
+                <li class="fun">
+                    Fun &amp; Productive
+                    <p>
+                        Cut out the time you spend waiting for your application to restart, increase your productivity and complete your projects faster.
+                    </p>
+                </li>
+                <li class="fullstack">
+                    True Scalability
+                    <p>
+                        Scale easily by running your application on several Play servers. Scale out your backend on multiple cores, or multiple nodes using Akka actors.
+                    </p>
+                </li>
+                <li class="javascala">
+                    Java &amp; Scala API
+                    <p>
+                        Use Java, Scala or mix both languages in a single application. Play makes it easier to use the greatest Scala features while keeping 100% compatible with your existing Java code and libraries.
+                    </p>
+                </li>
+                <li class="templates">
+                    Powerful build system
+                    <p>
+                        Simple yet extremely powerful build system based on sbt. Ready to use with latest Web technologies like Less CSS, Google Closure and CoffeeScript.
+                    </p>
+                </li>
+                <li class="sbt">
+                    Ready to start
+                    <p>
+                        Download the package and you're done. Start hacking with the integrated Play console and development server. Push to production with a single command.
+                    </p>
+                </li>
+            </ul>
+        </div>
+    </section>
+    <section id="meet">
+        
+
+<div class="wrapper">
+    <div class="half history">
+        <h2>Re-play history</h2>
+        <p>
+            Since 2007, we've been working on making Java web application development easier. Play started as an internal project at Zenexity and was heavily influenced by our way of doing web projects: focusing on developer productivity, respecting Web architecture, and from the start employing a fresh approach to packaging conventions.
+        </p>
+        <p>
+            Since then, technology and the Web have continued to evolve. The Web has become a central point of all applications. HTML, CSS and JavaScript technologies have evolved quickly - making it almost impossible for a server-side framework to keep up. 
+        </p>
+        <p>Today, the entire Web architecture is moving quickly towards real-time. Project requirements have 
+morphed too - meaning previous staples, such as SQL are no longer our exclusive datastore technology. At the programming language level we've witnessed some monumental changes: with several JVM languages, including Scala, gaining popularity.
+        </p>
+        <p>
+            That's why we created Play 2.0, <a href="/documentation/latest/Philosophy">a new Web framework for a new era</a>.
+        </p>
+    </div>
+    <div class="half">
+        <div id="history" class="v2">
+            <div id="hplay"></div>
+            <div id="hover"></div>
+            <div id="hjava">Java</div>
+            <div id="hscala">Scala</div>
+            <div id="hjsp">JSP</div>
+            <div id="hservlet">Servlet</div>
+            <div id="hgroovy">Groovy</div>
+            <div id="hpython">Python</div>
+            <div id="hasync">Async I/O</div>
+            <div id="hsbt">sbt</div>
+            <div id="hakka">Akka</div>
+            <div id="hdeps">Ivy</div>
+            <div id="hsocket">WebSockets</div>
+            <div id="htemplates">Templates</div>
+            <ul id="historyMenu">
+                <li id="va">0.x</li>
+                <li id="vb">1.0</li>
+                <li id="v1" class="">1.2</li>
+                <li id="v2" class="active">2.0</li>
+            </ul>
         </div>
     </div>
 </div>
 
-<div id="overview">
-    <div class="wrapper">
 
-        <div id="activity">
-            #{if twitter}
-            <h1>Twitter つぶやき</h1>
-            ${twitter.raw()}
-            #{/if}
-            #{if event}
-            <h1>次回開発者イベント</h1>
-            ${event.raw()}
-            #{/if}
-        </div>
+    </section>
 
-        <div id="quickoverview">
-            <h1>概要</h1>
-            <div class="feature clear">
-                <h2><img src="/public/images/refresh.png">バグを直してリロード！</h2>
-                <p>
-                    Java ファイルを修正して、保存して、ブラウザをリロードすれば、すぐに結果を見ることができます！コンパイルもデプロイもサーバの再起動も必要ありません。
-                </p>
-            </div>
-            <div class="feature">
-                <h2><img src="/public/images/stateless.png">ステートレスモデル</h2>
-                <p>
-                    Play は "Share nothing" なシステムです。同じアプリケーションの多数のインスタンスを複数台のサーバ上で動作させることで容易にスケールし、REST に適しています。
-                </p>
-            </div>
-            <div class="feature clear">
-                <h2><img src="/public/images/magic.png">効率的なテンプレートシステム</h2>
-                <p>
-                    拡張言語としての Groovy に基づいたクリーンなテンプレートシステムです。テンプレートの継承、包含、そしてタグ機能を提供します。
-                </p>
-            </div>
-            <div class="feature">
-                <h2><img src="/public/images/exchange.png">非同期</h2>
-                <p>
-                    ノンブロッキング IO モデルに基づくことで、情報ストリームに基づいたモダンな web アプリケーションを作成できます。
-                </p>
-            </div>
-            <div class="feature clear">
-                <h2><img src="/public/images/application.png">フルスタック</h2>
-                <p>
-                    クールな web アプリケーションを作成するために必要な Hibernate, OpenID, Memcached 等との統合やプラグインシステムを提供します。
-                </p>
-            </div>
-            <div class="feature">
-                <h2><img src="/public/images/java.png">ピュア Java</h2>
-                <p>
-                    Java でコーディングします。どんな Java ライブラリでも使用できますし、お好みの IDE で開発ができます。eclipse と netbeans は特によく統合されています。
-                </p>
-            </div>
-            <div class="feature clear">
-                <h2><img src="/public/images/bug.png">素早くエラー解決</h2>
-                <p>
-                    エラーが発生すると、play はソースコードと問題のある行を表示します。テンプレートについても同様です。
-                </p>
-            </div>
-            <div class="feature">
-                <h2><img src="/public/images/fast.png">楽しく、かつ生産的</h2>
-                <p>
-                    Java アプリケーションの再起動を待つ時間を削減し、生産性を高め、プロジェクトをより速く完了します。
-                </p>
-            </div>
-        </div>
 
-    </div>
-</div>
