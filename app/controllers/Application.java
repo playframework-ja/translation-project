@@ -60,43 +60,22 @@ public class Application extends Controller {
      */
     public static void download() throws MalformedURLException, IOException {
 
-        Long downloads = 0L;
         Download latest = null;
-        Download upcoming = null;
+        List<Download> upcomings = null;
         List<Download> olders = null;
-        List<Download> nightlies = null;
 
-        Source source = new Source(new URL("http://www.playframework.org/download"));
-
-        List<Element> tables = source.getAllElements(HTMLElementName.TABLE);
-
-        for (int i = 0, n = tables.size(); i < n; i++) {
-
-            List<Element> elements = tables.get(i).getAllElements(HTMLElementName.TR);
-
-            if (elements.size() == 1) {
-                if (latest == null) {
-                    latest = toDownload(elements.get(0));
-                } else {
-                    upcoming = toDownload(elements.get(0));
-                }
-            } else {
-                if (olders == null) {
-                    olders = toDownload(elements);
-                } else {
-                    nightlies = toDownload(elements);
-                }
+        List<Element> tables = new Source(new URL("http://www.playframework.org/download"))
+                .getAllElements(HTMLElementName.TABLE);
+        if (tables.size() > 1) {
+            latest = toDownload(tables.get(0).getAllElements(HTMLElementName.TR).get(0));
+            if (tables.size() == 2) {
+                olders = toDownload(tables.get(1).getAllElements(HTMLElementName.TR));
+            } else if (tables.size() == 3) {
+                upcomings = toDownload(tables.get(1).getAllElements(HTMLElementName.TR));
+                olders = toDownload(tables.get(2).getAllElements(HTMLElementName.TR));
             }
         }
-        render(downloads, latest, upcoming, olders, nightlies);
-    }
-
-    private static List<Download> toDownload(List<Element> elements) {
-        List<Download> downloads = new ArrayList<Download>();
-        for (Element element : elements) {
-            downloads.add(toDownload(element));
-        }
-        return downloads;
+        render(latest, upcomings, olders);
     }
 
     private static Download toDownload(Element element) {
@@ -105,6 +84,14 @@ public class Application extends Controller {
         String date = list.get(1).getContent().toString().trim();
         String size = list.get(2).getContent().toString().trim();
         return new Download(url, date, size);
+    }
+
+    private static List<Download> toDownload(List<Element> elements) {
+        List<Download> downloads = new ArrayList<Download>();
+        for (Element element : elements) {
+            downloads.add(toDownload(element));
+        }
+        return downloads;
     }
 
     /**

@@ -1,80 +1,54 @@
 #{extends 'main.html' /}
 #{set title:'Code' /}
-
-<div id="top">
-    <p class="category">${downloads.format('#,###')} ダウンロード、カウント中</p>
-</div>
-
-<div class="wrapper" id="downloads">
-    
-    <div class="wrapped wikistyle">
-        
+<section id="top">
+    <div class="wrapper">
+        <h1>Ready to use packages for Linux, MacOS and Windows</h1>
+    </div>
+</section>
+<div id="content" class="wrapper">
+    <article>
+        <blockquote>
+            <p>
+                Every binary package contains all required dependencies, the complete documentation,
+                a full set of sample applications and support for many IDEs and text editors.
+            </p>
+        </blockquote>
+        <h2>Get the latest official version</h2>
         <p>
-           どのバイナリパッケージにも、必要なすべてのライブラリ、完全なドキュメント、一式のサンプルアプリケーション、
-           そして多くの統合開発環境とテキストエディタに対するサポートが含まれています。
+            The latest official version is <strong>${latest.version}</strong> (${latest.date.format('MMMM dd yyyy', 'us')}).
         </p>
-        
-        <h2>公式の最新バージョンを取得する</h2>
-        
-        <p>
-            公式の最新バージョンは <strong>${latest.version}</strong> (${latest.date.format('MMMM dd, yyyy', 'us')}) です。
-        </p>
-        <table id="official">
+        <table>
             <tr>
                 <td><a href="${latest.url}">${latest.name}</a></td>
-                <td width="200">${latest.date.format('dd MMM yyyy', 'us')}</td> 
+                <td width="200">${latest.date.format('MMM dd yyyy', 'us')}</td>
                 <td width="100">${latest.size}M</td>
             </tr>
         </table>
-        
-        #{if upcoming}
-        <h2>新登場</h2>
-        
+        #{if upcomings} <h2>Upcoming</h2>
         <p>
-            次のバージョンのプレビューとリリース候補です。
+            Preview and release candidates for the next versions.
         </p>
+        #{list upcomings, as:'upcoming'}
         <table>
-            <tr class="odd">
+            <tr>
                 <td><a href="${upcoming.url}">${upcoming.name}</a></td>
-                <td width="200">${upcoming.date.format('dd MMM yyyy', 'us')}</td> 
+                <td width="200">${upcoming.date.format('MMM dd yyyy', 'us')}</td>
                 <td width="100">${upcoming.size}M</td>
             </tr>
+            #{/list}
         </table>
-        #{/if}
-        
-        <h2>古いバージョン</h2>
-        
+        #{/if} <h2>Older versions</h2>
         <p>
-            古いバージョンの Play をお探しですか? 以下で、いくつかの古いリリースを見つけることができます。
+            Looking for older versions of Play? You can find some of our older releases below.
         </p>
-        
         <table>
-        #{list olders, as:'older'}
+            #{list olders, as:'older'}
             <tr class="${older_parity}">
-                <td><a href="${older.url}">${older.name}</a></td> 
-                <td width="200">${older.date.format('dd MMM yyyy', 'us')}</td> 
+                <td><a href="${older.url}">${older.name}</a></td>
+                <td width="200">${older.date.format('MMM dd yyyy', 'us')}</td>
                 <td width="100">${older.size}M</td>
             </tr>
-        #{/list}
+            #{/list}
         </table>
-        
-        #{if nightlies}
-        <h2>夜間ビルド</h2>
-        
-        <p>
-            すべてのコミットの後に、ビルドしたフレームワークのコピーを配置しています。
-        </p>
-        
-        <table>
-        #{list nightlies, as:'nightly'}
-            <tr class="${nightly_parity}">
-                <td><a href="${nightly.url}">${nightly.name}</a></td> 
-                <td width="200">${nightly.date.format('dd MMM yyyy', 'us')}</td> 
-                <td width="100">${nightly.size}M</td>
-            </tr>
-        #{/list}
-        </table>
-        #{/if}
-    </div>
-    
+    </article>
 </div>
