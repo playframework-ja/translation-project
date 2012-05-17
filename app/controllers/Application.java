@@ -93,6 +93,10 @@ public class Application extends Controller {
         return new Download(url, date, size);
     }
 
+    /**
+     * code action.
+     * @param action
+     */
     public static void code(String action) {
         render(action);
     }
