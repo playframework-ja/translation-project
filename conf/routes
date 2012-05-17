@@ -21,4 +21,4 @@ GET     /modules/{id}-{version}/images/{name}     Modules.image
 GET     /assets/                                  staticDir:public
 
 # Catch all
-*       /{controller}/{action}                   {controller}.{action}
+*       /{controller}/{action}                    {controller}.{action}

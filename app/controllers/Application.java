@@ -13,16 +13,19 @@ import org.yaml.snakeyaml.*;
 import play.*;
 import play.mvc.*;
 
+/**
+ * Application controller.
+ * 
+ * @author garbagetown
+ * 
+ */
 public class Application extends Controller {
 
     static {
-
         String hostKey = "http.proxyHost";
         String portKey = "http.proxyPort";
-
         String host = Play.configuration.getProperty(hostKey);
         String port = Play.configuration.getProperty(portKey);
-
         if (StringUtils.isNotEmpty(host) && StringUtils.isNotEmpty(port)) {
             System.setProperty(hostKey, host);
             System.setProperty(portKey, port);
@@ -33,18 +36,29 @@ public class Application extends Controller {
      * index action.
      */
     public static void index() {
-        String action = "index";
-        render(action);
+        render();
     }
 
-    public static void documentation(String version) throws Exception {
+    /**
+     * documentation action.
+     * 
+     * @param version
+     */
+    public static void documentation(String version) {
         if (version == null) {
             version = Play.configuration.getProperty("version.latest");
         }
         Documentation.page(version, "home");
     }
 
-    public static void download(String action) throws MalformedURLException, IOException {
+    /**
+     * download action.
+     * 
+     * @param action
+     * @throws MalformedURLException
+     * @throws IOException
+     */
+    public static void download() throws MalformedURLException, IOException {
 
         Long downloads = 0L;
         Download latest = null;
@@ -74,7 +88,7 @@ public class Application extends Controller {
                 }
             }
         }
-        render(action, downloads, latest, upcoming, olders, nightlies);
+        render(downloads, latest, upcoming, olders, nightlies);
     }
 
     private static List<Download> toDownload(List<Element> elements) {
@@ -95,92 +109,21 @@ public class Application extends Controller {
 
     /**
      * code action.
+     * 
      * @param action
      */
-    public static void code(String action) {
-        render(action);
+    public static void code() {
+        render();
     }
 
-    public static void ecosystem(String action) {
-        render(action);
-    }
-
-    public static void modules(String action, String keyword) throws FileNotFoundException {
-
-        File[] dirs = new File(Play.applicationPath, "documentation/modules").listFiles();
-
-        List<Module> modules = new ArrayList<Module>();
-
-        for (File dir : dirs) {
-
-            File manifest = new File(dir, "manifest");
-
-            if (!manifest.exists()) {
-                continue;
-            }
-
-            Map<String, Object> map = (Map<String, Object>) new Yaml().load(new FileInputStream(manifest));
-
-            Module module = new Module(map);
-
-            if (keyword == null || module.id.contains(keyword) || module.name.contains(keyword)
-                    || module.description.contains(keyword)) {
-                modules.add(module);
-            }
-        }
-
-        Collections.sort(modules);
-
-        render(action, modules);
-    }
-
-    public static void about(String action) throws FileNotFoundException {
+    /**
+     * about action.
+     * 
+     * @throws FileNotFoundException
+     */
+    public static void about() throws FileNotFoundException {
         List<Map<String, String>> translators = (List<Map<String, String>>) new Yaml().load(new FileInputStream(
                 Play.applicationPath + "/conf/translators.yml"));
-        render(action, translators);
-    }
-
-    public static void introduce20() throws MalformedURLException, IOException {
-
-        Source source = new Source(new URL("http://www.playframework.org/2.0"));
-
-        String list = getString(source, "features", 1);
-
-        List<Map<String, String>> details = new ArrayList<Map<String, String>>();
-        details.add(getMap(source, "build"));
-        details.add(getMap(source, "mvc"));
-        details.add(getMap(source, "apis"));
-        details.add(getMap(source, "datastore"));
-        details.add(getMap(source, "testing"));
-        details.add(getMap(source, "documentation"));
-
-        String twitter = getString(source, "share", 0);
-
-        render(list, details, twitter);
-    }
-
-    private static Map<String, String> getMap(Source source, String id) {
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("id", id);
-        map.put("benefits", getString(source, id, 1));
-
-        return map;
-    }
-
-    private static String getString(Source source, String id, int pos) {
-        String s = "";
-        Element element = source.getElementById(id);
-        if (element != null) {
-            List<Element> elements = element.getChildElements();
-            if (elements != null && elements.size() > pos) {
-                s = getString(elements.get(pos));
-            }
-        }
-        return s;
-    }
-
-    private static String getString(Element elem) {
-        return elem != null ? elem.toString() : "";
+        render(translators);
     }
 }
