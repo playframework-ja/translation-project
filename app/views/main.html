@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>Home — Playframework</title>
+        <title>#{get 'title' /} — Playframework</title>
         <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
         <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
         <link href="/search.xml" rel="search" title="playframework" type="application/opensearchdescription+xml">
@@ -16,9 +16,7 @@
             
         
         <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script> 
-        <script type="text/javascript"> 
-            _uacct = "UA-203610-11";
-            urchinTracker();
+        <script type="text/javascript">
         </script>
     </head>
     <body>
@@ -42,14 +40,14 @@
                 </figure>
             </div>
             <nav>
-            
-                    <a href="/documentation" class="learn">Learn</a> 
                 
-                    <a href="/community" class="community">Community</a> 
+                    <a href="/documentation" class="${request.action =~ /page/ ? 'selected ' : ''}learn">Learn</a> 
                 
-                    <a href="/code" class="code">Code</a> 
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Community</a> 
                 
-                    <a href="/modules" class="modules">Modules</a> 
+                    <a href="/code" class="${request.action =~ /code/ ? 'selected ' : ''}code">Code</a> 
+                
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Modules</a> 
                 
                     <a href="/download" class="download">Download</a> 
                 
