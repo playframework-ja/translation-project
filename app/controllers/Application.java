@@ -66,30 +66,30 @@ public class Application extends Controller {
 
         List<Element> tables = new Source(new URL("http://www.playframework.org/download"))
                 .getAllElements(HTMLElementName.TABLE);
-        if (tables.size() > 1) {
-            latest = toDownload(tables.get(0).getAllElements(HTMLElementName.TR).get(0));
-            if (tables.size() == 2) {
-                olders = toDownload(tables.get(1).getAllElements(HTMLElementName.TR));
-            } else if (tables.size() == 3) {
-                upcomings = toDownload(tables.get(1).getAllElements(HTMLElementName.TR));
-                olders = toDownload(tables.get(2).getAllElements(HTMLElementName.TR));
-            }
+        // first table has latest version
+        latest = toDownload(tables.get(0));
+        // last table has older versions
+        olders = toDownloads(tables.get(tables.size() - 1));
+        // if there are more than two tables, middle of them might be upcomings
+        if (tables.size() > 2) {
+            upcomings = toDownloads(tables.get(1));
         }
         render(latest, upcomings, olders);
     }
 
-    private static Download toDownload(Element element) {
-        List<Element> list = element.getAllElements(HTMLElementName.TD);
-        String url = list.get(0).getChildElements().get(0).getAttributeValue("href");
-        String date = list.get(1).getContent().toString().trim();
-        String size = list.get(2).getContent().toString().trim();
-        return new Download(url, date, size);
+    private static Download toDownload(Element table) {
+        return toDownloads(table).get(0);
     }
 
-    private static List<Download> toDownload(List<Element> elements) {
+    private static List<Download> toDownloads(Element table) {
         List<Download> downloads = new ArrayList<Download>();
+        List<Element> elements = table.getAllElements(HTMLElementName.TR);
         for (Element element : elements) {
-            downloads.add(toDownload(element));
+            List<Element> td = element.getAllElements(HTMLElementName.TD);
+            String url = td.get(0).getChildElements().get(0).getAttributeValue("href");
+            String date = td.get(1).getContent().toString().trim();
+            String size = td.get(2).getContent().toString().trim();
+            downloads.add(new Download(url, date, size));
         }
         return downloads;
     }
