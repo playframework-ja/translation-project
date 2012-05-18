@@ -44,11 +44,8 @@ public class Application extends Controller {
      * 
      * @param version
      */
-    public static void documentation(String version) {
-        if (version == null) {
-            version = Play.configuration.getProperty("version.latest");
-        }
-        Documentation.page(version, "home");
+    public static void documentation() {
+        redirect(String.format("/documentation/%s/home", Play.configuration.getProperty("version.latest")));
     }
 
     /**

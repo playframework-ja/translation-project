@@ -1,5 +1,7 @@
 package controllers;
 
+import static org.apache.commons.lang.StringUtils.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -8,10 +10,15 @@ import play.libs.*;
 import play.mvc.*;
 import util.*;
 
+/**
+ * Documentation controller.
+ * 
+ * @author garbagetown
+ * 
+ */
 public class Documentation extends Controller {
 
     private static List<String> versions;
-
     private static String latestVersion;
 
     static {
@@ -33,28 +40,27 @@ public class Documentation extends Controller {
      * 
      * @param version
      * @param id
-     * @throws Exception
      */
     public static void page(String version, String id) {
-
         List<String> versions = Documentation.versions;
-
-        String action = "documentation";
-
-        File page = new File(Play.applicationPath, "documentation/" + version + "/manual/" + id + ".textile");
-
+        if (!versions.contains(version)) {
+            version = latestVersion;
+        }
+        if (isEmpty(id)) {
+            redirect(String.format("/documentation/%s/home", version));
+        }
+        String filepath = String.format("documentation/%s/manual/%s.textile", version, id);
+        File page = new File(Play.applicationPath, filepath);
         if (!page.exists()) {
             if (!version.equals(latestVersion)) {
                 page(latestVersion, id);
             }
             notFound(page.getPath());
         }
-
         String textile = IO.readContentAsString(page);
         String html = Textile.toHTML(textile);
         String title = getTitle(textile);
-
-        render(action, versions, version, id, html, title);
+        render(versions, version, id, html, title);
     }
 
     public static void image(String version, String name) {

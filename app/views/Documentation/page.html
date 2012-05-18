@@ -2,54 +2,27 @@
 #{set title:'Documentation' /}
 <section id="top">
     <div class="wrapper">
-        <h1><a href="/documentation/1.2.4">Manual, tutorials & references</a></h1>
+        <h1><a href="/documentation/${version}">Manual, tutorials & references</a></h1>
         <nav>
             <form method="get" action="http://www.google.com/search" id="search">
-                <input type="search" placeholder="Search 1.2.4 on Google" name="q" results="10" size="29">
-                <input type="hidden"  name="sitesearch" value="playframework.org/documentation/1.2.4"> 
+                <input type="search" placeholder="Search ${version} on Google" name="q" results="10" size="29">
+                <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/${version}"> 
                 <input type="submit" style="position:absolute;top:-1000em">
             </form>
             <span class="versions">
-                <span>Version 1.2.4</span>
+                <span>Version ${version}</span>
                 <select>
                     <option disabled>Select version</option>
-                    
-                        <option  value="/documentation/2.0.1">Version 2.0.1</option>
-                    
-                        <option  value="/documentation/2.0">Version 2.0</option>
-                    
-                        <option  selected  value="/documentation/1.2.4">Version 1.2.4</option>
-                    
-                        <option  value="/documentation/1.2.3">Version 1.2.3</option>
-                    
-                        <option  value="/documentation/1.2.2">Version 1.2.2</option>
-                    
-                        <option  value="/documentation/1.2.1">Version 1.2.1</option>
-                    
-                        <option  value="/documentation/1.2">Version 1.2</option>
-                    
-                        <option  value="/documentation/1.1.1">Version 1.1.1</option>
-                    
-                        <option  value="/documentation/1.1">Version 1.1</option>
-                    
-                        <option  value="/documentation/1.0.3.2">Version 1.0.3.2</option>
-                    
-                        <option  value="/documentation/1.0.2.1">Version 1.0.2.1</option>
-                    
-                        <option  value="/documentation/1.0.1">Version 1.0.1</option>
-                    
-                        <option  value="/documentation/1.0">Version 1.0</option>
-                    
-
+                    #{list items:versions, as:'item'}
+                        <option ${request.url =~ "${item}/" ? 'selected ' : ''}value="/documentation/${item}">Version ${item}</option>
+                    #{/list}
                 </select>
             </span>
             <span class="versions">
                 <span>Browse APIs</span>
                 <select>
                     <option selected disabled>Select language</option>
-                    
-                        <option value="/documentation/api/1.2.4/index.html">Java API</option>
-                    
+                    <option value="http://www.playframework.org/documentation/api/${version}/index.html">Java API</option>
                 </select>
             </span>
         </nav>
@@ -61,7 +34,6 @@
     $(function(){
         $("pre").addClass("prettyprint scala")
         window.prettyPrint && prettyPrint()
-        
         $("select").change(function() {
             document.location = $(this).val()
         })
@@ -104,5 +76,5 @@
         buildNavigation()
         
         // Fix API link
-        $('a[href="/@api/index.html"]').attr('href', '/documentation/api/1.2.4/index.html')
+        $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
     </script>
