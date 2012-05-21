@@ -4,17 +4,13 @@
         <title>#{get 'title' /} — Playframework</title>
         <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
         <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
-        <link href="/search.xml" rel="search" title="playframework" type="application/opensearchdescription+xml">
         <meta name="viewport" content="width=1024, initial-scale=1">
         <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
         <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
-        
-            
-            <script src="/assets/javascripts/history.js" type="text/javascript"></script>
-        
-            <link rel="stylesheet" media="screen" href="/assets/stylesheets/home.css">
-            
-        
+        #{if request.action == 'Application.index'}
+        <script src="/assets/javascripts/history.js" type="text/javascript"></script>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/home.css">
+        #{/if}
         <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script> 
         <script type="text/javascript">
         </script>
@@ -49,6 +45,8 @@
                 
                     <a href="http://www.playframework.org/modules" target="_blank" class="modules">Modules</a> 
                 
+                    <a href="/about" class="${request.action =~ /about/ ? 'selected ' : ''}about">About</a>
+                    
                     <a href="/download" class="download">Download</a> 
                 
             </nav>

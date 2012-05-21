@@ -4,11 +4,12 @@ import java.io.*;
 import java.net.*;
 import java.util.*;
 
-import models.*;
+import models.Download;
 import net.htmlparser.jericho.*;
 
 import org.apache.commons.lang.*;
-import org.yaml.snakeyaml.*;
+import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.service.*;
 
 import play.*;
 import play.mvc.*;
@@ -103,11 +104,18 @@ public class Application extends Controller {
     /**
      * about action.
      * 
-     * @throws FileNotFoundException
+     * @throws IOException
      */
-    public static void about() throws FileNotFoundException {
-        List<Map<String, String>> translators = (List<Map<String, String>>) new Yaml().load(new FileInputStream(
-                Play.applicationPath + "/conf/translators.yml"));
-        render(translators);
+    public static void about() throws IOException {
+        CollaboratorService service = new CollaboratorService();
+        String owner = Play.configuration.getProperty("github.owner");
+        String name = Play.configuration.getProperty("github.name");
+        RepositoryId repository = new RepositoryId(owner, name);
+        List<User> collaborators = new ArrayList<User>();
+        UserService userService = new UserService();
+        for (User user : service.getCollaborators(repository)) {
+            collaborators.add(userService.getUser(user.getLogin()));
+        }
+        render(collaborators);
     }
 }
