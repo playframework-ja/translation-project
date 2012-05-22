@@ -60,27 +60,27 @@ public class Application extends Controller {
 
     /**
      * download action.
-     * 
-     * @param action
-     * @throws MalformedURLException
-     * @throws IOException
      */
-    public static void download() throws MalformedURLException, IOException {
+    public static void download() {
 
         Download latest = null;
         List<Download> upcomings = null;
         List<Download> olders = null;
 
-        Document doc = Jsoup.connect("http://www.playframework.org/download").get();
-        Elements elements = doc.select("article table");
+        try {
+            Document doc = Jsoup.connect("http://www.playframework.org/download").get();
+            Elements elements = doc.select("article table");
 
-        // the first table must have latest version
-        latest = toDownload(elements.first());
-        // the last table must have older versions
-        olders = toDownloads(elements.last());
-        // if there are more than two tables, middle of them might be upcomings
-        if (elements.size() > 2) {
-            upcomings = toDownloads(elements.get(1));
+            // the first table must have latest version
+            latest = toDownload(elements.first());
+            // the last table must have older versions
+            olders = toDownloads(elements.last());
+            // if there are more than two tables, middle of them might be upcomings
+            if (elements.size() > 2) {
+                upcomings = toDownloads(elements.get(1));
+            }
+        } catch (IOException e) {
+            // do anything
         }
         render(latest, upcomings, olders);
     }

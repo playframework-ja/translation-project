@@ -14,6 +14,7 @@
             </p>
         </blockquote>
         <h2>Get the latest official version</h2>
+        #{if latest}
         <p>
             The latest official version is <strong>${latest.version}</strong> (${latest.date.format('MMMM dd yyyy', 'us')}).
         </p>
@@ -24,6 +25,7 @@
                 <td width="100">${latest.size}M</td>
             </tr>
         </table>
+        #{/if}
         #{if upcomings}
         <h2>Upcoming</h2>
         <p>
