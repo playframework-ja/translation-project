@@ -75,8 +75,8 @@ public class Documentation extends Controller {
                             value.substring(index)));
             link.attr("target", "_blank");
         }
-        String title = getTitle(textile);
         html = doc.body().html();
+        String title = getTitle(textile);
         render(versions, version, id, html, title);
     }
 
