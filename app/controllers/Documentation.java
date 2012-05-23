@@ -1,9 +1,13 @@
 package controllers;
 
-import static org.apache.commons.lang.StringUtils.*;
+import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.io.*;
 import java.util.*;
+
+import org.jsoup.*;
+import org.jsoup.nodes.*;
+import org.jsoup.select.*;
 
 import play.*;
 import play.libs.*;
@@ -59,7 +63,20 @@ public class Documentation extends Controller {
         }
         String textile = IO.readContentAsString(page);
         String html = Textile.toHTML(textile);
+
+        Document doc = Jsoup.parse(html);
+        Elements links = doc.select("a[href~=/@api/]");
+        for (Element link : links) {
+            String value = link.attr("href");
+            int index = value.indexOf("/@api/") + "/@api/".length();
+            link.attr(
+                    "href",
+                    String.format("http://www.playframework.org/documentation/api/%s/%s", version,
+                            value.substring(index)));
+            link.attr("target", "_blank");
+        }
         String title = getTitle(textile);
+        html = doc.body().html();
         render(versions, version, id, html, title);
     }
 
