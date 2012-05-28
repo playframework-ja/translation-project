@@ -8,7 +8,7 @@ GET     /2.0                                      Application.introduce20
 GET     /favicon.ico                              staticFile:public/images/favicon.png
 GET     /{action}                                 Application.{action}
 
-GET     /documentation/{version}                  Documentation.page
+GET     /documentation/{version}/?                Documentation.page
 GET     /documentation/{version}/{id}             Documentation.page
 GET     /documentation/{version}/images/{name}    Documentation.image
 GET     /documentation/{version}/files/{name}     Documentation.file

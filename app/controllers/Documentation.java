@@ -47,18 +47,12 @@ public class Documentation extends Controller {
      */
     public static void page(String version, String id) {
         List<String> versions = Documentation.versions;
-        if (!versions.contains(version)) {
-            version = latestVersion;
-        }
         if (isEmpty(id)) {
             redirect(String.format("/documentation/%s/home", version));
         }
         String filepath = String.format("documentation/%s/manual/%s.textile", version, id);
         File page = new File(Play.applicationPath, filepath);
         if (!page.exists()) {
-            if (!version.equals(latestVersion)) {
-                page(latestVersion, id);
-            }
             notFound(page.getPath());
         }
         String textile = IO.readContentAsString(page);
@@ -76,8 +70,7 @@ public class Documentation extends Controller {
             link.attr("target", "_blank");
         }
         html = doc.body().html();
-        String title = getTitle(textile);
-        render(versions, version, id, html, title);
+        render(versions, version, id, html);
     }
 
     public static void image(String version, String name) {
@@ -101,13 +94,6 @@ public class Documentation extends Controller {
             notFound(file.getPath());
         }
         renderBinary(file);
-    }
-
-    static String getTitle(String textile) {
-        if (textile.length() == 0) {
-            return "";
-        }
-        return textile.split("\n")[0].substring(3).trim();
     }
 
     public static void cheatsheet(String version, String id) {
