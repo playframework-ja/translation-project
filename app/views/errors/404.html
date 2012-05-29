@@ -13,15 +13,25 @@
 
 #{else}
 #{extends 'main.html' /}
-<div id="top">
-    <p class="category">ページが見つかりません</p>
-</div>
-
-<div class="wrapper" id="notfound">
-    <div class="wrapped">
-        <p>
-            申し訳ありませんが、お探しのページが見つかりませんでした。このサイトになにか問題があるとお考えの場合は、<a href="https://github.com/garbagetown/playdocja/issues">github バグトラッカ</a> に問題を報告してください。
-        </p>
+<section id="top">
+        <div class="wrapper">
+            <h1>This page may have been moved or deleted</h1>
+        </div>
+    </section>
+    
+    <div id="content" class="wrapper">
+        
+        <article>
+            
+            <h1>ページが見つかりません</h1>
+            
+            <p>
+                申し訳ありませんが、お探しのページが見つかりませんでした。 
+                このサイトになにか問題があるとお考えの場合は、<a href="https://github.com/garbagetown/playdocja/issues">github バグトラッカ</a> に問題を報告してください。
+            </p>
+            
+        </article>
+        
+        
     </div>
-</div>
 #{/else}
