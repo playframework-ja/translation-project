@@ -4,10 +4,13 @@ import static org.apache.commons.lang.StringUtils.isEmpty;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.*;
 
 import org.jsoup.*;
 import org.jsoup.nodes.*;
 import org.jsoup.select.*;
+import org.pegdown.*;
+import org.pegdown.ast.*;
 
 import play.*;
 import play.libs.*;
@@ -47,16 +50,38 @@ public class Documentation extends Controller {
      */
     public static void page(String version, String id) {
         List<String> versions = Documentation.versions;
+
         if (isEmpty(id)) {
-            redirect(String.format("/documentation/%s/home", version));
+            String home = version.startsWith("1") ? "home" : "Home";
+            redirect(String.format("/documentation/%s/%s", version, home));
         }
-        String filepath = String.format("documentation/%s/manual/%s.textile", version, id);
-        File page = new File(Play.applicationPath, filepath);
+
+        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", version));
+        String ext = version.startsWith("1") ? "textile" : "md";
+        File page = find(root, id, ext);
         if (!page.exists()) {
             notFound(page.getPath());
         }
-        String textile = IO.readContentAsString(page);
-        String html = Textile.toHTML(textile);
+        String html = null;
+        String content = IO.readContentAsString(page);
+        if (version.startsWith("1")) {
+            html = Textile.toHTML(content);
+        } else {
+            PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
+            html = processor.markdownToHtml(content, new LinkRenderer() {
+                @Override
+                public Rendering render(WikiLinkNode node) {
+                    String href = "";
+                    String text = "";
+                    if (node.getText().contains("|")) {
+                        String[] parts = node.getText().split(Pattern.quote("|"));
+                        href = parts[1].trim();
+                        text = parts[0].trim();
+                    }
+                    return new LinkRenderer.Rendering(href, text);
+                }
+            });
+        }
 
         Document doc = Jsoup.parse(html);
         Elements links = doc.select("a[href~=/@api/]");
@@ -70,7 +95,23 @@ public class Documentation extends Controller {
             link.attr("target", "_blank");
         }
         html = doc.body().html();
+
         render(versions, version, id, html);
+    }
+
+    private static File find(File dir, String id, String ext) {
+        File file = null;
+        for (File f : dir.listFiles()) {
+            if (f.isDirectory()) {
+                file = find(f, id, ext);
+            } else if (f.getName().equals(id + "." + ext)) {
+                file = f;
+            }
+            if (file != null) {
+                break;
+            }
+        }
+        return file;
     }
 
     public static void image(String version, String name) {
