@@ -1,21 +1,19 @@
 package controllers;
 
 import static org.apache.commons.lang.StringUtils.isEmpty;
+import helper.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.regex.*;
 
 import org.jsoup.*;
 import org.jsoup.nodes.*;
 import org.jsoup.select.*;
 import org.pegdown.*;
-import org.pegdown.ast.*;
 
 import play.*;
 import play.libs.*;
 import play.mvc.*;
-import util.*;
 
 /**
  * Documentation controller.
@@ -69,26 +67,9 @@ public class Documentation extends Controller {
         } else {
             String docroot = String.format("documentation/%s/", version);
             String parent = page.getParent();
-            final String path = page.getParent().substring(parent.indexOf(docroot) + docroot.length());
+            String path = parent.substring(parent.indexOf(docroot) + docroot.length());
             PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
-            html = processor.markdownToHtml(content, new LinkRenderer() {
-                @Override
-                public Rendering render(WikiLinkNode node) {
-                    String text = node.getText();
-                    String href = "";
-                    if (text.contains("|")) {
-                        String[] parts = text.split(Pattern.quote("|"));
-                        text = parts[0].trim();
-                        href = parts[1].trim();
-                    } else if (text.endsWith(".png")) {
-                        href = String.format("resources/%s/%s", path, text);
-                        text = String.format("<img src=%s>", href);
-                    } else {
-                        href = text;
-                    }
-                    return new LinkRenderer.Rendering(href, text);
-                }
-            });
+            html = processor.markdownToHtml(content, new GithubLinkRenderer(path));
         }
 
         Document doc = Jsoup.parse(html);

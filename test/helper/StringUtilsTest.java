@@ -1,8 +1,9 @@
-package util;
+package helper;
+
+import helper.*;
 
 import org.junit.Test;
 import play.test.UnitTest;
-import util.*;
 
 
 public class StringUtilsTest extends UnitTest {

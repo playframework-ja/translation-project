@@ -1,8 +1,9 @@
 package models;
 
+import helper.*;
+
 import java.util.*;
 
-import util.*;
 
 public class Module implements Comparable<Module> {
 
