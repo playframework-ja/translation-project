@@ -67,16 +67,24 @@ public class Documentation extends Controller {
         if (version.startsWith("1")) {
             html = Textile.toHTML(content);
         } else {
+            String docroot = String.format("documentation/%s/", version);
+            String parent = page.getParent();
+            final String path = page.getParent().substring(parent.indexOf(docroot) + docroot.length());
             PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
             html = processor.markdownToHtml(content, new LinkRenderer() {
                 @Override
                 public Rendering render(WikiLinkNode node) {
+                    String text = node.getText();
                     String href = "";
-                    String text = "";
-                    if (node.getText().contains("|")) {
-                        String[] parts = node.getText().split(Pattern.quote("|"));
-                        href = parts[1].trim();
+                    if (text.contains("|")) {
+                        String[] parts = text.split(Pattern.quote("|"));
                         text = parts[0].trim();
+                        href = parts[1].trim();
+                    } else if (text.endsWith(".png")) {
+                        href = String.format("resources/%s/%s", path, text);
+                        text = String.format("<img src=%s>", href);
+                    } else {
+                        href = text;
                     }
                     return new LinkRenderer.Rendering(href, text);
                 }
@@ -123,6 +131,14 @@ public class Documentation extends Controller {
             }
         }
         renderBinaryFile(filepath);
+    }
+
+    public static void resources(String version, String path) {
+        File file = new File(Play.applicationPath, String.format("documentation/%s/%s", version, path));
+        if (!file.exists()) {
+            notFound(path);
+        }
+        renderBinary(file);
     }
 
     public static void file(String version, String name) {
