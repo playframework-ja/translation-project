@@ -1,84 +1,82 @@
 #{extends 'main.html' /}
 #{set title:'Documentation' /}
 <section id="top">
-    <div class="wrapper">
-        <h1><a href="/documentation/${version}">Manual, tutorials & references</a></h1>
-        <nav>
-            <form method="get" action="http://www.google.com/search" id="search">
-                <input type="search" placeholder="Search ${version} on Google" name="q" results="10" size="29">
-                <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/${version}"> 
-                <input type="submit" style="position:absolute;top:-1000em">
-            </form>
-            <span class="versions">
-                <span>Version ${version}</span>
-                <select>
-                    <option disabled>Select version</option>
-                    #{list items:versions, as:'item'}
-                        <option ${request.url =~ "${item}/" ? 'selected ' : ''}value="/documentation/${item}">Version ${item}</option>
-                    #{/list}
-                </select>
-            </span>
-            <span class="versions">
-                <span>Browse APIs</span>
-                <select>
-                    <option selected disabled>Select language</option>
-                    <option value="http://www.playframework.org/documentation/api/${version}/index.html">Java API</option>
-                </select>
-            </span>
-        </nav>
-    </div>
+<div class="wrapper">
+    <h1><a href="/documentation/${version}">Manual, tutorials & references</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Search ${version} on Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/${version}"> 
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Version ${version}</span>
+            <select>
+                <option disabled>Select version</option>
+                #{list items:versions, as:'item'}
+                    <option ${request.url =~ "${item}/" ? 'selected ' : ''}value="/documentation/${item}">Version ${item}</option>
+                #{/list}
+            </select>
+        </span>
+        <span class="versions">
+            <span>Browse APIs</span>
+            <select>
+                <option selected disabled>Select language</option>
+                <option value="http://www.playframework.org/documentation/api/${version}/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
 </section>
 
 <script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
 <script type="text/javascript">
-    $(function(){
-        $("pre").addClass("prettyprint scala")
-        window.prettyPrint && prettyPrint()
-        $("select").change(function() {
-            document.location = $(this).val()
-        })
-    });
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
 </script>
 <style type="text/css">
-    @import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
 </style>
 
-    
-    <div id="content" class="wrapper doc">
-        <article>
-            ${article.raw()}
-        </article>
-        <aside>
-        <h3>公式ドキュメント</h3>
-            <p>
-                <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
-            </p>
-            #{if navigation}
-            ${navigation.raw()}
-            #{/if}
-            #{else}
-            <h3>閲覧</h3>
-            <ul>
-                <li id="gotoc"><a href="home">目次</a></li>
-            </ul>
-            <h3>内容</h3>
-            <div id="toc"></div>
-            <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
-            <script type="text/javascript" charset="utf-8">
-                buildNavigation()
-                // Fix API link
-                $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
-            </script>
-            #{/else}
-            <h3>書籍</h3>
-            #{if version =~ "^1"}
-            <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
-            <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
-            #{/if}
-            #{else}
-            <p><a title="Play for Scala" href="http://bit.ly/playscala"><img src="/assets/images/play-for-scala-cover.jpg"></a></p>
-            <p><a title="Play for Java" href="http://bit.ly/playjava"><img src="/assets/images/play-for-java-cover.jpg"></a></p>
-            #{/else}
-        </aside>
-    </div>
-
+<div id="content" class="wrapper doc">
+    <article>
+        ${article.raw()}
+    </article>
+    <aside>
+    <h3>公式ドキュメント</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
+        </p>
+        #{if navigation}
+        ${navigation.raw()}
+        #{/if}
+        #{else}
+        <h3>閲覧</h3>
+        <ul>
+            <li id="gotoc"><a href="home">目次</a></li>
+        </ul>
+        <h3>内容</h3>
+        <div id="toc"></div>
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
+        </script>
+        #{/else}
+        <h3>書籍</h3>
+        #{if version =~ "^1"}
+        <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+        #{/if}
+        #{else}
+        <p><a title="Play for Scala" href="http://bit.ly/playscala"><img src="/assets/images/play-for-scala-cover.jpg"></a></p>
+        <p><a title="Play for Java" href="http://bit.ly/playjava"><img src="/assets/images/play-for-java-cover.jpg"></a></p>
+        #{/else}
+    </aside>
+</div>
