@@ -60,19 +60,22 @@ public class Documentation extends Controller {
         if (!page.exists()) {
             notFound(page.getPath());
         }
-        String html = null;
-        String content = IO.readContentAsString(page);
+        String article = null;
+        String aside = null;
         if (version.startsWith("1")) {
-            html = Textile.toHTML(content);
+            article = Textile.toHTML(IO.readContentAsString(page));
+            aside = null;
         } else {
-            String docroot = String.format("documentation/%s/", version);
-            String parent = page.getParent();
-            String path = parent.substring(parent.indexOf(docroot) + docroot.length());
             PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
-            html = processor.markdownToHtml(content, new GithubLinkRenderer(path));
+            LinkRenderer renderer = new GithubLinkRenderer(page);
+            article = processor.markdownToHtml(IO.readContentAsString(page), renderer);
+            File sidebar = findUp(page.getParentFile(), "_Sidebar", "md");
+            if (sidebar.exists()) {
+                aside = processor.markdownToHtml(IO.readContentAsString(sidebar), renderer);
+            }
         }
 
-        Document doc = Jsoup.parse(html);
+        Document doc = Jsoup.parse(article);
         Elements links = doc.select("a[href~=/@api/]");
         for (Element link : links) {
             String value = link.attr("href");
@@ -83,9 +86,9 @@ public class Documentation extends Controller {
                             value.substring(index)));
             link.attr("target", "_blank");
         }
-        html = doc.body().html();
+        article = doc.body().html();
 
-        render(versions, version, id, html);
+        render(versions, version, id, article, aside);
     }
 
     private static File find(File dir, String id, String ext) {
@@ -101,6 +104,17 @@ public class Documentation extends Controller {
             }
         }
         return file;
+    }
+
+    private static File findUp(File dir, String id, String ext) {
+        for (File f : dir.listFiles()) {
+            if (f.isDirectory()) {
+                continue;
+            } else if (f.getName().equals(id + "." + ext)) {
+                return f;
+            }
+        }
+        return findUp(dir.getParentFile(), id, ext);
     }
 
     public static void image(String version, String name) {

@@ -46,33 +46,33 @@
     
     <div id="content" class="wrapper doc">
         <article>
-            ${html.raw()}
+            ${article.raw()}
         </article>
         <aside>
-            
+        <h3>公式ドキュメント</h3>
+            <p>
+                <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
+            </p>
+            #{if aside}
+            ${aside.raw()}
+            #{/if}
+            #{else}
             <h3>閲覧</h3>
             <ul>
                 <li id="gotoc"><a href="home">目次</a></li>
             </ul>
-            
             <h3>内容</h3>
             <div id="toc"></div>
-            
-            <h3>公式ドキュメント</h3>
-            <p>
-                <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
-            </p>
-            
+            #{/else}
             <h3>書籍</h3>
-            
-            <p>
-                <a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a>
-            </p>
-            
-            <p>
-                <a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li>
-            </p>
-            
+            #{if version =~ "^1"}
+            <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+            <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+            #{/if}
+            #{else}
+            <p><a title="Play for Scala" href="http://bit.ly/playscala"><img src="/assets/images/play-for-scala-cover.jpg"></a></p>
+            <p><a title="Play for Java" href="http://bit.ly/playjava"><img src="/assets/images/play-for-java-cover.jpg"></a></p>
+            #{/else}
         </aside>
     </div>
 
