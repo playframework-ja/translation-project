@@ -74,20 +74,7 @@ public class Documentation extends Controller {
                 aside = processor.markdownToHtml(IO.readContentAsString(sidebar), renderer);
             }
         }
-
-        Document doc = Jsoup.parse(article);
-        Elements links = doc.select("a[href~=/@api/]");
-        for (Element link : links) {
-            String value = link.attr("href");
-            int index = value.indexOf("/@api/") + "/@api/".length();
-            link.attr(
-                    "href",
-                    String.format("http://www.playframework.org/documentation/api/%s/%s", version,
-                            value.substring(index)));
-            link.attr("target", "_blank");
-        }
-        article = doc.body().html();
-
+        article = replaceHref(version, article);
         render(versions, version, id, article, aside);
     }
 
@@ -115,6 +102,21 @@ public class Documentation extends Controller {
             }
         }
         return findUp(dir.getParentFile(), id, ext);
+    }
+
+    private static String replaceHref(String version, String html) {
+        Document doc = Jsoup.parse(html);
+        Elements links = doc.select("a[href~=/@api/]");
+        for (Element link : links) {
+            String value = link.attr("href");
+            int index = value.indexOf("/@api/") + "/@api/".length();
+            link.attr(
+                    "href",
+                    String.format("http://www.playframework.org/documentation/api/%s/%s", version,
+                            value.substring(index)));
+            link.attr("target", "_blank");
+        }
+        return doc.body().html();
     }
 
     public static void image(String version, String name) {
