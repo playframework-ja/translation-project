@@ -56,7 +56,7 @@ public class Documentation extends Controller {
 
         File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", version));
         String ext = version.startsWith("1") ? "textile" : "md";
-        File page = find(root, id, ext);
+        File page = findDown(root, id, ext);
         if (!page.exists()) {
             notFound(page.getPath());
         }
@@ -91,11 +91,11 @@ public class Documentation extends Controller {
         render(versions, version, id, article, aside);
     }
 
-    private static File find(File dir, String id, String ext) {
+    private static File findDown(File dir, String id, String ext) {
         File file = null;
         for (File f : dir.listFiles()) {
             if (f.isDirectory()) {
-                file = find(f, id, ext);
+                file = findDown(f, id, ext);
             } else if (f.getName().equals(id + "." + ext)) {
                 file = f;
             }
