@@ -61,21 +61,21 @@ public class Documentation extends Controller {
             notFound(page.getPath());
         }
         String article = null;
-        String aside = null;
+        String navigation = null;
         if (version.startsWith("1")) {
             article = Textile.toHTML(IO.readContentAsString(page));
-            aside = null;
+            navigation = null;
         } else {
             PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
             LinkRenderer renderer = new GithubLinkRenderer(page);
             article = processor.markdownToHtml(IO.readContentAsString(page), renderer);
             File sidebar = findUp(page.getParentFile(), "_Sidebar", "md");
             if (sidebar.exists()) {
-                aside = processor.markdownToHtml(IO.readContentAsString(sidebar), renderer);
+                navigation = processor.markdownToHtml(IO.readContentAsString(sidebar), renderer);
             }
         }
         article = replaceHref(version, article);
-        render(versions, version, id, article, aside);
+        render(versions, version, id, article, navigation);
     }
 
     private static File findDown(File dir, String id, String ext) {

@@ -53,8 +53,8 @@
             <p>
                 <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
             </p>
-            #{if aside}
-            ${aside.raw()}
+            #{if navigation}
+            ${navigation.raw()}
             #{/if}
             #{else}
             <h3>閲覧</h3>
@@ -63,6 +63,12 @@
             </ul>
             <h3>内容</h3>
             <div id="toc"></div>
+            <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+            <script type="text/javascript" charset="utf-8">
+                buildNavigation()
+                // Fix API link
+                $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
+            </script>
             #{/else}
             <h3>書籍</h3>
             #{if version =~ "^1"}
@@ -76,10 +82,3 @@
         </aside>
     </div>
 
-    <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
-    <script type="text/javascript" charset="utf-8">
-        buildNavigation()
-        
-        // Fix API link
-        $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
-    </script>
