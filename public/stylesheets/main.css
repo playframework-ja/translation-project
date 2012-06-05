@@ -926,3 +926,6 @@ aside a[href^="http"]:after, .doc a[href^="http"]:after {
   vertical-align: middle;
   margin-left: 5px;
 }
+header #logo {
+  margin-top: -10px;
+}
