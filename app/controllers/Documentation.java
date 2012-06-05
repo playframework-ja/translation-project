@@ -49,7 +49,10 @@ public class Documentation extends Controller {
     public static void page(String version, String id) {
         List<String> versions = Documentation.versions;
 
-        if (isEmpty(id)) {
+        if (version.equals("latest")) {
+            redirect(String.format("/documentation/%s/%s", latestVersion, id));
+        }
+        if (isEmpty(id) || id.equalsIgnoreCase("null")) {
             String home = version.startsWith("1") ? "home" : "Home";
             redirect(String.format("/documentation/%s/%s", version, home));
         }
