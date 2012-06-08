@@ -60,8 +60,8 @@ public class Documentation extends Controller {
         File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", version));
         String ext = version.startsWith("1") ? "textile" : "md";
         File page = findDown(root, id, ext);
-        if (!page.exists()) {
-            notFound(page.getPath());
+        if (page == null || !page.exists()) {
+            notFound(request.path);
         }
         String article = null;
         String navigation = null;
