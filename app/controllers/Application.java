@@ -1,7 +1,6 @@
 package controllers;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
 import models.Download;
@@ -55,7 +54,7 @@ public class Application extends Controller {
      * @param version
      */
     public static void documentation() {
-        redirect(String.format("/documentation/%s/home", Play.configuration.getProperty("version.latest")));
+        redirect(String.format("/documentation/%s/", Play.configuration.getProperty("version.latest")));
     }
 
     /**
@@ -75,7 +74,8 @@ public class Application extends Controller {
             latest = toDownload(elements.first());
             // the last table must have older versions
             olders = toDownloads(elements.last());
-            // if there are more than two tables, middle of them might be upcomings
+            // if there are more than two tables, middle of them might be
+            // upcomings
             if (elements.size() > 2) {
                 upcomings = toDownloads(elements.get(1));
             }
