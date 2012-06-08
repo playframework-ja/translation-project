@@ -929,3 +929,6 @@ aside a[href^="http"]:after, .doc a[href^="http"]:after {
 header #logo {
   margin-top: -10px;
 }
+a.absent {
+  color: #c00;
+}

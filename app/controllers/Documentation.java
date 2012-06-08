@@ -78,6 +78,8 @@ public class Documentation extends Controller {
             }
         }
         article = replaceHref(version, article);
+        article = markAbsent(root, article, ext);
+        navigation = markAbsent(root, navigation, ext);
         render(versions, version, id, article, navigation);
     }
 
@@ -118,6 +120,25 @@ public class Documentation extends Controller {
                     String.format("http://www.playframework.org/documentation/api/%s/%s", version,
                             value.substring(index)));
             link.attr("target", "_blank");
+        }
+        return doc.body().html();
+    }
+
+    private static String markAbsent(File root, String html, String ext) {
+        if (html == null) {
+            return html;
+        }
+        Document doc = Jsoup.parse(html);
+        Elements links = doc.select("a");
+        for (Element link : links) {
+            String href = link.attr("href");
+            if (isEmpty(href) || href.startsWith("http") || href.contains("/")) {
+                continue;
+            }
+            href = href.contains("#") ? href.substring(0, href.indexOf("#")) : href;
+            if (findDown(root, href, ext) == null) {
+                link.attr("class", "absent");
+            }
         }
         return doc.body().html();
     }
