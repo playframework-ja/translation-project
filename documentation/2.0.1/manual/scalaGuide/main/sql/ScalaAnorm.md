@@ -300,7 +300,7 @@ SQL("Select name,image from Country")().map {
 <!--
 If a column can contain `Null` values in the database schema, you need to manipulate it as an `Option` type.
 -->
-カラムが データベーススキーマにおいて `Null` 値を含む場合、`Option` 型で操作剃る必要があります。
+カラムが データベーススキーマにおいて `Null` 値を含む場合、`Option` 型で操作する必要があります。
 
 <!--
 For example, the `indepYear` of the `Country` table is nullable, so you need to match it as `Option[Int]`:
