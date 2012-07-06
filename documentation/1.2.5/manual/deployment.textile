@@ -108,6 +108,7 @@ bc. <?xml version="1.0" ?>
   </resource-ref>
 </web-app>
 
+play.id システムプロパティで play の id を指定することもできます。これは、同じ war を異なる環境にデプロイしたい場合に便利です。これを使うには、例えば @-Dplay.id=test@ のようにしてアプリケーションサーバを起動します。
 
 h2. <a name="cloud">クラウドベースのホスティング</a>
 
