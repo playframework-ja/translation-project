@@ -14,6 +14,7 @@ import org.pegdown.*;
 import play.*;
 import play.libs.*;
 import play.mvc.*;
+import play.templates.*;
 
 /**
  * Documentation controller.
@@ -47,40 +48,75 @@ public class Documentation extends Controller {
      * @param id
      */
     public static void page(String version, String id) {
-        List<String> versions = Documentation.versions;
-
         if (isEmpty(version) || version.equals("latest")) {
             redirect(String.format("/documentation/%s/%s", latestVersion, id));
         }
         if (isEmpty(id) || id.equalsIgnoreCase("null")) {
-            String home = version.startsWith("1") ? "home" : "Home";
+            String home = isTextile(version) ? "home" : "Home";
             redirect(String.format("/documentation/%s/%s", version, home));
         }
-
-        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", version));
-        String ext = version.startsWith("1") ? "textile" : "md";
-        File page = findDown(root, id, ext);
-        if (page == null || !page.exists()) {
-            notFound(request.path);
-        }
-        String article = null;
-        String navigation = null;
-        if (version.startsWith("1")) {
-            article = Textile.toHTML(IO.readContentAsString(page));
-            navigation = null;
-        } else {
-            PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
-            LinkRenderer renderer = new GithubLinkRenderer(page);
-            article = processor.markdownToHtml(IO.readContentAsString(page), renderer);
-            File sidebar = findUp(page.getParentFile(), "_Sidebar", "md");
-            if (sidebar.exists()) {
-                navigation = processor.markdownToHtml(IO.readContentAsString(sidebar), renderer);
+        String html = getHtml(version, id);
+        if (Play.mode == Play.Mode.DEV && !isTextile(version)) {
+            // save static html file from pegdown template.
+            File dir = new File(Play.applicationPath, String.format("html/%s", version));
+            if (!dir.exists()) {
+                dir.mkdirs();
             }
+            IO.writeContent(html, new File(dir, String.format("%s.html", id)));
         }
-        article = replaceHref(version, article);
-        article = markAbsent(root, article, ext);
-        navigation = markAbsent(root, navigation, ext);
-        render(versions, version, id, article, navigation);
+        renderHtml(getHtml(version, id));
+    }
+
+    private static boolean isTextile(String version) {
+        return version.startsWith("1");
+    }
+
+    private static String getHtml(String version, String id) {
+        String html = null;
+        if (Play.mode == Play.Mode.PROD && !isTextile(version)) {
+            // get content from static html file because pegdown is not
+            // available on GAE/J due to security reason.
+            File file = new File(Play.applicationPath, String.format("html/%s/%s.html", version, id));
+            if (file == null || !file.exists()) {
+                notFound(request.path);
+            }
+            html = IO.readContentAsString(file);
+        } else {
+            File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", version));
+            String ext = isTextile(version) ? "textile" : "md";
+            File page = findDown(root, id, ext);
+            if (page == null || !page.exists()) {
+                notFound(request.path);
+            }
+            String article = null;
+            String navigation = null;
+            if (isTextile(version)) {
+                article = Textile.toHTML(IO.readContentAsString(page));
+                navigation = null;
+            } else {
+                PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
+                LinkRenderer renderer = new GithubLinkRenderer(page);
+                article = processor.markdownToHtml(IO.readContentAsString(page), renderer);
+                File sidebar = findUp(page.getParentFile(), "_Sidebar", "md");
+                if (sidebar.exists()) {
+                    navigation = processor.markdownToHtml(IO.readContentAsString(sidebar), renderer);
+                }
+            }
+            article = replaceHref(version, article);
+            article = markAbsent(root, article, ext);
+            navigation = markAbsent(root, navigation, ext);
+
+            Template template = TemplateLoader.load("Documentation/page.html");
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("request", request);
+            args.put("versions", versions);
+            args.put("version", version);
+            args.put("id", id);
+            args.put("article", article);
+            args.put("navigation", navigation);
+            html = template.render(args);
+        }
+        return html;
     }
 
     private static File findDown(File dir, String id, String ext) {

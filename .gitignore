@@ -13,4 +13,5 @@ tmp/bytecode/*
 test-result/*
 lib/*
 modules/*
+html/*
 
