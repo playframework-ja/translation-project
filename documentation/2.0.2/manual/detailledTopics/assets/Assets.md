@@ -43,7 +43,7 @@ If you follow this structure it will be simpler to get started, but nothing stop
 <!--
 During the build process, the contents of the `public` folder are processed and added to the application classpath. When you package your application, these files are packaged into the application JAR file (under the `public/` path).
 -->
-ビルドプロセス中に、`publick` フォルダーの内容が処理され、アプリケーションのクラスパスに追加します。アプリケーションをパッケージ化するときに、(`public/` パス下にある) これらのファイルはアプリケーションのJARファイルにパッケージ化されます。
+ビルドプロセス中に、`public` フォルダーの内容が処理され、アプリケーションのクラスパスに追加します。アプリケーションをパッケージ化するときに、(`public/` パス下にある) これらのファイルはアプリケーションのJARファイルにパッケージ化されます。
 
 <!--
 ## The Assets controller
