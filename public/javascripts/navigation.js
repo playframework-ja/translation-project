@@ -1,10 +1,10 @@
-$(document).ready(function(){
+var buildNavigation = function(){
 
 	// Construct an OL of this page's H2
-	var navigation = '<ol class="navigation">';
+	var navigation = '<ul class="navigation">';
 	var h2index = 0;
 	var h3index = 0;
-	$('#pageContent h2, #pageContent h3, #pageContent > div > ol > li > a').each(function(index) {
+	$('#content h2, #content h3, #content > div > ol > li > a').each(function(index) {
 	  
 		// In each heading, construct an in-page link from its id, or the nested a[name]
 		if ($(this).find('a[name]').length == 0) {
@@ -36,7 +36,7 @@ $(document).ready(function(){
 		}
 		
 		// Output a nested LI for this H3.
-		if (this.tagName == 'H3' || (this.tagName == 'A' && $(this).parent('li').find('li').size() > 0) ) {
+		/*if (this.tagName == 'H3' || (this.tagName == 'A' && $(this).parent('li').find('li').size() > 0) ) {
 			h3index++;
 			
 			// Start a new nested OL for the first H3.
@@ -45,18 +45,18 @@ $(document).ready(function(){
 			}
 			
 			navigation += '<li>' + link + '</li>';
-		}
+		}*/
 		
 	});	
 	
 	// Close the LI for the last H2, and close the outer list.
-	navigation += '</li></ol>';
+	navigation += '</li></ul>';
 	$('#toc').html(navigation);
 	
 	// Next link
 	var nextLink = $('.next a')
     if(nextLink && nextLink.size()) {
-        $('#gotoc').after('<li><a href="' + $(nextLink).attr('href') + '">次: ' + $(nextLink).text() + '</a></li>')
+        $('#gotoc').after('<li><a href="' + $(nextLink).attr('href') + '">Next: ' + $(nextLink).text() + '</a></li>')
     }
     
-});
+}

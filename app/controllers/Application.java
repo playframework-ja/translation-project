@@ -1,185 +1,139 @@
 package controllers;
 
 import java.io.*;
-import java.net.*;
 import java.util.*;
 
-import models.*;
-import net.htmlparser.jericho.*;
+import models.Download;
 
 import org.apache.commons.lang.*;
-import org.yaml.snakeyaml.*;
+import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.service.*;
+import org.jsoup.*;
+import org.jsoup.nodes.*;
+import org.jsoup.select.*;
 
 import play.*;
 import play.mvc.*;
 
+/**
+ * Application controller.
+ * 
+ * @author garbagetown
+ * 
+ */
 public class Application extends Controller {
 
     static {
-
         String hostKey = "http.proxyHost";
         String portKey = "http.proxyPort";
-
         String host = Play.configuration.getProperty(hostKey);
         String port = Play.configuration.getProperty(portKey);
-
         if (StringUtils.isNotEmpty(host) && StringUtils.isNotEmpty(port)) {
             System.setProperty(hostKey, host);
             System.setProperty(portKey, port);
         }
     }
 
-    public static void index() throws MalformedURLException, IOException {
-
-        String action = "index";
-
-        Source source = new Source(new URL("http://www.playframework.org/"));
-        String twitter = getString(source.getElementById("twitter"));
-        String event = getString(source.getElementById("event"));
-
-        render(action, twitter, event);
-    }
-
-    public static void documentation(String version) throws Exception {
-        if (version == null) {
-            version = Play.configuration.getProperty("version.latest");
+    /**
+     * index action.
+     */
+    public static void index() {
+        String news = "";
+        try {
+            Document doc = Jsoup.connect("http://www.playframework.org/").get();
+            news = doc.select("div#news").first().html();
+        } catch (IOException e) {
+            // do anything
         }
-        Documentation.page(version, "home");
+        render(news);
     }
 
-    public static void download(String action) throws MalformedURLException, IOException {
+    /**
+     * documentation action.
+     * 
+     * @param version
+     */
+    public static void documentation() {
+        redirect(String.format("/documentation/%s/", Play.configuration.getProperty("version.latest")));
+    }
 
-        Long downloads = 0L;
+    /**
+     * download action.
+     */
+    public static void download() {
+
         Download latest = null;
-        Download upcoming = null;
+        List<Download> upcomings = null;
         List<Download> olders = null;
-        List<Download> nightlies = null;
 
-        Source source = new Source(new URL("http://www.playframework.org/download"));
+        try {
+            Document doc = Jsoup.connect("http://www.playframework.org/download").get();
+            Elements elements = doc.select("article table");
 
-        List<Element> tables = source.getAllElements(HTMLElementName.TABLE);
-
-        for (int i = 0, n = tables.size(); i < n; i++) {
-
-            List<Element> elements = tables.get(i).getAllElements(HTMLElementName.TR);
-
-            if (elements.size() == 1) {
-                if (latest == null) {
-                    latest = toDownload(elements.get(0));
-                } else {
-                    upcoming = toDownload(elements.get(0));
-                }
-            } else {
-                if (olders == null) {
-                    olders = toDownload(elements);
-                } else {
-                    nightlies = toDownload(elements);
-                }
+            // the first table must have latest version
+            latest = toDownload(elements.first());
+            // the last table must have older versions
+            olders = toDownloads(elements.last());
+            // if there are more than two tables, middle of them might be
+            // upcomings
+            if (elements.size() > 2) {
+                upcomings = toDownloads(elements.get(1));
             }
+        } catch (IOException e) {
+            // do anything
         }
-        render(action, downloads, latest, upcoming, olders, nightlies);
+        render(latest, upcomings, olders);
     }
 
-    private static List<Download> toDownload(List<Element> elements) {
+    private static Download toDownload(Element table) {
+        List<Download> downloads = toDownloads(table);
+        if (downloads.size() < 1) {
+            return null;
+        } else {
+            return downloads.get(0);
+        }
+    }
+
+    private static List<Download> toDownloads(Element table) {
         List<Download> downloads = new ArrayList<Download>();
-        for (Element element : elements) {
-            downloads.add(toDownload(element));
+        List<Element> rows = table.select("tr");
+        for (Element row : rows) {
+            List<Element> cols = row.select("td");
+            if (cols.size() < 3) {
+                continue;
+            }
+            String url = cols.get(0).select("a").attr("href");
+            String date = cols.get(1).html().trim();
+            String size = cols.get(2).html().trim();
+            downloads.add(new Download(url, date, size));
         }
         return downloads;
     }
 
-    private static Download toDownload(Element element) {
-        List<Element> list = element.getAllElements(HTMLElementName.TD);
-        String url = list.get(0).getChildElements().get(0).getAttributeValue("href");
-        String date = list.get(1).getContent().toString().trim();
-        String size = list.get(2).getContent().toString().trim();
-        return new Download(url, date, size);
+    /**
+     * code action.
+     * 
+     * @param action
+     */
+    public static void code() {
+        render();
     }
 
-    public static void code(String action) {
-        render(action);
-    }
-
-    public static void ecosystem(String action) {
-        render(action);
-    }
-
-    public static void modules(String action, String keyword) throws FileNotFoundException {
-
-        File[] dirs = new File(Play.applicationPath, "documentation/modules").listFiles();
-
-        List<Module> modules = new ArrayList<Module>();
-
-        for (File dir : dirs) {
-
-            File manifest = new File(dir, "manifest");
-
-            if (!manifest.exists()) {
-                continue;
-            }
-
-            Map<String, Object> map = (Map<String, Object>) new Yaml().load(new FileInputStream(manifest));
-
-            Module module = new Module(map);
-
-            if (keyword == null || module.id.contains(keyword) || module.name.contains(keyword)
-                    || module.description.contains(keyword)) {
-                modules.add(module);
-            }
+    /**
+     * about action.
+     * 
+     * @throws IOException
+     */
+    public static void about() throws IOException {
+        CollaboratorService service = new CollaboratorService();
+        String owner = Play.configuration.getProperty("github.owner");
+        String name = Play.configuration.getProperty("github.name");
+        RepositoryId repository = new RepositoryId(owner, name);
+        List<User> collaborators = new ArrayList<User>();
+        UserService userService = new UserService();
+        for (User user : service.getCollaborators(repository)) {
+            collaborators.add(userService.getUser(user.getLogin()));
         }
-
-        Collections.sort(modules);
-
-        render(action, modules);
-    }
-
-    public static void about(String action) throws FileNotFoundException {
-        List<Map<String, String>> translators = (List<Map<String, String>>) new Yaml().load(new FileInputStream(
-                Play.applicationPath + "/conf/translators.yml"));
-        render(action, translators);
-    }
-
-    public static void introduce20() throws MalformedURLException, IOException {
-
-        Source source = new Source(new URL("http://www.playframework.org/2.0"));
-
-        String list = getString(source, "features", 1);
-
-        List<Map<String, String>> details = new ArrayList<Map<String, String>>();
-        details.add(getMap(source, "build"));
-        details.add(getMap(source, "mvc"));
-        details.add(getMap(source, "apis"));
-        details.add(getMap(source, "datastore"));
-        details.add(getMap(source, "testing"));
-        details.add(getMap(source, "documentation"));
-
-        String twitter = getString(source, "share", 0);
-
-        render(list, details, twitter);
-    }
-
-    private static Map<String, String> getMap(Source source, String id) {
-
-        Map<String, String> map = new HashMap<String, String>();
-        map.put("id", id);
-        map.put("benefits", getString(source, id, 1));
-
-        return map;
-    }
-
-    private static String getString(Source source, String id, int pos) {
-        String s = "";
-        Element element = source.getElementById(id);
-        if (element != null) {
-            List<Element> elements = element.getChildElements();
-            if (elements != null && elements.size() > pos) {
-                s = getString(elements.get(pos));
-            }
-        }
-        return s;
-    }
-
-    private static String getString(Element elem) {
-        return elem != null ? elem.toString() : "";
+        render(collaborators);
     }
 }

@@ -1,17 +1,30 @@
 package controllers;
 
-import play.Play;
-import play.libs.IO;
-import play.mvc.Controller;
-import util.*;
+import static org.apache.commons.lang.StringUtils.isEmpty;
+import helper.*;
 
-import java.io.File;
+import java.io.*;
 import java.util.*;
 
+import org.jsoup.*;
+import org.jsoup.nodes.*;
+import org.jsoup.select.*;
+import org.pegdown.*;
+
+import play.*;
+import play.libs.*;
+import play.mvc.*;
+import play.templates.*;
+
+/**
+ * Documentation controller.
+ * 
+ * @author garbagetown
+ * 
+ */
 public class Documentation extends Controller {
 
     private static List<String> versions;
-
     private static String latestVersion;
 
     static {
@@ -28,28 +41,142 @@ public class Documentation extends Controller {
         latestVersion = Play.configuration.getProperty("version.latest");
     }
 
-    public static void page(String version, String id) throws Exception {
-
-        List<String> versions = Documentation.versions;
-
-        String action = "documentation";
-
-        File page = new File(
-                Play.applicationPath,
-                "documentation/" + version + "/manual/" + id + ".textile");
-
-        if (!page.exists()) {
-            if (!version.equals(latestVersion)) {
-                page(latestVersion, id);
-            }
-            notFound(page.getPath());
+    /**
+     * page action.
+     * 
+     * @param version
+     * @param id
+     */
+    public static void page(String version, String id) {
+        if (isEmpty(version) || version.equals("latest")) {
+            redirect(String.format("/documentation/%s/%s", latestVersion, id));
         }
+        if (isEmpty(id) || id.equalsIgnoreCase("null")) {
+            String home = isTextile(version) ? "home" : "Home";
+            redirect(String.format("/documentation/%s/%s", version, home));
+        }
+        String html = getHtml(version, id);
+        if (Play.mode == Play.Mode.DEV && !isTextile(version)) {
+            // save static html file from pegdown template.
+            File dir = new File(Play.applicationPath, String.format("html/%s", version));
+            if (!dir.exists()) {
+                dir.mkdirs();
+            }
+            IO.writeContent(html, new File(dir, String.format("%s.html", id)));
+        }
+        renderHtml(getHtml(version, id));
+    }
 
-        String textile = IO.readContentAsString(page);
-        String html = Textile.toHTML(textile);
-        String title = getTitle(textile);
+    private static boolean isTextile(String version) {
+        return version.startsWith("1");
+    }
 
-        render(action, versions, version, id, html, title);
+    private static String getHtml(String version, String id) {
+        String html = null;
+        if (Play.mode == Play.Mode.PROD && !isTextile(version)) {
+            // get content from static html file because pegdown is not
+            // available on GAE/J due to security reason.
+            File file = new File(Play.applicationPath, String.format("html/%s/%s.html", version, id));
+            if (file == null || !file.exists()) {
+                notFound(request.path);
+            }
+            html = IO.readContentAsString(file);
+        } else {
+            File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", version));
+            String ext = isTextile(version) ? "textile" : "md";
+            File page = findDown(root, id, ext);
+            if (page == null || !page.exists()) {
+                notFound(request.path);
+            }
+            String article = null;
+            String navigation = null;
+            if (isTextile(version)) {
+                article = Textile.toHTML(IO.readContentAsString(page));
+                navigation = null;
+            } else {
+                PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
+                LinkRenderer renderer = new GithubLinkRenderer(page);
+                article = processor.markdownToHtml(IO.readContentAsString(page), renderer);
+                File sidebar = findUp(page.getParentFile(), "_Sidebar", "md");
+                if (sidebar.exists()) {
+                    navigation = processor.markdownToHtml(IO.readContentAsString(sidebar), renderer);
+                }
+            }
+            article = replaceHref(version, article);
+            article = markAbsent(root, article, ext);
+            navigation = markAbsent(root, navigation, ext);
+
+            Template template = TemplateLoader.load("Documentation/page.html");
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("request", request);
+            args.put("versions", versions);
+            args.put("version", version);
+            args.put("id", id);
+            args.put("article", article);
+            args.put("navigation", navigation);
+            html = template.render(args);
+        }
+        return html;
+    }
+
+    private static File findDown(File dir, String id, String ext) {
+        File file = null;
+        for (File f : dir.listFiles()) {
+            if (f.isDirectory()) {
+                file = findDown(f, id, ext);
+            } else if (f.getName().equals(id + "." + ext)) {
+                file = f;
+            }
+            if (file != null) {
+                break;
+            }
+        }
+        return file;
+    }
+
+    private static File findUp(File dir, String id, String ext) {
+        for (File f : dir.listFiles()) {
+            if (f.isDirectory()) {
+                continue;
+            } else if (f.getName().equals(id + "." + ext)) {
+                return f;
+            }
+        }
+        return findUp(dir.getParentFile(), id, ext);
+    }
+
+    private static String replaceHref(String version, String html) {
+        Document doc = Jsoup.parse(html);
+        Elements links = doc.select("a[href~=/@api/]");
+        for (Element link : links) {
+            String value = link.attr("href");
+            int index = value.indexOf("/@api/") + "/@api/".length();
+            link.attr(
+                    "href",
+                    String.format("http://www.playframework.org/documentation/api/%s/%s", version,
+                            value.substring(index)));
+            link.attr("target", "_blank");
+        }
+        return doc.body().html();
+    }
+
+    private static String markAbsent(File root, String html, String ext) {
+        if (html == null) {
+            return html;
+        }
+        Document doc = Jsoup.parse(html);
+        Elements links = doc.select("a");
+        for (Element link : links) {
+            String href = link.attr("href");
+            if (isEmpty(href) || href.startsWith("http") || href.contains("/")) {
+                continue;
+            }
+            href = href.contains("#") ? href.substring(0, href.indexOf("#")) : href;
+            if (findDown(root, href, ext) == null) {
+                link.attr("class", "absent");
+            }
+        }
+        return doc.body().html();
     }
 
     public static void image(String version, String name) {
@@ -61,6 +188,14 @@ public class Documentation extends Controller {
             }
         }
         renderBinaryFile(filepath);
+    }
+
+    public static void resources(String version, String path) {
+        File file = new File(Play.applicationPath, String.format("documentation/%s/%s", version, path));
+        if (!file.exists()) {
+            notFound(path);
+        }
+        renderBinary(file);
     }
 
     public static void file(String version, String name) {
@@ -75,18 +210,9 @@ public class Documentation extends Controller {
         renderBinary(file);
     }
 
-    static String getTitle(String textile) {
-        if (textile.length() == 0) {
-            return "";
-        }
-        return textile.split("\n")[0].substring(3).trim();
-    }
-
     public static void cheatsheet(String version, String id) {
         final String action = "documentation";
-        File dir = new File(
-                Play.applicationPath,
-                String.format("documentation/%s/cheatsheets/%s", version, id));
+        File dir = new File(Play.applicationPath, String.format("documentation/%s/cheatsheets/%s", version, id));
 
         if (!dir.exists()) {
             if (!version.equals(latestVersion)) {
@@ -98,7 +224,7 @@ public class Documentation extends Controller {
         File[] files = dir.listFiles();
         Arrays.sort(files);
         String[] htmls = new String[files.length];
-        for (int i = 0; i<files.length; i++){
+        for (int i = 0; i < files.length; i++) {
             htmls[i] = Textile.toHTML(IO.readContentAsString(files[i]));
         }
         String title = StringUtils.humanize(id);

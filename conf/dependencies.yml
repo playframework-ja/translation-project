@@ -3,4 +3,13 @@
 require:
     - play 1.2.4
     - play -> gae 1.6.0
-    - net.htmlparser.jericho -> jericho-html 3.2
+    - org.jsoup -> jsoup 1.6.2
+    - org.eclipse.mylyn.github -> org.eclipse.egit.github.core 2.0-alpha-2
+    - org.pegdown -> pegdown 1.1.0
+
+repositories:
+    - scala-tools:
+        type: iBiblio
+        root: "http://scala-tools.org/repo-releases/"
+        contains: 
+            - org.pegdown -> *

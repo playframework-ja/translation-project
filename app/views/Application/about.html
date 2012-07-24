@@ -1,43 +1,29 @@
 #{extends 'main.html' /}
 #{set title:'About' /}
-
-<div id="top">
-    <p class="category">&{'about.01'}</p>
-</div>
-    
-<div class="wrapper">
-    
-    <div class="wrapped wikistyle">
-        
+<section id="top">
+    <div class="wrapper">
+        <h1>&{'about.01'}</h1>
+    </div>
+</section>
+<div id="content" class="wrapper">
+    <article>
         <h1>&{'about.02'}</h1>
         <p>&{'about.03'}</p>
         
         <h2>&{'about.04'}</h2>
-        <p>&{'about.05'}</p>
-        <p>&{'about.06'}</p>
+        <p>
+            &{'about.05'} &{'about.06'}
+        </p>
         
         <h2>&{'about.07'}</h2>
-        <p>&{'about.08'}</p>
-        
-        #{list items:translators, as:'item'}
-        <div class="profile-info">
-            <div class="profile-image-container">
-                <a target="_blank" class="profile-picture" href="http://twitter.com/${item.id}">
-                    <img alt="${item.name}" src="${item.photo_url}">
-                </a>
-            </div>
-            <div class="profile-details">
-                <div class="full-name">
-                    <h4>${item.name}</h4>
-                </div>
-                <div class="screen-name-and-location">
-                    <span class="screen-name screen-name-garbagetown pill">
-                        @<a target="_blank" class="profile-picture" href="http://twitter.com/${item.id}">${item.id}</a>
-                    </span>
-                </div>
-            </div>
+        <p>
+            &{'about.08'}
+        </p>
+        #{list items:collaborators, as:'collaborator'}
+        <div class="coreteam">
+            <a href="${collaborator.htmlUrl}"> <img src="${collaborator.avatarUrl}"> <h2> #{if collaborator.name != null}${collaborator.name}#{/if}
+            #{else}${collaborator.login}#{/else} </h2> </a>
         </div>
         #{/list}
-    </div>
-    
+    </article>
 </div>

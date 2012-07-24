@@ -1,96 +1,89 @@
 #{extends 'main.html' /}
-#{set title:'Documentation' /}
-#{script src="navigation.js" /}
-
-<div id="top">
-    <p class="category">
-        マニュアル、チュートリアルとリファレンス
-    </p>
-</div>
-
+#{set title:'Documentation: ' + id /}
+<section id="top">
 <div class="wrapper">
-    <div id="docSidebar">
-        <h2>閲覧</h2>
+    <h1><a href="/documentation/${version}">Manual, tutorials & references</a></h1>
+    <nav>
+        <form method="get" action="http://www.google.com/search" id="search">
+            <input type="search" placeholder="Search ${version} on Google" name="q" results="10" size="29">
+            <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/${version}"> 
+            <input type="submit" style="position:absolute;top:-1000em">
+        </form>
+        <span class="versions">
+            <span>Version ${version}</span>
+            <select>
+                <option disabled>Select version</option>
+                #{list items:versions, as:'item'}
+                    <option ${request.url =~ "${item}/" ? 'selected ' : ''}value="/documentation/${item}">Version ${item}</option>
+                #{/list}
+            </select>
+        </span>
+        <span class="versions">
+            <span>Browse APIs</span>
+            <select>
+                <option selected disabled>Select language</option>
+                <option value="http://www.playframework.org/documentation/api/${version}/index.html">Java API</option>
+            </select>
+        </span>
+    </nav>
+</div>
+</section>
+
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+$(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    $("select").change(function() {
+        document.location = $(this).val()
+    })
+});
+</script>
+<style type="text/css">
+@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+</style>
+
+<div id="content" class="wrapper doc">
+    <article>
+        ${article.raw()}
+    </article>
+    <aside>
+    <h3>公式ドキュメント</h3>
+        <p>
+            <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
+        </p>
+        #{if navigation}
+        ${navigation.raw()}
+        #{/if}
+        #{else}
+        <h3>閲覧</h3>
         <ul>
             <li id="gotoc"><a href="home">目次</a></li>
         </ul>
-
-        <h2>内容</h2>
+        <h3>内容</h3>
         <div id="toc"></div>
-
-        <h2>バージョン選択</h2>
-        <div id="bc">
-            <ul>
-            #{list items:versions, as:'item'}
-                <li><a class="#{if version == item}selected#{/if}" href="/documentation?version=${item}">${item}</a> #{if version == item}⬅#{/if}</li>
-            #{/list}
-            </ul>
-        </div>
-
-        <h2>検索</h2> 
-        <p>Google で検索</p> 
-        <div id="searchBox"><form name="cse" id="cse-search-box" action="http://www.google.com/cse">
-            <input type="hidden" name="cx" value="016150910488704478090:uth5if04-bu" />
-            <input type="hidden" name="ie" value="utf-8" />
-            <input type="hidden" name="hl" value="ja" />
-            <input type="text" name="q" size="28" style="font-size:14px" />
-        </form>
-        <script type="text/javascript" src="http://www.google.com/cse/tools/onthefly?form=cse-search-box&lang=ja"></script></div>
-
-        <h2>書籍</h2>
-
-        <div id="books">
-            <a href="http://www.packtpub.com/play-framework-cookbook/book">
-                <img src="/public/images/Cookbook_Frontcover.jpg" />
-            </a>
-
-            <a href="http://www.the-play-book.co.uk/">
-                <img src="/public/images/introducing_play.gif" />
-            </a>
-        </div>
-    </div>
-
-    <div id="pageContent">
-
-        <div class="wikistyle">${html.raw()}</div>
-
-        <div id="comments">
-            <h2><a name="comments">コメント</a></h2>
-
-            <p>
-                このフォームを使用して、このページのドキュメントに関する修正や追記、提案を追加してください。
-                質問はここには書かず、play-framework グループに質問してください。
-                サポート要求、バグレポート、趣旨に沿わないコメントは警告無しに削除されます。
-            </p>
-        </div>
-
-        <div id="disqus_thread"></div>
-        <script type="text/javascript">
-          var disqus_identifier = '${id}';
-          var disqus_title = '${title}';
-          (function() {
-            var dsq = document.createElement('script');
-            dsq.type = 'text/javascript';
-            dsq.async = true;
-            dsq.src = 'http://playdocja.disqus.com/embed.js';
-            (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
-          })();
+        <script type="text/javascript" src="/assets/javascripts/navigation.js" charset="utf-8"></script>
+        <script type="text/javascript" charset="utf-8">
+            buildNavigation()
+            // Fix API link
+            $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
         </script>
-    </div>
-
-    <script type="text/javascript">
-    $(document).ready(function() {
-        // Fix @API link
-        $('a[href=/@api/index.html]').attr('href', "http://www.playframework.org/documentation/api/${version}/index.html");
-        
-        var top  = Math.floor(($(window).height() - $("#original_link").height()) / 2);
-        $("#original_link").css('top', top);
-        $("#original_link").click(function() {
-        	window.open('http://www.playframework.org/documentation/${version}/${id}', '_blank');
-        	return false;
-        });
-    });    
-    </script>
-
+        #{/else}
+        <h3>書籍</h3>
+        #{if version =~ "^1"}
+        <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+        #{/if}
+        #{else}
+        <p><a title="Play for Scala" href="http://bit.ly/playscala"><img src="/assets/images/play-for-scala-cover.jpg"></a></p>
+        <p><a title="Play for Java" href="http://bit.ly/playjava"><img src="/assets/images/play-for-java-cover.jpg"></a></p>
+        #{/else}
+        <h3>広告</h3>
+        <p>
+            <a href="http://www.amazon.co.jp/gp/product/4873115345/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4873115345&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4873115345&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4873115345" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        </p>
+        <p>
+            <a href="http://www.amazon.co.jp/gp/product/4798125415/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4798125415&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4798125415&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4798125415" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        </p>
+    </aside>
 </div>
-<div id="original_link"></div>

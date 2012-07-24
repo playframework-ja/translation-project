@@ -1,100 +1,93 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="keywords" content="play,playframework,Play!,Play!framework,Play! framework,playdocja">
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Play framework - #{get 'title' /}</title>
-        #{stylesheet src="main.css" /}
-        #{stylesheet src="wiki.css" /}
-        #{get 'moreStyles' /}
-        <link rel="shortcut icon" type="image/png" href="/public/images/favicon.png">
-        #{script src="jquery-1.4.2.min.js" /}
-        #{get 'moreScripts' /}
+        <title>#{get 'title' /} — Playframework</title>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/main.css">
+        <link rel="shortcut icon" type="image/png" href="/assets/images/favicon.png">
+        <meta name="viewport" content="width=1024, initial-scale=1">
+        <script src="/assets/javascripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="/assets/javascripts/play20.js" type="text/javascript"></script>
+        #{if request.action == 'Application.index'}
+        <script src="/assets/javascripts/history.js" type="text/javascript"></script>
+        <link rel="stylesheet" media="screen" href="/assets/stylesheets/home.css">
+        #{/if}
+        <script src="http://www.google-analytics.com/urchin.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+        </script>
     </head>
-    <body class="#{get 'body' /}">
-
-    	<a href="/2.0" id="badge20"><img src="/public/2.0/images/badge.png"></a>
-
-        <div id="header">
-            <div class="wrapper">
-                <h1 id="logo"><a href="/">Playframework</a></h1>
-                <ul id="menu">
-                    <li class="#{if action == 'index'}selected#{/if}">
-                        <a href="/">Home</a><span>&gt;</span>
-                    </li>
-                    <li class="#{if action == 'documentation'}selected#{/if}">
-                        <a href="/documentation">Learn</a><span>&gt;</span>
-                    </li>
-                    <li class="#{if action == 'download'}selected#{/if}">
-                        <a href="/download">Download</a><span>&gt;</span>
-                    </li>
-                    <li class="#{if action == 'community'}selected#{/if}">
-                        <a href="http://www.playframework.org/community" target="_blank">Community</a><span>&gt;</span>
-                    </li>
-                    <li class="#{if action == 'code'}selected#{/if}">
-                        <a href="/code">Code</a><span>&gt;</span>
-                    </li>
-                    <li class="#{if action == 'ecosystem'}selected#{/if}">
-                        <a href="/ecosystem">Ecosystem</a><span>&gt;</span>
-                    </li>
-                    <li class="#{if action == 'modules'}selected#{/if}">
-                        <a href="/modules">Modules</a><span>&gt;</span>
-                    </li>
-                    <li class="#{if action == 'about'}selected#{/if}">
-                        <a href="/about">About</a><span>&gt;</span>
-                    </li>
-                </ul>
+    <body>
+        <header>
+            <a href="/" id="logo"><img src="/assets/images/logo-ja.png"></a>
+            <div id="getLogo">
+                <h3>Play! ロゴのダウンロード</h3>
+                <figure>
+                    <img src="/assets/images/logos/normal-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/normal.png">(png)</a>
+                        <a href="/assets/images/logos/normal.svg">(svg)</a>
+                     </figcaption>
+                </figure>
+                <figure>
+                    <img src="/assets/images/logos/black-mini.png">
+                     <figcaption>
+                        <a href="/assets/images/logos/black.png">(png)</a>
+                        <a href="/assets/images/logos/black.svg">(svg)</a>
+                     </figcaption>
+                </figure>
             </div>
-        </div>
-
+            <nav>
+                
+                    <a href="/documentation" class="${request.action =~ /page/ ? 'selected ' : ''}learn">Learn</a> 
+                
+                    <a href="http://www.playframework.org/community" target="_blank" class="community">Community</a> 
+                
+                    <a href="/code" class="${request.action =~ /code/ ? 'selected ' : ''}code">Code</a> 
+                
+                    <a href="http://www.playframework.org/modules" target="_blank" class="modules">Modules</a> 
+                
+                    <a href="/about" class="${request.action =~ /about/ ? 'selected ' : ''}about">About</a>
+                    
+                    <a href="/download" class="download">Download</a> 
+                
+            </nav>
+            <div id="download">
+                
+                    <p>
+                        本番環境に使える最新のパッケージを取得する:
+                    </p>
+                    <a href="http://download.playframework.org/releases/play-2.0.1.zip" class="button">play-2.0.1.zip</a>
+                
+                <p>または <a href="/download">すべてのバージョン</a> を参照する</p>
+            </div>
+        </header>
         #{doLayout /}
-
-        <div id="footer">
-            <div class="wrapper">
-                <ul>
-                    <li><h5><a href="/documentation">Learn</a></h5></li>
-                    <li><a href="/documentation/latest/overview">Overview</a></li>
-                    <li><a href="/documentation/latest/firstapp">Your first application</a></li>
-                    <li><a href="/documentation/latest/guide1">Tutorial</a></li>
-                    <li><a href="/documentation/latest/main">The manual</a></li>
-                </ul>
-                <ul>
-                    <li><h5><a href="http://www.playframework.org/community">Community</a></h5></li>
-                    <li><a href="http://twitter.com/playframework">@playframework</a></li>
-                    <li><a href="http://groups.google.com/group/play-framework">Google group</a></li>
-                    <li><a href="http://www.playframework.org/community/planet">Planet &hearts; Play</a></li>
-                    <li><a href="http://www.playframework.org/community/snippets">Code snippets</a></li>
-                </ul>
-                <ul>
-                    <li><h5><a href="http://www.playframework.org/code">Contribute</a></h5></li>
-                    <li><a href="http://github.com/playframework/play">Source code</a></li>
-                    <li><a href="http://play.lighthouseapp.com/">Bug tracking</a></li>
-                    <li><a href="http://github.com/playframework/play/contributors">Contributors</a></li>
-                    <li><a href="http://integration.playframework.org/">Integration server</a></li>
-                </ul>
-                <ul>
-                    <li><h5><a href="http://download.playframework.org/">Download</a></h5></li>
-                    <li><a href="http://download.playframework.org/releases">Releases</a></li>
-                    <li><a href="http://download.playframework.org/1.1-nightly/">Nightly builds</a></li>
-                    <li><a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a></li>
-                </ul>
-                <hr>
-                <a class="zenexity" href="http://www.zenexity.com/"><img src="/public/images/zenexity.png" alt="zenexity - web oriented architecture"></a>
-                <p class="licence">
-                    Play! is brought to you by <a href="http://guillaume.bort.fr/">guillaume bort</a> &amp; <a href="http://www.zenexity.com/">zenexity</a>
-                    Distributed under apache 2 licence - Hosted on <a href="http://www.playapps.net/">playapps.net</a>
-                </p>
+        <footer>
+            <img class="logo" src="/assets/images/logo-footer.png">
+            <div class="links">
+                <dl>
+                    <dt>Play</dt>
+                    <dd><a href="/download">Downloads</a></dd>
+                    <dd><a href="/documentation/latest">Documentation</a></dd>
+                    <dd><a href="http://www.apache.org/licenses/LICENSE-2.0.html">License</a></dd>
+                </dl>
+                <dl>
+                    <dt>Contribute</dt>
+                    <dd><a href="http://github.com/playframework/Play20">Source code</a></dd>
+                    <dd><a href="https://groups.google.com/forum/#!forum/play-framework">Mailling list</a></dd>
+                    <dd><a href="https://play.lighthouseapp.com/dashboard">Bug tracker</a></dd>
+                </dl>
+                <dl>
+                    <dt>Ecosystem</dt>
+                    <dd><a href="http://www.playframework.org/code/team" target="_blank">Team &amp; contributors</a></dd>
+                    <dd><a href="http://typesafe.com/stack">Commercial support</a></dd>
+                    <dd><a href="http://www.playframework.org/modules" target="_blank">Modules</a></dd>
+                </dl>
             </div>
-        </div>
-        <script type="text/javascript">
-            var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-            document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-        </script>
-        <script type="text/javascript">
-            try {
-                var pageTracker = _gat._getTracker("UA-13089827-4");
-                pageTracker._trackPageview();
-            } catch(err) {}
-        </script>
+            <div class="licence">
+                Play framework is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 License</a>
+                <a class="typesafe" href="http://typesafe.com"><img src="/assets/images/typesafe.png" /></a>
+                <a class="zenexity" href="http://zenexity.com"><img src="/assets/images/zenexity.png" /></a>
+            </div>
+        </footer>
     </body>
 </html>
