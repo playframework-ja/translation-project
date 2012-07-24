@@ -5,6 +5,7 @@ import helper.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.regex.*;
 
 import org.jsoup.*;
 import org.jsoup.nodes.*;
@@ -172,7 +173,17 @@ public class Documentation extends Controller {
                 continue;
             }
             href = href.contains("#") ? href.substring(0, href.indexOf("#")) : href;
-            if (findDown(root, href, ext) == null) {
+            File file = findDown(root, href, ext);
+            if (file == null) {
+                link.attr("class", "absent");
+                continue;
+            }
+            // translated markdown must be marked with <!-- translated -->
+            // at first row.
+            List<String> lines = IO.readLines(file);
+            if (ext.equals("md")
+                    && (lines == null || lines.size() == 0 || !lines.get(0).matches(
+                            Pattern.quote("<!-- translated -->")))) {
                 link.attr("class", "absent");
             }
         }
