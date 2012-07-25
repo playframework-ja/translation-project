@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Configuring the JDBC pool.
 -->

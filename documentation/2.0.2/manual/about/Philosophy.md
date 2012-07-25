@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Introducing Play 2.0
 -->

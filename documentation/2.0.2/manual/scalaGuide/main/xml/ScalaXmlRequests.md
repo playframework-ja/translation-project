@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Handling and serving XML requests
 -->

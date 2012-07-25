@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Accessing an SQL database
 -->

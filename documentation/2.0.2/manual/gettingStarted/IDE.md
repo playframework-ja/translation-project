@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Setting up your preferred IDE
 -->

@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Play 2.0 for Scala developers
 -->

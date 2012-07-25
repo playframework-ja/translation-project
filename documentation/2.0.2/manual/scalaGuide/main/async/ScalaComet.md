@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Comet sockets
 -->

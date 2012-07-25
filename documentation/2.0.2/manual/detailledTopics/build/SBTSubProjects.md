@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Working with sub-projects
 -->

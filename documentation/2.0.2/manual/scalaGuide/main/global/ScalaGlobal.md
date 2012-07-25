@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Application global settings
 -->

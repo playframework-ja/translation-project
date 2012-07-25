@@ -1,12 +1,6 @@
-<!--
 ### HTTP programming
--->
-### HTTP プログラミング
 
-<!--
 - [[Actions, Controllers and Results | ScalaActions]]
--->
-- [[アクション、コントローラ、レスポンス | ScalaActions]]
 - [[HTTP routing | ScalaRouting]]
 - [[Manipulating results | ScalaResults]]
 - [[Session and Flash scopes | ScalaSessionFlash]]

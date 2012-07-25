@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # About SBT Settings
 -->

@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Scala templates common use cases
 -->

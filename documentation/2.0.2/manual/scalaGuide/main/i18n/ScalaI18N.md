@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Messages and internationalization
 -->

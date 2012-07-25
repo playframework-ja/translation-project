@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Using the Play 2.0 console
 -->

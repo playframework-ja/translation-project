@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Configuring logging
 -->

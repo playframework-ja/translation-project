@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Manipulating Results
 -->

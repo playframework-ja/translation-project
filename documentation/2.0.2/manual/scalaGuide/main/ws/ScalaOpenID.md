@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # OpenID Support in Play
 -->

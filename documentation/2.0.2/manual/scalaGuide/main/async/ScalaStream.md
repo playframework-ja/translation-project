@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Streaming HTTP responses
 -->

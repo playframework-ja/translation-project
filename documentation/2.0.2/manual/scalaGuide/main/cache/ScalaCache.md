@@ -1,7 +1,8 @@
+<!-- translated -->
 <!--
 # The Play cache API
 -->
-Play キャッシュ API
+# Play キャッシュ API
 
 <!--
 The default implementation of the Cache API uses [[EHCache| http://ehcache.org/]]. You can also provide your own implementation via a plug-in.

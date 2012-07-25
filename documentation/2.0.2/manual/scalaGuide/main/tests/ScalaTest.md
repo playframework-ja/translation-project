@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Testing your application
 -->

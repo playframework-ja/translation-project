@@ -28,7 +28,13 @@
     </nav>
 </div>
 </section>
-
+#{ifnot translated}
+<section id="note">
+<div class="wrapper">
+  このドキュメントはまだ翻訳されていません。
+</div>
+</section>
+#{/ifnot}
 <script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
 <script type="text/javascript">
 $(function(){

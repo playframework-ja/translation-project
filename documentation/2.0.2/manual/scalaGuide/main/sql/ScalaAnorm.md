@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Anorm, simple SQL data access
 -->

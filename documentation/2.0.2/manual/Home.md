@@ -1,7 +1,7 @@
+<!-- translated -->
 <!--
 # Play 2.0 documentation
 -->
-
 # Play 2.0 ドキュメント
 
 <!--

@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Creating a new application
 -->

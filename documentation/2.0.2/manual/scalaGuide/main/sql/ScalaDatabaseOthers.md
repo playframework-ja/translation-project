@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Integrating with other database libraries
 -->

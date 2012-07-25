@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Installing Play 2.0
 -->

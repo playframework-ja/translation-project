@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Your first Play application
 -->

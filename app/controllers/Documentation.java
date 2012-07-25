@@ -91,6 +91,7 @@ public class Documentation extends Controller {
             }
             String article = null;
             String navigation = null;
+            boolean translated = false;
             if (isTextile(version)) {
                 article = Textile.toHTML(IO.readContentAsString(page));
                 navigation = null;
@@ -106,6 +107,7 @@ public class Documentation extends Controller {
             article = replaceHref(version, article);
             article = markAbsent(root, article, ext);
             navigation = markAbsent(root, navigation, ext);
+            translated = hasBeenTranslated(page);
 
             Template template = TemplateLoader.load("Documentation/page.html");
             Map<String, Object> args = new HashMap<String, Object>();
@@ -115,6 +117,7 @@ public class Documentation extends Controller {
             args.put("id", id);
             args.put("article", article);
             args.put("navigation", navigation);
+            args.put("translated", translated);
             html = template.render(args);
         }
         return html;
@@ -178,16 +181,23 @@ public class Documentation extends Controller {
                 link.attr("class", "absent");
                 continue;
             }
-            // translated markdown must be marked with <!-- translated -->
-            // at first row.
-            List<String> lines = IO.readLines(file);
-            if (ext.equals("md")
-                    && (lines == null || lines.size() == 0 || !lines.get(0).matches(
-                            Pattern.quote("<!-- translated -->")))) {
+            if (ext.equals("md") && !hasBeenTranslated(file)) {
                 link.attr("class", "absent");
             }
         }
         return doc.body().html();
+    }
+
+    private static boolean hasBeenTranslated(File file) {
+        List<String> lines = IO.readLines(file);
+        if (lines == null || lines.size() < 1) {
+            return false;
+        }
+        if (lines.get(0).matches(Pattern.quote("<!-- translated -->"))) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public static void image(String version, String name) {

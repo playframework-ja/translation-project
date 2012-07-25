@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Handling form submission
 -->

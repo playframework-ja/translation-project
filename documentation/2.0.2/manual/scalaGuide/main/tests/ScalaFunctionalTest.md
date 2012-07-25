@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Writing functional tests
 -->

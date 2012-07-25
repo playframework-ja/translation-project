@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Handling data streams reactively
 -->

@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Using Google Closure Compiler
 -->
