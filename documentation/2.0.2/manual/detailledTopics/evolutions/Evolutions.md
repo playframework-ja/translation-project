@@ -51,7 +51,7 @@ For example, take a look at this first evolution script that bootstrap a basic a
 試しに、基本的なアプリケーションを始めるための最初のエボリューション・スクリプトを作成してみましょう。
 
 ```
-# Users schema
+# Users スキーマ
  
 # --- !Ups
  
@@ -102,7 +102,7 @@ Now let’s imagine that we have two developers working on this project. Develop
 仮に、プロジェクトに二人の開発者がいるとします。開発者 A は新しいテーブルを必要とする新機能を担当しています。そこで、開発者 A は次のような `2.sql` を作成します。
 
 ```
-# Add Post
+# Post 追加
  
 # --- !Ups
 CREATE TABLE Post (
@@ -129,7 +129,7 @@ Play はこのエボリューション・スクリプトを開発者 A のデー
 一方、開発者 B は User テーブルのスキーマ変更を要する新機能を担当しています。そこで、開発者 B は次のような `2.sql` を作成します。
 
 ```
-# Update User
+# User 変更
  
 # --- !Ups
 ALTER TABLE User ADD age INT;
@@ -156,7 +156,7 @@ Each developer has created a `2.sql` evolution script. So developer A needs to m
 
 ```
 <<<<<<< HEAD
-# Add Post
+# Post 追加
  
 # --- !Ups
 CREATE TABLE Post (
@@ -188,7 +188,7 @@ The merge is really easy to do:
 このマージは簡単ですね。
 
 ```
-# Add Post and update User
+# Post 追加と User 変更
  
 # --- !Ups
 ALTER TABLE User ADD age INT;
@@ -222,7 +222,7 @@ So Play will detect it and ask developer A to synchronize his database by first 
 <!--
 ## Inconsistent states
 -->
-## 一貫性のない状態
+## 不整合状態
 
 <!--
 Sometimes you will make a mistake in your evolution scripts, and they will fail. In this case, Play will mark your database schema as being in an inconsistent state and will ask you to manually resolve the problem before continuing.
@@ -235,7 +235,7 @@ For example, the Ups script of this evolution has an error:
 例として、Ups スクリプトにエラーを含む次のようなエボリューションを作成してみましょう。
 
 ```
-# Add another column to User
+# User にカラムを追加
   
 # --- !Ups
 ALTER TABLE Userxxx ADD company varchar(255);
@@ -271,7 +271,7 @@ But because your evolution script has errors, you probably want to fix it. So yo
 しかし、エボリューション・スクリプトはまだ間違ったままなので、修正したいところです。そこで、以下のように `3.sql` を編集します。
 
 ```
-# Add another column to User
+# User にカラムを追加
   
 # --- !Ups
 ALTER TABLE User ADD company varchar(255);
