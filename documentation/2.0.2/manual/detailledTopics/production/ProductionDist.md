@@ -16,7 +16,7 @@ However, you sometimes need to build a binary version of your application and de
 
 In the Play console, simply type `dist`:
 -->
-Play 2.0 アプリケーションをデプロイする最も簡単な方法は、(git などを使って) ソースコードをサーバに保存して、 `play start` もしくは `play stage` のどちらかでアプリケーションを起動します。
+Play 2.0 アプリケーションをデプロイする最も簡単な方法は、(git などを使って) ソースコードをサーバに保存して、 `play start` もしくは `play stage` のどちらかでアプリケーションを起動することです。
 
 その他に、Play のフレームワークに依存しないアプリケーションのバイナリをビルドしたいこともあるでしょう。その場合は、 `dist` タスクが利用できます。
 
