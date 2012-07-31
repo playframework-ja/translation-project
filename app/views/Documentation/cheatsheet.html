@@ -3,11 +3,11 @@
 <html>
 <head>
   <title>Play manual - Cheat Sheet</title>
-  #{stylesheet src:"main.css" /}
-  #{stylesheet src:"wiki.css" /}
-  #{stylesheet src:"cheat-sheet.css" /}
-  #{stylesheet src:"cheat-sheet-print.css", media:"print" /}
-  #{script src:"jquery-1.4.2.min.js" /}
+  <link rel="stylesheet" href="/assets/playmanual/manual.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="/assets/playmanual/wiki.css" type="text/css" media="screen" charset="utf-8">
+  <script type="text/javascript" src="/assets/playmanual/jquery-1.3.2.min.js"></script>
+  <link rel="stylesheet" href="/assets/playmanual/cheat-sheet.css" type="text/css" media="screen" charset="utf-8">
+  <link rel="stylesheet" href="/assets/playmanual/cheat-sheet-print.css" type="text/css" media="print" charset="utf-8">
 </head>
 <body>
 <div class="cs-wrapper">
@@ -42,7 +42,7 @@
       #{if id == 'tests'}Tests#{/if}#{else}<a href="/documentation/${version}/cheatsheet/tests">Tests</a>#{/else}&nbsp;
     </div>
     <div id="logobar">
-      <img src="/public/images/logo-manual.png">
+      <img src="/assets/playmanual/logo.png">
 
       <h2 id="version">${version}</h2>
     </div>
