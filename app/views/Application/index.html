@@ -1,6 +1,11 @@
 #{extends 'main.html' /}
 #{set title:'Home' /}
-
+#{set 'moreScripts'}
+<script src="/assets/javascripts/history.js" type="text/javascript"></script>
+#{/set}
+#{set 'moreStyles'}
+<link rel="stylesheet" media="screen" href="/assets/stylesheets/home.css">
+#{/set}
     <div id="news">
         ${news.raw()}
     </div>
