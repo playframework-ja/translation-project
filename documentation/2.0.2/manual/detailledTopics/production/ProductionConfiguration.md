@@ -11,7 +11,7 @@ All these additional configurations are specified using Java System properties a
 -->
 アプリケーションを本番モードで実行するときに、任意の設定を上書きすることができます。このセクションでは、この「追加設定」のよくあるユースケースを紹介します。
 
-追加設定は Java のシステムプロパティを使って指定することができます。指定された追加設定は、 Play によって生成された `start` スクリプトでアプリケーションを起動している場合、直接利用することができます。
+追加設定は Java のシステムプロパティを使って指定します。Play によって生成された `start` スクリプトを利用している場合、Java のシステムプロパテイを `start` スクリプトに直接指定することができます。
 
 <!--
 ## Specifying the HTTP server address and port
