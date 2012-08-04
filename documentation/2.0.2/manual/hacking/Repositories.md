@@ -26,7 +26,7 @@ sbt ビルドでこのレポジトリを有効化したいときは、正しい�
 resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/"
 ```
 
-<!-
+<!--
 ## Accessing snapshots
 
 Snapshots are published daily from our [[Continuous Server|CIServer]] to the Typesafe snapshots repository at [[http://repo.typesafe.com/typesafe/snapshots/]].
