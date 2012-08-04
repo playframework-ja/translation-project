@@ -25,7 +25,7 @@
 * **Webサイト:** [https://github.com/t2v/play20-auth]
 * **ドキュメント(英語):** [https://github.com/t2v/play20-auth/blob/master/README.md]
 * **ドキュメント(日本語):** [https://github.com/t2v/play20-auth/blob/master/README.ja.md]
-* **説明** 認証と認可の仕組みを提供するモジュールです。
+* **説明:** 認証と認可の仕組みを提供するモジュールです。
 
 
 <!--
