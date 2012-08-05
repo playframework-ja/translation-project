@@ -1,5 +1,10 @@
+<!-- translated -->
+<!--
 ### Main concepts
+-->
+### 基本的な機能
 
+<!--
 - [[HTTP programming | ScalaActions]]
 - [[Asynchronous HTTP programming | ScalaAsync]]
 - [[The template engine | ScalaTemplates]]
@@ -15,11 +20,39 @@
 - [[The application Global object | ScalaGlobal]]
 - [[Testing your application | ScalaTest]]
 - [[Securing your application | ScalaSecurity]]
-    
+-->
+- [[HTTP プログラミング | ScalaActions]]
+- [[非同期 HTTP プログラミング | ScalaAsync]]
+- [[テンプレート・エンジン | ScalaTemplates]]
+- [[HTTP フォームの送信とバリデーション | ScalaForms]]
+- [[JSON | ScalaJson]]
+- [[XML | ScalaXmlRequests]]
+- [[ファイル・アップロード | ScalaFileUpload]]
+- [[SDL データベース・アクセス | ScalaDatabase]]
+- [[キャッシュ | ScalaCache]]
+- [[Web サービスの呼び出し | ScalaWS]]
+- [[Akka との統合 | ScalaAkka]]
+- [[多言語対応 | ScalaI18N]]
+- [[アプリケーションの Global オブジェクト | ScalaGlobal]]
+- [[テスト | ScalaTest]]
+- [[セキュリテイ | ScalaSecurity]]
+
+<!--
 ### Advanced topics
+-->>
+### 高度なトピック
 
+<!--
 - [[Handling data streams reactively | Iteratees]]
+-->
+- [[データ・ストリームの「反応的」処理 | Iteratees]]
 
+<!--
 ### Tutorials
+-->
+### チュートリアル
 
+<!--
 - [[Your first application | ScalaTodoList]]
+-->
+- [[初めてのアプリケーション | ScalaTodoList]]
