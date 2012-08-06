@@ -2,9 +2,8 @@
 
 require:
     - play 1.2.5
-    - play -> gae 1.6.0
     - org.jsoup -> jsoup 1.6.2
-    - org.eclipse.mylyn.github -> org.eclipse.egit.github.core 2.0-alpha-2
+    - org.eclipse.mylyn.github -> org.eclipse.egit.github.core 2.0.1
     - org.pegdown -> pegdown 1.1.0
 
 repositories:

@@ -22,8 +22,13 @@
         </p>
         #{list items:collaborators, as:'collaborator'}
         <div class="coreteam">
-            <a href="${collaborator.htmlUrl}"> <img src="${collaborator.avatarUrl}"> <h2> #{if collaborator.name != null}${collaborator.name}#{/if}
-            #{else}${collaborator.login}#{/else} </h2> </a>
+            <a href="${collaborator.htmlUrl}">
+              <img src="${collaborator.avatarUrl}">
+              <h2>
+                ${collaborator.login}
+                #{if collaborator.name != null}(${collaborator.name})#{/if}
+              </h2>
+            </a>
         </div>
         #{/list}
     </article>

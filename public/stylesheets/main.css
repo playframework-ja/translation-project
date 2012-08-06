@@ -942,3 +942,9 @@ a.absent {
   padding: 10px 0;
   color: white;
 }
+div.coreteam {
+  min-height: 60px;
+}
+div.coreteam h2 {
+  margin-top: 5px;
+}
