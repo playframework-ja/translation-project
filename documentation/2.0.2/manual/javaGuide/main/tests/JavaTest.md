@@ -1,10 +1,23 @@
+<!-- translated -->
+<!--
 # Testing your application
+-->
+# アプリケーションのテスト
 
+<!--
 Test source files must be placed in your application’s `test` folder. You can run tests from the Play console using the `test` and `test-only` tasks.
+-->
+テストのソースファイルは `test` フォルダに配置します。テストを実行するためには、 `test` または `test-only` タスクを実行してください。
 
+<!--
 ## Using JUnit
+-->
+## JUnit を使う
 
+<!--
 The default way to test a Play 2 application is with [[JUnit| http://www.junit.org/]].
+-->
+Play 2 アプリケーションの標準的なテスト方法は、 [[JUnit| http://www.junit.org/]] を使うことです。
 
 ```
 package test;
@@ -29,9 +42,15 @@ public class SimpleTest {
 }
 ```
 
+<!--
 ## Running in a fake application
+-->
+## フェイク・アプリケーション上で実行する
 
+<!--
 If the code you want to test depends on a running application, you can easily create a `FakeApplication` on the fly:
+-->
+実行しているアプリケーションやその設定に依存するようなコードをテストするときは、テスト内で `FakeApplication` を起動するとよいでしょう。
 
 ```
 @Test
@@ -46,10 +65,16 @@ public void findById() {
 }
 ```
 
+<!--
 You can also pass (or override) additional application configuration, or mock any plugin. For example to create a `FakeApplication` using a `default` in-memory database:
+-->
+フェイク・アプリケーションを起動する際に、パラメータの上書き・追加、プラグインを持っくすることができます。例えば、 `default` という名前のインメモリデータベースが構成された `FakeApplication` を起動するには次のようにします。
 
 ```
 fakeApplication(inMemoryDatabase())
 ```
 
+<!--
 > **Next:** [[Writing functional tests | JavaFunctionalTest]]
+-->
+> **次ページ:** [[機能テストを書く | JavaFunctionalTest]]
