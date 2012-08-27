@@ -74,7 +74,7 @@ Promise<Integer> promiseOfInt = Akka.future(
 <!--
 > **Note:** Here, the intensive computation will just be run on another thread. It is also possible to run it remotely on a cluster of backend servers using Akka remote.
 -->
-> **ノート:** ここでは、非常に時間のかかる思い計算を別スレッドで実行しています。その他に、このような計算をAkka remoteを利用してバックエンドサーバのクラスタ上で実行することもできます。
+> **ノート:** ここでは、非常に時間のかかる計算を別スレッドで実行しています。その他に、このような計算をAkka remoteを利用してバックエンドサーバのクラスタ上で実行することもできます。
 
 <!--
 ## AsyncResult
