@@ -65,7 +65,7 @@ public static Result index(String name) {
 <!--
 These parameters will be resolved by the `Router` and will be filled with values from the request URL. The parameter values can be extracted from either the URL path or the URL query string.
 -->
-これらの引数は　`Router` により解決され、リクエスト URL のから値が入れられます。引数の値は URL のパスもしくは URL のクエリ文字列から抽出することができます。
+これらの引数は `Router` により解決され、リクエスト URL から値が入れられます。引数の値は URL のパスもしくは URL のクエリ文字列から抽出することができます。
 
 <!--
 ## Results
