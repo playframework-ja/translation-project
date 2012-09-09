@@ -25,15 +25,15 @@
 - [[非同期 HTTP プログラミング | ScalaAsync]]
 - [[テンプレート・エンジン | ScalaTemplates]]
 - [[HTTP フォームの送信とバリデーション | ScalaForms]]
-- [[JSON | ScalaJson]]
-- [[XML | ScalaXmlRequests]]
+- [[JSON を使う | ScalaJson]]
+- [[XML を使う | ScalaXmlRequests]]
 - [[ファイル・アップロード | ScalaFileUpload]]
-- [[SDL データベース・アクセス | ScalaDatabase]]
+- [[SQL データベース・アクセス | ScalaDatabase]]
 - [[キャッシュ | ScalaCache]]
 - [[Web サービスの呼び出し | ScalaWS]]
 - [[Akka との統合 | ScalaAkka]]
 - [[多言語対応 | ScalaI18N]]
-- [[アプリケーションの Global オブジェクト | ScalaGlobal]]
+- [[Global オブジェクト | ScalaGlobal]]
 - [[テスト | ScalaTest]]
 - [[セキュリテイ | ScalaSecurity]]
 
@@ -45,7 +45,7 @@
 <!--
 - [[Handling data streams reactively | Iteratees]]
 -->
-- [[データ・ストリームの「反応的」処理 | Iteratees]]
+- [[反応的なストリーム処理 | Iteratees]]
 
 <!--
 ### Tutorials

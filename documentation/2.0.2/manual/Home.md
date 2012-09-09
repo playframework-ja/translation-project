@@ -97,7 +97,7 @@
     1. [[スタンドアローンアプリケーションを作成する | ProductionDist]]
     1. [[追加設定 | ProductionConfiguration]]
     1. [[Heroku へデプロイする | ProductionHeroku]]
-    1. [[フロントエンドHTTP serverの設定 | HTTPServer]]
+    1. [[フロントエンド HTTP サーバの設定 | HTTPServer]]
 
 <!--
 ## Additional documentation
@@ -131,11 +131,11 @@
 1. [[Contributor guidelines | Guidelines]]
 -->
 1. [[ソースから Play 2.0 をビルドする | BuildingFromSource]]
-1. [[Cloudbees における CI サーバー | CIServer]]
-1. [[レポジトリ | Repositories]]
-1. [[イシュー・トラッカー | Issues]]
-1. [[プル・リクエスト | PullRequests]]
-1. [[このプロジェクトへの貢献用ガイドライン| Guidelines]]
+1. [[Cloudbees における CI サーバ | CIServer]]
+1. [[リポジトリ | Repositories]]
+1. [[課題トラッカ | Issues]]
+1. [[プルリクエスト | PullRequests]]
+1. [[このプロジェクトへの貢献用ガイドライン | Guidelines]]
 
 <!--
 ## Modules and plugins

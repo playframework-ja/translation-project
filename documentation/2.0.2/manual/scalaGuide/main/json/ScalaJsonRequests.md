@@ -119,4 +119,4 @@ Content-Length: 43
 <!--
 > **Next:** [[Working with XML | ScalaXmlRequests]]
 -->
-> **次ページ:** [[XML の処理 | ScalaXmlRequests]]
+> **次ページ:** [[XML を使う | ScalaXmlRequests]]
