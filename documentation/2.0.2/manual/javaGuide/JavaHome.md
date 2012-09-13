@@ -90,7 +90,7 @@ Play 2.0 アプリケーション開発者は `play` パッケージ内の Java 
 1. [[ファイルアップロードのハンドリング | JavaFileUpload]]
     1. [[ダイレクトアップロードと multipart/form-data | JavaFileUpload]]
 1. [[SQL データベースへのアクセス | JavaDatabase]]
-    1. [[JDBC の設定としよう | JavaDatabase]]
+    1. [[JDBC の設定と使用 | JavaDatabase]]
     1. [[Ebean ORM を使う | JavaEbean]]
     1. [[JPA の統合 | JavaJPA]]
 1. [[キャッシュを使う | JavaCache]]
