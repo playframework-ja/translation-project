@@ -88,7 +88,7 @@ $ play clean compile stage
 <!--
 This cleans and compiles your application, retrieves the required dependencies and copies them to the `target/staged` directory. It also creates a `target/start` script that runs the Play server.
 -->
-このコマンドにより、アプリケーションのコンパイル時に生成された一時ファイルが削除され、改めてコンパイルが実行され、必要な依存モジュールがダウンロードされ、これら全てが `target/staged` ディレクトリへコピーされます。さらに、 Play サーバを起動するための `target/startP というスクリプトも生成されます。
+このコマンドにより、アプリケーションのコンパイル時に生成された一時ファイルが削除され、改めてコンパイルが実行され、必要な依存モジュールがダウンロードされ、これら全てが `target/staged` ディレクトリへコピーされます。さらに、 Play サーバを起動するための `target/start` というスクリプトも生成されます。
 
 <!--
 You can start your application using:
