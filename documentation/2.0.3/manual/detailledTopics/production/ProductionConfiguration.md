@@ -35,7 +35,7 @@ $ start -Dhttp.port=1234 -Dhttp.address=127.0.0.1
 <!--
 ## Specifying additional JVM arguments
 -->
-## JVM の起動オプションを指定する
+## 追加の JVM の起動オプションを指定する
 
 <!--
 You can specify any JVM arguments to the `start` script. Otherwise the default JVM settings will be used:
