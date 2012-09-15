@@ -59,7 +59,7 @@ The default is to load the `application.conf` file from the classpath. You can s
 <!--
 ### Using `-Dconfig.resource`
 -->
-## `-Dconfig.resource` を使う
+### `-Dconfig.resource` を使う
 
 <!--
 It will search for an alternative configuration file in the application classpath (you usually provide these alternative configuration files into your application `conf/` directory before packaging).
