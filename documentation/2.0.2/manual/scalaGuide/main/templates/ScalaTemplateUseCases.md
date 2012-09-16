@@ -49,7 +49,7 @@ As you can see, this template takes two parameters: a title and an HTML content 
 <!--
 > **Note:** We sometimes use named parameters(like `@main(title = "Home")`, sometimes not like `@main("Home")`. It is as you want, choose whatever is clearer in a specific context.
 -->
-> **Note:** `@main("Home")` の代わりに、名前付き引数を使って `main(title = "Home")` のように書くこともあります。どちらを使っても良いのですが、時と場合に応じてテンプレートが読みやすくなる方を選ぶとよいでしょう。
+> **Note:** `@main("Home")` の代わりに、名前付き引数を使って `@main(title = "Home")` のように書くこともあります。どちらを使っても良いのですが、時と場合に応じてテンプレートが読みやすくなる方を選ぶとよいでしょう。
 
 <!--
 Sometimes you need a second page-specific content block for a sidebar or breadcrumb trail, for example. You can do this with an additional parameter:
