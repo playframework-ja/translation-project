@@ -277,7 +277,7 @@ Note that you can also declare reusable pure Scala blocks:
 <!--
 > **Note:** Declaring Scala block this way in a template can be sometimes useful but keep in mind that a template is not the best place to write complex logic. It is often better to externalize these kind of code in a pure scala source file (that you can store under the `views/` package as well if you want).
 -->
-> **ノート:** このように Scala ブロックをテンプレートで宣言すると便利なこともありますが、テンプレートは込み入ったロジックを置く場所としては適切でないことを覚えておいてください。このようなコードは 通常の Scala ソースファイルに切り出すと良いことが多いです。 (必要であれば、 `views/` パッケージいかに通常の Scala ソースファイルを置くこともできます。)
+> **ノート:** このように Scala ブロックをテンプレートで宣言すると便利なこともありますが、テンプレートは込み入ったロジックを置く場所としては適切でないことを覚えておいてください。このようなコードは 通常の Scala ソースファイルに切り出すと良いことが多いです。 (必要であれば、 `views/` パッケージ以下に通常の Scala ソースファイルを置くこともできます。)
 
 <!--
 By convention, a reusable block defined with a name starting with **implicit** will be marked as `implicit`:

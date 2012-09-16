@@ -249,7 +249,7 @@ Note that you can also declare reusable pure code blocks:
 <!--
 > **Note:** Declaring code block this way in a template can be sometime useful but keep in mind that a template is not the best place to write complex logic. It is often better to externalize these kind of code in a Java class (that you can store under the `views/` package as well if your want).
 -->
-> **ノート:** このようにコードブロックをテンプレートで宣言すると便利なこともありますが、テンプレートは込み入ったロジックを置く場所としては適切でないことを覚えておいてください。このようなコードは 通常の Java クラスに切り出すと良いことが多いです。 (必要であれば、 `views/` パッケージいかに通常の Java クラスを置くこともできます。)
+> **ノート:** このようにコードブロックをテンプレートで宣言すると便利なこともありますが、テンプレートは込み入ったロジックを置く場所としては適切でないことを覚えておいてください。このようなコードは 通常の Java クラスに切り出すと良いことが多いです。 (必要であれば、 `views/` パッケージ以下に通常の Java クラスを置くこともできます。)
 
 <!--
 By convention a reusable block defined with a name starting with **implicit** will be marked as `implicit`:
