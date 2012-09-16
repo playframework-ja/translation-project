@@ -35,7 +35,7 @@ $ start -Dhttp.port=1234 -Dhttp.address=127.0.0.1
 <!--
 ## Specifying additional JVM arguments
 -->
-## JVM の起動オプションを指定する
+## 追加の JVM の起動オプションを指定する
 
 <!--
 You can specify any JVM arguments to the `start` script. Otherwise the default JVM settings will be used:
@@ -59,7 +59,7 @@ The default is to load the `application.conf` file from the classpath. You can s
 <!--
 ### Using `-Dconfig.resource`
 -->
-## `-Dconfig.resource` を使う
+### `-Dconfig.resource` を使う
 
 <!--
 It will search for an alternative configuration file in the application classpath (you usually provide these alternative configuration files into your application `conf/` directory before packaging).
