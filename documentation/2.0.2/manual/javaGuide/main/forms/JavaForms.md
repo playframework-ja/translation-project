@@ -75,7 +75,7 @@ public class User {
 
 You can also define an ad-hoc validation by adding a `validate` method to your top object:
 -->
-> **Tip:** `play.data.validation.COnstraints`クラスには組み込みのバリデーションアノテーションがいくつか含まれています。
+> **Tip:** `play.data.validation.Constraints`クラスには組み込みのバリデーションアノテーションがいくつか含まれています。
 
 トップオブジェクトに`validate`メソッドを追加することで、その場限りのバリデーションを定義することもできます。
 
@@ -103,7 +103,7 @@ public class User {
 <!--
 Of course if you can define constraints, then you need to be able to handle the binding errors.
 -->
-制約を定義できるということは、バインドエラーをを処理できる必要があります。
+制約を定義できるということは、バインドエラーを処理できる必要があります。
 
 ```java
 if(userForm.hasErrors()) {
