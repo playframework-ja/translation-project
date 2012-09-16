@@ -58,7 +58,7 @@ Templates are compiled, so you will see any errors in your browser:
 <!--
 A Play Scala template is a simple text file that contains small blocks of Scala code. Templates can generate any text-based format, such as HTML, XML or CSV.
 -->
-Play SCala テンプレートは Scala のコードブロックを少し含む以外は、ただのテキストファイルです。したがって、HTML, XML, CSV などあらゆるテキストベースのフォーマットを生成するために利用できます。
+Play Scala テンプレートは Scala のコードブロックを少し含む以外は、ただのテキストファイルです。したがって、HTML, XML, CSV などあらゆるテキストベースのフォーマットを生成するために利用できます。
 
 <!--
 The template system has been designed to feel comfortable to those used to working with HTML, allowing front-end developers to easily work with the templates.
