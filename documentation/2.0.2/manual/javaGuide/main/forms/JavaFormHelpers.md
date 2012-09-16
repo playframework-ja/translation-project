@@ -1,4 +1,4 @@
-<!--translated-->
+<!-- translated -->
 <!--
 # Form template helpers
 -->
@@ -17,7 +17,7 @@ PlayにはフォームのフィールドをHTMLテンプレート内に描画す
 <!--
 The first helper creates the `<form>` tag. It is a pretty simple helper that automatically sets the `action` and `method` tag parameters according to the reverse route you pass in:
 -->
-まず、`<form>`タグを作成するヘルパーがあります。これは、`action`と`method`タグパラメータを引数に渡したリバースルートに基いて設定してくれる、というかなりシンプルなヘルパーです。
+まず、`<form>`タグを作成するヘルパーがあります。これは、`action`と`method`タグパラメータを引数に渡したリバースルートに基づいて設定してくれる、というかなりシンプルなヘルパーです。
     
 ```
 @helper.form(action = routes.Application.submit()) {
