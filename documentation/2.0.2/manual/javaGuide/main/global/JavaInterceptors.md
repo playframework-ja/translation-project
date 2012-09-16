@@ -14,7 +14,7 @@ One important aspect of  the ```GlobalSettings``` class is that it provides a wa
 
 For example:
 -->
-```GlobalSettings``` クラスには、リクエストがアクションに渡される前にインターセプトして、任意のビジネスロジックを実行するために使える、という重要な側面もあります。
+ ```GlobalSettings``` クラスには、リクエストがアクションに渡される前にインターセプトして、任意のビジネスロジックを実行するために使える、という重要な側面もあります。
 
 例えば、
 
