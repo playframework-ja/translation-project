@@ -248,7 +248,7 @@ def save = Action(parse.text(maxLength = 1024 * 10)) { request =>
 > 
 > `parsers.text.maxLength=128K`
 -->
-> **Tip:** デフォルトのコンテンツサイズは `application.conf` に次のように定義されています。
+> **Tip:** デフォルトのコンテンツサイズは `application.conf` から次のように定義できます。
 >
 > `parsers.text.maxLength=128K`
 
