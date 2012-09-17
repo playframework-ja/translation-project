@@ -42,7 +42,7 @@ Play のセッションはキャッシュとして使われることを想定し
 <!--
 You can retrieve the incoming Session from the HTTP request:
 -->
-次のように、送信されてきたセッションを HTTP リクエストから取り出することができます。
+次のように、送信されてきたセッションを HTTP リクエストから取り出すことができます。
 
 ```scala
 def index = Action { request =>
