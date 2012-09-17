@@ -38,7 +38,7 @@ public static index sayHello() {
 <!--
 Of course it’s way better (and simpler) to specify our own `BodyParser` to ask Play to parse the content body directly as XML:
 -->
-Play にコンテントボディを直接的に XML としてパースさせるために、`BodyParser` を指定すると良いでしょう。
+この場合、専用の`BodyParser` を指定することで Play にコンテントボディを直接的に XML としてパースさせると、記述がシンプル化されてなお良いでしょう。
 
 ```
 @BodyParser.Of(Xml.class)
