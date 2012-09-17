@@ -17,7 +17,7 @@ JSON リクエストはリクエストボディに JSON データを含む HTTP 
 <!--
 By default an action uses an **any content** body parser, which you can use to retrieve the body as JSON (actually as a Jerkson `JsonNode`):
 -->
-アクションはリクエストボディを JSON (具体的には Jerkson の `JsonNode`) として取得できる **any content** ボディパーサーをデフォルトで利用します。
+アクションは **any content** ボディパーサーをデフォルトで使います。これを利用して、リクエストボディを JSON (具体的には Jerkson の `JsonNode`) として取得することができます。
 
 ```java
 public static index sayHello() {
@@ -38,7 +38,7 @@ public static index sayHello() {
 <!--
 Of course it’s way better (and simpler) to specify our own `BodyParser` to ask Play to parse the content body directly as JSON:
 -->
-Play にコンテントボディを直接的に JSON としてパースさせるために、`BodyParser` を指定すると良いでしょう。
+この場合、専用の`BodyParser` を指定することで Play にコンテントボディを直接的に JSON としてパースさせると、記述がシンプル化されてなお良いでしょう。
 
 ```java
 @BodyParser.Of(Json.class)

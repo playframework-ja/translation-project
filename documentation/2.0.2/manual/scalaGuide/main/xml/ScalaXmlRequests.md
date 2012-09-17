@@ -17,7 +17,7 @@ XML リクエストはリクエストボディに XML データを含む HTTP �
 <!--
 By default an `Action` uses a **any content** body parser, which lets you retrieve the body as XML (actually as a `NodeSeq`):
 -->
-`Action` はリクエストボディを XML (具体的には `NodeSeq`) として取得できる **any content** ボディパーサーをデフォルトで利用します。
+`Action` は **any content** ボディパーサーをデフォルトで使います。これを利用して、リクエストボディを XML (具体的には `NodeSeq`) として取得することができます。
 
 ```scala
 def sayHello = Action { request =>
@@ -36,7 +36,7 @@ def sayHello = Action { request =>
 <!--
 It’s way better (and simpler) to specify our own `BodyParser` to ask Play to parse the content body directly as XML:
 -->
-Play にコンテントボディを直接的に XML としてパースさせるために、`BodyParser` を指定すると良いでしょう。
+この場合、専用の`BodyParser` を指定することで Play にコンテントボディを直接的に XML としてパースさせると、記述がシンプル化されてなお良いでしょう。
 
 ```scala
 def sayHello = Action(parse.xml) { request =>
