@@ -153,7 +153,7 @@ Here for a request like `GET /files/images/logo.png`, the `name` dynamic part wi
 <!--
 You can also define your own regular expression for the dynamic part, using the `$id<regex>` syntax:
 -->
-動的パートに独自の正規表現を使わせたい場合は、`$id<regex>` という文法が利用します。
+動的パートに独自の正規表現を使わせたい場合は、`$id<regex>` という文法を利用します。
     
 ```
 GET   /clients/$id<[0-9]+>  controllers.Clients.show(id: Long)  

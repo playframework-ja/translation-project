@@ -40,7 +40,7 @@ Templates are compiled, so you will see any errors right in your browser:
 <!--
 A Play Scala template is a simple text file, that contains small blocks of Scala code. They can generate any text-based format, such as HTML, XML or CSV.
 -->
-Play SCala テンプレートは Scala のコードブロックを少し含む以外は、ただのテキストファイルです。したがって、HTML, XML, CSV などあらゆるテキストベースのフォーマットを生成するために利用できます。
+Play Scala テンプレートは Scala のコードブロックを少し含む以外は、ただのテキストファイルです。したがって、HTML, XML, CSV などあらゆるテキストベースのフォーマットを生成するために利用できます。
 
 <!--
 The template system has been designed to feel comfortable to those used to dealing with HTML, allowing web designers to easily work with the templates.
@@ -277,7 +277,7 @@ Note that you can also declare reusable pure Scala blocks:
 <!--
 > **Note:** Declaring Scala block this way in a template can be sometimes useful but keep in mind that a template is not the best place to write complex logic. It is often better to externalize these kind of code in a pure scala source file (that you can store under the `views/` package as well if you want).
 -->
-> **ノート:** このように Scala ブロックをテンプレートで宣言すると便利なこともありますが、テンプレートは込み入ったロジックを置く場所としては適切でないことを覚えておいてください。このようなコードは 通常の Scala ソースファイルに切り出すと良いことが多いです。 (必要であれば、 `views/` パッケージいかに通常の Scala ソースファイルを置くこともできます。)
+> **ノート:** このように Scala ブロックをテンプレートで宣言すると便利なこともありますが、テンプレートは込み入ったロジックを置く場所としては適切でないことを覚えておいてください。このようなコードは 通常の Scala ソースファイルに切り出すと良いことが多いです。 (必要であれば、 `views/` パッケージ以下に通常の Scala ソースファイルを置くこともできます。)
 
 <!--
 By convention, a reusable block defined with a name starting with **implicit** will be marked as `implicit`:

@@ -42,7 +42,7 @@ Play のセッションはキャッシュとして使われることを想定し
 <!--
 You can retrieve the incoming Session from the HTTP request:
 -->
-次のように、送信されてきたセッションを HTTP リクエストから取り出することができます。
+次のように、送信されてきたセッションを HTTP リクエストから取り出すことができます。
 
 ```scala
 def index = Action { request =>
@@ -115,7 +115,7 @@ Ok("Theme reset!").withSession(
 <!--
 There is special operation that discards the whole session:
 -->
-セッションを改善に破棄するために、特別な操作が用意されています。
+セッション全体を破棄するために、特別な操作が用意されています。
 
 ```scala
 Ok("Bye").withNewSession

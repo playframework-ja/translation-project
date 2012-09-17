@@ -12,7 +12,7 @@
 <!--
 An HTTP PUT or POST request contains a body. This body can use any format, specified in the `Content-Type` request header. In Play, a **body parser** transforms this request body into a Scala value. 
 -->
-HTTP PUT や POST リクエストはボディを含みます。このボディには `Content-Type` リクエストヘッダで指定さえしておけば、どんなフォーマットであっても構いません。Play において、 **ボディパーサー** はリクエストボディを Scala の値に変換する役割を持ちます。
+HTTP PUT や POST リクエストはボディを含みます。このボディは `Content-Type` リクエストヘッダで指定さえしておけば、どんなフォーマットであっても構いません。Play において、 **ボディパーサー** はリクエストボディを Scala の値に変換する役割を持ちます。
 
 <!--
 However the request body for an HTTP request can be very large and a **body parser** can’t just wait and load the whole data set into memory before parsing it. A `BodyParser[A]` is basically an `Iteratee[Array[Byte],A]`, meaning that it receives chunks of bytes (as long as the web browser uploads some data) and computes a value of type `A` as result.
@@ -248,7 +248,7 @@ def save = Action(parse.text(maxLength = 1024 * 10)) { request =>
 > 
 > `parsers.text.maxLength=128K`
 -->
-> **Tip:** デフォルトのコンテンツサイズは `application.conf` に次のように定義されています。
+> **Tip:** デフォルトのコンテンツサイズは `application.conf` から次のように定義できます。
 >
 > `parsers.text.maxLength=128K`
 

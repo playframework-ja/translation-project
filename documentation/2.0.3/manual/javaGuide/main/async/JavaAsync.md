@@ -1,4 +1,4 @@
-<!--translated-->
+<!-- translated -->
 <!--
 # Handling asynchronous results
 -->

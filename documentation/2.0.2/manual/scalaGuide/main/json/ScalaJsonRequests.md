@@ -17,7 +17,7 @@ JSON リクエストは JSON データをリクエストボディに含む HTTP 
 <!--
 By default an `Action` uses an **any content** body parser, which lets you retrieve the body as JSON (actually as a `JsValue`):
 -->
-`Action` は、リクエストボディを JSON (具体的には、`JsValue`) として取得することができる **any content** ボディパーサーをデフォルトで利用します。
+`Action` は **any content** ボディパーサーをデフォルトで使います。これを利用して、リクエストボディを JSON (具体的には、`JsValue`) として取得することができます。
 
 ```scala
 def sayHello = Action { request =>
@@ -36,7 +36,7 @@ def sayHello = Action { request =>
 <!--
 It's better (and simpler) to specify our own `BodyParser` to ask Play to parse the content body directly as JSON:
 -->
-Play にリクエストボディを直接 `JSON` としてパースさせるために `BodyParser` を指定するとよいでしょう。
+この場合、専用の`BodyParser` を指定することで Play にコンテントボディを直接的に JSON としてパースさせると、記述がシンプル化されてなお良いでしょう。
 
 ```scala
 def sayHello = Action(parse.json) { request =>
