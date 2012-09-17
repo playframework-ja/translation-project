@@ -115,7 +115,7 @@ Ok("Theme reset!").withSession(
 <!--
 There is special operation that discards the whole session:
 -->
-セッションを改善に破棄するために、特別な操作が用意されています。
+セッション全体を破棄するために、特別な操作が用意されています。
 
 ```scala
 Ok("Bye").withNewSession
