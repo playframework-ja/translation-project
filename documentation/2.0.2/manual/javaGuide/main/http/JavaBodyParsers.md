@@ -127,17 +127,17 @@ pulic static Result save() {
 <!--
 ## Max content length
 -->
-## 最大 Content Length
+## 最大コンテンツサイズ
 
 <!--
 Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded**) use a max content length because they have to load all the content into memory. 
 -->
-テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 Content Lengthが設定されています。
+テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大コンテンツサイズが設定されています。
 
 <!--
 There is a default content length (the default is 100KB). 
 -->
-デフォルトでは Content Length は 100KB です。
+デフォルトではコンテンツサイズは 100KB です。
 
 <!--
 > **Tip:** The default content size can be defined in `application.conf`:
