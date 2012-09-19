@@ -224,17 +224,17 @@ def save = Action(storeInUserFile) { request =>
 <!--
 ## Max content length
 -->
-## 最大 Content Length
+## 最大 content length
 
 <!--
 Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded**) use a maximum content length because they have to load all of the content into memory. 
 -->
-テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** のような。) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 Content Lengthが設定されています。
+テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** のような。) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。
 
 <!--
 There is a default content length (the default is 100KB), but you can also specify it inline:
 -->
-デフォルトでは Content Length は 100KB ですが、コード中で指定することもできます。
+デフォルトでは content length は 100KB ですが、コード中で指定することもできます。
 
 ```scala
 // Accept only 10KB of data.
@@ -248,7 +248,7 @@ def save = Action(parse.text(maxLength = 1024 * 10)) { request =>
 > 
 > `parsers.text.maxLength=128K`
 -->
-> **Tip:** デフォルトのコンテンツサイズは `application.conf` から次のように定義できます。
+> **Tip:** デフォルトの content length は `application.conf` から次のように定義できます。
 >
 > `parsers.text.maxLength=128K`
 

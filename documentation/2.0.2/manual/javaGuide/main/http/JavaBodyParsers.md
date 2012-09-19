@@ -127,24 +127,24 @@ pulic static Result save() {
 <!--
 ## Max content length
 -->
-## 最大 Content Length
+## 最大 content length
 
 <!--
 Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded**) use a max content length because they have to load all the content into memory. 
 -->
-テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 Content Lengthが設定されています。
+テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。
 
 <!--
 There is a default content length (the default is 100KB). 
 -->
-デフォルトでは Content Length は 100KB です。
+デフォルトでは content length は 100KB です。
 
 <!--
 > **Tip:** The default content size can be defined in `application.conf`:
 > 
 > `parsers.text.maxLength=128K`
 -->
-> **Tip:** デフォルトのコンテンツサイズは `application.conf` から次のように定義できます。
+> **Tip:** デフォルトの content length は `application.conf` から次のように定義できます。
 >
 > `parsers.text.maxLength=128K`
 
@@ -152,7 +152,7 @@ There is a default content length (the default is 100KB).
 <!--
 You can also specify a maximum content length via the `@BodyParser.Of` annotation:
 -->
-最大のコンテンツサイズは `@BodyParser.Of` アノテーションで指定することができます。
+最大の content length は `@BodyParser.Of` アノテーションで指定することができます。
 
 ```
 // Accept only 10KB of data.
