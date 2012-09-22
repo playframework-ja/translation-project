@@ -70,7 +70,7 @@ The `ref` attribute give you a reference to a `TemporaryFile`. This is the defau
 <!--
 Another way to send files to the server is to use Ajax to upload the file asynchronously in a form. In this case the request body will not have been encoded as `multipart/form-data`, but will just contain the plain file content.
 -->
-サーバへファイルを送信する別の方法は、フォームでファイルの非同期的にアップロードするために Ajax を活用することです。このケースでは、リクエストは `multipart/form-data` としてエンコードされるのではなく、単純にファイルの内容を含むだけになります。
+サーバへファイルを送信する別の方法は、Ajaxを活用してフォームからファイルを非同期的にアップロードするというものです。この方法では、リクエストボディは `multipart/form-data` としてエンコードされず、単にファイルの内容を含むだけになります。
 
 <!--
 In this case we can just use a body parser to store the request body content in a file. For this example, let’s use the `temporaryFile` body parser:
