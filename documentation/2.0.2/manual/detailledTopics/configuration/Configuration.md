@@ -93,7 +93,7 @@ Anything between `//` or `#` and the next newline is considered a comment and ig
 <!--
 JSON documents must have an array or object at the root. Empty files are invalid documents, as are files containing only a non-array non-object value such as a string.
 -->
-JSON ドキュメントは root として array や object を一つ持つ必要があります。空ファイルだったり、もしくは string などの array や object  以外しか含まないファイルはJSON ドキュメントとして正しくありません。
+JSON ドキュメントは root として array や object を一つ持つ必要があります。空ファイルだったり、もしくは string などの array や object  以外しか含まないファイルは JSON ドキュメントとして正しくありません。
 
 <!--
 In HOCON, if the file does not begin with a square bracket or curly brace, it is parsed as if it were enclosed with `{}` curly braces.
@@ -128,7 +128,7 @@ If a key is followed by `{`, the `:` or `=` may be omitted. So `"foo" {}` means 
 <!--
 Values in arrays, and fields in objects, need not have a comma between them as long as they have at least one ASCII newline (`\n`, decimal value 10) between them.
 -->
-配列内の値や、オブジェクトのフィールドはを区切るためのカンマは、1つ以上の改行（`\n`、10進数のASCIIコードでいえば 10）があれば省略可能です。
+配列内の値や、オブジェクトのフィールドを区切るためのカンマは、1つ以上の改行（`\n`、10進数のASCIIコードでいえば 10）があれば省略可能です。
 
 <!--
 The last element in an array or last field in an object may be followed by a single comma. This extra comma is ignored.
