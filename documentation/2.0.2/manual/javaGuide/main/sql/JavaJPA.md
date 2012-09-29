@@ -7,7 +7,7 @@
 <!--
 ## Exposing the datasource through JNDI
 -->
-## JNDI にデータソースを公開する
+## JNDI を経由してデータソースを公開する
 
 <!--
 JPA requires the datasource to be accessible via JNDI. You can expose any Play-managed datasource via JDNI by adding this configuration in `conf/application.conf`:
@@ -76,7 +76,7 @@ Here is a sample configuration file to use with Hibernate:
 <!--
 Every JPA call must be done in a transaction so, to enable JPA for a particular action, annotate it with `@play.db.jpa.Transactional`. This will compose your action method with a JPA `Action` that manages the transaction for you:
 -->
-各 JPA 呼び出しはトランザクションの中で行われる必要があるため、JPA を特定のアクションで有効にするには、 `@play.db.jpa.Transactional` アノテーションを付けます。これにより、アクションメソッドにトランザクション管理をする JPA `Action` が組み合わされます。
+各 JPA 呼び出しはトランザクションの中で行われる必要があるため、JPA を特定のアクションで有効にするには、 `@play.db.jpa.Transactional` アノテーションを付けます。これにより、トランザクション管理をする JPA `Action` がアクションメソッドに組み合わされます。
 
 ```
 @Transactional
@@ -105,7 +105,7 @@ public static Result index() {
 <!--
 At any time you can retrieve the current entity manager from the `play.db.jpa.JPA` helper class:
 -->
-`play.db.jpa.JPA` ヘルパークラスを使う事で、任意の時に現在のエンティティ・マネージャを取得することができます。
+`play.db.jpa.JPA` ヘルパークラスを使う事で、好きなタイミングで現在のエンティティ・マネージャを取得することができます。
 
 ```
 public static Company findById(Long id) {
