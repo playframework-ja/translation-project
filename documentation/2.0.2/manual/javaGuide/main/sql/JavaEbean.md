@@ -31,7 +31,7 @@ ebean.customers="models.Customer,models.Address"
 <!--
 In this example, we have access to two Ebean servers - each using its own database.
 -->
-この例では、2つの Ebean サーバへのアクセスが設定されています。各サーバは独立のデータベースを使用しています。
+この例では、2つの Ebean サーバへのアクセスが設定されています。各サーバはそれぞれ異なるデータベースを使用しています。
 
 <!--
 > For more information about Ebean, see the [[Ebean documentation | http://www.avaje.org/ebean/documentation.html]].
@@ -46,7 +46,7 @@ In this example, we have access to two Ebean servers - each using its own databa
 <!--
 Play 2.0 defines a convenient superclass for your Ebean model classes. Here is a typical Ebean class, mapped in Play 2.0:
 -->
-Play 2.0 はユーザの Ebean クラス用の便利なスーパークラスを定義しています。以下は Play 2.0 でマップされた典型的な Ebean クラスです。
+Play 2.0 は Ebean モデルクラス向けの便利なスーパークラスを定義しています。Play 2.0 でマップされた典型的な Ebean クラスは以下のようになります。
 
 ```java
 package models;
