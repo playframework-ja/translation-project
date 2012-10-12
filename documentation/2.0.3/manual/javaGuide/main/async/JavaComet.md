@@ -14,7 +14,7 @@ An useful usage of **Chunked responses** is to create Comet sockets. A Comet soc
     
 Let’s write a first proof-of-concept: create an enumerator generating `<script>` tags calling the browser `console.log` function:
 -->
-**チャンクレスポンス**を応用すると、Cometソケットを作成することができます。Cometソケットはチャンク分割されたただの`text/html`レスポンスで、その内容は`<script>`要素のみです。一つのチャンクにつき、JavaSCriptを含む`<script>`タグを一つだけ書き込み、それをWebブラウザに実行させます。これを利用することで、サーバからWebブラウザへ、イベントをリアルタイムに送信することができます。具体的には、Webブラウザへ送信したい各メッセージをJavaScriptによるコールバック関数呼び出しを行う`<script>`タグに包み、それをチャンクレスポンスに書き込みます。
+**チャンクレスポンス**を応用すると、Cometソケットを作成することができます。Cometソケットはチャンク分割されたただの`text/html`レスポンスで、その内容は`<script>`要素のみです。一つのチャンクにつき、JavaScriptを含む`<script>`タグを一つだけ書き込み、それをWebブラウザに実行させます。これを利用することで、サーバからWebブラウザへ、イベントをリアルタイムに送信することができます。具体的には、Webブラウザへ送信したい各メッセージをJavaScriptによるコールバック関数呼び出しを行う`<script>`タグに包み、それをチャンクレスポンスに書き込みます。
 
 それでは、これを確かめるデモを作成してみましょう。まず、ブラウザの`console.log`関数を呼び出す`<script>`タグを生成するようなEnumeratorを作成します。
     
