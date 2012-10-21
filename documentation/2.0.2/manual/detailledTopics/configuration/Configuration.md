@@ -29,7 +29,7 @@ System properties can be used to force a different config source:
 * `config.file` specifies a filesystem path, again it should include the extension, not be a basename
 * `config.url` specifies a URL
 -->
-* `config.resource` はリソースファイルの指定です - application のようなベースネームの指定はできません。また、 application.conf 以外を指定します。
+* `config.resource` はリソースファイルの指定です - application のようなベースネームの指定はできません。つまり application ではなく application.conf となります。
 * `config.file` はファイルシステム上のパスの指定です。パスには拡張子を含みます。ベースネームの指定はできません。
 * `config.url` は URL の指定です。
 
