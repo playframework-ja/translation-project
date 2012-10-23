@@ -7,7 +7,6 @@
 <!--
 ## Testing a template
 -->
-## 
 ## テンプレートをテストする
 
 <!--
@@ -73,7 +72,7 @@ public void badRoute() {
 <!--
 Sometimes you want to test the real HTTP stack from with your test. You can do this by starting a test server:
 -->
-実際の HTTP スタックを通したテストを記述した場合もあります。その場合は、次のようにテストサーバを起動するとよいでしょう。
+実際の HTTP スタックを通したテストを記述したい場合もあります。その場合は、次のようにテストサーバを起動するとよいでしょう。
 
 ```
 @Test
@@ -96,7 +95,7 @@ public void testInServer() {
 <!--
 If you want to test your application from with a Web browser, you can use [[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]]. Play will start the WebDriver for your, and wrap it in the convenient API provided by [[FluentLenium|https://github.com/FluentLenium/FluentLenium]].
 -->
-アプリケーションをWeb ブラウザを通してテストしたい場合、[[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]] を使うとよいでしょう。Play が WebDriver を初期化した上で、 [[FluentLenium|https://github.com/FluentLenium/FluentLenium]] がによる便利な API にラップしてくれます。
+アプリケーションを Web ブラウザを通してテストしたい場合、[[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]] を使うとよいでしょう。Play が WebDriver を初期化した上で、 [[FluentLenium|https://github.com/FluentLenium/FluentLenium]] が提供する便利な API にラップしてくれます。
 
 ```
 @Test
