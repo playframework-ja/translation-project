@@ -7,16 +7,17 @@
 <!--
 ## Using WebSockets instead of Comet sockets
 -->
-## Cometソケットの代わりにWebSocketを使う
+## Comet ソケットの代わりに WebSocket を使う
 
 <!--
 A Comet socket is a kind of hack for sending live events to the web browser. Also, Comet only supports one-way communication from the server to the client. To push events to the server, the web browser can make Ajax requests.
+-->
+Comet ソケットは Web ブラウザへイベントをリアルタイムに送信するためのいわばハックです。また、Comet はサーバからクライアントへの一方向の通信しかサポートしません。サーバへイベントを PUSH 送信する場合は、AJAX リクエストを使います。
 
+<!--
 Modern web browsers natively support two-way live communication via WebSockets.  
 -->
-CometソケットはWebブラウザへイベントをリアルタイムに送信するためのいわばハックです。また、Cometはサーバからクライアントへの一方向の通信しかサポートしません。サーバへイベントをPUSH送信する場合は、AJAXリクエストを使います。
-
-現代的なWebブラウザはWebSocketにより双方向のリアルタイム通信をネイティブにサポートしています。
+現代的な Web ブラウザは WebSocket により双方向のリアルタイム通信をネイティブにサポートしています。
 
 <!--
 >WebSocket is a web technology providing for bi-directional, full-duplex communications channels, over a single Transmission Control Protocol (TCP) socket. The WebSocket API is being standardized by the W3C, and the WebSocket protocol has been standardized by the IETF as RFC 6455.
@@ -25,24 +26,25 @@ CometソケットはWebブラウザへイベントをリアルタイムに送信
 >
 > [[http://en.wikipedia.org/wiki/WebSocket]]
 -->
-> WebSocketは双方向かつ全多重の通信チャンネルを、単一のTransmission Control Protocol (TCP)ソケット上で実現するWebテクノロジです。WebSocketのAPIはW3Cにより、一方WebSocketのプロトコルはIETFによりRFC 6455として、標準化が進められています。
+> WebSocket は双方向かつ全多重の通信チャンネルを、単一の Transmission Control Protocol (TCP) ソケット上で実現する Web テクノロジです。WebSocket の API は W3C により、一方 WebSocket のプロトコルは IETF により RFC 6455 として、標準化が進められています。
 >
-> WebSocketは元々、WebブラウザおよびWebサーバにおいて実装されることを想定して設計されていますが、実際はどんな種類のクライアントやサーバでも利用できます。80番ポート以外へのTCP接続は家庭内ネットワーク以外では管理者によってブロックされていることがよくありますが、WebSocketを使うとこの制限を迂回することができます。つまり、プロトコルのオーバーヘッドと引き換えにはなりますが、通常のTCP接続と同じような機能を実現することができ、単一のTCPポート上で複数のWebSocketサービスを多重化させることもできます。加えて、WebSocketの主な用途は、リアルタイムかつ双方向の通信を要するようなWebアプリケーションです。WebSocketが実現するまでは、このような双方向通信を実現しようとするとCometチャンネルを利用するほかありませんでした。しかしながら、Cometで双方向通信を実現するのはそれほど自明なことではありません。また、TCPハンドシェイクとHTTPヘッダによるオーバーヘッドがあるため、メッセージが小さな場合は非効率です。WebSocketプロトコルはこのような問題を、Webのセキュリティ損なわずに解決することを狙っています。
+> WebSocket は元々、Web ブラウザおよび Web サーバにおいて実装されることを想定して設計されていますが、実際はどんな種類のクライアントやサーバでも利用できます。80 番ポート以外への TCP 接続は家庭内ネットワーク以外では管理者によってブロックされていることがよくありますが、WebSocket を使うとこの制限を迂回することができます。つまり、プロトコルのオーバーヘッドと引き換えにはなりますが、通常の TCP 接続と同じような機能を実現することができ、単一の TCP ポート上で複数の WebSocket サービスを多重化させることもできます。加えて、WebSocket の主な用途は、リアルタイムかつ双方向の通信を要するような Web アプリケーションです。WebSocket が実現するまでは、このような双方向通信を実現しようとすると Comet チャンネルを利用するほかありませんでした。しかしながら、Comet で双方向通信を実現するのはそれほど自明なことではありません。また、TCP ハンドシェイクと HTTP ヘッダによるオーバーヘッドがあるため、メッセージが小さな場合は非効率です。WebSocket プロトコルはこのような問題を、Web のセキュリティ損なわずに解決することを狙っています。
 > [[http://en.wikipedia.org/wiki/WebSocket]]
 
 <!--
 ## Handling WebSockets
 -->
-## WebSocketを使う
+## WebSocket を使う
 
 <!--
 Until now we were using a simple action method to handle standard HTTP requests and send back standard HTTP results. WebSockets are a totally different beast, and can’t be handled via standard actions.
+-->
+これまでは標準的な HTTP リクエストを受け取って標準的な HTTP レスポンスを返すような単純なアクションメソッドを使いました。WebSocket はこれとは全く異なる猛獣なので、このような単純なアクションでは扱えません。
 
+<!--
 To handle a WebSocket your method must return a `WebSocket` instead of a `Result`:
 -->
-これまでは標準的なHTTPリクエストを受け取って標準的なHTTPレスポンスを返すような単純なアクションメソッドを使いました。WebSocketはこれとは全く異なる猛獣なので、このような単純なアクションでは扱えません。
-
-WebSocketを扱うためには、`Result`の代わりに`WebSocket`を返す必要があります。
+WebSocket を扱うためには、`Result` の代わりに `WebSocket` を返す必要があります。
 
 <!--
 ```
@@ -117,25 +119,28 @@ public static WebSocket<String> index() {
 
 <!--
 A WebSocket has access to the request headers (from the HTTP request that initiates the WebSocket connection) allowing you to retrieve standard headers and session data. But it doesn't have access to any request body, nor to the HTTP response.
+-->
+WebSocketは リクエストヘッダ (WebSocket 接続を初期化するための HTTP リクエストに付加されていたもの) を参照することができるため、標準的なヘッダの内容やセッションデータを受け取ることができます。しかし、リクエストボディや HTTP レスポンスへは一切アクセスできません。
 
+<!--
 When the `WebSocket` is ready, you get both `in` and `out` channels.
+-->
+`WebSocket` の準備が終わると、`in` と `out` という二つのチャンネルが得られます。
 
+<!--
 It this example, we print each message to console and we send a single **Hello!** message.
 -->
-WebSocketはリクエストヘッダ(WebSocket接続を初期化するためのHTTPリクエストに付加されていたもの)を参照することができるため、標準的なヘッダの内容やセッションデータを受け取ることができます。しかし、リクエストボディやHTTPレスポンスへは一切アクセスできません。
-
-`WebSocket`の準備が終わると、`in`と`out`という二つのチャンネルが得られます。
-
-この例では、受け取ったメッセージをコンソールへ出力しつつ、単一の**Hello!**というメッセージを送信しています。
+この例では、受け取ったメッセージをコンソールへ出力しつつ、単一の **Hello!** というメッセージを送信しています。
 
 <!--
 > **Tip:** You can test your WebSocket controller on [[http://websocket.org/echo.html]]. Just set the location to `ws://localhost:9000`.
+-->
+> **Tip:** WebSocket コントローラは [[http://websocket.org/echo.html]] でテストすることができます。テストを行うためには、location として `ws://localhost:9000` を指定してください。
 
+<!--
 Let’s write another example that totally discards the input data and closes the socket just after sending the **Hello!** message:
 -->
-> **Tip:** WebSocketコントローラは[[http://websocket.org/echo.html]]でテストすることができます。テストを行うためには、locationとして`ws://localhost:9000`を指定してください。
-
-次は、入力データを全て捨てつつ、**Hello!**メッセージを送信した後すぐにソケットを閉じる例を書いてみましょう。
+次は、入力データを全て捨てつつ、**Hello!** メッセージを送信した後すぐにソケットを閉じる例を書いてみましょう。
 
 ```
 public static WebSocket<String> index() {
