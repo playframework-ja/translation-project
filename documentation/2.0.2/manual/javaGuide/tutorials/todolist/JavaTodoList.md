@@ -51,7 +51,7 @@ $ play new todolist
 <!--
 The Play tool will ask you a few questions. Choose to create a **simple Java application** project template.
 -->
-いくつかの質問が表示されます。**Create a simple Java application** を選択しましょう。
+いくつかの質問が表示されます。**simple Java application** を選択しましょう。
 
 [[images/new.png]]
 
@@ -342,7 +342,7 @@ As you see we use `redirect` instead of `ok` to specify a `303 See Other` respon
 <!--
 > **Note:** Read more about the [[Router and reverse router|JavaRouting]].
 -->
-> **補足:** 詳細については [[HTTPルーティング|JavaRouting]] を参照してください。
+> **補足:** 詳細については [[HTTP ルーティング|JavaRouting]] を参照してください。
 
 <!--
 ## Prepare the `Task` model
@@ -390,8 +390,7 @@ We have also created a bunch of static methods to manage `Task` operations. For 
 <!--
 Our simple application will use a single Web page containing both the tasks list and the task creation form. Let’s modify the `index.scala.html` template for that:
 -->
-本アプリケーションはタスクリストとタスク作成フォームの両方を持つ単一のウェブページを用います。
-`index.scala.html` テンプレートを変更していきましょう:
+本アプリケーションはタスクリストとタスク作成フォームの両方を持つ単一のウェブページを用います。`index.scala.html` テンプレートを変更していきましょう:
 
 ```
 @(tasks: List[Task], taskForm: Form[Task])
@@ -781,7 +780,7 @@ web.1         up for 10s          target/start
 <!--
 It’s started, you can now open it in your browser. 
 -->
-起動していたら、ブラウザで開いてみましょう。
+起動したら、ブラウザで開いてみましょう。
 
 <!--
 > Your first application is now up and running in production!
