@@ -38,7 +38,7 @@ When you run the `start` command, Play forks a new JVM and runs the default Nett
 <!--
 > The server’s process id is displayed at bootstrap and written to the `RUNNING_PID` file. To kill a running Play server, it is enough to send a `SIGTERM` to the process to properly shutdown the application.
 -->
-> サーバの起動時にはサーバのプロセスIDが表示されると同時に、 `RUNNING_PID` というファイルに書き込まれます。起動中の Play サーバを停止させるためには、単にそのプロセスに `SIGTERM` シグナルを送信してアプリケーションを終了すればよいでしょう。
+> サーバの起動時にはサーバのプロセス ID が表示されると同時に、 `RUNNING_PID` というファイルに書き込まれます。起動中の Play サーバを停止させるためには、単にそのプロセスに `SIGTERM` シグナルを送信してアプリケーションを終了すればよいでしょう。
 
 <!--
 If you type `Ctrl+D`, the Play console will quit, but the created server process will continue running in background. The forked JVM’s standard output stream is then closed, and logging can be read from the `logs/application.log` file.
@@ -62,7 +62,7 @@ $ play start
 <!--
 > Note: the HTTP port can be set by passing -Dhttp.port system variable
 -->
-> Note: -Dhttp.port システム変数を渡すことで、 HTTP のポート番号を変更することができます。
+> ノート: -Dhttp.port システム変数を渡すことで、 HTTP のポート番号を変更することができます。
 
 <!--
 ## Using the stage task
