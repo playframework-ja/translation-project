@@ -216,7 +216,7 @@ fi
 <!--
 Here you can find an example of a working build pack: https://github.com/joergviola/heroku-buildpack-scala.
 -->
-実際に動作する build pack は [[コチラ|https://github.com/joergviola/heroku-buildpack-scala.]] にあります。
+実際に動作する build pack は [[こちら|https://github.com/joergviola/heroku-buildpack-scala.]] にあります。
 
 <!--
 Last step: Add the build pack address as a config var to heroku:
