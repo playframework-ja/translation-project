@@ -29,7 +29,7 @@ System properties can be used to force a different config source:
 * `config.file` specifies a filesystem path, again it should include the extension, not be a basename
 * `config.url` specifies a URL
 -->
-* `config.resource` はリソースファイルの指定です - application のようなベースネームの指定はできません。つまり application ではなく application.conf となります。
+* `config.resource` はリソースファイルの指定です - application のようなベースネームの指定はできません。また、 application.conf 以外を指定します。
 * `config.file` はファイルシステム上のパスの指定です。パスには拡張子を含みます。ベースネームの指定はできません。
 * `config.url` は URL の指定です。
 
@@ -103,7 +103,7 @@ HOCON では、ファイルが中括弧や大括弧で始まっていない場�
 <!--
 A HOCON file is invalid if it omits the opening `{` but still has a closing `}`; the curly braces must be balanced.
 -->
-しかし、始め中括弧 `{` があるにも関わらず 閉じ中括弧 `}` が存在しないようなファイルは HOCON フォーマットとして正しくありません。中括弧はバランスされている必要があります。
+しかし、始め中括弧 `{` を省略したにも関わらず 閉じ中括弧 `}` が存在するようなファイルは HOCON フォーマットとして正しくありません。中括弧はバランスされている必要があります。
 
 <!--
 ### Key-value separator
@@ -644,7 +644,7 @@ Java のクラスパスにあるリソースについては、
  - インクルードされたリソースは、インクルードした側のリソースを検索するのに使われたものと同じクラスローダーの `getResource()` メソッドを呼び出して検索されます。
  - インクルードされたリソースの名前が絶対パス（'/' で始まる）である場合は、 '/' を削除した上で `getResource()` に渡されます。
  - インクルードされたリソースの名前が '/' で始まっていない場合は、インクルードした側のリソースのディレクトリを先頭に繋げてから、 `getResource()` に渡します。インクルードした側のリソース名が絶対パスでない（'/' で始まらない）、かつ「親ディレクトリ」（単なるパスの要素）もない場合は、インクルードされた相対的なリソース名がそのまま使われます。
- - `getResource()` を URL の取得や、または そのURL からインクルードされたリソースの 相対 URL を取得するために使うのは間違いです。これは、クラスローダーの URL におけるパスと、  `getResource()` におけるパスの一対一のマッピングをするとは限らないからです。言い換えれば、前述の「隣接」の計算は、リソースの URL ではなく 名前を使って行うべきだということです。
+ - `getResource()` を URL の取得や、または そのURL からインクルードされたリソースの 相対 URL を取得するために使うのは間違いです。これは、クラスローダーの URL におけるパスと、 `getResource()` におけるパスの一対一のマッピングをするとは限らないからです。言い換えれば、前述の「隣接」の計算は、リソースの URL ではなく 名前を使って行うべきだということです。
 
 <!--
 For plain files on the filesystem:
