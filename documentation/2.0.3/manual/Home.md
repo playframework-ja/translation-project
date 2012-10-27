@@ -135,7 +135,7 @@
 1. [[リポジトリ | Repositories]]
 1. [[課題トラッカ | Issues]]
 1. [[プルリクエスト | PullRequests]]
-1. [[このプロジェクトへの貢献用ガイドライン | Guidelines]]
+1. [[貢献者ガイドライン | Guidelines]]
 
 <!--
 ## Modules and plugins
