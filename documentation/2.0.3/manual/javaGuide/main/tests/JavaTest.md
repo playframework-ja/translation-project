@@ -68,7 +68,7 @@ public void findById() {
 <!--
 You can also pass (or override) additional application configuration, or mock any plugin. For example to create a `FakeApplication` using a `default` in-memory database:
 -->
-フェイク・アプリケーションを起動する際に、パラメータの上書き・追加、プラグインを持っくすることができます。例えば、 `default` という名前のインメモリデータベースが構成された `FakeApplication` を起動するには次のようにします。
+パラメータを追加 (または上書き) したり、プラグインをモックすることもできます。例えば、 `default` という名前のインメモリデータベースが構成された `FakeApplication` を起動するには次のようにします。
 
 ```
 fakeApplication(inMemoryDatabase())
