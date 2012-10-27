@@ -11,11 +11,12 @@
 
 <!--
 One important aspect of  the ```GlobalSettings``` class is that it provides a way to intercept requests and execute business logic before a request is dispatched to an action.
-
-For example:
 -->
  ```GlobalSettings``` クラスには、リクエストがアクションに渡される前にインターセプトして、任意のビジネスロジックを実行するために使える、という重要な側面もあります。
 
+<!--
+For example:
+-->
 例えば、
 
 ```java
