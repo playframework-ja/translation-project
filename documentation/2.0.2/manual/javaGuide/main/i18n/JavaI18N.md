@@ -11,11 +11,12 @@
 
 <!--
 The specify your application’s languages, you need a valid language code, specified by a valid **ISO Language Code**, optionally followed by a valid **ISO Country Code**. For example, `fr` or `en-US`.
+-->
+アプリケーションの対応言語を指定するためには、まず正しい言語コードが必要です。言語コードの形式は、**ISO 言語コード**の後に省略可能な **ISO 国コード** を続ける、というものです。例えば、 `fr` や `en-US` は正しい言語コードです。
 
+<!--
 To start, you need to specify the languages that your application supports in its `conf/application.conf` file:
 -->
-アプリケーションの対応言語を指定するためには、まず正しい言語コードが必要です。言語コードの形式は、**ISO 言語コード**の後に省略可能な**ISO 国コード*を続ける、というものです。例えば、 `fr` や `en-US` は正しい言語コードです。
-
 次に、その言語コードを使って、 `conf/application.conf` ファイル内でアプリケーションの対応言語を指定しましょう。
 
 ```
@@ -29,16 +30,18 @@ application.langs=en,en-US,fr
 
 <!--
 You can externalize messages in the `conf/messages.xxx` files. 
-
-The default `conf/messages` file matches all languages. You can specify additional language messages files, such as `conf/messages.fr` or `conf/messages.en-US`.
-
-You can retrieve messages for the current language using the `play.i18n.Messages` object:
 -->
 メッセージは `conf/messages.xxx` というファイルに外部化することができます。
 
+<!--
+The default `conf/messages` file matches all languages. You can specify additional language messages files, such as `conf/messages.fr` or `conf/messages.en-US`.
+-->
 `conf/messages` ファイルは全ての言語で使われるデフォルトのメッセージです。それに加えて、`conf/messages.fr` や `conf/messages.en-US` のように対応言語ごとにメッセージファイルを指定することができます。
 
-現在の言語向けのメッセージを取得するためには、 `play.i18n.Messages` オブジェクトを利用します。(訳注: 「現在の言語」とは、HTTPリクエストのAccept-Languageヘッダで指定された言語のこと)
+<!--
+You can retrieve messages for the current language using the `play.i18n.Messages` object:
+-->
+(HTTP リクエストの Accept-Language ヘッダで指定された) 現在の言語向けのメッセージを取得するためには、 `play.i18n.Messages` オブジェクトを利用します。
 
 
 ```
