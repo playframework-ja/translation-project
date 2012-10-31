@@ -6,11 +6,12 @@
 
 <!--
 Sometimes you want to call other HTTP services from within a Play application. Play supports this via its `play.libs.WS` library, which provides a way to make asynchronous HTTP calls.
-
-A call made by `play.libs.WS` should return a `Promise<Ws.Response>`, which you can handle later with Play’s asynchronous mechanisms.
 -->
 ときどき、Play アプリケーションから他の HTTP サービスを呼び出したくなることがあります。そんなときは、 Play が提供している、非同期　HTTP 呼び出しを行うためのライブラリ `play.libs.WS` を使いましょう。
 
+<!--
+A call made by `play.libs.WS` should return a `Promise<Ws.Response>`, which you can handle later with Play’s asynchronous mechanisms.
+-->
 `play.libs.WS` による HTTP 呼び出しは、 `Promise<Ws.Response>` を返します。これは、後に Play の非同期メカニズムにより処理されます。
 
 <!--
@@ -30,13 +31,11 @@ Promise<WS.Response> homePage = WS.url("http://mysite.com").get();
 <!--
 Alternatively:
 -->
-または、
+または、以下のように記述します。
 
 ```
 Promise<WS.Response> result = WS.url("http://localhost:9001").post("content");
 ```
-
-のように記述します。
 
 <!--
 ## Retrieving the HTTP response result
