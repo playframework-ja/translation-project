@@ -16,19 +16,22 @@
 
 <!--
 Akka 2.0 can work with several containers called `ActorSystems`. An actor system manages the resources it is configured to use in order to run the actors it contains. 
-
-A Play application defines a special actor system to be used by the application. This actor system follows the application life-cycle and restarts automatically when the application restarts.
-
-> **Note:** Nothing prevents you from using another actor system from within a Play application. The provided default actor system is just a convenient way to start a few actors without having to set-up your own.
-
-You can access the default application actor system using the `play.libs.Akka` helper:
 -->
 Akka 2.0 は `アクターシステム` と呼ばれるいくつかのコンテナを持ちます。それぞれのアクターシステムは、それに含まれるアクターを動かすためのリソースを管理します。
 
+<!--
+A Play application defines a special actor system to be used by the application. This actor system follows the application life-cycle and restarts automatically when the application restarts.
+-->
 Play 2.0 アプリケーションには、アプリケーション自身が使う特別なアクターシステムが用意されています。このアクターシステムはアプリケーションのライフサイクルに追従し、アプリケーションと共に自動的に再起動します。
 
+<!--
+> **Note:** Nothing prevents you from using another actor system from within a Play application. The provided default actor system is just a convenient way to start a few actors without having to set-up your own.
+-->
 > **ノート:** Play アプリケーション内から独自のアクターシステムを使っても何の問題もありません。最初から用意されているアクターシステムは、いちいちアクターシステムをセットアップしなくてすぐにアクターを利用できる、という利便性のためだけにあります。
 
+<!--
+You can access the default application actor system using the `play.libs.Akka` helper:
+-->
 アプリケーションのデフォルトのアクターシステムを利用するためには、`play.libs.Akka` ヘルパーを利用します。
 
 ```
@@ -124,11 +127,12 @@ public static Result index() {
 
 <!--
 You can schedule sending messages to actors and executing tasks (functions or `Runnable` instances). You will get a `Cancellable` back that you can call `cancel` on to cancel the execution of the scheduled operation.
-
-For example, to send a message to the `testActor` every 30 minutes:
 -->
 Akka では、アクターへのメッセージ送信やタスク(関数か、または `Runnable` インスタンス)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
 
+<!--
+For example, to send a message to the `testActor` every 30 minutes:
+-->
 例えば、 `testActor` へ30秒おきにメッセージを送信したい場合は、次のようにします。
 
 ```
