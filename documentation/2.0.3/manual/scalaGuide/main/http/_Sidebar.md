@@ -14,9 +14,9 @@
 -->
 - [[アクション、コントローラ、レスポンス | ScalaActions]]
 - [[HTTP ルーティング | ScalaRouting]]
-- [[レスポンスの変更 | ScalaResults]]
-- [[セッション、フラッシュスコープ | ScalaSessionFlash]]
-- [[ボディ・パーサー | ScalaBodyParsers]]
+- [[HTTP レスポンスの操作 | ScalaResults]]
+- [[セッションとフラッシュスコープ | ScalaSessionFlash]]
+- [[ボディパーサー | ScalaBodyParsers]]
 - [[アクションの合成 | ScalaActionsComposition]]
 
 <!--
@@ -43,15 +43,15 @@
 -->
 - [[HTTP プログラミング | ScalaActions]]
 - [[非同期 HTTP プログラミング | ScalaAsync]]
-- [[テンプレート・エンジン | ScalaTemplates]]
+- [[テンプレートエンジン | ScalaTemplates]]
 - [[HTTP フォームの送信とバリデーション | ScalaForms]]
-- [[JSON を使う | ScalaJson]]
-- [[XML を使う | ScalaXmlRequests]]
-- [[ファイル・アップロード | ScalaFileUpload]]
-- [[SQL データベース・アクセス | ScalaDatabase]]
+- [[JSON | ScalaJson]]
+- [[XML | ScalaXmlRequests]]
+- [[ファイルアップロード | ScalaFileUpload]]
+- [[SQL データベースアクセス | ScalaDatabase]]
 - [[キャッシュ | ScalaCache]]
 - [[Web サービスの呼び出し | ScalaWS]]
-- [[Akka との統合 | ScalaAkka]]
+- [[Akka の統合 | ScalaAkka]]
 - [[多言語対応 | ScalaI18N]]
 - [[Global オブジェクト | ScalaGlobal]]
 - [[テスト | ScalaTest]]
@@ -75,4 +75,4 @@
 <!--
 - [[Your first application | ScalaTodoList]]
 -->
-- [[初めてのアプリケーション | ScalaTodoList]]
+- [[はじめてのアプリケーション | ScalaTodoList]]

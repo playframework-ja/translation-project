@@ -8,13 +8,13 @@
 - [[Application global settings | JavaGlobal]]
 - [[Intercepting requests | JavaInterceptors]]
 -->
-- [[アプリケーションのグローバル設定 | JavaGlobal]]
+- [[アプリケーションの全般設定 | JavaGlobal]]
 - [[リクエストのインターセプト | JavaInterceptors]]
 
 <!--
 ### Main concepts
 -->
-### メインコンセプト
+### 基本的な機能
 
 <!--
 - [[HTTP programming | JavaActions]]
@@ -43,7 +43,7 @@
 - [[キャッシュ | JavaCache]]
 - [[Webサービスの呼び出し | JavaWS]]
 - [[Akka の統合 | JavaAkka]]
-- [[多言語化 | JavaI18N]]
+- [[多言語対応 | JavaI18N]]
 - [[アプリケーションのグローバルオブジェクト | JavaGlobal]]
 - [[アプリケーションのテスト | JavaTest]]
 

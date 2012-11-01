@@ -10,7 +10,7 @@
 - [[Comet sockets | JavaComet]]
 - [[WebSockets | JavaWebSockets]]
 -->
-- [[非同期な結果の処理 | JavaAsync]]
+- [[非同期レスポンスの処理 | JavaAsync]]
 - [[HTTP レスポンスのストリーミング | JavaStream]]
 - [[Comet | JavaComet]]
 - [[WebSocket | JavaWebSockets]]
@@ -18,7 +18,7 @@
 <!--
 ### Main concepts
 -->
-### メインコンセプト
+### 基本的な機能
 
 <!--
 - [[HTTP programming | JavaActions]]
@@ -47,9 +47,9 @@
 - [[キャッシュ | JavaCache]]
 - [[Webサービスの呼び出し | JavaWS]]
 - [[Akka の統合 | JavaAkka]]
-- [[多言語化 | JavaI18N]]
-- [[アプリケーションのグローバルオブジェクト | JavaGlobal]]
-- [[アプリケーションのテスト | JavaTest]]
+- [[多言語対応 | JavaI18N]]
+- [[Global オブジェクト | JavaGlobal]]
+- [[テスト | JavaTest]]
 
 <!--
 ### Tutorials

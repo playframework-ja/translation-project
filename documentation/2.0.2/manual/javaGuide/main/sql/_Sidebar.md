@@ -16,7 +16,7 @@
 <!--
 ### Main concepts
 -->
-### メインコンセプト
+### 基本的な機能
 
 <!--
 - [[HTTP programming | JavaActions]]
@@ -45,9 +45,9 @@
 - [[キャッシュ | JavaCache]]
 - [[Webサービスの呼び出し | JavaWS]]
 - [[Akka の統合 | JavaAkka]]
-- [[多言語化 | JavaI18N]]
-- [[アプリケーションのグローバルオブジェクト | JavaGlobal]]
-- [[アプリケーションのテスト | JavaTest]]
+- [[多言語対応 | JavaI18N]]
+- [[Global オブジェクト | JavaGlobal]]
+- [[テスト | JavaTest]]
 
 <!--
 ### Tutorials
