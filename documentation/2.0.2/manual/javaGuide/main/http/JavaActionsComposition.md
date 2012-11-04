@@ -66,11 +66,12 @@ public class VerboseAction extends Action.Simple {
 
 <!--
 At one point you need to delegate to the wrapped action using `delegate.call(...)`.
-
-You also mix with several actions:
 -->
 どこかのタイミングで `delegate.call(...)` を呼び出して、ラップされているアクションに処理を委譲する必要があることに注意してください。
 
+<!--
+You also mix with several actions:
+-->
 複数のアクションを合成することもできます:
 
 ```
