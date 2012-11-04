@@ -26,7 +26,7 @@ Modern web browsers natively support two-way live communication via WebSockets.
 >
 > [[http://en.wikipedia.org/wiki/WebSocket]]
 -->
-> WebSocketは 双方向かつ全多重の通信チャンネルを、単一の Transmission Control Protocol (TCP) ソケット上で実現する Web テクノロジです。WebSocket の API は W3C により、一方 WebSocket のプロトコルは IETF により RFC 6455 として、標準化が進められています。
+> WebSocket は双方向かつ全多重の通信チャンネルを、単一の Transmission Control Protocol (TCP) ソケット上で実現する Web テクノロジです。WebSocket の API は W3C により、一方 WebSocket のプロトコルは IETF により RFC 6455 として、標準化が進められています。
 >
 > WebSocket は元々、Web ブラウザおよび Web サーバにおいて実装されることを想定して設計されていますが、実際はどんな種類のクライアントやサーバでも利用できます。80 番ポート以外への TCP 接続は家庭内ネットワーク以外では管理者によってブロックされていることがよくありますが、WebSocket を使うとこの制限を迂回することができます。つまり、プロトコルのオーバーヘッドと引き換えにはなりますが、通常の TCP 接続と同じような機能を実現することができ、単一の TCP ポート上で複数の WebSocket サービスを多重化させることもできます。加えて、WebSocket の主な用途は、リアルタイムかつ双方向の通信を要するような Web アプリケーションです。WebSocket が実現するまでは、このような双方向通信を実現しようとすると Comet チャンネルを利用するほかありませんでした。しかしながら、Comet で双方向通信を実現するのはそれほど自明なことではありません。また、TCP ハンドシェイクと HTTP ヘッダによるオーバーヘッドがあるため、メッセージが小さな場合は非効率です。WebSocket プロトコルはこのような問題を、Web のセキュリティ損なわずに解決することを狙っています。
 > [[http://en.wikipedia.org/wiki/WebSocket]]
@@ -86,7 +86,7 @@ public static WebSocket<String> index() {
 public static WebSocket<String> index() {
   return new WebSocket<String>() {
       
-    // WebSocketのハンドシェイクが完了すると呼ばれます。
+    // WebSocket のハンドシェイクが完了すると呼ばれます。
     public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
       
       // ソケットで受け取ったイベント毎に
@@ -108,7 +108,7 @@ public static WebSocket<String> index() {
          }
       });
       
-      // 単一の`Hello!`というメッセージを送る
+      // 単一の `Hello!` というメッセージを送る
       out.write("Hello!");
       
     }

@@ -86,7 +86,7 @@ public static WebSocket<String> index() {
 public static WebSocket<String> index() {
   return new WebSocket<String>() {
       
-    // WebSocketのハンドシェイクが完了すると呼ばれます。
+    // WebSocket のハンドシェイクが完了すると呼ばれます。
     public void onReady(WebSocket.In<String> in, WebSocket.Out<String> out) {
       
       // ソケットで受け取ったイベント毎に
@@ -108,7 +108,7 @@ public static WebSocket<String> index() {
          }
       });
       
-      // 単一の`Hello!`というメッセージを送る
+      // 単一の `Hello!` というメッセージを送る
       out.write("Hello!");
       
     }
