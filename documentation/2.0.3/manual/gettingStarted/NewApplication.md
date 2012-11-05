@@ -82,7 +82,7 @@ addSbtPlugin("play" % "sbt-plugin" % "2.0")
 <!--
 Be sure to replace `2.0` here by the exact version you want to use. If you want to use a snapshot version, you will have to specify this additional resolver: 
 -->
-使用したい正確なバージョンをこの`2.0`と置き換えてください。スナップショットバージョンを使用したい場合は、以下の追加のリゾルバを指定する必要があります。
+使用したい正確なバージョンをこの `2.0` と置き換えてください。スナップショットバージョンを使用したい場合は、以下の追加のリゾルバを指定する必要があります。
 
 ```
 // Typesafe snapshots

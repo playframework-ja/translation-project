@@ -71,7 +71,7 @@ If there are any compilation errors you will see the result of the compilation d
 <!--
 To stop the server, type `Crtl+D` key, and you will be returned to the Play console prompt.
 -->
-サーバを停止させるためには、`Ctrl+D` キーをタイプします。サーバが停止して、Playコンソールのプロンプトへ戻ります。
+サーバを停止させるためには、`Ctrl+D` キーをタイプします。サーバが停止して、Play コンソールのプロンプトへ戻ります。
 
 <!--
 ## Compiling
@@ -205,7 +205,7 @@ $ play run
 <!--
 The application starts directly. When you quit the server using `Ctrl+D`, you will come back to your OS prompt.
 -->
-アプリケーションを直接起動しているとき、サーバの停止のため`Ctrl+D`コマンドを利用すると、すぐにOSのプロンプト画面に戻るでしょう。
+アプリケーションを直接起動しているとき、サーバの停止のため `Ctrl+D` コマンドを利用すると、すぐに OS のプロンプト画面に戻るでしょう。
 
 <!--
 ## Force clean

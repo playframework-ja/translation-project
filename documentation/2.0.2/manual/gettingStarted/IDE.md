@@ -38,7 +38,7 @@ without the source jars:
 <!--
 if you want to grab the available source jars (this will take longer and it's possible a few sources might be missing):
 -->
-使用可能なソースの jar ファイルを取得したい場合は、以下のコマンドを実行します。(この場合より多くの時間がかかり、いくつかのソースはなくなっているかもしれません。)
+使用可能なソースの jar ファイルを取得したい場合は、以下のコマンドを実行します (この場合より多くの時間がかかり、いくつかのソースはなくなっているかもしれません) 。
 
 ```
 [My first application] $ eclipsify with-source=true
@@ -48,7 +48,7 @@ if you want to grab the available source jars (this will take longer and it's po
 <!--
 You then need to import the application into your Workspace with the **File/Import/General/Existing project…** menu (compile your project first).
 -->
-その後、 **File/Import/General/Existing project…** メニューを使用してワークスペースにアプリケーションをインポートする必要があります。（最初にあなたのプロジェクトをコンパイルします。）
+その後、 **File/Import/General/Existing project…** メニューを使用してワークスペースにアプリケーションをインポートする必要があります（最初にあなたのプロジェクトをコンパイルします）。
 
 [[images/eclipse.png]] 
 
@@ -103,7 +103,7 @@ without the source jars:
 <!--
 if you want to grab the available source jars (this will take longer and it's possible a few sources might be missing):
 -->
-使用可能なソースの jar ファイルを取得したい場合は、以下のコマンドを実行します。(この場合より多くの時間がかかり、いくつかのソースはなくなっているかもしれません。)
+使用可能なソースの jar ファイルを取得したい場合は、以下のコマンドを実行します (この場合より多くの時間がかかり、いくつかのソースはなくなっているかもしれません) 。
 
 ```
 [My first application] $ idea with-sources
@@ -138,16 +138,16 @@ To debug, first add a debug configuration
     - Select module you imported
 - Close dialog - click Apply
 -->
-- Run/Debug Configurations の設定ダイアログを開き、Run -> Edit Configurations をクリックします。
-- Remote 設定を追加し、`Remote` を選択します。
+- Run/Debug Configurations の設定ダイアログを開き、Run -> Edit Configurations をクリックします
+- Remote 設定を追加し、`Remote` を選択します
 - 以下の内容を設定します。
-    - 名前を設定する。
-    - Transport: Socket を設定する。
-    - Debugger mode: Attach を設定する。
-    - Host: localhost を設定する。
-    - Port: 9999 を設定する。
-    - インポートしたモジュールを選択する。
-- Apply をクリックし、ダイアログをクローズします。
+    - 名前を設定する
+    - Transport: Socket を設定する
+    - Debugger mode: Attach を設定する
+    - Host: localhost を設定する
+    - Port: 9999 を設定する
+    - インポートしたモジュールを選択する
+- Apply をクリックし、ダイアログをクローズします
 
 <!--
 Start play in debug mode:
@@ -170,7 +170,7 @@ Listening for transport dt_socket at address: 9999
 <!--
 Set some breakpoints. Run the web app by executing the task `play` (again I had to do this in same terminal I ran `play debug`). Finally, browse `http://localhost:9000`. IntelliJ should stop at your breakpoint.
 -->
-いくつかのブレークポイントをセットします。`play` タスクを実行しアプリケーションを起動します。(`play debug` を実行したターミナルでも同じ事を再実行する必要があります。)。`http://localhost:9000` をブラウズすると IntelliJ のブレークポイントで処理が止まっているはずです。
+いくつかのブレークポイントをセットします。`play` タスクを実行しアプリケーションを起動します (`play debug` を実行したターミナルでも同じ事を再実行する必要があります) 。`http://localhost:9000` をブラウズすると IntelliJ のブレークポイントで処理が止まっているはずです。
 
 <!--
 If you make any important changes to your application, such as changing the classpath, use `idea` again to regenerate the configuration files.
@@ -188,7 +188,7 @@ If you make any important changes to your application, such as changing the clas
 <!--
 Play does not have native Netbeans project generation support at this time.  For now you can generate a Netbeans Scala project with the [Netbeans SBT plugin](https://github.com/remeniuk/sbt-netbeans-plugin).
 -->
-Playは現時点ではネイティブのNetbeansプロジェクトの生成をサポートしていません。今のところは [NetBeans SBT Plugin](https://github.com/remeniuk/sbt-netbeans-plugin) を使うと NetBeans の Scala プロジェクトを生成することができます。
+Play は現時点ではネイティブの Netbeans プロジェクトの生成をサポートしていません。今のところは [NetBeans SBT Plugin](https://github.com/remeniuk/sbt-netbeans-plugin) を使うと NetBeans の Scala プロジェクトを生成することができます。
 
 <!--
 First edit the plugins.sbt file
