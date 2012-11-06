@@ -10,7 +10,7 @@
 - [[Accessing resources protected by OAuth | ScalaOAuth]]
 -->
 - [[Play WS API | ScalaWS]]
-- [[OOpenID サーバへの接続 | ScalaOpenID]]
+- [[OpenID サーバへの接続 | ScalaOpenID]]
 - [[OAuth によリ保護されたデータへのアクセス | ScalaOAuth]]
 
 <!--
