@@ -12,7 +12,7 @@ Play 2.0 アプリケーション向けの Scala API は `play.api` パッケー
 <!--
 > The API available directly inside the `play` package (such as `play.mvc`) is reserved for Java developers. As a Scala developer, look at `play.api.mvc`.
 -->
-> `play` パッケージ直下に定義されている API は全ての Java 向けです。 Scala 開発者の皆さんは、 `play.api.mvc` などを利用してください。
+> `play` パッケージ直下に定義されている (`play.mvc` などの) API は Java 開発者向けです。 Scala 開発者の皆さんは `play.api.mvc` などを利用してください。
 
 <!--
 ## Main concepts
@@ -72,7 +72,7 @@ Play 2.0 アプリケーション向けの Scala API は `play.api` パッケー
     1. [[HTTP ルーティング | ScalaRouting]]
     1. [[レスポンスの変更 | ScalaResults]]
     1. [[セッション、フラッシュスコープ | ScalaSessionFlash]]
-    1. [[ボディ・パーサー | ScalaBodyParsers]]
+    1. [[ボディパーサー | ScalaBodyParsers]]
     1. [[アクションの合成 | ScalaActionsComposition]]
 1. [[非同期 HTTP プログラミング | ScalaAsync]]
     1. [[非同期レスポンス | ScalaAsync]]
@@ -81,10 +81,10 @@ Play 2.0 アプリケーション向けの Scala API は `play.api` パッケー
     1. [[WebSocket | ScalaWebSockets]]
 1. [[テンプレート・エンジン | ScalaTemplates]]
     1. [[テンプレート文法 | ScalaTemplates]]
-    1. [[よくある利用例 | ScalaTemplateUseCases]]
+    1. [[よくある使い方 | ScalaTemplateUseCases]]
 1. [[HTTP フォーム送信とバリデーション | ScalaForms]]
-    1. [[フォーム定義 | ScalaForms]]
-    1. [[フォーム・テンプレート・ヘルパー | ScalaFormHelpers]]
+    1. [[フォームの定義 | ScalaForms]]
+    1. [[フォームテンプレートヘルパの利用 | ScalaFormHelpers]]
 1. [[JSON を使う | ScalaJson]]
     1. [[Play の JSON ライブラリ | ScalaJson]]
     1. [[JSON リクエストと JSON レスポンス | ScalaJsonRequests]]
@@ -100,8 +100,8 @@ Play 2.0 アプリケーション向けの Scala API は `play.api` パッケー
 1. [[キャッシュ | ScalaCache]]
     1. [[Play の Cache API | ScalaCache]]
 1. [[ウェブサービスの呼び出し | ScalaWS]]
-    1. [[Play の WS API  | ScalaWS]]
-    1. [[OpenID 対応サービスへの接続 | ScalaOpenID]]
+    1. [[Play WS API | ScalaWS]]
+    1. [[OpenID サーバへの接続 | ScalaOpenID]]
     1. [[OAuth によリ保護されたデータへのアクセス | ScalaOAuth]]
 1. [[Akka | ScalaAkka]]
     1. [[アクターと非同期処理 | ScalaAkka]]

@@ -1,11 +1,25 @@
+<!-- translated -->
+<!--
 # Play 2.0 for Scala developers
+-->
+# Play 2.0 for Scala ガイド
 
+<!--
 The Scala API for Play 2.0 application developers is available in the `play.api` package. 
+-->
+Play 2.0 アプリケーション向けの Scala API は `play.api` パッケージ以下にあります。
 
+<!--
 > The API available directly inside the `play` package (such as `play.mvc`) is reserved for Java developers. As a Scala developer, look at `play.api.mvc`.
+-->
+> `play` パッケージ直下に定義されている (`play.mvc` などの) API は Java 開発者向けです。 Scala 開発者の皆さんは `play.api.mvc` などを利用してください。
 
+<!--
 ## Main concepts
+-->
+## メインコンセプト
 
+<!--
 1. [[HTTP programming | ScalaActions]]
     1. [[Actions, Controllers and Results | ScalaActions]]
     1. [[HTTP routing | ScalaRouting]]
@@ -52,14 +66,76 @@ The Scala API for Play 2.0 application developers is available in the `play.api`
 1. [[Testing your application | ScalaTest]]
     1. [[Writing tests | ScalaTest]]
     1. [[Writing functional tests | ScalaFunctionalTest]]
+-->
+1. [[HTTP プログラミング | ScalaActions]]
+    1. [[アクション、コントローラ、レスポンス | ScalaActions]]
+    1. [[HTTP ルーティング | ScalaRouting]]
+    1. [[レスポンスの変更 | ScalaResults]]
+    1. [[セッション、フラッシュスコープ | ScalaSessionFlash]]
+    1. [[ボディパーサー | ScalaBodyParsers]]
+    1. [[アクションの合成 | ScalaActionsComposition]]
+1. [[非同期 HTTP プログラミング | ScalaAsync]]
+    1. [[非同期レスポンス | ScalaAsync]]
+    1. [[HTTP レスポンスのストリーミング | ScalaStream]]
+    1. [[Comet | ScalaComet]]
+    1. [[WebSocket | ScalaWebSockets]]
+1. [[テンプレート・エンジン | ScalaTemplates]]
+    1. [[テンプレート文法 | ScalaTemplates]]
+    1. [[よくある使い方 | ScalaTemplateUseCases]]
+1. [[HTTP フォーム送信とバリデーション | ScalaForms]]
+    1. [[フォームの定義 | ScalaForms]]
+    1. [[フォームテンプレートヘルパの利用 | ScalaFormHelpers]]
+1. [[JSON を使う | ScalaJson]]
+    1. [[Play の JSON ライブラリ | ScalaJson]]
+    1. [[JSON リクエストと JSON レスポンス | ScalaJsonRequests]]
+    1. [[ジェネリクスと Play Json ライブラリ | ScalaJsonGenerics]]
+1. [[XML を使う | ScalaXmlRequests]]
+    1. [[XML リクエストと XML レスポンス | ScalaXmlRequests]]
+1. [[ファイルアップロード | ScalaFileUpload]]
+    1. [[multipart/form-data のアップロード | ScalaFileUpload]]
+1. [[SQL データベースアクセス | ScalaDatabase]]
+    1. [[JDBC の設定と利用 | ScalaDatabase]]
+    1. [[Anorm によるデータベースアクセス | ScalaAnorm]]
+    1. [[データベースアクセスライブラリの利用 | ScalaDatabaseOthers]]
+1. [[キャッシュ | ScalaCache]]
+    1. [[Play の Cache API | ScalaCache]]
+1. [[ウェブサービスの呼び出し | ScalaWS]]
+    1. [[Play WS API | ScalaWS]]
+    1. [[OpenID サーバへの接続 | ScalaOpenID]]
+    1. [[OAuth によリ保護されたデータへのアクセス | ScalaOAuth]]
+1. [[Akka | ScalaAkka]]
+    1. [[アクターと非同期処理 | ScalaAkka]]
+1. [[国際化対応 | ScalaI18N]]
+    1. [[メッセージの外部ファイル化と i18n | ScalaI18N]]
+1. [[Global オブジェクト | ScalaGlobal]]
+    1. [[アプリケーションの全般設定 | ScalaGlobal]]
+    1. [[リクエストのインターセプト | ScalaInterceptors]]
+1. [[テストについて | ScalaTest]]
+    1. [[テストの書き方 | ScalaTest]]
+    1. [[機能テストの書き方 | ScalaFunctionalTest]]
     
+<!--
 ## Advanced topics
+-->
+## 上級編
 
+<!--
 1. [[Handling data streams reactively | Iteratees]]
     1. [[Iteratees | Iteratees]]
     1. [[Enumerators | Enumerators]]
     1. [[Enumeratees | Enumeratees]]
+-->
+1. [[反応的なストリーム処理 | Iteratees]]
+    1. [[Iteratee | Iteratees]]
+    1. [[Enumerator | Enumerators]]
+    1. [[Enumeratee | Enumeratees]]
 
+<!--
 ## Tutorials
+-->
+## チュートリアル
 
+<!--
 1. [[Your first application | ScalaTodoList]]
+-->
+1. [[TODO リストをつくる | ScalaTodoList]]
