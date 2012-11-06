@@ -17,7 +17,7 @@ Play 2.0 での public リソースを提供することは、他の HTTP リク
 <!--
 ## The public/ folder
 -->
-## public/ フォルダー
+## public/ フォルダ
 
 <!--
 By convention, public assets are stored in the `public` folder of your application. This folder is organized as follows:
@@ -39,17 +39,17 @@ If you follow this structure it will be simpler to get started, but nothing stop
 <!--
 ## How are public assets packaged?
 -->
-## どのように public アセットはパッケージ化されますか?
+## どのように public アセットは公開されますか?
 
 <!--
 During the build process, the contents of the `public` folder are processed and added to the application classpath. When you package your application, these files are packaged into the application JAR file (under the `public/` path).
 -->
-ビルドプロセス中に、`public` フォルダーの内容が処理され、アプリケーションのクラスパスに追加します。アプリケーションをパッケージ化するときに、(`public/` パス下にある) これらのファイルはアプリケーションのJARファイルにパッケージ化されます。
+ビルドプロセス中に、`public` フォルダの内容が処理され、アプリケーションのクラスパスに追加します。アプリケーションをパッケージ化するときに、(`public/` パス下にある) これらのファイルはアプリケーションのJARファイルにパッケージ化されます。
 
 <!--
 ## The Assets controller
 -->
-## アセットコントローラー
+## アセットコントローラ
 
 <!--
 Play 2.0 comes with a built-in controller to serve public assets. By default, this controller provides caching, ETag, gzip compression and JavaScript minification support.
@@ -68,18 +68,21 @@ Assets.at(folder: String, file: String)
 <!--
 The `folder` parameter must be fixed and defines the directory managed by the action. The `file` parameter is usually dynamically extracted from the request path.
 -->
-`folder` のパラメータは固定されており、アクションによって管理されるディレクトリを定義する必要があります。 `file` パラメータは、通常、動的に要求パスから抽出されます。
+`folder` のパラメータは固定されており、アクションによって管理されるディレクトリを定義する必要があります。 `file` パラメータは、通常、動的にリクエストパスから抽出されます。
 
 <!--
 Here is the typical mapping of the `Assets` controller in your `conf/routes` file:
 -->
-`conf/routes` での `Assets` コントローラーの典型的な設定を以下でお見せします:
+`conf/routes` での `Assets` コントローラの典型的な設定を以下でお見せします:
 
 ```
 GET  /assets/*file        Assets.at("public", file)
 ```
 
+<!--
 Note that we define the `*file` dynamic part that will match the `.*` regular expression. So for example, if you send this request to the server:
+-->
+正規表現 `.*` にマッチする動的な部分 `*file` を定義したことに注意してください。このため、例えば次のようなリクエストをサーバに送信した場合:
 
 ```
 GET /assets/javascripts/jquery.js
@@ -88,7 +91,7 @@ GET /assets/javascripts/jquery.js
 <!--
 The router will invoke the `Assets.at` action with the following parameters:
 -->
-ルーターは次のパラメーターを使用して `Assets.at` アクションを起動します:
+ルータは次のパラメータを使用して `Assets.at` アクションを起動します:
 
 ```
 controllers.Assets.at("public", "javascripts/jquery.js")
@@ -103,7 +106,7 @@ This action will look-up the file and serve it, if it exists.
 Note, if you define asset mappings outside "public," you'll need to tell
 sbt about it, e.g. if you want:
 -->
-外部の "public" にリソース設定を定義したい場合、sbtに教えなければならないことに注意してください。
+"public" の外部にリソース設定を定義したい場合、そのことを sbt に教えなければならないことに注意してください。例えば以下のように定義したい場合:
 
 ```
 GET  /assets/*file               Assets.at("public", file)
@@ -204,7 +207,7 @@ Content-Encoding: gzip
 <!--
 Usually, using Etag is enough to have proper caching. However if you want to specify a custom `Cache-Control` header for a particular resource, you can specify it in your `application.conf` file. For example:
 -->
-通常、ETag を使用すると、適切なキャッシュを持つことができます。特定のリソース用のカスタム `Cache-Control` ヘッダを指定したい場合は、あなたの `application.conf` ファイルに指定することができます。たとえば:
+通常、ETag を使用すると、適切なキャッシュを持つことができます。特定のリソース用のカスタム `Cache-Control` ヘッダを指定したい場合は、あなたの `application.conf` ファイルに指定することができます。例えば:
 
 ```
 # Assets configuration
@@ -233,7 +236,7 @@ incrementalAssetsCompilation := true
 <!--
 You will learn more about managed assets on the next few pages.
 -->
-次の数ページで管理アセットについて更に学ぶことになるでしょう。
+続く数ページで管理アセットについて更に学びます。
 
 <!--
 > **Next:** [[Using CoffeeScript | AssetsCoffeeScript]]
