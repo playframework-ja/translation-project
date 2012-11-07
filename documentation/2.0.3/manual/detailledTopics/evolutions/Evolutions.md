@@ -121,11 +121,12 @@ DROP TABLE Post;
 
 <!--
 Play will apply this evolution script to Developer A’s database.
-
-On the other hand, developer B will work on a feature that requires altering the User table. So he will also create the following `2.sql` evolution script:
 -->
 Play はこのエボリューション・スクリプトを開発者 A のデータベースで実行します。
 
+<!--
+On the other hand, developer B will work on a feature that requires altering the User table. So he will also create the following `2.sql` evolution script:
+-->
 一方、開発者 B は User テーブルのスキーマ変更を要する新機能を担当しています。そこで、開発者 B は次のような `2.sql` を作成します。
 
 ```
@@ -141,7 +142,7 @@ ALTER TABLE User DROP age;
 <!--
 Developer B finishes his feature and commits (let’s say they are using Git). Now developer A has to merge the his colleague’s work before continuing, so he runs git pull, and the merge has a conflict, like:
 -->
-開発者 B は担当している機能を実装し終わったあと、それをコミットします (彼らが Git を使っているという想定)。すると、開発者 A は作業を続行するにあたって、チームメイトが行った作業をマージする必要があります。彼は git pull を実行しますが、マージにはコンフリクトがあります。
+開発者 B は担当している機能を実装し終わったあと、それをコミットします (彼らが Git を使っていることにしましょう)。すると、開発者 A は作業を続行するにあたって、チームメイトが行った作業をマージする必要があります。彼は git pull を実行しますが、マージにはコンフリクトがあります。
 
 ```
 Auto-merging db/evolutions/2.sql
@@ -212,12 +213,12 @@ DROP TABLE Post;
 <!--
 This evolution script represents the new revision 2 of the database, that is different of the previous revision 2 that developer A has already applied.
 -->
-このエボリューション・スクリプトが表すデータベースのリビジョン2は、最初に開発者 A が適用したリビジョン2とは内容が異なります。
+このエボリューション・スクリプトが表すデータベースのリビジョン 2 は、最初に開発者 A が適用したリビジョン 2 とは内容が異なります。
 
 <!--
 So Play will detect it and ask developer A to synchronize his database by first reverting the old revision 2 already applied, and by applying the new revision 2 script:
 -->
-このとき、 Play はこの二つのリビジョンの内容の違いを検出して、まずは現在適用されている古い方のリビジョン2への変更を取り消し、それから新しい方のリビジョン2のスクリプトを適用します。
+このとき、 Play はこの二つのリビジョンの内容の違いを検出して、まずは現在適用されている古い方のリビジョン 2 への変更を取り消し、それから新しい方のリビジョン 2 のスクリプトを適用します。
 
 <!--
 ## Inconsistent states
@@ -283,7 +284,7 @@ ALTER TABLE User DROP company;
 <!--
 Play detects this new evolution that replaces the previous 3 one, and will run the appropriate script. Now everything is fixed, and you can continue to work.
 -->
-Play はこの新しいエボリューションを検知して、以前のリビジョン3と置き換え、適切なスクリプトを実行します。これで、全ての間違いが修正されて、本来の作業に戻ることができます。
+Play はこの新しいエボリューションを検知して、以前のリビジョン 3 と置き換え、適切なスクリプトを実行します。これで、全ての間違いが修正されて、本来の作業に戻ることができます。
 
 <!--
 > In developement mode however it is often simpler to simply trash your developement database and reapply all evolutions from the beginning.
