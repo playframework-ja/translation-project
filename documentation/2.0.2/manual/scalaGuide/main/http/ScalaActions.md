@@ -12,7 +12,7 @@ Play アプリケーションが受け取ったリクエストのほとんどは
 <!--
 A `play.api.mvc.Action` is basically a `(play.api.mvc.Request => play.api.mvc.Result)` function that handles a request and generates a result to be sent to the client.
 -->
-`play.api.mvc.Action` は基本的には「リクエストを処理してクライアントへ送るレスポンスを生成する `(play.api.mvc.Request => play.api.mvc.Result)` 型の関数」です。
+基本的に `play.api.mvc.Action` は、リクエストを処理してクライアントへ送るレスポンスを生成する `(play.api.mvc.Request => play.api.mvc.Result)` 型の関数です。
 
 ```scala
 val echo = Action { request =>
@@ -38,7 +38,7 @@ The `play.api.mvc.Action` companion object offers several helper methods to cons
 <!--
 The first simplest one just takes as argument an expression block returning a `Result`:
 -->
-まず、最もシンプルなヘルパーメソッドは「`Result` 型の値を返すブロック式」を一つ引数にとります。
+まず、最もシンプルなヘルパーメソッドは `Result` 型の値を返すブロック式をひとつ引数に取ります。
 
 ```scala
 Action {
@@ -49,12 +49,12 @@ Action {
 <!--
 This is the simplest way to create an Action, but we don't get a reference to the incoming request. It is often useful to access the HTTP request calling this Action. 
 -->
-これはアクションを作成する最も簡単な方法ですが、一点注目していただきたいのは、この方法では受け取ったリクエストへの参照が得られないということです。このアクションを呼び出した HTTP リクエストにアクセスしたいときは、どうすればいいでしょうか?
+これはアクションを作成する最も簡単な方法ですが、受け取ったリクエストへの参照が得られていません。多くの場合、このアクションを呼び出した HTTP リクエストにアクセスできると便利です。
 
 <!--
 So there is another Action builder that takes as an argument a function `Request => Result`:
 -->
-そんな時のために、`Request => Result` 型の関数を引数に取るヘルパーメソッドも用意されています。
+そのため、`Request => Result` 型の関数を引数に取る別のアクションビルダが用意されています。
 
 ```scala
 Action { request =>
@@ -76,7 +76,7 @@ Action { implicit request =>
 <!--
 The last way of creating an Action value is to specify an additional `BodyParser` argument:
 -->
-アクションを生成する最後の方法は、追加で `BodyParser` を引数に指定するというものです。
+アクションを生成する最後の方法は、他の引数に加えて `BodyParser` を指定するというものです。
 
 ```scala
 Action(parse.json) { implicit request =>
@@ -87,22 +87,22 @@ Action(parse.json) { implicit request =>
 <!--
 Body parsers will be covered later in this manual.  For now you just need to know that the other methods of creating Action values use a default **Any content body parser**.
 -->
-Body parser については、このマニュアルの後ろのほうで説明します。今のところ読者の皆さんに覚えておいていただきたいのは、これまで説明してきたアクション生成用のヘルパーメソッドでは、デフォルトとして **Any content body parser** が使用される、ということだけです。
+Body parser については後ほど説明します。今は、これまで説明してきたアクション生成用のヘルパーメソッドが、デフォルトで **Any content body parser** を使用することを知っていれば充分です。
 
 <!--
 ## Controllers are action generators
 -->
-## コントローラとアクション・ジェネレータ
+## コントローラとアクションジェネレータ
 
 <!--
 A `Controller` is nothing more than a singleton object that generates `Action` values. 
 -->
-`Controller` は `Action` を生成するただのシングルトンオブジェクトです。
+`Controller` は `Action` を生成する、ただのシングルトンオブジェクトです。
 
 <!--
 The simplest use case for defining an action generator is a method with no parameters that returns an `Action` value	:
 -->
-アクション・ジェネレータを定義する最もシンプルな方法は、`Action` 型の値を返す引数なしのメソッドを定義するというものです。
+アクションジェネレータを定義する最もシンプルな方法は、`Action` 型の値を返す引数なしのメソッドを定義するというものです。
 
 ```scala
 package controllers
@@ -121,7 +121,7 @@ object Application extends Controller {
 <!--
 Of course, the action generator method can have parameters, and these parameters can be captured by the `Action` closure:
 -->
-もちろん、アクション・ジェネレータは引数を取ることができます。その引数は `Action` のクロージャが捕捉することもできます。
+もちろん、アクションジェネレータは引数を取ることができますし、その引数は `Action` のクロージャが捕捉することができます。
 
 ```scala
 def hello(name: String) = Action {
@@ -137,7 +137,7 @@ def hello(name: String) = Action {
 <!--
 For now we are just interested in simple results: An HTTP result with a status code, a set of HTTP headers and a body to be sent to the web client.
 -->
-次は、SimpleResult に注目してみましょう。 SimpleResult とは、Web クライアントへ送信される HTTP レスポンスを表すオブジェクトで、ステータスコードとレスポンスヘッダ一式、メッセージボディをまとめたものです。
+次は、SimpleResult に注目してみましょう。 SimpleResult とは、web クライアントへ送信される HTTP レスポンスを表すオブジェクトで、ステータスコードとレスポンスヘッダ一式、メッセージボディをまとめたものです。
 
 <!--
 These results are defined by `play.api.mvc.SimpleResult`:
@@ -191,12 +191,12 @@ All of these helpers can be found in the `play.api.mvc.Results` trait and compan
 <!--
 ## Redirects are simple results too
 -->
-## リダイレクトも SimpleResult です
+## リダイレクトも SimpleResult
 
 <!--
 Redirecting the browser to a new URL is just another kind of simple result. However, these result types don't take a response body.
 -->
-ブラウザを新しい URL へリダイレクトさせることも、 SimpleResult の一種です。違うのは、リダイレクトの SimpleResult はレスポンスボディを取らないということです。
+ブラウザを新しい URL へリダイレクトさせることも SimpleResult の一種です。ただし、リダイレクトの SimpleResult はレスポンスボディを取りません。
 
 <!--
 There are several helpers available to create redirect results:
