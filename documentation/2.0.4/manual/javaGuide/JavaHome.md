@@ -7,13 +7,12 @@
 <!--
 The Java API for the Play 2.0 application developers is available in the `play` package. 
 -->
-Play 2.0 アプリケーション開発者は `play` パッケージ内の Java API を使うことができます。
+Play 2.0 アプリケーションは、`play` パッケージ内にある Java API を使って開発することができます。
 
 <!--
 > The API available in the `play.api` package (such as `play.api.mvc`) is reserved for Scala developers. As a Java developer, look at `play.mvc`.
 -->
-> (`play.api.mvc` のような) `play.api` パッケージ内の API は Scala 開発者に予約されています。Java 開発者は `play.mvc` を見てください。
-
+> (`play.api.mvc` のような) `play.api` パッケージ内の API は Scala 開発者に予約されています。Java 開発者は `play.mvc` などを参照してください。
 
 <!--
 ## Main concepts
@@ -83,26 +82,26 @@ Play 2.0 アプリケーション開発者は `play` パッケージ内の Java 
 1. [[HTTP フォームの投稿とバリデーション | JavaForms]]
     1. [[フォームの定義 | JavaForms]]
     1. [[フォームテンプレートヘルパの利用 | JavaFormHelpers]]
-1. [[Json を扱う | JavaJsonRequests]]
-    1. [[Json リクエストのハンドリングと送信 | JavaJsonRequests]]
-1. [[XML を扱う | JavaXmlRequests]]
-    1. [[XML リクエストのハンドリングと送信 | JavaXmlRequests]]
-1. [[ファイルアップロードのハンドリング | JavaFileUpload]]
-    1. [[ダイレクトアップロードと multipart/form-data | JavaFileUpload]]
+1. [[Json を使う | JavaJsonRequests]]
+    1. [[Json リクエストの処理と送信 | JavaJsonRequests]]
+1. [[XML を使う | JavaXmlRequests]]
+    1. [[XML リクエストの処理と送信 | JavaXmlRequests]]
+1. [[ファイルアップロード処理 | JavaFileUpload]]
+    1. [[multipart/form-data のアップロード | JavaFileUpload]]
 1. [[SQL データベースへのアクセス | JavaDatabase]]
     1. [[JDBC の設定と使用 | JavaDatabase]]
     1. [[Ebean ORM の利用 | JavaEbean]]
     1. [[JPA との統合 | JavaJPA]]
 1. [[キャッシュを使う | JavaCache]]
-    1. [[Play のキャッシュ API | JavaCache]]
+    1. [[Play Cashe API | JavaCache]]
 1. [[Web サービスの呼び出し | JavaWS]]
     1. [[Play WS API  | JavaWS]]
     1. [[OpenID サーバへの接続 | JavaOpenID]]
 1. [[Akka の統合 | JavaAkka]]
-    1. [[アクタのセットアップと非同期タスクのスケジューリング | JavaAkka]]
+    1. [[アクターの設定と非同期タスクのスケジューリング | JavaAkka]]
 1. [[国際化 | JavaI18N]]
     1. [[メッセージの外部化と i18n | JavaI18N]]
-1. [[アプリケーショングローバルオブジェクト | JavaGlobal]]
+1. [[アプリケーション Global オブジェクト | JavaGlobal]]
     1. [[アプリケーションの全般設定 | JavaGlobal]]
     1. [[リクエストのインターセプト | JavaInterceptors]]
 1. [[アプリケーションのテスト | JavaTest]]
