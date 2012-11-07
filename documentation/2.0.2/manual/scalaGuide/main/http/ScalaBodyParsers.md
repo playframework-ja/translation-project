@@ -12,12 +12,12 @@
 <!--
 An HTTP PUT or POST request contains a body. This body can use any format, specified in the `Content-Type` request header. In Play, a **body parser** transforms this request body into a Scala value. 
 -->
-HTTP PUT や POST リクエストはボディを含みます。このボディは `Content-Type` リクエストヘッダで指定さえしておけば、どんなフォーマットであっても構いません。Play において、 **ボディパーサー** はリクエストボディを Scala の値に変換する役割を持ちます。
+HTTP PUT や POST リクエストはボディを含みます。このボディは `Content-Type` リクエストヘッダで指定さえしておけば、どんなフォーマットであっても構いません。Play では **ボディパーサー** がリクエストボディを Scala の値に変換します。
 
 <!--
 However the request body for an HTTP request can be very large and a **body parser** can’t just wait and load the whole data set into memory before parsing it. A `BodyParser[A]` is basically an `Iteratee[Array[Byte],A]`, meaning that it receives chunks of bytes (as long as the web browser uploads some data) and computes a value of type `A` as result.
 -->
-しかし、HTTP リクエストのリクエストボディはとても大きなサイズになる可能性があり、 **ボディパーサー** が全てのデータセットがメモリにロードされるのを単純に待ってからパースを行うというのは現実的ではありません。`BodyParser[A]` は基本的に `Iteratee[Array[Byte],A]` です。これが意味するところは、ボディパーサーはバイトデータの塊を（Webブラウザーがデータをアップロードし続ける限り）入力として受け取り、結果として `A` 型の値を計算する、ということです。
+しかし、HTTP リクエストのリクエストボディはとても大きなサイズになる可能性があり、 **ボディパーサー** が全てのデータセットがメモリにロードされるのを単純に待ってからパースを行うというのは現実的ではありません。`BodyParser[A]` は基本的に `Iteratee[Array[Byte],A]` です。これは、ボディパーサーはバイトデータの塊を（webブラウザがデータをアップロードし続ける限り）入力として受け取り、結果として `A` 型の値を計算する、ということを意味します。
 
 <!--
 Let’s consider some examples.
@@ -36,7 +36,7 @@ Let’s consider some examples.
 <!--
 Additionally a **body parser** has access to the HTTP request headers before it starts parsing the request body, and has the opportunity to run some precondition checks. For example, a body parser can check that some HTTP headers are properly set, or that the user trying to upload a large file has the permission to do so.
 -->
-付け加えると、**ボディパーサー** は、リクエストボディのパースをはじめる前に、HTTP リクエストヘッダを参照して、いくつか事前条件のチェックをすることがあります。例えば、特定の HTTP ヘッダが正しくセットされていることをチェックしたり、ユーザが大きなファイルをアップロードしようとしたときに本当にその権限を持っているのかチェックする、というようなボディーパーサーが考えられます。
+これらに加えて、**ボディパーサー** はリクエストボディのパースを始める前に HTTP リクエストヘッダを参照して、いくつか事前条件のチェックをすることがあります。例えば、特定の HTTP ヘッダが正しくセットされていることをチェックしたり、ユーザが大きなファイルをアップロードしようとしたときに本当にその権限を持っているのかチェックする、というようなボディーパーサーが考えられます。
 
 <!--
 > **Note**: That's why a body parser is not really an `Iteratee[Array[Byte],A]` but more precisely a `Iteratee[Array[Byte],Either[Result,A]]`, meaning that it has the opportunity to send directly an HTTP result itself (typically `400 BAD_REQUEST`, `412 PRECONDITION_FAILED` or `413 REQUEST_ENTITY_TOO_LARGE`) if it decides than it is not able to compute a correct value for the request body
@@ -158,7 +158,7 @@ def save = Action(parse.text) { request =>
 <!--
 Do you see how the code is simpler? This is because the `parse.text` body parser already sent a `400 BAD_REQUEST` response if something went wrong. We don’t have to check again in our action code, and we can safely assume that `request.body` contains the valid `String` body.
 -->
-コードがどれくらいシンプルになったかお分かりでしょうか? なぜシンプルになったかというと、`parse.text` ボディパーサーが何か問題を見つけた時に `400 BAD_REQUEST` レスポンスを返してくれるからです。自分のコードで再度チェックする必要がなく、`request.body` が間違いなく `String` 型のボディであることも保証されます。
+コードがどれくらいシンプルになったかお分かりでしょうか? この理由は、`parse.text` ボディパーサーが何か問題を見つけた時に `400 BAD_REQUEST` レスポンスを返してくれるからです。自分のコードで再度チェックする必要がなく、`request.body` が間違いなく `String` 型のボディであることも保証されます。
 
 <!--
 Alternatively we can use:
