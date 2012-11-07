@@ -12,12 +12,12 @@
 <!--
 The router is the component in charge of translating each incoming HTTP request to an Action.
 -->
-「ルータ」はクライアントから受け取った HTTP リクエストをアクションへ変換するコンポーネントです。
+ルータは、クライアントから受け取った HTTP リクエストをアクションへ変換するコンポーネントです。
 
 <!--
 An HTTP request is seen as an event by the MVC framework. This event contains two major pieces of information:
 -->
-HTTP リクエストは MVC フレームワークにとって「イベント」であるといえます。このイベントには大きく分けて次の二つの情報が含まれています。
+HTTP リクエストは MVC フレームワークにとってイベントであるといえます。このイベントには大きく分けて次の二つの情報が含まれています。
 
 <!--
 - the request path (e.g. `/clients/1542`, `/photos/list`), including the query string
@@ -36,7 +36,7 @@ Routes are defined in the `conf/routes` file, which is compiled. This means that
 <!--
 ## The routes file syntax
 -->
-## routesファイルの文法
+## routes ファイルの文法
 
 <!--
 `conf/routes` is the configuration file used by the router. This file lists all of the routes needed by the application. Each route consists of an HTTP method and URI pattern, both associated with a call to an `Action` generator.
@@ -70,17 +70,17 @@ GET   /clients/:id          controllers.Clients.show(id: Long)
 <!--
 ## The HTTP method
 -->
-## HTTPメソッド
+## HTTP メソッド
 
 <!--
 The HTTP method can be any of the valid methods supported by HTTP (`GET`, `POST`, `PUT`, `DELETE`, `HEAD`).
 -->
-HTTP メソッドには、HTTP がサポートするあらゆるメソッド(`GET`、`POST`、`PUT`、`DELETE`、`HEAD`)が指定できます。
+HTTP メソッドには、HTTP がサポートするあらゆるメソッド (`GET`、`POST`、`PUT`、`DELETE`、`HEAD`) が指定できます。
 
 <!--
 ## The URI pattern
 -->
-## URIパターン
+## URI パターン
 
 <!--
 The URI pattern defines the route’s request path. Parts of the request path can be dynamic.
@@ -129,7 +129,7 @@ The default matching strategy for a dynamic part is defined by the regular expre
 <!--
 ### Dynamic parts spanning several /
 -->
-### 複数の`/`をまたぐ動的パート
+### 複数の `/` をまたぐ動的パート
 
 <!--
 If you want a dynamic part to capture more than one URI path segment, separated by forward slashes, you can define a dynamic part using the `*id` syntax, which uses the `.*` regular expression:
@@ -148,12 +148,12 @@ Here for a request like `GET /files/images/logo.png`, the `name` dynamic part wi
 <!--
 ### Dynamic parts with custom regular expressions
 -->
-### 動的パートで独自の正規表現を使う
+### 独自の正規表現による動的パート
 
 <!--
 You can also define your own regular expression for the dynamic part, using the `$id<regex>` syntax:
 -->
-動的パートに独自の正規表現を使わせたい場合は、`$id<regex>` という文法が利用します。
+動的パートに独自の正規表現を使わせたい場合は、`$id<regex>` という文法を利用します。
     
 ```
 GET   /clients/$id<[0-9]+>  controllers.Clients.show(id: Long)  
@@ -218,10 +218,11 @@ def show(page: String) = Action {
 ### Parameter types
 -->
 ### 引数の型
+
 <!--
 For parameters of type `String`, typing the parameter is optional. If you want Play to transform the incoming parameter into a specific Scala type, you can explicitly type the parameter:
 -->
-`String` 型の引数の場合、型は記述しても、しなくても OK です。リクエストパラメータを特定の型に変換したいときは、型を明示することができます。
+`String` 型の引数の場合、型の記述はオプションです。リクエストパラメータを特定の型に変換したいときは、型を明示することができます。
 
 ```
 GET   /client/:id           controllers.Clients.show(id: Long)
@@ -294,7 +295,7 @@ Scala コード中で URL を生成するためにルータを使うこともで
 <!--
 For each controller used in the routes file, the router will generate a ‘reverse controller’ in the `routes` package, having the same action methods, with the same signature, but returning a `play.api.mvc.Call` instead of a `play.api.mvc.Action`. 
 -->
-ルータは、routes ファイルから利用された全てのコントローラについて、`routes` パッケージ以下に「リバースコントローラ」を生成します。リバースコントローラは元になったコントローラと同じシグネチャで、`play.api.mvc.Result` の代わりに `play.api.mvc.Call` を返すようなメソッドを持っています。
+ルータは、routes ファイルから利用された全てのコントローラについて、`routes` パッケージ以下にリバースコントローラを生成します。リバースコントローラは元になったコントローラと同じシグネチャで、`play.api.mvc.Result` の代わりに `play.api.mvc.Call` を返すようなメソッドを持っています。
 
 <!--
 The `play.api.mvc.Call` defines an HTTP call, and provides both the HTTP method and the URI.
