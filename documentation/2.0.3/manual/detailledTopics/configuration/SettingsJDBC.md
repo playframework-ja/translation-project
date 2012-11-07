@@ -2,7 +2,7 @@
 <!--
 # Configuring the JDBC pool.
 -->
-# JDBCコネクションプールの設定
+# JDBC コネクションプールの設定
 
 <!--
 The Play 2.0 JDBC datasource is managed by [[BoneCP | http://jolbox.com/]]. 
@@ -12,7 +12,7 @@ Play 2.0 の JDBC データソースの管理には、[[BoneCP | http://jolbox.c
 <!--
 ## Special URLs
 -->
-## 特別なURL
+## 特別な URL
 
 <!--
 Play supports special url format for both **MySQL** and **PostgreSQL**:
