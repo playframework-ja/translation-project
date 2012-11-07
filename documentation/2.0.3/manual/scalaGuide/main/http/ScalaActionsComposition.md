@@ -17,7 +17,7 @@ This chapter introduce several ways of defining generic action functionality.
 <!--
 Let’s start with the simple example of a logging decorator: we want to log each call to this action.
 -->
-アクションの呼び出しをロギングする、簡単なロギング・デコーレーターの例から始めてみましょう。
+アクションの呼び出しをロギングする、簡単なロギングデコーレータの例から始めてみましょう。
 
 <!--
 The first way is not to define our own Action, but just to provide a helper method building a standard Action:
@@ -139,7 +139,7 @@ def index = Logging {
 <!--
 Let’s look at the more complicated but common example of an authenticated action. The main problem is that we need to pass the authenticated user to the wrapped action and to wrap the original body parser to perform the authentication.
 -->
-次は、「認証を伴うアクション」という、これまでより込み入った例を見てみましょう。ここでの問題は、認証されたユーザだけをラップしたアクションへ通すこと、また認証を行うために元のボディパーサーをラップするという２点です。
+次は、認証を伴うアクションという、より複雑ですが一般的な例を見てみましょう。ここでの問題は、認証されたユーザだけをラップしたアクションへ通すこと、また認証を行うために元のボディパーサーをラップするという２点です。
 
 ```scala
 def Authenticated[A](action: User => Action[A]): Action[A] = {
@@ -244,7 +244,7 @@ def index = Authenticated { user => implicit request =>
 <!--
 Another (probably simpler) way is to define our own subclass of `Request` as `AuthenticatedRequest` (so we are merging both parameters into a single parameter):
 -->
-別の (たぶんより簡単な) 方法は、`Request` のサブクラス `AuthenticatedRequest` を定義することです。二つの引数をひとつにまとめる、とも言い換えられます。
+別の (たぶんより簡単な) 方法は、`Request` のサブクラス `AuthenticatedRequest` を定義することです (二つの引数をひとつにまとめる、とも言い換えられます) 。
 
 ```scala
 case class AuthenticatedRequest(
