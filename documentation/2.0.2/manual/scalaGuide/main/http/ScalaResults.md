@@ -26,7 +26,7 @@ val textResult = Ok("Hello World!")
 <!--
 Will automatically set the `Content-Type` header to `text/plain`, while:
 -->
-のように記述した場合は、`Content-Type` ヘッダに `text/plain` がセットされます。また、
+このように記述した場合は、`Content-Type` ヘッダに `text/plain` がセットされます。また、
 
 ```scala
 val xmlResult = Ok(<message>Hello World!</message>)
@@ -35,7 +35,7 @@ val xmlResult = Ok(<message>Hello World!</message>)
 <!--
 will set the Content-Type header to `text/xml`.
 -->
-のように記述した場合は、`Content-Type` ヘッダに `text/xml` がセットされます。
+このように記述した場合は、`Content-Type` ヘッダに `text/xml` がセットされます。
 
 <!--
 > **Tip:** this is done via the `play.api.http.ContentTypeOf` type class.
