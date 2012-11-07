@@ -17,7 +17,7 @@ If you have to keep data across multiple HTTP requests, you can save them in the
 <!--
 It’s important to understand that Session and Flash data are not stored by the server but are added to each subsequent HTTP request, using the cookie mechanism. This means that the data size is very limited (up to 4 KB) and that you can only store string values.
 -->
-セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加される、ということはとても重要なのでぜひ覚えておいてください。これが何を意味するかというと、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということです。
+セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加されるということはとても重要です。このことは、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということを意味します。
 
 <!--
 Of course, cookie values are signed with a secret key so the client can’t modify the cookie data (or it will be invalidated).
@@ -141,7 +141,7 @@ The Flash scope works exactly like the Session, but with two differences:
 <!--
 > **Important:** The flash scope should only be used to transport success/error messages on simple non-Ajax applications. As the data are just kept for the next request and because there are no guarantees to ensure the request order in a complex Web application, the Flash scope is subject to race conditions.
 -->
-> **重要:** フラッシュスコープはシンプルかつ非 Ajax なアプリケーションにおいて、成功/失敗メッセージをやり取りするためだけに利用すべきです。その理由は、データが次のリクエストまでしか保持されない、また複雑な Web アプリケーションにおいてはリクエストの順序が保証できないためにフラッシュスコープが競合状態に陥る可能性があるからです。
+> **重要:** フラッシュスコープはシンプルかつ非 Ajax なアプリケーションにおいて、成功/失敗メッセージをやり取りするためだけに利用すべきです。データは次のリクエストまでしか保持されず、また複雑な Web アプリケーションにおいてはリクエストの順序が保証できないため、フラッシュスコープが競合状態に陥る可能性があります。
 
 <!--
 Here are a few examples using the Flash scope:

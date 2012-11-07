@@ -168,9 +168,9 @@ def HTML(implicit codec: Codec) = {
 <!--
 You can do the same in your API if you need to handle the charset in a generic way.
 -->
-もし charset を直接扱う必要がある場合は、これと同じようなコードをご自身で記述すれば OK です。
+一般的な方法で charset を扱う必要がある場合は、自身の API においてこれらと同じように扱うことができます。
 
 <!--
 > **Next:** [[Session and Flash scopes | ScalaSessionFlash]]
 -->
-> **次ページ:** [[セッションと Flash スコープ | ScalaSessionFlash]]
+> **次ページ:** [[セッションとフラッシュスコープ | ScalaSessionFlash]]
