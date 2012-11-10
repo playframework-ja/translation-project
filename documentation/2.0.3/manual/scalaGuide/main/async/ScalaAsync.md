@@ -12,12 +12,12 @@
 <!--
 Until now, we were able to generate the result to send to the web client directly. However, this is not always the case: the result might depend on an expensive computation or of a long web service call.
 -->
-ここまでの説明では、リクエストがあった際すぐにレスポンスを生成し、web クライアントへ送信できることを前提にしていました。しかし、この前提が常に正しいとは限りません。例えば、レスポンスの生成に高コストな演算や長時間の web サービスの呼び出しが必要な場合です。
+これまでは、web クライアントに送信するレスポンスをすぐに生成できることとしていました。しかし、常にこのような場合だけではありません。レスポンスは、高価な計算や長い web サービスの呼び出しに依存するかもしれません。
 
 <!--
 Because of the way Play 2.0 works, the action code must be as fast as possible (ie. non blocking). So what should we return as result if we are not yet able to generate it? The response is a promise of result! 
 -->
-Play 2.0 の仕組み上、アクションの実行は可能な限り早く完了しなければなりません（言い換えると、ノン・ブロッキングでなければならない、ということです）。では、レスポンスがまだ生成可能でないときに、一体何を返しておけばよいのでしょうか? それは、レスポンスの「約束」(promise) です!
+Play 2.0 の仕組み上、アクションの実行は可能な限り早く (言い換えると、ノンブロッキングに)  完了しなければなりません。では、レスポンスがまだ生成可能でないときに、一体何を返すべきでしょうか? それは、レスポンスの約束 (promise) です!
 
 <!--
 A `Promise[Result]` will eventually be redeemed with a value of type `Result`. By giving a `Promise[Result]` instead if a normal `Result`, we are able to quickly generate the result without blocking. Then, Play will serve this result as soon as the promise is redeemed. 
@@ -75,7 +75,7 @@ val promiseOfInt: Promise[Int] = Akka.future {
 <!--
 While we were using `SimpleResult` until now, to send an asynchronous result, we need an `AsyncResult` to wrap the actual `SimpleResult`:
 -->
-これまでは `SimpleResult` を使ってきましたが、非同期な結果を送信するためには、`SimpleResult` をラップする `AsyncResult` が必要になります。
+これまでは `SimpleResult` を使ってきましたが、非同期な結果を送信するためには、`SimpleResult` をラップする `AsyncResult` が必要です。
 
 ```scala
 def index = Action {
