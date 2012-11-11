@@ -7,17 +7,17 @@
 <!--
 ## Using chunked responses to create Comet sockets
 -->
-## chunked レスポンスを利用して Comet ソケットを作成する
+## Comet ソケットを作成するためにチャンクレスポンスを利用する
 
 <!--
 A good use for **Chunked responses** is to create Comet sockets. A Comet socket is just a chunked `text/html` response containing only `<script>` elements. At each chunk we write a `<script>` tag that is immediately executed by the web browser. This way we can send events live to the web browser from the server: for each message, wrap it into a `<script>` tag that calls a JavaScript callback function, and writes it to the chunked response.
 -->
-**Chunked レスポンス** の用途の一つは、Comet ソケットを作成することです。Comet ソケットは `<script>` 要素のみを含む `text/html` 形式の chunked レスポンスです。1 つのチャンクにつき 1 つずつ `<script>` タグを書き込むと、それが web ブラウザに即座に実行されます。この方法を用いると、サーバからのイベントを web ブラウザへリアルタイムに配信することができます。具体的には、ブラウザへ送りたいメッセージを JavaScript のコールバック関数を呼び出す `<script>` タグにラップして、それを chunked レスポンスに書きこみます。
+**チャンクレスポンス** を応用すると、Comet ソケットを作成することができます。 Comet ソケットは、 `<script>` のみを含むチャンク分割された単なる `text/html` レスポンスです。それぞれのチャンクに、 web ブラウザによって実行される JavaScript を含んだ `<script>` タグを書き込みます。これを利用することで、サーバから web ブラウザへ、イベントをリアルタイムに送信することができます: それぞれのメッセージ毎に、JavaScript のコールバック関数を呼び出す `<script>` タグでイベントをラップして、それをチャンクレスポンスに書き込みます。
    
 <!-- 
 Let’s write a first proof-of-concept: an enumerator that generates `<script>` tags that each call the browser `console.log` JavaScript function:
 -->
-早速、デモを作ってみましょう。まず、ブラウザの `console.log` という JavaScript 関数を呼び出す `<script>` タグを生成する enumerator を定義します。
+それでは、これを確かめるデモを作成してみましょう。まず、ブラウザの `console.log` 関数を呼び出す `<script>` タグを生成するような Enumerator を作成します。
     
 ```scala
 def comet = Action {
@@ -33,7 +33,7 @@ def comet = Action {
 <!--
 If you run this action from a web browser, you will see the three events logged in the browser console.
 -->
-このアクションを web ブラウザから実行すると、ブラウザのコンソールに 3 つのイベントがログ出力されます。
+このアクションを web ブラウザから実行すると、ブラウザのコンソールに３つのイベントログが出力されるでしょう。
 
 <!--
 > **Tip:** Writing `events >>> Enumerator.eof` is just another way of writing `events.andThen(Enumerator.eof)`
@@ -67,22 +67,22 @@ def comet = Action {
 <!--
 ## Using the `play.api.libs.Comet` helper
 -->
-## `play.api.libs.Comet` ヘルパの利用
+## `play.api.libs.Comet` ヘルパーを使う
 
 <!--
 We provide a Comet helper to handle these Comet chunked streams that do almost the same stuff that we just wrote.
 -->
-これまで説明したような Comet チャンクのストリームを扱うために、 Comet ヘルパ関数が用意されています。ヘルパ関数を使うと、先ほどの例と同じようなことができます。
+チャンク分割された comet ストリームを扱うために、上で書いた内容とほぼ同じことを行う Comet ヘルパーを用意しています。
 
 <!--
 > **Note:** Actually it does more, like pushing an initial blank buffer data for browser compatibility, and it supports both String and JSON messages. It can also be extended via type classes to support more message types.
 -->
-> **Note:** 実際には、ブラウザ互換性のために最初に空白のバッファーデータを送信したり、String　と JSON メッセージの両方をサポートをしてくれる、という違いがあります。さらに、特定の type class を定義することで、他の型のメッセージをサポートするように拡張することもできます。
+> **ノート:** 実際のところ Comet ヘルパは、ブラウザの互換性のため最初に空のバッファデータを送信したり、メッセージとして String と JSON の両方をサポートするなど、上で書いた内容以上のことを行います。さらに、特定の type class を定義することで、他の型のメッセージをサポートするように拡張することもできます。
 
 <!--
 Let’s just rewrite the previous example to use it:
 -->
-先程の例を、ヘルパ関数を使って書き直してみましょう。
+これを使って前述の例を書き直してみましょう:
 
 ```scala
 def comet = Action {
@@ -99,12 +99,12 @@ def comet = Action {
 <!--
 ## The forever iframe technique
 -->
-## forever iframe テクニック
+## Forever iframe テクニック
 
 <!--
 The standard technique to write a Comet socket is to load an infinite chunked comet response in an HTML `iframe` and to specify a callback calling the parent frame:
 -->
-Comet ソケットで標準的に使われるテクニックとして、無限の chunked comet レスポンスを `iframe` 要素にロードして、親フレームで定義されたコールバック関数を呼び出す、というものがあります。
+Comet ソケットを書く標準的なテクニックとして、 iframe 内でチャンク分割された Comet レスポンスを無限にロードし、親フレームを呼び出すコールバック関数を特定するというものがあります:
 
 ```scala
 def comet = Action {
@@ -116,7 +116,7 @@ def comet = Action {
 <!--
 With an HTML page like:
 -->
-この Comet ソケットは、例えば次のような HTML と合わせて利用します。
+これを、次のような HTML ページと共に使用します:
 
 ```
 <script type="text/javascript">
