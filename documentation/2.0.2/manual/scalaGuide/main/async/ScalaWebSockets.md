@@ -12,7 +12,7 @@
 <!--
 A Comet socket is a kind of hack for sending live events to the web browser. Also, it only supports one-way communication from the server to the client. To push events to the server, the web browser has to send Ajax requests.
 -->
-web ブラウザへリアルタイムにイベントを送信する、という目的に対して Comet ソケットは hack です。また、Comet ソケットで行えるのは、サーバからクライアントへの 1 方向の通信だけです。クライアントからサーバへイベントを送信するには、Web ブラウザから別途 Ajax リクエストを送信しなければいけません。
+Comet ソケットは Web ブラウザへイベントをリアルタイムに送信するためのいわばハックです。また、Comet はサーバからクライアントへの一方向の通信しかサポートしません。サーバへイベントを PUSH 送信する場合は、AJAX リクエストを使います。
 
 <!--
 > **Note:** It is also possible to achieve the same kind of live communication the other way around by using an infinite HTTP request handled by a custom `BodyParser` that receives chunks of input data, but that is far more complicated.
@@ -22,7 +22,7 @@ web ブラウザへリアルタイムにイベントを送信する、という�
 <!--
 Modern web browsers natively support two-way live communication via WebSockets.
 -->
-モダンな web ブラウザは、WebSocket を介した双方向のリアルタイム通信にネイティブ対応しています。
+現代的な Web ブラウザは WebSocket による双方向のリアルタイム通信をネイティブにサポートしています。
 
 <!--
 >WebSocket is a web technology that provides bi-directional, full-duplex communication channels, over a single Transmission Control Protocol (TCP) socket. The WebSocket API is being standardized by the W3C, and the WebSocket protocol has been standardized by the IETF as RFC 6455.
@@ -33,9 +33,9 @@ Modern web browsers natively support two-way live communication via WebSockets.
 >
 > [[http://en.wikipedia.org/wiki/WebSocket]]
 -->
-> WebSocket は単一の Transmission Control Protocol (TCP) ソケット上で、双方向・全多重の通信チャンネルを実現する Web テクノロジです。WebSocket API は W3C によって標準化されていて、WebSocket プロトコルは IETF によって　RFC 6455 として標準化されています。
+> WebSocket は双方向かつ全多重の通信チャンネルを、単一の Transmission Control Protocol (TCP) ソケット上で実現する Web テクノロジです。WebSocket の API は W3C により、一方 WebSocket のプロトコルは IETF により RFC 6455 として、標準化が進められています。
 >
-> WebSocket は web サーバと web ブラウザによって実装されることを想定して設計されていますが、他の種類のクライアントやサーバアプリケーションから利用することもできます。家庭内ネットワーク以外においては、80 番ポート以外への通常の TCP コネクションは管理者によってブロックされていることが多いのですが、WebSocket を使うとこれを迂回することができます。また、プロトコル上、多少のオーバーヘッドはあるものの、単一の TCP ポート上で複数の WebSocket 接続を行うことが可能で、通常の TCP コネクションと似たような機能を実現することができます。
+> WebSocket は元々、Web ブラウザおよび Web サーバにおいて実装されることを想定して設計されていますが、実際はどんな種類のクライアントやサーバでも利用できます。80 番ポート以外への TCP 接続は家庭内ネットワーク以外では管理者によってブロックされていることがよくありますが、WebSocket を使うとこの制限を迂回することができます。つまり、プロトコルのオーバーヘッドと引き換えにはなりますが、通常の TCP 接続と同じような機能を実現することができ、単一の TCP ポート上で複数の WebSocket サービスを多重化させることもできます。
 >
 > WebSocket は、リアルタイムに双方向通信を行うような web アプリケーションにとっても有用です。WebSocket が実現するまでも、このような双方向通信は Comet チャンネルを使えば実現することができました。しかし、Comet は安定して動作させるのが難しい、また TCP ハンドシェイクや HTTP ヘッダのオーバーヘッドがあるため小さいメッセージを送受信する場合に非効率的であるという欠点がありました。WebSocket は web のセキュリティ要件を落とさずにこのような双方向通信を実現するために開発されました。
 >
@@ -49,7 +49,7 @@ Modern web browsers natively support two-way live communication via WebSockets.
 <!--
 Until now, we were using `Action` instances to handle standard HTTP requests and send back standard HTTP responses. WebSockets are a totally different beast and can’t be handled via standard `Action`.
 -->
-標準的な HTTP リクエストを処理し、標準的な HTTP レスポンスを送信するためには `Action` を使っていました。WebSocket はそれと全く異なるので、通常の `Action` では扱えません。
+これまでは、標準的な HTTP リクエストを処理し、標準的な HTTP レスポンスを送信するためには `Action` を使っていました。WebSocket はそれと全く異なるので、通常の `Action` では扱えません。
 
 <!--
 To handle a WebSocket request, use a `WebSocket` instead of an `Action`:
@@ -91,7 +91,7 @@ When constructing a `WebSocket` this way, we must return both `in` and `out` cha
 <!--
 It this example we are creating a simple iteratee that prints each message to console. To send messages, we create a simple dummy enumerator that will send a single **Hello!** message.
 -->
-次の例では、受信した各メッセージを console に出力するだけのシンプルな Iteratee を作成します。また、メッセージを送信するため、**Hello!** というメッセージを一回だけ送信する単純なダミーの Enumerator も作成します。
+この例では、受信した各メッセージを console に出力するだけのシンプルな Iteratee を作成しています。また、メッセージを送信するため、**Hello!** というメッセージを一回だけ送信する単純なダミーの Enumerator も作成しました。
 
 <!--
 > **Tip:** You can test WebSockets on [[http://websocket.org/echo.html]]. Just set the location to `ws://localhost:9000`.
@@ -101,7 +101,7 @@ It this example we are creating a simple iteratee that prints each message to co
 <!--
 Let’s write another example that discards the input data and closes the socket just after sending the **Hello!** message:
 -->
-次は、入力データを破棄しつつ、**Hello!** メッセージを送信後すぐにソケットを閉じる例です。
+次は、入力データを全て捨てつつ、**Hello!** メッセージを送信した後すぐにソケットを閉じる例を書いてみましょう。
 
 ```scala
 def index = WebSocket.using[String] { request => 
