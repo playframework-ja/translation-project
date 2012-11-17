@@ -12,7 +12,7 @@
 <!--
 The recommend way of dealing with JSON is using Play’s typeclass based JSON library, located at ```play.api.libs.json```. 
 -->
-JSON を使いたければ、```play.api.libs.json``` にある JSON ライブラリーを基にした Play の型クラスを使うことをおすすめします。
+JSON を使いたければ、```play.api.libs.json``` にある JSON ライブラリを基にした Play の型クラスを使うことをおすすめします。
 
 <!--
 This library is built on top of [Jerkson](https://github.com/codahale/jerkson/), which is a Scala wrapper around the super-fast Java based JSON library, [Jackson](http://jackson.codehaus.org/). 
