@@ -378,4 +378,4 @@ For example to output raw HTML:
 <!--
 > **Next:** [[Common use cases | ScalaTemplateUseCases]]
 -->
-> **Next:** [[よくある利用例 | ScalaTemplateUseCases]]
+> **Next:** [[よくある使い方 | ScalaTemplateUseCases]]
