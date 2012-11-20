@@ -7,12 +7,12 @@
 <!--
 ## The Global object
 -->
-## `Global`オブジェクト
+## Global オブジェクト
 
 <!--
 Defining a `Global` object in your project allows you to handle global settings for your application. This object must be defined in the root package.
 -->
-プロジェクトに `Global` オブジェクトを定義すると、アプリケーションのグローバル設定を行うことができます。このオブジェクトはルートパッケージに定義される必要があります。
+プロジェクト内に `Global` オブジェクトを定義すると、アプリケーションのグローバル設定を行うことができます。このオブジェクトはルートパッケージに定義される必要があります。
 
 ```java
 import play.*;
@@ -25,12 +25,12 @@ public class Global extends GlobalSettings {
 <!--
 ## Intercepting application start-up and shutdown
 -->
-## アプリケーションの起動または終了時に処理を行う
+## アプリケーションの起動や停止をインターセプトする
 
 <!--
 You can override the `onStart` and `onStop` operation to be notified of the corresponding application lifecycle events:
 -->
-`onStart` や `onStop` 操作をオーバーライドすることで、それぞれアプリケーションのライフサイクルにおけるイベントが発生した際に通知を受けることができます。
+`onStart` や `onStop` 操作をオーバーライドすることで、対応するアプリケーションのライフサイクルイベントの通知を受けることができます。
 
 ```java
 import play.*;
@@ -109,7 +109,7 @@ public class Global extends GlobalSettings {
 <!--
 The `onBadRequest` operation will be called if a route was found, but it was not possible to bind the request parameters:
 -->
-また、ルートは定義されているものの、リクエストパラメータをバインドできなかった場合は、`onBadRequest` 操作が呼び出されます。
+また、ルートは存在するものの、リクエストパラメータをバインドできなかった場合は、`onBadRequest` 操作が呼び出されます。
 
 ```scala
 import play.*;
@@ -130,4 +130,4 @@ public class Global extends GlobalSettings {
 <!--
 > **Next:** [[Intercepting requests | JavaInterceptors]]
 -->
-> **次ページ:** [[リクエストをインターセプトする | JavaInterceptors]]
+> **次ページ:** [[リクエストのインターセプト | JavaInterceptors]]
