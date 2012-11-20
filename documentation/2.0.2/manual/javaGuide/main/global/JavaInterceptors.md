@@ -7,12 +7,12 @@
 <!--
 ## Overriding onRequest
 -->
-## onRequest をオーバーライドする
+## onRouteRequest のオーバーライド
 
 <!--
 One important aspect of  the ```GlobalSettings``` class is that it provides a way to intercept requests and execute business logic before a request is dispatched to an action.
 -->
- ```GlobalSettings``` クラスには、リクエストがアクションに渡される前にインターセプトして、任意のビジネスロジックを実行するために使える、という重要な側面もあります。
+ ```GlobalSettings``` クラスには、リクエストがアクションに渡される前にインターセプトして、任意のビジネスロジックを実行する方法を提供する、という重要な側面もあります。
 
 <!--
 For example:
@@ -41,4 +41,4 @@ It’s also possible to intercept a specific action method. This can be achieved
 <!--
 > **Next:** [[Testing your application | JavaTest]]
 -->
-> **次ページ:** [[アプリケーションのテスト | JavaTest]]
+> **次ページ:** [[テスト | JavaTest]]

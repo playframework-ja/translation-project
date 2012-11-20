@@ -12,8 +12,7 @@
 <!--
 One another important aspect of  the ```Global``` object is that it provides a way to intercept requests and execute business logic before a request is dispatched to an Action. 
 -->
-
-Global オブジェクトにはもう一つ重要な点があります。それは、 Global オブジェクトにリクエストをインターセプトさせて、リクエストがアクションへ渡される前に任意のビジネスロジックを実行できる、ということです。
+ ```Global``` オブジェクトには、リクエストがアクションに渡される前にインターセプトして、任意のビジネスロジックを実行する方法を提供する、という重要な側面もあります。
 
 <!--
 > **Tip** This hook can be also used for hijacking requests, allowing developers to plug-in their own request routing mechanism. 
@@ -42,7 +41,7 @@ object Global extends GlobalSettings {
 <!--
 It’s also possible to intercept a specific Action method, using [[Action composition | ScalaActionsComposition]].
 -->
-一方で、全てのリクエストをインターセプトさせるのではなく、特定のアクションのみをインターセプトさせたい場合は、[[アクションの合成 | ScalaActionsComposition]] を利用するとよいでしょう。
+[[アクションの合成| ScalaActionsComposition]] を使って特定のアクションメソッドへのリクエストだけをインターセプトすることも可能です。
 
 <!--
 > **Next:** [[Testing your application | ScalaTest]]
