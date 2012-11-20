@@ -7,7 +7,7 @@
 <!--
 [[Akka| http://akka.io/]] uses the Actor Model to raise the abstraction level and provide a better platform to build correct concurrent and scalable applications. For fault-tolerance it adopts the ‘Let it crash’ model, which has been used with great success in the telecoms industry to build applications that self-heal - systems that never stop. Actors also provide the abstraction for transparent distribution and the basis for truly scalable and fault-tolerant applications.
 -->
-[[Akka| http://akka.io/]] はアクター・モデルに基づく高度な抽象化により、並列かつスケーラブルなアプリケーションを「正しく」構築するための基盤を提供してくれるライブラリです。Akka はアプリケーションのフォールトトレランス（耐障害性）を実現するために、`Let it crash` モデルを採用しています。このモデルは、自己回復により停止することなく動き続けるようなアプリケーションを構築できるということで、通信業界において大きな成功を収めています。また、Actor という概念を用いると、透過的に分散処理を行うことができるため、真にスケーラブルかつフォールトトレラントなアプリケーションを構築する足がかりになります。
+[[Akka| http://akka.io/]] は、アクター・モデルに基づいて、これまでより高い抽象度で、並列かつスケーラブルなアプリケーションを実装するためのプラットフォームです。Akka は耐障害性を実現するために 'Let it crash' モデルを採用しています。これは、自己修復するアプリケーション、言い換えれば落ちないシステムを必要としていた通信業界で大きな成功を収めているモデルです。アクターは分散処理を意識せずに実現できるような抽象化を提供する一方で、スケーラブルかつ耐障害性のアプリケーションを実装するベースにもなります。
 
 <!--
 ## The application actor system
@@ -27,7 +27,7 @@ Play 2.0 アプリケーションには、アプリケーション自身が使�
 <!--
 > **Note:** Nothing prevents you from using another actor system from within a Play application. The provided default actor system is just a convenient way to start a few actors without having to set-up your own.
 -->
-> **ノート:** Play アプリケーション内から独自のアクターシステムを使っても何の問題もありません。最初から用意されているアクターシステムは、いちいちアクターシステムをセットアップしなくてすぐにアクターを利用できる、という利便性のためだけにあります。
+> **ノート:** 独自のアクターシステムを使っても何の問題もありません。最初から用意されているアクターシステムは、いちいちアクターシステムをセットアップしなくてすぐにアクターを利用できる、という利便性のためだけにあります。
 
 <!--
 You can access the default application actor system using the `play.libs.Akka` helper:
@@ -62,12 +62,12 @@ akka.actor.debug.receive = on
 <!--
 ## Converting Akka `Future` to Play `Promise`
 -->
-## Akka の `Future` を Play の Promise に変換する
+## Akka `Future` から Play `Promise` への変換
 
 <!--
 When you interact asynchronously with an Akka actor we will get `Future` object. You can easily convert them to play `Promise` using the conversion method provided in `play.libs.Akka.asPromise()`:
 -->
-Akka アクターと非同期的にやり取りをすると、 `Future` オブジェクトが返ってきます。`play.libs.Akka.asPromise()` メソッドを利用すると、この `Future` を Play の `Promise` オブジェクトに変換することができます。
+Akka アクターと非同期的にやり取りをすると、 `Future` オブジェクトが返ってきます。`play.libs.Akka.asPromise()` メソッドを利用すると、この `Future` を Play の `Promise` オブジェクトに簡単に変換することができます。
 
 ```java
 import static akka.pattern.Patterns.ask;
@@ -123,17 +123,17 @@ public static Result index() {
 <!--
 ## Scheduling asynchronous tasks
 -->
-## 非同期タスクをスケジューリングする
+## 非同期タスクのスケジューリング
 
 <!--
 You can schedule sending messages to actors and executing tasks (functions or `Runnable` instances). You will get a `Cancellable` back that you can call `cancel` on to cancel the execution of the scheduled operation.
 -->
-Akka では、アクターへのメッセージ送信やタスク(関数か、または `Runnable` インスタンス)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
+Akka では、アクターへのメッセージ送信やタスク(関数または `Runnable` インスタンス)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
 
 <!--
 For example, to send a message to the `testActor` every 30 minutes:
 -->
-例えば、 `testActor` へ30秒おきにメッセージを送信したい場合は、次のようにします。
+例えば、`testActor` に 30 分おきにメッセージを送信する場合は次のように書きます。
 
 ```
 Akka.system().scheduler().schedule(
@@ -163,4 +163,4 @@ Akka.system().scheduler().scheduleOnce(
 <!--
 > **Next:** [[Internationalization | JavaI18N]]
 -->
-> **次ページ:** [[多言語化 | JavaI18N]]
+> **次ページ:** [[多言語対応 | JavaI18N]]

@@ -2,7 +2,7 @@
 <!--
 # Integrating with Akka
 -->
-# Akka
+# Akka の統合
 
 <!--
 [[Akka| http://akka.io/]] uses the Actor Model to raise the abstraction level and provide a better platform to build correct concurrent and scalable applications. For fault-tolerance it adopts the ‘Let it crash’ model, which has been used with great success in the telecoms industry to build applications that self-heal - systems that never stop. Actors also provide the abstraction for transparent distribution and the basis for truly scalable and fault-tolerant applications.
@@ -12,27 +12,27 @@
 <!--
 ## The application actor system
 -->
-## アプリケーション・アクター・システム
+## アプリケーションのアクターシステム
 
 <!--
 Akka 2.0 can work with several containers called `ActorSystems`. An actor system manages the resources it is configured to use in order to run the actors which it contains. 
 -->
-Akka 2.0 には `アクター・システム` と呼ばれるコンテナが存在します。アクター・システムは、割り当てられたアクターを実行したり、そのためのリソース管理を行います。
+Akka 2.0 は `アクターシステム` と呼ばれるいくつかのコンテナを持ちます。それぞれのアクターシステムは、それに含まれるアクターを動かすためのリソースを管理します。
 
 <!--
 A Play application defines a special actor system to be used by the application. This actor system follows the application life-cycle and restarts automatically when the application restarts.
 -->
-Play アプリケーションには、アプリケーション全体で利用する特別なアクター・システムが定義されています。このアクター・システムはアプリケーションのライフサイクルを監視していて、アプリケーションが再起動する際には自動的に再起動します。
+Play アプリケーションには、アプリケーション自身が使う特別なアクターシステムが定義されています。このアクターシステムはアプリケーションのライフサイクルに追従し、アプリケーションと共に自動的に再起動します。
 
 <!--
 > **Note:** Nothing prevents you from using another actor system from within a Play application. The provided default is convenient if you only need to start a few actors without bothering to set-up your own actor system.
 -->
-> **Note:** 独自のアクター・システムを利用しても全く問題ありません。デフォルトのアクター・システムは、実行するアクターの数が少なく、別のアクター・システムを自分で用意するまでもないような場合に利用するとよいでしょう。
+> **Note:** 独自のアクターシステムを利用しても全く問題ありません。デフォルトのアクターシステムは、実行するアクターの数が少なく、別のアクター・システムを自分で用意するまでもないような場合に利用するとよいでしょう。
 
 <!--
 You can access the default application actor system using the `play.api.libs.concurrent.Akka` helper:
 -->
-デフォルトのアクター・システムを参照するためには、 `play.api.libs.concurrent.Akka` ヘルパーを使います。
+アプリケーションのデフォルトのアクターシステムを利用するためには、`play.api.libs.concurrent.Akka` ヘルパーを利用します。
 
 ```scala
 val myActor = Akka.system.actorOf(Props[MyActor], name = "myactor")
@@ -46,7 +46,7 @@ val myActor = Akka.system.actorOf(Props[MyActor], name = "myactor")
 <!--
 The default actor system configuration is read from the Play application configuration file. For example, to configure the default dispatcher of the application actor system, add these lines to the `conf/application.conf` file:
 -->
-アクター・システムのデフォルト設定は、 Play の設定ファイルから読み込まれます。例えば、アプリケーション・アクター・システムのデフォルト・ディスパッチャを変更したい場合は、`conf/application.conf` に次のような数行を記述します。
+デフォルトのアクターシステムの設定は、Play アプリケーションの設定ファイルから読み込まれます。例えば、アプリケーションのアクターシステムのデフォルトディスパッチャを変更したい場合は、 `conf/application.conf` ファイルにその設定を数行追加します。
 
 ```
 akka.default-dispatcher.fork-join-executor.pool-size-max =64
@@ -56,7 +56,7 @@ akka.actor.debug.receive = on
 <!--
 > **Note:** You can also configure any other actor system from the same file; just provide a top configuration key.
 -->
-> **Note:** 他のアクター・システムも同じファイル内で構成することができます。その場合は、アクター・システム毎に異なるトップ設定キーを割り当ててください。
+> **Note:** Akka の規約に基づいて設定ファイルにトップの設定キーを記述することで、同じファイル内で全く別のアクターシステムを構成することもできます。
 
 <!--
 ## Converting Akka `Future` to Play `Promise`
@@ -66,7 +66,7 @@ akka.actor.debug.receive = on
 <!--
 When you interact asynchronously with an Akka actor we will get `Future` object. You can easily convert it to a Play `Promise` using the implicit conversion provided in `play.libs.Akka._`:
 -->
-Akka アクターと非同期的にやり取りをする際、結果として `Future` オブジェクトが返ってきます。これを簡単に Play の `Promise` へ変換するには、 `play.libs.Akka._` に用意されている implicit conversion　を利用してください。
+Akka アクターと非同期的にやり取りをすると、 `Future` オブジェクトが返ってきます。`play.libs.Akka._` に用意されている implicit conversion を利用すると、この `Future` を Play の `Promise` オブジェクトに簡単に変換することができます。
 
 ```scala
 def index = Action {
@@ -81,12 +81,12 @@ def index = Action {
 <!--
 ## Executing a block of code asynchronously
 -->
-## コード・ブロックを非同期的に実行する
+## コードブロックを非同期的に実行する
 
 <!--
 A common use case within Akka is to have some computation performed concurrently, without needing the extra utility of an Actor. If you find yourself creating a pool of Actors for the sole reason of performing a calculation in parallel, there is an easier (and faster) way:
 -->
-Akka のよくある利用例は、 Actor を別途用意せずに、時間のかかる計算を並列的に実行する、というものです。もし、単に計算を並列的に行うためだけにアクターをプーリングしていたら、それよりもっと簡単（かつ手っ取り早い）方法があります。
+Akka の典型的なユースケースは、Actor を特別難しい使い方をせずに、計算を並列化することです。例えば、あなたが並列計算を行うためにアクターのプールを作成しているようなら、もっと簡単（かつ高速な）方法があります。
 
 ```scala
 def index = Action {
@@ -101,12 +101,12 @@ def index = Action {
 <!--
 ## Scheduling asynchronous tasks
 -->
-## 非同期タスクの予約
+## 非同期タスクのスケジューリング
 
 <!--
 You can schedule sending messages to actors and executing tasks (functions or `Runnable`). You will get a `Cancellable` back that you can call `cancel` on to cancel the execution of the scheduled operation.
 -->
-Akka を利用すると、アクターへのメッセージ送信やタスク (関数や `Runnable`) の実行を予約することができます。予約処理を行うと、結果値として `Cancellable` というものが返ってきます。これは、 `cancel` メソッドの呼び出しにより、予約したタスクの実行を取り消すために利用します。
+Akka では、アクターへのメッセージ送信やタスク(関数または `Runnable`)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
 
 <!--
 For example, to send a message to the `testActor` every 30 minutes:
