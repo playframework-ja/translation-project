@@ -7,7 +7,7 @@
 <!--
 Sometimes we would like to call other HTTP services from within a Play application. Play supports this via its `play.api.libs.ws.WS` library, which provides a way to make asynchronous HTTP calls.
 -->
-Play アプリケーションから他の HTTP サービスを呼び出したいということはありませんか? Play は非同期の HTTP 呼び出しを実現する `play.api.libs.ws.WS` というライブラリでこれをサポートしています。
+ときどき、Play アプリケーションから他の HTTP サービスを呼び出したくなることがあります。Play は非同期の HTTP 呼び出しを実現する `play.api.libs.ws.WS` というライブラリでこれをサポートしています。
 
 <!--
 Any calls made by `play.api.libs.ws.WS` should return a `Promise[play.api.libs.ws.Response]` which we can later handle with Play’s asynchronous mechanisms.
@@ -22,7 +22,7 @@ Any calls made by `play.api.libs.ws.WS` should return a `Promise[play.api.libs.w
 <!--
 To send an HTTP request you start with `WS.url()` to specify the URL. Then you get a builder that you can use to specify various HTTP options, such as setting headers. You end by calling a final method corresponding to the HTTP method you want to use. For example:
 -->
-HTTP リクエストを送信するためには、まず `WS.url()` を使って URL を指定します。このメソッドは、ヘッダの設定等の HTTP に関する設定を行うためのビルダを返します。最終的には、HTTP メソッドに対応するメソッドを呼び出して、HTTP リクエストを送信します。これは、次のように書きます。
+HTTP リクエストを送信するためには、まず `WS.url()` を使って URL を指定します。その結果、例えばヘッダをセットする、といったような 各種 HTTP オプションを指定するためのビルダが返ってきます。最後に利用したい HTTP メソッドに対応するメソッドを呼び出します。例えば:
 
 ```scala
 val homePage: Promise[ws.Response] = WS.url("http://mysite.com").get()
@@ -31,7 +31,7 @@ val homePage: Promise[ws.Response] = WS.url("http://mysite.com").get()
 <!--
 Or:
 -->
-または、次のようにも書けます。
+または、以下のように記述します。
 
 ```scala
 val result: Promise[ws.Response] = {
@@ -47,7 +47,7 @@ val result: Promise[ws.Response] = {
 <!--
 The call is asynchronous and you need to manipulate it as a `Promise[ws.Response]` to get the actual content. You can compose several promises and end with a `Promise[Result]` that can be handled directly by the Play server:
 -->
-HTTP 通信は非同期であるため、実際のコンテンツを取得するためには `Promise[ws.Response]` を操作しなければなりません。流れとしては、`Promise[ws.Response]` をはじめとする複数の Promise を組み合わせて、最終的には Play サーバーが処理できるように `Promise[Result]` を返すようにします。
+HTTP 呼び出しは非同期で行われ、実際のコンテンツを取得するためには `Promise[ws.Response]` を操作する必要があります。また、複数の Promise を合成して、最終的に Play サーバが直接的に処理できるように `Promise[Result]`  を返す、という方法も使えます。
 
 ```scala
 def feedTitle(feedUrl: String) = Action {
