@@ -7,7 +7,7 @@
 <!--
 You can use any **SQL** database access library you like with Play, as can easily retrieve either a `Connection` or a `Datasource` from the `play.api.db.DB` helper.
 -->
-Play の `play.api.db.DB` ヘルパーを使って `Connection` や `Datasource` を取得すると、あらゆる **SQL** データベースアクセスライブラリを利用することができます。
+Play の `play.api.db.DB` ヘルパーを使って `Connection` や `Datasource` を取得すると、あらゆる **SQL** データベースアクセスライブラリを利用することができます。
 
 <!--
 ## Integrating with ScalaQuery
