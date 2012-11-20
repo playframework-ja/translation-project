@@ -215,7 +215,7 @@ val countries = selectCountries().map(row =>
 <!--
 In the following example we will count the number of `Country` entries in the database, so the result set will be a single row with a single column:
 -->
-次の例ではデータベース内の `Countrｙ｀の個数を数えます。ResultSet は一カラム・一行になります。
+次の例ではデータベース内の `Country` の個数を数えます。ResultSet は一カラム・一行になります。
 
 ```scala
 // First retrieve the first row
@@ -420,7 +420,7 @@ val result:List[String~Int] = {
 <!--
 Now what about the `String~Int` type? This is an **Anorm** type that is not really convenient to use outside of your database access code. You would rather have a simple tuple `(String, Int)` instead. You can use the `map` function on a `RowParser` to transform its result to a more convenient type:
 -->
-さて、`String~Int` という型は一体何でしょうか？これは **Anorm** で定義されている型で、データベースアクセスに関するコード以外での利用には適していません。例えば、`(String, Int)` のような単純なタプルをパースしたいことが多いでしょう。そのためには、 `RowParser` の `map` 関数を使って、結果をもっと便利な型に変換します。
+さて、`String~Int` という型は一体何でしょうか？これは **Anorm** で定義されている型で、データベースアクセスに関するコード以外での利用には適していません。例えば、`(String, Int)` のような単純なタプルをパースしたいことが多いでしょう。そのためには、 `RowParser` の `map` 関数を使って、結果をもっと便利な型に変換します。
 
 ```scala
 str("name") ~ int("population") map { case n~p => (n,p) }
@@ -561,7 +561,7 @@ def spokenLanguages(countryCode: String): Option[SpokenLanguages] = {
 <!--
 If you try this on the world sample database, you will get:
 -->
-これを world サンプルデータベースに対して実行すると、次のうような結果が得られます。
+これを world サンプルデータベースに対して実行すると、次のような結果が得られます。
 
 ```
 $ spokenLanguages("FRA")
@@ -575,4 +575,4 @@ $ spokenLanguages("FRA")
 <!--
 > **Next:** [[Integrating with other database access libraries | ScalaDatabaseOthers]]
 -->
-> **次ページ:** [[データベースアクセスライブラリとの利用 | ScalaDatabaseOthers]]
+> **次ページ:** [[データベースアクセスライブラリの利用 | ScalaDatabaseOthers]]
