@@ -136,4 +136,4 @@ Akka.system.scheduler.scheduleOnce(10 seconds) {
 <!--
 > **Next:** [[Internationalization | ScalaI18N]]
 -->
-> **次ページ:** [[国際化 | ScalaI18N]]
+> **次ページ:** [[多言語対応 | ScalaI18N]]
