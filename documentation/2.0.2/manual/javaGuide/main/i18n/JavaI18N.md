@@ -2,7 +2,7 @@
 <!--
 # Externalising messages and internationalization
 -->
-# メッセージの外部ファイル化と多言語化
+# メッセージの外部ファイル化と多言語対応
 
 <!--
 ## Specifying languages supported by your application
@@ -26,23 +26,22 @@ application.langs=en,en-US,fr
 <!--
 ## Externalizing messages
 -->
-## メッセージを外部ファイル化する
+## メッセージの外部ファイル化
 
 <!--
 You can externalize messages in the `conf/messages.xxx` files. 
 -->
-メッセージは `conf/messages.xxx` というファイルに外部化することができます。
+メッセージは `conf/messages.xxx` のようなファイルに外部化することができます。
 
 <!--
 The default `conf/messages` file matches all languages. You can specify additional language messages files, such as `conf/messages.fr` or `conf/messages.en-US`.
 -->
-`conf/messages` ファイルは全ての言語で使われるデフォルトのメッセージです。それに加えて、`conf/messages.fr` や `conf/messages.en-US` のように対応言語ごとにメッセージファイルを指定することができます。
+デフォルトの `conf/messages` というファイルは、全ての言語にマッチします。このファイルに加えて `conf/messages.fr` や `conf/messages.en-US` のように言語ごとのメッセージファイルを指定することができます。
 
 <!--
 You can retrieve messages for the current language using the `play.i18n.Messages` object:
 -->
-(HTTP リクエストの Accept-Language ヘッダで指定された) 現在の言語向けのメッセージを取得するためには、 `play.i18n.Messages` オブジェクトを利用します。
-
+現在の言語向けのメッセージは、`play.i18n.Messages`オブジェクトから取得することができます。
 
 ```
 String title = Messages.get("home.title")
@@ -61,17 +60,17 @@ String title = Messages.get(new Lang("fr"), "home.title")
 <!--
 > **Note:** If you have a `Request` in the scope, it will provide a default `Lang` value corresponding to the preferred language extracted from the `Accept-Language` header and matching one the application’s supported languages.
 -->
-> **ノート:** スコープ内に `Request` がある場合、そこからデフォルトの `Lang` 値が提供される仕組みになっています。デフォルトの `Lang` は、リクエストの `Accept-Language` ヘッダで優先的に指定されていて、かつアプリケーションが対応している言語です。
+> **ノート:** `Request` がスコープ内に存在する場合は、その `Accept-Language` ヘッダとアプリケーションの対応言語を考慮した上で適切な言語が決定されて、デフォルトの `Lang` 値として提供されます。
 
 <!--
 ## Formatting messages
 -->
-## メッセージをフォーマットする
+## メッセージのフォーマット
 
 <!--
 Messages can be formatted using the `java.text.MessageFormat` library. For example, if you have defined a message like this:
 -->
-メッセージは `java.text.MessageFormat` ライブラリを使ってフォーマットすることができます。例えば、次のようなメッセージを定義したとします。
+メッセージは `java.text.MessageFormat` ライブラリを使ってフォーマットされます。例えば、次のようなメッセージが定義されているとしましょう。
 
 ```
 files.summary=The disk {1} contains {0} file(s).
@@ -94,7 +93,7 @@ Messages.get("files.summary", d.files.length, d.name)
 <!--
 You can retrieve a specific HTTP request’s supported languages:
 -->
-HTTP リクエストで指定されている、クライアント側の対応言語を取得することもできます。
+HTTP リクエストから対応言語を取得することができます。
 
 ```
 public static Result index() {
@@ -105,4 +104,4 @@ public static Result index() {
 <!--
 > **Next:** [[The application Global object | JavaGlobal]]
 -->
-> **次ページ:** [[アプリケーションのグローバルオブジェクト | JavaGlobal]]
+> **次ページ:** [[Global オブジェクト | JavaGlobal]]
