@@ -7,7 +7,7 @@
 <!--
 OpenID is a protocol for users to access several services with a single account. As a web developer, you can use OpenID to offer users a way to login with an account they already have (their [[Google account | http://code.google.com/apis/accounts/docs/OpenID.html]] for example). In the enterprise, you can use OpenID to connect to a company's SSO server if it supports it.
 -->
-OpenID はユーザが単一のアカウントで複数のサービスにアクセスできるようにするためのプロトコルです。 Web 開発者としては、 OpenID を使うことで、ユーザが別のサーボスで既に作成してあるアカウント (例えば [[Google アカウント | http://code.google.com/apis/accounts/docs/OpenID.html]]) であなたの Web アプリケーションにログインできるようになります。エンタープライズ向けには、企業の SSO サーバに接続するために OpenID を使うといったことも考えられます。
+OpenID はユーザが単一のアカウントで複数のサービスにアクセスできるようにするためのプロトコルです。 Web 開発者としては、 OpenID を使うことで、ユーザが別のサービスで既に作成してあるアカウント (例えば [[Google アカウント | http://code.google.com/apis/accounts/docs/OpenID.html]]) であなたの Web アプリケーションにログインできるようになります。エンタープライズ向けには、企業の SSO サーバに接続するために OpenID を使うといったことも考えられます。
   
 <!--
 ## The OpenID flow in a nutshell  
@@ -19,15 +19,16 @@ OpenID はユーザが単一のアカウントで複数のサービスにアク�
 2. Your server inspect the content behind the URL to produce a URL where you need to redirect the user
 3. The user validates the authorization on his OpenID provider, and gets redirected back to your server
 4. Your server receives information from that redirect, and check with the provider that the information is correct
+-->
+1. ユーザが OpenID (ある URL) を提供します。
+2. アプリケーションサーバが URL の示すコンテンツを検証し、ユーザのリダイレクト先 URL を生成します。
+3. ユーザが OpenID プロバイダのサイトにて認可情報を確認し、アプリケーションサーバに再度リダイレクトされます。
+4. アプリケーションサーバがリダイレクトから認可情報を取得して、その情報が正しいことをプロバイダに確認します。
 
+<!--
 The step 1. may be omitted if all your users are using the same OpenID provider (for example if you decide to rely completely on Google accounts).  
 -->
-1. ユーザが OpenID (特定のURL) を提供する
-2. アプリケーションサーバが URL の裏にあるコンテンツを調べて、ユーザのリダイレクト先 URL を生成する
-3. ユーザが OpenID プロバイダのサイトにおいて、アプリケーションを認可する。そして、アプリケーションサーバにリダイレクトされる
-4. アプリケーションサーバがリダイレクトから認可情報を取得して、その情報が正しいかどうかをプロバイダに確認する
-
-すべてのユーザが同じ OpenID プロバイダ (例えば、 Google アカウントによってのみログインできるようにする場合) ステップ1は省略できます。
+すべてのユーザが同じ OpenID プロバイダを使う場合 (例えば Google アカウントにのみ依存すると決断した場合) 、ステップ 1 を省略することができます。
 
 <!--
 ## OpenID in Play Framework

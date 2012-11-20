@@ -7,12 +7,12 @@
 <!--
 OpenID is a protocol for users to access several services with a single account. As a web developer, you can use OpenID to offer users a way to log in using an account they already have, such as their [[Google account | http://code.google.com/apis/accounts/docs/OpenID.html]]. In the enterprise, you may be able to use OpenID to connect to a company’s SSO server.
 -->
-OpenID は ユーザに単一アカウントで複数のサービスを利用させるためのプロトコルです。web 開発者から見ると、OpenID は利用者に対して [[Google アカウント | http://code.google.com/apis/accounts/docs/OpenID.html]] などの既存のアカウントでログインするための方法を提供するために使えます。企業向けサービスの場合は、企業の SSO サーバへ接続するために OpenID を利用したりします。
+OpenID はユーザが単一のアカウントで複数のサービスにアクセスできるようにするためのプロトコルです。 Web 開発者としては、 OpenID を使うことで、ユーザが別のサービスで既に作成してあるアカウント (例えば [[Google アカウント | http://code.google.com/apis/accounts/docs/OpenID.html]]) であなたの Web アプリケーションにログインできるようになります。エンタープライズ向けには、企業の SSO サーバに接続するために OpenID を使うといったことも考えられます。
 
 <!--
 ## The OpenID flow in a nutshell
 -->
-## OpenID の概要
+## OpenID のフロー概要
 
 <!--
 1. The user gives you his OpenID (a URL).
@@ -20,15 +20,15 @@ OpenID は ユーザに単一アカウントで複数のサービスを利用さ
 3. The user confirms the authorization on his OpenID provider, and gets redirected back to your server.
 4. Your server receives information from that redirect, and checks with the provider that the information is correct.
 -->
-1. 利用者が web サービスに対して OpenID (とある URL) を渡します。
-2. サーバが URL が指示するコンテンツを検証して、ユーザをある URL へリダイレクトさせます。
-3. 利用者が OpenID Provider のサイト上で認可を行います。認可後、利用者はあなたのサーバへリダイレクトされて戻ってきます。
-4. サーバがリダイレクト時のパラメータから認可情報を取得します。サーバは認可情報が正しいかどうかをチェックします。
+1. ユーザが OpenID (ある URL) を提供します。
+2. アプリケーションサーバが URL の示すコンテンツを検証し、ユーザのリダイレクト先 URL を生成します。
+3. ユーザが OpenID プロバイダのサイトにて認可情報を確認し、アプリケーションサーバに再度リダイレクトされます。
+4. アプリケーションサーバがリダイレクトから認可情報を取得して、その情報が正しいことをプロバイダに確認します。
 
 <!--
 Step 1 may be omitted if all your users are using the same OpenID provider (for example if you decide to rely completely on Google accounts).
 -->
-全ての利用者が同じ OpenID プロバイダーを使うような場合(例えば、あなたのサイトは Google アカウントの OpenID にだけ対応する、というように決め打ちした場合)、ステップ 1 を省略することができます。
+すべてのユーザが同じ OpenID プロバイダを使う場合 (例えば Google アカウントにのみ依存すると決断した場合) 、ステップ 1 を省略することができます。
 
 <!--
 ## OpenID in Play
@@ -38,7 +38,7 @@ Step 1 may be omitted if all your users are using the same OpenID provider (for 
 <!--
 The OpenID API has two important functions:
 -->
-Play の OpenID API には重要な関数が二つあります。
+OpenID API には特に重要な関数が二つあります。
 
 <!--
 * `OpenID.redirectURL` calculates the URL where you should redirect the user. It involves fetching the user's OpenID page, this is why it returns a `Promise[String]` rather than a `String`. If the OpenID is invalid, the returned `Promise` will be a `Thrown`.
@@ -50,7 +50,7 @@ Play の OpenID API には重要な関数が二つあります。
 <!--
 In any case, when the `Promise` you get is a `Thrown`, you should look at the `Throwable` and redirect back the user to the login page with relevant information.
 -->
-とにかく、`Promise` の中身が　`Thrown` であった場合、実際にどんな `Throwable` が投げられたのかを調べて、エラー情報などと共にユーザを再度ログインページへリダイレクトさせるべきです。
+いずれの場合でも、`Promise` の中身が　`Thrown` であった場合、実際にどんな `Throwable` が投げられたのかを調べて、エラー情報などと共にユーザを再度ログインページへリダイレクトさせるべきです。
 
 <!--
 Here is an example of usage (from a controller):
@@ -101,17 +101,17 @@ def openIDCallback = Action { implicit request =>
 <!--
 The OpenID of a user gives you his identity. The protocol also supports getting [[extended attributes | http://openid.net/specs/openid-attribute-exchange-1_0.html]] such as the e-mail address, the first name, or the last name.
 -->
-OpenID は利用者を一意に識別する ID になります。その他に、 OpenID プロトコルでは ID 以外の情報、例えばメールアドレスや氏名のような [[拡張属性 | http://openid.net/specs/openid-attribute-exchange-1_0.html]] を取得する方法も規定されています。
+OpenID はユーザの同一性を確かめるために利用することができます。それ以外にメールアドレスや名前、苗字などの取得のために [[拡張属性 | http://openid.net/specs/openid-attribute-exchange-1_0.html]] というものもサポートされています。
 
 <!--
 You may request *optional* attributes and/or *required* attributes from the OpenID server. Asking for required attributes means the user cannot login to your service if he doesn’t provides them.
 -->
-サーバは任意の *optional* 属性や、必須の *required* 属性を OpenID サーバに要求することができます。必須な属性を指定するということは、ユーザはその属性を提供しない限りあなたのサービスにログインできない、ということになります。
+OpenID サーバに対しては、*任意* および *必須* の属性のどちらか一方または両方をリクエストすることができます。必須の属性を要求するということは、ユーザがその情報を提供しないかぎり、あなたのサービスへログインできないことを意味します。
 
 <!--
 Extended attributes are requested in the redirect URL:
 -->
-拡張属性はリダイレクト URL を介して要求できます。
+拡張属性はリダイレクト URL の中でリクエストされます。
 
 ```scala
 OpenID.redirectURL(
@@ -124,7 +124,7 @@ OpenID.redirectURL(
 <!--
 Attributes will then be available in the `UserInfo` provided by the OpenID server.
 -->
-すると、拡張属性は OpenID サーバが提供した `UserInfo` から取得できるようになります。
+リクエストした属性は OpenID サーバから返却された `UserInfo` より取得することができます。
 
 <!--
 > **Next:** [[OAuth | ScalaOAuth]]
