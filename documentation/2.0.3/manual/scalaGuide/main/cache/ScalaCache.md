@@ -71,7 +71,7 @@ You can easily create smart cached actions using standard Action composition.
 <!--
 Play provides a default built-in helper for standard cases:
 -->
-Play は一般的なな状況のためにデフォルトの組み込みヘルパを提供しています:
+Play は一般的な状況のためにデフォルトの組み込みヘルパを提供しています:
 
 ```
 def index = Cached("homePage") {
@@ -80,7 +80,9 @@ def index = Cached("homePage") {
   }
 }
 ```
-
+<!--
+Or even:
+-->
 こんなこともできます:
 
 ```
