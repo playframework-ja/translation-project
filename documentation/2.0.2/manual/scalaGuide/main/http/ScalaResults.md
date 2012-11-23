@@ -125,7 +125,7 @@ Ok("Hello world").discardingCookies("theme")
 <!--
 For text based HTTP response it is very important to handle the charset correctly. Play handles that for you and uses `utf-8` by default.
 -->
-テキストベースの HTTP レスポンスについては、charset を適切に処理することがとても重要です。Play は `utf-8` をデフォルトの charset として処理を行います。
+テキストベースの HTTP レスポンスについては、charset を適切に処理することがとても重要です。Play はデフォルトで `utf-8` を使い、この処理を行います。
 
 <!--
 The charset is used to both convert the text response to the corresponding bytes to send over the network socket, and to alterate the `Content-Type` header with the proper `;charset=xxx` extension.

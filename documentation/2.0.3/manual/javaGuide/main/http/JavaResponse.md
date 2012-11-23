@@ -118,17 +118,17 @@ response().discardCookies("theme");
 <!--
 For a text-based HTTP response it is very important to handle the character encoding correctly. Play handles that for you and uses `utf-8` by default.
 -->
-テキストベースの HTTP レスポンスについては、文字コードを適切に処理することがとても重要です。Play は `utf-8` をデフォルトの文字コードとして処理を行います。
+テキストベースの HTTP レスポンスについては、文字エンコーディングを適切に処理することがとても重要です。Play はデフォルトで `utf-8` を使い、この処理を行います。
 
 <!--
 The encoding is used to both convert the text response to the corresponding bytes to send over the network socket, and to add the proper `;charset=xxx` extension to the `Content-Type` header.
 -->
-文字コードはテキストベースのレスポンスをバイトデータに変換してネットワークソケット経由で送信できるようにしたり、`Content-Type` ヘッダに適切な `;charset=xxx` を付与するために利用されます。
+文字エンコーディングはテキストベースのレスポンスをバイトデータに変換してネットワークソケット経由で送信できるようにしたり、`Content-Type` ヘッダに適切な `;charset=xxx` を付与するために利用されます。
 
 <!--
 The encoding can be specified when you are generating the `Result` value:
 -->
-文字コードは `Result` の値を生成する時に指定できます。
+文字エンコーディングは `Result` の値を生成する時に指定できます。
 
 ```
 public static Result index() {
@@ -140,4 +140,4 @@ public static Result index() {
 <!--
 > **Next:** [[Session and Flash scopes | JavaSessionFlash]]
 -->
-> **次ページ:** [[セッションと Flash スコープ | JavaSessionFlash]]
+> **次ページ:** [[セッションとフラッシュスコープ | JavaSessionFlash]]
