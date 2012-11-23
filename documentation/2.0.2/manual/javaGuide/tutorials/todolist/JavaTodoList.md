@@ -786,6 +786,3 @@ It’s started, you can now open it in your browser.
 > Your first application is now up and running in production!
 -->
 > あなたの初めてのアプリケーションがアップロードされ、稼働しています!
-
-
-

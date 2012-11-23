@@ -51,7 +51,7 @@ $ play new todolist
 <!--
 It will prompt you for a few questions. Select the _Create a simple Scala application_ project template.
 -->
-いくつかの選択肢からアプリケーションを選択するように指示されます。 _Create a simple Scala application_ プロジェクトのテンプレートを選択しましょう。
+いくつかの質問が表示されます。 _Create a simple Scala application_ プロジェクトのテンプレートを選択しましょう。
 
 [[images/new.png]]
 
