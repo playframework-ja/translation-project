@@ -7,17 +7,17 @@
 <!--
 Test source files must be placed in your application’s `test` folder. You can run them from the Play console using the `test` and `test-only` tasks.
 -->
-テストのソースファイルを `test` フォルダに置いて、 Play コンソールで `test` や `test-only` タスクを実行すると、テストを実行することができます。
+テストのソースファイルは `test` フォルダに配置します。 Play コンソールで `test` や `test-only` タスクを実行すると、テストを実行することができます。
 
 <!--
 ## Using specs2
 -->
-## specs2 の利用方法
+## specs2 を使う
 
 <!--
 The default way to test a Play 2 application is by using [[specs2| http://etorreborre.github.com/specs2/]].
 -->
-Play 2 アプリケーションのデフォルトのテストフレームワークは [[specs2| http://etorreborre.github.com/specs2/]] です。
+Play 2 アプリケーションのテストは、デフォルトで [[specs2| http://etorreborre.github.com/specs2/]] を使います。
 
 <!--
 Unit specifications extend the `org.specs2.mutable.Specification` trait and are using the should/in format:
@@ -49,12 +49,12 @@ class HelloWorldSpec extends Specification {
 <!--
 ## Running in a fake application
 -->
-## フェイクアプリケーションの起動
+## フェイクアプリケーション上で実行する
 
 <!--
 If the code you want to test depends of a running application, you can easily create a `FakeApplication` on the fly:
 -->
-起動中のアプリケーションの依存するコードをテストする場合は、 `FakeApplication` を利用するとよいでしょう。
+起動中のアプリケーションの依存するコードをテストする場合は、簡単に `FakeApplication` を利用することができます。
 
 ```scala
 "Computer model" should {
@@ -75,7 +75,7 @@ If the code you want to test depends of a running application, you can easily cr
 <!--
 You can also pass (or override) additional configuration to the fake application, or mock any plug-in. For example to create a `FakeApplication` using a `default` in memory database:
 -->
-このフェイクアプリケーションに対して追加の設定値を渡す (または上書きする) したり、プラグインをモックすることも可能です。例えば、 `default` という名前の インメモリデータベースに接続された `FakeApplication` を起動する場合は、次のように書きます。
+このフェイクアプリケーションに対して設定値を追加 (または上書き) したり、プラグインをモックすることも可能です。例えば、 `default` という名前の インメモリデータベースに接続された `FakeApplication` を起動する場合は、次のように書きます。
 
 ```scala
 FakeApplication(additionalConfiguration = inMemoryDatabase())
