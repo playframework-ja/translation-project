@@ -12,12 +12,12 @@
 <!--
 The router is the component that translates each incoming HTTP request to an action call (a static, public method in a controller class).
 -->
-「ルータ」はクライアントから受け取った HTTP リクエストをアクション呼び出し (コントローラクラス内の static かつ public なメソッド) へ変換するコンポーネントです。
+ルータ、はクライアントから受け取った HTTP リクエストをアクション (コントローラクラス内の static かつ public なメソッド) の呼び出しへ変換するコンポーネントです。
 
 <!--
 An HTTP request is seen as an event by the MVC framework. This event contains two major pieces of information:
 -->
-HTTP リクエストは MVC フレームワークにとって「イベント」であるといえます。このイベントには大きく分けて次の二つの情報が含まれています。
+HTTP リクエストは MVC フレームワークにとってイベントであるといえます。このイベントには大きく分けて次の二つの情報が含まれています。
 
 <!--
 - the request path (such as `/clients/1542`, `/photos/list`), including the query string.
@@ -228,7 +228,7 @@ public static Result show(String page) {
 <!--
 For parameters of type `String`, the parameter type is optional. If you want Play to transform the incoming parameter into a specific Scala type, you can add an explicit type:
 -->
-`String` 型の引数の場合、型は記述しても、しなくても OK です。リクエストパラメータを特定の型に変換したいときは、型を明示することができます。
+`String` 型の引数の場合、型の記述はオプションです。リクエストパラメータを特定の Scala 型に変換したいときは、明示的に型を追記することができます。
 
 ```
 GET   /client/:id           controllers.Clients.show(id: Long)
@@ -305,7 +305,7 @@ Java コード中で URL を生成するためにルータを使うことがで�
 <!--
 For each controller used in the routes file, the router will generate a ‘reverse controller’ in the `routes` package, having the same action methods, with the same signature, but returning a `play.mvc.Call` instead of a `play.mvc.Result`. 
 -->
-ルータは、routes ファイルから利用された全てのコントローラについて、`routes` パッケージ以下に「リバースコントローラ」を生成します。リバースコントローラは元になったコントローラと同じシグネチャで、`play.mvc.Result` の代わりに `play.mvc.Call` を返すようなメソッドを持っています。
+ルータは、routes ファイルから利用された全てのコントローラについて、`routes` パッケージ以下に `リバースコントローラ` を生成します。リバースコントローラは元になったコントローラと同じシグネチャで、`play.mvc.Result` の代わりに `play.mvc.Call` を返すようなメソッドを持っています。
 
 <!--
 The `play.mvc.Call` defines an HTTP call, and provides both the HTTP method and the URI.

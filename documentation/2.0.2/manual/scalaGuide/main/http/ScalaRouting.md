@@ -41,7 +41,7 @@ Routes are defined in the `conf/routes` file, which is compiled. This means that
 <!--
 `conf/routes` is the configuration file used by the router. This file lists all of the routes needed by the application. Each route consists of an HTTP method and URI pattern, both associated with a call to an `Action` generator.
 -->
-`conf/routes` はルータによって読み込まれる設定ファイルです。このファイルには、アプリケーションが必要とする全てのルートをリストアップします。それぞれのルートは、HTTP メソッドと URI パターン、そしてその二つに割り当てられたアクションジェネレータの呼び出しで表します。
+`conf/routes` はルータによって読み込まれる設定ファイルです。このファイルには、アプリケーションが必要とする全てのルートをリストアップします。それぞれのルートは、HTTP メソッドと URI パターン、そしてその二つに割り当てられた `Action` ジェネレータの呼び出しで表します。
 
 <!--
 Let’s see what a route definition looks like:
@@ -222,7 +222,7 @@ def show(page: String) = Action {
 <!--
 For parameters of type `String`, typing the parameter is optional. If you want Play to transform the incoming parameter into a specific Scala type, you can explicitly type the parameter:
 -->
-`String` 型の引数の場合、型の記述はオプションです。リクエストパラメータを特定の型に変換したいときは、型を明示することができます。
+`String` 型の引数の場合、型の記述はオプションです。リクエストパラメータを特定の Scala 型に変換したいときは、型を明示することができます。
 
 ```
 GET   /client/:id           controllers.Clients.show(id: Long)
@@ -295,7 +295,7 @@ Scala コード中で URL を生成するためにルータを使うこともで
 <!--
 For each controller used in the routes file, the router will generate a ‘reverse controller’ in the `routes` package, having the same action methods, with the same signature, but returning a `play.api.mvc.Call` instead of a `play.api.mvc.Action`. 
 -->
-ルータは、routes ファイルから利用された全てのコントローラについて、`routes` パッケージ以下にリバースコントローラを生成します。リバースコントローラは元になったコントローラと同じシグネチャで、`play.api.mvc.Result` の代わりに `play.api.mvc.Call` を返すようなメソッドを持っています。
+ルータは、routes ファイルから利用された全てのコントローラについて、`routes` パッケージ以下に `リバースコントローラ` を生成します。リバースコントローラは元になったコントローラと同じシグネチャで、`play.api.mvc.Result` の代わりに `play.api.mvc.Call` を返すようなメソッドを持っています。
 
 <!--
 The `play.api.mvc.Call` defines an HTTP call, and provides both the HTTP method and the URI.
