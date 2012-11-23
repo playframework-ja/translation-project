@@ -12,7 +12,7 @@
 <!--
 Since a template is a standard Scala function, you can execute it from your test, and check the result:
 -->
-テンプレートは単なる Scala の関数なので、テストから呼び出して、結果をチェックすることができます。
+テンプレートは単なる Scala の関数なので、テストから呼び出して結果をチェックすることができます。
 
 ```scala
 "render index template" in {
@@ -52,7 +52,7 @@ You can call any `Action` code by providing a `FakeRequest`:
 <!--
 Instead of calling the `Action` yourself, you can let the `Router` do it:
 -->
-`Action` の呼び出しを自分で直接的に行う代わりに、 `Router` にまかせることができます。
+`Action` を自分で呼び出す代わりに、 `Router` に任せることもできます。
 
 ```scala
 "respond to the index Action" in {
@@ -68,7 +68,7 @@ Instead of calling the `Action` yourself, you can let the `Router` do it:
 <!--
 ## Starting a real HTTP server
 -->
-## テストにおいて HTTP サーバを起動する
+## 実際に HTTP サーバを起動する
 
 <!--
 Sometimes you want to test the real HTTP stack from with your test, in which case you can start a test server:
@@ -88,12 +88,12 @@ Sometimes you want to test the real HTTP stack from with your test, in which cas
 <!--
 ## Testing from within a Web browser.
 -->
-## Web ブラウザ内からテストする
+## Web ブラウザからテストする
 
 <!--
 If you want to test your application using a browser, you can use [[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]]. Play will start the WebDriver for your, and wrap it in the convenient API provided by [[FluentLenium|https://github.com/FluentLenium/FluentLenium]].
 -->
-ブラウザを通してアプリケーションをテストしたい場合、 [[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]] を使うとよいでしょう。次のように書くと、Play が WebDriver を起動した上で、 [[FluentLenium|https://github.com/FluentLenium/FluentLenium]] が提供する便利な API にラップしてくれます。
+ブラウザを通してアプリケーションをテストしたい場合、 [[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]] を使うことができます。Play は WebDriver を起動した上で、 [[FluentLenium|https://github.com/FluentLenium/FluentLenium]] が提供する便利な API にラップします。
 
 ```scala
 "run in a browser" in {

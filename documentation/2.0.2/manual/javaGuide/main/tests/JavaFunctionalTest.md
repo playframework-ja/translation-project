@@ -7,12 +7,12 @@
 <!--
 ## Testing a template
 -->
-## テンプレートをテストする
+## テンプレートのテスト
 
 <!--
 As a template is a standard Scala function, you can execute it from a test and check the result:
 -->
-テンプレートは単なる Scala の関数なので、テストから実行して結果をチェックすることができます。
+テンプレートは単なる Scala の関数なので、テストから呼び出して結果をチェックすることができます。
 
 ```
 @Test
@@ -26,7 +26,7 @@ public void renderTemplate() {
 <!--
 ## Testing your controllers
 -->
-## コントローラをテストする
+## コントローラのテスト
 
 <!--
 You can also retrieve an action reference from the reverse router, such as `controllers.routes.ref.Application.index`. You can then invoke it:
@@ -49,7 +49,7 @@ public void callIndex() {
 <!--
 ## Testing the router
 -->
-## ルータをテストする
+## ルータのテスト
 
 <!--
 Instead of calling the `Action` yourself, you can let the `Router` do it:
@@ -72,7 +72,7 @@ public void badRoute() {
 <!--
 Sometimes you want to test the real HTTP stack from with your test. You can do this by starting a test server:
 -->
-実際の HTTP スタックを通したテストを記述したい場合もあります。その場合は、次のようにテストサーバを起動するとよいでしょう。
+実際の HTTP スタックを通したテストを記述したい場合もあります。その場合は、次のようにテストサーバを起動することができます。
 
 ```
 @Test
@@ -95,7 +95,7 @@ public void testInServer() {
 <!--
 If you want to test your application from with a Web browser, you can use [[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]]. Play will start the WebDriver for your, and wrap it in the convenient API provided by [[FluentLenium|https://github.com/FluentLenium/FluentLenium]].
 -->
-アプリケーションを Web ブラウザを通してテストしたい場合、[[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]] を使うとよいでしょう。Play が WebDriver を初期化した上で、 [[FluentLenium|https://github.com/FluentLenium/FluentLenium]] が提供する便利な API にラップしてくれます。
+Web ブラウザを通してアプリケーションをテストしたい場合、[[Selenium WebDriver| http://code.google.com/p/selenium/?redir=1]] を使うことができます。Play は WebDriver を初期化した上で、 [[FluentLenium|https://github.com/FluentLenium/FluentLenium]] が提供する便利な API にラップします。
 
 ```
 @Test
