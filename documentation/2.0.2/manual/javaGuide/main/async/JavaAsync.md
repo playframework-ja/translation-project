@@ -2,42 +2,42 @@
 <!--
 # Handling asynchronous results
 -->
-# 非同期な結果の処理
+# 非同期レスポンスの処理
 
 <!--
 ## Why asynchronous results?
 -->
-## 非同期な結果はなぜ必要？
+## 非同期レスポンスはなぜ必要か?
 
 <!--
 Until now, we were able to compute the result to send to the web client directly. This is not always the case: the result may depend of an expensive computation or on a long web service call.
 -->
-これまでは、 web クライアントへ送信する結果を即座に計算することができました。しかし、常にそれが可能なわけではありません。例えば、結果が非常に時間のかかる計算や web サービス呼び出しに依存している場合はどうでしょうか。
+これまでは、web クライアントに送信するレスポンスをすぐに生成できることとしていました。しかし、常にこのような場合だけではありません。レスポンスは、高価な計算や長い web サービスの呼び出しに依存するかもしれません。
 
 <!--
 Because of the way Play 2.0 works, action code must be as fast as possible (i.e. non blocking). So what should we return as result if we are not yet able to compute it? The response should be a promise of a result!
 -->
-Play 2.0 の仕組み上、アクションのコードの実行は可能な限り高速で（つまり、ノンブロッキングで）なければなりません。だとすると、すぐに結果を計算できないときは、いったい何を返せばよいのでしょうか？その答えは、「結果の約束 (Promise) 」です！
+Play 2.0 の仕組み上、アクションの実行は可能な限り早く (言い換えると、ノンブロッキングに)  完了しなければなりません。では、レスポンスがまだ生成可能でないときに、一体何を返すべきでしょうか? それは、レスポンスの約束 (promise) です!
 
 <!--
 A `Promise<Result>` will eventually be redeemed with a value of type `Result`. By giving a `Promise<Result>` instead of a normal `Result`, we are able to compute the result quickly without blocking anything. Play will then serve this result as soon as the promise is redeemed. 
 -->
-`Promise<Result>` という「約束」は、最終的に `Result` 型の値によって「果たされ」ます。通常の `Result` のかわりに `Promise<Result>` を返すことで、何もブロックせずに即座に結果を返すことができます。Play は後に Promise が果たされたときに、内包された結果を自動的にクライアントへ送信します。
+`Promise<Result>` という約束は、最終的に `Result` 型の値によって果たされます。通常の `Result` のかわりに `Promise<Result>` を返すことで、何もブロックせずに即座に結果を返すことができます。Play は後に Promise が果たされたときに、内包された結果を自動的にクライアントへ送信します。
 
 <!--
 The web client will be blocked while waiting for the response but nothing will be blocked on the server, and server resources can be used to serve other clients.
 -->
-このとき、Webクライアントはレスポンスを待っている間ブロックされますが、サーバ側では何もブロックされていません。つまり、その間サーバ側のリソースは別のクライアントとやり取りするために利用することができます。
+web クライアントはレスポンスを待っている間ずっとブロックされますが、その間でもサーバ側の処理は全くブロックされないため、計算リソースを他のクライアントのために使うことができます。
 
 <!--
 ## How to create a `Promise<Result>`
 -->
-## `Promise<Result>` を作成する
+## `Promise<Result>` の生成
 
 <!--
 To create a `Promise<Result>` we need another promise first: the promise that will give us the actual value we need to compute the result:  
 -->
-`Promise<Result>` を作成するには、まず別の `Promise` が必要です。その Promise とは、結果を計算するために必要な入力となる値を提供してくれる Promise のことです。
+`Promise<Result>` を生成するためには、元となる `Promise`、つまり結果を計算するために必要な値についての Promise が先に必要になります。
 
 ```
 Promise<Double> promiseOfPIValue = computePIAsynchronously();
@@ -58,12 +58,12 @@ Promise<Result> promiseOfResult = promiseOfPIValue.map(
 <!--
 Play 2.0 asynchronous API methods give you a `Promise`. This is the case when you are calling an external web service using the `play.libs.WS` API, or if you are using Akka to schedule asynchronous tasks or to communicate with Actors using `play.libs.Akka`.
 -->
-Play 2.0 の非同期 API メソッドは結果として `Promise` を返します。例えば、 `play.libs.WS` API 経由で外部の web サービスを呼び出したり、 `play.libs.Akka` 経由で Akka を操ってタスクを予約したり、Actor と通信した結果は、全て `Promise` 型の値として返ってきます。
+Play 2.0 の非同期処理に関する API 呼び出しは `Promise` を返します。例えば、`play.libs.WS` API を使って外部の Web サービスを呼び出す場合や、`play.libs.Akka` API 経由で Akka を使った非同期タスクを実行したり、アクターと通信したりする場合がそうです。
 
 <!--
 A simple way to execute a block of code asynchronously and to get a `Promise` is to use the `play.libs.Akka` helpers:
 -->
-具体例として、コードブロックを非同期で実行して、`Promise` を結果として得るには、 `play.libs.Akka` ヘルパーを利用して次のコードを記述します。
+コードブロックを非同期で実行して `Promise` を得る簡単な方法は、`play.libs.Akka` ヘルパーを利用することです。
 
 ```
 Promise<Integer> promiseOfInt = Akka.future(
@@ -88,7 +88,7 @@ Promise<Integer> promiseOfInt = Akka.future(
 <!--
 While we were using `Results.Status` until now, to send an asynchronous result we need an `Results.AsyncResult` that wraps the actual result:
 -->
-非同期の結果を返すためには、これまで `Results.Status` を返していたところで、代わりに `Results.AsyncResult` によって結果をラップして返す必要があります。
+これまでは `Results.Status` を使ってきましたが、非同期な結果を送信するためには、結果をラップする `Results.AsyncResult` が必要です。
 
 ```
 public static Result index() {

@@ -17,7 +17,7 @@ If you have to keep data across multiple HTTP requests, you can save them in the
 <!--
 It’s important to understand that Session and Flash data are not stored in the server but are added to each subsequent HTTP Request, using Cookies. This means that the data size is very limited (up to 4 KB) and that you can only store string values.
 -->
-セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加される、ということはとても重要なのでぜひ覚えておいてください。これが何を意味するかというと、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということです。
+セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加されるということはとても重要です。このことは、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということを意味します。
 
 <!--
 Cookies are signed with a secret key so the client can’t modify the cookie data (or it will be invalidated). The Play session is not intended to be used as a cache. If you need to cache some data related to a specific session, you can use the Play built-in cache mechanism and use store a unique ID in the user session to associate the cached data with a specific user.
@@ -70,7 +70,7 @@ public static Result index() {
 <!--
 The same way, you can remove any value from the incoming session:
 -->
-同様に、セッションから任意の値を削除することができます。
+同じ方法で、受け取ったセッション中の値を削除することができます。
 
 ```
 public static Result index() {
