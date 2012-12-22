@@ -99,12 +99,12 @@ If you don't specify your own body parser, Play will use the default one guessin
 - **multipart/form-data**: `Http.MultipartFormData`, accessible via `asMultipartFormData()`
 - Any other content type: `Http.RawBuffer`, accessible via `asRaw()`
 -->
-- **text/plain**: `String`。`asText()` でアクセスできます。
-- **application/json**: `JsonNode`。`asJson()` でアクセスできます。
-- **text/xml**: `org.w3c.Document`。`asXml()` でアクセスできます。
-- **application/form-url-encoded**: `Map<String, String[]>`。`asFormUrlEncoded()` でアクセスできます。
-- **multipart/form-data**: `Http.MultipartFormData`。`asMultipartFormData()` でアクセスできます。
-- その他の Content-Type: `Http.RawBuffer`。`asRaw()`でアクセスできます。
+- **text/plain**: `String`。`asText()` でアクセスできます
+- **application/json**: `JsonNode`。`asJson()` でアクセスできます
+- **text/xml**: `org.w3c.Document`。`asXml()` でアクセスできます
+- **application/form-url-encoded**: `Map<String, String[]>`。`asFormUrlEncoded()` でアクセスできます
+- **multipart/form-data**: `Http.MultipartFormData`。`asMultipartFormData()` でアクセスできます
+- その他の Content-Type: `Http.RawBuffer`。`asRaw()`でアクセスできます
 
 <!--
 Example:
