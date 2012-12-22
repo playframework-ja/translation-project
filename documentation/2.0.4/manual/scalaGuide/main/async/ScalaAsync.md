@@ -22,7 +22,7 @@ Play 2.0 の仕組み上、アクションの実行は可能な限り早く (言
 <!--
 A `Promise[Result]` will eventually be redeemed with a value of type `Result`. By giving a `Promise[Result]` instead if a normal `Result`, we are able to quickly generate the result without blocking. Then, Play will serve this result as soon as the promise is redeemed. 
 -->
-`Promise[Result]` は、直訳すると「`Result` 型の値についての約束」で、「いつか `Result` 型の値が与えられたときに実行される計算」を意味しています。アクションで通常の `Result` の代わりに `Promise[Result]` を返すようにすると、その他の処理をブロックせず即座に結果を生成することができます。そして、Promise の値が実際に有効になったタイミングですぐに Play がレスポンスを生成・送信します。
+`Promise[Result]` という約束は、最終的に `Result` 型の値によって果たされます。通常の `Result` のかわりに `Promise[Result]` を返すことで、何もブロックせずに即座に結果を返すことができます。Play は後に Promise が果たされたときに、内包された結果を自動的にクライアントへ送信します。
 
 <!--
 The web client will be blocked while waiting for the response, but nothing will be blocked on the server, and server resources can be used to serve other clients.
@@ -65,12 +65,12 @@ val promiseOfInt: Promise[Int] = Akka.future {
 <!--
 > **Note:** Here, the intensive computation will just be run on another thread. It is also possible to run it remotely on a cluster of backend servers using Akka remote.
 -->
-> **注目:** この例における intensive computation (高コストな計算) は別スレッドで実行されます。Akka remote を利用して、この計算をバックエンドサーバのクラスタ上で実行させることもできます。
+> **ノート:** ここでは、非常に時間のかかる計算を別スレッドで実行しています。その他に、このような計算を Akka remote を利用してバックエンドサーバのクラスタ上で実行することもできます。
 
 <!--
 ## AsyncResult
 -->
-## AsyncResult (非同期な結果)
+## AsyncResult
 
 <!--
 While we were using `SimpleResult` until now, to send an asynchronous result, we need an `AsyncResult` to wrap the actual `SimpleResult`:
@@ -89,7 +89,7 @@ def index = Action {
 <!--
 > **Note:** `Async { }` is an helper method that builds an `AsyncResult` from a `Promise[Result]`.
 -->
-> **注目:** `Async { }` は `Promise[Result]` から `AsyncResult` を組み立てるヘルパーメソッドです。
+> **ノート:** `Async { }` は `Promise[Result]` から `AsyncResult` を作成するためのヘルパーメソッドです。
 
 <!--
 ## Handling time-outs
