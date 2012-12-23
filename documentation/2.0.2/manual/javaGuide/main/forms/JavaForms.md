@@ -12,7 +12,7 @@
 <!--
 The `play.data` package contains several helpers to handle HTTP form data submission and validation. The easiest way to handle a form submission is to define a `play.data.Form` that wraps an existing class:
 -->
-`play.data`パッケージにはHTTPフォームデータの送信およびバリデーションを行うヘルパーがいくつか含まれています。フォーム送信を実装する最も簡単な方法は、既存のクラスをラップする`play.data.Form`オブジェクトを定義することです。
+`play.data` パッケージには HTTP フォームデータの送信とバリデーションを行うヘルパがいくつか含まれています。フォーム送信を処理する最も簡単な方法は、既存のクラスをラップする `play.data.Form` オブジェクトを定義することです。
 
 ```java
 public class User {
@@ -27,12 +27,13 @@ Form<User> userForm = form(User.class);
 
 <!--
 > **Note:** The underlying binding is done using [[Spring data binder| http://static.springsource.org/spring/docs/3.0.7.RELEASE/reference/html/validation.html]].
+-->
+> **ノート:** 内部で行われる値のバインディングには [[Spring data binder| http://static.springsource.org/spring/docs/3.0.7.RELEASE/reference/html/validation.html]] が使われています。
 
+<!--
 This form can generate a `User` result value from `HashMap<String,String>` data:
 -->
-> **ノート:** 内部で行われる値のバインディングには[[Spring data binder| http://static.springsource.org/spring/docs/3.0.7.RELEASE/reference/html/validation.html]]が使われています。
-
-このフォームは`HashMap<String,String>`データから`User`の結果値を生成します。
+このフォームは `HashMap<String,String>` 型のデータから `User` の値を生成することができます。
 
 ```java
 Map<String,String> anyData = new HashMap();
@@ -54,12 +55,12 @@ User user = userForm.bindFromRequest().get();
 <!--
 ## Defining constraints
 -->
-## 制約を定義する
+## 制約の定義
 
 <!--
 You can define additional constraints that will be checked during the binding phase using JSR-303 (Bean Validation) annotations:
 -->
-JSR-303 (Bean バリデーション)を使って、バインディング時にチェックされる制約を追加することができます。
+JSR-303 (Bean バリデーション) アノテーションを使って、バインディング時にチェックされる制約を追加することができます。
 
 ```java
 public class User {
@@ -72,12 +73,13 @@ public class User {
 
 <!--
 > **Tip:** The `play.data.validation.Constraints` class contains several built-in validation annotations.
+-->
+> **Tip:** `play.data.validation.Constraints` クラスには組み込みのバリデーションアノテーションがいくつか含まれています。
 
+<!--
 You can also define an ad-hoc validation by adding a `validate` method to your top object:
 -->
-> **Tip:** `play.data.validation.Constraints`クラスには組み込みのバリデーションアノテーションがいくつか含まれています。
-
-トップオブジェクトに`validate`メソッドを追加することで、その場限りのバリデーションを定義することもできます。
+トップオブジェクトに `validate` メソッドを追加することで、アドホックなバリデーションを定義することもできます。
 
 ```java
 public class User {
@@ -98,12 +100,12 @@ public class User {
 <!--
 ## Handling binding failure
 -->
-## バインドエラーを処理する
+## バインドエラーの処理
 
 <!--
 Of course if you can define constraints, then you need to be able to handle the binding errors.
 -->
-制約を定義できるということは、バインドエラーを処理できる必要があります。
+バリデーションを定義するということは、一方でバインドエラーを処理しなければならないということです。
 
 ```java
 if(userForm.hasErrors()) {
@@ -117,12 +119,12 @@ if(userForm.hasErrors()) {
 <!--
 ## Filling a form with initial default values
 -->
-## フォームを初期値で埋める
+## フォームに初期値を設定する
 
 <!--
 Sometimes you’ll want to fill a form with existing values, typically for editing:
 -->
-編集などのために、フォームに予め値を埋めておきたい場合は以下のようにします。
+よくあるケースとして、編集などのためにフォームに予め値を設定したい場合は、以下のようにします。
 
 ```java
 userForm = userForm.fill(new User("bob@gmail.com", "secret"))
@@ -131,18 +133,18 @@ userForm = userForm.fill(new User("bob@gmail.com", "secret"))
 <!--
 > **Tip:** `Form` objects are immutable - calls to methods like `bind()` and `fill()` will return a new object filled with the new data.
 -->
-> **Tip:** `Form`オブジェクトはイミュータブルです。つまり、`bind()`や`fill()`などのメソッドを呼び出すと、新しいデータで埋められた新しいオブジェクトが返ります。
+> **Tip:** `Form` オブジェクトはイミュータブルです。つまり、`bind()` や `fill()` などのメソッドを呼び出すと、新しいデータで埋められた新しいオブジェクトが返ります。
 
 <!--
 ## Register a custom DataBinder
 -->
-## 独自のDataBinderを登録する
+## 独自の DataBinder を登録する
 
 <!--
 In case you want to define a mapping from a custom object to a form field string and vice versa you need to register a new Formatter for this object.
 For an object like JodaTime's `LocalTime` it could look like this:
 -->
-独自オブジェクトからフォームのフィールド、またはその逆方向のマッピングを定義したいときは、そのオブジェクトのために新たなフォーマッタを登録する必要があります。例えば、JodaTimeの`LocalTime`オブジェクトのためのフォーマッタを登録する場合は、次のようなコードになります。
+独自オブジェクトからフォームのフィールド、またはその逆方向のマッピングを定義したいときは、そのオブジェクトのために新たなフォーマッタを登録する必要があります。例えば、JodaTime の `LocalTime` オブジェクトのためのフォーマッタを登録する場合は、次のようなコードになります。
 
 ```java
 Formatters.register(LocalTime.class, new SimpleFormatter<LocalTime>() {

@@ -2,7 +2,7 @@
 <!--
 # Handling form submission
 -->
-# フォーム送信を扱う
+# フォームの送信
 
 <!--
 ## Defining a form
@@ -12,7 +12,7 @@
 <!--
 The `play.api.data` package contains several helpers to handle HTTP form data submission and validation. The easiest way to handle a form submission is to define a `play.api.data.Form` structure:
 -->
-`play.api.data` パッケージには HTTP フォームデータ送信とバリデーションに関するヘルパ関数がいくつか用意されています。フォーム送信を処理する最も簡単な方法は、`play.api.data.Form` を利用することです。
+`play.api.data` パッケージには HTTP フォームデータの送信とバリデーションを行うヘルパがいくつか含まれています。フォーム送信を処理する最も簡単な方法は、`play.api.data.Form` を定義することです。
 
 ```scala
 import play.api.data._
@@ -39,7 +39,7 @@ val (user, password) = loginForm.bind(anyData).get
 <!--
 If you have a request available in the scope, you can bind directly to it from the request content:
 -->
-このとき、スコープにリクエストが存在すれば、フォームをリクエストのボディから直接バインドすることができます。
+スコープ内にリクエストが存在する場合は、リクエストの内容から直接バインドすることができます。
 
 ```scala
 val (user, password) = loginForm.bindFromRequest.get
@@ -152,7 +152,7 @@ val userForm = Form(
 <!--
 You can also define ad-hoc constraints on the fields:
 -->
-フィールドにアドホックなバリデーションを追加することもできます。
+フィールドにアドホックなバリデーションを定義することもできます。
 
 ```scala
 val loginForm = Form(
@@ -190,7 +190,7 @@ loginForm.bindFromRequest.fold(
 <!--
 Sometimes you’ll want to populate a form with existing values, typically for editing data:
 -->
-よくあるケースとして、データ編集用のフォームを実現したいような場合に、フォームに予め値を設定しておくことができます。
+よくあるケースとして、編集などのためにフォームに予め値を設定したい場合は、以下のようにします。
 
 ```scala
 val filledForm = userForm.fill(User("Bob", 18))
@@ -309,7 +309,3 @@ Now you can mix optional, nested and repeated mappings any way you want to creat
 > **Next:** [[Using the form template helpers | ScalaFormHelpers]]
 -->
 > **次ページ:** [[フォームテンプレートヘルパーの利用 | ScalaFormHelpers]]
-
-
-
-
