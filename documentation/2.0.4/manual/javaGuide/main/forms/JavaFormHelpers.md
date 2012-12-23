@@ -12,7 +12,7 @@ Play には HTML テンプレート中にフォームやフィールドを生成
 <!--
 ## Creating a `<form>` tag
 -->
-## `<form>`タグを作成する
+## `<form>` タグの作成
 
 <!--
 The first helper creates the `<form>` tag. It is a pretty simple helper that automatically sets the `action` and `method` tag parameters according to the reverse route you pass in:
