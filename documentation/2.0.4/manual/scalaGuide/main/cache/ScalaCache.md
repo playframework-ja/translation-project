@@ -7,7 +7,7 @@
 <!--
 The default implementation of the Cache API uses [[EHCache| http://ehcache.org/]]. You can also provide your own implementation via a plug-in.
 -->
-キャッシュ API のデフォルト実装は [[EHCache| http://ehcache.org/]] を使用します。プラグインとして自身の実装を提供することもできます。
+キャッシュ API のデフォルト実装は [[EHCache| http://ehcache.org/]] を使用します。別の実装をプラグインとして提供することもできます。
 
 <!--
 ## Accessing the Cache API
@@ -17,12 +17,12 @@ The default implementation of the Cache API uses [[EHCache| http://ehcache.org/]
 <!--
 The cache API is provided by the `play.api.cache.Cache` object. It requires a registered cache plug-in.
 -->
-キャッシュ API は `play.api.cache.Cache` オブジェクトにより提供されています。このオブジェクトは登録されたキャッシュプラグインを必要とします。
+キャッシュ API は `play.api.cache.Cache` オブジェクトにより提供されています。このオブジェクトを利用するには、キャッシュプラグインの登録が必要です。
 
 <!--
 > **Note:** The API is intentionally minimal to allow several implementation to be plugged. If you need a more specific API, use the one provided by your Cache plugin.
 -->
-> **注意:** この API は複数の実装をプラグインできるよう、意図的に最小限に止められています。より特殊な API が必要な場合、自身のキャッシュプラグインにより提供される API を使用してください。
+> **注意:** この API は様々な実装をプラグインできるよう、意図的に最小限に抑えられています。より特殊な API が必要な場合、別のキャッシュプラグインにより提供される API を使用してください。
 
 <!--
 Using this simple API you can either store data in cache:
@@ -61,7 +61,7 @@ val user: User = Cache.getOrElseAs[User]("item.key") {
 <!--
 You can easily create smart cached actions using standard Action composition. 
 -->
-標準的なアクションの合成を使って、簡単にスマートなアクションのキャッシュを作ることができます。
+標準的なアクションの合成を使って、レスポンスをキャッシュするアクションを簡単に作成することができます。
 
 <!--
 > **Note:** Play HTTP `Result` instances are safe to cache and reuse later.
@@ -71,7 +71,7 @@ You can easily create smart cached actions using standard Action composition.
 <!--
 Play provides a default built-in helper for standard cases:
 -->
-Play は一般的な状況のためにデフォルトの組み込みヘルパを提供しています:
+Play は標準的に利用できるデフォルトの組み込みヘルパを提供しています。
 
 ```
 def index = Cached("homePage") {

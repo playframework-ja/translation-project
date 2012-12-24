@@ -28,7 +28,7 @@ The first thing is to be able to create the `<form>` tag. It is a pretty simple 
 <!--
 You can also pass an extra set of parameters that will be added to the generated Html:
 -->
-次のようにヘルパー関数へ追加のパラメータを渡すと、生成された form 要素にも反映されます。
+生成される HTML に追加されるその他のパラメータを渡すこともできます。
 
 ```
 @helper.form(action = routes.Application.submit, 'id -> "myForm") {
@@ -44,7 +44,7 @@ You can also pass an extra set of parameters that will be added to the generated
 <!--
 You can find several input helpers in the `views.html.helper` package. You feed them with a form field, and they display the corresponding HTML input, setting the value, constraints and errors:
 -->
-`views.html.helper` パッケージには input 要素向けのヘルパー関数がいくつか定義されています。ヘルパー関数の引数にはフォームのフィールドを渡します。すると、ヘルパー関数はフィールドに応じた input 要素の生成と値の設定、またバリデーションエラーを表示するため HTML 要素の生成を行なってくれます。
+`views.html.helper` パッケージには input 要素のヘルパーがいくつか用意されています。これらヘルパーにフォームフィールドのオブジェクトを渡すと、それに対応した HTML フォームコントロールが表示されます。コントロールには値がセットされ、制約、エラー情報も付与されます。
 
 ```
 @(myForm: Form[User])
@@ -61,7 +61,7 @@ You can find several input helpers in the `views.html.helper` package. You feed 
 <!--
 As for the `form` helper, you can specify an extra set of parameters that will be added to the generated Html:
 -->
-`form` ヘルパーについても、HTML 要素に追加されるパラメータを指定することができます。
+`form` ヘルパーと同様に、生成される HTML に追加されるその他のパラメータを指定することができます。
 
 ```
 @helper.inputText(myForm("username"), 'id -> "username", 'size -> 30)
@@ -70,7 +70,7 @@ As for the `form` helper, you can specify an extra set of parameters that will b
 <!--
 > **Note:** All extra parameters will be added to the generated Html, unless they start with the **\_** character. Arguments starting with **\_** are reserved for field constructor arguments (we will see that shortly).
 -->
-> **Note:** **\_** 以外の文字で始まる全ての追加パラメータは、ヘルパーにより生成された HTML 要素に設定されます。**\_** で始まるパラメータはフィールドコンストラクタの引数のために予約されています（すぐ後の例で改めて説明します）。
+> **Note:** **\_** 以外の文字で始まるパラメータは全て生成される HTML に追加されます。 **\_** で始まるパラメータは、フィールドコンストラクタの引数（後で説明します）のために予約されています。
 
 <!--
 ## Handling HTML input creation yourself
@@ -101,7 +101,7 @@ A field rendering is not only composed of the `<input>` tag, but it also needs a
 <!--
 All input helpers take an implicit `FieldConstructor` that handles this part. The default one (used if there are no other field constructors available in the scope), generates HTML like:
 -->
-全ての input ヘルパーはまさにこの目的のため、 `FieldConstructor` という implicit parameter をとります。デフォルト (フィールドコンストラクタがスコープ内に存在しない場合に使われる) では、次のような HTML が生成されます。
+全ての input ヘルパーはこの目的のために `FieldConstructor` という暗黙的な引数をとります。デフォルト (フィールドコンストラクタがスコープ内に存在しない場合に使われる) では、次のような HTML が生成されます。
 
 ```
 <dl class="error" id="username_field">
@@ -141,7 +141,7 @@ Play には、[[TwitterBootstrap | http://twitter.github.com/bootstrap/]] に対
 <!--
 To use it, just import it in the current scope:
 -->
-このフィールドコンストラクタは、次のようにスコープ内に import すると利用可能になります。
+これを利用するためには、単にスコープ内にインポートしてください。
 
 ```
 @import helper.twitterBootstrap._
@@ -176,7 +176,7 @@ It supports the same set of options as the default field constructor (see below)
 <!--
 Often you will need to write your own field constructor. Start by writing a template like:
 -->
-フィールドコンストラクタを自前で用意したい場合は、まず次のようなテンプレートを作成します。
+独自のフィールドコンストラクタが必要になることもあります。まず以下のようなテンプレートを作成します。
 
 ```
 @(elements: helper.FieldElements)
@@ -273,11 +273,9 @@ Now you have to generate as many inputs for the `emails` field as the form conta
 <!--
 The `min` parameter allows you to display a minimum number of fields even if the corresponding form data are empty.
 -->
-フィールドが空の場合であっても、最低限、`min` パラメータに指定した個数の input 要素が生成されます。
+フィールドが空の場合であっても、`min` パラメータに指定した個数の input 要素が生成されます。
 
 <!--
 > **Next:** [[Working with JSON| ScalaJson]]
 -->
 > **次ページ:** [[JSON| ScalaJson]]
-
-

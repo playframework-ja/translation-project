@@ -60,7 +60,7 @@ public static Result upload() {
 <!--
 Another way to send files to the server is to use Ajax to upload files asynchronously from a form. In this case, the request body will not be encoded as `multipart/form-data`, but will just contain the plain file contents.
 -->
-サーバへファイルを送信する別の方法は、Ajaxを活用してフォームからファイルを非同期的にアップロードするというものです。この方法では、リクエストボディは `multipart/form-data` としてエンコードされず、単にファイルの内容を含むだけになります。
+サーバへファイルを送信する別の方法は、Ajax を活用してフォームからファイルを非同期的にアップロードするというものです。この方法では、リクエストボディは `multipart/form-data` としてエンコードされず、単にファイルの内容を含むだけになります。
 
 ```
 public static Result upload() {
