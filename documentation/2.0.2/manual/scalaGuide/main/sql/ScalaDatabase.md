@@ -158,7 +158,10 @@ DB.withConnection { conn =>
 }
 ```
 
+<!--
 For a database other than the default:
+-->
+default 以外のデータベースの場合は以下のようにします。
 
 ```scala
 // access "orders" database instead of "default"

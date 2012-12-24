@@ -56,7 +56,7 @@ def sayHello = Action(parse.json) { request =>
 <!--
 You can test it with **cURL** from the command line:
 -->
-コマンドラインから **cURL** を起動してテストしてみましょう。
+このアクションは、コマンドラインから **cURL** を使って以下のようにテストできます。
 
 ```
 curl 
@@ -69,7 +69,7 @@ curl
 <!--
 It replies with:
 -->
-出力結果は以下のようになります。
+レスポンスは以下のようになります。
 
 ```
 HTTP/1.1 200 OK
@@ -106,7 +106,7 @@ def sayHello = Action(parse.json) { request =>
 <!--
 Now it replies with:
 -->
-これで、次のようなレスポンスが返せるようになります。
+レスポンスは以下のようになります。
 
 ```
 HTTP/1.1 200 OK
@@ -119,4 +119,4 @@ Content-Length: 43
 <!--
 > **Next:** [[Working with XML | ScalaXmlRequests]]
 -->
-> **次ページ:** [[XML を使う | ScalaXmlRequests]]
+> **次ページ:** [[XML | ScalaXmlRequests]]

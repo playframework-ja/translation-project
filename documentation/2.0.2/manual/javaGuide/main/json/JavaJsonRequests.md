@@ -12,7 +12,7 @@
 <!--
 A JSON request is an HTTP request using a valid JSON payload as request body. Its `Content-Type` header must specify the `text/json` or `application/json` MIME type.
 -->
-JSON リクエストはリクエストボディに JSON データを含む HTTP リクエストです。JSON リクエストの `Content-Type` ヘッダには、`text/json` もしくは `application/json` という MIME タイプを指定する必要があります。
+JSON リクエストは JSON データをリクエストボディに含む HTTP リクエストです。JSON リクエストは、`Content-Type` ヘッダに `text/json` か `application/json` という MIME タイプを指定する必要があります。
 
 <!--
 By default an action uses an **any content** body parser, which you can use to retrieve the body as JSON (actually as a Jerkson `JsonNode`):
@@ -92,7 +92,7 @@ Hello Guillaume
 <!--
 In our previous example we handled a JSON request, but replied with a `text/plain` response. Let’s change that to send back a valid JSON HTTP response:
 -->
-前述の例では JSON リクエストを処理して、`text/plain` のレスポンスを返してしまっていました。これを、正しい JSON HTTP レスポンスを送り返すように変更してみましょう。
+前述の例ではリクエストを JSON で受けていましたが、レスポンスは `text/plain` として送信していました。これを、正しい JSON HTTP レスポンスを送り返すように変更してみましょう。
 
 ```java
 @BodyParser.Of(Json.class)
@@ -128,4 +128,4 @@ Content-Length: 43
 <!--
 > **Next:** [[Working with XML | JavaXmlRequests]]
 -->
-> **次ページ:** [[XML を使う | JavaXmlRequests]]
+> **次ページ:** [[XML | JavaXmlRequests]]

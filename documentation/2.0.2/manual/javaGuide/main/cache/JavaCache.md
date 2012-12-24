@@ -17,27 +17,27 @@ For any data stored in the cache, a regeneration strategy needs to be put in pla
 <!--
 The default implementation of the cache API uses [[EHCache| http://ehcache.org/]]. You can also provide your own implementation via a plugin.
 -->
-キャッシュ API のデフォルト実装は [[EHCache| http://ehcache.org/]] を利用しています。キャッシュ API の別の実装をプラグインとして提供することもできます。
+キャッシュ API のデフォルト実装は [[EHCache| http://ehcache.org/]] を利用しています。別の実装をプラグインとして提供することもできます。
 
 <!--
 ## Accessing the Cache API
 -->
-## キャッシュ API にアクセスする
+## キャッシュ API へのアクセス
 
 <!--
 The cache API is provided by the `play.cache.Cache` object. This requires a cache plugin to be registered.
 -->
-キャッシュ API は `play.cache.Cache` オブジェクトを介して利用できます。このオブジェクトを利用するためには、何らかのキャッシュプラグインが登録されている必要があります。
+キャッシュ API は `play.cache.Cache` オブジェクトにより提供されています。このオブジェクトを利用するには、キャッシュプラグインの登録が必要です。
 
 <!--
 > **Note:** The API is intentionally minimal to allow various implementations to be plugged in. If you need a more specific API, use the one provided by your Cache plugin.
 -->
-> **ノート:** あらゆるキャッシュ API の実装をプラグイン可能にするために、API は意図的に最小限に設計されています。もし、キャッシュ API にない特別な API が必要な場合は、利用しているキャッシュプラグインが提供している独自 API を利用してください。
+> **注意:** この API は様々な実装をプラグインできるよう、意図的に最小限に抑えられています。より特殊な API が必要な場合、別のキャッシュプラグインにより提供される API を使用してください。
 
 <!--
 Using this simple API you can store data in the cache:
 -->
-次のシンプルな API を呼び出すことで、データをキャシュに保存することができます。
+このシンプルな API を使ってキャッシュにデータ格納することができます:
 
 ```
 Cache.set("item.key", frontPageNews);
@@ -73,18 +73,17 @@ Cache.remove("item.key")
 <!--
 You can easily create a smart cached action using standard `Action` composition. 
 -->
-標準的な、`Action` の合成機能を利用することで、レスポンスをキャッシュするアクションを簡単に作成することができます。
+標準的な `Action` の合成を使って、レスポンスをキャッシュするアクションを簡単に作成することができます。
 
 <!--
 > **Note:** Play HTTP `Result` instances are safe to cache and reuse later.
 -->
-> **ノート:** Play の HTTP レスポンスを表す `Result` のインスタンスは、安全にキャッシュしたり後で再利用することができます。
+> **注意:** Play の HTTP `Result` インスタンスは、安全にキャッシュし、あとから再利用することができます。
 
 <!--
 Play provides a default built-in helper for the standard case:
 -->
 Play は標準的に利用できるデフォルトの組み込みヘルパを提供しています。
-
 
 ```
 @Cached("homePage")
