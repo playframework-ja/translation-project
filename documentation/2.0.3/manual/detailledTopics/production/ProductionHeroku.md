@@ -177,7 +177,7 @@ Even for simple apps, the heroku slug size will soon exceed 100MB, which is the 
 The reason is the .ivy cache that is included in the slug. You can easily overcome that using your own custom heroku "build pack". A build pack is a bunch of scripts stored in a remote git repository. The are fetched and executed at compile time. The original build pack is available here: https://github.com/heroku/heroku-buildpack-scala.
 -->
 シンプルなアプリケーショであっても、容量が Heroku の slug size の最大である 100MB をすぐ超えてしまいます。
-理由は、 .ivy キャッシュが slug に含まれてしまっているからです。カスタムの heroku "build pack" を利用すると、この問題は簡単に解決できます。build pack とはリモート git レポジトリに保存される多数のスクリプトをセットにしたもののことです。スクリプトは、 git で取得されて、コンパイル時に実行されます。標準の build pack は [[こちら|https://github.com/heroku/heroku-buildpack-scala.]] で公開されています。
+理由は、 .ivy キャッシュが slug に含まれてしまっているからです。カスタムの heroku "build pack" を利用すると、この問題は簡単に解決できます。build pack とはリモート git レポジトリに保存される多数のスクリプトをセットにしたもののことです。スクリプトは、 git で取得されて、コンパイル時に実行されます。標準の build pack は [[こちら|https://github.com/heroku/heroku-buildpack-scala]] で公開されています。
 
 <!--
 You simply fork it on github and change the ```bin/compile``` script towards its end:
@@ -216,7 +216,7 @@ fi
 <!--
 Here you can find an example of a working build pack: https://github.com/joergviola/heroku-buildpack-scala.
 -->
-実際に動作する build pack は [[こちら|https://github.com/joergviola/heroku-buildpack-scala.]] にあります。
+実際に動作する build pack は [[こちら|https://github.com/joergviola/heroku-buildpack-scala]] にあります。
 
 <!--
 Last step: Add the build pack address as a config var to heroku:
