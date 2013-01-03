@@ -125,7 +125,7 @@ Existing Java build systems, however, were not flexible enough to support this n
 一方で、既存の Java のビルドシステムは、この新しいアプローチをサポートするには、柔軟性が不足していました。私たちは、Play のアプリケーションを実行し、デプロイするための単純明快なツールを提供したいと考えていたことから、Play 1.x では ビルドとデプロイメントのタスクのすべてを処理するために、Python スクリプトの集合体を作り上げました。
 
 <!--
-Meanwhile, developers using Play for more enterprise-scale projects, which require build process customization and integration with their existing company build systems, were a bit lost. The Python scripts we provide with Play 1.x are in no way a fully-featured build system and are not easily customizable. That’s why we’ve decided to go for a more powerful build system for Play 2.0.
+Meanwhile, developers using Play for more enterprise-scale projects, which require build process customization and integration with their existing company build systems, were a bit lost. The Python scripts we provided with Play 1.x are in no way a fully-featured build system and are not easily customizable. That’s why we’ve decided to go for a more powerful build system for Play 2.0.
 -->
 しかし、ビルドのプロセスのカスタマイズや、企業内の既存のビルドシステムとの統合が求められる、よりエンタープライズ規模のプロジェクトで Play を使っている開発者の方々は、少々困っていました。私たちが Play 1.x で提供していた Python のスクリプト群は、完全な機能を完備したビルドシステムではまったくありませんでしたし、カスタマイズも容易ではありませんでした。これが、私たちが Play 2.0 でさらに強力なビルドシステムへ舵を切ることを決めた理由です。
 

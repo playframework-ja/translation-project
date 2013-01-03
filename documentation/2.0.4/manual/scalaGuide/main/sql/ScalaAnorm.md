@@ -427,7 +427,7 @@ str("name") ~ int("population") map { case n~p => (n,p) }
 ```
 
 <!--
-> **Note:** We created a tuple `(String,Int)` here, but there is nothing stoping you from transforming the `RowParser` result to any other type, such as a custom case class.
+> **Note:** We created a tuple `(String,Int)` here, but there is nothing stopping you from transforming the `RowParser` result to any other type, such as a custom case class.
 -->
 > **Note:** この例では `(String,Int)` というタプルを生成しましたが、`RowParser` の結果をもっと別の型に変換しても何ら問題ありません。例えば、何らかの case class に変換してもよいでしょう。
 

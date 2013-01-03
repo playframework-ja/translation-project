@@ -29,7 +29,7 @@ $ start -Dhttp.port=1234 -Dhttp.address=127.0.0.1
 ```
 
 <!--
-> Note that these configuration are only provided for the default embeded Netty server.> > 
+> Note that these configuration are only provided for the default embeded Netty server.
 -->
 > この設定はデフォルトの組み込み Netty サーバだけが利用します。
 
