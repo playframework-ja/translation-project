@@ -5,6 +5,11 @@
 # アクション、コントローラ、レスポンス
 
 <!--
+## What is an Action?
+-->
+## アクションとは?
+
+<!--
 Most of the requests received by a Play application are handled by an `Action`. 
 -->
 Play アプリケーションが受け取ったリクエストのほとんどは、`Action` によって処理されます。
