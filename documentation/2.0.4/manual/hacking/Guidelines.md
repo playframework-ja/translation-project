@@ -16,7 +16,7 @@ Implementation-wise, the following things should be avoided as much as possible:
 * threadLocal
 * locks
 * casting
-* introducing new, heavy external dependencies* 
+* introducing new, heavy external dependencies
 -->
 * 外部から変更可能な状態
 * 大域的な状態
@@ -74,7 +74,7 @@ Implementation-wise, the following things should be avoided as much as possible:
 ## コードスタイル
 
 <!--
-* run scalariform-format  before commit* * 
+* run scalariform-format  before commit
 -->
 * コミット前に scalariform-format を実行しましょう。
 

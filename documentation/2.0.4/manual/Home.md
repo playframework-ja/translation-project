@@ -7,7 +7,7 @@
 <!--
 > Play 2.0 is a high-productivity Java and Scala web application framework that integrates the components and APIs you need for modern web application development. 
 >
-> Play is based on a lightweight, stateless, web-friendly architecture and features predictable and minimal resource consumption (CPU, memory, threads) for highly-scalable applications thanks to its reactive model, based on Iteratee IO.> 
+> Play is based on a lightweight, stateless, web-friendly architecture and features predictable and minimal resource consumption (CPU, memory, threads) for highly-scalable applications thanks to its reactive model, based on Iteratee IO.
 -->
 >Play 2.0 は、現代の web アプリケーション開発に必要なコンポーネント及び API を統合した生産性の高い Java と Scala の web アプリケーションフレームワークです。
 >
