@@ -29,7 +29,7 @@ Let’s consider some examples.
 - A **file** body parser could store each chunk of bytes into a local file, and give a reference to the `java.io.File` as result (`Iteratee[Array[Byte],File]`).
 - A **s3** body parser could push each chunk of bytes to Amazon S3 and give a the S3 object id as result (`Iteratee[Array[Byte],S3ObjectId]`).
 -->
-- **text** ボディパーサーはバイトデータの塊を String に積み上げていき、計算された String を結果として返します(`Iteratee[Array[Byte],STring]`)。
+- **text** ボディパーサーはバイトデータの塊を String に積み上げていき、計算された String を結果として返します(`Iteratee[Array[Byte],String]`)。
 - **file** ボディパーサーはバイトデータの塊をローカルファイルに保存し、`java.io.File` への参照を結果として返します(`Iteratee[Array[Byte],File]`)。
 - **s3** ボディパーサーはバイトデータの塊を Amazon S3 へ保存し、S3 オブジェクトの ID を結果として返します(`Iteratee[Array[Byte],S3ObjectId]`)。
 
