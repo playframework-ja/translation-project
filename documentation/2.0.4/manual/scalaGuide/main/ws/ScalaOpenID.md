@@ -45,7 +45,7 @@ OpenID API には特に重要な関数が二つあります。
 * `OpenID.verifiedId` needs an implicit `Request`, and inspects it to establish the user information, including his verified OpenID. It will do a call to the OpenID server to check the authenticity of the information, this is why it returns a `Promise[UserInfo]` rather than just `UserInfo`. If the information is not correct or if the server check is false (for example if the redirect URL has been forged), the returned `Promise` will be a `Thrown`.
 -->
 * `OpenID.redirectURL` は、ユーザのリダイレクト先 URL を計算する関数です。この関数は、非同期でユーザの OpenID ページを検索するため、`String` ではなく `Promise[String]` を返します。OpenID が無効な場合、 `Promise` の中身は `Thrown` になります。
-* `OPenID.verifiedId` は、暗黙的な `Request` を引数にとり、それを元に検証済みの OpenID を始めとするユーザの認可情報を組み立てます。この関数は、認可元の情報を確認するため、 OpenID サーバと通信を行います。この関数が `UserInfo` ではなく `Promise[UserInfo]` を返すのはそのためです。認可情報が不正か、サーバが単に (リダイレクト URL が書き換えられるなどの理由で) 確認に失敗した場合、`Promise` の中身は `Thrown` になります。 
+* `OpenID.verifiedId` は、暗黙的な `Request` を引数にとり、それを元に検証済みの OpenID を始めとするユーザの認可情報を組み立てます。この関数は、認可元の情報を確認するため、 OpenID サーバと通信を行います。この関数が `UserInfo` ではなく `Promise[UserInfo]` を返すのはそのためです。認可情報が不正か、サーバが単に (リダイレクト URL が書き換えられるなどの理由で) 確認に失敗した場合、`Promise` の中身は `Thrown` になります。 
 
 <!--
 In any case, when the `Promise` you get is a `Thrown`, you should look at the `Throwable` and redirect back the user to the login page with relevant information.
