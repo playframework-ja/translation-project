@@ -41,7 +41,10 @@ public class Application extends Controller {
         String news = "";
         try {
             Document doc = Jsoup.connect("http://www.playframework.org/").get();
-            news = doc.select("div#news").first().html();
+            Elements e = doc.select("div#news");
+            if (e != null && e.size() > 0) {
+                news = e.first().html();
+            }
         } catch (IOException e) {
             // do anything
         }
