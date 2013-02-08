@@ -1,159 +1,125 @@
 #{extends 'main.html' /}
-#{set title:'Home' /}
+#{set title:'Play Framework - Build Modern &amp; Scalable Web Apps with Java and Scala' /}
 #{set 'moreScripts'}
-<script src="/assets/javascripts/history.js" type="text/javascript"></script>
 #{/set}
 #{set 'moreStyles'}
-<link rel="stylesheet" media="screen" href="/assets/stylesheets/home.css">
 #{/set}
-    <div id="news">
-        ${news.raw()}
-    </div>
-    <section id="introduction">
-        <div class="wrapper">
-            <div id="title">
-                <h1>
-                    Play framework で<br>
-                    Java と Scala の web<br>
-                    アプリケーション開発を<br>
-                    もっと簡単に
-                </h1>
-                <p>
-                    Play は web と親和性の高い軽量でステートレスなアーキテクチャに基づいており、Iteratee IO に基づいたリアクティブモデルにより、高度にスケール可能なアプリケーションのための予測可能で最小限のリソース (CPU、メモリ、スレッド) 消費を提供します。 
-                </p>
-            </div>
-            <div id="quicklinks">
-                <h2>はじめよう</h2>
-                <p>
-                    
-                </p>
-                <p>
-                    <a href="/documentation/latest/ScalaTodoList">Scala</a> または <a href="/documentation/latest/JavaTodoList">Java</a> 開発者向けのチュートリアルに目を通すか、<a href="/documentation/latest">ドキュメント</a> を参照してください。
-                </p>
-                <h2>ヘルプ</h2>
-                <p>
-                    <a href="http://groups.google.com/group/play-framework" target="_blank">Google group</a> に参加して話し合ったり助けてもらう、または <a href="http://stackoverflow.com/tags/playframework" target="_blank">Stackoverflow</a> で他の誰かを助けてあげましょう。
-                </p>
-                <h2>参加する</h2>
-                <p>
-                    <a href="http://github.com/playframework/Play20" target="_blank">Github のソースコード</a> をチェックアウトして、プロジェクトの <a href="http://play.lighthouseapp.com/" target="_blank">バグトラッカ</a> に問題を報告してください。
-                </p>
-            </div>
+        <div id="start">
+            <h2>Get the latest package</h2>
+                <a href="http://downloads.typesafe.com/play/2.1.0/play-2.1.0.zip" class="download">Download 2.1.0</a>
+            <p>
+                or <a href="/download">browse all versions</a>
+            </p>
+            <h2>Getting started with</h2>
+            <nav class="getting-started">
+                <a href='/documentation/latest/JavaTodoList' class="java">Java</a>
+                <a href='/documentation/latest/ScalaTodoList' class="scala">Scala</a>
+            </nav>
+            <p>
+                or <a href="/documentation">read full documentation</a>
+            </p>
         </div>
-    </section>
-    <section id="features">
-        <div class="wrapper">
-            <div class="item">
-                <img src="/assets/images/fast.png">
-                <h2>強固で高速</h2>
-                <p>
-                    Play は、すべての型をチェックする Scala コンパイラのパワーを活用します。
-                    実行時エラーと縁を切って、とんでもないパフォーマンスを楽しんでください !
-                </p>
-            </div>
-            <div class="item">
-                <img src="/assets/images/reactive.png">
-                <h2>リアクティブ</h2>
-                <p>
-                    Play はリアクティブモデルをよく理解し、イベントドリブン、ノンブロッキング IO に基づいて設計されています。リアルタイムへの準備をしてください !
-                </p>
-            </div>
-            <div class="item">
-                <img src="/assets/images/scalable.png">
-                <h2>スケーラブル</h2>
-                <p>
-                    Play は web と親和性の高いステートレスアーキテクチャに基づいています。サーバをどんどｎ追加すれば簡単にスケールします !
-                </p>
-            </div>
-            <br style="clear:both">
-            <hr>
-
-            <ul class="items">
-                <li class="reloading">
-                    素早い改善
-                    <p>
-                        ファイルを編集して、保存して、ブラウザを更新すれば、直ちに結果を確認できます ! コンパイルやデプロイ、サーバの再起動は必要ありません。
-                    </p>
-                </li>
-                <li class="fun">
-                    楽しく、そして生産的
-                    <p>
-                        アプリケーションの再起動待ちに費やす時間を取り除き、生産性を向上し、プロジェクトをより早く完了します。
-                    </p>
-                </li>
-                <li class="fullstack">
-                    本当のスケーラビリティ
-                    <p>
-                        複数の Play サーバでアプリケーションを実行することで、容易にスケールします。Akka アクタを使うことで、複数コア、または複数ノードにバックエンドをスケールアウトします。
-                    </p>
-                </li>
-                <li class="javascala">
-                    Java と Scala API
-                    <p>
-                        ひとつのアプリケーションにおいて、Java, Scala または両方の言語を混ぜて使います。Play では、既存の Java コードやライブラリと 100% の互換性を保ちながら Scala のとても優れた機能を簡単に使うことができます。
-                    </p>
-                </li>
-                <li class="templates">
-                    強力なビルドシステム
-                    <p>
-                        sbt に基づいたビルドシステムは、シンプルでありながら非常に強力です。Less CSS, Goole Closure や CoffeeScript のような最新の Web 技術を使用する準備が整っています。
-                    </p>
-                </li>
-                <li class="sbt">
-                    はじめの準備
-                    <p>
-                        パッケージをダウンロードすれば完了です。統合された Play コンソールと開発サーバでハックを始めます。本番環境へのプッシュもコマンドひとつです。
-                    </p>
-                </li>
+        <div id="video">
+            <iframe src="http://player.vimeo.com/video/58969923?byline=0&amp;portrait=0&amp;color=ffffff" width="610" height="343" frameborder="0" webkitAllowFullScreen mozallowfullscreen allowFullScreen></iframe>
+        </div>
+        <article class="hat">
+            <h1>Play Framework makes it easy to build web applications with Java & Scala.</h1>
+            <p>
+                Play is based on a lightweight, stateless, web-friendly architecture.
+            </p>
+            <p>
+                Built on Akka, Play provides predictable and minimal resource consumption (CPU, memory, threads) for highly-scalable applications.
+            </p>
+        </article>
+        <article class="feature developer">
+            <h2>Developer friendly.</h2>
+            <p>
+                Make your changes and simply hit refresh!  All you need is a browser and a text editor.
+            </p>
+            <ul>
+                <li>Hit refresh workflow</li>
+                <li>Powerful console &amp; build tools</li>
+                <li>Type safety</li>
+                <li>Built in testing tools</li>
+                <li>IDE support for Eclipse and IntelliJ IDEA</li>
             </ul>
-        </div>
-    </section>
-    <section id="meet">
-        
-
-<div class="wrapper">
-    <div class="half history">
-        <h2>play の歴史</h2>
-        <p>
-            2007年以来、私たちは Java での Webアプリケーション の開発を容易なものにしようとしてきました。 Play は、 Zenexity における内部的なプロジェクトとしてスタートし、私たちの Web プロジェクトの進め方に強く影響されてきました。つまり、開発者の生産性に焦点を当て、 Web のアーキテクチャを尊重し、初めからパッケージング規約に対して斬新なやり方を採用してきたのです。
-        </p>
-        <p>
-            その後、技術と Web は進化し続けました。Web はすべてのアプリケーションの中央拠点となっています。HTML, CSS そして JavaScript の技術は急速に - サーバ側のフレームワークがほとんど追いつけないほどに - 進化してきました。
-        </p>
-        <p>
-            今日、Web アーキテクチャ全体は急速にリアルタイム指向へと動き出しています。プロジェクトの要件も変化しました - 以前は必需品だった SQL などは、もはや独占的なデータストア技術ではありません。プログラミング言語のレベルでは、Scala を含むいくつかの JVM 言語が人気を集めているという、歴史的な変化を目撃しました。
-        </p>
-        <p>
-            それこそが、<a href="/documentation/latest/Philosophy">新時代の web フレームワーク</a> Play 2.0 を開発した理由です。
-        </p>
-    </div>
-    <div class="half">
-        <div id="history" class="v2">
-            <div id="hplay"></div>
-            <div id="hover"></div>
-            <div id="hjava">Java</div>
-            <div id="hscala">Scala</div>
-            <div id="hjsp">JSP</div>
-            <div id="hservlet">Servlet</div>
-            <div id="hgroovy">Groovy</div>
-            <div id="hpython">Python</div>
-            <div id="hasync">Async I/O</div>
-            <div id="hsbt">sbt</div>
-            <div id="hakka">Akka</div>
-            <div id="hdeps">Ivy</div>
-            <div id="hsocket">WebSockets</div>
-            <div id="htemplates">Templates</div>
-            <ul id="historyMenu">
-                <li id="va">0.x</li>
-                <li id="vb">1.0</li>
-                <li id="v1" class="">1.2</li>
-                <li id="v2" class="active">2.0</li>
+            <div id="workflow">
+                <div class="terminal"></div>
+                <div class="editor"></div>
+                <div class="browser"></div>
+            </div>
+        </article>
+        <article class="feature scale alt">
+            <div id="scale">
+                <h6>Play instances usage</h6>
+                <div class="instance1"></div>
+                <div class="instance2"></div>
+                <div class="instance3"></div>
+                <div class="instance4"></div>
+                <p class="triggers">
+                    <span class="instance1"></span>
+                    <span class="instance2"></span>
+                    <span class="instance3"></span>
+                    <span class="instance4"></span>
+                </p>
+            </div>
+            <h2>Scale predictably.</h2>
+            <p>
+                Underneath the covers Play uses a fully asynchronous model built on top of Akka.  Combined with being stateless, Play scales simply and predictably.
+            </p>
+            <ul>
+                <li>Stateless Web Tier</li>
+                <li>Non-blocking I/O</li>
+                <li>Built on Akka</li>
+                <li>Real-time enabled</li>
             </ul>
-        </div>
-    </div>
-</div>
-
-
-    </section>
-
-
+        </article>
+        <article class="feature modern">
+            <div id="modern">
+                <div></div>
+            </div>
+            <h2>Modern web &amp; mobile.</h2>
+            <p>
+                Play was built for needs of modern web & mobile apps.
+            </p>
+            <ul>
+                <li>RESTful by default</li>
+                <li>Asset Compiler for CoffeeScript, LESS, etc</li>
+                <li>JSON is a first class citizen</li>
+                <li>Websockets, Comet, EventSource</li>
+                <li>Extensive NoSQL &amp; Big Data Support</li>
+            </ul>
+        </article>
+        <article class="feature strong small">
+            <h2>Solid &amp; fast.</h2>
+            <p>
+                The compiler and runtime (JVM) do the heavy lifting so that your apps run super-fast and keeps running under load.
+            </p>
+            <ul>
+                <li>Code is compiled</li>
+                <li>Runs on the JVM</li>
+                <li>Java NIO via Netty</li>
+            </ul>
+        </article>
+        <article class="feature techs small">
+            <h2>Massive ecosystem.</h2>
+            <p>
+                The ecosystem around Java is huge.  There are libraries for everything - most of which can be used in Play.
+            </p>
+            <ul>
+                <li>Use Maven Central libraries</li>
+                <li>Numerous Play plugins</li>
+                <li>Very active Play community</li>
+            </ul>
+        </article>
+        <article class="feature extend small">
+            <h2>Proven in production.</h2>
+            <p>
+                From startups to enterprises, Play powers some of the most innovative web sites.  Play is proven, reliable and scalable.
+            </p>
+            <ul>
+                <li>Production support by Typesafe</li>
+                <li>Many cloud deployment options</li>
+                <li>Used in mission-critical apps</li>
+            </ul>
+        </article>
