@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # What's new in Play 2.1?
 -->
