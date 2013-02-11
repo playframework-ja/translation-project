@@ -4,8 +4,8 @@
 
 # Home page
 GET     /                                                     Application.index
-GET     /2.0                                                  Application.introduce20
 GET     /favicon.ico                                          staticFile:public/images/favicon.png
+GET     /get-involved                                         Application.getInvolved
 GET     /{action}                                             Application.{action}
 
 GET     /documentation/{version}/?                            Documentation.page
@@ -14,10 +14,6 @@ GET     /documentation/{version}/images/{name}                Documentation.imag
 GET     /documentation/{version}/files/{name}                 Documentation.file
 GET     /documentation/{version}/resources/{<.+png?>path}     Documentation.resources
 GET     /documentation/{version}/cheatsheet/{id}              Documentation.cheatsheet
-
-GET     /modules/{id}                                         Modules.index
-GET     /modules/{id}-{version}/home                          Modules.page
-GET     /modules/{id}-{version}/images/{name}                 Modules.image
 
 # Map static resources from the /app/public folder to the /public path
 GET     /assets/                                              staticDir:public

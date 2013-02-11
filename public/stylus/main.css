@@ -648,7 +648,8 @@ aside hr {
 .content-column #content .main,
 .download #content .main,
 .getInvolved #content .main,
-.modules #content .main {
+.modules #content .main,
+.about #content article {
   width: 70%;
   float: left;
   padding-right: 40px;
@@ -656,7 +657,8 @@ aside hr {
 .content-column #content aside,
 .download #content aside,
 .getInvolved #content aside,
-.modules #content aside {
+.modules #content aside,
+.about #content aside {
   counter-reset: steps;
   width: 30%;
   float: left;
@@ -2466,9 +2468,11 @@ body > footer img {
 .code .coreteam a:after {
   content: none;
 }
-.code .coreteam a img {
+.code .coreteam a img,
+.about .coreteam a img {
   float: left;
   margin: 0 10px 10px 0;
+  max-width: 80px;
 }
 a[href="#"]:before,
 a[href="#todo"]:before {
@@ -2482,4 +2486,7 @@ a[href="#todo"]:before {
   color: #fff;
   font-size: 8px;
   font-weight: bold;
+}
+a.absent {
+  color: #c00;
 }

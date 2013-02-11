@@ -211,7 +211,7 @@ public class DocumentParser extends Job {
             int index = value.indexOf("/@api/") + "/@api/".length();
             link.attr(
                     "href",
-                    String.format("http://www.playframework.org/documentation/api/%s/%s", version,
+                    String.format("http://www.playframework.com/documentation/api/%s/%s", version,
                             value.substring(index)));
             link.attr("target", "_blank");
         }

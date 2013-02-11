@@ -1,74 +1,202 @@
 #{extends 'main.html' /}
-#{set title:'Code' /}
-#{set action:'code' /}
-<section id="top">
-        <div class="wrapper">
-            <h1>Meet the team and start hacking</h1>
-        </div>
-    </section>
-    
-    <div id="content" class="wrapper">
-        
+#{set title:'Code & contributors' /}
+#{set 'top'}
+    Code &amp; contributors
+#{/set}
+#{set body:'code' /}
         <article>
-            
-            
-    
-    <h1>コードの取得</h1>
-    
-    <p>Play framework はバージョン管理システム Git を使用する <a href="https://github.com/playframework">Github</a> で管理されています。以下のコマンドでコードを取得することができます:</p>
-    
-    <pre><code>git clone git://github.com/playframework/Play20.git</code></pre>
-    
-    <p>以前の Play 1.x シリーズのコードを探している場合は、別のリポジトリから取得することができます:</p>
-    
-    <pre><code>git clone git://github.com/playframework/play.git</code></pre>
-    
-    <h2>ライセンス</h2>
-    
-    <p>
-        Play framework のコードは <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a> でリリースされています。
-    </p>
-    
-    <h2>バグの報告</h2>
-    
-    <p>
-        バグトラッカに <a href="http://play.lighthouseapp.com/">Lighthouse</a> を使用しています。 バグレポートはとても役に立つので、時間を割いてバグトラッカにバグを報告したり機能をリクエストしてください。 Play コードのパッチは常に歓迎します。パッチが添付されたバグ報告は、そうでないものよりもはるかに早く修正されるでしょう。
-    </p>
-    
-    <h2>貢献</h2>
-    
-    <p>
-        貢献する最もよい方法は、バグを見つけること、バグを報告すること、バグのためのテストを書くこと、そしてドキュメントを改善することです。前述の通り、Play のパッチは常に歓迎します! 
-    </p>
-    
-    <p>
-        コードを修正するときは、設計方針に従うよう注意してください。特に、モジュールや古いバージョンの互換性を壊さないよう注意してください。また、妥当な理由無しに複雑さを増大させないよう注意してください。
-    </p>
-    
-    <p>
-        パッチを持っていますか? <a href="http://play.lighthouseapp.com/projects/57987/contributor-guide">貢献者ガイド</a> を確認してください。
-    </p>
+            <section>
+                <h1>About the code</h1>
 
-            
+                <p>Play Framework is hosted on <a href="https://github.com/playframework">Github</a> using the Git version control system. You can get the code with the following command:</p>
+                <pre><code>git clone git://github.com/playframework/Play20.git</code></pre>
+                <p>If you're looking for the code for the previous Play 1.x series, it's available in another repository:</p>
+                <pre><code>git clone git://github.com/playframework/play.git</code></pre>
+                <p>
+                    To contribute, check out the <a href="/documentation/latest/Guidelines">contributor guide</a> and learn how to <a href="/documentation/latest/BuildingFromSource">build Play from source</a>.
+                </p>
+
+                <h2>Securtity reports</h2>
+                <h3>Receiving Security updates</h3>
+                <p>
+                    The best way to receive any and all security announcements is to subscribe to the <a href="https://groups.google.com/forum/#!forum/play-framework-security">Play security list</a>.
+                </p> 
+                <p> 
+                    The mailing list is very low traffic, and receives notifications only after Security reports have been managed by the core team and fixes are publicly available.
+                </p>
+
+                <h3>What if I find a security problem with Play Framework?</h3>
+                <p>
+                    We strongly encourage folks to report such problems to our private security mailing list first, before disclosing them in a public forum.
+                </p>
+                <p>
+                    All security bugs in Play should be reported by email to <a href="mailto:security@playframework.org">security@playframework.org</a>. This list is delivered to a subset of the core team who handle security issues.
+                </p>
+
+                <h2>Licence</h2>
+                <p>The Play Framework source code is released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache 2 licence</a>.</p>
+
+            </section>
+            <section>
+                <h1>Team &amp; contributors</h1>
+
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/guillaumebort">
+                            <img src="http://www.gravatar.com/avatar/adcd749d588278dbd255068c1d4b20d3?size=80"/>
+                            <h2>Guillaume Bort</h2>
+                        </a>
+                        <p>
+                        <p>Guillaume Bort is the co-founder of Zenexity, the french ‘Web Oriented Architecture’ company. Former J2EE expert, he worked several years on constructing Web frameworks for large scale companies including banks, until he decided to sum up his experience by creating Play framework focusing back on simplicity. He still leads development of the Play framework.</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/Warry">
+                            <img src="http://www.gravatar.com/avatar/12fda944ce03f21eb4f7f9fdd7512a8e?size=80"/>
+                            <h2>Maxime Dantec</h2>
+                        </a>
+                        <p>
+                        <p>Maxime is a UI/UX designer and developer @Typesafe since 2012, he previously held the same position at Zenexity.</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/sadache">
+                            <img src="http://www.gravatar.com/avatar/d349588ba91256515f7e2aa315e8cfae?size=80"/>
+                            <h2>Sadek Drobi</h2>
+                        </a>
+                        <p>
+                        <p>Sadek Drobi, CTO of Zenexity, a software engineer specialized in design and implementation of enterprise applications with a particular focus on bridging the gap between the problem domain and the solution domain. As a core Play developer, he works on the architecture, design and implementation of the framework.<br/>twitter: @sadache<br/>blog: <a href="http://sadache.tumblr.com">http://sadache.tumblr.com</a><br/>company: www.zenexity.com</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/pk11">
+                            <img src="http://www.gravatar.com/avatar/e98302802fb211bed73365b9ab809039?size=80"/>
+                            <h2>Peter Hausel</h2>
+                        </a>
+                        <p>
+                        <p>Peter&rsquo;s background includes more than 13 years of software development experience. This experience spans a wide range of industries including publishing, online advertising, academic research and finance. Peter is obsessed with web technologies, great user experience and open source. He works at Typesafe.</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/hilton">
+                            <img src="http://www.gravatar.com/avatar/ec8206b2998fb26f34b2a9aed5ad3498?size=80"/>
+                            <h2>Peter Hilton</h2>
+                        </a>
+                        <p>
+                        <p>Peter Hilton is a senior solution architect and Operations Director at Lunatech Research. Peter works on web application architecture, design and construction, with technical project management. His interests include Java web application frameworks, agile software development process and practices, and web-based collaboration.</p><p>Since 2010, Peter has been a committer on the Play framework open-source project. Peter is currently writing a ‘Play 2 for Scala’ book for Manning Publications, with co-authors Lunatech colleagues Erik Bakker and Francisco Canedo.</p><p>Peter recently presented Play at Java conferences in Norway (JavaZone 2011) and Sweden (Jfokus 2012). In 2012, Peter will present Play at conferences in Poland (Geecon) and the Netherlands (GOTO Amsterdam).</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/ikeike443">
+                            <img src="http://www.gravatar.com/avatar/5df67047ff8dd67c1f3b7e0f9b48c2ee?size=80"/>
+                            <h2>Takafumi Ikeda</h2>
+                        </a>
+                        <p>
+                        <p>Takafumi Ikeda known as &ldquo;ikeike443&rdquo; is the senior engineer and the product manager at Shanon Inc (Tokyo, Japan) which is marketing SaaS company. He is also the author of Jenkins Play framework plugin and is also the representative of Japan Play framework user group. He wrote the article about the above plugin for O&rsquo;reilly&rsquo;s &ldquo;Jenkins definitive guide&rdquo; japanese version.</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/mbknor">
+                            <img src="http://www.gravatar.com/avatar/c6ca9f2d6facabf69800e3e37c7e06d1?size=80"/>
+                            <h2>Morten Kjetland</h2>
+                        </a>
+                        <p>
+                        <p>Morten Kjetland is a versatile and highly skilled systems developer with broad technology experience. He started programming back in 1991 and has worked professionally with Java since 2001. He has lately taken an interest in Scala. He has experience from telecom, TV Broadcasting, finance and insurance and has since February 2011 been a core developer for the Play Framework open source project. He is currently working as a Senior Consultant for Webstep (Bergen, Norway)</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/pepite">
+                            <img src="http://www.gravatar.com/avatar/34fe9578c98748263731073b5013cb07?size=80"/>
+                            <h2>Nicolas Leroux</h2>
+                        </a>
+                        <p>
+                        <p>Nicolas Leroux is a senior architect and Technical Director at Lunatech, having joined in 2001. Nicolas is an expert early adopter of the Java Enterprise platform as well as the open-source technologies that gravitate around it. He is the co-founder of the Benelux JBoss User Group and the Riviera Java User Group . He also contributes to the open source frameworks he uses by committing patches. Since 2009, Nicolas has had a passion for the Play framework and is a core developer of its open-source project. Nicolas is currently writing a Play 2 for Java book for Manning Publications, with co-authors Lunatech colleagues Sietse de Kapper.</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/erwan">
+                            <img src="http://www.gravatar.com/avatar/df2d6f1d39a958e46c75e61d4ebb43af?size=80"/>
+                            <h2>Erwan Loisant</h2>
+                        </a>
+                        <p>
+                        <p>Erwan is a Senior Architect at Zenexity. His main topic of interest include web architecture, performances of web applications, and web browser technologies.</p><p>In 2006, Erwan received a Ph.D. in Computer Science from Tokyo Metropolitan University and Nantes University. His research topic was multimedia databases, and in particular image retrieval by navigation.</p><p>From 2006 to 2009, Erwan worked as a Senior Engineer in a Silicon Valley company, Flock. After this experience in the startup world he went back to France to join Zenexity, and bring consumer-level quality, simplicity, and robustness to the enterprise world.</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/nraychaudhuri">
+                            <img src="http://www.gravatar.com/avatar/13a98298bb14a7b5b06be2b7d9fe042f?size=80"/>
+                            <h2>Nilanjan Raychaudhuri</h2>
+                        </a>
+                        <p>
+                        
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/jroper">
+                            <img src="http://www.gravatar.com/avatar/dd48848f9904bdce25eb2a2824842f50?size=80"/>
+                            <h2>James Roper</h2>
+                        </a>
+                        <p>
+                        <p>James is has a range of experience across open source projects and enterprise applications. Having worked forAtlassian, James is passionate about providing developers with the best tools to get the job done. James is now workingfor Typesafe, with Play Framework being his primary focus.</p>
+                        </p>
+                    </div>
+                
+                    <div class="coreteam">
+                        <a href="https://github.com/mandubian">
+                            <img src="http://www.gravatar.com/avatar/1d470db3177c0a9fbda8f884dbe9285b?size=80"/>
+                            <h2>Pascal Voitot</h2>
+                        </a>
+                        <p>
+                        
+                        </p>
+                    </div>
+                
+
+                <h2>Main contributors</h2>
+
+                
+                    <h3>From <a href="http://www.zenexity.com">Zenexity</a></h3>
+
+                    <ul class="contributors">
+                    #{list items:zenexities, as:'item'}
+                        ${item.raw()}
+                    #{/list}
+                    </ul>
+                
+                    <h3>From <a href="http://www.typesafe.com">Typesafe</a></h3>
+
+                    <ul class="contributors">
+                    #{list items:typesafes, as:'item'}
+                        ${item.raw()}
+                    #{/list}
+                    </ul>
+                
+                    <h3>From <a href="http://www.lunatech-labs.com">Lunatech Labs</a></h3>
+
+                    <ul class="contributors">
+                    #{list items:lunatechLabs, as:'item'}
+                        ${item.raw()}
+                    #{/list}
+                    </ul>
+                
+
+                <h2>Other contributors</h2>
+
+                <ul class="contributors others">
+                #{list items:others, as:'item'}
+                    ${item.raw()}
+                #{/list}
+                </ul>
+
+            </section>
         </article>
-        
-        <aside>
-            
-            <h3>Code links</h3>
-            <ul>
-                <li><a href="http://www.playframework.org/code/team" target="_blank">チームとコントリビュータ</a></li>
-                <li><a href="http://www.playframework.org/code/security" target="_blank">セキュリティリポート</a></li>
-                <li><a href="http://github.com/playframework/Play20">ソースコード</a></li>
-                <li><a href="https://play.lighthouseapp.com/dashboard">バグトラッキング</a></li>
-                <li><a href="https://playframework2.ci.cloudbees.com/">統合サーバ</a></li>
-                <li><a href="http://repo.typesafe.com/typesafe">成果物リポジトリ</a></li>
-            </ul>
-            
-            <h3>Built on CloudBees</h3>
-            <p>
-                <a href="http://www.cloudbees.com/"><img src="http://web-static-cloudfront.s3.amazonaws.com/images/badges/BuiltOnDEV.png"></a>
-            </p>
-            
-        </aside>
-        
-    </div>

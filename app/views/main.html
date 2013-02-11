@@ -17,7 +17,7 @@
         <script src="/assets/javascripts/vendor/jquery-1.8.2.min.js"></script>
         <script src="/assets/javascripts/main.js"></script>
     </head>
-    <body class="home">
+    <body class="#{get 'body' /}">
         <!--[if lt IE 7]>
             <p class="outdated">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
         <![endif]-->
@@ -29,6 +29,7 @@
                     <a href="/download">Download</a>
                     <a href="/documentation">Documentation</a>
                     <a href="/get-involved">Get Involved</a>
+                    <a href="/about">About</a>
                 </nav>
                 <nav id="social">
                     <a href="//groups.google.com/forum/#!forum/play-framework"><span>Mailing list</span></a>
@@ -64,16 +65,14 @@
         <header id="top">
             <div class="wrapper">
                 <h1>
-                    The High Velocity<br/>
-                    Web Framework<br/>
-                    For Java and Scala
+                    #{get 'top' /}
                 </h1>
             </div>
         </header>
         <section id="content">
-            #{doLayout /}
+#{doLayout /}
         </section>
-
+        #{if get('body') == 'home'}
         <div id="references">
             <h2>They already use Play Framework</h2>
             <a class="linkedin" href="http://linkedin.com">Linkedin</a>
@@ -83,7 +82,7 @@
             <a class="egraphs" href="http://egraphs.com">Egraphs</a>
         </div>
         <script type="text/javascript" charset="utf-8" src="/assets/javascripts/fse.js"></script>
-
+        #{/if}
         <footer>
             <div id="support">
                 <article class="community">
@@ -158,6 +157,21 @@
         </script>
     </body>
 </html>
+#{if get('body') == 'documentation'}
+#{if version =~ "^1"} 
+<script type="text/javascript" src="/assets/javascripts/play1/navigation.js" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+    buildNavigation()
 
-
-
+    // Fix API link
+    $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
+</script>
+#{/if}
+<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<script type="text/javascript">
+    $(function(){
+    $("pre").addClass("prettyprint scala")
+    window.prettyPrint && prettyPrint()
+    });
+</script>
+#{/if}

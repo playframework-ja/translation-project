@@ -7,6 +7,7 @@ import models.Download;
 
 import org.apache.commons.lang.*;
 import org.eclipse.egit.github.core.*;
+import org.eclipse.egit.github.core.client.RequestException;
 import org.eclipse.egit.github.core.service.*;
 import org.jsoup.*;
 import org.jsoup.nodes.*;
@@ -38,23 +39,11 @@ public class Application extends Controller {
      * index action.
      */
     public static void index() {
-        String news = "";
-        try {
-            Document doc = Jsoup.connect("http://www.playframework.org/").get();
-            Elements e = doc.select("div#news");
-            if (e != null && e.size() > 0) {
-                news = e.first().html();
-            }
-        } catch (IOException e) {
-            // do anything
-        }
-        render(news);
+        render();
     }
 
     /**
      * documentation action.
-     * 
-     * @param version
      */
     public static void documentation() {
         redirect(String.format("/documentation/%s/", Play.configuration.getProperty("version.latest")));
@@ -70,20 +59,22 @@ public class Application extends Controller {
         List<Download> olders = null;
 
         try {
-            Document doc = Jsoup.connect("http://www.playframework.org/download").get();
+            Document doc = Jsoup.connect("http://www.playframework.com/download").get();
             Elements elements = doc.select("article table");
 
-            // the first table must have latest version
-            latest = toDownload(elements.first());
-            // the last table must have older versions
-            olders = toDownloads(elements.last());
-            // if there are more than two tables, middle of them might be
-            // upcomings
-            if (elements.size() > 2) {
-                upcomings = toDownloads(elements.get(1));
+            if (elements != null && elements.size() >= 2) {
+                // the first table must have latest version
+                latest = toDownload(elements.first());
+                // the last table must have older versions
+                olders = toDownloads(elements.last());
+                // if there are more than two tables, middle of them might be
+                // upcomings
+                if (elements.size() > 2) {
+                    upcomings = toDownloads(elements.get(1));
+                }
             }
         } catch (IOException e) {
-            // do anything
+            Logger.warn(e.getMessage());
         }
         render(latest, upcomings, olders);
     }
@@ -112,16 +103,48 @@ public class Application extends Controller {
         }
         return downloads;
     }
-
+    
     /**
-     * code action.
-     * 
-     * @param action
+     * get-involved action.
      */
-    public static void code() {
+    public static void getInvolved() {
         render();
     }
 
+    /**
+     * code action.
+     */
+    public static void code() {
+        List<String> zenexities = new ArrayList();
+        List<String> typesafes = new ArrayList();
+        List<String> lunatechLabs = new ArrayList();
+        List<String> others = new ArrayList();
+        try {
+            Document doc = Jsoup.connect("http://www.playframework.com/code").get();
+            Elements elements = doc.select("ul.contributors");
+            if (elements.size() >= 4) {
+                zenexities = toList(elements.get(0));
+                typesafes = toList(elements.get(1));
+                lunatechLabs = toList(elements.get(2));
+                others = toList(elements.get(3));
+            }
+        } catch (IOException e) {
+            Logger.warn(e.getMessage());
+        }
+        render(zenexities, typesafes, lunatechLabs, others);
+    }
+
+    private static List<String> toList(Element element) {
+        List<String> list = new ArrayList();
+        Elements elements = element.getElementsByTag("li");
+        if (elements != null) {
+            for (Element e : elements) {
+                list.add(e.toString());
+            }
+        }
+        return list;
+    }
+    
     /**
      * about action.
      * 
@@ -134,8 +157,12 @@ public class Application extends Controller {
         RepositoryId repository = new RepositoryId(owner, name);
         List<User> collaborators = new ArrayList<User>();
         UserService userService = new UserService();
-        for (User user : service.getCollaborators(repository)) {
-            collaborators.add(userService.getUser(user.getLogin()));
+        try {
+            for (User user : service.getCollaborators(repository)) {
+                collaborators.add(userService.getUser(user.getLogin()));
+            }
+        } catch (RequestException e) {
+            Logger.warn(e.getMessage());
         }
         render(collaborators);
     }
