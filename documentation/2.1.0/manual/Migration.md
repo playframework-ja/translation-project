@@ -7,7 +7,7 @@
 <!--
 To migrate a **Play 2.0.x** application to **Play 2.1.0** first update Play's `sbt-plugin` in the `project/plugins.sbt` file:
 -->
-**Play 2.0.x**アプリケーションを**Play 2.1.0**に移行するためには、まず`project/plugins.sbt`内でPlayの`sbt-plugin`のバージョンを上げましょう。
+**Play 2.0.x** アプリケーションを **Play 2.1.0** に移行するためには、まず `project/plugins.sbt` 内でPlayの `sbt-plugin` のバージョンを上げましょう。
 
 ```
 addSbtPlugin("play" % "sbt-plugin" % "2.1.0")
@@ -18,7 +18,7 @@ Now update the `project/Build.scala` file to use the new `play.Project` class in
 
 First the import:
 -->
-次に`project/Build.scala`内で`PlayProject`の代わりに新しい`play.Project`を使うように修正しましょう。
+次に `project/Build.scala` 内で `PlayProject` の代わりに新しい `play.Project` を使うように修正しましょう。
 
 importを記述します。
 
@@ -29,7 +29,7 @@ import play.Project._
 <!--
 Then the `main` project creation:
 -->
-`main`プロジェクトの生成部分を次のように変更します。
+`main` プロジェクトの生成部分を次のように変更します。
 
 ```
 val main = play.Project(appName, appVersion, appDependencies).settings(
@@ -38,7 +38,7 @@ val main = play.Project(appName, appVersion, appDependencies).settings(
 <!--
 Lastly, update your `project/build.properties` file:
 -->
-`project/build.properties`ファイルを次のようにアップデートします。
+`project/build.properties` ファイルを次のようにアップデートします。
 
 ```
 sbt.version=0.12.2
@@ -47,7 +47,7 @@ sbt.version=0.12.2
 <!--
 Then clean and re-compile your project using the `play` command in the **Play 2.1.0** distribution:
 -->
-最後に**Play 2.1.0**のディストリビューションに含まれる`play`コマンドを起動して、プロジェクトを一旦clean、そして再コンパイルしましょう。
+最後に **Play 2.1.0** のディストリビューションに含まれる `play` コマンドを起動して、プロジェクトを一旦 clean 、そして再コンパイルしましょう。
 
 ```
 play clean
@@ -67,7 +67,7 @@ If any compilation errors cropped up, this document will help you figure out wha
 <!--
 Because Play 2.1 introduces further modularization, you now have to explicitly specify the dependencies your application needs. By default any `play.Project` will only contain a dependency to the core Play library.  You have to select the exact set of optional dependencies your application need.  Here are the new modularized dependencies in **Play 2.1**:
 -->
-Play 2.1では今まで以上にモジュール化が進められました。そのため、これからはアプリケーションに必要なモジュールへの依存性を明示的に指定する必要があります。デフォルトの`play.Project`にはPlayの核となるたった一つのコアモジュールへの依存性のみが定義されています。それ以外のモジュールは必要に応じて選択しましょう。**Play 2.1**で新たに切りだされたモジュールは次の通りです。
+Play 2.1 では今まで以上にモジュール化が進められました。そのため、これからはアプリケーションに必要なモジュールへの依存性を明示的に指定する必要があります。デフォルトの `play.Project` にはPlayの核となるたった一つのコアモジュールへの依存性のみが定義されています。それ以外のモジュールは必要に応じて選択しましょう。 **Play 2.1** で新たに切りだされたモジュールは次の通りです。
 
 <!--
 - `jdbc` : The **JDBC** connection pool and the the `play.api.db` API.
@@ -78,18 +78,18 @@ Play 2.1では今まで以上にモジュール化が進められました。そ
 - `javaJpa` : The JPA plugin for Java.
 - `filters` : A set of build-in filters for Play (such as the CSRF filter).- 
 -->
-- `jdbc` : **JDBC**コネクションプールおよび`play.api.db` API
+- `jdbc` : **JDBC** コネクションプールおよび `play.api.db`  API
 - `anorm` : **Anorm**
-- `javaCore` : コア**Java** API.
-- `javaJdbc` : Java向けのデータベースAPI.
-- `javaEbean` : Java向けのEbeanプラグイン
-- `javaJpa` : Java向けのJPAプラグイン
-- `filters` : Playの組み込みフィルタ(CSRFフィルタなどを含みます)
+- `javaCore` : コア **Java** API.
+- `javaJdbc` : Java 向けのデータベースAPI.
+- `javaEbean` : Java 向けの Ebean プラグイン
+- `javaJpa` : Java 向けの JPA プラグイン
+- `filters` : Play の組み込みフィルタ(CSRF フィルタなどを含みます)
 
 <!--
 Here is a typical `Build.scala` file for **Play 2.1**:
 -->
-**Play 2.1**の典型的な`Build.scala`ファイルの内容は次のようになります。
+**Play 2.1** の典型的な `Build.scala` ファイルの内容は次のようになります。
 
 ```
 import sbt._
@@ -115,7 +115,7 @@ object ApplicationBuild extends Build {
 <!--
 The `mainLang` parameter for the project is not required anymore. The main language is determined based on the dependencies added to the project. If dependencies contains `javaCore` then the language is set to `JAVA` otherwise `SCALA`.Notice the modularized dependencies in the `appDependencies` section. 
 -->
-プロジェクトの`mainLang`パラメータはもう必要なくなりました。Play 2.1からは、プロジェクトのメイン言語は追加されたモジュールによって自動的に決定されます。具体的には、`javaCore`モジュールが追加されていればメイン言語は`JAVA`となり、それ以外のケースでは`SCALA`となります。上記の`Build.scala`ファイルの例でいうと、`appDependencies`の部分にモジュール依存性が書かれています。
+プロジェクトの `mainLang` パラメータはもう必要なくなりました。 Play 2.1 からは、プロジェクトのメイン言語は追加されたモジュールによって自動的に決定されます。具体的には、 `javaCore` モジュールが追加されていればメイン言語は `JAVA` となり、それ以外のケースでは `SCALA` となります。上記の `Build.scala` ファイルの例でいうと、 `appDependencies` の部分にモジュール依存性が書かれています。
 
 <!--
 ## play.mvc.Controller.form() renamed to play.data.Form.form()
@@ -125,7 +125,7 @@ The `mainLang` parameter for the project is not required anymore. The main langu
 <!--
 Also related to modularization, the `play.data` package and its dependencies were moved out from play core to `javaCore` artifact. As a consequence of this, `play.mvc.Controller#form` was moved to `play.data.Form#form`
 -->
-何度かご説明したPlayのモジュール化に関連して、`play.data`パッケージとその依存ライブラリはPlayのコアモジュールから分離して`javaCore`モジュールに移動しました。結果的に、`play.mvc.Controller#form`も`play.data.Form#form`へ移動しています。
+何度かご説明したPlayのモジュール化に関連して、 `play.data` パッケージとその依存ライブラリはPlayのコアモジュールから分離して `javaCore` モジュールに移動しました。結果的に、 `play.mvc.Controller#form` も `play.data.Form#form` へ移動しています。
 
 <!--
 ## play.db.ebean.Model.Finder.join() renamed to fetch()
@@ -135,7 +135,7 @@ Also related to modularization, the `play.data` package and its dependencies wer
 <!--
 As part of the cleanup the Finder API join methods are replaced with fetch methods. They behave exactly same.
 -->
-コード整理の一環として、Finder APIのjoinメソッドがfetchメソッドに置き換えられました。機能には変更ありません。
+コード整理の一環として、 Finder API の join メソッドが fetch メソッドに置き換えられました。機能には変更ありません。
 
 <!--
 ## Play's Promise to become Scala's Future
@@ -147,14 +147,14 @@ With the introduction of `scala.concurrent.Future` in Scala 2.10 the scala ecosy
 
 The fact that Play is now using `scala.concurrent.Future` directly means that users can effortlessly combine futures/promises coming from both internal API-s or external libraries.
 -->
-Scala 2.10で`scala.concurrent.Future`が導入されたことで、Scalaのエコシステムに散在していた様々なFuture、Promiseライブラリが統合され始めました。
+Scala 2.10 で `scala.concurrent.Future` が導入されたことで、Scalaのエコシステムに散在していた様々な Future 、 Promise ライブラリが統合され始めました。
 
-Playが`scala.concurrent.Future`を利用するということは、つまり開発者がPlayの内部APIおよび外部ライブラリ両方のFuture/Promiseをそのまま組み合わせられるようになったということです。
+Play が `scala.concurrent.Future` を利用するということは、つまり開発者が Play の内部 API および外部ライブラリ両方の Future/Promise をそのまま組み合わせられるようになったということです。
 
 <!--
 > Java users will continue to use a Play's wrapper around scala.concurrent.Future for now. 
 -->
-> 今のところ、Javaユーザは引き続きscala.concurrent.FutureをラップしたPlayのPromiseを利用することが想定されています
+> 今のところ、Java ユーザは引き続き scala.concurrent.Future をラップした Play の Promise を利用することが想定されています
 
 <!--
 Consider the following snippet:
@@ -182,7 +182,7 @@ def stream = Action {
 <!--
 Using the new `scala.concurrent.Future` this will become:
 -->
-新しい`scala.concurrent.Future`を利用すると、このコードは次のように変わります。
+新しい `scala.concurrent.Future` を利用すると、このコードは次のように変わります。
 
 ```
 import play.api.libs.iteratee._
@@ -212,9 +212,9 @@ Notice the extra imports for:
 - The change for duration `scala.concurrent.duration` (instead of using the Akka API) 
 - The `asPromise` method has been removed
 -->
-- 実行コンテキスト`play.api.libs.concurrent.Execution.Implicits`を新たにインポートする
-- Akka APIのDurationの代わりに、`scala.concurrent.duration`を使う
-- `asPromise`メソッドが必要無くなっている
+- 実行コンテキスト`play.api.libs.concurrent.Execution.Implicits` を新たにインポートする
+- Akka APIのDuration の代わりに、 `scala.concurrent.duration` を使う
+- `asPromise` メソッドが必要無くなっている
 
 <!--
 Generally speaking, if you see error message "error: could not find implicit value for parameter executor", you probably need to add:
@@ -238,8 +238,8 @@ And remember that:
 -->
 最後に、次の２点を改めて確認しましょう。
 
-- Playの`Promise`はScalaの`Future`に置き換えられたこと
-- Playの`Redeemable`はScalaの`Promise`に置き換えられたこと
+- Playの `Promise` は Scala の `Future` に置き換えられたこと
+- Playの `Redeemable` は Scala の `Promise` に置き換えられたこと
 
 <!--
 ## Changes to the Scala JSON API
@@ -251,7 +251,7 @@ And remember that:
 
 The `play.api.libs.json.Reads` type signature has changed. Consider:
 -->
-**Play 2.1**では、全く新しいScala向けのJSONのバリデータとパスナビゲータAPIが導入されました。このAPIは既存のJSONパーサとは互換性がありません。
+**Play 2.1**で は、全く新しい Scala 向けの JSON のバリデータとパスナビゲータ API が導入されました。この API は既存の JSON パーサとは互換性がありません。
 
 `play.api.libs.json.Reads`型のシグネチャも変更されました。次のコードを見てください。
 
@@ -267,7 +267,7 @@ trait play.api.libs.json.Reads[A] {
 <!--
 In 2.1 this becomes:
 -->
-このコードは、Play 2.1では次のように変わりました。
+このコードは、 Play 2.1 では次のように変わりました。
 
 ```
 trait play.api.libs.json.Reads[A] {
@@ -281,7 +281,7 @@ trait play.api.libs.json.Reads[A] {
 <!--
 So, in **Play 2.0** an implementation for a JSON serializer for the `User` type was:
 -->
-例えば、**Play 2.0**で`User`型のJSONシリアライザは次のように実装していました。
+例えば、 **Play 2.0** で `User` 型の JSON シリアライザは次のように実装していました。
 
 ```
 implicit object UserFormat extends Format[User] {
@@ -305,7 +305,7 @@ implicit object UserFormat extends Format[User] {
 <!--
 In **Play 2.1** you will need to refactor it as: 
 -->
-これを**Play 2.1**では次のようにリファクタリングする必要があります。
+これを **Play 2.1** では次のようにリファクタリングする必要があります。
 
 ```
 implicit object UserFormat extends Format[User] {
@@ -329,7 +329,7 @@ implicit object UserFormat extends Format[User] {
 <!--
 The API to generate JSON also evolved. Consider:
 -->
-JSONを生成するAPIも同様に進化しました。次のコードを見てください。
+JSON を生成する API も同様に進化しました。次のコードを見てください。
 
 ```
 val jsonObject = Json.toJson(
@@ -357,7 +357,7 @@ val jsonObject = Json.toJson(
 <!--
 With **Play 2.1** this becomes:
 -->
-これを**Play 2.1**で書くと次のようになります。
+これを **Play 2.1** で書くと次のようになります。
 
 ```
 val jsonObject = Json.obj(
@@ -391,9 +391,9 @@ Due to a change in _JBoss Netty_, cookies are made to be transient by setting th
 
 The `discardingCookies(String\*)` (Scala) and `discardCookies(String...)` (Java) methods on `SimpleResult` have been deprecated, since these methods are unable to handle cookies set on a particular path, domain or set to be secure.  Please use the `discardingCookies(DiscardingCookie*)` (Scala) and `discardCookie` (Java) methods instead.
 -->
-Cookieを永続化するためにはこれまで`maxAge`に-1を設定していました。しかし、_JBoss Netty_側の変更により、これからは-1の代わりに`null`または`None`(利用するAPIに依ります)を設定するようになりました。`maxAge`に0以下の値を設定した場合、Cookieは直ちに期限切れします。
+Cookieを永続化するためにはこれまで `maxAge` に -1 を設定していました。しかし、 _JBoss Netty_ 側の変更により、これからは -1 の代わりに `null` または `None` (利用するAPIに依ります)を設定するようになりました。 `maxAge` に 0 以下の値を設定した場合、Cookieは直ちに期限切れします。
 
-`SimpleResult`の`discardingCookies(String\*)` (Scala) と `discardCookies(String…)` (Java) メソッドは特定のパスやドメインにセットされたCookieや、セキュアCookieを扱えなかったため、非推奨になりました。代わりに、`discardingCookies(DiscardingCookie*)` (Scala) と `discardCookie` (Java) メソッドを利用してください。
+`SimpleResult` の `discardingCookies(String\*)` (Scala) と `discardCookies(String…)` (Java) メソッドは特定のパスやドメインにセットされたCookieや、セキュアCookieを扱えなかったため、非推奨になりました。代わりに、`discardingCookies(DiscardingCookie*)` (Scala) と `discardCookie` (Java) メソッドを利用してください。
 
 ## RequireJS
 
@@ -404,11 +404,11 @@ What this means in practice is that by default Play will only minify and combine
 
 If you wish to use this feature, you will need to add your modules to the settings block of your `project/Build.scala` file:
 -->
-**Play 2.0**ではJavaScriptはGoogle ClosureのCommonJSモジュールサポートによって処理されていました。**Play 2.1**からは代わりにRequireJSが使われるようになりました。
+**Play 2.0** ではJavaScriptはGoogle ClosureのCommonJSモジュールサポートによって処理されていました。 **Play 2.1** からは代わりにRequireJSが使われるようになりました。
 
-実利用においてこれが意味するのは、特に何か設定しない限り、Playはstage、dist、start時のみJavaScriptをminifyするということです。開発モード時は、クライアント側でJavaScriptモジュール間の依存性が解決されます。
+実利用においてこれが意味するのは、特に何か設定しない限り、 Play は stage 、 dist 、 start 時のみJavaScriptをminifyするということです。開発モード時は、クライアント側でJavaScriptモジュール間の依存性が解決されます。
 
-この機能を利用する場合は、`project/Build.scala`内の設定にRequireJSで管理したいモジュールを追加する必要があります。
+この機能を利用する場合は、 `project/Build.scala` 内の設定に RequireJS で管理したいモジュールを追加する必要があります。
 
 ```
 requireJs := "main.js"
