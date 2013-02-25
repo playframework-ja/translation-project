@@ -2,34 +2,34 @@
 ## New York
 -->
 
-## ニューヨーク(U.S.A)
+## ニューヨーク
 http://www.meetup.com/Play-NYC/
 
 <!--
 ## Boston
 -->
 
-## ボストン(U.S.A)
+## ボストン
 http://www.meetup.com/boston-play-framework-group/
 
 <!--
 ## Berlin
 -->
 
-## ベルリン(ドイツ)
+## ベルリン
 http://www.meetup.com/Play-Berlin-Brandenburg/
 
 <!--
 ## Cologne
 -->
 
-## ケルン(ドイツ)
+## ケルン
 ### Scala User Group Köln / Bonn
 
 <!--
 *(We also talk and do presentations about Play)*
 -->
-*(Playについて話し合い, プレゼンテーションを行いました。)*
+*(Play について話し合い, プレゼンテーションを行いました。)*
 
 [Xing](http://xing.to/scala) / [Twitter](https://twitter.com/scalacgn)
 
@@ -37,28 +37,28 @@ http://www.meetup.com/Play-Berlin-Brandenburg/
 ## London
 -->
 
-## ロンドン(イングランド)
+## ロンドン
 http://play.nascency.co.uk/
 
 <!--
 ## Buenos Aires
 -->
 
-## ブエノスアイレス(アルゼンチン)
+## ブエノスアイレス
 http://www.meetup.com/play-argentina/
 
 <!--
 ## Stockholm
 -->
 
-## ストックホルム(スウェーデン)
+## ストックホルム
 http://www.meetup.com/play-stockholm/
 
 <!--
 ## Montpellier
 -->
 
-## モンペリエ(フランス)
+## モンペリエ
 http://www.meetup.com/Play-Montpellier/
 
 <!--
