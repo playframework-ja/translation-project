@@ -465,7 +465,7 @@ static Form<Task> taskForm = form(Task.class);
 <!--
 The type of `taskForm` is then `Form<Task>` since it is a form generating a simple `Task`. You also need to import `play.data.*`.
 -->
-`taskForm` の型はシンプルな `Task` を生成するフォームである事を表す `Form[Task]` 型になります。その他に `play.data.*` をインポートする必要があります。
+`taskForm` の型はシンプルな `Task` を生成するフォームである事を表す `Form<Task>` 型になります。その他に `play.data.*` をインポートする必要があります。
     
 <!--
 We can add a constraint to the `Task` type using **JSR-303** annotations. Let’s make the `label` field required:
