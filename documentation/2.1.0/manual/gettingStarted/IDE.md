@@ -1,22 +1,41 @@
+<!-- translated -->
+<!--
 # Setting up your preferred IDE
+-->
+# 好きな IDE で開発する
 
+<!--
 Working with Play is easy. You don’t even need a sophisticated IDE, because Play compiles and refreshes the modifications you make to your source files automatically, so you can easily work using a simple text editor.
+-->
+Play で開発するのは簡単です。Play は自動的にソースファイルに加えた変更をコンパイルし、変更内容をリフレシュするので、洗練された IDE は必要なく、単純なテキストエディタで簡単に開発することができます。
 
+<!--
 However, using a modern Java or Scala IDE provides cool productivity features like auto-completion, on-the-fly compilation, assisted refactoring and debugging.
+-->
+しかし、モダンな Java, Scala IDE は自動コンパイル、実行中のコンパイル、リファクタリングのアシスト、デバッギングのようなクールで生産的な機能を提供しています。
 
 ## Eclipse
 
+<!--
 ### Generate configuration
+-->
+### 設定ファイルの生成
 
 Play provides a command to simplify Eclipse configuration. To transform a Play application into a working Eclipse project, use the `eclipse` command:
 
+<!--
 without the source jars:
+-->
+ソースの jar ファイルが必要ない場合は、以下のコマンドを実行します。
 
 ```
 [My first application] $ eclipse
 ```
 
+<!--
 if you want to grab the available source jars (this will take longer and it's possible a few sources might be missing):
+-->
+使用可能なソースの jar ファイルを取得したい場合は、以下のコマンドを実行します (この場合より多くの時間がかかり、いくつかのソースはなくなっているかもしれません) 。
 
 ```
 [My first application] $ eclipse with-source=true
@@ -49,34 +68,62 @@ or from the play console, type:
 EclipsePlugin.EclipseKeys.preTasks := Seq()
 ```
 
+<!--
 You then need to import the application into your Workspace with the **File/Import/General/Existing project…** menu (compile your project first).
+-->
+その後、 **File/Import/General/Existing project…** メニューを使用してワークスペースにアプリケーションをインポートする必要があります（最初にあなたのプロジェクトをコンパイルします）。
 
 [[images/eclipse.png]] 
 
+<!--
 You can also start your application with `play debug run` and then you can use the Connect JPDA launcher using **Debug As** to start a debugging session at any time. Stopping the debugging session will not stop the server.
+-->
+`play debug run` でアプリケーションを起動すると、**Debug AS** をつかってデバッグセッションを開始できる the Connect JPDA launcher を使うことができます。
+デバッグセッションを停止しても、サーバは停止しません。
 
 
 > **Tip**: You can run your application using `~run` to enable direct compilation on file change. This way scala template files are auto discovered when you create a new template in `view` and auto compiled when the file changes. If you use normal `run` then you have to hit `Refresh` on your browser each time.
 
+<!--
 If you make any important changes to your application, such as changing the classpath, use `eclipse` again to regenerate the configuration files.
+-->
+クラスパスの変更のようなアプリケーションにとって重要な変更を行った場合、`eclipsify` コマンドを使って設定ファイルの再作成を行います。
 
+<!--
 > **Tip**: Do not commit Eclipse configuration files when you work in a team!
+-->
+> **Tip**: チームで作業を行なっている場合は Eclipse の設定ファイルはコミットしないようにしてください。
 
+<!--
 The generated configuration files contain absolute references to your framework installation. These are specific to your own installation. When you work in a team, each developer must keep his Eclipse configuration files private.
+-->
+生成された設定ファイルはあなたのフレームワークのインストールに関する絶対参照を含みます。これはあなた自身のインストールに関する設定です。あなたがチーム内で作業している時には、各開発者は Eclipse の設定ファイルをプライベートにしておく必要があります。
 
 ## IntelliJ
 
+<!--
 ### Generate configuration
+-->
+### 設定ファイルの生成
 
+<!--
 Play provides a command to simplify Intellij IDEA configuration. To transform a Play application into a working IDEA module, use the idea command:
+-->
+Playは単純なIntellij IDEAの設定のためのコマンドを提供します。PlayアプリケーションをIDEAモジュールに変換するには idea コマンドを使います。
 
+<!--
 without the source jars:
+-->
+ソースの jar ファイルが必要ない場合は、以下のコマンドを実行します。
 
 ```
 [My first application] $ idea
 ```
 
+<!--
 if you want to grab the available source jars (this will take longer and it's possible a few sources might be missing):
+-->
+使用可能なソースの jar ファイルを取得したい場合は、以下のコマンドを実行します (この場合より多くの時間がかかり、いくつかのソースはなくなっているかもしれません) 。
 
 ```
 [My first application] $ idea with-sources=yes
@@ -84,10 +131,17 @@ if you want to grab the available source jars (this will take longer and it's po
 
 This will create the configuration files IntelliJ needs to open your play application as a project. The files are named <project>.iml and <project>-build.iml. The file menu (IntelliJ 11.1 CE) contains the Open Project command.
 
+<!--
 > Tip: There is an [Intellij IDEA issue](http://devnet.jetbrains.net/thread/433870) regarding building Java based Play2 apps while having the Scala plugin installed. Until it's fixed, the recommended workaround is to disable the Scala plugin.
+-->
+> Tip: Scala プラグインがインストールされている場合、Java ベースの Play2 アプリで [IntelliJ の問題](http://devnet.jetbrains.net/thread/433870) が発生しています。この問題が解決するまでは、Scala プラグインを無効にすることが推奨されます。
 
+<!--
 To debug, first add a debug configuration
+-->
+デバッグを実行するために、最初にデバッグの設定を追加します。
 
+<!--
 - Open Run/Debug Configurations dialog, then click Run -> Edit Configurations
 - Add a Remote configuration, then select `Remote`
 - Configure it:
@@ -98,6 +152,17 @@ To debug, first add a debug configuration
     - Port: 9999
     - Select module you imported
 - Close dialog - click Apply
+-->
+- Run/Debug Configurations の設定ダイアログを開き、Run -> Edit Configurations をクリックします
+- Remote 設定を追加し、`Remote` を選択します
+- 以下の内容を設定します。
+    - 名前を設定する
+    - Transport: Socket を設定する
+    - Debugger mode: Attach を設定する
+    - Host: localhost を設定する
+    - Port: 9999 を設定する
+    - インポートしたモジュールを選択する
+- Apply をクリックし、ダイアログをクローズします
 
 Start play in debug mode (in a separate command line console, NOT in IDEA's Play console):
 
@@ -105,7 +170,10 @@ Start play in debug mode (in a separate command line console, NOT in IDEA's Play
 $ play debug
 ```
 
+<!--
 which should print: 
+-->
+以下のような出力が行われます。
 
 ```
 Listening for transport dt_socket at address: 9999
@@ -121,16 +189,28 @@ Run the web app by executing the task `run` in the Play console. Finally, browse
 
 Alternatively, in order not to run more command prompts, first run "play debug run" in IDEA's Play console, then launch debug configuration.
 
+<!--
 If you make any important changes to your application, such as changing the classpath, use `idea` again to regenerate the configuration files.
+-->
+クラスパスの変更のようなアプリケーションにとって重要な変更を行った場合、`idea` コマンドを使って設定ファイルの再作成を行います。
 
 
 ## Netbeans
 
+<!--
 ### Generate Configuration
+-->
+### 設定ファイルの生成
 
+<!--
 Play does not have native Netbeans project generation support at this time.  For now you can generate a Netbeans Scala project with the [Netbeans SBT plugin](https://github.com/remeniuk/sbt-netbeans-plugin).
+-->
+Play は現時点ではネイティブの Netbeans プロジェクトの生成をサポートしていません。今のところは [NetBeans SBT Plugin](https://github.com/remeniuk/sbt-netbeans-plugin) を使うと NetBeans の Scala プロジェクトを生成することができます。
 
+<!--
 First edit the plugins.sbt file
+-->
+最初に plugins.sbt ファイルを編集します。
 
 ```
 resolvers += {
@@ -142,7 +222,10 @@ libraryDependencies += {
 }
 ```
 
+<!--
 Now run
+-->
+編集が完了したら以下のコマンドを実行します。
 
 ```
 $ play netbeans
