@@ -21,7 +21,10 @@ However, using a modern Java or Scala IDE provides cool productivity features li
 -->
 ### 設定ファイルの生成
 
+<!--
 Play provides a command to simplify Eclipse configuration. To transform a Play application into a working Eclipse project, use the `eclipse` command:
+-->
+Play は単純な Eclipse の設定のためのコマンドを提供します。Play アプリケーションを Eclipse のプロジェクトに変換するには `eclipse` コマンドを使います。
 
 <!--
 without the source jars:
@@ -41,7 +44,10 @@ if you want to grab the available source jars (this will take longer and it's po
 [My first application] $ eclipse with-source=true
 ```
 
+<!--
 > Note if you are using sub-projects with aggregate, you would need to set `skipParents` appropriately:
+-->
+> もしサブプロジェクト構成にしている場合は、以下のように `skipParents` を適切に設定する必要があるでしょう。
 
 ```
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
@@ -56,13 +62,19 @@ object ApplicationBuild extends Build {
  
 }
 ```
+<!--
 or from the play console, type:
+-->
+あるいは play コンソールから以下のようにタイプします:
 
 ``` 
 [My first application] $ eclipse skip-parents=false
 ```
 
+<!--
 > Also, if you did not want to trigger a compilation before running `eclipse`, then just add the following to your settings:
+-->
+> また、もし `eclipse` の実行時にコンパイルをトリガーさせたくない場合は、以下の設定を追加します:
 
 ```
 EclipsePlugin.EclipseKeys.preTasks := Seq()
@@ -82,7 +94,10 @@ You can also start your application with `play debug run` and then you can use t
 デバッグセッションを停止しても、サーバは停止しません。
 
 
+<!--
 > **Tip**: You can run your application using `~run` to enable direct compilation on file change. This way scala template files are auto discovered when you create a new template in `view` and auto compiled when the file changes. If you use normal `run` then you have to hit `Refresh` on your browser each time.
+-->
+> **Tip**:  `~run` を使うとファイルの変更時の直接コンパイルを有効にしてアプリケーションを実行できます。これにより `view` に新しいテンプレートファイルが作成されたことを自動的に検出し、ファイルに変更が加わった時に自動的にコンパイルされます。通常の `run` コマンドを使っていると、毎回ブラウザでのリフレッシュを行わなければいけません。
 
 <!--
 If you make any important changes to your application, such as changing the classpath, use `eclipse` again to regenerate the configuration files.
@@ -129,7 +144,10 @@ if you want to grab the available source jars (this will take longer and it's po
 [My first application] $ idea with-sources=yes
 ```
 
+<!--
 This will create the configuration files IntelliJ needs to open your play application as a project. The files are named <project>.iml and <project>-build.iml. The file menu (IntelliJ 11.1 CE) contains the Open Project command.
+-->
+これで IntelliJ が play アプリケーションをプロジェクトとして開くための設定ファイルが作成されます。これらのファイル名は <project>.iml と <project>-build.iml です。 (IntelliJ 11.1 CE の) file メニューには Open Project コマンドがあります。
 
 <!--
 > Tip: There is an [Intellij IDEA issue](http://devnet.jetbrains.net/thread/433870) regarding building Java based Play2 apps while having the Scala plugin installed. Until it's fixed, the recommended workaround is to disable the Scala plugin.
@@ -164,7 +182,10 @@ To debug, first add a debug configuration
     - インポートしたモジュールを選択する
 - Apply をクリックし、ダイアログをクローズします
 
+<!--
 Start play in debug mode (in a separate command line console, NOT in IDEA's Play console):
+-->
+play をデバッグモードで起動 (IDEA の Play コンソールではなく別のコマンドラインコンソールで) します。
 
 ```
 $ play debug
@@ -179,15 +200,24 @@ which should print:
 Listening for transport dt_socket at address: 9999
 ```
 
+<!--
 Set some breakpoints then start your new debug configuration from within IDEA. The console output should be:
+-->
+いくつかのブレークポイントをセットしてから IDEA のデバッグ設定を開始します。コンソール出力は以下のようになっているはずです。
 
 ```
 Connected to the target VM, address: 'localhost:9999', transport: 'socket'
 ```
 
+<!--
 Run the web app by executing the task `run` in the Play console. Finally, browse to `http://localhost:9000`. IntelliJ should stop at your breakpoint.
+-->
+Play コンソールの `run` タスクを呼び出す事で web アプリを実行します。最後に `http://localhost:9000` をブラウザで開きます。 IntelliJ はブレークポイントで停止しているはずです。
 
+<!--
 Alternatively, in order not to run more command prompts, first run "play debug run" in IDEA's Play console, then launch debug configuration.
+-->
+その他の方法として、新たなコマンドプロンプトを開かずに IDEA の Play コンソールで "play debug run" を実行し、それからデバッグ設定を起動する事も出来ます。
 
 <!--
 If you make any important changes to your application, such as changing the classpath, use `idea` again to regenerate the configuration files.
@@ -234,25 +264,43 @@ $ play netbeans
 
 ## ENSIME
 
+<!--
 ### Install ENSIME
+-->
+### ENSIME のインストール
 
+<!--
 Follow the installation instructions at http://github.com/aemoncannon/ensime
+-->
+http://github.com/aemoncannon/ensime の手順に従ってインストールします。
 
+<!--
 ### Generate configuration
+-->
+### 設定の作成
 
+<!--
 Edit your project/plugins.sbt file, and add the following line (you should first check http://github.com/aemoncannon/ensime-sbt-cmd for the latest version of the plugin):
+-->
+project/plugins.sbt ファイルを編集して、以下の行を追加します (最新版のプラグインを入手するためにまずは http://github.com/aemoncannon/ensime-sbt-cmd をチェックすると良いです)。
 
 ```
 addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.0")
 ```
 
+<!--
 Start Play:
+-->
+Play 起動します:
 
 ```
 $ play
 ```
 
+<!--
 Enter 'ensime generate' at the play console. The plugin should generate a .ensime file in the root of your Play project.
+-->
+Play コンソールから 'ensime generate' と入力します。このプラグインにより Play プロジェクトのルートに .ensime ファイルが作成されているはずです。
 
 ```
 $ [MYPROJECT] ensime generate
@@ -286,22 +334,44 @@ $ [MYPROJECT] ensime generate
 [info] Wrote configuration to .ensime
 ```
 
+<!--
 ### Start ENSIME
+-->
+### ENSIME の起動
 
+<!--
 From Emacs, execute M-x ensime and follow the on-screen instructions.
+-->
+Emacs から M-x ensime を実行して、画面に表示された手順に沿って手続きを行います。
 
+<!--
 That's all there is to it. You should now get type-checking, completion, etc. for your Play project. Note, if you add new library dependencies to your play project, you'll need to re-run "ensime generate" and re-launch ENSIME.
+-->
+手続きは以上です。これで Play プロジェクトでタイプチェックやコンパイル等を行うことができます。もし Play プロジェクトで新しいライブラリの依存性を追加した場合は、再度 "ensime generate" を実行して ENSIME を再起動する必要があります。
 
+<!--
 ### More Information
+-->
+### 詳しい情報は
 
+<!--
 Check out the ENSIME manual at http://aemoncannon.github.com/ensime/index.html
+-->
+http://aemoncannon.github.com/ensime/index.html にある ENSIME マニュアルをチェックして下さい。
+<!--
 If you have questions, post them in the ensime group at https://groups.google.com/forum/?fromgroups=#!forum/ensime
+-->
+質問がある場合は https://groups.google.com/forum/?fromgroups=#!forum/ensime にある ensime グループに投稿して下さい。
 
 
 ## All Scala Plugins if needed
 
+<!--
 Scala is a newer programming language, so the functionality is provided in plugins rather than in the core IDE.
+-->
+Scala は新しいプログラミング言語です。そのため、機能は IDE のコアではなくプラグインとして組み込まれています。
 
+<!--
 - Eclipse Scala IDE: http://scala-ide.org/
 - NetBeans Scala Plugin: http://java.net/projects/nbscala
 - IntelliJ IDEA Scala Plugin: http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA
@@ -311,10 +381,26 @@ Scala is a newer programming language, so the functionality is provided in plugi
 - IntelliJ IDEA Play 2.0 plugin (available only for Leda 12.x): http://plugins.intellij.net/plugin/?idea&pluginId=7080
 - ENSIME - Scala IDE Mode for Emacs: https://github.com/aemoncannon/ensime
 (see below for ENSIME/Play instructions)
+-->
+- Eclipse Scala IDE: http://scala-ide.org/
+- NetBeans Scala Plugin: http://java.net/projects/nbscala
+- IntelliJ IDEA Scala Plugin: http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA
+- IntelliJ IDEA のプラグインは活発に開発されているため、ナイトリービルドを使う事で、小さな問題と引き換えにより多くの機能を使えるようになります。
+- Nika (11.x) Plugin Repository: http://www.jetbrains.com/idea/plugins/scala-nightly-nika.xml
+- Leda (12.x) Plugin Repository: http://www.jetbrains.com/idea/plugins/scala-nightly-leda.xml
+- IntelliJ IDEA Play 2.0 plugin (Leda 12.x のみに対応): http://plugins.intellij.net/plugin/?idea&pluginId=7080
+- ENSIME - Emacs 用の Scala IDE モード: https://github.com/aemoncannon/ensime
+(ENSIME/Play の導入方法は以下をご覧下さい)
 
 &nbsp;
 
+<!--
 > **Next:** 
 >
 > – [[Play for Scala developers|ScalaHome]]
 > – [[Play for Java developers|JavaHome]]
+-->
+> **Next:**
+>
+> – [[Scala 開発者のための Play|ScalaHome]]
+> – [[Java 開発者のための Play|JavaHome]]
