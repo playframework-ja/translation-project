@@ -12,7 +12,7 @@ Play framework は、下から上まで、非同期な web フレームワーク
 <!--
 Because of this, if you plan to write blocking IO code, or code that could potentially do a lot of CPU intensive work, you need to know exactly which thread pool is bearing that workload, and you need to tune it accordingly.  Doing blocking IO without taking this into account is likely to result in very poor performance from Play framework, for example, you may see only a few requests per second being handled, while CPU usage sits at 5%.  In comparison, benchmarks on typical development hardware (eg, a MacBook Pro) have shown Play to be able to handle workloads in the hundreds or even thousands of requests per second without a sweat when tuned correctly.
 -->
-このため、ブロッキング IO や、潜在的に多くの CPU を集約して実行可能なコードを書きたいと考えた場合に、どのスレッドプールがその処理を実行しているかを知り、それに応じて調整する必要があります。例えば、これを考慮に入れずにブロッキング IO を行うと、 Play framework のパフォーマンスは貧弱になります。例えば、1 秒あたりほんの少数のリクエストを扱う場合にも、 CPU 使用率が 5% で維持されます。それに比べて、 MacBook Pro のような典型的な開発ハードウェア上のベンチマークでは、汗を流して正確に調整しなくても、 Play が毎秒何百、何千リクエストの仕事量を扱うことができることを示しました。
+このため、ブロッキング IO や、潜在的に多くの CPU を集約して実行可能なコードを書きたいと考えた場合に、どのスレッドプールがその処理を実行しているかを知り、それに応じて調整する必要があります。これを考慮に入れずにブロッキング IO を行うと、Play framework のパフォーマンスは貧弱になり得ます。例えば、1 秒あたりほんの少数のリクエストを扱う場合にも、 CPU 使用率が 5% に貼り付くのを目にするかもしれません。それに比べて、 MacBook Pro のような典型的な開発ハードウェア上のベンチマークでは、汗を流して正確に調整しなくても、 Play が毎秒何百、何千リクエストの仕事量を扱うことができることを示しました。
 
 <!--
 ## Knowing when you are blocking
@@ -22,7 +22,7 @@ Because of this, if you plan to write blocking IO code, or code that could poten
 <!--
 The most common place that a typical Play application will block is when it's talking to a database.  Unfortunately, none of the major databases provide asynchronous database drivers for the JVM, so for most databases, your only option is to using blocking IO.  A notable exception to this is [ReactiveMongo](http://reactivemongo.org/), a driver for MongoDB that uses Play's Iteratee library to talk to MongoDB.
 -->
-データベースと通信との通信は Play アプリケーションがブロックされる典型的な例です。不幸なことに、メジャーなデータベースでも JVM での非同期なドライバーを提供しているものはありませんし、ほとんどのデータベースではブロック IO を使うことを選ぶことになります。[ReactiveMongo](http://reactivemongo.org/) は例外になっており、Play の Iteratee ライブラリを使って、 MongoDB と通信するためのドライバーです。
+データベースと通信との通信は Play アプリケーションがブロックされる典型的な例です。不幸なことに、メジャーなデータベースでも JVM での非同期なドライバーを提供しているものはありませんし、ほとんどのデータベースではブロック IO を使うことを選ぶことになります。MongoDB 用のドライバーである [ReactiveMongo](http://reactivemongo.org/) は、Play の Iteratee ライブラリを使う注目すべき例外です。
 
 <!--
 Other cases when your code may block include:
@@ -48,7 +48,7 @@ In general, if the API you are using returns futures, it is non blocking, otherw
 <!--
 > Note that you may be tempted to therefore wrap your blocking code in Futures.  This does not make it non blocking, it just means the blocking will happen in a different thread.  You still need to make sure that the thread pool that you are using there has enough threads to handle the blocking.
 -->
-> Future でブロッキング・コードを包むという誘惑にかられてもよいことに注意してください。こうすることではノンブロッキングになりませんし、ブロッキングが他のスレッド内で起こるかもしれません。使用しているスレッドプールがブロッキングを扱うための十分なスレッドを持っていることを確かめる必要があります。
+> このため、Future でブロッキングコードをラップするという誘惑に駆られるかもしれないことに注意してください。こうすることではノンブロッキングになりませんし、ブロッキングが他のスレッド内で起こるかもしれません。使用しているスレッドプールがブロッキングを扱うための十分なスレッドを持っていることを確かめる必要があります。
 
 
 <!--
@@ -132,7 +132,7 @@ def someAsyncAction = Action {
 <!--
 The default thread pool can be configured using standard Akka configuration in `application.conf` under the `play` namespace.  Here is the default configuration:
 -->
-デフォルトスレッドプールは `application.conf` 内の `play` 名前空間で標準 Akka 設定を使用して設定することができます。デフォルト設定をお見せします。
+デフォルトスレッドプールは `application.conf` 内の `play` 名前空間で標準 Akka 設定を使用して設定することができます。デフォルト設定は以下の通りです:
 
 ```
 play {
@@ -154,12 +154,12 @@ play {
 <!--
 This configuration instructs Akka to create one thread per available processor, with a maximum of 24 threads in the pool.  The full configuration options available to you can be found [here](http://doc.akka.io/docs/akka/2.1.0/general/configuration.html#Listing_of_the_Reference_Configuration).
 -->
-この設定はプール内で 24 スレッドを最大として、有効なプロセッサーごとにスレッドを一つ作成することを Akka に指示します。すべての設定可能なオプションは [ここ](http://doc.akka.io/docs/akka/2.1.0/general/configuration.html#Listing_of_the_Reference_Configuration) でみることができます。
+この設定はプール内で 24 スレッドを最大として、有効なプロセッサーごとにスレッドを一つ作成することを Akka に指示します。すべての設定可能なオプションは [ここ](http://doc.akka.io/docs/akka/2.1.0/general/configuration.html#Listing_of_the_Reference_Configuration) で見ることができます。
 
 <!--
 > Note that this configuration is separate from the configuration that the Play Akka plugin uses.  The Play Akka plugin is configured separately, by configuring akka in the root namespace (without the play { } surrounding it).
 -->
-> この設定が Play Akka plugin が使用する設定と分離していることに注意してください。Play Akka プラグインは、(play {} で囲まれていない) ルート・ネームスペース中の akka の設定によって、別々に設定されます。
+> この設定が Play Akka plugin が使用する設定と分離していることに注意してください。Play Akka プラグインは、(play {} で囲まれていない) ルートネームスペース中の akka の設定によって、別々に設定されます。
 
 <!--
 ## Using other thread pools
@@ -169,7 +169,7 @@ This configuration instructs Akka to create one thread per available processor, 
 <!--
 In certain circumstances, you may wish to dispatch work to other thread pools.  This may include CPU heavy work, or IO work, such as database access.  To do this, you should first create a thread pool, this can be done easily in Scala:
 -->
-ある状況では、他のスレッドプールに仕事を割り当てたくなることがあります。データベース・アクセスのような CPU での重たい作業や IO を含んでいるかもしれません。この処理を行うために、最初にスレッドプールを作成するべきです。これは、 Scala 内で簡単に行うことができます:
+ある状況では、他のスレッドプールに仕事を割り当てたくなることがあります。このような状況には、データベースアクセスのような CPU 負荷の高い作業や IO が含まれるかもしれません。この処理を行うために、最初にスレッドプールを作成するべきです。これは、 Scala 内で簡単に行うことができます:
 
 ```scala
 object Contexts {
@@ -227,7 +227,7 @@ Future {
 <!--
 How you should best divide work in your application between different thread pools greatly depends on the types work that your application is doing, and the control you want to have over how much of which work can be done in parallel.  There is no one size fits all solution to the problem, and the best decision for you will come from understanding the blocking IO requirements of your application and the implications they have on your thread pools.  It may help to do load testing on your application to tune and verify your configuration.
 -->
-異なったスレッドプール間でのアプリケーションでの最良の作業の分け方はアプリケーションの動作に左右されます。どのくらい作業を実行させたいかをコントロールすることで平行に実行することが可能です。全てのソリューションに合うサイズはありません。また、アプリケーションのブロッキング IO 必要条件、およびスレッドプール上での意味を理解することで、最良の決定を行うことができます。設定を合わせて、確認するためにアプリケーションでのテストをロードするのを支援できます。
+アプリケーションにおける作業を異なるスレッドプール間でどのように割り振るべきかは、アプリケーションが実行している作業の種類、およびどれだけの作業を平行して行えるよう制御したいのかという要望に大きく依存します。全てのソリューションに合うただひとつの設定値はありませんので、アプリケーションのブロッキング IO 要件と、それらのスレッドプール上における意味を理解することで、最良の決定を行うことができます。設定値の調整および検証にはアプリケーションの負荷テストが役立つでしょう。
 
 <!--
 Below we outline a few common profiles that people may want to use in Play Framework:
@@ -237,13 +237,12 @@ Below we outline a few common profiles that people may want to use in Play Frame
 <!--
 ### Pure asynchronous
 -->
-
 ### ピュアな非同期化
 
 <!--
 In this case, you are doing no blocking IO in your application.  Since you are never blocking, the default configuration of one thread per processor suits your use case prefectly, so no extra configuration needs to be done.  The Play default execution context can be used in all cases.
 -->
-この場合、アプリケーションでのブロッキング IO を行うことができません。ブロッキングしなければ、デフォルト設定ではプロセッサーごとに1つのスレッドが使われます。従って、余分な設定を行う必要はありません。Play のデフォルト実行コンテキストはすべての場合に使われます。
+この場合、アプリケーションではブロッキング IO を行いません。決してブロッキングを行わないので、プロセッサーごとにひとつのスレッドを割り当てるデフォルトの設定がこのユースケースにぴったりですし、追加の設定を行う必要はありません。Play のデフォルト実行コンテキストがあらゆる状況で使われます。
 
 <!---
 ### Highly synchronous
@@ -342,8 +341,7 @@ akka {
 <!--
 Then in your code, you would create futures and pass the relevant execution context for the type of work that future was doing.
 -->
-その後、コードでは、 future を作成し、 future が実行していた仕事のタイプ用の適切な実行コンテキストを通るでしょう。
-
+この後、コードにて future を作成し、future が実行していた作業と関係のある実行コンテキストを引き渡します。
 
 <!--
 ### Few specific thread pools
@@ -353,4 +351,4 @@ Then in your code, you would create futures and pass the relevant execution cont
 <!--
 This is a combination between the many specific thread pools and the highly synchronised profile.  You would do most simple IO in the default execution context and set the number of threads there to be reasonably high (say 100), but then dispatch certain expensive operations to specific contexts, where you can limit the number of them that are done at one time.
 -->
-多くの特定のスレッドプールと高度に同期化されたプロファイルの組み合わせです。デフォルト実行コンテキスト中でほとんどの単純な IO を行い、(100 くらいの)合理的な複数のスレッドを設定します。その後、一度に行われる数を制限できるところで、特定のコンテキストへの高価なオペレーションを割り当てます。
+これは、多くの特定のスレッドプールと高度に同期化されたプロファイルの組み合わせです。デフォルト実行コンテキスト中でほとんどの単純な IO を行い、(100 くらいの) 合理的な複数のスレッドを設定しますが、その後、一度に行われる数を制限することのできる特定のコンテキストに負荷の高いオペレーションを割り振ります。
