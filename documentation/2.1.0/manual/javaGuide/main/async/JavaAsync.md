@@ -119,4 +119,4 @@ public static Result index() {
 <!--
 > **Next:** [[Streaming HTTP responses | JavaStream]]
 -->
-> **次ページ:** [[HTTPレスポンスのストリーミング | JavaStream]]
+> **次ページ:** [[HTTP レスポンスのストリーミング | JavaStream]]
