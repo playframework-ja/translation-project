@@ -93,7 +93,7 @@ public static WebSocket<String> index() {
       in.onMessage(new Callback<String>() {
          public void invoke(String event) {
              
-           // Log events to the console
+           // コンソールにイベントのログを出力する
            println(event);  
              
          } 
