@@ -31,7 +31,7 @@ ebean.customers="models.Customer,models.Address"
 <!--
 In this example, we have access to two Ebean servers - each using its own database.
 -->
-この例では、2つの Ebean サーバへのアクセスが設定されています。各サーバはそれぞれ異なるデータベースを使用しています。
+この例では、2 つの Ebean サーバへのアクセスが設定されています。各サーバはそれぞれ異なるデータベースを使用しています。
 
 <!--
 > For more information about Ebean, see the [[Ebean documentation | http://www.avaje.org/ebean/documentation.html]].
