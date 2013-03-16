@@ -285,7 +285,7 @@ GET   /api/list-all         controllers.Api.list(Option[version])
 <!--
 Many routes can match the same request. If there is a conflict, the first route (in declaration order) is used.
 -->
-同じリクエストに複数のルートがマッチする可能性もあります。そのようなルートの競合が怒った場合、 (定義した順番が) 最初のルートが利用されます。
+同じリクエストに複数のルートがマッチする可能性もあります。そのようなルートの競合が起こった場合、 (定義した順番が) 最初のルートが利用されます。
 
 <!--
 ## Reverse routing
@@ -301,7 +301,7 @@ The `play.api.mvc.Call` defines an HTTP call, and provides both the HTTP method 
 
 For example, if you create a controller like:  
 -->
-ルータはScalaから呼び出してURLを生成させるという使い方もできます。これにより、全ての URI パターンを一つの設定ファイルに集約することができ、アプリケーションのリファクタリングをより安全に行うことができるようになります。
+ルータは Scala から呼び出して URL を生成させるという使い方もできます。これにより、全ての URI パターンを一つの設定ファイルに集約することができ、アプリケーションのリファクタリングをより安全に行うことができるようになります。
 
 ルータはルートファイルで使われるそれぞれのコントローラについて `routes` パッケージ以下に「リバースコントローラ」を生成します。リバースコントローラにはコントローラと同じシグネチャを持つ、同名のアクションメソッド定義されていますが、それぞれ `play.api.mvc.Action` の代わりに `play.api.mvc.Call` を返すようになっています。
 
@@ -350,5 +350,3 @@ def helloBob = Action {
 > **Next:** [[Manipulating results | ScalaResults]]
 -->
 > **次ページ:** [[レスポンスの操作 | ScalaResults]]
-
-
