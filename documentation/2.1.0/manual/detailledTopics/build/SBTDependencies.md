@@ -29,9 +29,15 @@ There’s nothing to add to `project/Build.scala` to use unmanaged dependencies,
 -->
 ## 管理された依存性
 
+<!--
 Play uses Apache Ivy (via sbt) to implement managed dependencies, so if you’re familiar with Maven or Ivy, you won’t have much trouble.
+-->
+Play は「管理された依存性」を実現するために、Apache Ivy を利用しています。もし、Maven や Ivy に詳しければ、特に困ることはないでしょう。
 
+<!--
 Most of the time, you can simply list your dependencies in the `project/Build.scala` file. 
+-->
+たいていの場合は、依存モジュールを `project/Build.scala` へリストアップするだけでよいでしょう。
 
 <!--
 Declaring a dependency looks like this (defining `group`, `artifact` and `revision`):
