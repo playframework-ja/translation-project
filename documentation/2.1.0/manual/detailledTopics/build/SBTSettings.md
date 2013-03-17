@@ -9,7 +9,10 @@
 -->
 ## sbt セッティングについて
 
+<!--
 The sbt build script defines settings for your project. You can also define your own custom settings for your project, as described in the [[sbt documentation | http://www.scala-sbt.org]].  In particular, it helps to be familiar with the [[settings | http://www.scala-sbt.org/release/docs/Getting-Started/More-About-Settings]] in sbt.
+-->
+sbt　ビルドスクリプトはプロジェクトの設定を定義します。[[sbt ドキュメント | http://www.scala-sbt.org]] に記述されているように、プロジェクト独自のカスタム設定を定義することも可能です。特に sbt の [[セッティング | http://www.scala-sbt.org/release/docs/Getting-Started/More-About-Settings]] について慣れる事は有効です。
 
 <!--
 To set a basic setting, use the `:=` operator:
@@ -27,7 +30,10 @@ val main = PlayProject(appName, appVersion, appDependencies).settings(
 -->
 ## Java アプリケーション向けのデフォルトセッティング
 
+<!--
 Play defines a default set of settings suitable for Java-based applications. To enable them add the `defaultJavaSettings` set of settings to your application definition:
+-->
+Play は Java ベースのアプリケーションに適したデフォルト設定のセットを定義しています。これらを有効にするには、アプリケーション定義に設定の `defaultJavaSettings` セットを追加してください:
 
 ```scala
 val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA)
@@ -44,7 +50,10 @@ These default settings mostly define the default imports for generated templates
 -->
 ## Scala アプリケーション向けのデフォルトセッティング
 
+<!--
 Play defines a default set of settings suitable for Scala-based applications. To enable them add the `defaultScalaSettings` set of settings to your application definition:
+-->
+Play は Scala ベースのアプリケーションに適したデフォルト設定のセットを定義しています。これらを有効にするには、アプリケーション定義に設定の `defaultScalaSettings` セットを追加してください:
 
 ```scala
 val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA)
