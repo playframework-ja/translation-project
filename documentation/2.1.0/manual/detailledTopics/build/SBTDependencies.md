@@ -69,7 +69,7 @@ sbt (内部で Ivy を使っています) は、モジュールのダウンロ�
 <!--
 ### Getting the right Scala version with `%%`
 -->
-## `%%` を使って適切な Scala バージョンを選択する
+### `%%` を使って適切な Scala バージョンを選択する
 
 <!--
 If you use `groupID %% artifactID % revision` instead of `groupID % artifactID % revision` (the difference is the double `%%` after the `groupID`), sbt will add your project’s Scala version to the artifact name. This is just a shortcut. 
