@@ -79,7 +79,10 @@ When you have a sub-project enabled in your build, you can focus on this project
 [info] 	   my-library
 ```
 
+<!--
 The default project is the one whose variable name comes first alphabetically.  You may make your main project by making its variable name aaaMain.  To change the current project use the `project` command:
+-->
+デフォルトのプロジェクトは変数名がアルファベット順で最初の物になります。メインプロジェクトを指定したい場合は変数名を aaaMain 等にする事で可能になります。現在のプロジェクトを切り替えるには、`project` コマンドを使ってください。
 
 ```
 [my-first-application] $ project my-library
@@ -159,13 +162,25 @@ val main = PlayProject(
 )
 ```
 
+<!--
 > Note: in order to avoid naming collision, make sure your controllers, including the Assets controller in your subprojects are using a different name space than the main project
+-->
+> ノート: 名前の衝突を避けるため、サブプロジェクトのコントローラは、アセットのコントローラーも含め、メインプロジェクトと別の名前空間を使用するようにして下さい。
 
+<!--
 ## Splitting the route file
+-->
+## ルートファイルを分割する
 
+<!--
 As of `play 2.1` it's also possible to split the route file into smaller pieces. This is a very handy feature if you want to create a robust, reusable multi-module play application
+-->
+`play 2.1` からはルートファイルを小さな部品に分割することもできます。これはロバストで再利用可能な、マルチモジュールの play アプリケーションを作成したい時にとても便利な機能です。
 
+<!--
 ### Consider the following build file
+-->
+### 以下のビルドファイルを考えます
 
 `project/Build.scala`:
 
@@ -198,7 +213,10 @@ object ApplicationBuild extends Build {
 }
 ```
 
+<!--
 ### project structure
+-->
+### プロジェクト構成
 
 ```
 app
@@ -220,7 +238,10 @@ project
  └ plugins.sbt
 ```
 
+<!--
 > Note: there is only a single instance of `application.conf`. Also, the route file in `admin` is called `admin.routes`
+-->
+> ノート: `application.conf` は一つしかありません。また `admin` のルートファイルは `admin.routes` という名前になっています。
 
 `conf/routes`:
 
@@ -241,7 +262,10 @@ GET     /assets/*file               controllers.admin.Assets.at(path="/public", 
 
 ```
 
+<!--
 ### Assets and controller classes should be all defined in the `controllers.admin` package
+-->
+### アセットとコントローラクラスは `controllers.admin` パッケージ以下に無ければなりません。
 
 `modules/admin/controllers/Assets.scala`:
 
@@ -250,7 +274,10 @@ package controllers.admin
 object Assets extends controllers.AssetsBuilder
 ```
 
+<!--
 > Note: Java users can do something very similar i.e.
+-->
+> ノート: Java ユーザは以下のように類似のことができます。
 
 ```java
 // Assets.java
@@ -261,7 +288,10 @@ public static controllers.AssetsBuilder delegate = new controllers.AssetsBuilder
 }
 ```
 
+<!--
 and a controller:
+-->
+コントローラも同様です:
 
 `modules/admin/controllers/Application.scala`:
 
@@ -280,40 +310,61 @@ object Application extends Controller {
 }
 ```
 
+<!--
 ### Reverse routing in ```admin```
+-->
+### ```admin``` でのリバースルーティング
 
+<!--
 in case of a regular controller call:
+-->
+通常のコントローラの場合は以下のように呼び出します:
 
 
 ```
 controllers.admin.routes.Application.index
 ``` 
 
+<!--
 and for `Assets`: 
+-->
+`Assets` の場合は以下のようになります:
 
 ```
 controllers.admin.routes.Assets.at("...")
 ```
 
+<!--
 ### Through the browser
+-->
+### ブラウザ経由の場合
 
 ```
 http://localhost:9000/index
 ``` 
 
+<!--
 triggers 
+-->
+は以下を呼び出します。
 
 ```
 controllers.Application.index
 ```
 
+<!--
 and
+-->
+また
 
 ```
 http://localhost:9000/admin/index
 ``` 
 
+<!--
 triggers 
+-->
+は以下を呼び出します。
 
 ```
 controllers.admin.Application.index
