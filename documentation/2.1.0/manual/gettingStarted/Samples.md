@@ -4,7 +4,10 @@
 -->
 # サンプルアプリケーション
 
+<!--
 The Play binary package comes with a comprehensive set of sample applications written in both Java and Scala. This is a very good place to look for code snippets and examples.
+-->
+Play のバイナリパッケージには Java と Scala の両方で書かれたサンプルアプリケーションの包括的なセットが付属しています。これはコードスニペットと例を探すのにとても良い場所です。
 
 <!--
 > The sample applications are available in the `samples/` directory of your Play installation.
@@ -15,7 +18,10 @@ The Play binary package comes with a comprehensive set of sample applications wr
 
 [[images/helloworld.png]]
 
+<!--
 This is a very basic application that demonstrates Play fundamentals:
+-->
+これは Play の基本機能を紹介するための入門的なアプリケーションです。
 
 <!--
 - Writing controllers and actions.
@@ -60,7 +66,10 @@ Twitter Bootstrap を利用するためには、 Play 2.0 標準のフォーム�
 
 [[images/forms.png]]
 
+<!--
 This is a dummy application presenting several typical form usages. It demonstrates: 
+-->
+これはいくつかの典型的なフォームの使用方法を提示するダミーアプリケーションです。 
 
 <!--
 - writing complex forms with validation
@@ -143,7 +152,13 @@ This mobile web application monitors Play server performance. It demonstrates:
 
 &nbsp;
 
+<!--
 > **Next:** 
 >
 > – [[Play for Scala developers | ScalaHome]]
 > – [[Play for Java developers | JavaHome]]
+-->
+> **Next:**
+>
+> – [[Scala 開発者のための Play|ScalaHome]]
+> – [[Java 開発者のための Play|JavaHome]]
