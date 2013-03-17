@@ -9,7 +9,10 @@ A complex project is not necessarily composed of a single Play application. You 
 -->
 複雑なプロジェクトを、一つの Play アプリケーションにまとめる必要はありません。大きなプロジェクトは、小さなアプリケーションに分割できます。また、アプリケーションから独立したロジックは Java や Scala ライブラリに切り出すのもよいでしょう。
 
+<!--
 It will be helpful to read the [SBT documentation on multi-project builds](http://www.scala-sbt.org/release/docs/Getting-Started/Multi-Project).  Sub-projects do not have their own build file, but share the parent project's build file.
+-->
+詳細については[「マルチプロジェクト・ビルドについての SBT ドキュメント」](http://scalajp.github.com/sbt-getting-started-guide-ja/multi-project/) [(原文)](http://www.scala-sbt.org/release/docs/Getting-Started/Multi-Project) を参照してください。また、サブプロジェクトを定義するにあたって最も基本的なこととして、サブプロジェクト用のビルドファイルというものはありません。親のビルドファイルにサブプロジェクトを定義します。
 
 <!--
 ## Adding a simple library sub-project
@@ -45,7 +48,10 @@ object ApplicationBuild extends Build {
 }
 ```
 
+<!--
 Here we have defined a sub-project in the application’s `myLibrary` folder. This sub-project is a standard sbt project, using the default layout:
+-->
+これで、`myLibrary` ディレクトリにサブプロジェクトを定義しました。サブプロジェクトは普通の sbt プロジェクトの一種であり、標準的なディレクトリ構成に従います。
 
 ```
 myProject
@@ -98,7 +104,10 @@ As a Play application is just a standard sbt project with a default configuratio
 -->
 Play アプリケーションはデフォルト設定に従った普通のsbtプロジェクトでもあるため、お互いに依存性を持たせることができます。
 
+<!--
 The configuration is very close to the previous one. Simply configure your sub-project as a `play.Project`:
+-->
+設定方法は、サブプロジェクトの場合ととてもよく似ています。サブプロジェクトを `play.Project` として定義すれば OK です。
 
 ```
 import sbt._
