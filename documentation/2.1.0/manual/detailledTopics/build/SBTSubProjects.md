@@ -1,12 +1,25 @@
+<!-- translated -->
+<!--
 # Working with sub-projects
+-->
+# サブプロジェクト
 
+<!--
 A complex project is not necessarily composed of a single Play application. You may want to split a large project into several smaller applications, or even extract some logic into a standard Java or Scala library that has nothing to do with a Play application.
+-->
+複雑なプロジェクトを、一つの Play アプリケーションにまとめる必要はありません。大きなプロジェクトは、小さなアプリケーションに分割できます。また、アプリケーションから独立したロジックは Java や Scala ライブラリに切り出すのもよいでしょう。
 
 It will be helpful to read the [SBT documentation on multi-project builds](http://www.scala-sbt.org/release/docs/Getting-Started/Multi-Project).  Sub-projects do not have their own build file, but share the parent project's build file.
 
+<!--
 ## Adding a simple library sub-project
+-->
+## ライブラリをサブプロジェクトとして切り出す
 
+<!--
 You can make your application depend on a simple library project. Just add another sbt project definition in your `project/Build.scala` build file:
+-->
+アプリケーションからシンプルな「ライブラリプロジェクト」を切り出すことができます。`project/Build.scala` に、次のような sbt のプロジェクト定義を追加してください。
 
 ```
 import sbt._
@@ -48,7 +61,10 @@ project
  └ Build.scala
 ```
 
+<!--
 When you have a sub-project enabled in your build, you can focus on this project and compile, test or run it individually. Just use the `projects` command in the Play console prompt to display all projects:
+-->
+ビルド設定でサブプロジェクトを有効にした場合、それぞれのプロジェクトを個別にコンパイル、テスト、実行することができます。Play コンソールで `projects` コマンドを実行すると、全てのプロジェクトが表示されます。
 
 ```
 [my-first-application] $ projects
@@ -65,13 +81,22 @@ The default project is the one whose variable name comes first alphabetically.  
 >
 ```
 
+<!--
 When you run your Play application in dev mode, the dependent projects are automatically recompiled, and if something cannot compile you will see the result in your browser:
+-->
+Play アプリケーションを開発モードで起動している場合、依存するサブプロジェクトも自動的に再コンパイルされます。サブプロジェクトのコンパイルエラーも、ブラウザ上で確認できます。
 
 [[subprojectError.png]]
 
+<!--
 ## Splitting your web application into several parts
+-->
+## Webアプリケーションを複数のプロジェクトに分割する
 
+<!--
 As a Play application is just a standard sbt project with a default configuration, it can depend on another Play application. 
+-->
+Play アプリケーションはデフォルト設定に従った普通のsbtプロジェクトでもあるため、お互いに依存性を持たせることができます。
 
 The configuration is very close to the previous one. Simply configure your sub-project as a `play.Project`:
 
@@ -105,9 +130,15 @@ object ApplicationBuild extends Build {
 }
 ```
 
+<!--
 Here we define a complete project split in two main parts: the website and the admin area. Moreover these two parts depend themselves on a common module.
+-->
+これで、Web サイトと管理者向けサイトから構成される main プロジェクトを定義できました。また、両方のプロジェクトが common モジュールに依存しています。
 
+<!--
 If you would like the dependent projects to be recompiled and tested when you recompile and test the main project then you will need to add an "aggregate" clause.
+-->
+main プロジェクトを再コンパイルしてテストするとき、依存するプロジェクトが再コンパイルされてテストされるようにしたい場合は、"aggregate" 句を追加する必要があります。
 
 ```
 val main = PlayProject(
