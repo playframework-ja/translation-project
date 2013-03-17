@@ -9,9 +9,15 @@
 -->
 [[CoffeeScript | http://jashkenas.github.com/coffee-script/]] は、小さくかつエレガントな言語で、JavaScript へコンパイルされます。CoffeeScript を利用すると、JavaScript コードをより良い構文で書くことができます。
 
+<!--
 Compiled assets in Play must be defined in the `app/assets` directory. They are handled by the build process, and CoffeeScript sources are compiled into standard JavaScript files. The generated JavaScript files are distributed as standard resources into the same `public/` folder as other unmanaged assets, meaning that there is no difference in the way you use them once compiled.
+-->
+Play では、CoffeeScript など、別の言語へコンパイルされるようなアセットは全て `app/assets` へ入れることになっています。ここへ入れられたファイルはビルドの中で自動的にコンパイルされます。CoffeeScript の場合は、このとき普通の JavaScript へコンパイルされます。生成された JavaScript ファイルは `public/` ディレクトリに配置されたかのように扱われるため、一旦コンパイルされてしまえば通常の JavaScript ファイルと違いはありません。
 
+<!--
 > Note that managed resources are not copied directly into your application’s `public` folder, but maintained in a separate folder in `target/scala-2.x.x/resources_managed`.
+-->
+> 補足：生成された JavaScript ファイルなどの Play が管理しているリソース自体は `public/` ディレクトリへ直接コピーされるのではなく、 `target/scala-2.x.x/resources_managed` という別のディレクトリに保持されます。
 
 <!--
 For example a CoffeeScript source file `app/assets/javascripts/main.coffee` will be available as a standard JavaScript resource, at `public/javascripts/main.js`.
