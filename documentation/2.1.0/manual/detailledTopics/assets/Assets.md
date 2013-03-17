@@ -65,7 +65,10 @@ The controller is available in the default Play JAR as `controllers.Assets`, and
 Assets.at(path: String, file: String)
 ```
 
+<!--
 The `path` parameter must be fixed and defines the directory managed by the action. The `file` parameter is usually dynamically extracted from the request path.
+-->
+`path` のパラメータは固定されており、アクションによって管理されるディレクトリを定義する必要があります。 `file` パラメータは、通常、動的にリクエストパスから抽出されます。
 
 <!--
 Here is the typical mapping of the `Assets` controller in your `conf/routes` file:
@@ -110,7 +113,10 @@ GET  /assets/*file               controllers.Assets.at(path="/public", file)
 GET  /liabilities/*file          controllers.Assets.at(path="/foo", file)
 ```
 
+<!--
 you should add this to the project settings in `project/Build.scala`:
+-->
+`project/Build.scala` にあるプロジェクト設定に以下を追加して下さい。
 
 ```
 // Add your own project settings here
@@ -185,7 +191,10 @@ Web ブラウザがこの　**ETag** を指定してリクエストを行うと�
 -->
 ## Gzip サポート
 
+<!--
 But if a resource with the same name but using a `.gz` suffix is found, the `Assets` controller will serve this one by adding the proper HTTP header:
+-->
+しかし同じ名前を持つリソースで `.gz` という拡張子を使っているものが見つかった場合、 `Assets` のコントローラは、適切な HTTP ヘッダを追加することによって提供します。
 
 ```
 Content-Encoding: gzip
