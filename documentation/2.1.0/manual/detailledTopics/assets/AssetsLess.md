@@ -9,9 +9,15 @@
 -->
 [[LESS CSS | http://lesscss.org/]] は、動的なスタイルシートを記述するための言語です。LESS CSS を使うと、変数やミックスインなどを活用した非常に柔軟な CSS を記述することができます。
 
+<!--
 Compilable assets in Play must be defined in the `app/assets` directory. They are handled by the build process, and LESS sources are compiled into standard CSS files. The generated CSS files are distributed as standard resources into the same `public/` folder as the unmanaged assets, meaning that there is no difference in the way you use them once compiled.
+-->
+Play により別の言語へコンパイルされるアセットは、`app/assets` へ入れます。LESS CSS をここへ入れておくと、ビルドの中で普通の CSS ファイルへコンパイルされます。生成された CSS は `public/` ディレクトリに配置されたかのように扱われるため、一旦コンパイルされてしまえば通常の CSS ファイルと違いはありません。
 
+<!--
 > Note that managed resources are not copied directly into your application `public` folder, but maintained in a separate folder in `target/scala-2.x.x/resources_managed`.
+-->
+> 補足：生成された CSS ファイルなどの Play が管理しているリソース自体は `public/` ディレクトリへ直接コピーされるのではなく、 `target/scala-2.x.x/resources_managed` という別のディレクトリに保持されます。
 
 <!--
 For example a LESS source file at `app/assets/stylesheets/main.less` will be available as a standard resource at `public/stylesheets/main.css`.
