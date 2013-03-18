@@ -1,3 +1,4 @@
+<!-- translated -->
 <!-- # Starting up the project -->
 # プロジェクトの立ち上げ
 
