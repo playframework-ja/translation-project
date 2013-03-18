@@ -17,7 +17,7 @@ Content negotiation is a mechanism that makes it possible to serve different rep
 <!--
 You can get the list of acceptable languages for a request using the `play.mvc.Http.RequestHeader#acceptLanguages` method that retrieves them from the `Accept-Language` header and sorts them according to their quality value. Play uses it to set the `lang` value of request’s HTTP context, so they automatically use the best possible language (if supported by your application, otherwise your application’s default language is used).
 -->
-あるリクエストで利用可能な言語の一覧は、`Accept-Language` ヘッダからこれらを探して、品質値に従って並び替える `play.mvc.Http.RequestHeader#acceptLanguages` を使うことで取得できます。Play はこれを使ってリクエストの HTTP コンテキストに `lang` 値を設定するので、 最適な言語が使用されます (アプリケーションがサポートしている場合で、そうでない場合はアプリケーションのデフォルト言語が使用されます) 。
+あるリクエストで利用可能な言語の一覧は、`Accept-Language` ヘッダからこれらを探して、品質値に従って並び替える `play.mvc.Http.RequestHeader#acceptLanguages` を使うことで取得できます。Play はこれを使ってリクエストの HTTP コンテキストに `lang` 値を設定するので、 最適な言語が使用されます (アプリケーションがサポートしている場合。そうでない場合はアプリケーションのデフォルト言語が使用されます) 。
 
 <!--
 ## Content

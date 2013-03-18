@@ -7,7 +7,7 @@
 <!--
 Working with Play is easy. You don’t even need a sophisticated IDE, because Play compiles and refreshes the modifications you make to your source files automatically, so you can easily work using a simple text editor.
 -->
-Play で開発するのは簡単です。Play は自動的にソースファイルに加えた変更をコンパイルし、変更内容をリフレシュするので、洗練された IDE は必要なく、単純なテキストエディタで簡単に開発することができます。
+Play で開発するのは簡単です。Play は自動的にソースファイルに加えた変更をコンパイルし、変更内容をリフレッシュするので、洗練された IDE は必要なく、単純なテキストエディタで簡単に開発することができます。
 
 <!--
 However, using a modern Java or Scala IDE provides cool productivity features like auto-completion, on-the-fly compilation, assisted refactoring and debugging.
@@ -102,7 +102,7 @@ You can also start your application with `play debug run` and then you can use t
 <!--
 If you make any important changes to your application, such as changing the classpath, use `eclipse` again to regenerate the configuration files.
 -->
-クラスパスの変更のようなアプリケーションにとって重要な変更を行った場合、`eclipsify` コマンドを使って設定ファイルの再作成を行います。
+クラスパスの変更のようなアプリケーションにとって重要な変更を行った場合、`eclipse` コマンドを使って設定ファイルの再作成を行います。
 
 <!--
 > **Tip**: Do not commit Eclipse configuration files when you work in a team!
@@ -124,7 +124,7 @@ The generated configuration files contain absolute references to your framework 
 <!--
 Play provides a command to simplify Intellij IDEA configuration. To transform a Play application into a working IDEA module, use the idea command:
 -->
-Playは単純なIntellij IDEAの設定のためのコマンドを提供します。PlayアプリケーションをIDEAモジュールに変換するには idea コマンドを使います。
+Play は単純な Intellij IDEA の設定のためのコマンドを提供します。Play アプリケーションを IDEA モジュールに変換するには idea コマンドを使います。
 
 <!--
 without the source jars:
@@ -291,7 +291,7 @@ addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.0")
 <!--
 Start Play:
 -->
-Play 起動します:
+Play を起動します:
 
 ```
 $ play
@@ -363,8 +363,10 @@ If you have questions, post them in the ensime group at https://groups.google.co
 -->
 質問がある場合は https://groups.google.com/forum/?fromgroups=#!forum/ensime にある ensime グループに投稿して下さい。
 
-
+<!--
 ## All Scala Plugins if needed
+-->
+## Scala プラグインが必要な場合は
 
 <!--
 Scala is a newer programming language, so the functionality is provided in plugins rather than in the core IDE.
@@ -383,12 +385,12 @@ Scala は新しいプログラミング言語です。そのため、機能は I
 (see below for ENSIME/Play instructions)
 -->
 - Eclipse Scala IDE: http://scala-ide.org/
-- NetBeans Scala Plugin: http://java.net/projects/nbscala
-- IntelliJ IDEA Scala Plugin: http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA
+- NetBeans Scala プラグイン: http://java.net/projects/nbscala
+- IntelliJ IDEA Scala プラグイン: http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA
 - IntelliJ IDEA のプラグインは活発に開発されているため、ナイトリービルドを使う事で、小さな問題と引き換えにより多くの機能を使えるようになります。
-- Nika (11.x) Plugin Repository: http://www.jetbrains.com/idea/plugins/scala-nightly-nika.xml
-- Leda (12.x) Plugin Repository: http://www.jetbrains.com/idea/plugins/scala-nightly-leda.xml
-- IntelliJ IDEA Play 2.0 plugin (Leda 12.x のみに対応): http://plugins.intellij.net/plugin/?idea&pluginId=7080
+- Nika (11.x) プラグインリポジトリ: http://www.jetbrains.com/idea/plugins/scala-nightly-nika.xml
+- Leda (12.x) プラグインリポジトリ: http://www.jetbrains.com/idea/plugins/scala-nightly-leda.xml
+- IntelliJ IDEA Play 2.0 プラグイン (Leda 12.x のみに対応): http://plugins.intellij.net/plugin/?idea&pluginId=7080
 - ENSIME - Emacs 用の Scala IDE モード: https://github.com/aemoncannon/ensime
 (ENSIME/Play の導入方法は以下をご覧下さい)
 
