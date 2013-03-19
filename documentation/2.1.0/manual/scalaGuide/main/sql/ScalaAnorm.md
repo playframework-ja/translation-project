@@ -370,7 +370,7 @@ You can use the parser API to create generic and reusable parsers that can parse
 <!--
 ### Getting a single result
 -->
-### 1行の結果を取得する
+### 結果を1行取得する
 
 <!--
 First you need a `RowParser`, i.e. a parser able to parse one row to a Scala value. For example we can define a parser to transform a single column result set row, to a Scala `Long`:
@@ -402,7 +402,7 @@ val count: Long = SQL("select count(*) from Country").as(scalar[Long].single)
 <!--
 ### Getting a single optional result
 -->
-### 1行のOption型の結果を取得する
+### Option型の結果を1行取得する
 
 <!--
 Let's say you want to retrieve the country_id from the country name, but the query might return null. We'll use the singleOpt parser :
@@ -423,7 +423,10 @@ Let’s write a more complicated parser:
 -->
 もっと複雑なパーサーを書いてみましょう。
 
+<!--
 `str("name") ~ int("population")`, will create a `RowParser` able to parse a row containing a String `name` column and an Integer `population` column. Then we can create a `ResultSetParser` that will parse as many rows of this kind as it can, using `*`: 
+-->
+`str("name") ~ int("population")` は 文字列型 `name` カラムと整数型 `population` カラムを含む列をパース可能な `RowParser` を作成します。また、 `*` を使うことで、この種の多くの行をパースする `ResultSetParser` を作成できます。
 
 ```scala
 val populations:List[String~Int] = {
