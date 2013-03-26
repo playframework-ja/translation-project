@@ -54,7 +54,10 @@ The default is to define two appenders, one dispatched to the standard out strea
 -->
 デフォルトでは 2 つの appender が定義されています。ひとつは標準出力へのログ用、もうひとつは `logs/application.log` へ出力するログ用です。
 
+<!--
 If you want to fully customize logback, just define a `conf/application-logger.xml` configuration file. Here is the default configuration file used by Play:
+-->
+logback を完全にカスタマイズしたい場合も、設定ファイル `conf/application-logger.xml` を定義するだけです。Play が使うデフォルトの設定ファイルは以下の通りです。
 
 ```xml
 <configuration>
@@ -101,7 +104,10 @@ You can also specify another logback configuration file via a System property. I
 -->
 ### `-Dlogger.resource` を使う
 
+<!--
 Specify another logback configuration file to be loaded from the classpath:
+-->
+別の logback 設定ファイルをクラスパスからロードする場合に指定します:
 
 ```
 $ start -Dlogger.resource=prod-logger.xml
@@ -112,7 +118,10 @@ $ start -Dlogger.resource=prod-logger.xml
 -->
 ### `-Dlogger.file` を使う
 
+<!--
 Specify another logback configuration file to be loaded from the file system:
+-->
+別の logback 設定ファイルをファイルシステムからロードする場合に指定します。
 
 ```
 $ start -Dlogger.file=/opt/prod/logger.xml
@@ -123,7 +132,10 @@ $ start -Dlogger.file=/opt/prod/logger.xml
 -->
 ### `-Dlogger.url` を使う
 
+<!--
 Specify another logback configuration file to be loaded from an URL:
+-->
+別の logback 設定ファイルを URL からロードする場合に指定します:
 
 ```
 $ start -Dlogger.url=http://conf.mycompany.com/logger.xml
