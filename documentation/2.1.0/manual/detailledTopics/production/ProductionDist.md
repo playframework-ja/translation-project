@@ -9,7 +9,10 @@
 -->
 ## dist タスクを使う
 
+<!--
 The simplest way to deploy a Play 2.1 application is to retrieve the source (typically via a git workflow) on the server and to use either `play start` or `play stage` to start it in place.
+-->
+Play 2.1 アプリケーションをデプロイする最も簡単な方法は、(git などを使って) ソースコードをサーバに保存して、 `play start` もしくは `play stage` のどちらかでアプリケーションを起動することです。
 
 <!--
 However, you sometimes need to build a binary version of your application and deploy it to the server without any dependencies on Play itself. You can do this with the `dist` task.
