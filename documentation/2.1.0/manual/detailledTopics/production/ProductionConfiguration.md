@@ -28,7 +28,10 @@ HTTP ポートとアドレスの両方を指定することができます。デ
 $ start -Dhttp.port=1234 -Dhttp.address=127.0.0.1
 ```
 
+<!--
 > Note that these configuration are only provided for the default embeded Netty server.
+-->
+> この設定はデフォルトの組み込み Netty サーバだけが利用します。
 
 <!--
 ## Specifying additional JVM arguments
@@ -59,7 +62,10 @@ The default is to load the `application.conf` file from the classpath. You can s
 -->
 ### `-Dconfig.resource` を使う
 
+<!--
 It will search for an alternative configuration file in the application classpath (you usually provide these alternative configuration files into your application `conf/` directory before packaging). Play will look into `conf/` so you don't have to add `conf/`.
+-->
+アプリケーションのクラスパスで代替の設定ファイルを検索します。（普通はこのような代替の設定ファイルを、パッケージング前にアプリケーションの `conf/` ディレクトリに入れておくとよいでしょう。） Play は `conf/` ディレクトリを検索するので `conf/` を加える必要はありません。
 
 ```
 $ start -Dconfig.resource=prod.conf
@@ -143,9 +149,15 @@ Here, the override field `my.key = ${?MY_KEY_ENV}` simply vanishes if there's no
 -->
 ## logback の設定ファイルを変更する
 
+<!--
 ### Bundling a custom logback configuration file with your application
+-->
+### カスタムの logback 設定ファイルをアプリケーションにバンドルする
 
+<!--
 Create an alternative logback config file called `application-logger.xml` and copy that to `<app>/conf`
+-->
+`application-logger.xml` という代理の logback 設定ファイルを作成し `<app>/conf` にコピーします。
 
 <!--
 You can also specify another logback configuration file via a System property.
@@ -171,7 +183,10 @@ $ start -Dlogger.resource=conf/prod-logger.xml
 -->
 ### `-Dlogger.file` を使う
 
+<!--
 Specify another logback configuration file to be loaded from the file system:
+-->
+別の logback 設定ファイルをファイルシステムから読み込むことができます。
 
 ```
 $ start -Dlogger.file=/opt/prod/prod-logger.xml
@@ -191,11 +206,20 @@ Specify another loback configuration file to be loaded from an URL:
 $ start -Dlogger.url=http://conf.mycompany.com/logger.xml
 ```
 
+<!--
 ## Changing the path of RUNNING_PID
+-->
+## RUNNING_PID のパスを変更する
 
+<!--
 It is possible to change the file path to the created RUNNING_PID file which contains the process id of the started application. Normally this file is placed in the root directory of your play project.
+-->
+起動したアプリケーションのプロセス ID を記載した、 RUNNING_PID ファイルのパスを変更する事ができます。通常このファイルは play プロジェクトのルートディレクトリに配置されます。
 
 ```
 $ start -Dpidfile.path=instance1
 ```
+<!--
 This changes the directory relative to the root folder. You could also use absolute paths. With this option it is possible to start multiple play instances without colliding RUNNING_PID files (actually play won't start another instance). Don't forget to create the directory.
+-->
+これでルートフォルダからのディレクトリを変更します。絶対パスも指定することができます。このオプションによってRUNNING_PID ファイルを衝突 (実際には play は他のインスタンスは起動しません) させずに複数の play インスタンスを起動する事が可能になります。ディレクトリの作成を忘れないで下さい。
