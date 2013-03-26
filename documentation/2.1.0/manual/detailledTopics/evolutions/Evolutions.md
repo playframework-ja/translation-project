@@ -51,7 +51,7 @@ For example, take a look at this first evolution script that bootstrap a basic a
 試しに、基本的なアプリケーションを始めるための最初のエボリューション・スクリプトを作成してみましょう。
 
 ```
-# Users schema
+# Users スキーマ
  
 # --- !Ups
  
@@ -69,7 +69,10 @@ CREATE TABLE User (
 DROP TABLE User;
 ```
 
+<!--
 As you see you have to delimit the both Ups and Downs section by using comments in your SQL script.
+-->
+ご覧のとおり、Ups パートと Downs パートはコメントで区切る必要があります。
 
 > Play splits your `.sql` files into a series of semicolon-delimited statements before executing them one-by-one against the database. So if you need to use a semicolon *within* a statement, escape it by entering `;;` instead of `;`. For example, `INSERT INTO punctuation(name, character) VALUES ('semicolon', ';;');`.
 
@@ -101,7 +104,7 @@ Now let’s imagine that we have two developers working on this project. Develop
 仮に、プロジェクトに二人の開発者がいるとします。開発者 A は新しいテーブルを必要とする新機能を担当しています。そこで、開発者 A は次のような `2.sql` を作成します。
 
 ```
-# Add Post
+# Post 追加
  
 # --- !Ups
 CREATE TABLE Post (
@@ -129,7 +132,7 @@ On the other hand, developer B will work on a feature that requires altering the
 一方、開発者 B は User テーブルのスキーマ変更を要する新機能を担当しています。そこで、開発者 B は次のような `2.sql` を作成します。
 
 ```
-# Update User
+# User 変更
  
 # --- !Ups
 ALTER TABLE User ADD age INT;
@@ -156,7 +159,7 @@ Each developer has created a `2.sql` evolution script. So developer A needs to m
 
 ```
 <<<<<<< HEAD
-# Add Post
+# Post 追加
  
 # --- !Ups
 CREATE TABLE Post (
@@ -188,7 +191,7 @@ The merge is really easy to do:
 このマージは簡単ですね。
 
 ```
-# Add Post and update User
+# Post 追加と User 変更
  
 # --- !Ups
 ALTER TABLE User ADD age INT;
@@ -235,7 +238,7 @@ For example, the Ups script of this evolution has an error:
 例として、Ups スクリプトにエラーを含む次のようなエボリューションを作成してみましょう。
 
 ```
-# Add another column to User
+# User にカラムを追加
   
 # --- !Ups
 ALTER TABLE Userxxx ADD company varchar(255);
@@ -271,7 +274,7 @@ But because your evolution script has errors, you probably want to fix it. So yo
 しかし、エボリューション・スクリプトはまだ間違ったままなので、修正したいところです。そこで、以下のように `3.sql` を編集します。
 
 ```
-# Add another column to User
+# User にカラムを追加
   
 # --- !Ups
 ALTER TABLE User ADD company varchar(255);
@@ -285,7 +288,10 @@ Play detects this new evolution that replaces the previous 3 one, and will run t
 -->
 Play はこの新しいエボリューションを検知して、以前のリビジョン 3 と置き換え、適切なスクリプトを実行します。これで、全ての間違いが修正されて、本来の作業に戻ることができます。
 
+<!--
 > In development mode however it is often simpler to simply trash your development database and reapply all evolutions from the beginning.
+-->
+> ただし、開発モードでは単に開発用のデータベースを破棄して、全てのエボリューションを最初から適用しなおす方が簡単なことも多々あります。
 
 ### Evolution storage and limitations
 
