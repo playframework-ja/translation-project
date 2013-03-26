@@ -4,7 +4,10 @@
 -->
 # JDBC コネクションプールの設定
 
+<!--
 The Play JDBC datasource is managed by [[BoneCP | http://jolbox.com/]]. 
+-->
+Play の JDBC データソースの管理には、[[BoneCP | http://jolbox.com/]] が使われています。
 
 <!--
 ## Special URLs
