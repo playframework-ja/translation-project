@@ -1,3 +1,4 @@
+<!-- translated -->
 <!-- # Building the first screen -->
 # はじめての画面
 
