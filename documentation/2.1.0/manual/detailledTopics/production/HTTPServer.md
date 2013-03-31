@@ -24,7 +24,8 @@ But if you plan to host several applications in the same server or load balance 
 -->
 しかし、同じサーバで複数のアプリケーションをホスティングしたり、スケーラビリティや耐障害性の観点から、アプリケーションのインスタンスを複数たちあげて、それらをロードバランシングしたいこともあるでしょう。その場合は、フロントエンド HTTP サーバを利用することができます。
 
-Note that using a front-end HTTP server will rarely give you better performance than using Play server directly.  However, HTTP servers are very good at handling HTTPS, conditional GET requests and static assets,  and many services assume a front end HTTP server is part of your architecture.
+<!-- Note that using a front-end HTTP server will rarely give you better performance than using Play server directly.  However, HTTP servers are very good at handling HTTPS, conditional GET requests and static assets,  and many services assume a front end HTTP server is part of your architecture. -->
+フロントエンド HTTP サーバを利用する場合、Play サーバを直接利用する場合よりも優れたパフォーマンスが得られることは決してないことに注意してください。しかしながら、HTTP サーバは HTTPS や条件付きの GET リクエスト、そして静的なアセットを処理することにとても優れているので、多くのサービスはフロントエンド HTTP サーバをアーキテクチャの一部として見なしています。
 
 <!--
 ## Set-up with lighttpd
@@ -61,11 +62,14 @@ $HTTP["host"] =~ "www.loadbalancedapp.com" {
 }
 ```
 
-## Set-up with nginx
+<!-- ## Set-up with nginx -->
+## nginx を使う
 
-This example shows you how to configure [[nginx| http://wiki.nginx.org/Main]] as a front-end web server. Note that you can do the same with Apache, but if you only need virtual hosting or load balancing, nginx is a very good choice and much easier to configure!
+<!-- This example shows you how to configure [[nginx| http://wiki.nginx.org/Main]] as a front-end web server. Note that you can do the same with Apache, but if you only need virtual hosting or load balancing, nginx is a very good choice and much easier to configure! -->
+以下は [[nginx| http://wiki.nginx.org/Main]] をフロントエンド Web サーバとして構成する例です。全く同じ用途に Apache を利用することもできますが、必要なものがバーチャルホスティングやロードバランスの機能だけであれば、 nginx の方が設定が簡単なのでおすすめです。
 
-The `/etc/nginx/nginx.conf` file should define things like this:
+<!-- The `/etc/nginx/nginx.conf` file should define things like this: -->
+`/etc/nginx/nginx.conf` ファイルで、以下のように定義します:
 
 ```
 http {
@@ -99,7 +103,8 @@ http {
 }
 ```
 
-> *Note* Make shure you are using version > 1.2 of Nginx otherwise chunked responses won't work properly.
+<!-- > *Note* Make shure you are using version > 1.2 of Nginx otherwise chunked responses won't work properly. -->
+> バージョン 1.2 以降の Nginx を使っていることを *確認*  してください。そうでないと、チャンクされたレスポンスは正常に動作しません。
 
 <!--
 ## Set-up with Apache
@@ -235,5 +240,5 @@ Because Play is completely stateless you don’t have to manage sessions between
 -->
 Play は完全にステートレスなアーキテクチャになっているため、2つのクラスタ間でのセッションの共有に頭を悩ませる必要はありません。そのおかげで、特に苦労せず 3 つ以上のインスタンスにスケールアウトさせることが可能です。
 
-Note that [Apache does not support Websockets](https://issues.apache.org/bugzilla/show_bug.cgi?id=47485), and so you may wish to use another front end proxy (such as haproxy or ngnix) that does implement this functionality.
-
+<!-- Note that [Apache does not support Websockets](https://issues.apache.org/bugzilla/show_bug.cgi?id=47485), and so you may wish to use another front end proxy (such as haproxy or ngnix) that does implement this functionality. -->
+[Apache は Websockets をサポートしていない](https://issues.apache.org/bugzilla/show_bug.cgi?id=47485) ので、この機能を実装している (haproxy や nginx のような) 別のフロントエンドサーバを使いたくなるであろうことに注意してください。
