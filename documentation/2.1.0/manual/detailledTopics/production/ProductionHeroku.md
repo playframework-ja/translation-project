@@ -9,10 +9,17 @@
 -->
 [[Heroku | http://www.heroku.com/]] は Web アプリケーションの構築とデプロイを効率化する、クラウド・アプリケーション・プラットフォームです。
 
+<!--
 To get started:
+-->
+まず始めに以下の作業を行います。
 
+<!--
 1. [Install the Heroku Toolbelt](http://toolbelt.heroku.com)
 2. [Sign up for a Heroku account](http://heroku.com/signup)
+-->
+1. [Heroku Toolbelt をインストールする](http://toolbelt.heroku.com)
+2. [Heroku アカウントにサインアップする](http://heroku.com/signup)
 
 
 <!--
@@ -39,7 +46,10 @@ http://warm-1289.herokuapp.com/ | git@heroku.com:warm-1289.git
 Git remote heroku added
 ```
 
+<!--
 This provisions a new application with an HTTP (and HTTPS) endpoint and Git endpoint for your application.  The Git endpoint is set as a new remote named `heroku` in your Git repository's configuration.
+-->
+これで、新しいアプリケーションが、 HTTP (と HTTPS) のエンドポイントおよび Git のエンドポイントと一緒に提供されます。 Git エンドポイントは Git リポジトリの設定に `heroku` というリモートリポジトリとして登録されています。
 
 
 <!--
@@ -112,32 +122,51 @@ $ heroku logs
 ...
 ```
 
+<!--
 Looks good. We can now visit the app by running:
+-->
+問題なしのようです。さらに以下のコマンドを実行すると、ブラウザが起動してデプロイした Web アプリにアクセスすることができます。
 
 ```bash
 $ heroku open
 ```
 
 
+<!--
 ## Connecting to a database
+-->
+## データベースに接続する
 
+<!--
 Heroku provides a number of relational an NoSQL databases through [Heroku Add-ons](http://addons.heroku.com).  Play applications on Heroku are automatically provisioned a [Heroku Postgres](https://addons.heroku.com/heroku-postgresql) database.  To configure your Play 2 application to use the Heroku Postgres database, first add the PostgreSQL JDBC driver to your application dependencies (`project/Build.scala`):
+-->
+Heroku では [Heroku アドオン](http://addons.heroku.com) を通して沢山の RDBMS や NoSQL データベースを提供しています。 Heroku の Play アプリケーションは [Heroku Postgres](https://addons.heroku.com/heroku-postgresql) データベースを自動で提供しています。 Play 2 アプリケーションで Heroku Postgres データベースを使うように設定するには、まずは PostgreSQL JDBC ドライバをアプリケーションの依存性 (`project/Build.scala`) に追加します。
 
 ```scala
 "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
 ```
 
+<!--
 Then create a new file in your project's root directory named `Procfile` (with a capital "P") that contains the following:
+-->
+そして、プロジェクトのルートディレクトリに `Procfile` ("P" は大文字) というファイルを以下の内容で作成します。
 
 ```txt
 web: target/start -Dhttp.port=${PORT} ${JAVA_OPTS} -DapplyEvolutions.default=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL}
 ```
 
+<!--
 This instructs Heroku that for the process named `web` it will run Play and override the `applyEvolutions.default`, `db.default.driver`, and `db.default.url` configuration parameters.  Note that the `Procfile` command can be maximum 255 characters long.  Alternatively, use the `-Dconfig.resource=` or `-Dconfig.file=` mentioned in [[production configuration|ProductionConfiguration]] page.
+-->
+この設定で、 `web` というプロセスでは Play を起動し `applyEvolutions.default` 、 `db.default.driver` それと `db.default.url` 設定をオーバーライドするように Heroku に指示します。 `Procfile` コマンドは最大で 255 文字である事に注意して下さい。代替手段として [[本番向けの設定|ProductionConfiguration]] ページに書かれている `-Dconfig.resource=` および `-Dconfig.file=` を使用します。
 
 
+<!--
 ## Further learning resources
+-->
+## 更に進んだ学習リソース
 
+<!--
 * [Play 2 Tutorial for Java](https://github.com/jamesward/play2torial/blob/master/JAVA.md)
 * [Getting Started with Play 2, Scala, and Squeryl](http://www.artima.com/articles/play2_scala_squeryl.html)
 * [Edge Caching With Play 2, Heroku, and CloudFront](http://www.jamesward.com/2012/08/08/edge-caching-with-play2-heroku-cloudfront)
@@ -145,3 +174,11 @@ This instructs Heroku that for the process named `web` it will run Play and over
 * [Play 2 Scala Console on Heroku](http://www.jamesward.com/2012/06/11/play-2-scala-console-on-heroku)
 * [Play 2 App with a Scheduled Job on Heroku](https://github.com/jamesward/play2-scheduled-job-demo)
 * [Using Amazon S3 for File Uploads with Java and Play 2](https://devcenter.heroku.com/articles/using-amazon-s3-for-file-uploads-with-java-and-play-2)
+-->
+* [Java 用の Play 2 チュートリアル](https://github.com/jamesward/play2torial/blob/master/JAVA.md)
+* [Play 2, Scala, Squeryl による入門](http://www.artima.com/articles/play2_scala_squeryl.html)
+* [Play 2, Heroku, CloudFront によるエッジキャッシング](http://www.jamesward.com/2012/08/08/edge-caching-with-play2-heroku-cloudfront)
+* [データベース指向アプリケーションのための Play 2 最適化](http://www.jamesward.com/2012/06/25/optimizing-play-2-for-database-driven-apps)
+* [Heroku での Play 2 Scala コンソール](http://www.jamesward.com/2012/06/11/play-2-scala-console-on-heroku)
+* [Heroku 上でスケジューリングされたジョブを持つ Play 2 アプリケーション](https://github.com/jamesward/play2-scheduled-job-demo)
+* [Java と Play 2 でファイルアップロードに Amazon S3 を使う](https://devcenter.heroku.com/articles/using-amazon-s3-for-file-uploads-with-java-and-play-2)
