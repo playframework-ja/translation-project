@@ -183,7 +183,7 @@ The basic idea is to run two Play instances of your web application and let the 
 <!--
 Let’s start the same Play application two times: one on port 9999 and one on port 9998.
 -->
-まず、同じ Play アプリケーションを2回起動します。一つはポート 9999 番、もう一つはポート 9998 で起動します。
+まず、同じ Play アプリケーションを 2 回起動します。一つはポート 9999 番、もう一つはポート 9998 で起動します。
 
 ```
 $ start -Dhttp.port=9998
@@ -228,7 +228,7 @@ Apache の設定ファイルに、次のような設定を記述します。
 <!--
 The important part is balancer://mycluster. This declares a load balancer. The +H option means that the second Play application is on stand-by. But you can also instruct it to load-balance.
 -->
-特に重要なのは、 balancer://mycluster という部分です。これがロードバランサーの定義です。 +H オプションは、2番目の Play アプリケーションが待機系であるということの宣言です。ただし、同時にこの待機系をロードバランス対象に加えることもできます。
+特に重要なのは、 balancer://mycluster という部分です。これがロードバランサーの定義です。 +H オプションは、2 番目の Play アプリケーションが待機系であるということの宣言です。ただし、同時にこの待機系をロードバランス対象に加えることもできます。
 
 <!--
 Apache also provides a way to view the status of your cluster. Simply point your browser to /balancer-manager to view the current status of your clusters.
@@ -238,7 +238,7 @@ Apache には、宣言されたクラスタのステータスを表示する機�
 <!--
 Because Play is completely stateless you don’t have to manage sessions between the 2 clusters. You can actually easily scale to more than 2 Play instances.
 -->
-Play は完全にステートレスなアーキテクチャになっているため、2つのクラスタ間でのセッションの共有に頭を悩ませる必要はありません。そのおかげで、特に苦労せず 3 つ以上のインスタンスにスケールアウトさせることが可能です。
+Play は完全にステートレスなアーキテクチャになっているため、2 つのクラスタ間でのセッションの共有に頭を悩ませる必要はありません。そのおかげで、特に苦労せず 3 つ以上のインスタンスにスケールアウトさせることが可能です。
 
 <!-- Note that [Apache does not support Websockets](https://issues.apache.org/bugzilla/show_bug.cgi?id=47485), and so you may wish to use another front end proxy (such as haproxy or ngnix) that does implement this functionality. -->
 [Apache は Websockets をサポートしていない](https://issues.apache.org/bugzilla/show_bug.cgi?id=47485) ので、この機能を実装している (haproxy や nginx のような) 別のフロントエンドサーバを使いたくなるであろうことに注意してください。
