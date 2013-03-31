@@ -1,6 +1,13 @@
+<!-- translated -->
+<!--
 # Deploying to Heroku
+-->
+# Heroku へのデプロイ
 
+<!--
 [[Heroku | http://www.heroku.com/]] is a cloud application platform – a new way of building and deploying web apps.
+-->
+[[Heroku | http://www.heroku.com/]] は Web アプリケーションの構築とデプロイを効率化する、クラウド・アプリケーション・プラットフォームです。
 
 To get started:
 
@@ -8,7 +15,10 @@ To get started:
 2. [Sign up for a Heroku account](http://heroku.com/signup)
 
 
+<!--
 ## Store your application in git
+-->
+## アプリケーションを git で保存する
 
 ```bash
 $ git init
@@ -17,7 +27,10 @@ $ git commit -m "init"
 ```
 
 
+<!--
 ## Create a new application on Heroku
+-->
+## Heroku 上で新規アプリケーションを作成する
 
 ```bash
 $ heroku create
@@ -29,9 +42,15 @@ Git remote heroku added
 This provisions a new application with an HTTP (and HTTPS) endpoint and Git endpoint for your application.  The Git endpoint is set as a new remote named `heroku` in your Git repository's configuration.
 
 
+<!--
 ## Deploy your application
+-->
+## アプリケーションをデプロイする
 
+<!--
 To deploy your application on Heroku, just use git to push it into the `heroku` remote repository:
+-->
+Heroku にアプリケーションをデプロイするため、ローカルレポジトリを `heroku` という名前のリモートレポジトリへ git push してください。
 
 ```bash
 $ git push heroku master
@@ -56,12 +75,21 @@ To git@heroku.com:floating-lightning-8044.git
 * [new branch]      master -> master
 ```
 
+<!--
 Heroku will run `sbt clean compile stage` to prepare your application. On the first deployment, all dependencies will be downloaded, which takes a while to complete (but will be cached for future deployments).
+-->
+git push が完了すると、 Heroku は `sbt clean compile stage` を実行して、アプリケーションをビルドします。初回のデプロイ時には、全ての依存モジュールがダウンロードされるため、多少の時間がかかります。（２回目以降のデプロイ時はキャッシュが使われます。）
 
 
+<!--
 ## Check that your application has been deployed
+-->
+## アプリケーションがデプロイされたことを確認する
 
+<!--
 Now, let’s check the state of the application’s processes:
+-->
+では、デプロイしたアプリケーションの状態を確認してみましょう。
 
 ```bash
 $ heroku ps
@@ -70,7 +98,10 @@ Process       State               Command
 web.1         up for 10s          target/start 
 ```
 
+<!--
 The web process is up.  Review the logs for more information:
+-->
+Web プロセスが起動しています。次は、詳細を確認するため、ログを見てみましょう。
 
 ```bash
 $ heroku logs
