@@ -107,7 +107,7 @@ The generated `start` script is very simple - in fact, you could even execute th
 <!--
 If you don’t have Play installed on the server, you can use sbt to do the same thing:
 -->
-もし Play がサーバにインストールされていないのだえれば、同じことを行うために sbt を使ってもよいでしょう。
+もし Play がサーバにインストールされていないのであれば、同じことを行うために sbt を使ってもよいでしょう。
 
 ```bash
 $ sbt clean compile stage

@@ -12,7 +12,7 @@ Play 2.0 のログ機能の実装には、[[logback | http://logback.qos.ch/]] �
 <!--
 ## Configuration logging level in application.conf
 -->
-# application.conf でログレベルを設定する
+## application.conf でログレベルを設定する
 
 <!--
 The easiest way to configure the logging level is to use the `logger` key in your `conf/application.conf` file.
