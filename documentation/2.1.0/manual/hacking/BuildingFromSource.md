@@ -9,7 +9,8 @@ From the shell, first checkout the Play sources:
 $ git clone git://github.com/playframework/Play20.git
 ```
 
-Then go to the `Play20/framework` directory and launch the `build` script to enter the sbt build console:
+<!-- Then go to the `Play20/framework` directory and launch the `build` script to enter the sbt build console: -->
+ソースコードを取得したら、 `Play20/framework` ディレクトリに移動して、 `build` スクリプトを起動し、 sbt によるビルド・コンソールに入ります。
 
 ```bash
 $ cd Play20/framework
@@ -36,27 +37,34 @@ $ ./build doc
 If done properly, once you run a project, you should be able to see documentation available locally at [http://localhost:9000/@documentation](http://localhost:9000/@documentation)
 
 You can also refer to [this stackoverflow question.](http://stackoverflow.com/questions/10525791/build-play2-0-documentation-from-source-so-that-it-is-available-from-documentat).
-## Running tests
 
-You can run basic tests from the sbt console using the `test` task:
+<!-- ## Running tests -->
+## テストを実行する
+
+<!-- You can run basic tests from the sbt console using the `test` task: -->
+sbt コンソールで `test` タスクを起動すると、基本的なテストを実行することができます。
 
 ```
 > test
 ```
 
-We are also using several Play applications to test the framework. To run this complete test suite, use the `runtests` script:
+<!-- We are also using several Play applications to test the framework. To run this complete test suite, use the `runtests` script: -->
+私達はサンプルアプリケーションを通したフレームワークのテストも行なっています。`runtests` スクリプトを起動すると、サンプルに対するテストを含む完全なテスト・スイートを実行することができます。
 
 ```
 $ ./runtests
 ```
 
-## Creating projects
+<!-- ## Creating projects -->
+## プロジェクトを作成する
 
-Creating projects using the Play version you have built from source works much the same as a regular Play application.
+<!-- Creating projects using the Play version you have built from source works much the same as a regular Play application. -->
+ソースコードから自分でビルドしたバージョンの Play を使ってプロジェクトを作成する方法は、通常の Play アプリケーションを作成する方法とほとんど同じです。
 
 export PATH=$PATH:<projdir>/Play20
 
-If you have an existing Play 2.0 application that you are upgrading from Play 2.0 Beta to edge, please add 
+<!-- If you have an existing Play 2.0 application that you are upgrading from Play 2.0 Beta to edge, please add  -->
+既に Play 2.0 Beta で開発された Play 2.0 アプリケーションを、自分でビルドしたバージョンにアップグレードしたいときは、
 
 ```
 resolvers ++= Seq(
@@ -70,5 +78,8 @@ addSbtPlugin("play" % "sbt-plugin" % "2.1-SNAPSHOT")
 
 to project/plugins.sbt. If you switch from 2.0.x to trunk you must change `build.properties` to contain `sbt.version=0.12.0`
 
-## Using Code in eclipse.
-You can find at [Stackoverflow](http://stackoverflow.com/questions/10053201/how-to-setup-eclipse-ide-work-on-the-playframework-2-0/10055419#10055419) some information how to setup eclipse to work on the code.
+<!-- ## Using Code in eclipse. -->
+## コードを eclipse で開く
+
+<!-- You can find at [Stackoverflow](http://stackoverflow.com/questions/10053201/how-to-setup-eclipse-ide-work-on-the-playframework-2-0/10055419#10055419) some information how to setup eclipse to work on the code. -->
+Play のコードを eclipse で開くために必要な設定については、 [Stackoverflow](http://stackoverflow.com/questions/10053201/how-to-setup-eclipse-ide-work-on-the-playframework-2-0/10055419#10055419) を参照してください。
