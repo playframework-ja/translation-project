@@ -25,7 +25,7 @@ But if you plan to host several applications in the same server or load balance 
 しかし、同じサーバで複数のアプリケーションをホスティングしたり、スケーラビリティや耐障害性の観点から、アプリケーションのインスタンスを複数たちあげて、それらをロードバランシングしたいこともあるでしょう。その場合は、フロントエンド HTTP サーバを利用することができます。
 
 <!-- Note that using a front-end HTTP server will rarely give you better performance than using Play server directly.  However, HTTP servers are very good at handling HTTPS, conditional GET requests and static assets,  and many services assume a front end HTTP server is part of your architecture. -->
-フロントエンド HTTP サーバを利用する場合、Play サーバを直接利用する場合よりも優れたパフォーマンスが得られることは決してないことに注意してください。しかしながら、HTTP サーバは HTTPS や条件付きの GET リクエスト、そして静的なアセットを処理することにとても優れているので、多くのサービスはフロントエンド HTTP サーバをアーキテクチャの一部として見なしています。
+フロントエンド HTTP サーバを利用する場合、Play サーバを直接利用する場合よりも優れたパフォーマンスが得られることはめったにないことに注意してください。しかしながら、HTTP サーバは HTTPS や条件付きの GET リクエスト、そして静的なアセットを処理することにとても優れているので、多くのサービスはフロントエンド HTTP サーバをアーキテクチャの一部として見なしています。
 
 <!--
 ## Set-up with lighttpd
