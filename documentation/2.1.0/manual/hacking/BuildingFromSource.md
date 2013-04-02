@@ -1,9 +1,15 @@
-# Building Play from sources
+<!-- translated -->
+<!-- # Building Play from sources -->
+# Play をソースコードからビルドする
 
-To benefit from the latest improvements and bug fixes after the initial beta release, you may want to compile Play from sources. You’ll need a [[Git client | http://git-scm.com/]] to fetch the sources.
+<!-- To benefit from the latest improvements and bug fixes after the initial beta release, you may want to compile Play from sources. You’ll need a [[Git client | http://git-scm.com/]] to fetch the sources. -->
+初回のベータ版リリース以降の最新の改善やバグフィックスの恩恵を受けたいときは、 Play をソースコードからコンパイルしましょう。ソースコードは [[Git client | http://git-scm.com/]] で取得します。
 
-##Grab the source
-From the shell, first checkout the Play sources:
+<!-- ##Grab the source -->
+## ソースを取得する
+
+<!-- From the shell, first checkout the Play sources: -->
+シェルから Play のソースを初めてチェックアウトします:
 
 ```bash
 $ git clone git://github.com/playframework/Play20.git
@@ -18,25 +24,34 @@ $ ./build
 > publish-local
 ```
 
-> Note that you don’t need to install sbt yourself: Play 2.0 embeds its own version (Play 2.0.x uses sbt 0.11.3 and Play 2.1.x uses sbt 0.12.0).
+<!-- > Note that you don’t need to install sbt yourself: Play 2.0 embeds its own version (Play 2.0.x uses sbt 0.11.3 and Play 2.1.x uses sbt 0.12.0). -->
+> sbt を別途インストールする必要はありません。 Play 2.0 には必要なバージョンの sbt が既に組み込まれているからです (Play 2.0.x は sbt 0.11.3 を使用し、Play 2.1.x は sbt 0.12.0 を使用します) 。
 
-If you want to make changes to the code you can use `publish-local` to rebuild the framework.
+<!-- If you want to make changes to the code you can use `publish-local` to rebuild the framework. -->
+もし、 Play に独自の変更を加えた場合は、 `publish-local` を使ってフレームワークを再ビルドするとよいでしょう。
 
+<!-- ##Grab the documentation -->
+## ドキュメントを取得する
 
-##Grab the documentation
-The . at the end is significant, because it tells git to use the current directory, rather than making a subdirectory for the wiki.
+<!-- The . at the end is significant, because it tells git to use the current directory, rather than making a subdirectory for the wiki. -->
+末尾の . は、git に wiki 用のサブディレクトリを作らず、現在のディレクトリを使用するよう伝えるので、重要です。
+
 ```bash
 $ cd Play20/documentation/manual
 $ git clone git://github.com/playframework/Play20.wiki.git .
 ```
-###build the documentation
+<!-- ###build the documentation -->
+### ドキュメントをビルドする
+
 ```bash
 $ cd Play20/framework
 $ ./build doc
 ```
-If done properly, once you run a project, you should be able to see documentation available locally at [http://localhost:9000/@documentation](http://localhost:9000/@documentation)
+<!-- If done properly, once you run a project, you should be able to see documentation available locally at [http://localhost:9000/@documentation](http://localhost:9000/@documentation) -->
+正しく実行できたら、プロジェクトを実行すると手元の [http://localhost:9000/@documentation](http://localhost:9000/@documentation) でドキュメントを参照できるようになるはずです。
 
-You can also refer to [this stackoverflow question.](http://stackoverflow.com/questions/10525791/build-play2-0-documentation-from-source-so-that-it-is-available-from-documentat).
+<!-- You can also refer to [this stackoverflow question.](http://stackoverflow.com/questions/10525791/build-play2-0-documentation-from-source-so-that-it-is-available-from-documentat). -->
+[この stackoverflow の質問](http://stackoverflow.com/questions/10525791/build-play2-0-documentation-from-source-so-that-it-is-available-from-documentat) も参照してください。
 
 <!-- ## Running tests -->
 ## テストを実行する
@@ -76,7 +91,8 @@ resolvers ++= Seq(
 addSbtPlugin("play" % "sbt-plugin" % "2.1-SNAPSHOT")
 ```
 
-to project/plugins.sbt. If you switch from 2.0.x to trunk you must change `build.properties` to contain `sbt.version=0.12.0`
+<!-- to project/plugins.sbt. If you switch from 2.0.x to trunk you must change `build.properties` to contain `sbt.version=0.12.0` -->
+のような設定を、 project/plugins.sbt に追加しましょう。2.0.x から trunk に切り替えた場合は、`sbt.version=0.12.0` を含むよう `build.properties` を変更しなければなりません。
 
 <!-- ## Using Code in eclipse. -->
 ## コードを eclipse で開く
