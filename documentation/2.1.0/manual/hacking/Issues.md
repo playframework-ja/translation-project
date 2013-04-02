@@ -1,3 +1,4 @@
+<!-- translated -->
 <!-- # Issues tracker -->
 # 課題トラッカ
 
