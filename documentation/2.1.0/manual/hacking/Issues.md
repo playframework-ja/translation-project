@@ -1,12 +1,10 @@
 <!-- # Issues tracker -->
 # 課題トラッカ
 
-<!-- We use Lighthouse as our issue tracker, at: -->
-Play は Lighthouse という課題トラッカを利用しています。
+<!-- We use GitHub as our issue tracker, at: -->
+Play は課題トラッカに GitHub を利用しています。
 
-[[https://play.lighthouseapp.com/projects/82401-play-20/overview]].
-
-If you want to know which is the most watched bug, you can find it at [[http://lighthouse-stats.herokuapp.com/|http://lighthouse-stats.herokuapp.com/play/projects/82401/tickets/popular]]. So you can easily find the biggest problems for fixing.
+[[https://github.com/playframework/Play20/issues]].
 
 <!-- ## Reporting bugs -->
 ## バグを報告する
