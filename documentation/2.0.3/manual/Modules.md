@@ -204,7 +204,7 @@
 -->
 ## Statsd プラグイン (Java および Scala)
 * **Webサイト (ドキュメント, サンプル):** [https://github.com/vznet/play-statsd](https://github.com/vznet/play-statsd)
-* **説明:** statsd クライアントを提供します。client
+* **説明:** statsd クライアントを提供します。
 
 <!--
 ## Typesafe util Plugin (Scala)
@@ -235,7 +235,7 @@
 -->
 * **Webサイト:** [https://github.com/dlecan/play2-war-plugin](https://github.com/dlecan/play2-war-plugin)
 * **ドキュメント:** [https://github.com/dlecan/play2-war-plugin/blob/develop/README.md](https://github.com/dlecan/play2-war-plugin/blob/develop/README.md)
-* **説明:** Play 2.x アプリケーッションを標準的な WAR にパッケージングします。
+* **説明:** Play 2.x アプリケーションを標準的な WAR にパッケージングします。
 
 <!--
 ## XForward module
