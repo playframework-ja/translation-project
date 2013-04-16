@@ -3,7 +3,7 @@
 # AJAX アクションの追加
 
 <!-- Now that we can log in, let's start writing functionality for our application.  We'll start simple, by adding dynamic functionality to the navigation drawer, that is, the sidebar with the list of projects. -->
-ログインできるようになったので、アプリケーションの機能を書いていきましょう。ナビゲーションの引き出し、つまりプロジェクトのリストを含むサイドバーに、シンプルに動的な機能を追加するところから始めましょう。
+ログインできるようになったので、アプリケーションの機能を書いていきましょう。ナビゲーションドローワー、つまりプロジェクトのリストを含むサイドバーに、シンプルに動的な機能を追加するところから始めましょう。
 
 <!-- To start off in this chapter we will implement the backend, including tests. -->
 この章では、テストを含むバックエンドの処理から実装します。
