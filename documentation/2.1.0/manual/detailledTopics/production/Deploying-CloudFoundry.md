@@ -91,7 +91,7 @@ Starting Application 'yourapp': OK
 <!--
 Cloud Foundry uses a mechanism called auto-reconfiguration to automatically connect your Play application to a relational database service. If a single database configuration is found in the Play configuration (for example, `default`) and a single database service instance is bound to the application, Cloud Foundry will automatically override the connection properties in the configuration to point to the PostgreSQL or MySQL service bound to the application.
 -->
-Cloud Foundry は auto-reconfiguration というメカニズムを使用して Play アプリケーションをリレーショナルデータベースサービスに自動接続します。もし Play の設定に単独のデータベース設定 (例えば `default`) が見つかり、単独のデータベースサービスインスタンスがアプリケーションに紐付けられている場合、 Cloud Foundry は設定されている接続プロパティを自動的にオーバーライドして、アプリケーションに紐付けられた PostgreSQL および MySQL のサービスを指定するようにします。
+Cloud Foundry は auto-reconfiguration というメカニズムを使用して Play アプリケーションをリレーショナルデータベースサービスに自動接続します。もし Play の設定に単一のデータベース設定 (例えば `default`) が見つかり、単一のデータベースサービスインスタンスがアプリケーションに紐付けられている場合、 Cloud Foundry は設定されている接続プロパティを自動的にオーバーライドして、アプリケーションに紐付けられた PostgreSQL および MySQL のサービスを指定するようにします。
 
 <!--
 This is a great way to get simple apps up and running quickly. However, it is quite possible that your application will contain SQL that is specific to the type of database you are using.  In these cases, or if your app needs to bind to multiple services, you may choose to avoid auto-reconfiguration and explicitly specify the service connection properties.
