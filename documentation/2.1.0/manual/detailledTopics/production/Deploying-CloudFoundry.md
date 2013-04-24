@@ -133,7 +133,7 @@ We recommend keeping these properties in a separate file (for example `cloud.con
 <!--
 ### Opting out of Auto-Reconfiguration
 -->
-### auto-reconfiguration を無効にする
+### Auto-reconfiguration を無効にする
 <!--
 If you use the properties referenced above, you will automatically be opted-out. To explicitly opt out, include a file named “cloudfoundry.properties” in your application’s conf directory, and add the entry `autoconfig=false`
 -->
