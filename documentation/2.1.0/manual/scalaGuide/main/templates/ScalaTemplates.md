@@ -1,6 +1,13 @@
+<!-- translated -->
+<!--
 # The template engine
+-->
+# テンプレートエンジン
 
+<!--
 ## A type safe template engine based on Scala
+-->
+## Scala ベースのタイプセーフなテンプレートエンジン
 
 Play 2.0 comes with a new and really powerful Scala-based template engine, whose design was inspired by ASP.NET Razor. Specifically it is:
 
@@ -24,7 +31,10 @@ Templates are compiled, so you will see any errors in your browser:
 
 ![tempaltesyntax](https://raw.github.com/wiki/playframework/Play20/javaGuide/main/templates/images/templatesError.png)
 
+<!--
 ## Overview
+-->
+## 概観
 
 A Play Scala template is a simple text file that contains small blocks of Scala code. Templates can generate any text-based format, such as HTML, XML or CSV.
 
@@ -32,7 +42,10 @@ The template system has been designed to feel comfortable to those used to worki
 
 Templates are compiled as standard Scala functions, following a simple naming convention. If you create a `views/Application/index.scala.html` template file, it will generate a `views.html.Application.index` class that has a `render()` method.
 
+<!--
 For example, here is a simple template:
+-->
+例えば、次のようなシンプルなテンプレートを作成します。
 
 ```html
 @(customer: Customer, orders: List[Order])
@@ -52,7 +65,10 @@ You can then call this from any Java code as you would normally call a method on
 Content html = views.html.Application.index.render(customer, orders);
 ```
 
+<!--
 ## Syntax: the magic ‘@’ character
+-->
+## 文法: 魔法の `@`
 
 The Scala template uses `@` as the single special character. Every time this character is encountered, it indicates the beginning of a dynamic statement. You are not required to explicitly close the code block - the end of the dynamic statement will be inferred from your code:
 
@@ -62,7 +78,10 @@ Hello @customer.getName()!
           Dynamic code
 ```
 
+<!--
 Because the template engine automatically detects the end of your code block by analysing your code, this syntax only supports simple statements. If you want to insert a multi-token statement, explicitly mark it using brackets:
+-->
+テンプレートエンジンがコードを解析してコードブロックの終わりを自動的に認識するため、この文法では単純な Scala 文しかサポートされません。複数のトークンにまたがるようなコードを挿入したい場合は、その範囲を括弧で明示することができます。
 
 ```
 Hello @(customer.getFirstName() + customer.getLastName())!
@@ -78,13 +97,19 @@ Hello @{val name = customer.getFirstName() + customer.getLastName(); name}!
                                   Dynamic Code
 ```
 
+<!--
 Because `@` is a special character, you’ll sometimes need to escape it. Do this by using `@@`:
+-->
+`@` は特殊文字ですが、これをエスケープしたいときは `@@` と書きます。
 
 ```
 My email is bob@@example.com
 ```
 
+<!--
 ## Template parameters
+-->
+## テンプレート引数
 
 A template is like a function, so it needs parameters, which must be declared at the top of the template file:
 
@@ -92,19 +117,28 @@ A template is like a function, so it needs parameters, which must be declared at
 @(customer: models.Customer, orders: List[models.Order])
 ```
 
+<!--
 You can also use default values for parameters:
+-->
+引数のデフォルト値を設定することもできます。
 
 ```scala
 @(title: String = "Home")
 ```
 
+<!--
 Or even several parameter groups:
+-->
+複数の引数グループを作成することもできます。
 
 ```scala
 @(title:String)(body: Html)
 ```
 
+<!--
 ## Iterating
+-->
+## 反復
 
 You can use the `for` keyword, in a pretty standard way:
 
@@ -119,9 +153,15 @@ You can use the `for` keyword, in a pretty standard way:
 > **Note:** Make sure that `{` is on the same line with `for` to indicate that the expression continues to next line.  
 
 
+<!--
 ## If-blocks
+-->
+## If ブロック
 
+<!--
 If-blocks are nothing special. Simply use Scala’s standard `if` statement:
+-->
+If ブロックについても特別なことはなにもありません。Scala の `if` 式がそのまま使えます。
 
 ```html
 @if(items.isEmpty()) {
@@ -131,9 +171,15 @@ If-blocks are nothing special. Simply use Scala’s standard `if` statement:
 }
 ```
 
+<!--
 ## Declaring reusable blocks
+-->
+## 再利用可能なブロックの宣言
 
+<!--
 You can create reusable code blocks:
+-->
+次のように、再利用可能なコードブロックを作成することができます。
 
 ```html
 @display(product: models.Product) = {
@@ -165,9 +211,15 @@ By convention a reusable block defined with a name starting with **implicit** wi
 @implicitFieldConstructor = @{ MyFieldConstructor() }
 ```
 
+<!--
 ## Declaring reusable values
+-->
+## 再利用可能な値の宣言
 
+<!--
 You can define scoped values using the `defining` helper:
+-->
+`defining` ヘルパ関数を使って、特定のスコープ内でのみ有効な値を定義することができます。
 
 ```html
 @defining(user.getFirstName() + " " + user.getLastName()) { fullName =>
@@ -175,9 +227,15 @@ You can define scoped values using the `defining` helper:
 }
 ```
 
+<!--
 ## Import statements
+-->
+## import 文
 
+<!--
 You can import whatever you want at the beginning of your template (or sub-template):
+-->
+テンプレート (またはサブテンプレート) の冒頭で、任意のパッケージやオブジェクトなどを import することができます。
 
 ```scala
 @(customer: models.Customer, orders: List[models.Order])
@@ -201,9 +259,15 @@ val main = PlayProject(…).settings(
 )
 ```
 
+<!--
 ## Comments
+-->
+## コメント
 
+<!--
 You can write server side block comments in templates using `@* *@`:
+-->
+`@* *@` を利用して、サーバーサイドのブロックコメントを書くことができます。
 
 ```
 @*********************
@@ -211,7 +275,10 @@ You can write server side block comments in templates using `@* *@`:
  *********************@   
 ```
 
+<!--
 You can put a comment on the first line to document your template into the Scala API doc:
+-->
+テンプレートの先頭行にコメントを記述すると、Scala API doc にドキュメントが出力されます。
 
 ```
 @*************************************
@@ -224,11 +291,17 @@ You can put a comment on the first line to document your template into the Scala
 <h1>@msg</h1>
 ```
 
+<!--
 ## Escaping
+-->
+## エスケープ
 
 By default, dynamic content parts are escaped according to the template type’s (e.g. HTML or XML) rules. If you want to output a raw content fragment, wrap it in the template content type. 
 
+<!--
 For example to output raw HTML:
+-->
+例えば、生の HTML を出力する場合は次のように記述します。
 
 ```html
 <p>
@@ -236,4 +309,7 @@ For example to output raw HTML:
 </p>
 ```
 
+<!--
 > **Next:** [[Common use cases | ScalaTemplateUseCases]]
+-->
+> **Next:** [[よくある使い方 | ScalaTemplateUseCases]]
