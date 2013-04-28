@@ -38,7 +38,10 @@ Additionally a **body parser** has access to the HTTP request headers before it 
 -->
 これらに加えて、**ボディパーサー** はリクエストボディのパースを始める前に HTTP リクエストヘッダを参照して、いくつか事前条件のチェックをすることがあります。例えば、特定の HTTP ヘッダが正しくセットされていることをチェックしたり、ユーザが大きなファイルをアップロードしようとしたときに本当にその権限を持っているのかチェックする、というようなボディーパーサーが考えられます。
 
+<!--
 > **Note**: That's why a body parser is not really an `Iteratee[Array[Byte],A]` but more precisely a `Iteratee[Array[Byte],Either[Result,A]]`, meaning that it has the opportunity to send directly an HTTP result itself (typically `400 BAD_REQUEST`, `412 PRECONDITION_FAILED` or `413 REQUEST_ENTITY_TOO_LARGE`) if it decides that it is not able to compute a correct value for the request body
+-->
+> **ノート**: これがボディパーサーが厳密には `Iteratee[Array[Byte],A]` ではなく `Iteratee[Array[Byte],Either[Result,A]]` であることの理由です。つまり、リクエストボディを元に適切な値を計算できないと判断した場合、ボディパーサー自身が直接的に HTTP レスポンスを送信することがあります（よくあるのは `400 BAD_REQUEST`, `412 PRECONDITION_FAILED`, `413 REQUEST_ENTITY_TOO_LARGE` です）。
 
 <!--
 Once the body parser finishes its job and gives back a value of type `A`, the corresponding `Action` function is executed and the computed body value is passed into the request.
