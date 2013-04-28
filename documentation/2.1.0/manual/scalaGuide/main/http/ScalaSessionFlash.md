@@ -29,7 +29,10 @@ The Play Session is not intended to be used as a cache. If you need to cache som
 -->
 Play のセッションはキャッシュとして使われることを想定して作られてはいません。もし、特定のセッションに関するデータをキャッシュしたい場合、Play に組み込まれたキャッシュ機構を利用すると同時に、ユーザのセッションにユニーク ID を保存して、キャッシュを特定のユーザに対応づけることができます。
 
+<!--
 > There is no technical timeout for the Session. It expires when the user closes the web browser. If you need a functional timeout for a specific application, just store a timestamp into the user Session and use it however your application needs (e.g. for a maximum session duration, maximum inactivity duration, etc.).
+-->
+> セッションには技術的にタイムアウトが存在しません。セッションは、ユーザが web ブラウザを終了させたときに切れます。もし、特定のアプリケーションでタイムアウトの機能が必要になった場合は、ユーザのセッションにタイムスタンプを保存して、必要なところで参照すると良いでしょう (例えば、セッションの最長期間、期限切れまでに許される無操作時間等) 。
 
 <!--
 ## Reading a Session value
@@ -135,7 +138,10 @@ The Flash scope works exactly like the Session, but with two differences:
 - データは 1 リクエストまで保持されます
 - フラッシュ向けのクッキーは署名されていないため、ユーザによって変更される可能性があります
 
+<!--
 > **Important:** The Flash scope should only be used to transport success/error messages on simple non-Ajax applications. As the data are just kept for the next request and because there are no guarantees to ensure the request order in a complex Web application, the Flash scope is subject to race conditions.
+-->
+> **重要:** フラッシュスコープはシンプルかつ非 Ajax なアプリケーションにおいて、成功/失敗メッセージをやり取りするためだけに利用すべきです。データは次のリクエストまでしか保持されず、また複雑な Web アプリケーションにおいてはリクエストの順序が保証できないため、フラッシュスコープが競合状態に陥る可能性があります。
 
 <!--
 Here are a few examples using the Flash scope:
@@ -157,7 +163,10 @@ def save = Action {
 ```
 
 
-To retrieve the Flash scope value in your view, just add an implicit with Flash:
+<!--
+To retrieve the Flash scope value in your view, just add an implicit with Flash。
+-->
+フラッシュスコープの値をビューから取得するには Flash に implicit を追加します:
 ```
 @()(implicit flash: Flash)
 ...
@@ -165,7 +174,10 @@ To retrieve the Flash scope value in your view, just add an implicit with Flash:
 ...
 ```
 
+<!--
 If the error '_could not find implicit value for parameter flash: play.api.mvc.Flash_' is raised then this is because your Action didn't import a request object. Add an "implicit request=>" as show below:
+-->
+'_could not find implicit value for parameter flash: play.api.mvc.Flash_' というエラーが発生した場合、これはアクションがリクエストオブジェクトを import しなかった事によるものです。以下のように "implicit request=>" を追加します。
 
 ```scala
 def index() = Action {   
