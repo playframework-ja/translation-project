@@ -26,7 +26,10 @@ val loginForm = Form(
 )
 ```
 
+<!--
 This form can generate a `(String, String)` result value from `Map[String, String]` data:
+-->
+このフォームは `Map[String, String]` 型のデータから `(String, String)` の値を生成することができます。
 
 ```scala
 val anyData = Map("email" -> "bob@gmail.com", "password" -> "secret")
@@ -69,11 +72,19 @@ val anyData = Map("name" -> "bob", "age" -> "18")
 val user: User = userForm.bind(anyData).get
 ```
 
+<!--
 > **Note:** The difference between using `tuple` and `mapping` is that when you are using `tuple` the construction and deconstruction functions don’t need to be specified (we know how to construct and deconstruct a tuple, right?). 
 >
 > The `mapping` method just lets you define your custom functions. When you want to construct and deconstruct a case class, you can just use its default `apply` and `unapply` functions, as they do exactly that!
+-->
+> **Note:** `tuple` と `mapping` の違いは、`tuple` については構築および分解に使われる関数を指定する必要がないということです (タプルを構築、または分解する方法は明らかですよね) 。
+>
+> `mapping` メソッドには好きな関数を渡すことができます。ケースクラスを構築または分解する場合、デフォルトの `apply` と `unapply` 関数がまさしくケースクラスの構築・分解を行う関数なので、それらを渡しておけば問題ありません。
 
+<!--
 Of course often the `Form` signature doesn’t match the case class exactly. Let’s use the example of a form that contains an additional checkbox field, used to accept terms of service. We don’t need to add this data to our `User` value. It’s just a dummy field that is used for form validation but which doesn’t carry any useful information once validated.
+-->
+`Form` のシグネチャがケースクラスと一致しないこともあると思います。例えば、利用規約の同意を尋ねるためのチェックボックスを追加したフォームで考えてみましょう。このチェックボックスの値は `User` に追加したくありません。なぜかというと、このダミーのフィールドはフォームをバリデーションするために利用しますが、バリデーションが終わった後は用済みだからです。
 
 <!--
 As we can define our own construction and deconstruction functions, it is easy to handle it:
