@@ -1,6 +1,13 @@
+<!-- translated -->
+<!--
 # Handling asynchronous results
+-->
+# 非同期レスポンスの処理
 
+<!--
 ## Why asynchronous results?
+-->
+## 非同期レスポンスはなぜ必要か?
 
 Until now, we were able to generate the result to send to the web client directly. However, this is not always the case: the result might depend on an expensive computation or on a long web service call.
 
@@ -8,7 +15,10 @@ Because of the way Play works, the action code must be as fast as possible (ie. 
 
 A `Future[Result]` will eventually be redeemed with a value of type `Result`. By giving a `Future[Result]` instead of a normal `Result`, we are able to quickly generate the result without blocking. Then, Play will serve this result as soon as the promise is redeemed. 
 
+<!--
 The web client will be blocked while waiting for the response, but nothing will be blocked on the server, and server resources can be used to serve other clients.
+-->
+web クライアントはレスポンスを待っている間ずっとブロックされますが、その間でもサーバ側の処理は全くブロックされないため、計算リソースを他のクライアントのために使うことができます。
 
 ## How to create a `Future[Result]`
 
@@ -31,11 +41,20 @@ val futureInt: Future[Int] = scala.concurrent.Future {
 }
 ```
 
+<!--
 > **Note:** Here, the intensive computation will just be run on another thread. It is also possible to run it remotely on a cluster of backend servers using Akka remote.
+-->
+> **ノート:** ここでは、非常に時間のかかる計算を別スレッドで実行しています。その他に、このような計算を Akka remote を利用してバックエンドサーバのクラスタ上で実行することもできます。
 
+<!--
+## AsyncResult
+-->
 ## AsyncResult
 
+<!--
 While we were using `SimpleResult` until now, to send an asynchronous result, we need an `AsyncResult` to wrap the actual `SimpleResult`:
+-->
+これまでは `SimpleResult` を使ってきましたが、非同期な結果を送信するためには、`SimpleResult` をラップする `AsyncResult` が必要です。
 
 ```scala
 def index = Action {
@@ -48,9 +67,15 @@ def index = Action {
 
 > **Note:** `Async { }` is an helper method that builds an `AsyncResult` from a `Future[Result]`.
 
+<!--
 ## Handling time-outs
+-->
+## タイムアウト処理
 
+<!--
 It is often useful to handle time-outs properly, to avoid having the web browser block and wait if something goes wrong. You can easily compose a promise with a promise timeout to handle these cases:
+-->
+何らかの問題が発生したとき web ブラウザが延々とブロックしてしまうことを避けるために、タイムアウトが役立つことが多々あります。そのような場合、 Promise と Promise のタイムアウトを簡単に組み合わせることができます。
 
 ```scala
 
@@ -66,4 +91,7 @@ def index = Action {
 }
 ```
 
+<!--
 > **Next:** [[Streaming HTTP responses | ScalaStream]]
+-->
+> **次ページ:** [[HTTP レスポンスのストリーミング | ScalaStream]]
