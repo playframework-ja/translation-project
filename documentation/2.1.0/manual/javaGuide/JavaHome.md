@@ -107,6 +107,7 @@ Play アプリケーションは、`play` パッケージ内にある Java API �
 1. [[アプリケーション Global オブジェクト | JavaGlobal]]
     1. [[アプリケーションの全般設定 | JavaGlobal]]
     1. [[リクエストのインターセプト | JavaInterceptors]]
+    1. [[コントローラクラスの生成の管理 | JavaInjection]]
 1. [[アプリケーションのテスト | JavaTest]]
     1. [[テストの書き方 | JavaTest]]
     1. [[機能テストの書き方 | JavaFunctionalTest]]
