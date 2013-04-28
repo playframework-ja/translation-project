@@ -55,7 +55,10 @@ Iteratee は 3 つの状態を持ちます。それぞれ、`Cont` はさらに�
 ```scala
 def fold[B](folder: Step[E, A] => Future[B]): Future[B]
 ```
+<!--
 where `Step`  object has 3 states :
+-->
+`Step` オブジェクトは 3 つの状態を持ちます。
 ```scala
 object Step {
   case class Done[+A, E](a: A, remaining: Input[E]) extends Step[E, A]
@@ -137,7 +140,10 @@ As shown above, this is easily done by calling the appropriate callback function
 -->
 上記のとおり、このような Iteratee は、この例における `done` のような適切なコールバック関数に必要な引数を渡すだけで実装することができます。
 
+<!--
 To use this iteratee we will make use of the `Future` that holds a promised value.
+-->
+この Iteratee を利用するためには、約束された値を持つ `Future` を使います。
 
 ```scala
 def folder(step: Step[String,Int]):Future[Option[Int]] = step match {
@@ -151,7 +157,10 @@ val eventuallyMaybeResult: Future[Option[Int]] = doneIteratee.fold(folder)
 eventuallyMaybeResult.onComplete(i => println(i))
 ```
 
+<!--
 of course to see what is inside the `Future` when it is redeemed we use `onComplete`
+-->
+redeem されたときに `Future` の中身を取得するためには、 `onComplete` を使います。
 
 ```scala
 // will eventually print 1
