@@ -133,7 +133,10 @@ This default field constructor supports additional options you can pass in the i
 -->
 ## Twitter bootstrap フィールドコンストラクタ
 
+<!--
 There is also another built-in field constructor that can be used with [[TwitterBootstrap | http://twitter.github.com/bootstrap/]] 1.4.  (Note: 2.0.2 will support LESS 1.3 and Bootstrap 2.0.)
+-->
+Play には、[[TwitterBootstrap | http://twitter.github.com/bootstrap/]] 1.4 に対応したフィールドコンストラクタが組み込みで用意されています。 (注意: 2.0.2 は LESS 1.3 と Bootstrap 2.0 をサポートする予定です)
 
 <!--
 To use it, just import it in the current scope:
