@@ -4,7 +4,10 @@
 -->
 # アクション、コントローラ、レスポンス
 
+<!--
 ## What is an Action?
+-->
+## アクションとは?
 
 <!--
 Most of the requests received by a Play application are handled by an `Action`. 
@@ -64,7 +67,10 @@ Action { request =>
 }
 ```
 
+<!--
 It is often useful to mark the `request` parameter as `implicit` so it can be implicitly used by other APIs that need it:
+-->
+パラメータ `request` に `implicit` を指定して、リクエストを暗黙的な引数として他の API に渡すテクニックは覚えておくと役立つことがあります。
 
 ```scala
 Action { implicit request =>
