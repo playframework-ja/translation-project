@@ -4,7 +4,10 @@
 -->
 # アクション合成
 
+<!--
 This chapter introduces several ways of defining generic action functionality.
+-->
+この章では、アクションの一部機能を汎用的な形で切り出して定義する方法を紹介していきます。
 
 <!--
 ## Basic action composition
@@ -128,7 +131,10 @@ def index = Logging {
 > } 
 > ```
 
+<!--
 The following example is wrapping an existing action to add session variable:
+-->
+以下は既存のアクションをラップしてセッション変数を追加する例です。
 
 ```scala
 def addSessionVar[A](action: Action[A]) = Action(action.parser) { request =>
@@ -142,7 +148,10 @@ def addSessionVar[A](action: Action[A]) = Action(action.parser) { request =>
 -->
 ## さらに複雑な例
 
+<!--
 Let’s look at the more complicated but common example of an authenticated action. The main problem is that we need to pass the authenticated user to the wrapped action.
+-->
+次は、認証を伴うアクションという、より複雑ですが一般的な例を見てみましょう。ここでの問題は、認証されたユーザだけをラップしたアクションへ通すことです。
 
 ```scala
 def Authenticated(action: User => EssentialAction): EssentialAction = {
@@ -175,9 +184,15 @@ def index = Authenticated { user =>
 }
 ```
 
+<!--
 > **Note:** There is already an `Authenticated` action in `play.api.mvc.Security.Authenticated` with a more generic implementation than this example.
+-->
+> **注:** `play.api.mvc.Security.Authenticated` には ここで説明した例よりもっと汎用的な `Authenticated` アクションの実装が用意されています。
 
+<!--
 In the [[previous section | ScalaBodyParsers]] we said that an `Action[A]` was a `Request[A] => Result` function but this is not entirely true. Actually the `Action[A]` trait is defined as follows:
+-->
+[[前回のセクション | ScalaBodyParsers]] では `Action[A]` は `Request[A] => Result` の関数だとされていましたが、完全には正しくありません。実際には `Action[A]` トレイトは以下のように定義されています。
 
 ```scala
 trait EssentialAction extends (RequestHeader => Iteratee[Array[Byte], Result])
@@ -189,18 +204,30 @@ trait Action[A] extends EssentialAction {
 }
 ```
 
+<!--
 An `EssentialAction` is a function that takes the request headers and gives an `Iteratee` that will eventually parse the request body and produce a HTTP result. `Action[A]` implements `EssentialAction` as follow: it parses the request body using its body parser, gives the built `Request[A]` object to the action code and returns the action code’s result. An `Action[A]` can still be thought of as a `Request[A] => Result` function because it has an `apply(request: Request[A]): Result` method.
+-->
+`EssentialAction` は関数で、リクエストヘッダを受け取り、最終的にリクエストボディをパースして HTTP の結果を生成する `Iteratee` を返します。 `Action[A]` は `EssentialAction` を以下のように実装します: ボディパーサを使ってリクエストボディをパースし、生成された `Request[A]` オブジェクトをアクションのコードに渡し、アクションのコードの結果を返します。依然として `Action[A]` は `Request[A] => Result` の関数だと考えることができますが、これは `apply(request: Request[A]): Result` メソッドを持っているためです。
 
+<!--
 The `EssentialAction` trait is useful to compose actions with code that requires to read some information from the request headers before parsing the request body.
+-->
+`EssentialAction` トレイトは、リクエストボディをパースする前にリクエストヘッダ情報の取得を行う必要があるコードを、アクションと合成する時に有効です。
 
+<!--
 Our `Authenticated` implementation above tries to find a user id in the request session and calls the wrapped action with this user if found, otherwise it returns a `401 UNAUTHORIZED` status without even parsing the request body.
+-->
+上記の `Authenticated` の実装は、リクエストセッションからユーザ ID を探し、見つかった場合はラップされたアクションをこのユーザーと共に呼び出し、そうでない場合は `401 UNAUTHORIZED` ステータスをリクエストボディをパースせずに返しています。
 
 <!--
 ## Another way to create the Authenticated action
 -->
 ## 認証されたアクションの別の実装方法
 
+<!--
 Let’s see how to write the previous example without wrapping the whole action:
+-->
+次は、先ほどの例を、アクションを丸ごとラップせずに記述してみましょう。
 
 ```scala
 def Authenticated(f: (User, Request[AnyContent]) => Result) = {
@@ -312,4 +339,7 @@ def Authenticated(f: AuthenticatedRequest[AnyContent] => Result): Action[AnyCont
 }
 ```
 
+<!--
 > **Next:** [[Content negotiation | ScalaContentNegotiation]]
+-->
+> **次ページ:** [[コンテンツネゴシエーション | ScalaContentNegotiation]]
