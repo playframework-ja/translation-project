@@ -207,7 +207,7 @@ trait Action[A] extends EssentialAction {
 <!--
 An `EssentialAction` is a function that takes the request headers and gives an `Iteratee` that will eventually parse the request body and produce a HTTP result. `Action[A]` implements `EssentialAction` as follow: it parses the request body using its body parser, gives the built `Request[A]` object to the action code and returns the action code’s result. An `Action[A]` can still be thought of as a `Request[A] => Result` function because it has an `apply(request: Request[A]): Result` method.
 -->
-`EssentialAction` は関数で、リクエストヘッダを受け取り、最終的にリクエストボディをパースして HTTP の結果を生成する `Iteratee` を返します。 `Action[A]` は `EssentialAction` を以下のように実装します: ボディパーサを使ってリクエストボディをパースし、生成された `Request[A]` オブジェクトをアクションのコードに渡し、アクションのコードの結果を返します。依然として `Action[A]` は `Request[A] => Result` の関数だと考えることができますが、これは `apply(request: Request[A]): Result` メソッドを持っているためです。
+`EssentialAction` は、リクエストヘッダを受け取り、最終的にリクエストボディをパースして HTTP の結果を生成する `Iteratee` を返す関数です。 `Action[A]` は `EssentialAction` を次のように実装します: ボディパーサを使ってリクエストボディをパースし、生成された `Request[A]` オブジェクトをアクションのコードに渡し、アクションのコードの結果を返します。`Action[A]` は `apply(request: Request[A]): Result` メソッドを持っているため、依然として `Request[A] => Result` の関数だと考えることができます。
 
 <!--
 The `EssentialAction` trait is useful to compose actions with code that requires to read some information from the request headers before parsing the request body.
