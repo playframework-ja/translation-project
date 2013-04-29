@@ -304,7 +304,7 @@ Play はこの新しいエボリューションを検知して、以前のリビ
 <!--
 Evolutions are stored in your database in a table called PLAY_EVOLUTIONS.  A Text column stores the actual evolution script.  Your database probably has a 64kb size limit on a text column.  To work around the 64kb limitation you could: manually alter the play_evolutions table structure changing the column type or (prefered) create multiple evolutions scripts less than 64kb in size.
 -->
-エボリューションはデータベースの PLAY_EVOLUTIONS というテーブルに保存されます。 text 型のカラムに実際のエボリューション・スクリプトが保存されています。データベースによっては 64kb のサイズ制限が text 型のカラムに付くことがあります。64kb の制限に対処する場合 — 手動でカラムの型を変えることで play_evolutions のテーブル構造を変更するか、(推奨策として) 64kb よりも小さいサイズの複数のスクリプトに分割することができます。
+エボリューションはデータベースの PLAY_EVOLUTIONS というテーブルに保存されます。 text 型のカラムに実際のエボリューション・スクリプトが保存されています。データベースによっては 64kb のサイズ制限が text 型のカラムに付くことがあります。64kb の制限に対処する場合 — 手動でカラムの型を変えることで play_evolutions のテーブル構造を変更するか、(より好ましい方法として) 64kb よりも小さいサイズの複数のスクリプトに分割することができます。
 
 <!--
 ## Running Evolutions in Production
