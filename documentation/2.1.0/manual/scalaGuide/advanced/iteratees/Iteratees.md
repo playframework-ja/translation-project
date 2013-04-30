@@ -79,7 +79,7 @@ fold メソッドは、 Iteratee をこれら３つの状態のいずれかに�
 - If the iteratee is the state `Error`, then I'd take the error message of type `String` and the input that caused it and eventually produce a B.
 -->
 - Iteratee が `Done` 状態であれば、 `A` という型の計算結果と `Input[E]` という型のこれから消費される入力データの最後のチャンク  を元に、 `B` という型の値を生成します。
-- Iteratee が `Cont` 状態であれば、`Input[E] - Iteratee[E,A]` という型の継続 (入力を待ち受ける) を使って、最終的には `B` という型の値を生成します。この状態が Iteratee にデータを入力する唯一のタイミングであり、データを入力後は提供された継続を使って新しい状態の Iteratee を返します。
+- Iteratee が `Cont` 状態であれば、`Input[E] => Iteratee[E,A]` という型の継続 (入力を待ち受ける) を使って、最終的には `B` という型の値を生成します。この状態が Iteratee にデータを入力する唯一のタイミングであり、データを入力後は提供された継続を使って新しい状態の Iteratee を返します。
 - Iteratee が `Error` 状態であれば、`String` 型のエラーメッセージと、エラーの原因となった入力データを元に、 `B` 型の値を生成します。
 
 <!--
