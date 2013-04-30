@@ -187,7 +187,7 @@ def index = Authenticated { user =>
 <!--
 > **Note:** There is already an `Authenticated` action in `play.api.mvc.Security.Authenticated` with a more generic implementation than this example.
 -->
-> **注:** `play.api.mvc.Security.Authenticated` には ここで説明した例よりもっと汎用的な `Authenticated` アクションの実装が用意されています。
+> **注:** `play.api.mvc.Security.Authenticated` にはここで説明した例よりもっと汎用的な `Authenticated` アクションの実装が用意されています。
 
 <!--
 In the [[previous section | ScalaBodyParsers]] we said that an `Action[A]` was a `Request[A] => Result` function but this is not entirely true. Actually the `Action[A]` trait is defined as follows:
