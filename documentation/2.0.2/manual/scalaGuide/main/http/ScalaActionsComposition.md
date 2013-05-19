@@ -182,7 +182,7 @@ def index = Authenticated { user =>
 <!--
 > **Note:** There is already an `Authenticated` action in `play.api.mvc.Security.Authenticated` with a better implementation than this example.
 -->
-> **注:** `play.api.mvc.Security.Authenticated` には ここで説明した例よりもっと良い `Authenticated` アクションの実装が用意されています。
+> **注:** `play.api.mvc.Security.Authenticated` にはここで説明した例よりもっと良い `Authenticated` アクションの実装が用意されています。
 
 <!--
 ## Another way to create the Authenticated action
