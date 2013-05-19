@@ -172,7 +172,7 @@ public static Result authenticate() {
 バリデーションに成功した場合は、セッションに属性を追加します。この属性は `email` と呼ぶことにして、その値は今まさに正常にログインしたユーザの email アドレスです。このセッション属性は、後で現在ログインしているユーザを検出するために使用します。
 
 <!-- After setting the user in the session, we issue an HTTP redirect to the dashboard.  You can see that we've used the reverse router, in the same way that we include assets in templates, to refer to the dashboard action. -->
-ユーザをセッションに格納した後、ダッシュボードへの HTTP リダイレクトを発酵します。テンプレートにアセットを取り込むときと同じように、ダッシュボードアクションを参照するためにリバースルーターを使っていることが分かるでしょう。
+ユーザをセッションに格納した後、ダッシュボードへの HTTP リダイレクトを発行します。テンプレートにアセットを取り込むときと同じように、ダッシュボードアクションを参照するためにリバースルーターを使っていることが分かるでしょう。
 
 <!-- We are almost finished with validation.  The one thing left to do is to display the error message when validation fails. You saw before that we passed the invalid form back to the template, we will use this to get the error message.  Place the following code in `app/views/login.scala.html`, just below the Sign In heading: -->
 バリデーションについてはほとんど完了です。あとひとつ残っているのは、バリデーション失敗時のエラーメッセージの表示です。先ほど不正なフォームをテンプレートに投げ返しましたが、このフォームを使ってエラーメッセージを取得します。以下のコードを `app/views/login.scala.html` の見出し Sign in のすぐ下に配置してください:
