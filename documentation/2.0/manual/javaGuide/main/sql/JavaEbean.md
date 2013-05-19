@@ -83,7 +83,7 @@ public class Task extends Model {
 <!--
 As you can see, we've added a `find` static field, defining a `Finder` for an entity of type `Task` with a `Long` identifier. This helper field is then used to simplify querying our model:
 -->
-ご覧のように、 `find` static フィールドが追加されました。これは識別子が `Long` である `Task` 型のエンティティに対する `Finder` を定義します。このヘルパーフィールドはモデルのクエリーを単純化するために使われます。
+ご覧のように、 `find` static フィールドが追加されました。これは識別子が `Long` である `Task` 型のエンティティに対する `Finder` を定義します。このヘルパーフィールドはモデルのクエリーを簡素化するために使われます。
 
 ```
 // Find all tasks
