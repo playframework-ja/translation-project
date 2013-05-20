@@ -1,4 +1,4 @@
-### Testing your application
+<!-- ### Testing your application -->
 ### テストについて
 
 <!-- - [[Writing tests | ScalaTest]]
