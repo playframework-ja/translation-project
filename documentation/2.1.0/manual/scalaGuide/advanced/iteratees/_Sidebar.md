@@ -1,20 +1,14 @@
-<!-- translated -->
-<!--
-### Handling data streams reactively
--->
+<!-- ### Handling data streams reactively -->
 ### 反応的なストリーム処理
 
 - [[Iteratees | Iteratees]]
 - [[Enumerators | Enumerators]]
 - [[Enumeratees | Enumeratees]]
 
-<!--
-### Main concepts
--->
-### 基本的な機能
+<!-- ### Main concepts -->
+### 主要なコンセプト
 
-<!--
-- [[HTTP programming | ScalaActions]]
+<!-- - [[HTTP programming | ScalaActions]]
 - [[Asynchronous HTTP programming | ScalaAsync]]
 - [[The template engine | ScalaTemplates]]
 - [[HTTP form submission and validation | ScalaForms]]
@@ -27,41 +21,30 @@
 - [[Integrating with Akka | ScalaAkka]]
 - [[Internationalization | ScalaI18N]]
 - [[The application Global object | ScalaGlobal]]
-- [[Testing your application | ScalaTest]]
-- [[Securing your application | ScalaSecurity]]
--->
+- [[Testing your application | ScalaTest]] -->
 - [[HTTP プログラミング | ScalaActions]]
 - [[非同期 HTTP プログラミング | ScalaAsync]]
 - [[テンプレート・エンジン | ScalaTemplates]]
-- [[HTTP フォームの送信とバリデーション | ScalaForms]]
+- [[HTTP フォーム送信とバリデーション | ScalaForms]]
 - [[JSON を使う | ScalaJson]]
 - [[XML を使う | ScalaXmlRequests]]
-- [[ファイル・アップロード | ScalaFileUpload]]
-- [[SQL データベース・アクセス | ScalaDatabase]]
-- [[キャッシュ | ScalaCache]]
+- [[ファイルアップロード処理 | ScalaFileUpload]]
+- [[SQL データベースアクセス | ScalaDatabase]]
+- [[キャッシュを使う | ScalaCache]]
 - [[Web サービスの呼び出し | ScalaWS]]
 - [[Akka との統合 | ScalaAkka]]
-- [[多言語対応 | ScalaI18N]]
-- [[Global オブジェクト | ScalaGlobal]]
-- [[テスト | ScalaTest]]
-- [[セキュリテイ | ScalaSecurity]]
+- [[国際化 | ScalaI18N]]
+- [[アプリケーション Global オブジェクト | ScalaGlobal]]
+- [[テストについて | ScalaTest]]
+    
+<!-- ### Advanced topics -->
+### 上級編
 
-<!--
-### Advanced topics
--->
-### 高度なトピック
-
-<!--
-- [[Handling data streams reactively | Iteratees]]
--->
+<!-- - [[Handling data streams reactively | Iteratees]] -->
 - [[反応的なストリーム処理 | Iteratees]]
 
-<!--
-### Tutorials
--->
+<!-- ### Tutorials -->
 ### チュートリアル
 
-<!--
-- [[Your first application | ScalaTodoList]]
--->
-- [[初めてのアプリケーション | ScalaTodoList]]
+<!-- - [[Your first application | ScalaTodoList]] -->
+- [[はじめてのアプリケーション | ScalaTodoList]]
