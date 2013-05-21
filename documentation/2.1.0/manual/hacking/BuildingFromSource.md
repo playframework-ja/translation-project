@@ -9,7 +9,7 @@
 ## ソースを取得する
 
 <!-- From the shell, first checkout the Play sources: -->
-シェルから Play のソースを初めてチェックアウトします:
+初めに、シェルから Play のソースをチェックアウトします:
 
 ```bash
 $ git clone git://github.com/playframework/Play20.git
