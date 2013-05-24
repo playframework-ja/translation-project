@@ -53,8 +53,8 @@ JSON の例を見てください:
     - `name` は文字列
     - `value` は以下のいずれかです :
         - 文字列
-        - 数字
-        - 別の JSON オブジェクト
+        - 数値
+        - 他の JSON オブジェクト
         - JSON 配列
         - true/false
         - null
@@ -105,7 +105,7 @@ JSON の `null` を表現します
 ### ```JsString```
 
 <!-- A classic String. -->
-古典的な文字列です。
+標準的な文字列です。
 
 ### ```JsUndefined```
 
@@ -115,7 +115,7 @@ JSON の `null` を表現します
 ### ```JsValue```
 
 <!-- All previous types inherit from the generic JSON trait, ```JsValue```. -->
-上記のすべての型は、包括的な JSON トレイトである ```JsValue``` を継承します。
+上記のすべての型は、総称的な JSON トレイトである ```JsValue``` を継承します。
 
 <!-- ## Minimal Import to work with basic JSON API -->
 ## 基本的な JSON API を使うための最小 import
@@ -175,12 +175,12 @@ val json: JsValue = Json.parse("""
 ## JSON ディレクトリの構築
 
 <!-- ### Raw way -->
-### 生々しい方法
+### 無骨な方法
 
 <!-- The previous sample Json object can be created in other ways too. 
 Here is the raw approach. -->
 上記した Json オブジェクトの例は、別の方法でも作成することができます。
-以下は生々しいアプローチです。
+以下は無骨なアプローチです。
 
 ```
 JsObject(
@@ -201,7 +201,7 @@ JsObject(
 ```
 
 <!-- ### Preferred way -->
-### 好ましい方法
+### 推奨する方法
 
 <!-- Play now provides a simplified syntax to build your JSON.
 The previous JsObject can be constructed as following: -->
@@ -489,7 +489,7 @@ name: play.api.libs.json.JsResult[Long] =
 ### 再帰的なパス `\\` の変換
 
 <!-- `\\` recursively searches in the sub-tree and returns a `Seq[JsValue]` of found JsValue which is then a collection with classical Scala functions. -->
-`\\` はサブツリーを再帰的に検索し、古典的な Scala 関数のコレクションである、発見した JsValue の `Seq[JsValue]` を返します。
+`\\` はサブツリーを再帰的に検索し、標準的な Scala 関数のコレクションである、発見した JsValue の `Seq[JsValue]` を返します。
 
 ```scala
 scala> val emails: Seq[String] = (json \ "user" \\ "email").map(_.as[String])
