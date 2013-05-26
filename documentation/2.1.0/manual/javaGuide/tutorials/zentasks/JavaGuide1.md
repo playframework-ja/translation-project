@@ -70,7 +70,7 @@ play が正しくインストールされたので、いよいよタスクアプ
     ~$ play new zentasks
 
 <!-- It will prompt you for the application full name.  Type **'Zen Tasks'**.  It will then prompt you for a template to use.  We are creating a Java application, so type **2**. -->
-アプリケーションの完全な名前を入力するプロンプトが表示されます。 **ZenTasks** とタイプしてください。その後、使用するテンプレートを選択するプロンプトが表示されます。Java アプリケーションを作成するので、**2** をタイプしてください。
+アプリケーションの完全な名前を入力するプロンプトが表示されます。 **'Zen Tasks'** とタイプしてください。その後、使用するテンプレートを選択するプロンプトが表示されます。Java アプリケーションを作成するので、**2** をタイプしてください。
 
 <!-- > Whether you select Java or Scala now, you can always change it later. -->
 > ここで Java または Scala を選んでも、後からいつでも変更することができます。
@@ -78,7 +78,7 @@ play が正しくインストールされたので、いよいよタスクアプ
 [[images/new.png]]
 
 <!-- The `play new` command creates a new directory `zentasks/` and populates it with a series of files and directories, the most important being: -->
-`play new@ コマンドは `zentasks/` ディレクトリを新規に作成し、一連のファイルやディレクトリをここに追加します。以下は、もっとも重要なディレクトリです:
+`play new` コマンドは `zentasks/` ディレクトリを新規に作成し、一連のファイルやディレクトリをここに追加します。以下は、もっとも重要なディレクトリです:
 
 <!-- `app/` contains the core of the application, split between models, controllers and views directories.  It can contain other Java packages as well. -->
 `app/` ディレクトリはアプリケーションの中心部であり、モデル、コントローラ、およびビュー用のディレクトリに分けられています。 他の Java パッケージを含むこともできます。 
@@ -96,7 +96,7 @@ play が正しくインストールされたので、いよいよタスクアプ
 `test/` には、すべてのアプリケーションテストを保存します。テストは Java の JUnit として書かれるか、または Selenium テストとして書かれます。
 
 <!-- > Because **play uses UTF-8** as the single encoding, it's very important that all text files hosted in these directories are encoded using this charset.  Make sure to configure your text editor accordingly. -->
-> **play は UTF-8** 唯一のエンコーディングとして使用するので、これらのディレクトリでホスティングされたすべてのテキストファイルが UTF-8 でエンコードされていることは非常に重要です。テキストエディタの設定がこれに従っていることを確認してください。
+> **play は UTF-8 を**唯一のエンコーディングとして使用するので、これらのディレクトリでホスティングされたすべてのテキストファイルが UTF-8 でエンコードされていることは非常に重要です。テキストエディタの設定がこれに従っていることを確認してください。
 
 <!-- Now if you're a seasoned Java developer, you may wonder where all the .class files go.  The answer is nowhere: play doesn't use any class files; instead it reads the java source files directly.  Under the hood we use the SBT compiler to compile Java sources on the fly. -->
 もし、あなたが熟練した Java 開発者であれば、すべての .class ファイルがどこに行ってしまったのか不思議に思うことでしょう。実は、どこにもありません: play はいかなる class ファイルも使用せず、Java ソースファイルを直接読み込みます。舞台裏では、実行中の Java ソースをコンパイルするために SBT コンパイラを使用しています。
