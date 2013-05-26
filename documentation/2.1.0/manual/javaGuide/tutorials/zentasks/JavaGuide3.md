@@ -147,7 +147,7 @@ OK, それではダッシュボードをリフレッシュしてみましょう�
 きれいな画面ではありませんが、動いています!
 
 <!-- As we write more pages, we are probably going to run into cases where we need to render tasks again, and all that code to render a single task is going to end up being duplicated.  Let's use the template composition concept we learnt earlier to pull this logic into something like a function that we can call from many places. -->
-より多くのページを書いていくと、またタスクを表示する必要に迫られるでしょうし、あるひとつのタスクを表示するすべてのコードは重複してしまうことなるでしょう。以前に学習したテンプレート合成の概念を使って、いろいろなところから呼び出すことのできる関数のようなものに、このロジックを詰め込んでしまいましょう。
+より多くのページを書いていくと、またタスクを表示する必要に迫られるでしょうし、すると各タスクを表示するコードは最終的に全て重複になってしまうでしょう。以前に学習したテンプレート合成の概念を使って、いろいろなところから呼び出すことのできる関数のようなものに、このロジックを詰め込んでしまいましょう。
 
 <!-- To create a function, just create a new template file with the name of the function as the template name.  In our case we're also going to namespace it into the `tasks` folder, so open `app/views/tasks/item.scala.html`.  We start by declaring the parameters, just like we've done for other templates: -->
 関数を作成するには、関数の名前をテンプレート名とした新しいテンプレートをファイルを作成します。ここでは、`tasks` フォルダを名前空間としたいので、`app/views/tasks/item.scala.html` を開いてください。他のテンプレートと同様、引数を宣言するところから始めます:
