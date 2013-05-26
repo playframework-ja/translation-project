@@ -28,7 +28,7 @@ There are two ways to generate a Javascript router, one is to embed the router i
 directives, the other is to generate Javascript resources in an action that can be downloaded, cached and shared between
 pages.
 -->
-Javascript ルータの生成方法は二通りあります。一つは Scala テンプレートの関数を使ってルータを HTML ページに埋め込むというものです。もう一つは、アクション内でJavascript リソースを生成して、様々なページからダウンロード、キャッシュ、そして共有できるようにするというものです。
+Javascript ルータの生成方法は二通りあります。一つは Scala テンプレートの関数を使ってルータを HTML ページに埋め込むというものです。もう一つは、アクション内で Javascript リソースを生成して、様々なページからダウンロード、キャッシュ、そして共有できるようにするというものです。
 
 <!--
 ### Embedded router
@@ -52,7 +52,7 @@ list of Javascript routes that should be included in this router.  In order to u
 have an implicit RequestHeader in scope, for example this can be made available by adding ``(implicit req:
 RequestHeader)`` to the end of your paramteer declarations.
 -->
-第一引数生成されるルータのグローバル変数名です。第二引数はこのルータに含められるルートのリストです。この関数を利用するためには、テンプレートのスコープ内に implicit な RequestHeader が必要です。例えば、 ``(implicit req: RequestHeader)`` をテンプレートの引数宣言の最後に追加するとよいでしょう。
+第一引数は生成されるルータのグローバル変数名です。第二引数はこのルータに含められるルートのリストです。この関数を利用するためには、テンプレートのスコープ内に implicit な RequestHeader が必要です。例えば、 ``(implicit req: RequestHeader)`` をテンプレートの引数宣言の最後に追加するとよいでしょう。
 
 <!--
 ### Router resource
