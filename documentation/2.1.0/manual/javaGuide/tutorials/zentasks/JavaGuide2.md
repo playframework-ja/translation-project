@@ -15,7 +15,7 @@
 モデルオブジェクトはアプリケーションを再起動する間も存続する必要があるので、これを永続化データストアに保存しなければなりません。一般的にはリレーショナルデータベースを使うことを選択します。しかしながら Java はオブジェクト指向言語なので、インピーダンスミスマッチの減少を手助けする **オブジェクト-リレーショナルマッピングツール** を使用します。
 
 <!-- > Though Play does come with support for relational databases out of the box, there is nothing stopping you from using Play framework with a NoSQL database, in fact, this is a very common way to implement models in Play framework. However we will use a relational database for this tutorial. -->
-> Play にはリレーショナルデータベースのサポートが組み込まれていますが、Play framework を NoSQL データベースと共に使用することを妨げるものは何もありません。実際、ここで紹介するのは Play framework においてモデルを実装するとても一般的な方法です。しかしながら、このチュートリアルではリレーショナルデータベースを使います。
+> Play にはリレーショナルデータベースのサポートが組み込まれていますが、Play framework を NoSQL データベースと共に使用することを妨げるものは何もありません。実際、 NoSQL を使用することは Play framework においてモデルを実装するとても一般的な方法です。しかしながら、このチュートリアルではリレーショナルデータベースを使います。
 
 <!-- Ebean is a Java ORM library that aims to implement a very simple interface to mapping Java objects to the database.  It uses JPA annotations for mapping classes to tables, but if you have had experience with JPA before, Ebean differs in that it is sessionless.  This can greatly simplify the way you interact with the database, removing many of the surprises of things being done at odd times, such as session flushing, and errors with regards to stale or detached objects, that can occur when using JPA. -->
 Ebean は Java オブジェクトをデータベースにマッピングする、とてもシンプルなインタフェースを実装することを目的とする Java の ORM ライブラリです。Ebean はクラスをテーブルにマッピングルすするために JPA アノテーションを使用しますが、もし JPA を以前に使ったことがあるならば、Ebean はセッションレスであるという点で JPA とは異なることが分かるでしょう。このことは、JPA を使っているとちょっとした時に起こり得る、セッションのフラッシュや、失効または切断されたオブジェクトに関わるエラーのような多くの驚きを排除し、データベースとのやり取りをとてもシンプルにします。
