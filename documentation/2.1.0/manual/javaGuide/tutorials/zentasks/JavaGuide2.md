@@ -18,7 +18,7 @@
 > Play にはリレーショナルデータベースのサポートが組み込まれていますが、Play framework を NoSQL データベースと共に使用することを妨げるものは何もありません。実際、ここで紹介するのは Play framework においてモデルを実装するとても一般的な方法です。しかしながら、このチュートリアルではリレーショナルデータベースを使います。
 
 <!-- Ebean is a Java ORM library that aims to implement a very simple interface to mapping Java objects to the database.  It uses JPA annotations for mapping classes to tables, but if you have had experience with JPA before, Ebean differs in that it is sessionless.  This can greatly simplify the way you interact with the database, removing many of the surprises of things being done at odd times, such as session flushing, and errors with regards to stale or detached objects, that can occur when using JPA. -->
-Ebean は Java オブジェクトをデータベースにマッピングする、とてもシンプルなインタフェースを実装することを目的とする Java の ORM ライブラリです。Ebean はクラスをテーブルにマッピングルすするために JPA アノテーションを使用しますが、もし JPA を以前に使ったことがあるならば、Ebean はセッションレスであるという点で JPA とは異なることが分かるでしょう。このことは、JPA を使っているとちょっとした時に起こり得る、セッションのフラッシュや、失効または切断されたオブジェクトに関わるエラーのような多くの驚きを排除し、データベースとのやり取りをとてもシンプルにします。
+Ebean は Java オブジェクトをデータベースにマッピングする、とてもシンプルなインタフェースを実装することを目的とする Java の ORM ライブラリです。Ebean はクラスをテーブルにマッピングするために JPA アノテーションを使用しますが、もし JPA を以前に使ったことがあるならば、Ebean はセッションレスであるという点で JPA とは異なることが分かるでしょう。このことは、JPA を使っているとちょっとした時に起こり得る、セッションのフラッシュや、失効または切断されたオブジェクトに関わるエラーのような多くの驚きを排除し、データベースとのやり取りをとてもシンプルにします。
 
 <!-- ## Starting with the User class -->
 ## User クラス
@@ -207,7 +207,7 @@ public class Project extends Model {
 ```
 
 <!-- A project has a name, a folder that it belongs to, and members.  This time you can see that we again have the `@Entity` annotation on the class, extending `Model`, `@Id` on our `id` field and `find` for running queries.  We have also declared a relation with the `User` class, declaring it as `@ManyToMany`.  This means that each user can have be members of many projects, and each project can have many users. -->
-あるプロジェクトには、ひとつの名前、格納されるひとつのフォルダ、そして複数のメンバーが存在します。今回もまた、クラスに `@Entity` アノテーションがあること、`Model` を継承していること、`id` フィールドに `@Id` アノテーションがああること、クエリを実行する `find` があることが分かります。`User` クラスを `@ManyToMany` として定義することで、関連も定義しました。これは、それぞれのユーザは複数のプロジェクトのメンバーになれること、そしてそれぞれのプロジェクトは複数のメンバーを保持できることを意味します。
+あるプロジェクトには、ひとつの名前、格納されるひとつのフォルダ、そして複数のメンバーが存在します。今回もまた、クラスに `@Entity` アノテーションがあること、`Model` を継承していること、`id` フィールドに `@Id` アノテーションがあること、クエリを実行する `find` があることが分かります。`User` クラスを `@ManyToMany` として定義することで、関連も定義しました。これは、それぞれのユーザは複数のプロジェクトのメンバーになれること、そしてそれぞれのプロジェクトは複数のメンバーを保持できることを意味します。
 
 <!-- We have also implemented a create method.  Note that the many to many `members` association has to saved explicitly. Note also that we never actually assign the `id` property.  This is because we are going to let the database generate an id for us. -->
 create メソッドも実装しました。`members` の多対多の関連は明示的に保存する必要があることに注意してください。`id` プロパティを実質的に設定していないことにも注目してください。これは、データベースに id を生成させているからです。
@@ -378,7 +378,7 @@ public class Task extends Model {
     git status
 
 <!-- As you can see, some new files are not under version control.  Add all the files, and commit your project. -->
-ご覧の通り、いくつかの新しいフィアルがバージョン管理されていません。すべてのファイルを追加してプロジェクトをコミットしてください。
+ご覧の通り、いくつかの新しいファイルがバージョン管理されていません。すべてのファイルを追加してプロジェクトをコミットしてください。
 
     git add .
     git commit -m "The model layer is ready"
