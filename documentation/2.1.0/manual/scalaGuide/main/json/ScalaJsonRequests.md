@@ -41,7 +41,7 @@ object Application extends Controller {
 ```
 
 <!-- It's better (and simpler) to specify our own `BodyParser` to ask Play to parse the content body directly as JSON: -->
-この場合、専用の`BodyParser` を指定することで Play にコンテントボディを直接的に JSON としてパースさせると、記述がシンプル化されてなお良いでしょう。
+この場合、専用の `BodyParser` を指定することで Play にコンテントボディを直接的に JSON としてパースさせると、記述がシンプル化されてなお良いでしょう。
 
 ```scala
   def sayHello = Action(parse.json) { request =>
@@ -56,13 +56,16 @@ object Application extends Controller {
 <!-- > **Note:** When using a JSON body parser, the `request.body` value is directly a valid `JsValue`.  -->
 > **Note:** JSON ボディパーサーを利用すると、`request.body` の値が直接 `JsValue` として扱えるようになります。
 
-Please note:
+<!-- Please note: -->
+注意:
 
 #### `implicits Reads[(String, Long)]` 
-It defines an implicits Reads using combinators which can validate and transform input JSON.
+<!-- It defines an implicits Reads using combinators which can validate and transform input JSON. -->
+入力された JSON のバリデーションと変換を行うことのできるコンビネータを使う、暗黙の Reads を定義します。
 
 #### `json.validate[(String, Long)]` 
-It explicitly validates & transforms input JSON according to implicit `Reads[(String, Long)]`
+<!-- It explicitly validates & transforms input JSON according to implicit `Reads[(String, Long)]` -->
+暗黙の `Reads[(String, Long)]` に従って、入力された JSON のバリデーションと変換を明示的に行います。
 
 
 <!-- You can test it with **cURL** from the command line: -->
@@ -70,33 +73,42 @@ It explicitly validates & transforms input JSON according to implicit `Reads[(St
 
 #### `json.validate[(String, Long)].map{ (String, Long) => ... } `
 
-This maps the result in case of success to transform it into an action result.
+<!-- This maps the result in case of success to transform it into an action result. -->
+JSON の変換に成功した場合、その結果をアクションの結果にマップします。
 
 #### `json.validate[(String, Long)].recoverTotal{ e: JsError => ... }`
 
-`recoverTotal` takes a function to manage errors and returns a default value:
+<!-- `recoverTotal` takes a function to manage errors and returns a default value:
 - it ends the `JsResult` modification chain and returns the successful inner value 
-- or if detected a failure, it returns the result of the function provided to `recoverTotal`.
+- or if detected a failure, it returns the result of the function provided to `recoverTotal`. -->
+`recoverTotal` は、エラーを管理し、デフォルト値を返す関数を受け取ります:
+- `JsResult` の変更チェーンを終了し、正常に作成された内部文字列を返します
+- または、失敗を検出した場合は `recoverToal` に渡された関数の実行結果を返します。
 
 #### `JsError.toFlatJson(e)`
-This is a helper that transforms the `JsError` into a flattened JsObject form :
+<!-- This is a helper that transforms the `JsError` into a flattened JsObject form : -->
+`JsError` を平べったい JsObject 形式に変換するヘルパーです :
 
 ```
 JsError(List((/age,List(ValidationError(validate.error.missing-path,WrappedArray()))), (/name,List(ValidationError(validate.error.missing-path,WrappedArray())))))
 ```
 
-would become JsValue:
+<!-- would become JsValue: -->
+これは、次のような JsValue になります:
 
 ```
 {"obj.age":[{"msg":"validate.error.missing-path","args":[]}],"obj.name":[{"msg":"validate.error.missing-path","args":[]}]}
 ```
 
-> Please note a few other helpers should be provided later.
+<!-- > Please note a few other helpers should be provided later. -->
+> 今後、この他にもいくつかのヘルパーが提供される予定です。
 
 
-**Let's try it**
+<!-- **Let's try it** -->
+**試してみましょう**
 
-### case OK
+<!-- ### case OK -->
+### 成功した場合
 ```
 curl 
   --header "Content-type: application/json" 
@@ -116,7 +128,8 @@ Content-Length: 47
 Hello Toto, you're 32
 ```
 
-### case KO "JSON missing field"
+<!-- ### case KO "JSON missing field" -->
+### 失敗した場合 "見つからない JSON フィールド"
 ```
 curl 
   --header "Content-type: application/json" 
@@ -125,8 +138,8 @@ curl
   http://localhost:9000/sayHello
 ```
 
-It replies with:
-
+<!-- It replies with: -->
+レスポンスは以下のようになります。
 
 ```
 HTTP/1.1 400 Bad Request
@@ -136,7 +149,8 @@ Content-Length: 106
 Detected error:{"obj.age":[{"msg":"validate.error.missing-path","args":[]}],"obj.name":[{"msg":"validate.error.missing-path","args":[]}]}
 ```
 
-### case KO "JSON bad type"
+<!-- ### case KO "JSON bad type" -->
+### 失敗した場合 "不正な JSON 型"
 ```
 curl 
   --header "Content-type: application/json" 
@@ -145,8 +159,8 @@ curl
   http://localhost:9000/sayHello
 ```
 
-It replies with:
-
+<!-- It replies with: -->
+レスポンスは以下のようになります。
 
 ```
 HTTP/1.1 400 Bad Request
@@ -184,9 +198,11 @@ Content-Length: 47
 {"status":"OK","message":"Hello Toto, you're 32"}
 ```
 
-## Sending JSON directly
+<!-- ## Sending JSON directly -->
+## JSON を直接返す
 
-Sending the list of Todos with Play 2.1 and JSON is very simple:
+<!-- Sending the list of Todos with Play 2.1 and JSON is very simple: -->
+Play 2.1 と JSON で Todo リストを返すのはとても簡単です:
 
 ```scala
 import play.api.libs.json.Json
