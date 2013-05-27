@@ -364,7 +364,7 @@ public class Task extends Model {
 ```
 
 <!-- > You may find it more convenient to load the test data in your `@Before` method, so that the test data is available for every test. -->
-> `@Before` メソッドでテストデータをロードする方がより便利だと気付くかもしれません。このため、テストデータはすべてのテストで利用できるデータセットになっています。
+> テストデータが全てのテストから利用できるように、 `@Before` メソッドでテストデータをロードする方がより便利だと気づくかもしれません。
 
 <!-- ## Save your work -->
 ## 作業内容の保存
