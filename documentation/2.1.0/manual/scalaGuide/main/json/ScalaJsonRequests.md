@@ -81,7 +81,7 @@ JSON の変換に成功した場合、その結果をアクションの結果に
 <!-- `recoverTotal` takes a function to manage errors and returns a default value:
 - it ends the `JsResult` modification chain and returns the successful inner value 
 - or if detected a failure, it returns the result of the function provided to `recoverTotal`. -->
-`recoverTotal` は、エラーを管理し、デフォルト値を返す関数を受け取ります:
+`recoverTotal` は、発生したエラーに対応して、デフォルト値を返す関数を受け取ります:
 - `JsResult` の変更チェーンを終了し、正常に作成された内部文字列を返します
 - または、失敗を検出した場合は `recoverToal` に渡された関数の実行結果を返します。
 
