@@ -164,7 +164,7 @@ def save = Action {
 
 
 <!--
-To retrieve the Flash scope value in your view, just add an implicit with Flash。
+To retrieve the Flash scope value in your view, just add an implicit with Flash:
 -->
 フラッシュスコープの値をビューから取得するには Flash に implicit を追加します:
 ```
@@ -177,7 +177,7 @@ To retrieve the Flash scope value in your view, just add an implicit with Flash�
 <!--
 If the error '_could not find implicit value for parameter flash: play.api.mvc.Flash_' is raised then this is because your Action didn't import a request object. Add an "implicit request=>" as show below:
 -->
-'_could not find implicit value for parameter flash: play.api.mvc.Flash_' というエラーが発生した場合、これはアクションがリクエストオブジェクトを import しなかった事によるものです。以下のように "implicit request=>" を追加します。
+アクションがリクエストオブジェクトを import しなかった場合、'_could not find implicit value for parameter flash: play.api.mvc.Flash_' というエラーが発生します。以下のように "implicit request=>" を追加します。
 
 ```scala
 def index() = Action {   
