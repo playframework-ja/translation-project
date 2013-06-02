@@ -107,7 +107,7 @@ $.fn.editInPlace = (method, options...) ->
 ```
 
 <!-- Now the code that you see above may be a little overwhelming to you.  The first block of code activates all the option icons in the page, it's straight forward jquery.  The second is an extension to jquery that we'll use a bit later, that turns a span into one that can be edited in place.  These are just some utility methods that we are going to need to help with writing the rest of the logic. -->
-上記のコードに少し圧倒されたかもしれません。コードの最初の段落は、jquery そのものであり、ページ内のすべての option のアイコンを活性化します。二番目の段落は、ある領域をその場で編集できるように変更する jquery の拡張で、これは後ほど利用します。これらは、ロジックの残りの部分を書く際に必要となるユーティリティメソッドに過ぎません。
+上記のコードに少し圧倒されたかもしれません。コードの最初の段落は、単純な jquery であり、ページ内のすべての option のアイコンを活性化します。二番目の段落は、ある領域をその場で編集できるように変更する jquery の拡張で、これは後ほど利用します。これらは、ロジックの残りの部分を書く際に必要となるユーティリティメソッドに過ぎません。
 
 <!-- Let's start to write our Backbone views: -->
 Backbone ビューを書いていきましょう:
