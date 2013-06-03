@@ -154,7 +154,7 @@ public static List<Task> findByProject(Long project) {
 ## タスクの追加
 
 <!-- Let's now implement the ability to add a task.  We'll start off again with the template, we'll need to modify the `app/views/tasks/folder.scala.html` template we added before to include a form for adding tasks.  Place the form after the list of tasks in the folder, and before the folders closing div: -->
-それでは、タスクを追加する機能を実装しましょう。再びテンプレートから始めます。タスクを追加するフォームを含めるために、以前に追加した `app/views/tasks/folder.scala.html` テンプレートを変更する必要があります。フォルダー内のタスク一覧の後にフォームを、そして次のフォルダーの前に div の閉じタグを配置してください:
+それでは、タスクを追加する機能を実装しましょう。再びテンプレートから始めます。タスクを追加するフォームを含めるために、以前に追加した `app/views/tasks/folder.scala.html` テンプレートを変更する必要があります。フォルダー内のタスク一覧の後ろ、フォルダーの div の閉じタグの前にフォームを配置してください:
 
 
 ```html
