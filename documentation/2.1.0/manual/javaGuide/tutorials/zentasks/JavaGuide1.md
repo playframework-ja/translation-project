@@ -6,10 +6,10 @@
 ## はじめに
 
 <!-- In this tutorial you will learn the Play 2 Framework by coding a real web application, from start to finish.  In this application, we will try to use everything you would need in a real project, while introducing good practices for play application development. -->
-このチュートリアルでは、実際の web アプリケーションを始めから終わりまでコーディングすることによって、Play 2 フレームワークについて学びます。このアプリケーションでは、Play アプリケーション開発の優れたプラクティスの紹介を通して、実際のプロジェクトで必要となるあらゆるものを使っていきます。
+このチュートリアルでは、実際の web アプリケーションを始めから終わりまでコーディングすることによって、Play 2 フレームワークについて学びます。このアプリケーションでは、Play アプリケーション開発の優れたプラクティスを紹介しつつ、実際のプロジェクトで必要となるあらゆるものを使っていきます。
 
 <!-- We have split the tutorial into several independent parts.  Each part will introduce more complex features, and provide everything that a real project needs: validation, error handling, a complete security framework, an automated test suite, a shiny web interface, an administration area etc. -->
-このチュートリアルは、いくつかの独立した部分に分かれています。それぞれの部分では、より複雑な機能を紹介し、実際のプロジェクトが必要とするすべてのこと: バリデーション、エラー処理、完全にセキュアなフレームワーク、自動化されたテストスイート、輝く web インタフェース、管理領域などを提供します。
+このチュートリアルは、いくつかの独立した部分に分かれています。それぞれの部分では、より複雑な機能を紹介し、実際のプロジェクトが必要とするすべてのこと: バリデーション、エラー処理、完成されたセキュリティフレームワーク、自動化されたテストスイート、きらびやかな web インタフェース、管理領域などを提供します。
 
 <!-- > **All the code** included in this tutorial can be used for your projects.  We encourage you to copy and paste snippets of code or steal whole chunks. -->
 > このチュートリアルに含まれる **すべてのコード** は、あなたのプロジェクトに使用することができます。コードの断片をコピーアンドペーストするか、または全体をまるごと流用することを推奨します。
@@ -18,7 +18,7 @@
 ## プロジェクト
 
 <!-- We are going to create a task management system.  It's not a very imaginative choice but it will allow us to explore most of the functionality needed by a modern web application. -->
-これからタスク管理システムを作成します。これは、とても想像的な選択ではありませんが、モダンな web アプリケーションで必要な機能のほとんどの部分を調査することができます。
+これからタスク管理システムを作成します。これは、とても想像力に富んだ選択ではありませんが、モダンな web アプリケーションで必要な機能のほとんどの部分を試すことができます。
 
 <!-- We will call this task engine project **ZenTasks**. -->
 このタスク管理プロジェクトを **ZenTasks** と呼ぶことにしましょう。
@@ -282,7 +282,7 @@ Java コードの変更と同じように、変更内容を確認するには、
 初めのうちは、アプリケーションモデルを何度もテストし、変更します。このため、常にフレッシュなデータセットで起動するインメモリデータベースはより良い方法です。
 
 <!-- To set up the database, open the `conf/application.conf` file and uncomment the following lines: -->
-データベースを設定するためには、 `conf/application.conf` ファイルを開き、次の行を非コメント化します:
+データベースを設定するためには、 `conf/application.conf` ファイルを開き、次の行のコメントを外します:
 
     db.default.driver=org.h2.Driver
     db.default.url="jdbc:h2:mem:play"
