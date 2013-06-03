@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # H2 database
 -->
