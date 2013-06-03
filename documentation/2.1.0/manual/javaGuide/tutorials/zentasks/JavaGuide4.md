@@ -54,7 +54,7 @@ public static Result login() {
 もちろん、ログインページには email アドレス (ユーザー名) とパスワードを保持するフォームが必要です。
 
 <!-- Play provides a forms API for handling the rendering, decoding and validation of forms.  Let's start off by implementing our form as a Java object.  Open the `app/controllers/Application.java` class, and declare a static inner class called `Login` at the end of it: -->
-Play はフォームをレンダリングし、その内容復号化し、そしてその内容に対してバリデーションを行うフォーム API を提供しています。Java オブジェクトとしてフォームを実行するところから始めましょう。`app/controllers/Application.java` クラスを開き、末尾に `Login` という名前の static なインナークラスを宣言してください。
+Play はフォームをレンダリングし、その内容を復号化し、そしてその内容に対してバリデーションを行うフォーム API を提供しています。Java オブジェクトとしてフォームを実装するところから始めましょう。`app/controllers/Application.java` クラスを開き、末尾に `Login` という名前の static なインナークラスを宣言してください。
 
 ```java
 public static class Login {
@@ -133,7 +133,7 @@ public static Result authenticate() {
 ### フォームのバリデーション
 
 <!-- Currently, our `authenticate` action is doing nothing but reading our form.  The next thing we want to do is validate the form, and there is only one thing we are concerned with in the validation, is the username and password correct?  To implement this validation, we are going to write a `validate` method on the `Login` class in `app/controllers/Application.java`. -->
-今のところ、`authenticate` アクションはフォームをレンダリングする意外は何もしていません。次にやりたいことはフォームのバリデーションですが、このバリデーションについて気に掛けることはただひとつ、ユーザ名とパスワードは正しいか? ということだけです。このバリデーションを実装するため、`app/controllers/Application.java` の `Login` クラスに `validate` メソッドを書いていきましょう。
+今のところ、`authenticate` アクションはフォームを読み込む以外は何もしていません。次にやりたいことはフォームのバリデーションですが、このバリデーションについて気に掛けることはただひとつ、ユーザ名とパスワードは正しいか? ということだけです。このバリデーションを実装するため、`app/controllers/Application.java` の `Login` クラスに `validate` メソッドを書いていきましょう。
 
 ```java
 public String validate() {
