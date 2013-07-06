@@ -1,4 +1,4 @@
-<!-- tranlsated -->
+<!-- translated -->
 <!-- # JSON Reads[T]/Writes[T]/Format[T] Combinators -->
 # JSON Reads[T]/Writes[T]/Format[T] コンビネータ
 
