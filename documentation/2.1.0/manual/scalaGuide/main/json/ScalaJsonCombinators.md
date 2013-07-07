@@ -269,11 +269,20 @@ You had to override the `reads` function.   -->
 `Play2.0.x` では、どのように Json `Reads[T]` を書いたか覚えていますか?
 `reads` 関数をオーバーライドする必要がありました。
 
-```
+<!-- ```
 trait Reads[A] {
   self =>
   /**
    * Convert the JsValue into a A
+   */
+  def reads(json: JsValue): A
+}
+``` -->
+```
+trait Reads[A] {
+  self =>
+  /**
+   * JsValue を A に変換する
    */
   def reads(json: JsValue): A
 }
@@ -354,11 +363,20 @@ We couldn't keep this imperfect API as is and in `Play2.1`, the `Reads[T]` API h
 ## <a name="reads-2_1">Play2.1 における Reads</a>
 この不完全な API を `Play2.1` でそのままにしておけず、 `Reads[T]` API を以下のように変更しました :
 
-```
+<!-- ```
 trait Reads[A] {
   self =>
   /**
    * Convert the JsValue into a A
+   */
+  def reads(json: JsValue): JsResult[A]
+}
+``` -->
+```
+trait Reads[A] {
+  self =>
+  /**
+   * JsValue を A に変換する
    */
   def reads(json: JsValue): JsResult[A]
 }
