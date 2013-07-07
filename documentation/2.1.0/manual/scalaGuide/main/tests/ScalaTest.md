@@ -1,12 +1,24 @@
+<!--
 # Testing your application
+-->
+# アプリケーションのテスト
 
 Test source files must be placed in your application’s `test` folder. You can run them from the Play console using the ``test` (run all tests) and `test-only` (run one test class: `test-only my.namespace.MySpec`) tasks.
 
+<!--
 ## Using specs2
+-->
+## specs2 を使う
 
+<!--
 The default way to test a Play 2 application is by using [[specs2| http://etorreborre.github.com/specs2/]].
+-->
+Play 2 アプリケーションのテストは、デフォルトで [[specs2| http://etorreborre.github.com/specs2/]] を使います。
 
+<!--
 Unit specifications extend the `org.specs2.mutable.Specification` trait and are using the should/in format:
+-->
+specs2 でクラス単体の仕様を記述する場合は、`org.specs2.mutable.Specification` trait を継承したクラス内で、 should/in のフォーマットを使って記述します。
 
 ```scala
 import org.specs2.mutable._
@@ -30,7 +42,10 @@ class HelloWorldSpec extends Specification {
 }
 ```
 
+<!--
 ## Running in a fake application
+-->
+## フェイクアプリケーション上で実行する
 
 If the code you want to test depends on a running application, you can easily run a fake application with the `WithApplication` around
 scope:
@@ -132,4 +147,7 @@ object ExampleControllerSpec extends Specification {
 
 This approach can be extended with your choice of dependency injection framework (Subcut/Spring/Guice/Cake Pattern) to set up and inject mocks into the trait.
 
+<!--
 > **Next:** [[Writing functional tests | ScalaFunctionalTest]]
+-->
+> **次ページ:** [[機能テスト | ScalaFunctionalTest]]
