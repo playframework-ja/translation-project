@@ -612,11 +612,11 @@ implicit val creatureReads = new Reads[Creature] {
   def reads(js: JsValue): JsResult[Creature] = {
     (js \ "name").validate[String].flatMap{ name => 
       (js \ "isDead").validate[Boolean].flatMap { isDead =>
-      (js \ "weight").validate[Float].map { weight =>
-        Creature(name, isDead, weight)
-      }
-    }
-  }
+	    (js \ "weight").validate[Float].map { weight =>
+	      Creature(name, isDead, weight)
+	    }
+	  }
+	}
   }
 }
 ```
@@ -895,9 +895,9 @@ implicit val creatureReads: Reads[Creature] = (
   (__ \ "weight").read[Float] and
   (__ \ "email").read(email keepAnd minLength[String](5)) and
   (__ \ "favorites").read( 
-    (__ \ "string").read[String]( notEqualReads("ni") andKeep skipReads ) and
-    (__ \ "number").read[Int]( max(86) or min(875) )
-    tupled
+  	(__ \ "string").read[String]( notEqualReads("ni") andKeep skipReads ) and
+  	(__ \ "number").read[Int]( max(86) or min(875) )
+  	tupled
   ) and
   (__ \ "friends").lazyRead( list[Creature](creatureReads) ) and
   (__ \ "social").readNullable[String]
@@ -1280,9 +1280,9 @@ implicit val creatureWrites: Writes[Creature] = (
   (__ \ "weight").write[Float] and
   (__ \ "email").write[String] and
   (__ \ "favorites").write( 
-    (__ \ "string").write[String] and
-    (__ \ "number").write[Int]
-    tupled
+  	(__ \ "string").write[String] and
+  	(__ \ "number").write[Int]
+  	tupled
   ) and
   (__ \ "friends").lazyWrite(Writes.traversableWrites[Creature](creatureWrites)) and
   (__ \ "social").write[Option[String]]
@@ -1564,9 +1564,9 @@ val creatureReads: Reads[Creature] = (
   (__ \ "weight").read[Float] and
   (__ \ "email").read(email keepAnd minLength[String](5)) and
   (__ \ "favorites").read( 
-    (__ \ "string").read[String]( notEqualReads("ni") andKeep skipReads ) and
-    (__ \ "number").read[Int]( max(86) or min(875) )
-    tupled
+  	(__ \ "string").read[String]( notEqualReads("ni") andKeep skipReads ) and
+  	(__ \ "number").read[Int]( max(86) or min(875) )
+  	tupled
   ) and
   (__ \ "friends").lazyRead( list[Creature](creatureReads) ) and
   (__ \ "social").read(optional[String])
@@ -1580,9 +1580,9 @@ val creatureWrites: Writes[Creature] = (
   (__ \ "weight").write[Float] and
   (__ \ "email").write[String] and
   (__ \ "favorites").write( 
-    (__ \ "string").write[String] and
-    (__ \ "number").write[Int]
-    tupled
+  	(__ \ "string").write[String] and
+  	(__ \ "number").write[Int]
+  	tupled
   ) and
   (__ \ "friends").lazyWrite(Writes.traversableWrites[Creature](creatureWrites)) and
   (__ \ "social").write[Option[String]]
@@ -1650,29 +1650,29 @@ val gizmo = Creature("gremlins", false, 1.0F, "gizmo@midnight.com", ("alpha", 85
 val zombie = Creature("zombie", true, 100.0F, "shaun@dead.com", ("ain", 2), List(gizmo), None)
 
 val zombiejs = Json.obj(
-  "name" -> "zombie",
-  "isDead" -> true,
-  "weight" -> 100.0,
-  "email" -> "shaun@dead.com",
-  "favorites" -> Json.obj(
-    "string" -> "ain",
-    "number" -> 2
-  ),
-  "friends" -> Json.arr(
-    Json.obj(
-      "name" -> "gremlins",
-      "isDead" -> false,
-      "weight" -> 1.0,
-      "email" -> "gizmo@midnight.com",
-      "favorites" -> Json.obj(
-        "string" -> "alpha",
-        "number" -> 85
-      ),
-      "friends" -> Json.arr(),
-      "social" -> "@gizmo"
-    )
-  ),
-  "social" -> JsNull
+	"name" -> "zombie",
+	"isDead" -> true,
+	"weight" -> 100.0,
+	"email" -> "shaun@dead.com",
+	"favorites" -> Json.obj(
+		"string" -> "ain",
+		"number" -> 2
+	),
+	"friends" -> Json.arr(
+		Json.obj(
+			"name" -> "gremlins",
+			"isDead" -> false,
+			"weight" -> 1.0,
+			"email" -> "gizmo@midnight.com",
+			"favorites" -> Json.obj(
+				"string" -> "alpha",
+				"number" -> 85
+			),
+			"friends" -> Json.arr(),
+			"social" -> "@gizmo"
+		)
+	),
+	"social" -> JsNull
 )
 
 assert(Json.toJson(zombie) == zombiejs)
