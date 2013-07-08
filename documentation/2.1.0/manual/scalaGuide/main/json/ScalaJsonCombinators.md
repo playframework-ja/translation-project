@@ -1229,7 +1229,7 @@ Builder[Writes[String ~ Boolean ~ Float])]` しかし、欲しいのは `Writes[
 <!-- Let's go back to our more complex sample used in end of Part1.
 Remember that we had imagined that our creature was modelled as following: -->
 Part1 で使った、もっと複雑な例に立ち返ってみましょう。
-以下のような、モバイルな生き物を想像したことを思い出してください:
+以下のようにモデリングした生き物を想像したことを思い出してください:
 
 <!-- ```
 case class Creature(
