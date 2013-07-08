@@ -984,7 +984,7 @@ implicit val creatureReads: Reads[Creature] = (
 - `(__ \ "friend").lazyRead[A](r: => Reads[A]))` : `lazyRead` expects a `Reads[A]` value _passed by name_ to allow the type recursive construction. This is the only refinement that you must keep in mind in this very special recursive case. -->
 - `list[Creature](…)` は `Reads[List[Creature]]` を作ります
 - `list[Creature](creatureReads)` は再帰的であり、Scala がこれを解決するために必要なので、明示的に `creatureReads` を引数として渡しています。難し過ぎることはありません…
-- `(__ \ "friend").lazyRead[A](r: => Reads[A]))` : `lazyRead` は、再帰的な構造を受け入れるために、`Reads[A]` の値が _名前付きで渡される_ ことを期待します。これが、このとても特別な再帰的なケースにおいて頭に入れておかなければならない唯一の工夫です。
+- `(__ \ "friend").lazyRead[A](r: => Reads[A]))` : `lazyRead` は、再帰的な構造を受け入れるために、`Reads[A]` の値が _名前渡し_ であることを期待します。これが、このとても特別な再帰的なケースにおいて頭に入れておかなければならない唯一の工夫です。
 <br/>
 
 #### `(__ \ "social").readNullable[String]`
@@ -1342,7 +1342,7 @@ Here are the few things to explain: -->
 <!-- - `Writes.traversableWrites[Creature](creatureWrites)` creates a `Writes[Traversable[Creature]]` passing the `Writes[Creature]` itself for recursion (please note that a `list[Creature]`should appear very soon ;))
 - `(__ \ "friends").lazyWrite[A](r: => Writes[A]))` : `lazyWrite` expects a `Writes[A]` value _passed by name_ to allow the type recursive construction. This is the only refinement that you must keep in mind in this very special recursive case. -->
 - `Writes.traversableWrites[Creature](creatureWrites)` は、再帰のために `Writes[Creature]` 自身を渡して `Writes[Traversable[Creature]]` を作ります (間もなく `list[Creature]` が登場するので、覚えておいてください ;))
-- `(__ \ "friends").lazyWrite[A](r: => Writes[A]))` : `lazyWrite` は、再帰的な構造を受け入れるために、`Writes[A]` の値が _名前付きで渡される_ ことを期待します。これが、このとても特別な再帰的なケースにおいて頭に入れておかなければならない唯一の工夫です。
+- `(__ \ "friends").lazyWrite[A](r: => Writes[A]))` : `lazyWrite` は、再帰的な構造を受け入れるために、`Writes[A]` の値が _名前渡し_ であることを期待します。これが、このとても特別な再帰的なケースにおいて頭に入れておかなければならない唯一の工夫です。
 
 <!-- > FYI, you may wonder why `Writes.traversableWrites[Creature]: Writes[Traversable[Creature]]` can replace `Writes[List[Creature]]`?  
 > This is because `Writes[-T]` is contravariant meaning: if you can write a `Traversable[Creature]`, you can write a `List[Creature]` as `List` inherits `Traversable` (relation of inheritance is reverted by contravariance). -->
