@@ -480,7 +480,7 @@ errors: JsError(List((/isDead,List(ValidationError(validate.error.missing,Wrappe
 <!-- >Please note that **`JsResult[A]` is not just Monadic but Applicative** because it cumulates errors.  
 >This cumulative feature makes `JsResult[T]` makes it **not very good to be used with _for comprehension_** because you'll get only the first error and not all.  -->
 >エラーを累積するので、**`JsResult[A]` はモナディックなだけでなくアプリカティブである** ことにも注目してください。
->`JsResult[T]` を _何が起こったのか理解するために_ 使うことはあまり良いことではありません。この累積する機能からは、すべてのエラーではなく、最初のひとつだけを取り出すことになるからです。
+>この累積する機能のため、`JsResult[T]` を _for 内包表記_ で使うことはあまり良いことではありません。すべてのエラーではなく、最初のひとつだけを取り出すことになるからです。
 
 <!-- ### Reads[A] has become a validator -->
 ### Reads[A] はバリデータに
