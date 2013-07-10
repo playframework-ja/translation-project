@@ -150,10 +150,10 @@ val jsonTransformer = (__ \ 'key2 \ 'key23).json.pick
 
 scala> json.transform(jsonTransformer)
 res9: play.api.libs.json.JsResult[play.api.libs.json.JsValue] = 
-  JsSuccess(
-    ["alpha","beta","gamma"],
-    /key2/key23
-  ) 
+	JsSuccess(
+	  ["alpha","beta","gamma"],
+	  /key2/key23
+	)	
 ```
 
 ####`(__ \ 'key2 \ 'key23).json...` 
@@ -190,11 +190,10 @@ val jsonTransformer = (__ \ 'key2 \ 'key23).json.pick[JsArray]
 
 scala> json.transform(jsonTransformer)
 res10: play.api.libs.json.JsResult[play.api.libs.json.JsArray] = 
-  JsSuccess(
-    ["alpha","beta","gamma"],
-    /key2/key23
-  )
-
+	JsSuccess(
+	  ["alpha","beta","gamma"],
+	  /key2/key23
+	)
 ```
 
 ####`(__ \ 'key2 \ 'key23).json.pick[JsArray]` 
@@ -222,14 +221,14 @@ val jsonTransformer = (__ \ 'key2 \ 'key24 \ 'key241).json.pickBranch
 scala> json.transform(jsonTransformer)
 res11: play.api.libs.json.JsResult[play.api.libs.json.JsObject] = 
   JsSuccess(
-  {
-    "key2": {
-      "key24":{
-        "key241":234.123
-      }
-    }
-  },
-  /key2/key24/key241
+	{
+	  "key2": {
+	    "key24":{
+	      "key241":234.123
+	    }
+	  }
+	},
+	/key2/key24/key241
   )
 
 ```
@@ -298,7 +297,7 @@ res12: play.api.libs.json.JsResult[play.api.libs.json.JsObject]
 import play.api.libs.json._
 
 val jsonTransformer = (__ \ 'key2 \ 'key24).json.update( 
-  __.read[JsObject].map{ o => o ++ Json.obj( "field243" -> "coucou" ) }
+	__.read[JsObject].map{ o => o ++ Json.obj( "field243" -> "coucou" ) }
 )
 
 scala> json.transform(jsonTransformer)
@@ -622,14 +621,14 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
 val gizmo2gremlin = (
-  (__ \ 'name).json.put(JsString("gremlin")) and
-  (__ \ 'description).json.pickBranch(
-    (__ \ 'size).json.update( of[JsNumber].map{ case JsNumber(size) => JsNumber(size * 3) } ) and
-    (__ \ 'features).json.put( Json.arr("skinny", "ugly", "evil") ) and
-    (__ \ 'danger).json.put(JsString("always"))
-    reduce
-  ) and
-  (__ \ 'hates).json.copyFrom( (__ \ 'loves).json.pick )
+	(__ \ 'name).json.put(JsString("gremlin")) and
+	(__ \ 'description).json.pickBranch(
+		(__ \ 'size).json.update( of[JsNumber].map{ case JsNumber(size) => JsNumber(size * 3) } ) and
+		(__ \ 'features).json.put( Json.arr("skinny", "ugly", "evil") ) and
+		(__ \ 'danger).json.put(JsString("always"))
+		reduce
+	) and
+	(__ \ 'hates).json.copyFrom( (__ \ 'loves).json.pick )
 ) reduce
 
 scala> gizmo.transform(gizmo2gremlin)
