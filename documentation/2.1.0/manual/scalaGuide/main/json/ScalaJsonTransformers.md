@@ -51,7 +51,7 @@ CRUD の場合を取り上げてみましょう:
 <!-- Besides this fact, we have some new DB types such as Mongo (or CouchDB) accepting document structured data looking almost like JSON trees (_isn't BSON, Binary JSON?_).  
 With these DB types, we also have new great tools such as [ReactiveMongo](http://www.reactivemongo.org) which provides reactive environment to stream data to and from Mongo in a very natural way.  
 I've been working with Stephane Godbillon to integrate ReactiveMongo with Play2.1 while writing the [Play2-ReactiveMongo module](https://github.com/zenexity/Play-ReactiveMongo). Besides Mongo facilities for Play2.1, this module provides _Json To/From BSON conversion typeclasses_.   -->
-事実、ほとんど JSON (_BSON, つまり Binary JSON ではないですよね?_) ツリーのように見えるドキュメント構造のデータを受け入れる、Mongo (または CouchDB) のような新しいタイプの DB があります。
+事実、Mongo (または CouchDB) のような、ほとんど JSON (_BSON, つまり Binary JSON ですよね?_) ツリーのように見えるドキュメント構造のデータを受け入れる新しいタイプの DB があります。
 このようなタイプの DB　のために、とても自然なやり方で Mongo とストリームデータをやり取りすることのできる、リアクティブな環境を提供する [ReactiveMongo](http://www.reactivemongo.org) のような、新しくて素晴らしいツールもあります。
 私は [Play2-ReactiveMongo module](https://github.com/zenexity/Play-ReactiveMongo) を書きながら、Play2.1 と共に ReactiveMongo を実装するために Stephane Godbillon と共に働きました。Play2.1 における Mongo の容易さに加えて、このモジュールは _Json から BSON に、または BSON から Json に変換する型クラス_ を提供します。
 
