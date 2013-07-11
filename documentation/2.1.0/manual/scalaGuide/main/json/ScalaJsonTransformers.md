@@ -124,7 +124,7 @@ JSON トランスフォーマーは単なる `f:JSON => JSON` であると言う
 結論として、JSON トランスフォーマーは `Reads[A <: Jsvalue]` なのです。
 
 <!-- > **Keep in mind that a Reads[A <: JsValue] is able to transform and not only to read/validate** -->
-> **Reads[A <: JsValue] は、読み込み/変換するだけではなく、変換もできることを忘れないでください**
+> **Reads[A <: JsValue] は、読み込み/バリデーションするだけではなく、変換もできることを忘れないでください**
 
 <!-- ## <a name="step-pick">Use `JsValue.transform` instead of `JsValue.validate`</a> -->
 ## <a name="step-pick">`JsValue.validate` の代わりに `JsValue.transform` を使う</a>
@@ -168,7 +168,7 @@ res9: play.api.libs.json.JsResult[play.api.libs.json.JsValue] =
 <!--   - This is a simply successful `JsResult`
   - For info, `/key2/key23` represents the JsPath where data were read but don't care about it, it's mainly used by Play API to compose JsResult(s))
   - `["alpha","beta","gamma"]` is just due to the fact that we have overriden `toString` -->
-  - `JsResult` を簡易化します
+  - すんなりと成功した `JsResult` です
   - ちなみに、`/key2/key23` はデータが読みだされた JsPath を表現しますが、これは主に Play API が JsResult を組み上げるために利用するものなので、気にしないでください。
   - 単に `toString` をオーバーライドしたために `["alpha","beta","gamma"]` となっています
 
