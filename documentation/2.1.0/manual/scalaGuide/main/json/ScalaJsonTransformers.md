@@ -21,7 +21,7 @@
 <!-- - for a good reason : **OO structures are "language-native"** and allows **manipulating data with respect to your business logic** in a seamless way while ensuring isolation of business logic from web layers.
 - for a more questionable reason : **ORM frameworks talk to DB only with OO structures** and we have (kind of) convinced ourselves that it was impossible to do else… with the well-known good & bad features of ORMs… (not here to criticize those stuff) -->
 - 妥当な理由 : **オブジェクト指向構造は "プログラミング言語ネイティブ"** であり、ビジネスロジックを web 層から隔離しつつ、自然な方法で **ビジネスロジックに対してデータを操作する** ことができるため
-- より疑わしい理由 : **ORM フレームワークはオブジェクト指向構造のみを通じて DB とやり取りする** ためであり、そして …ORM のよく知られた良い機能や悪い機能を使う場合は… 他のやり方なんて不可能だと自分たちを (ある程度) 納得させているため (ここで ORM を批判しているわけではありません)
+- より疑わしい理由 : **ORM フレームワークはオブジェクト指向構造を通してしか DB とやり取りできない**、他のやり方なんて不可能だ …ORM のよく知られた良い機能や悪い機能と付き合いながらね…と自分たちを (ある程度) 納得させているため (ここで ORM を批判しているわけではありません)
 
 
 <!-- ### <a name="is-default-case">Is OO conversion really the default usecase?</a> -->
