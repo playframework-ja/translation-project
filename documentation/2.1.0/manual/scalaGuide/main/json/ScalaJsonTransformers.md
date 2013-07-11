@@ -138,10 +138,10 @@ JSON トランスフォーマーは単なる `f:JSON => JSON` であると言う
 これは `JsValue.validate(reads)` とまったく同じです
 
 <!-- ## <a name="step-pick">Case 1: Pick JSON value in JsPath</a> -->
-## <a name="step-pick">ケース 1: JsPath にある JSON をつまみ出す</a>
+## <a name="step-pick">ケース 1: JsPath にある JSON を取り出す</a>
 
 <!-- ### <a name="step-pick-1">Pick value as JsValue</a> -->
-### <a name="step-pick-1">JsValue として値をつまみ出す</a>
+### <a name="step-pick-1">JsValue として値を取り出す</a>
 
 ```
 import play.api.libs.json._
@@ -162,7 +162,7 @@ res9: play.api.libs.json.JsResult[play.api.libs.json.JsValue] =
 
 ####`(__ \ 'key2 \ 'key23).json.pick` 
 <!--   - `pick` is a `Reads[JsValue]` which picks the value **IN** the given JsPath. Here `["alpha","beta","gamma"]` -->
-  - `pick` は、与えられた JsPath に **含まれる** 値をつまみ出す `Reads[JsValue]` です。この場合は `["alpha","beta","gamma"]` です。
+  - `pick` は、与えられた JsPath に **含まれる** 値を取り出す `Reads[JsValue]` です。この場合は `["alpha","beta","gamma"]` です。
   
 ####`JsSuccess(["alpha","beta","gamma"],/key2/key23)`
 <!--   - This is a simply successful `JsResult`
@@ -181,7 +181,7 @@ res9: play.api.libs.json.JsResult[play.api.libs.json.JsValue] =
 
 
 <!-- ### <a name="step-pick-2">Pick value as Type</a> -->
-### <a name="step-pick-2">値を型としてつまみ出す</a>
+### <a name="step-pick-2">値を型として取り出す</a>
 
 ```
 import play.api.libs.json._
@@ -198,7 +198,7 @@ res10: play.api.libs.json.JsResult[play.api.libs.json.JsArray] =
 
 ####`(__ \ 'key2 \ 'key23).json.pick[JsArray]` 
 <!--   - `pick[T]` is a `Reads[T <: JsValue]` which picks the value (as a `JsArray` in our case) **IN** the given JsPath -->
-  - `pick[T]` は、与えられた JsPath に **含まれる** 値を (この場合は `JsArray` として) つまみ出す `Reads[T <: JsValue]` です。
+  - `pick[T]` は、与えられた JsPath に **含まれる** 値を (この場合は `JsArray` として) 取り出す `Reads[T <: JsValue]` です。
 
 <br/>
 <!-- > **Reminder**
@@ -208,10 +208,10 @@ res10: play.api.libs.json.JsResult[play.api.libs.json.JsArray] =
 <br/>
 
 <!-- ## <a name="step-pickbranch">Case 2: Pick branch following JsPath</a> -->
-## <a name="step-pickbranch">ケース 2: JsPath に従ってブランチをつまみ出す</a>
+## <a name="step-pickbranch">ケース 2: JsPath に従ってブランチを取り出す</a>
 
 <!-- ### <a name="step-pickbranch-1">Pick branch as JsValue</a> -->
-### <a name="step-pickbranch-1">ブランチを JsValue としてつまみ出す</a>
+### <a name="step-pickbranch-1">ブランチを JsValue として取り出す</a>
 
 ```
 import play.api.libs.json._
@@ -235,7 +235,7 @@ res11: play.api.libs.json.JsResult[play.api.libs.json.JsObject] =
 
 ####`(__ \ 'key2 \ 'key23).json.pickBranch` 
 <!--   - `pickBranch` is a `Reads[JsValue]` which picks the branch from root to given JsPath -->
-  - `pickBranch` は、ルートから与えらえた JsPath までのブランチをつまみ出す `Reads[JsValue]` です
+  - `pickBranch` は、ルートから与えらえた JsPath までのブランチを取り出す `Reads[JsValue]` です
   
 ####`{"key2":{"key24":{"key242":"value242"}}}`
 <!--   - The result is the branch from root to given JsPath including the JsValue in JsPath -->
@@ -393,7 +393,7 @@ res14: play.api.libs.json.JsResult[play.api.libs.json.JsObject] =
 
 <br/>
 <!-- ## <a name="step-prune">Case 6: Prune a branch from input JSON</a> -->
-## <a name="step-prune">ケース 6: 入力 された JSON からブランチを刈り取る</a>
+## <a name="step-prune">ケース 6: 入力 された JSON からブランチを取り除く</a>
 
 ```
 import play.api.libs.json._
@@ -514,11 +514,11 @@ res16: play.api.libs.json.JsResult[play.api.libs.json.JsObject] =
 - これに `JsString("delta")` を追加するために `Reads[A].map` を使います
 
 <!-- >Please note the result is just the `__ \ 'key2` branch since we picked only this branch -->
->`__ \ 'key2` ブランチだけをつまみ出したので、結果もこのブランチだけになることに注意してください
+>`__ \ 'key2` ブランチだけを取り出したので、結果もこのブランチだけになることに注意してください
 
 <br/>
 <!-- ## <a name="more-complicated-pick-prune">Case 8: Pick a branch and prune a sub-branch</a> -->
-## <a name="more-complicated-pick-prune">ケース 8: ブランチをつまみ出してサブブランチを刈り取る</a>
+## <a name="more-complicated-pick-prune">ケース 8: ブランチを取り出してサブブランチを取り除く</a>
 
 ```
 import play.api.libs.json._
