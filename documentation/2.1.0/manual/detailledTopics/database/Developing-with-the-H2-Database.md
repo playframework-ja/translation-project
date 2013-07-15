@@ -2,14 +2,12 @@
 <!--
 # H2 database
 -->
-
 # H2 データベース
 
 <!--
 The H2 in memory database is very convenient for development because your evolutions are run from scratch when play is restarted.  If you are using anorm you probably need it to closely mimic your planned production database.  To tell h2 that you want to mimic a particular database you add a parameter to the database url in your application.conf file, for example:
 -->
-
-H2 インメモリーデータベースは、Play が再起動した時に、evolutionを1から実行できるため、 開発時に非常に便利です。 anorm を使用している場合は、計画している本番データベースに非常に似ている必要があります。
+H2 インメモリーデータベースは、Play が再起動した時に、evolution を 1 から実行できるため、 開発時に非常に便利です。 anorm を使用している場合は、計画している本番データベースに非常に似ている必要があります。
 例えば、 application.conf ファイルでデータベース URL パラメータを追加することで、特定のデータベースを真似るように H2 に伝えることができます。
 
 ```
@@ -19,7 +17,6 @@ db.default.url="jdbc:h2:mem:play;MODE=MYSQL"
 <!--
 ## Target databases
 -->
-
 ## 対象となるデータベース
 
 <table>
@@ -29,7 +26,7 @@ db.default.url="jdbc:h2:mem:play;MODE=MYSQL"
 <!--
 H2 does not have a uuid() function. You can use random_uuid() instead.  Or insert the following line into your 1.sql file:
 -->
-H2は、uuid() 関数を持ちません。代わりに random_uuid() を使用することができます。または1.sqlファイルに次の行を挿入します。
+H2は、uuid() 関数を持ちません。代わりに random_uuid() を使用することができます。または 1.sql ファイルに次の行を挿入します。
 <pre><code>CREATE ALIAS UUID FOR 
 "org.h2.value.ValueUuid.getNewRandom";</code></pre></li>  
 
@@ -37,7 +34,7 @@ H2は、uuid() 関数を持ちません。代わりに random_uuid() を使用�
 <!--
 Text comparison in MySQL is case insensitive by default, while in H2 it is case sensitive (as in most other databases). H2 does support case insensitive text comparison, but it needs to be set separately, using SET IGNORECASE TRUE. This affects comparison using =, LIKE, REGEXP.
 -->
-MySQL ではテキスト比較は、デフォルトでは大文字と小文字を区別しませんが、 H2 では(他のほとんどのデータベースと同様に)、大文字と小文字を区別します。H2 は大文字と小文字を区別しないテキスト比較をサポートしていますが、SET IGNORECASE TRUE を使用して、個別に設定する必要があります。これは、REGEXP、LIKE、=を使った比較に影響を与えます。
+MySQL ではテキスト比較は、デフォルトでは大文字と小文字を区別しませんが、 H2 では (他のほとんどのデータベースと同様に)、大文字と小文字を区別します。H2 は大文字と小文字を区別しないテキスト比較をサポートしていますが、SET IGNORECASE TRUE を使用して、個別に設定する必要があります。これは、REGEXP、LIKE、= を使った比較に影響を与えます。
 </li></td></tr>
 <tr><td>DB2</td><td>
 MODE=DB2</td><td></td></tr>
@@ -66,13 +63,12 @@ H2 は接続が切れるとデータベースをドロップします。おそ�
 <!--
 ## H2 Browser
 -->
-
 ## H2 ブラウザ
 
 <!--
 You can browse the contents of your database by typing `h2-browser` at the play console.  An SQL browser will run in your web browser.
 -->
-play コンソールで `h2-browser` とタイプすることで、データベースの内容を見ることができます。SQLブラウザは web ブラウザで実行されます。
+play コンソールで `h2-browser` とタイプすることで、データベースの内容を見ることができます。SQL ブラウザは web ブラウザで実行されます。
 
 <!--
 ## H2 Documentation
@@ -82,4 +78,4 @@ play コンソールで `h2-browser` とタイプすることで、データベ�
 <!--
 More H2 documentation is available [from their web site](http://www.h2database.com/html/features.html)
 -->
-より詳細なH2のドキュメントは、 [Webサイト](http://www.h2database.com/html/features.html) から入手できます。
+より詳細な H2 のドキュメントは、 [Web サイト](http://www.h2database.com/html/features.html) から入手できます。
