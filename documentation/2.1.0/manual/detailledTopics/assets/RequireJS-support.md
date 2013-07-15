@@ -1,5 +1,4 @@
 <!-- translated -->
-
 # RequireJS
 
 <!--
@@ -10,7 +9,7 @@ According to [RequireJS](http://requirejs.org/)' website
 <!--
 > RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.
 -->
-> RequireJS は、JavaScript ファイルであり、モジュールローダーです。ブラウザでの使用に最適化されていますが、 Rhino と Node のような、他の JavaScript 環境で使用することもできます。 RequireJS のようなモジュラースクリプトローダを使用することで、コードの速度と品質が向上します。
+> RequireJS は、JavaScript ファイルであり、モジュールローダーです。ブラウザでの使用に最適化されていますが、 Rhino と Node のような、他の JavaScript 環境で使用することもできます。 RequireJS のようなモジュラースクリプトローダーを使用することで、コードの速度と品質が向上します。
 
 <!--
 What this means in practice is that one can use [RequireJS](http://requirejs.org/) to modularize big javascript codebases. RequireJS achieves this by implementing a semi-standard API called [Asynchronous Module Definition](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition) (other similar ideas include [CommonJS](http://www.commonjs.org/) ). Using AMD it's possible to resolve and load javascript modules, usually kept in separate files, at _client side_ while allowing server side _optimization_, that is, for production use, dependencies can be minified and combined. Therefore, RequireJs supports both client side and server side resolutions.
@@ -46,7 +45,7 @@ run [RequireJS's optimizer](http://requirejs.org/docs/optimization.html) for con
 * ```stage``` , ```dist``` と ```start``` コマンドは設定された ```app/assets/javascripts``` 内のモジュールに [RequireJS の最適化](http://requirejs.org/docs/optimization.html) を実行するために変更されました。 最小化し、合成されたアセットは ```app/assets/javascripts-min``` に格納されます。
 * 新しいテンプレートタグ　```@requireJs``` を使うことで、 dev モードと prod モードをシームレスに切り替えて使用することができます。
 * デフォルトでは、rhino ベースのオプティマイザが使用され、ネイティブでの、node のバージョンは ```requireNativePath``` 設定でパフォーマンス用に設定することができます。
-* 今は JavaScript でのみこの機能は有効になっていますが、CSSでも同様の方法を探しています。
+* 今は JavaScript でのみこの機能は有効になっていますが、CSS でも同様の方法を探しています。
 
 <!--
 ## Example
@@ -56,7 +55,7 @@ run [RequireJS's optimizer](http://requirejs.org/docs/optimization.html) for con
 <!--
 create `app/assets/javascripts/main.js`:
 -->
-`app/assets/javascripts/main.js` を作る。:
+`app/assets/javascripts/main.js` を作る:
 
 ```js
 require(["helper/lib"],function(l) {
@@ -68,7 +67,7 @@ require(["helper/lib"],function(l) {
 <!--
 create `app/assets/javascripts/helper/lib.js`:
 -->
-`app/assets/javascripts/helper/lib.js` を作る。:
+`app/assets/javascripts/helper/lib.js` を作る:
 
 ```js
 define(function() {
@@ -83,7 +82,7 @@ define(function() {
 <!--
 create `app/views/index.scala.html`:
 -->
-`app/views/index.scala.html` を作る。:
+`app/views/index.scala.html` を作る:
 
 ```html
 @helper.requireJs(core = routes.Assets.at("javascripts/require.js").url, module = routes.Assets.at("javascripts/main").url)
@@ -113,7 +112,7 @@ Dev モードでページを再レンダリングしてみましょう: alert �
 <!--
 your application's jar file should contain (```public/javascript/main.js```):
 -->
-アプリケーションの jar ファイルに  (```public/javascript/main.js```) が含まれていなくてはなりません。:
+アプリケーションの jar ファイルに  (```public/javascript/main.js```) が含まれていなくてはなりません:
 
 ```js
 define("helper/lib",[],function(){return{sum:function(e,t){return e+t}}}),require(["helper/lib"],function(e){var t=e.sum(5,4);alert(t)}),define("main",function(){})
