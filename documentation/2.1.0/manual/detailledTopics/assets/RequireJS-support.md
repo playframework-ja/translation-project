@@ -1,36 +1,31 @@
 <!-- translated -->
+
 # RequireJS
 
 <!--
 According to [RequireJS](http://requirejs.org/)' website 
 -->
-
 [RequireJS](http://requirejs.org/) のウェブサイトによると、
 
 <!--
 > RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments, like Rhino and Node. Using a modular script loader like RequireJS will improve the speed and quality of your code.
 -->
-
-> RequireJSは、JavaScriptファイルとモジュールローダーです。ブラウザでの使用に最適化されていますが、 Rhino と Node のような、他の JavaScript 環境で使用することもできます。RequireJS のようなモジュラースクリプトローダを使用すると、コードの速度と品質が向上します。
+> RequireJS は、JavaScript ファイルであり、モジュールローダーです。ブラウザでの使用に最適化されていますが、 Rhino と Node のような、他の JavaScript 環境で使用することもできます。 RequireJS のようなモジュラースクリプトローダを使用することで、コードの速度と品質が向上します。
 
 <!--
 What this means in practice is that one can use [RequireJS](http://requirejs.org/) to modularize big javascript codebases. RequireJS achieves this by implementing a semi-standard API called [Asynchronous Module Definition](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition) (other similar ideas include [CommonJS](http://www.commonjs.org/) ). Using AMD it's possible to resolve and load javascript modules, usually kept in separate files, at _client side_ while allowing server side _optimization_, that is, for production use, dependencies can be minified and combined. Therefore, RequireJs supports both client side and server side resolutions.
 -->
-
-このことは、大きな JavaScript のコードベースに対して [RequireJS](http://requirejs.org/) を使うことができることを意味します。 RequireJS は Asynchronous Module Definition （一般的にAMDと略称され、同様のアイデアはCommonJSに含まれています。）と呼ばれる準標準APIを実装することによって、実現しています。
-AMDを使うことで、javascirpt モジュール群の解決とロード、 標準でのファイルの分離、 サーバーサイドでの最適化を許す間のクライアントサイド、 本番での使用、 依存性に従ったminifyと合成が可能になります。
-したがって、RequireJsは、クライアント側とサーバ側の依存解決の両方をサポートします。
+このことは、モジュール化された大きな JavaScript のコードベースに対して [RequireJS](http://requirejs.org/) を使うことができることを意味します。 RequireJS は [Asynchronous Module Definition](http://wiki.commonjs.org/wiki/Modules/AsynchronousDefinition) （一般的に AMD と略称され、同様のアイデアは [CommonJS](http://www.commonjs.org/) に含まれています。）と呼ばれる準標準 API を実装することによって、実現されています。 AMD を使用することで、 javascript モジュールの依存を解決しロードすることができること、通常、個別のファイルの中で維持された、許可するサーバーサイド _最適化_ の間の _クライアントサイド_ で、すなわち、 prod モード用に、依存性は最小にされ組み合わせることができます。したがって、 RequireJs は、クライアントサイドとサーバサイドの依存解決の両方をサポートします。
 
 <!--
 RequireJs support is enabled by default, so all you need to do is to drop javascript modules into ```public/javascripts``` and then bootstrap the module using one of the preferred RequireJS bootstraping techniques.
 -->
+RequireJs サポートはデフォルトで有効になっていますので、ユーザーは ```public/javascripts``` に javascript モジュールをドロップし、好きな RequireJS のブートストラップ技術を使ってモジュールをブートストラップだけすればいいのです。
 
-RequireJs サポートはデフォルトで有効になっていますので、ユーザーは ```public/javascripts``` にjavascript モジュールをドロップし、好きな RequireJSのブートストラップ技術をを受かってモジュールをブートストラップすることだけすればいいのです。
 
 <!--
 ## Things to know about the implementation
 -->
-
 ## 実装について知るべきこと
 
 <!--
@@ -44,23 +39,23 @@ run [RequireJS's optimizer](http://requirejs.org/docs/optimization.html) for con
 * by default a rhino based optimizer is used, the native, node version can be configured for performance via ```requireNativePath``` setting
 * right now this is enabled only for javascript but we are looking into using it for css as well
 -->
-
-* ```require.js``` は Play にバンドルされていますので、ユーザーが手動で追加する必要はありません
+* ```require.js``` は Play にバンドルされていますので、ユーザーが手動で追加する必要はありません。
 * dev モードでのクライアント側での依存解決では、 commonJsがサポートされていない、 closure compiler は健全性チェックのためにスクリプトを介して実行されますが、どのファイルも変更しません。
 * ビルドスクリプト内での ```requireJs``` の設定キーは、オプティマイザを介して実行したいモジュールのリストが含まれていなければなりません。（モジュールは、```app/assets/javascripts```　からの相対パスでなければなりません）
 * 空の ```requireJs``` キーは、最適化が行われないことを示します。
-* ```stage```, ```dist``` と ```start``` コマンドは設定された ```app/assets/javascripts``` 内のモジュールに [RequireJS の最適化](http://requirejs.org/docs/optimization.html) を実行するために変更されました。minifyし、合成されたアセットは ```app/assets/javascripts-min``` に格納されます。
+* ```stage``` , ```dist``` と ```start``` コマンドは設定された ```app/assets/javascripts``` 内のモジュールに [RequireJS の最適化](http://requirejs.org/docs/optimization.html) を実行するために変更されました。 最小化し、合成されたアセットは ```app/assets/javascripts-min``` に格納されます。
 * 新しいテンプレートタグ　```@requireJs``` を使うことで、 dev モードと prod モードをシームレスに切り替えて使用することができます。
-* デフォルトでは、rhino ベースのオプティマイザが使用され、ネイティブでの、node.js のバージョンは ```requireNativePath``` 設定でパフォーマンス用に設定することができます。
-* 今はJavaScriptでのみこの機能は有効になっていますが、CSSでも同様の方法を探しています。
+* デフォルトでは、rhino ベースのオプティマイザが使用され、ネイティブでの、node のバージョンは ```requireNativePath``` 設定でパフォーマンス用に設定することができます。
+* 今は JavaScript でのみこの機能は有効になっていますが、CSSでも同様の方法を探しています。
 
-
+<!--
 ## Example
+-->
+## 例
 
 <!--
 create `app/assets/javascripts/main.js`:
 -->
-
 `app/assets/javascripts/main.js` を作る。:
 
 ```js
@@ -73,7 +68,6 @@ require(["helper/lib"],function(l) {
 <!--
 create `app/assets/javascripts/helper/lib.js`:
 -->
-
 `app/assets/javascripts/helper/lib.js` を作る。:
 
 ```js
@@ -98,7 +92,6 @@ create `app/views/index.scala.html`:
 <!--
 In `project/Build.scala` add:
 -->
-
 `project/Build.scala` 内に以下を追加する:
 
 ```
@@ -110,8 +103,7 @@ val main = play.Project(appName, appVersion, appDependencies).settings(
 <!--
 After rendering the page in Dev mode you should see: ```9``` popping up in an alert
 -->
-
-Dev モードでページを再レンダリングしてみましょう: alertに ```9``` が表示されるでしょう。
+Dev モードでページを再レンダリングしてみましょう: alert に ```9``` が表示されるでしょう。
 
 <!--
 ## When running stage, dist or start
@@ -121,7 +113,7 @@ Dev モードでページを再レンダリングしてみましょう: alertに
 <!--
 your application's jar file should contain (```public/javascript/main.js```):
 -->
-アプリケーションのjarファイルに  (```public/javascript/main.js```) が含まれていなくてはなりません。:
+アプリケーションの jar ファイルに  (```public/javascript/main.js```) が含まれていなくてはなりません。:
 
 ```js
 define("helper/lib",[],function(){return{sum:function(e,t){return e+t}}}),require(["helper/lib"],function(e){var t=e.sum(5,4);alert(t)}),define("main",function(){})
