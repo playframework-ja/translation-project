@@ -128,7 +128,7 @@ public static Result index() {
 <!--
 You can schedule sending messages to actors and executing tasks (functions or `Runnable` instances). You will get a `Cancellable` back that you can call `cancel` on to cancel the execution of the scheduled operation.
 -->
-Akka では、アクターへのメッセージ送信やタスク(関数または `Runnable` インスタンス)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
+Akka では、アクターへのメッセージ送信やタスク (関数または `Runnable` インスタンス) の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
 
 <!--
 For example, to send a message to the `testActor` every 30 minutes:

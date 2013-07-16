@@ -31,7 +31,7 @@ ebean.customers="models.Customer,models.Address"
 <!--
 In this example, we have access to two Ebean servers - each using its own database.
 -->
-この例では、2つの Ebean サーバへのアクセスが設定されています。各サーバはそれぞれ異なるデータベースを使用しています。
+この例では、2 つの Ebean サーバへのアクセスが設定されています。各サーバはそれぞれ異なるデータベースを使用しています。
 
 <!--
 > For more information about Ebean, see the [[Ebean documentation | http://www.avaje.org/ebean/documentation.html]].
@@ -87,7 +87,7 @@ public class Task extends Model {
 <!--
 As you can see, we've added a `find` static field, defining a `Finder` for an entity of type `Task` with a `Long` identifier. This helper field is then used to simplify querying our model:
 -->
-ご覧のように、 `find` static フィールドが追加されました。これは識別子が `Long` である `Task` 型のエンティティに対する `Finder` を定義します。このヘルパーフィールドはモデルのクエリーを単純化するために使われます。
+ご覧のように、 `find` static フィールドが追加されました。これは識別子が `Long` である `Task` 型のエンティティに対する `Finder` を定義します。このヘルパーフィールドはモデルのクエリーを簡素化するために使われます。
 
 ```
 // Find all tasks

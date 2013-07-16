@@ -174,7 +174,7 @@ bar
 <!--
 We get three chunks and one final empty chunk that closes the response.  
 -->
-３つのチャンクと、最後にレスポンスを完了するための空のチャンクが送信されています。
+3 つのチャンクと、最後にレスポンスを完了するための空のチャンクが送信されています。
 
 <!--
 > **Next:** [[Comet sockets | JavaComet]]

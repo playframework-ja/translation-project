@@ -12,7 +12,7 @@
 <!--
 The router is the component that translates each incoming HTTP request to an action call (a static, public method in a controller class).
 -->
-ルータ、はクライアントから受け取った HTTP リクエストをアクション (コントローラクラス内の static かつ public なメソッド) の呼び出しへ変換するコンポーネントです。
+ルータはクライアントから受け取った HTTP リクエストをアクション (コントローラクラス内の static かつ public なメソッド) の呼び出しへ変換するコンポーネントです。
 
 <!--
 An HTTP request is seen as an event by the MVC framework. This event contains two major pieces of information:

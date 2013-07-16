@@ -1,67 +1,47 @@
 #{extends 'main.html' /}
-#{set title:'Documentation: ' + id /}
+#{set title: id /}
+#{set body: 'documentation' /}
+#{set top: 'Documentation' /}
 #{set action:'page' /}
-<section id="top">
-<div class="wrapper">
-    <h1><a href="/documentation/${version}">Manual, tutorials & references</a></h1>
-    <nav>
-        <form method="get" action="http://www.google.com/search" id="search">
-            <input type="search" placeholder="Search ${version} on Google" name="q" results="10" size="29">
-            <input type="hidden"  name="sitesearch" value="playdocja.appspot.com/documentation/${version}"> 
-            <input type="submit" style="position:absolute;top:-1000em">
-        </form>
-        <span class="versions">
-            <span>Version ${version}</span>
-            <select>
-                <option disabled>Select version</option>
-                #{list items:versions, as:'item'}
-                    <option ${version == "${item}" ? 'selected ' : ''}value="/documentation/${item}">Version ${item}</option>
-                #{/list}
-            </select>
-        </span>
-        <span class="versions">
-            <span>Browse APIs</span>
-            <select>
-                <option selected disabled>Select language</option>
-                <option value="http://www.playframework.org/documentation/api/${version}/index.html">Java API</option>
-            </select>
-        </span>
-    </nav>
-</div>
-</section>
-#{ifnot translated}
-<section id="note">
-<div class="wrapper">
-  このドキュメントはまだ翻訳されていません。
-</div>
-</section>
-#{/ifnot}
-<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
-<script type="text/javascript">
-$(function(){
-    $("pre").addClass("prettyprint scala")
-    window.prettyPrint && prettyPrint()
-    $("select").change(function() {
-        document.location = $(this).val()
-    })
-});
-</script>
-<style type="text/css">
-@import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
-</style>
+        <button id="extend">extend</button>
 
-<div id="content" class="wrapper doc">
+        <nav id="toolbar">
+            <h3>Browse versions</h3>
+            <div class="switch">
+                <a href="/documentation/${version}">${version}</a>
+                <dl class="dropdown">
+                    <dt>▾</dt>
+                    <dd>
+                    #{list items:versions, as:'item'}
+                        <a href="/documentation/${item}">${item}</a>
+                    #{/list}
+                    </dd>
+                </dl>
+            </div>
+
+            <h3>Browse APIs</h3>
+            <div class="switch">
+                #{if version =~ "^2"}            
+                <a href="http://www.playframework.com/documentation/api/${version}/scala/index.html">Scala</a>
+                #{/if}
+                <a href="http://www.playframework.com/documentation/api/${version}/java/index.html">Java</a>
+            
+            </div>
+        </nav>
+        
     <article>
-        ${article.raw()}
+${article.raw()}
     </article>
+
     <aside>
-    <h3>公式ドキュメント</h3>
+        <h3>公式ドキュメント</h3>
         <p>
-            <a href="http://www.playframework.org/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
+            <a href="http://www.playframework.com/documentation/${version}/${id}" target="_blank">#{get 'title' /} — Playframework</a>
         </p>
+        
         #{if navigation}
         ${navigation.raw()}
-        #{/if}
+        #{/if}        
         #{else}
         <h3>閲覧</h3>
         <ul>
@@ -76,15 +56,17 @@ $(function(){
             $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
         </script>
         #{/else}
+        
         <h3>書籍</h3>
         #{if version =~ "^1"}
-        <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/Cookbook_Frontcover.jpg"></a></p>
-        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/introducing_play.gif"></a></li></p>
+        <p><a href="http://www.packtpub.com/play-framework-cookbook/book"><img src="/assets/images/docs/play-framework-cookbook-cover.jpg"></a></p>
+        <p><a href="http://www.the-play-book.co.uk/"><img src="/assets/images/docs/introducing-play-cover.gif"></a></li></p>
         #{/if}
         #{else}
-        <p><a title="Play for Scala" href="http://bit.ly/playscala"><img src="/assets/images/play-for-scala-cover.jpg"></a></p>
-        <p><a title="Play for Java" href="http://bit.ly/playjava"><img src="/assets/images/play-for-java-cover.jpg"></a></p>
+        <p><a title="Play for Scala" href="http://bit.ly/playscala"><img src="/assets/images/docs/play-for-scala-cover.jpg"></a></p>
+        <p><a title="Play for Java" href="http://bit.ly/playjava"><img src="/assets/images/docs/play-for-java-cover.jpg"></a></p>
         #{/else}
+        
         <h3>広告</h3>
         <p>
             <a href="http://www.amazon.co.jp/gp/product/4873115345/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4873115345&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4873115345&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4873115345" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
@@ -96,4 +78,11 @@ $(function(){
             <a href="http://www.amazon.co.jp/gp/product/4774153206/ref=as_li_qf_sp_asin_il?ie=UTF8&tag=playdocja-22&linkCode=as2&camp=247&creative=1211&creativeASIN=4774153206"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&Format=_SL160_&ASIN=4774153206&MarketPlace=JP&ID=AsinImage&WS=1&tag=playdocja-22&ServiceVersion=20070822" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4774153206" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
         </p>
     </aside>
-</div>
+
+    <style type="text/css">
+    @import "http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.css";
+    </style>
+    <script type="text/javascript">
+        // On start, check if flex mod is enabled
+        if (localStorage && localStorage['flex'] == "true" ) document.body.className += " flex"
+    </script>

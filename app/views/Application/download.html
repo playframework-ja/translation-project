@@ -1,57 +1,78 @@
 #{extends 'main.html' /}
-#{set title:'Download' /}
-<section id="top">
-    <div class="wrapper">
-        <h1>Ready to use packages for Linux, MacOS and Windows</h1>
-    </div>
-</section>
-<div id="content" class="wrapper">
-    <article>
-        <blockquote>
-            <p>
-                どのバイナリパッケージにも、必要なすべてのライブラリ、完全なドキュメント、一式のサンプルアプリケーション、 そして多くの統合開発環境とテキストエディタに対するサポートが含まれています。
+#{set title:'Download Play Framework' /}
+#{set body:'download' /}
+#{set 'top'}
+    Download Play Framework
+#{/set}
+        <article>
+            <h1>Linux, MacOS と Windows で<br>すぐに使えるパッケージ</h1>
+            <div class="latest">
+                <a class="cover" href="${latest.url}">Latest</a>
+                <h2>最新の公式バージョン</h2>
+                <table>
+                    <tr>
+                        <td>
+                            <a href="${latest.url}">${latest.name}</a>
+                        </td>
+                        <td width="200">
+                            ${latest.date.format('yyyy/MM/dd', 'ja')}
+                        </td>
+                        <td width="100">
+                            ${latest.size}M
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+
+            <p class="updates">
+                <a href="http://twitter.com/playframework">フォローしてリリースアナウンスを受け取ろう</a>
             </p>
-        </blockquote>
-        <h2>最新の公式バージョンを取得する</h2>
-        #{if latest}
-        <p>
-            最新の公式バージョンは <strong>${latest.version}</strong> (${latest.date.format('yyyy/MM/dd', 'ja')}) です。
-        </p>
-        <table>
-            <tr>
-                <td><a href="${latest.url}">${latest.name}</a></td>
-                <td width="200">${latest.date.format('yyyy/MM/dd', 'ja')}</td>
-                <td width="100">${latest.size}M</td>
-            </tr>
-        </table>
-        #{/if}
-        #{if upcomings}
-        <h2>新登場</h2>
-        <p>
-            次のバージョンのプレビューとリリース候補です。
-        </p>
-        #{list upcomings, as:'upcoming'}
-        <table>
-            <tr>
-                <td><a href="${upcoming.url}">${upcoming.name}</a></td>
-                <td width="200">${upcoming.date.format('yyyy/MM/dd', 'ja')}</td>
-                <td width="100">${upcoming.size}M</td>
-            </tr>
-            #{/list}
-        </table>
-        #{/if}
-        <h2>古いバージョン</h2>
-        <p>
-            古いバージョンの Play をお探しですか? 以下で、いくつかの古いリリースを見つけることができます。
-        </p>
-        <table>
-            #{list olders, as:'older'}
-            <tr class="${older_parity}">
-                <td><a href="${older.url}">${older.name}</a></td>
-                <td width="200">${older.date.format('yyyy/MM/dd', 'ja')}</td>
-                <td width="100">${older.size}M</td>
-            </tr>
-            #{/list}
-        </table>
-    </article>
-</div>
+
+            <h3>以前のバージョン</h3>
+            <p>
+                古いバージョンの Play をお探しですか? 以下から、いくつかの古いリリースを探してください。
+            </p>
+
+            <table>
+                #{list olders, as:'older'}
+                <tr class="${older_parity}">
+                    <td><a href="${older.url}">${older.name}</a></td>
+                    <td width="200">${older.date.format('yyyy/MM/dd', 'ja')}</td>
+                    <td width="100">${older.size}M</td>
+                </tr>
+                #{/list}
+            </table>
+        </article>
+        <aside>
+            <h3>はじめの一歩</h3>
+            <ul>
+                <li><a href="/documentation/2.1.0/Installing">インストール手順</a></li>
+                <li><a href="/documentation/2.1.0/NewApplication">はじめてのアプリケーション</a></li>
+                <li><a href="/documentation">完全なドキュメント</a></li>
+            </ul>
+            <h3>ヘルプを探す</h3>
+            <ul>
+                <li><a href="http://groups.google.com/forum/#!forum/play-framework">メーリングリスト</a></li>
+                <li><a href="http://stackoverflow.com/questions/tagged/playframework">Stackoverflow</a></li>
+                <li><a href="http://typesafe.com/products">専門家によるサポート</a></li>
+            </ul>
+            <h3>貢献する</h3>
+            <ul>
+                <li><a href="/code">コードと貢献者</a></li>
+                <li><a href="/get-involved">貢献する</a></li>
+                <li><a href="https://groups.google.com/forum/#!forum/play-framework-security">セキュリティレポート</a></li>
+            </ul>
+            <h3>クラウド上で実行する</h3>
+            <p>
+                CloudBees には、クラウド上で Play アプリケーションを実行するためのファーストクラスサポートが含まれています。
+            </p>
+            <p>
+                <a class="light" href="https://developer.cloudbees.com/bin/view/RUN/Playframework">もっと詳しく</a>
+            </p>
+            <p>
+                <a class="cloudbees" href="https://grandcentral.cloudbees.com/?CB_clickstart=https://raw.github.com/CloudBees-community/play2-clickstart/master/clickstart.json">
+                Launch on CloudBees
+                </a>
+            </p>
+        </aside>
