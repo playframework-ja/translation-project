@@ -22,7 +22,7 @@ Action invoker アクターは `Action` のコードを実行するために使�
 <!--
 These action invoker Actors are also used to retrieve the **body parser** needed to parse the request body. Because this part waits for a reply (the `BodyParser` object to use), it will fail after a configurable timeout.
 -->
-Action invoker アクターは、リクエストボディをパーズするために使われる **ボディパーサ** を取得するためにも使われます。この取得処理はアクターからの返信（パーズに使われる BodyParser オブジェクト）を待機するという実装になっていて、設定されたタイムアウト時間を経過すると失敗する仕様です。
+Action invoker アクターは、リクエストボディをパースするために使われる **ボディパーサ** を取得するためにも使われます。この取得処理はアクターからの返信（パースに使われる BodyParser オブジェクト）を待機するという実装になっていて、設定されたタイムアウト時間を経過すると失敗する仕様です。
 
 <!--
 Action invoker actors are run by the `actions-dispatcher` dispatcher.

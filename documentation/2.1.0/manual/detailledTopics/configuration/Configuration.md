@@ -98,7 +98,7 @@ JSON ドキュメントは root として array や object を一つ持つ必要
 <!--
 In HOCON, if the file does not begin with a square bracket or curly brace, it is parsed as if it were enclosed with `{}` curly braces.
 -->
-HOCON では、ファイルが中括弧や大括弧で始まっていない場合、中括弧 `{}` で囲まれているものとしてパーズします。
+HOCON では、ファイルが中括弧や大括弧で始まっていない場合、中括弧 `{}` で囲まれているものとしてパースします。
 
 <!--
 A HOCON file is invalid if it omits the opening `{` but still has a closing `}`; the curly braces must be balanced.
@@ -334,7 +334,7 @@ For substitutions which are not found in the configuration tree, implementations
 <!--
 Substitutions are not parsed inside quoted strings. To get a string containing a substitution, you must use value concatenation with the substitution in the unquoted portion:
 -->
-引用文字列中では、置換はパーズされません。置換を含むような文字列を取得したい場合、引用符で囲まれていない部分に置換を記述して、値の結合を行うとよいでしょう。
+引用文字列中では、置換はパースされません。置換を含むような文字列を取得したい場合、引用符で囲まれていない部分に置換を記述して、値の結合を行うとよいでしょう。
 
     key : ${animal.favorite} is my favorite animal
 
@@ -353,7 +353,7 @@ Substitutions are resolved by looking up the path in the configuration. The path
 <!--
 Substitution processing is performed as the last parsing step, so a substitution can look forward in the configuration. If a configuration consists of multiple files, it may even end up retrieving a value from another file. If a key has been specified more than once, the substitution will always evaluate to its latest-assigned value (the merged object or the last non-object value that was set).
 -->
-置換処理は設定ファイルのパーズにおける最終ステップで実行されます。したがって、置換は設定ファイルの前方で定義されたパスを参照することができます。もし、設定が複数のファイルから構成されているのであれば、置換が記述されているファイルとは別のファイルから値を取得することになるかもしれません。キーが複数回指定されている場合、一番最後にセットされた値（そのキーについてマージされたオブジェクトか、もしくは最後にセットされたオブジェクト以外の値）が置換により挿入されることになります。
+置換処理は設定ファイルのパースにおける最終ステップで実行されます。したがって、置換は設定ファイルの前方で定義されたパスを参照することができます。もし、設定が複数のファイルから構成されているのであれば、置換が記述されているファイルとは別のファイルから値を取得することになるかもしれません。キーが複数回指定されている場合、一番最後にセットされた値（そのキーについてマージされたオブジェクトか、もしくは最後にセットされたオブジェクト以外の値）が置換により挿入されることになります。
 
 <!--
 If a configuration sets a value to `null` then it should not be looked up in the external source. Unfortunately there is no way to "undo" this in a later configuration file; if you have `{ "HOME" : null }` in a root object, then `${HOME}` will never look at the environment variable. There is no equivalent to JavaScript's `delete` operation in other words.
@@ -565,7 +565,7 @@ And "foo.conf" might look like this:
 <!--
 If you parsed "foo.conf" in isolation, then `${x}` would evaluate to 10, the value at the path `x`. If you include "foo.conf" in an object at key `a`, however, then it must be fixed up to be `${a.x}` rather than `${x}`.
 -->
-"foo.conf" を単体でパーズしたとしたら、 `${x}` はパス `x` の値 10 と評価されるはずです。しかし、 "foo.conf" を任意のオブジェクトのキー `a` にインクルードした場合、このパスは `${x}` ではなく `${a.x}` のように修正されなければなりません。
+"foo.conf" を単体でパースしたとしたら、 `${x}` はパス `x` の値 10 と評価されるはずです。しかし、 "foo.conf" を任意のオブジェクトのキー `a` にインクルードした場合、このパスは `${x}` ではなく `${a.x}` のように修正されなければなりません。
 
 <!--
 Say that the root configuration redefines `a.x`, like this:
@@ -580,7 +580,7 @@ Say that the root configuration redefines `a.x`, like this:
 <!--
 Then the `${x}` in "foo.conf", which has been fixed up to `${a.x}`, would evaluate to `42` rather than to `10`. Substitution happens _after_ parsing the whole configuration.
 -->
-このとき、 "foo.conf" の `${x}` は `${a.x}` に修正されて、 `10` ではなく `42` と評価されます。置換は全ての設定のパーズ `後` に処理されるからです。
+このとき、 "foo.conf" の `${x}` は `${a.x}` に修正されて、 `10` ではなく `42` と評価されます。置換は全ての設定のパース `後` に処理されるからです。
 
 <!--
 However, there are plenty of cases where the included file might intend to refer to the application's root config. For example, to get a value from a system property or from the reference configuration. So it's not enough to only look up the "fixed up" path, it's necessary to look up the original path as well.
@@ -605,7 +605,7 @@ If an included file does not exist, the include statement should be silently ign
 <!--
 Conceptually speaking, the quoted string in an include statement identifies a file or other resource "adjacent to" the one being parsed and of the same type as the one being parsed. The meaning of "adjacent to", and the string itself, has to be specified separately for each kind of resource.
 -->
-概念的には、include 命令の引数となる引用符で囲まれた文字列は、その時パーズされているファイルやその他のリソースと「隣接」していて、かつ同じ種類のリソースを識別するために使われます。この文字列や「隣接」の意味は、リソースの種類によって異なります。
+概念的には、include 命令の引数となる引用符で囲まれた文字列は、その時パースされているファイルやその他のリソースと「隣接」していて、かつ同じ種類のリソースを識別するために使われます。この文字列や「隣接」の意味は、リソースの種類によって異なります。
 
 <!--
 Implementations may vary in the kinds of resources they support including.
@@ -668,7 +668,7 @@ For plain files on the filesystem:
    root-relative and "/" allows specifying relative to root.
 -->
  - インクルードされたファイルが絶対パスの場合は、絶対パスのまま扱われて、ロードされます。
- - インクルードされたファイルが相対パスの場合は、インクルードする側のファイルからの相対パスとして解釈されます。インクルードされるパスを解釈するときに、ファイルをパーズしているプロセスのカレントディレクトリを使ってはなりません。
+ - インクルードされたファイルが相対パスの場合は、インクルードする側のファイルからの相対パスとして解釈されます。インクルードされるパスを解釈するときに、ファイルをパースしているプロセスのカレントディレクトリを使ってはなりません。
  - ファイルが見つからない場合、クラスパス上のリソースにフォールバックします。そのとき、クラスパス上のリソース名の先頭にパッケージ名を追加することはせず、 "root" からの相対パスになります。これは、先頭の "/" が単に削除される（今回は root からの相対パスなので、このルールにより絶対パスも相対パスも同じリソースを指すことになります）ことを意味します。"/" をこのように扱う理由は、他のクラスアパスリソース内からリソースをインクルードするケースとの一貫性のためです。そのケースでは、リソース名は root からの相対パスではなく、 "/" をつけることで root からの相対パスとなります。
 
 <!--
@@ -688,7 +688,7 @@ URL については、
    filename
 -->
  - ファイルシステム上のファイルと Java のリソースの両方について、インクルードされた名前が URL（プロトコル名で始まる）の場合、名前はファイル名やリソース名ではなく URL として解釈・ロードされるでしょう。
- - URL からロードされたファイルについては、「隣接」は URL のパス部分をパーズして最終要素をインクルードされた名前に置き換えることで計算されます。
+ - URL からロードされたファイルについては、「隣接」は URL のパス部分をパースして最終要素をインクルードされた名前に置き換えることで計算されます。
  - file: プロトコルの URL が指定された場合は、単なるファイル名が指定された場合と全く同じ振る舞いになります。
 
 <!--
