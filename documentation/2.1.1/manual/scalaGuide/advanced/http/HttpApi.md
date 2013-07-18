@@ -153,4 +153,5 @@ Which reads as the following: Take the `RequestHeader` then take chunks of `Arra
 -->
 以下のように読みます: `RequestHeader` を受け取り、 `Array[Byte]` の断片を受け取り、そしてレスポンスを返す。レスポンスは `ResponseHeaders` とボディからなり、ボディはソケットに書き出される `Array[Byte]` へと変換出来る値の断片であり、 `Enumerator[E]` として表現されます。
 
-> **Next:** [[HTTP Filters | ScalaHttpFilters]]
+<!-- > **Next:** [[HTTP Filters | ScalaHttpFilters]] -->
+> **次ページ:** [[HTTP フィルター | ScalaHttpFilters]]
