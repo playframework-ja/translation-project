@@ -142,7 +142,7 @@ Play アプリケーションは、`play.api` パッケージ内にある Scala 
     1. [[Enumeratee | Enumeratees]]
 1. [[HTTP Architecture | HttpApi]]
     1. [[HTTP API | HttpApi]]
-    1. [[HTTP Filters | ScalaHttpFilters]]
+    1. [[HTTP フィルター | ScalaHttpFilters]]
 1. リバースルーティング
     1. [[Javascriptのルーティング | ScalaJavascriptRouting]]
 
