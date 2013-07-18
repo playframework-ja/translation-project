@@ -38,7 +38,7 @@
 - [[HTTP Filters | ScalaHttpFilters]] -->
 - [[反応的なストリーム処理 | Iteratees]]
 - [[HTTP API | HttpApi]]
-- [[HTTP Filters | ScalaHttpFilters]]
+- [[HTTP フィルター | ScalaHttpFilters]]
 
 <!-- ### Tutorials -->
 ### チュートリアル
