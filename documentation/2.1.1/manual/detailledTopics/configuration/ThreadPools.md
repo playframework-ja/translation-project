@@ -239,7 +239,8 @@ Below we outline a few common profiles that people may want to use in Play Frame
 -->
 ### ピュアな非同期化
 
-In this case, you are doing no blocking IO in your application.  Since you are never blocking, the default configuration of one thread per processor suits your use case perfectly, so no extra configuration needs to be done.  The Play default execution context can be used in all cases.
+<!-- In this case, you are doing no blocking IO in your application.  Since you are never blocking, the default configuration of one thread per processor suits your use case perfectly, so no extra configuration needs to be done.  The Play default execution context can be used in all cases. -->
+この場合、アプリケーションではブロッキング IO を行いません。決してブロッキングを行わないので、プロセッサーごとにひとつのスレッドを割り当てるデフォルトの設定がこのユースケースにぴったりですし、追加の設定を行う必要はありません。Play のデフォルト実行コンテキストがあらゆる状況で使われます。
 
 <!---
 ### Highly synchronous
@@ -288,7 +289,8 @@ This profile is for when you want to do a lot of synchronous IO, but you also wa
 -->
 このプロファイルはたくさんの同期 IO を、アプリケーションがどのタイプの作業を直ちに実行するか正確にコントロールしながら実行したい場合のためのものです。このプロファイルでは、デフォルト実行コンテキストでノンブロッキングに作業を行い、特別な作業を異なる実行コンテキストでブロッキングオペレーションに割り当てます。
 
-In this case, you might create a number of different execution contexts for different types of operations, like this:
+<!-- In this case, you might create a number of different execution contexts for different types of operations, like this: -->
+この場合、以下のような異なるタイプのオペレーションに対して複数の異なる実行コンテキストを作る必要があります。
 
 ```scala
 object Contexts {
@@ -343,4 +345,5 @@ Then in your code, you would create futures and pass the relevant execution cont
 -->
 ### わずかな特定のスレッドプール
 
-This is a combination between the many specific thread pools and the highly synchronized profile.  You would do most simple IO in the default execution context and set the number of threads there to be reasonably high (say 100), but then dispatch certain expensive operations to specific contexts, where you can limit the number of them that are done at one time.
+<!-- This is a combination between the many specific thread pools and the highly synchronized profile.  You would do most simple IO in the default execution context and set the number of threads there to be reasonably high (say 100), but then dispatch certain expensive operations to specific contexts, where you can limit the number of them that are done at one time. -->
+これは、多くの特定のスレッドプールと高度に同期化されたプロファイルの組み合わせです。デフォルト実行コンテキスト中でほとんどの単純な IO を行い、(100 くらいの) 合理的な複数のスレッドを設定しますが、その後、一度に行われる数を制限することのできる特定のコンテキストに負荷の高いオペレーションを割り振ります。
