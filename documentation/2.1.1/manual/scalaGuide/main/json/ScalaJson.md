@@ -1,3 +1,4 @@
+<!-- translated -->
 <!-- # The Play JSON library Basics -->
 # Play JSON ライブラリの基礎
 
@@ -134,8 +135,8 @@ import play.api.libs.json.Json
 - `Json.obj()` : simplified syntax to create a `JsObject`
 - `Json.arr()` : simplified syntax to create a `JsArray` -->
 - `Json.parse` : 文字列を JsValue にパースします
-- `Json.stringify` : stringifies a JsValue using compact printer (NO line feed/indentation)
-- `Json.prettyPrint` : stringifies a JsValue using pretty printer (line feed + indentation)
+- `Json.stringify` : JsValue をコンパクトな文字列にします (改行、インデントなし)
+- `Json.prettyPrint` : JsValue を整形された文字列にします (改行、インデントあり)
 - `Json.toJson[T](t: T)(implicit writes: Writes[T])` : 解決された暗黙の `Writes[T]` を使った Scala オブジェクトから `JsValue` への変換を試みます
 - `Json.fromJson[T](json: JsValue)(implicit reads: Reads[T])` : 解決された暗黙の `Reads[T]` を使った `JsValue` から Scala オブジェクトへの変換を試みます
 - `Json.obj()` : `JsObject` を作成するための簡素化された文法です
@@ -256,8 +257,15 @@ The API looks like the one provided to navigate into XML document by Scala using
 <!-- ### Simple path `\` -->
 ### シンプルな `\` パス
 
-```scala
+<!-- ```scala
 // Here we import everything under json in case we need to manipulate different Json types
+scala> import play.api.libs.json._
+
+scala> val name: JsValue = json \ "user" \ "name"
+name: play.api.libs.json.JsValue = "toto"
+``` -->
+```scala
+// 様々な種類の Json を操作する必要がある場合に備えて、ここでは json パッケージ配下をすべてインポートします
 scala> import play.api.libs.json._
 
 scala> val name: JsValue = json \ "user" \ "name"
@@ -423,7 +431,7 @@ maybeNameLong: Option[Long] = None
 <!-- A few samples of usage: -->
 いくつかの使用例:
 
-```scala
+<!-- ```scala
 scala> import play.api.libs.json._
 
 scala> val jsres: JsResult[String] = JsString("toto").validate[String]
@@ -442,6 +450,26 @@ jsres.fold(
 
 jsres.map( s: String => // manage value )
      .recoverTotal( jserror: JsError => // manage errors and return default value)
+``` -->
+```scala
+scala> import play.api.libs.json._
+
+scala> val jsres: JsResult[String] = JsString("toto").validate[String]
+jsres: JsSuccess("toto")
+
+scala> val jsres: JsResult[String] = JsNumber(123).validate[String]
+jsres: play.api.libs.json.JsResult[String] = JsError(List((,List(ValidationError(validate.error.expected.jsstring,WrappedArray())))))
+
+jsres.map{ s: String => …}
+jsres.flatMap{ s: String => JsSuccess(s) }
+
+jsres.fold( 
+  errors: Seq[(JsPath, Seq[ValidationError])] => // エラーを処理して,
+  s: String => // 値を処理する 
+)
+
+jsres.map( s: String => // manage value )
+     .recoverTotal( jserror: JsError => // エラーを処理をしてデフォルト値を返す)
 ```
 
 <!-- #### case OK: path found & conversion possible -->
