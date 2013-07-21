@@ -2494,3 +2494,6 @@ a[href="#todo"]:before {
   font-size: 8px;
   font-weight: bold;
 }
+a.absent {
+  color: #c00;
+}
