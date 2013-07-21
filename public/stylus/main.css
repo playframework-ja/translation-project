@@ -108,7 +108,11 @@ body {
   font-weight: normal;
   font-size: 15px;
   -webkit-font-smoothing: antialiased;
-  -webkit-text-size-adjust: none;
+}
+@media only screen and (max-device-width: 500px) {
+  body {
+    -webkit-text-size-adjust: none;
+  }
 }
 a {
   text-decoration: none;
@@ -648,8 +652,7 @@ aside hr {
 .content-column #content .main,
 .download #content .main,
 .getInvolved #content .main,
-.modules #content .main,
-.about #content article {
+.modules #content .main {
   width: 70%;
   float: left;
   padding-right: 40px;
@@ -657,8 +660,7 @@ aside hr {
 .content-column #content aside,
 .download #content aside,
 .getInvolved #content aside,
-.modules #content aside,
-.about #content aside {
+.modules #content aside {
   counter-reset: steps;
   width: 30%;
   float: left;
@@ -1353,6 +1355,9 @@ body > footer img {
   background: #92d13d;
   color: #fff;
 }
+#toolbar .switch > a {
+  max-width: 90px;
+}
 #toolbar .dropdown {
   display: inline-block;
   position: relative;
@@ -1441,7 +1446,7 @@ body > footer img {
     cursor: pointer;
   }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2),only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192dpi),only screen and (min-resolution: 2dppx) {
- {
+    .documentation #extend {
       background: url("/assets/images/layout/extend@2x.png") top right no-repeat, url("/assets/images/layout/extend@2x.png") bottom left no-repeat;
       -webkit-background-size: 15px, 15px;
       -moz-background-size: 15px, 15px;
@@ -2171,35 +2176,39 @@ body > footer img {
 #references a {
   display: inline-block;
   margin: 10px;
-  height: 57px;
+  height: 45px;
   background: url("/assets/images/home/references.png") no-repeat;
   text-indent: -9999em;
 }
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2),only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192dpi),only screen and (min-resolution: 2dppx) {
   #references a {
     background-image: url("/assets/images/home/references@2x.png");
-    -webkit-background-size: 960px 57px;
-    -moz-background-size: 960px 57px;
-    background-size: 960px 57px;
+    -webkit-background-size: 960px 45px;
+    -moz-background-size: 960px 45px;
+    background-size: 960px 45px;
   }
 }
 #references a.linkedin {
-  width: 200px;
+  width: 165px;
 }
 #references a.klout {
-  width: 150px;
-  background-position: -221px;
+  width: 120px;
+  background-position: -178px;
 }
 #references a.guardian {
-  width: 249px;
-  background-position: -389px 0;
+  width: 201px;
+  background-position: -315px 0;
 }
 #references a.gilt {
-  width: 112px;
-  background-position: -660px 0;
+  width: 90px;
+  background-position: -534px 0;
 }
 #references a.egraphs {
-  width: 164px;
+  width: 132px;
+  background-position: -643px 0;
+}
+#references a.zaptravel {
+  width: 166px;
   background-position: -796px 0;
 }
 @media only screen and (max-width: 960px) {
@@ -2461,18 +2470,16 @@ body > footer img {
   margin: 20px 0;
   padding: 20px 0;
 }
-.code .coreteam a {
+.code .coreteam > a {
   display: block;
   overflow: hidden;
 }
-.code .coreteam a:after {
+.code .coreteam > a:after {
   content: none;
 }
-.code .coreteam a img,
-.about .coreteam a img {
+.code .coreteam > a img {
   float: left;
   margin: 0 10px 10px 0;
-  max-width: 80px;
 }
 a[href="#"]:before,
 a[href="#todo"]:before {
@@ -2486,7 +2493,4 @@ a[href="#todo"]:before {
   color: #fff;
   font-size: 8px;
   font-weight: bold;
-}
-a.absent {
-  color: #c00;
 }
