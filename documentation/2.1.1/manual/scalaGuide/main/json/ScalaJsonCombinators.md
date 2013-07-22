@@ -1,3 +1,4 @@
+<!-- translated -->
 <!-- # JSON Reads[T]/Writes[T]/Format[T] Combinators -->
 # JSON Reads[T]/Writes[T]/Format[T] コンビネータ
 
@@ -704,7 +705,7 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 ``` -->
 ```
-// if you need Json structures in your scope
+// スコープ内に Json 構造が必要な場合
 import play.api.libs.json._
 // 重要。必要なツールをスコープにインポートします
 import play.api.libs.functional.syntax._
@@ -1068,10 +1069,12 @@ scala> errorjs.validate[Creature]
 res0: play.api.libs.json.JsResult[Creature] = JsError(List((/favorites/string,List(ValidationError(validate.error.unexpected.value,WrappedArray(ni)))), (/email,List(ValidationError(validate.error.email,WrappedArray()), ValidationError(validate.error.minlength,WrappedArray(5)))), (/favorites/number,List(ValidationError(validate.error.max,WrappedArray(86)), ValidationError(validate.error.min,WrappedArray(875))))))
 ```
 
-## Reads[A] other features
+<!-- ## Reads[A] other features -->
+## Reads[A] のその他の機能
 
 ### `(Reads[A] and Reads[B]).tupled: Reads[(A, B)]` 
-This useful to create `Reads[TupleX]`
+<!-- This useful to create `Reads[TupleX]` -->
+これは `Reads[TupleX]` を作るのに便利です
 
 ```
 (
@@ -1080,7 +1083,8 @@ This useful to create `Reads[TupleX]`
 ).tupled : Reads[(String, Int)]
 ```
 
-It also works with JsArray and indexes
+<!-- It also works with JsArray and indexes -->
+インデックスが指定された JsArray と使うこともできます
 
 ```
 (
@@ -1091,13 +1095,18 @@ It also works with JsArray and indexes
 
 
 ### `(Reads[A1 <: A] and Reads[A2 <: A]).reduce(implicit reducer: Reducer[A, B]): Reads[B]` 
-Useful to read several parts of a JSON and then aggregate them.
+<!-- Useful to read several parts of a JSON and then aggregate them.
 This one requires an implicit Reducer/Monoid.
-We provide the ones for `JsObject` and `JsArray`.
+We provide the ones for `JsObject` and `JsArray`. -->
+JSON のいくつかの部分を読み込んで集約するのに便利です。
+これには implicit な Reducer/Monoid が必要です。
+`JsObject` と `JsArray` 向けのものが提供されています。
 
-Here are a few examples using Json transformers presented in next paragraph:
+<!-- Here are a few examples using Json transformers presented in next paragraph: -->
+以下は、次の段落で登場する Json トランスフォーマーのいくつかの使用例です:
 
-#### **Reduce a JsObject (copies branches and aggregates them in a JsObject)**
+<!-- #### **Reduce a JsObject (copies branches and aggregates them in a JsObject)** -->
+#### **JsObject を Reduce する (ブランチをコピーして、ひとつの JsObuject に集約する)**
 
 ```
 (
@@ -1106,7 +1115,8 @@ Here are a few examples using Json transformers presented in next paragraph:
 ).reduce : Reads[JsObject]
 ```
 
-#### **Reduce a JsArray (copies leaf values and aggregates them in a JsArray)**
+<!-- #### **Reduce a JsArray (copies leaf values and aggregates them in a JsArray)** -->
+#### **JsArray を Reduce する (リーフをコピーして、ひとつの JsArray に集約する)**
 
 ```
 (
@@ -1434,14 +1444,18 @@ Here are the few things to explain: -->
 > ちなみに、`Writes.traversableWrites[Creature]: Writes[Traversable[Creature]]` を `Writes[List[Creature]]` に置き換えられることを不思議に思うかもしれませんね?  
 > これは、`Writes[-T]` が反変的な意味をもつためです。`Traversable[Creature]` と書けるのであれば、`Traversable` を継承する `List` として `List[Creature]` を書くことができます (継承の関連は、反変性によって取り消されます) 。
 
-## Writes[A] other features
+<!-- ## Writes[A] other features -->
+## Writes[A] その他の機能
 
 ### `Writes[A].contramap( B => A ): Writes[B]` 
 
-`Writes[A]` is a contravariant functor that can be _contramapped_.
-So you must give a function `B => A` to transform into a `Writes[B]`.
+<!-- `Writes[A]` is a contravariant functor that can be _contramapped_.
+So you must give a function `B => A` to transform into a `Writes[B]`. -->
+`Writes[A]` は _contramap_ できる反変的な要素です。
+このため、`Writes[B]` に変換するための関数 `B => A` を与えてやらなければなりません。
 
-For example:
+<!-- For example: -->
+例:
 
 ```
 scala> case class Person(name: String)
@@ -1452,7 +1466,8 @@ res5: play.api.libs.json.OWrites[Person] = play.api.libs.json.OWrites$$anon$2@61
 ```
 
 ### `(Writes[A] and Writes[B]).tupled: Writes[(A, B)]` 
-This useful to create `Writes[TupleX]`
+<!-- This useful to create `Writes[TupleX]` -->
+`Writes[TupleX]` を作るのに便利です。
 
 ```
 (
@@ -1461,23 +1476,32 @@ This useful to create `Writes[TupleX]`
 ).tupled : Writes[(String, Int)]
 ```
 
-**Known limitation** please note that the following doesn't work: it compiles but it will break at runtime as Writes combinators only know how to generate JsObject but not JsArray.
+<!-- **Known limitation** please note that the following doesn't work: it compiles but it will break at runtime as Writes combinators only know how to generate JsObject but not JsArray. -->
+**既知の制限** 以下は動作しないことに気を付けてください: Write コンビネータ は JsObject の生成方法しか知らず、JsArray の生成方法は知らないため、以下はコンパイルされますが、実行時に落ちます。
 
-```
+<!-- ```
 // BE CAREFUL: IT COMPILES BUT BREAKS AT RUNTIME
+(
+  (__(0)).write[String] and 
+  (__(1)).write[Int]
+).tupled : Writes[(String, Int)]
+``` -->
+```
+// 注意: コンパイルされますが、実行時に落ちます
 (
   (__(0)).write[String] and 
   (__(1)).write[Int]
 ).tupled : Writes[(String, Int)]
 ```
 
-
 ### `(Writes[A1 <: A] and Writes[A2 <: A]).join: Writes[A]` 
-Useful to write the same value in several branches.
+<!-- Useful to write the same value in several branches. -->
+複数のブランチに同じ値を書き込むのに便利です。
 
-For example:
+<!-- For example: -->
+例えば:
 
-```
+<!-- ```
 // Please note you must give the type of resulting Writes
 scala> val jsWrites: Writes[JsString] = (
      |   (__ \ 'field1).write[JsString] and 
@@ -1487,8 +1511,18 @@ jsWrites: play.api.libs.json.Writes[play.api.libs.json.JsString] = play.api.libs
 
 scala> jsWrites.writes(JsString("toto"))
 res3: play.api.libs.json.JsObject = {"field1":"toto","field2":"toto"}
+``` -->
 ```
+// Write の結果の型を与えなければならないことに注意してください
+scala> val jsWrites: Writes[JsString] = (
+     |   (__ \ 'field1).write[JsString] and 
+     |   (__ \ 'field2).write[JsString]
+     | ).join
+jsWrites: play.api.libs.json.Writes[play.api.libs.json.JsString] = play.api.libs.json.OWrites$$anon$2@732db69a
 
+scala> jsWrites.writes(JsString("toto"))
+res3: play.api.libs.json.JsObject = {"field1":"toto","field2":"toto"}
+```
 
 <!-- ## <a name="format">What about combinators for Format?</a> -->
 ## <a name="format">Format 用のコンビネータについて</a>
@@ -1852,14 +1886,18 @@ assert(Json.fromJson[Creature](zombiejs).get == zombie2)
 
 ```
 
-## Format[A] other features
+<!-- ## Format[A] other features -->
+## Format[A] のその他の機能
 
 ### `Format[A].inmap( A => B, B => A ): Format[B]` 
 
-`Format[A]` is both covariant and contravariant (invariant) functor.
-So you must give both functions `A => B` and `B => A` to transform into a `Format[B]`.
+<!-- `Format[A]` is both covariant and contravariant (invariant) functor.
+So you must give both functions `A => B` and `B => A` to transform into a `Format[B]`. -->
+`Format[A]` は共変でもあり、反変 (不変) でもある要素です。
+このため、`Format[B]` に変換するための関数 `A => B` と関数 `B => A` の両方を与えてやらなければなりません。
 
-For example:
+<!-- For example: -->
+例えば:
 
 ```
 scala> case class Person(name: String)
