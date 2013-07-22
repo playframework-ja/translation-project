@@ -1,15 +1,16 @@
+<!-- translated -->
 <!--
 # JSON Macro Inception
 -->
 # マクロによる JSON インセプション
 
 <!--
-> Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) 
--->
+> Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/)
+
+> **This feature is still experimental because Scala Macros are still experimental in Scala 2.10.0. If you prefer not using an experimental feature from Scala, please use hand-written Reads/Writes/Format which are strictly equivalent.** -->
 > 本ドキュメントは Pascal Voitot さん ([@mandubian](http://www.github.com/mandubian)) によって書かれたブログ記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) を元にしています
 
-
-> **This feature is still experimental because Scala Macros are still experimental in Scala 2.10.0. If you prefer not using an experimental feature from Scala, please use hand-written Reads/Writes/Format which are strictly equivalent.**
+> **Scala マクロは Scala 2.10.0 においてまだ実験的な位置付けであるため、この機能もあくまで試験的なものです。Scala の実験的な機能を利用したくない場合は、完全に等価である Reads/Writes/Format を手書きしてください。**
 
 <!--
 ## <a name="wtf-inception-boring">Writing a default case class Reads/Writes/Format is so boring!</a>
@@ -140,7 +141,7 @@ As explained just before:
 -->
 先ほどご説明したとおり、以下のコードと等価です。
 
-```
+<!-- ```
 import play.api.libs.json._
 // please note we don't import functional.syntax._ as it is managed by the macro itself
 
@@ -153,7 +154,21 @@ implicit val personReads = (
   (__ \ 'age).read[Int] and
   (__ \ 'lovesChocolate).read[Boolean]
 )(Person)
-```	
+```	 -->
+```
+import play.api.libs.json._
+// functional.syntax._ はマクロ自身が管理しているので、インポートしないことに気を付けてください
+
+implicit val personReads = Json.reads[Person]
+
+// これは、次のように書くのと完全に等価です
+
+implicit val personReads = (
+  (__ \ 'name).read[String] and
+  (__ \ 'age).read[Int] and
+  (__ \ 'lovesChocolate).read[Boolean]
+)(Person)
+``` 
 
 <!--
 ## <a name="json-incept">Inception equation</a>
@@ -342,7 +357,8 @@ Scala マクロについてはまだまだ説明したいことが沢山ある�
 -->
 # <a name="writes-format">Writes[T] と Format[T]</a>
 
->Please remark that JSON inception just works for structures having `unapply/apply` functions with corresponding input/output types.
+<!-- >Please remark that JSON inception just works for structures having `unapply/apply` functions with corresponding input/output types. -->
+>JSON インセプションは、対応する input/output 型を持つ `unapply/apply` 関数を持つ場合にのみ機能する、ということに気をつけてください。
 
 <!-- Naturally, you can also _incept_ `Writes[T]`and `Format[T]`. -->
 もちろん、(訳注：これまで説明してきたReads[T]だけでなく、) `Writes[T]` や `Format[T]` を _インセプト_ することもできます。
@@ -363,10 +379,13 @@ import play.api.libs.json._
 implicit val personWrites = Json.format[Person]
 ```
 
-## <a name="cando">Special patterns</a>
+<!-- ## <a name="cando">Special patterns</a> -->
+## <a name="cando">特別なパターン</a>
 
-- **You can define your Reads/Writes in your companion object**
-This is useful because then the implicit Reads/Writes is implicitly infered as soon as you manipulate an instance of your class.
+<!-- - **You can define your Reads/Writes in your companion object**
+This is useful because then the implicit Reads/Writes is implicitly infered as soon as you manipulate an instance of your class. -->
+- **コンパニオンオブジェクト中に Reads/Writes を定義することができます**
+クラスを操作するとすぐに、implicit な Reads/Writes が暗黙的に推論されるので、便利です。
 
 ```
 import play.api.libs.json._
@@ -378,7 +397,8 @@ object Person{
 }
 ```
 
-- **You can now define Reads/Writes for single-field case class** (known limitation until 2.1-RC2)
+<!-- - **You can now define Reads/Writes for single-field case class** (known limitation until 2.1-RC2) -->
+- **今のところ、Reads/Writes にはフィールドがひとつだけのケースクラスを定義することができます** (2.1-RC2 からの既知の制限です)
 
 ```
 import play.api.libs.json._
@@ -391,12 +411,15 @@ object Person{
 ```
 
 
-## <a name="limitations">Known limitations</a>
+<!-- ## <a name="limitations">Known limitations</a> -->
+## <a name="limitations">既知の制限</a>
 
-- **Don't override apply function in companion object** because then the Macro will have several apply functions and won't choose.
+<!-- - **Don't override apply function in companion object** because then the Macro will have several apply functions and won't choose.
 - **Json Macros only work when apply and  unapply have corresponding input/output types**: This is naturally the case for case classes. But if you want to the same with a trait, you must implement the same apply/unapply you would have in a case class.
-- **Json Macros are known to accept Option/Seq/List/Set & Map[String, _]**. For other generic types, test and if not working, use traditional way of writing Reads/Writes manually.
-
+- **Json Macros are known to accept Option/Seq/List/Set & Map[String, _]**. For other generic types, test and if not working, use traditional way of writing Reads/Writes manually. -->
+- **コンパニオンオブジェクト内で apply 関数をオーバーライドしないでください。** マクロが複数の apply 関数を持つことになり、選ぶことができません。
+- **Json マクロは apply と unapply が対応する input/output 型を持つ場合にのみ動作します**: これはケースクラスとして自然な状態です。しかし、これをトレイトで行う場合、ケースクラスに含まれることになる apply/unapply と同じものを実装しなければなりません。
+- **Json マクロが Option/Seq/List/Set & Map[String, _] を受け取れる** ことは分かっています。これら以外の総称型については、テストして、もし動作しない場合は、これまで通り手動で Reads/Writes を書いてください。
 
 <!--
 > **Next:** [[Handling and serving JSON requests | ScalaJsonRequests]]
