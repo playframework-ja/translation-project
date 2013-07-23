@@ -7,7 +7,7 @@
 <!--
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) 
 -->
-> 本ドキュメントは Pascal Voitot さん ([@mandubian](http://www.github.com/mandubian)) によって書かれたブログ記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) を元にしています
+> このドキュメントの初出は Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) であることにご注意ください
 
 <!--
 > **This feature is still experimental even if working.**
@@ -128,7 +128,7 @@ Questions you may ask immediately:
 <!--
 > After creating buzzword **JSON coast-to-coast design**, let's call it **JSON INCEPTION**.
 -->
-> **JSON coast-to-coast デザイン** (訳注: 原著者のmandubianさんの造語です。詳細は[こちら|http://mandubian.com/2013/01/13/JSON-Coast-to-Coast/]) というバズワードに倣って、これを **JSON インセプション** と呼びましょう。
+> 勝手に作った **端から端への JSON 設計** というバズワードに倣って、これを **JSON インセプション** と呼ぶことにしましょう。
 
 <br/>
 <br/>
@@ -352,7 +352,7 @@ Naturally, you can also _incept_ `Writes[T]`and `Format[T]`.
 -->
 >JSON インセプションは `unapply/apply` 関数を持つケースクラスに対してのみ機能する、ということに気をつけてください
 
-もちろん、(訳注：これまで説明してきたReads[T]だけでなく、) `Writes[T]` や `Format[T]` を _インセプト_ することもできます。
+もちろん、`Writes[T]` や `Format[T]` を _インセプト_ することもできます。
 
 ## <a name="writes">Writes[T]</a>
 
