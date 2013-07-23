@@ -17,7 +17,7 @@
 <!--
 ## <a name="wtf-inception-boring">Writing a default case class Reads/Writes/Format is so boring!</a>
 -->
-## <a name="wtf-inception-boring">ケースクラスのためにデフォルトの Reads/Writes/Format を書くのは面倒くさい！</a>
+## <a name="wtf-inception-boring">ケースクラスのためにデフォルトの Reads/Writes/Format を書くのは面倒くさい!</a>
 
 <!--
 Remember how you write a `Reads[T]` for a case class.
@@ -44,8 +44,8 @@ You know what?
 We have had a few complaints from some people who think it's not cool to write a `Reads[TheirClass]` because usually Java JSON frameworks like Jackson or Gson do it behind the curtain without writing anything.  
 We argued that Play2.1 JSON serializers/deserializers are:
 -->
-一つのケースクラスのために、４ラインのコードを書きました。
-あなたはどう思いますか？
+ひとつのケースクラスのために、4 行のコードを書きました。
+あなたはどう思いますか?
 人によっては<!--訳注：直訳すると「ある人々は〜と考えています」ですが、日本語でそういう表現はしないと思いますので、「人によっては〜と考えるようです」という表現をします--> `Reads[TheirClass]` を書くというのは格好良くない、と考えるようです。その理由は、Jackson や Gson のような Java の JSON フレームワークが通常そのようなコーディングを全く必要とせずに、カーテンの裏側<!--訳注：「behind the curtain/カーテンの裏側」という比喩表現に対応する日本語が思いつかなかったので、直訳しています-->でよしなに計らってくれるから、というものです。実際、そのように考えている人々からの改善要望も聞いていました。
 そして、私たちは議論の結果、 Play 2.1 の JSON シリアライザ/デシリアライザを以下のようなものにしました。
 
@@ -80,7 +80,7 @@ We believe this is a really good approach so we persisted and proposed:
 <!--
 Added power, but nothing changed for the additional 4 lines.
 -->
-これらの追加によって、コード量の増加を抑えつつ、機能的には先ほどの「４行の追加コード」と同じものを実現します。<!--Added powerを直訳して「力を追加して」と書くと日本語としてわけわからんので、意訳します-->
+これらの追加によって、コード量の増加を抑えつつ、機能的には先ほどの「4 行の追加コード」と同じものを実現します。<!--Added powerを直訳して「力を追加して」と書くと日本語としてわけわからんので、意訳します-->
 
 <!--
 ## <a name="wtf-inception-minimalist">Let's be minimalist</a>
@@ -104,7 +104,7 @@ implicit val personReads = Json.reads[Person]
 1 line only.  
 Questions you may ask immediately:
 -->
-たったの１行です。
+たったの 1 行です。
 今、こんな疑問が浮かんだのではないかと思います。
 
 <!--
@@ -114,17 +114,16 @@ Questions you may ask immediately:
 
 > Does it break type-safety? -> NO
 -->
+> 実行時のバイトコード書き換えをしている? -> いいえ
 
-> 実行時のバイトコード書き換えをしている？ -> いいえ
+> 実行時イントロスペクションを使っている? -> いいえ
 
-> 実行時イントロスペクションを使っている？ -> いいえ
-
-> 型安全性を壊している？ -> いいえ
+> 型安全性を壊している? -> いいえ
 
 <!--
 **So what?**
 -->
-**どういうこと？**
+**どういうこと?**
 
 <!--
 > After creating buzzword **JSON coast-to-coast design**, let's call it **JSON INCEPTION**.
@@ -190,7 +189,7 @@ As you may deduce by yourself, in order to ensure preceding code equivalence, we
 想像がつくかもしれませんが、先ほどのコード等価性を確保するためには、次のものが必要です。
 
 - `Person` ケースクラスのインスペクション
-- `name`、 `age`、 `lovesChocolate` という３つのフィールドとそれらの型
+- `name`, `age`, `lovesChocolate` という 3 つのフィールドとそれらの型
 - 型クラスの implicit 値の解決
 - `Person.apply` を見つける
 
@@ -208,14 +207,14 @@ No I stop you immediately…
 >**Code injection is not dependency injection…**  
 >No Spring behind inception… No IOC, No DI… No No No ;)  
 -->
-> ** コードインジェクションとは、 DI のことではありません…**
-> インセプションの裏に Spring はいません。IOC や DI はいるか、って？…いやいやいや ;)
+> **コードインジェクションとは、 DI のことではありません…**
+> インセプションの裏に Spring はいません。IOC や DI はいるか、って?…いやいやいや ;)
 
 <!--
 I used this term on purpose because I know that injection is now linked immediately to IOC and Spring. But I'd like to re-establish this word with its real meaning.  
 Here code injection just means that **we inject code at compile-time into the compiled scala AST** (Abstract Syntax Tree).
 -->
-私は、一般に「インジェクション」という言葉からは IOC や Spring がすぐ連想される、ということを理解しています。しかし、この用語の本来の意味を改めて確立しなおしたいと考えて、あえてこの用語を使います。ここでのコードインジェクションの意味は、**「コンパイル時に、コンパイル結果としての Scala の AST(Abstract Syntax Tree/抽象構文木)の中に、コードをインジェクトする」**です。
+私は、一般に「インジェクション」という言葉からは IOC や Spring がすぐ連想される、ということを理解しています。しかし、この用語の本来の意味を改めて確立しなおしたいと考えて、あえてこの用語を使います。ここでのコードインジェクションの意味は、**「コンパイル時に、コンパイル結果としての Scala の AST (Abstract Syntax Tree/抽象構文木) の中に、コードをインジェクトする」**です。
 
 
 <!--
@@ -266,16 +265,16 @@ We needed a Scala feature enabling:
 - compile-time class/implicits inspection
 - compile-time code injection
 -->
-私達には以下の３つを実現できる Scala の機能が必要でした。
+私達には以下の 3 つを実現できる Scala の機能が必要でした。
 
 - コンパイル時のコードエンハンスメント
-- コンパイル時のクラス/implicit値のイントロスペクション
+- コンパイル時の、クラス/implicit 値のイントロスペクション
 - コンパイル時のコードインジェクション
 
 <!--
 This is enabled by a new experimental feature introduced in Scala 2.10: [Scala Macros](http://scalamacros.org/)  
 -->
-結果的には、JSON インセプションは Scala 2.10 で新たに導入された試験的な機能「[Scala マクロ](http://scalamacros.org/) によって実装されました。<!--冒頭の This は JSON インセプションのことを指していると解釈しました。JSON インセプション = コンパイル時のコードエンハンスメント/クラス等のイントロスペクション/コードインジェクション であり、Scalaの機能 = Scala マクロ がこれを enable する、という説明がなされているからです。Thisらしく「これは」と訳してもいいのですが、これが何を指しているのか日本語として明確でないと考えたため、「JSON インセプション」と明示的に書きます。-->
+結果的には、JSON インセプションは Scala 2.10 で新たに導入された試験的な機能 [Scala マクロ](http://scalamacros.org/) によって実装されました。<!--冒頭の This は JSON インセプションのことを指していると解釈しました。JSON インセプション = コンパイル時のコードエンハンスメント/クラス等のイントロスペクション/コードインジェクション であり、Scalaの機能 = Scala マクロ がこれを enable する、という説明がなされているからです。Thisらしく「これは」と訳してもいいのですが、これが何を指しているのか日本語として明確でないと考えたため、「JSON インセプション」と明示的に書きます。-->
 
 <!--
 Scala macros is a new feature (still experimental) with a huge potential. You can :
@@ -284,7 +283,7 @@ Scala macros is a new feature (still experimental) with a huge potential. You ca
 - access all imports, implicits in the current compile context
 - create new code expressions, generate compiling errors and inject them into compile chain.
 -->
-Scala マクロは大きなポテンシャルを持った(まだ試験的な)新機能です。これにより以下のことができます。
+Scala マクロは大きなポテンシャルを持った (まだ試験的な) 新機能です。これにより以下のことができます。
 
 - Scala リフレクション API によるコンパイル時のコードイントロスペクション
 - 現在のコンパイル文脈<!--訳注：compile contextに対応する日本語の慣用句が思いつかないので、contextを文脈と直訳しました。意訳するなら「コンパイル時にスコープに存在するimport、implicit値を〜」で良いかもしれません。というか、「コンパイル文脈にあるimport、implicits」って意味わかんないですよねｗ日本語で説明するときにそんな表現しない。しかし、一方で Context は Scala リフレクション APIの用語でもあるので、Scala リフレクション API を知る人なら「文脈」って表現でわかるのかもしれません。Hmm。-->内で import されたものや implicit 値の参照
@@ -305,7 +304,7 @@ Please note that:
 - **要件を満たすためにとりあえず Scala マクロを使っただけで、これが最終形というわけではありません**
 - **マクロは手でベタにかけるコードを生成するためのヘルパーです**
 - **JSON インセプションは未知のコードをカーテン裏にこっそり追加するようなことはしません**
-- **私たちは*「驚き最小の原則」*に従います**
+- **私たちは *驚き最小の原則* に従います**
 
 <!--
 As you may discover, writing a macro is not a trivial process since your macro code executes in the compiler runtime (or universe).  
@@ -317,7 +316,7 @@ As you may discover, writing a macro is not a trivial process since your macro c
          in a future runtime…           
 **That's also certainly why I called it *Inception* ;)**
 -->
-お気づきかもしれませんが、マクロを書くというのは並大抵の仕事ではありません。マクロのコードがコンパイラーのランタイムに(または、 universe の中で)実行されるからです。
+お気づきかもしれませんが、マクロを書くというのは並大抵の仕事ではありません。マクロのコードがコンパイラーのランタイムに (または、 universe の中で) 実行されるからです。
 
     言い換えると、あなたの書くマクロコードは、
       それ自体がコンパイルされ、コンパイラの実行時に呼び出されて、
@@ -376,4 +375,4 @@ implicit val personWrites = Json.format[Person]
 <!--
 > **Next:** [[Handling and serving JSON requests | ScalaJsonRequests]]
 -->
-> ** 次ページ:** [[JSON リクエストとレスポンス | ScalaJsonRequests]]
+> **次ページ:** [[JSON リクエストとレスポンス | ScalaJsonRequests]]
