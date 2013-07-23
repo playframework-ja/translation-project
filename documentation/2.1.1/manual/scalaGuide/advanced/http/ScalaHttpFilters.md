@@ -168,7 +168,7 @@ object LoggingFilter extends EssentialFilter {
 ```
 
 <!-- The key difference here, apart from creating a new `EssentialAction` to wrap the passed in `next` action, is when we invoke next, we get back an `Iteratee`.  You could wrap this in an `Enumeratee` to do some transformations if you wished.  We then `map` the result of the iteratee, and handle it with a partial function, in the same way as in the simple form. -->
-`next` に渡されたアクションをラップするために `EssentialAction` を新しく作っている点は置いておくとして、ここでポイントとなる差異は next を実行すると `Iteratee` が得られる点です。お望みであれば、`Enumeratee` 内においてこれをラップすることで、様々な変換を行うことができます。その後、シンプルなフォームにおいて行ったのと同じ方法で、この iteratee の結果を `map` し、部分関数と共に取り扱います。
+`next` に渡されたアクションをラップするために `EssentialAction` を新しく作っている点は置いておくとして、ここでポイントとなる差異は next を実行すると `Iteratee` が得られる点です。お望みであれば、`Enumeratee` 内においてこれをラップすることで、様々な変換を行うことができます。その後、シンプルなフォームにおいて行ったのと同じ方法で、この iteratee の結果を `map` し、partial function と共に取り扱います。
 
 <!-- > Although it may seem that there are two different filter APIs, there is only one, `EssentialFilter`.  The simpler `Filter` API in the earlier examples extends `EssentialFilter`, and implements it by creating a new `EssentialAction`.  The passed in callback makes it appear to skip the body parsing by creating a promise for the `Result`, and returning that in an `AsyncResult`, while the body parsing and the rest of the action are executed asynchronously. -->
 > 異なるふたつのフィルター API が存在するように見えるかもしれませんが、存在するのはただひとつ、`EssentialFilter` だけです。先の例で登場したシンプルな `Filter` API は `EssentialFilter` を継承し、`EssentialAction` を新しく作ることでこれを実装しています。引数に渡されたコールバックは、リクエストボディを解析して残りのアクションが非同期に実行されている間、`Result` 用の promise を作り、その結果を `AsyncResult` として返すことで、リクエストボディの解析をスキップしているように見せています。
