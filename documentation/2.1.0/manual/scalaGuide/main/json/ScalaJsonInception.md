@@ -6,12 +6,11 @@
 
 <!--
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) 
--->
-> このドキュメントの初出は Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) であることにご注意ください
 
-<!--
 > **This feature is still experimental even if working.**
 -->
+> このドキュメントは、当初 Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) として公開されたものです
+
 > **正しく動いているとしても、この機能はあくまで試験的なものです**
 
 <!--

@@ -3,7 +3,7 @@
 # JSON Reads[T]/Writes[T]/Format[T] コンビネータ
 
 <!-- > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/09/08/unveiling-play-2-dot-1-json-api-part1-jspath-reads-combinators/)  -->
-> このドキュメントの初出は Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/09/08/unveiling-play-2-dot-1-json-api-part1-jspath-reads-combinators/) であることにご注意ください
+> このドキュメントは、当初 Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/09/08/unveiling-play-2-dot-1-json-api-part1-jspath-reads-combinators/) として公開されたものです
 
 <!-- ## Summary of main new features added in <code>Play2.1</code> -->
 ## <code>Play2.1</code> における新機能の概要

@@ -3,7 +3,7 @@
 # <a name="json-to-json">JSON トランスフォーマー</a>
 
 <!-- > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/10/29/unveiling-play-2-dot-1-json-api-part3-json-transformers/)  -->
-> このドキュメントの初出は Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/10/29/unveiling-play-2-dot-1-json-api-part3-json-transformers/) であることにご注意ください
+> このドキュメントは、当初 Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/10/29/unveiling-play-2-dot-1-json-api-part3-json-transformers/) として公開されたものです
 
 <!-- Now you should know how to validate JSON and convert into any structure you can write in Scala and back to JSON. But as soon as I've begun to use those combinators to write web applications, I almost immediately encountered a case : read JSON from network, validate it and convert it into… JSON.  -->
 ここまでで、JSON のバリデーションを行い、Scala で記述できるあらゆる構造に変換し、そして JSON に書き戻す方法は分かったはずです。しかし、これらのコンビネータを使って web アプリケーションを書き始めたとき、ほとんどすぐに私はあるケースに遭遇しました : ネットワークから JSON を読み込み、バリデーションを行い、そしてそれを変換するのです… JSON に。
