@@ -357,7 +357,7 @@ Scala マクロについてはまだまだ説明したいことが沢山ある�
 # <a name="writes-format">Writes[T] と Format[T]</a>
 
 <!-- >Please remark that JSON inception just works for structures having `unapply/apply` functions with corresponding input/output types. -->
->JSON インセプションは、対応する input/output 型を持つ `unapply/apply` 関数を持つ場合にのみ機能する、ということに気をつけてください。
+>JSON インセプションは、`unapply/apply` 関数の入力/出力の型が互いに対応している場合にのみ機能する、ということに気をつけてください。
 
 <!-- Naturally, you can also _incept_ `Writes[T]`and `Format[T]`. -->
 もちろん、`Writes[T]` や `Format[T]` を _インセプト_ することもできます。
@@ -384,7 +384,7 @@ implicit val personWrites = Json.format[Person]
 <!-- - **You can define your Reads/Writes in your companion object**
 This is useful because then the implicit Reads/Writes is implicitly infered as soon as you manipulate an instance of your class. -->
 - **コンパニオンオブジェクト中に Reads/Writes を定義することができます**
-クラスを操作するとすぐに、implicit な Reads/Writes が暗黙的に推論されるので、便利です。
+こうすることで、コンパニオンオブジェクトに対応するクラスのインスタンスを扱う際に implicit な Reads/Writes が暗黙的に推論されるので、便利です。
 
 ```
 import play.api.libs.json._
@@ -397,7 +397,7 @@ object Person{
 ```
 
 <!-- - **You can now define Reads/Writes for single-field case class** (known limitation until 2.1-RC2) -->
-- **今のところ、Reads/Writes にはフィールドがひとつだけのケースクラスを定義することができます** (2.1-RC2 からの既知の制限です)
+- **現在は、フィールドがひとつしかないケースクラスの Reads/Writes を定義することもできます** (2.1-RC2 までは既知の制限でした)
 
 ```
 import play.api.libs.json._
@@ -417,7 +417,7 @@ object Person{
 - **Json Macros only work when apply and  unapply have corresponding input/output types**: This is naturally the case for case classes. But if you want to the same with a trait, you must implement the same apply/unapply you would have in a case class.
 - **Json Macros are known to accept Option/Seq/List/Set & Map[String, _]**. For other generic types, test and if not working, use traditional way of writing Reads/Writes manually. -->
 - **コンパニオンオブジェクト内で apply 関数をオーバーライドしないでください。** マクロが複数の apply 関数を持つことになり、選ぶことができません。
-- **Json マクロは apply と unapply が対応する input/output 型を持つ場合にのみ動作します**: これはケースクラスとして自然な状態です。しかし、これをトレイトで行う場合、ケースクラスに含まれることになる apply/unapply と同じものを実装しなければなりません。
+- **Json マクロは、apply と unapply の入力/出力の型が互いに対応している場合にのみ動作します**: これはケースクラスとして自然な状態です。しかし、これをトレイトで行う場合、ケースクラスに含まれることになる apply/unapply と同じものを実装しなければなりません。
 - **Json マクロが Option/Seq/List/Set & Map[String, _] を受け取れる** ことは分かっています。これら以外の総称型については、テストして、もし動作しない場合は、これまで通り手動で Reads/Writes を書いてください。
 
 <!--
