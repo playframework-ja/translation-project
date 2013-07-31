@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Play 2.1 documentation
 -->
@@ -128,11 +129,16 @@
 -->
 ## Play を Hack する
 
-1. [[Building Play from source | BuildingFromSource]]
+<!-- 1. [[Building Play from source | BuildingFromSource]]
 1. [[3rd Party Tooling | ThirdPartyTools]]
 1. [[Repositories | Repositories]]
 1. [[Issue tracker | Issues]]
-1. [[Contributor guidelines | Guidelines]]
+1. [[Contributor guidelines | Guidelines]] -->
+1. [[ソースから Play をビルドする | BuildingFromSource]]
+1. [[サードパーティツール | ThirdPartyTools]]
+1. [[リポジトリ | Repositories]]
+1. [[課題トラッカ | Issues]]
+1. [[貢献者ガイドライン | Guidelines]]
 
 <!--
 ## Modules and plugins
