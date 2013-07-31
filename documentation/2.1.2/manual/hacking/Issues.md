@@ -2,7 +2,8 @@
 <!-- # Issues tracker -->
 # 課題トラッカ
 
-We use GitHub as our issue tracker, at:
+<!-- We use GitHub as our issue tracker, at: -->
+Play は課題トラッカに GitHub を利用しています。
 
 <https://github.com/playframework/Play20/issues>.
 
