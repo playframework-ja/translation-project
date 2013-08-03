@@ -1,20 +1,25 @@
 package controllers;
 
-import java.io.*;
-import java.util.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import models.Download;
 
-import org.apache.commons.lang.*;
-import org.eclipse.egit.github.core.*;
+import org.apache.commons.lang.StringUtils;
+import org.eclipse.egit.github.core.RepositoryId;
+import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.RequestException;
-import org.eclipse.egit.github.core.service.*;
-import org.jsoup.*;
-import org.jsoup.nodes.*;
-import org.jsoup.select.*;
+import org.eclipse.egit.github.core.service.CollaboratorService;
+import org.eclipse.egit.github.core.service.UserService;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
-import play.*;
-import play.mvc.*;
+import play.Logger;
+import play.Play;
+import play.mvc.Controller;
 
 /**
  * Application controller.
@@ -46,7 +51,8 @@ public class Application extends Controller {
      * documentation action.
      */
     public static void documentation() {
-        redirect(String.format("/documentation/%s/", Play.configuration.getProperty("version.latest")));
+        redirect(String.format("/documentation/%s/",
+                Play.configuration.getProperty("version.latest")));
     }
 
     /**
@@ -103,7 +109,14 @@ public class Application extends Controller {
         }
         return downloads;
     }
-    
+
+    /**
+     * changelog action.
+     */
+    public static void changelog() {
+        render();
+    }
+
     /**
      * get-involved action.
      */
@@ -144,7 +157,7 @@ public class Application extends Controller {
         }
         return list;
     }
-    
+
     /**
      * about action.
      * 
