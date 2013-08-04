@@ -24,14 +24,29 @@
                 </table>
             </div>
 
-
             <p class="updates">
                 <a href="http://twitter.com/playframework">フォローしてリリースアナウンスを受け取ろう</a>
             </p>
 
+            #{if upcomings}
+            <h3>開発中のバージョン</h3>
+            <p>
+                開発版のプレビューリリースです。
+            </p>
+            <table>
+                #{list upcomings, as:'upcoming'}
+                <tr>
+                    <td><a href="${upcoming.url}">${upcoming.name}</a></td>
+                <td width="200">${upcoming.date.format('yyyy/MM/dd', 'ja')}</td>
+                <td width="100">${upcoming.size}M</td>
+                </tr>
+                #{/list}
+            </table>
+            #{/if}
+
             <h3>以前のバージョン</h3>
             <p>
-                古いバージョンの Play をお探しですか? 以下から、いくつかの古いリリースを探してください。
+                古いバージョンの Play をお探しですか? 以下から、古いリリースを探すことができます。
             </p>
 
             <table>
