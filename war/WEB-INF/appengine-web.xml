@@ -1,6 +1,6 @@
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
 	<application>playframework-ja</application>
-	<version>20130731</version>
+	<version>20130805</version>
 	<threadsafe>true</threadsafe>
 </appengine-web-app>
 
