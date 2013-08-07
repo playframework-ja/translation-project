@@ -70,4 +70,5 @@ javascriptEntryPoints <<= (sourceDirectory in Compile)(base =>
 )
 ```
 
-> **Next:** [[Using require.js to manage dependencies | RequireJS-support]]
+<!-- > **Next:** [[Using require.js to manage dependencies | RequireJS-support]] -->
+> **次ページ:** [[依存性の管理に require.js を使う| RequireJS-support]]
