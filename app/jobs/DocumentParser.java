@@ -99,7 +99,12 @@ public class DocumentParser extends Job {
 
         Logger.debug(String.format("version:%s, id:%s", version, id));
 
-        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", version));
+        String srcdir = version;
+        if (srcdir.equals("2.0.5") || srcdir.equals("2.0.6")) {
+            srcdir = "2.0.4";
+        }
+        
+        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", srcdir));
         String ext = isTextile(version) ? "textile" : "md";
         File page = findDown(root, id, ext);
         if (page == null || !page.exists()) {
@@ -136,11 +141,11 @@ public class DocumentParser extends Job {
         args.put("translated", translated);
         String html = template.render(args);
 
-        File dir = new File(Play.applicationPath, String.format("html/%s", version));
-        if (!dir.exists()) {
-            dir.mkdirs();
+        File destdir = new File(Play.applicationPath, String.format("html/%s", version));
+        if (!destdir.exists()) {
+            destdir.mkdirs();
         }
-        File file = new File(dir, String.format("%s.html", id));
+        File file = new File(destdir, String.format("%s.html", id));
         IO.writeContent(html, file);
 
         Logger.debug(String.format("dest:%s", file.getAbsolutePath()));
