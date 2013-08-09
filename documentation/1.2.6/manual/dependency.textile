@@ -12,9 +12,9 @@ Play アプリケーションには三種類の依存性があります:
 
 h2. <a name="format">依存性の書式</a>
 
-A dependency is described by an organisation a name a revision number and optionally a classifier. In the @dependencies.yml@ file you will write it like this:
+依存性は組織名とリビジョン番号、そしてオプションの分類によって記述されます。例えば、以下のように @dependencies.yml@ ファイルに依存性を記述します:
 
-bc. organisation -> name revision
+bc. organisation -> name revision [classifier]
 
 このため、例えば "Play PDF モジュール":http://www.playframework.org/modules/pdf のバージョン 1.0 は以下のように表現されます:
 
@@ -28,7 +28,7 @@ bc. commons-lang -> commons-lang 2.5
 
 bc. commons-lang 2.5
 
-When your dependency has a classifier, you can use this:
+依存性に分類がある場合、次のように書くことができます:
 
 bc. net.sf.json-lib -> json-lib 2.4 jdk15
 
