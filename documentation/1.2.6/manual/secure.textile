@@ -129,15 +129,15 @@ bc. #{secure.check "administrator"}
 
 このタグは認証されたユーザにのみ、そのボディをレンダリングするので、‘Delete’ リンクはユーザが @delete@ コントローラアクションの実行を許可された場合にのみ表示されます。
 
-h2. <a name="configuration">Configuration</a>
+h2. <a name="configuration">設定</a>
 
-You can override default settings by adding them to your applications application.conf.
+アプリケーションの application.conf に設定を追加することで、デフォルト値を上書きすることができます。
 
 h3. <a name="rememberme">secure.rememberme.duration</a>
 
-The expiration duration of the secure rememberme cookie.
+secure モジュールの rememberme cookie の有効期限です。
 
-Default: 30d
+デフォルト: 30d
 
 bc.  secure.rememberme.duration=30d 
 
