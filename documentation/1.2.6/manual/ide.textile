@@ -77,7 +77,7 @@ bc. # play idealize myApp
 # *Main class* 内に @play.server.Server@ を入力する。
 # *VM parameters* 内に @-Dapplication.path="."@ を入力する。
 # *Working directory* 内にアプリケーションパスを入力する。
-# Under *Before launch*, remove @Make@ if exists.
+# *Before launch* 内に @Make@ が存在していたら削除する。
 
 IntelliJ において Play をテストモードで実行するには:
 
