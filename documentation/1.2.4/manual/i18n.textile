@@ -1,135 +1,135 @@
-h1. Internationalization
+h1. 国際化
 
-Internationalisation (I18N) is a means of adapting your application to different languages to allow for regional differences. Follow these steps to enable internationalisation in your application.
+国際化 (I18N) とは、アプリケーションを異なる言語に適応させ、地域の差異を吸収することを意味します。アプリケーションを国際化対応可能にするためには、以下の手順に従ってください。
 
-h2. <a name="utf8">Only use UTF-8!</a>
+h2. <a name="utf8">使用するのは UTF-8 だけ!</a>
 
-Play supports only one encoding: UTF-8. Since encoding problems can be weird and difficult to deal with, we made the choice to support only one encoding. UTF-8 allows you to display all characters for all languages.
+Play はたったひとつの文字エンコーディングをサポートします: UTF-8 です。文字エンコーディングの問題は異様で扱いが難しいので、Play は、ただひとつの文字エンコーディングをサポートすることを選択しました。UTF-8 では、すべての言語のすべての文字を表示することができます。
 
-Be sure to be consistent with UTF-8 usage throughout your application:
+アプリケーション全体を通して、一貫して UTF-8 を使用するよう気を付けてください:
 
-* Edit all your source files as UTF-8
-* Define proper encoding headers in HTTP
-* Set your HTML meta tags to UTF-8
-* If you use a database, configure it to use UTF-8, and always connect to it using UTF-8
+* すべてのソースファイルを UTF-8 として編集してください
+* HTTP ヘッダに適切な文字エンコーディングを定義してください
+* HTML meta タグに UTF-8 を設定してください
+* データベースを使用する場合は、UTF-8 を使用するようデータベースを設定し、常に UTF-8 を使用して接続してください
 
-p(note). **Note**
+p(note). **注意**
  
-The UTF-8 encoding issue is the reason why most of the Play configuration files, even though they are Java properties files, are not named @*.properties@. Java imposes the requirement that properties files must be encoded with the **ISO-8859-1** encoding. Play configuration files must be UTF-8 encoded. Need we say more?
+UTF-8 エンコーディングに関する問題は、Play の設定ファイルのほとんどが、それらが Java プロパティファイルであるにも関わらず、 @*.properties@ と名付けられていない理由です。Java は、プロパティファイルは **ISO-8859-1** でエンコーディングしなければならないという制約を課します。Play の設定ファイルは UTF-8 でエンコーディングしなければなりません。これ以上なにか言う必要はありますか?
 
-h2. <a name="messages">Externalize your messages</a>
+h2. <a name="messages">メッセージの外部化</a>
 
-To support I18N you have to externalize all messages in your application. 
+I18N をサポートするには、アプリケーション中のすべてのメッセージを外部化しなければなりません。
 
-Create a file named @messages@ in the application’s @conf/@ directory. This file is really just a Java properties file.
+アプリケーションの @conf/@ ディレクトリに @messages@ という名前のファイルを作成してください。このファイルは本当にただの Java プロパティファイルです。
 
 bc. hello=Hello!
 back=Back
 
-Then you can define a specific @message@ file for each language used in your application. Just add the ISO language code as a file extension. 
+その後、アプリケーションで使用する言語ごとに、特別な @message@ ファイルを定義することができます。単純に、ISO 言語コードをファイルの拡張子として追加してください。
 
-For example, the message file containing the corresponding French translations is @conf/messages.fr@:
+例えば、対応するフランス語の訳語を含むメッセージファイルは @conf/messages.fr@ です:
 
 bc. hello=Bonjour!
 back=Retour
 
-h2. <a name="languages">Define languages supported by the application</a>
+h2. <a name="languages">アプリケーションがサポートする言語の定義</a>
 
-Define a list of supported languages in the "application.langs configuration":configuration#application.langs.
+サポートする言語のリストを "application.langs 設定":configuration#application.langs に定義してください。
 
-On the first request from a new user, Play will guess the default language to use. It does so by parsing the HTTP @Accept-language@ header. It will then save the chosen language in a @PLAY_LANG@ cookie. So the next request will use the same language.
+新しいユーザからの最初のリクエストの際は、Play は使用するデフォルトの言語を推測します。これは HTTP @Accept-language@ ヘッダを解析して行います。その後、選択した言語を @PLAY_LANG@ クッキーに保存します。このため、次のリクエストは選択した言語を使用します。
 
-You can use language/country pair if you want to distinguish between variant, such as en_US and en_GB, or zh_CN and zh_TW. However, be aware that some users may only expose a language and not a country in their Accept-language. For that reason, you should always provide the "naked" language (e.g. en).
+en_US と en_GB や zh_CN と zh_TW のようなバリアントを区別するために、言語/国のペアを使うこともできます。しかし、あるユーザは Accept-language において言語のみを提示し、国を提示しないかもしれないことに注意してください。このような理由から、常に (例えば en のような) "生の" 言語を提供すべきです。
 
-For example, if most of your users are from US but you also want to support British English, it is recommended to use simply "en" of US English and "en_GB" for British English.
+例えば、ユーザのほとんどが US からやってくるけれど、イギリス英語もサポートしたい場合、アメリカ英語には単に "en" を使い、イギリス英語に "en_GB" を使うことをお勧めします。
 
-From your application code your can retrieve the current language for the user by accessing the @play.i18n.Lang@ object:
+@play.i18n.Lang@ オブジェクトにアクセスすることで、アプリケーションからこのユーザの現在の言語情報を検索することができます:
 
 bc. String lang = Lang.get();
 
-If you want to permanently change the user language, use the change() method:
+このユーザの言語情報を恒久的に変更したい場合は、change() メソッドを使用します:
 
 bc. Lang.change("ja");
 
-The new value will be saved back to the user’s language cookie.
+新しい値は、このユーザの言語クッキーに保存し直されます。
 
 
-h2. <a name="dates">Define date format according to your locale</a>
+h2. <a name="dates">ロケールに沿った日付データフォーマット</a>
 
-Configure "date.format":configuration#date.format to specify the default date format to use.
-
-
-h2(#retrieve). <a>Retrieve localized messages</a>
+"date.format":configuration#date.format を設定して、使用するデフォルトの日付フォーマットを指定します。 
 
 
-h3(#argument). Message arguments
+h2(#retrieve). <a>ローカライズされたメッセージの検索</a>
 
-From the application code, you can retrieve messages defined in message files. From Java, use the @play.i18n.Messages@ object.
+
+h3(#argument). メッセージ引数
+
+メッセージファイルに定義したメッセージをアプリケーションコードから検索することができます。Java からは、 @play.i18n.Messages@ オブジェクトを使用します。
 
 bc. public static void hello() {
     renderText(Messages.get("hello"));
 }
 
-We support message formatting through the standard @java.util.Formatter@ ‘Format string syntax’. You can also define dynamic content in your messages:
+標準的な @java.util.Formatter@ の‘フォーマット文字列構文’をサポートしています。メッセージ中に動的な内容を定義することもできます:
 
 bc. hello=Hello %s!
 
-where @%s@ represents a message argument that will be output as a @String@. Message arguments are provided by additional (varargs) arguments to @Messages.get@:
+@%s@ は @String@ として出力されるメッセージ引数を表しています。メッセージ引数は、 @Messages.get@ の (可変長) 引数に追加することで提供されます:
 
 bc. public static void hello(String user) {
     renderText(Messages.get("hello", user));
 }
 
-h3(#template). Template output
+h3(#template). テンプレート出力
 
-From a template you can use the special @&{…}@ syntax to display localized messages:
+テンプレートでは、特別な @&{…}@ 構文を使ってローカライズされたメッセージを表示することができます:
 
 bc. <h1>&{'hello'}</h1>
 
-or using dynamic content in message arguments:
+メッセージ引数に動的なコンテンツを使うこともできます:
 
 bc. <h1>&{'hello', params.user}</h1>
 
 
-h3(#arguments). Multiple arguments
+h3(#arguments). 複数の引数
 
-You can define multiple message arguments, such as this message which refers to two ‘decimal integer’ arguments:
+以下の二つの ‘10 進数’ の引数を参照するメッセージのように、複数のメッセージ引数を定義することができます:
 
 bc. guess=Please pick a number between %d and %d
 
-which you display by specifying the message arguments in the right order:
+メッセージ引数は表示する順序通りに指定します:
 
 bc. <p>&{'guess', low, high}</p>
 
 
-h3(#indices). Argument indices
+h3(#indices). 引数インデックス
 
-You can also specify the message argument explicitly, to use a different order. For example, suppose a message in English has two parameters:
+明示的に順序を指定したメッセージ引数を使うこともできます。例えば、二つの引数を持つ英語のメッセージがあるとします:
 
 bc. guess.characteristic=Guess %s’s %s.
 
-with message output like:
+以下のようにして出力します:
 
 bc. <p>&{'guess.characteristic', person.name, 'age'}</p>
 
-The French localisation has the two message in the opposite order, so in the French localisation we specify the argument indices:
+フランス語版メッセージの二つの引数は順序が逆なので、フランス語版メッセージでは引数インデックスを指定します:
 
 bc. guess.characteristic=Devinez %2$s de %1$s.
 
-where @%2$s@ outputs the **second** argument as a decimal integer.
+@%2$s@ には **二番目の** 引数が 10 進数として出力されます。
 
-Finally, we want to localise the characteristic name ‘age’ as well, so we would change the output to use the message key @person.age@, and change the message definitions to:
+最後に、特徴的な名称である ‘age’ も国際化したいので、以下のように変更したメッセージ定義と、メッセージキー @person.age@ を使って、出力を変更したいと思います:
 
 bc. guess.characteristic=Guess %s’s &{%s}.
 person.age = age
 
-and
+フランス語版メッセージ定義は以下のように変更します。
 
 bc. guess.characteristic=Devinez &{%2$s} de %1$s.
 person.age = l’age
 
-where @&{%s}@ is itself a message look-up, with the argument value as the message key.
+@&{%s}@ は、それ自身が引数の値をメッセージキーとして、メッセージを引き当てます。
 
-p(note). **Continuing the discussion**
+p(note). **考察を続けます**
  
-Next: %(next)"Cache":cache%.
+次: %(next)"キャッシュ":cache% 
