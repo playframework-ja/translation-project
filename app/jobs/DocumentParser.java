@@ -51,7 +51,7 @@ public class DocumentParser extends Job {
             return;
         }
         for (String version : versions) {
-            File srcDir = new File(Play.applicationPath, String.format("documentation/%s/manual", version));
+            File srcDir = new File(Play.applicationPath, String.format("documentation/%s/manual", srcdir(version)));
             for (File src : sources(srcDir)) {
                 String name = src.getName();
                 String id = name.substring(0, name.lastIndexOf("."));
@@ -64,6 +64,13 @@ public class DocumentParser extends Job {
         }
     }
 
+    private static String srcdir(String version) {
+        if (version.equals("2.0.5") || version.equals("2.0.6")) {
+            return "2.0.4";
+        }
+        return version;
+    }
+    
     /**
      * 
      * @param dir
@@ -71,6 +78,10 @@ public class DocumentParser extends Job {
      */
     private List<File> sources(File dir) {
         List<File> sources = new ArrayList<File>();
+        File[] files = dir.listFiles();
+        if (files.length == 0) {
+            return sources;
+        }
         for (File file : dir.listFiles()) {
             if (file.isDirectory()) {
                 sources.addAll(sources(file));
@@ -99,12 +110,7 @@ public class DocumentParser extends Job {
 
         Logger.debug(String.format("version:%s, id:%s", version, id));
 
-        String srcdir = version;
-        if (srcdir.equals("2.0.5") || srcdir.equals("2.0.6")) {
-            srcdir = "2.0.4";
-        }
-        
-        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", srcdir));
+        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", srcdir(version)));
         String ext = isTextile(version) ? "textile" : "md";
         File page = findDown(root, id, ext);
         if (page == null || !page.exists()) {
