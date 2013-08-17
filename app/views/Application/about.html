@@ -3,7 +3,7 @@
 #{set 'top'}
     &{'about.01'}
 #{/set}
-#{set body:'about' /}
+#{set body:'getInvolved' /}
         <article>
             <h1>&{'about.02'}</h1>
 
@@ -23,7 +23,7 @@
             #{list items:collaborators, as:'collaborator'}
             <div class="coreteam">
                 <a href="${collaborator.htmlUrl}">
-                <img src="${collaborator.avatarUrl}">
+                <img src="${collaborator.avatarUrl}" width="80px" height="80px" />
                     <h2>${collaborator.login}
                     #{if collaborator.name != null}(${collaborator.name})#{/if}
                     </h2>
