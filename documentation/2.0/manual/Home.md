@@ -99,8 +99,8 @@
     1. [[Heroku へデプロイする | ProductionHeroku]]
     1. [[フロントエンド HTTP サーバの設定 | HTTPServer]]
 
-## Additional documentations
-
+<!-- ## Additional documentations -->
+## その他のドキュメント
 
 <!--
 1. [[Scala|http://docs.scala-lang.org/]]
@@ -149,7 +149,10 @@
 > 
 > 追加のドキュメントを提供したい場合は、新しいページとそれらへの参照を wiki 上に作成してください。コアチームがもっとも適当なセクションへの統合を検討します。
 
-### To be integrated:
+<!-- ### To be integrated: -->
+### 統合予定:
 
-1. [[Missing parts | Missing]]
-1. [[Tips and tricks | Tips]]
+<!-- 1. [[Missing parts | Missing]]
+1. [[Tips and tricks | Tips]] -->
+1. [[欠落している部分 | Missing]]
+1. [[Tips とトリック | Tips]]
