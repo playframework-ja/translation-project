@@ -28,7 +28,8 @@ Be sure to have the `java` and `javac` commands in the current path (you can che
 -->
 ## バイナリパッケージのダウンロード
 
-Download the [[Play 2.0 binary package | http://download.playframework.org/releases/play-2.0.zip]] and extract the archive to a location where you have both read **and write** access. (Running `play` writes some files to directories within the archive, so don't install to `/opt`, `/usr/local` or anywhere else you’d need special permission to write to.)
+<!-- Download the [[Play 2.0 binary package | http://download.playframework.org/releases/play-2.0.zip]] and extract the archive to a location where you have both read **and write** access. (Running `play` writes some files to directories within the archive, so don't install to `/opt`, `/usr/local` or anywhere else you’d need special permission to write to.) -->
+[[Play 2.0 バイナリパッケージ | http://download.playframework.org/releases/play-2.0.zip]] をダウンロードし、書き込み・読み込み権限がある場所に展開してください。（Play の実行中ファイルがアーカイブ内のディレクトリに書き込まれるので、`/opt` にインストールするのではなく、`/usr/local` か書き込み権限のある場所にインストールしてください）
 
 <!--
 ## Add the play script to your PATH
@@ -47,7 +48,8 @@ export PATH=$PATH:/path/to/play20
 export PATH=$PATH:/path/to/play20
 ```
 
-On Windows you’ll need to set it in the global environment variables.
+<!-- On Windows you’ll need to set it in the global environment variables. -->
+Windows では、システム環境変数を設定する必要があります。
 
 <!--
 > If you’re on UNIX, make sure that the `play` script is executable (otherwise do a `chmod a+x play`).
