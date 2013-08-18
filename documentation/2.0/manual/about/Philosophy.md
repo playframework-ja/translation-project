@@ -54,7 +54,8 @@ One benefit of using a statically-typed programming language for writing Play ap
 -->
 Play のアプリケーションを書くための言語として 静的型付け言語を使う利点の一つは、コンパイラがコードのある部分をチェックできるという点にあります。これは、開発プロセスの早期にミスを検出するのに有効であるのみならず、多くの開発者が参加する大規模なプロジェクトでの作業をとても容易にしてくれます。
 
-Adding Scala to the mix for Play 2.0, we clearly benefit from even stronger compiler guarantees - but that’s not enough. In Play 1.x, the template system was dynamic, based on the Groovy language, and the compiler couldn’t do much for you. As a result, errors in templates were could only be detected at run-time. The same goes for verification of glue code with controllers.
+<!-- Adding Scala to the mix for Play 2.0, we clearly benefit from even stronger compiler guarantees - but that’s not enough. In Play 1.x, the template system was dynamic, based on the Groovy language, and the compiler couldn’t do much for you. As a result, errors in templates were could only be detected at run-time. The same goes for verification of glue code with controllers. -->
+Play 2.0 の中に Scala を追加することで、私たちは間違いなく、コンパイラによるさらに強力な保障という利点を得ることになります - しかし、それでもまだ十分ではありません。Play 1.x では、テンプレートシステムは動的なものであり、 Groovy に基づくもので、コンパイラにできることはそれほどありませんでした。その結果、テンプレートで発生するエラーは、実行時にしか検出できなかったのです。これは、コントローラとの間を取り持つコードの検証についても同じことが言えました。
 
 <!--
 In version 2.0, we really wanted to push this idea of having Play check most of your code at compilation time further. This is why we decided to use the Scala-based template engine as the default for Play applications - even for developers using Java as the main programming language. This doesn’t mean that you have to become a Scala expert to write templates in Play 2.0, just as you were not really required to know Groovy to write templates in Play 1.x.
@@ -121,7 +122,8 @@ Existing Java build systems, however, were not flexible enough to support this n
 -->
 一方で、既存の Java のビルドシステムは、この新しいアプローチをサポートするには、柔軟性が不足していました。私たちは、Play のアプリケーションを実行し、デプロイするための単純明快なツールを提供したいと考えていたことから、Play 1.x では ビルドとデプロイメントのタスクのすべてを処理するために、Python スクリプトの集合体を作り上げました。
 
-Meanwhile, developers using Play for more enterprise-scale projects, which require build process customization and integration with their existing company build systems, were a bit lost. The Python scripts we provide with Play 1.x are in no way a fully-featured build system and are not easily customizable. That’s why we’ve decided to go for a more powerful build system for Play 2.0.
+<!-- Meanwhile, developers using Play for more enterprise-scale projects, which require build process customization and integration with their existing company build systems, were a bit lost. The Python scripts we provide with Play 1.x are in no way a fully-featured build system and are not easily customizable. That’s why we’ve decided to go for a more powerful build system for Play 2.0. -->
+しかし、ビルドのプロセスのカスタマイズや、企業内の既存のビルドシステムとの統合が求められる、よりエンタープライズ規模のプロジェクトで Play を使っている開発者の方々は、少々困っていました。私たちが Play 1.x で提供していた Python のスクリプト群は、完全な機能を完備したビルドシステムではまったくありませんでしたし、カスタマイズも容易ではありませんでした。これが、私たちが Play 2.0 でさらに強力なビルドシステムへ舵を切ることを決めた理由です。
 
 <!--
 Since we need a modern build tool, flexible enough to support Play original conventions and able to build Java and Scala projects, we have chosen to integrate sbt in Play 2.0. This, however, should not scare existing Play users who are happy with the simplicity of the original Play build. We are leveraging the same simple `play new`, `run`, `start` experience on top of an extensible model: Play 2.0 comes with a preconfigured build script that will just work for most users. On the other hand, if you need to change the way your application is built and deployed, the fact that a Play project is a standard sbt project gives you all the power you need to customize and adapt it.
