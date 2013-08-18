@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Sample applications
 -->
@@ -149,7 +150,11 @@ This mobile web application monitors Play server performance. It demonstrates:
 -->
 - Enumerator と Enumeratee の高度な利用
 
-> **Next:** 
+<!-- > **Next:** 
 >
 >   - [[Play 2.0 for Scala developers | ScalaHome]]
->   - [[Play 2.0 for Java developers | JavaHome]]
+>   - [[Play 2.0 for Java developers | JavaHome]] -->
+> **Next:** 
+>
+>   - [[Scala 開発者のための Play 2.0 | ScalaHome]]
+>   - [[Java 開発者のための Play 2.0 | JavaHome]]
