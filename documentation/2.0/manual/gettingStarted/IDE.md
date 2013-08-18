@@ -1,4 +1,6 @@
-# Setting-up your preferred IDE
+<!-- translated -->
+<!-- # Setting-up your preferred IDE -->
+# 好きな IDE で開発する
 
 <!--
 Working with Play is easy. You don’t even need a sophisticated IDE, because Play compiles and refreshes the modifications you make to your source files automatically, so you can easily work using a simple text editor.
@@ -38,11 +40,14 @@ You can also start your application with `play debug run` and then you can use t
 -->
 `play debug run` でアプリケーションを起動すると、**Debug AS** をつかってデバッグセッションを開始できる the Connect JPDA launcher を使うことができます。デバッグセッションを停止しても、サーバは停止しません。
 
-> Workaround Scala Template with Play 2.0 RC2 and Scala IDE : run your application using `~ run` to enable direct compilation on file change. This way scala templates files are auto discovered when you create new template in `view` and auto compiled when file change. If you use normal `run` then you have to hit `Refresh` on you browser each time. Play team will check this issue with Scala IDE team.  (source : http://bit.ly/wCyR5j)
+<!-- > Workaround Scala Template with Play 2.0 RC2 and Scala IDE : run your application using `~ run` to enable direct compilation on file change. This way scala templates files are auto discovered when you create new template in `view` and auto compiled when file change. If you use normal `run` then you have to hit `Refresh` on you browser each time. Play team will check this issue with Scala IDE team.  (source : http://bit.ly/wCyR5j) -->
+> Play 2.0 RC2 と Scala IDE で Scala Template を使う際の回避策 : `~ run` を使ってアプリケーションを起動することで、ファイルを変更するとすぐにコンパイルされるようになります。こうすることで、`view` ディレクトリに scala テンプレートを新しく作成すると自動的に検出され、ファイルを変更すると自動的にコンパイルされます。通常の `run` を使った場合、毎回ブラウザで `更新` を叩く必要があります。Play チームは、この問題について Scala IDE チームと確認していきます。(ソース : http://bit.ly/wCyR5j)
 
-If you make any important changes to your application, such as changing the classpath, use `eclipsify` again to regenerate the configuration files.
+<!-- If you make any important changes to your application, such as changing the classpath, use `eclipsify` again to regenerate the configuration files. -->
+クラスパスの変更のようなアプリケーションにとって重要な変更を行った場合、`eclipsify` コマンドを使って設定ファイルの再作成を行います。
 
-> Tip: Do not commit Eclipse configuration files when you work in a team!
+<!-- > Tip: Do not commit Eclipse configuration files when you work in a team! -->
+> Tip: チームで作業を行なっている場合は Eclipse の設定ファイルはコミットしないようにしてください。
 
 <!--
 The generated configuration files contain absolute references to your framework installation. These are specific to your own installation. When you work in a team, each developer must keep his Eclipse configuration files private.
@@ -72,7 +77,8 @@ You then need to import the application into your project (File->New Module->Imp
 
 [[images/idea.png]] 
 
-> Tip: There is an [Intellij IDEA issue](http://devnet.jetbrains.net/thread/433870) regarding building Java based Play2 apps while having the scala plugin installed. Until it's fixed, the recommended workaround is to disable scala plugin.
+<!-- > Tip: There is an [Intellij IDEA issue](http://devnet.jetbrains.net/thread/433870) regarding building Java based Play2 apps while having the scala plugin installed. Until it's fixed, the recommended workaround is to disable scala plugin. -->
+> Tip: scala プラグインがインストールされている場合、Java ベースの Play2 アプリで [IntelliJ の問題](http://devnet.jetbrains.net/thread/433870) が発生しています。この問題が解決するまでは、scala プラグインを無効にすることが推奨されます。
 
 <!--
 To debug, first add a debug configuration
@@ -172,10 +178,17 @@ Now run
 $ play netbeans
 ```
 
-> **Next:** 
+<!-- > **Next:** 
 >
 > - Explore the [[sample applications | Samples]]
 >
 > - Read the Play 2.0 manual:
 >     - [[Play 2.0 for Scala developers | ScalaHome]]
->     - [[Play 2.0 for Java developers | JavaHome]]
+>     - [[Play 2.0 for Java developers | JavaHome]] -->
+> **Next:** 
+>
+> - [[サンプルアプリケーション | Samples]] を調べる
+>
+> - Play 2.0 マニュアルを読む:
+>     - [[Scala 開発者のための Play 2.0 | ScalaHome]]
+>     - [[Java 開発者のための Play 2.0 | JavaHome]]
