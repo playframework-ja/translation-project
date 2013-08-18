@@ -36,13 +36,19 @@
 -->
 ### 詳細なトピック
 
-- [[The Build system | Build]]
+<!-- - [[The Build system | Build]]
 - [[Working with public assets | Assets]]
 - [[Managing database evolutions | Evolutions]]
 - [[Configuration | Configuration]]
-- [[Deploying your application | Production]]
+- [[Deploying your application | Production]] -->
+- [[ビルドシステム | Build]]
+- [[公開アセットを使う | Assets]]
+- [[Evolutions でデータベースを管理する | Evolutions]]
+- [[設定 | Configuration]]
+- [[アプリケーションのデプロイ | Production]]
 
-### Additional documentations
+<!-- ### Additional documentations -->
+### その他のドキュメント
 
 - [[Scala|http://docs.scala-lang.org/]]
 - [[Akka|http://akka.io/docs/]]
