@@ -55,8 +55,7 @@ You then need to import the application into your Workspace with the **File/Impo
 <!--
 You can also start your application with `play debug run` and then you can use the Connect JPDA launcher using **Debug As** to start a debugging session at any time. Stopping the debugging session will not stop the server.
 -->
-`play debug run` でアプリケーションを起動すると、**Debug AS** をつかってデバッグセッションを開始できる the Connect JPDA launcher を使うことができます。
-デバッグセッションを停止しても、サーバは停止しません。
+`play debug run` でアプリケーションを起動すると、**Debug AS** をつかってデバッグセッションを開始できる the Connect JPDA launcher を使うことができます。デバッグセッションを停止しても、サーバは停止しません。
 
 
 <!--
@@ -67,7 +66,7 @@ You can also start your application with `play debug run` and then you can use t
 <!--
 If you make any important changes to your application, such as changing the classpath, use `eclipse` again to regenerate the configuration files.
 -->
-クラスパスの変更のようなアプリケーションにとって重要な変更を行った場合、`eclipsify` コマンドを使って設定ファイルの再作成を行います。
+クラスパスの変更のようなアプリケーションにとって重要な変更を行った場合、`eclipse` コマンドを使って設定ファイルの再作成を行います。
 
 <!--
 > **Tip**: Do not commit Eclipse configuration files when you work in a team!
