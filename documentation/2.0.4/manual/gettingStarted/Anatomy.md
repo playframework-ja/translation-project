@@ -47,7 +47,6 @@ target                   → Generated stuff
 test                     → source folder for unit or functional tests
 ```
 -->
-
 ```
 app                      → アプリケーションのソースコード
  └ assets                → 別の言語へコンパイルされるアセットのソースファイル

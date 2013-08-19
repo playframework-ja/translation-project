@@ -23,7 +23,7 @@ app                      → Application sources
  └ controllers           → Application controllers
  └ models                → Application business layer
  └ views                 → Templates
-conf                     → Configurations files
+conf                     → Configurations files and other non-compiled resources (on classpath)
  └ application.conf      → Main configuration file
  └ routes                → Routes definition
 public                   → Public assets
@@ -44,9 +44,9 @@ target                   → Generated stuff
     └ classes_managed    → Managed class files (templates, ...)
     └ resource_managed   → Managed resources (less, ...)
     └ src_managed        → Generated sources (templates, ...)
+test                     → source folder for unit or functional tests
 ```
 -->
-
 ```
 app                      → アプリケーションのソースコード
  └ assets                → 別の言語へコンパイルされるアセットのソースファイル
@@ -55,7 +55,7 @@ app                      → アプリケーションのソースコード
  └ controllers           → アプリケーションのコントローラ
  └ models                → アプリケーションのビジネスロジック層
  └ views                 → テンプレート
-conf                     → 設定ファイル
+conf                     → 設定ファイルおよびその他のコンパイルされていないリソース
  └ application.conf      → メイン設定ファイル
  └ routes                → ルート定義
 public                   → 公開アセット
