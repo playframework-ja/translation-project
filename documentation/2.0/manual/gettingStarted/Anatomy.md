@@ -1,3 +1,4 @@
+<!-- translated -->
 <!--
 # Anatomy of a Play 2.0 application
 -->
@@ -13,7 +14,7 @@ The layout of a Play application is standardized to keep things as simple as pos
 -->
 Play アプリケーションのファイル構成は、できるだけシンプルさを重視して標準化されています。Play アプリケーションの標準的なファイル構成は、以下のようになっています。
 
-```
+<!-- ```
 app                      → Application sources
  └ assets                → Compiled asset sources
     └ stylesheets        → Typically LESS CSS sources
@@ -43,6 +44,37 @@ target                   → Generated stuff
     └ resource_managed   → Managed resources (less, ...)
     └ src_managed        → Generated sources (templates, ...)
 test                     → source folder for unit or functional tests
+``` -->
+```
+app                      → アプリケーションのソースコード
+ └ assets                → 別の言語へコンパイルされるアセットのソースファイル
+    └ stylesheets        → 通常は LESS CSS のソース
+    └ javascripts        → 通常は CoffeeScript のソース
+ └ controllers           → アプリケーションのコントローラ
+ └ models                → アプリケーションのビジネスロジック層
+ └ views                 → テンプレート
+conf                     → 設定ファイル
+ └ application.conf      → メイン設定ファイル
+ └ routes                → ルート定義
+public                   → 公開アセット
+ └ stylesheets           → CSS ファイル
+ └ javascripts           → JavaScript ファイル
+ └ images                → 画像ファイル
+project                  → sbt 設定ファイル
+ └ build.properties      → sbt プロジェクトの基本ファイル
+ └ Build.scala           → アプリケーションのビルドスクリプト
+ └ plugins.sbt           → sbt プラグイン
+lib                      → 管理されないライブラリ依存性
+logs                     → デフォルトのログ保存場所
+ └ application.log       → デフォルトのログファイル
+target                   → Play により生成されたファイル
+ └ scala-2.9.1              
+    └ cache              
+    └ classes            → コンパイルされたクラスファイル
+    └ classes_managed    → Play 管理下のクラスファイル (テンプレートなど)
+    └ resource_managed   → Play 管理下のリソース (less など)
+    └ src_managed        → 生成された中間コード (テンプレートなど)
+test                     → 単体テストや機能テストのソースフォルダ
 ```
 
 <!--
