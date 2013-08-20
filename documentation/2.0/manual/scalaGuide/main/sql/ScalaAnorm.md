@@ -163,7 +163,8 @@ val sqlQuery = SQL(
 )
 ```
 
-If your SQL query needs dynamic parameters, you can declare placeholders like `{name}` in the query string, and later assign them a value:
+<!-- If your SQL query needs dynamic parameters, you can declare placeholders like `{name}` in the query string, and later assign them a value: -->
+もし SQL クエリが動的なパラメータをとるような場合、`{name}` のようなプレースホルダをクエリ文字列内に宣言して、後でそこに値を埋め込むことができます。
 
 ```scala
 SQL(
@@ -200,7 +201,8 @@ val countries = selectCountries().map(row =>
 ).toList
 ```
 
-In the following example we will count the number of `Country` entries in the database, so result set will be a single row with a single column:
+<!-- In the following example we will count the number of `Country` entries in the database, so result set will be a single row with a single column: -->
+次の例ではデータベース内の `Country` の個数を数えます。ResultSet は一カラム・一行になります。
 
 ```scala
 // First retrieve the first row
@@ -220,7 +222,8 @@ You can also use Pattern Matching to match and extract the `Row` content. In thi
 -->
 `Row` の内容を抽出するためにパターンマッチを利用することができます。このケースでは、カラム名は関係ありません。パラメータの順番と型だけがパターンマッチの際に考慮されます。
 
-The following example transform each row to the correct Scala type:
+<!-- The following example transform each row to the correct Scala type: -->
+次の例は各行を適切な Scala の型に変換します。
 
 ```scala
 case class SmallCountry(name:String) 
@@ -260,7 +263,8 @@ SQL("Select name,indepYear from Country")().collect {
 }
 ```
 
-If you try to match this column as `Int` it won’t be able to parse `Null` cases. Suppose you try to retrieve the column content as `Int` directly from the dictionary:
+<!-- If you try to match this column as `Int` it won’t be able to parse `Null` cases. Suppose you try to retrieve the column content as `Int` directly from the dictionary: -->
+このカラムを `Int` としてマッチさせようとすると、`Null` の場合をパースできません。辞書から カラムの内容を `Int` として取得する場合を考えてみましょう。
 
 ```scala
 SQL("Select name,indepYear from Country")().map { row =>
@@ -360,13 +364,15 @@ val result:List[String~Int] = {
 }
 ```
 
-Now what about the `String~Int` type? This is an **Anorm** type that is not really convenient to use outside of your database access code. You would want have a simple tuple `(String, Int)` instead. You can use the `map` function on a `RowParser` to transform its result to a more convenient type:
+<!-- Now what about the `String~Int` type? This is an **Anorm** type that is not really convenient to use outside of your database access code. You would want have a simple tuple `(String, Int)` instead. You can use the `map` function on a `RowParser` to transform its result to a more convenient type: -->
+さて、`String~Int` という型は一体何でしょうか？これは **Anorm** で定義されている型で、データベースアクセスに関するコード以外での利用には適していません。例えば、`(String, Int)` のような単純なタプルをパースしたいことが多いでしょう。そのためには、 `RowParser` の `map` 関数を使って、結果をもっと便利な型に変換します。
 
 ```scala
 str("name") ~ int("population") map { case n~p => (n,p) }
 ```
 
-> **Note:** We created a tuple `(String,Int)` here, but there is nothing stoping you from transforming the `RowParser` result to any other type, such as a custom case class.
+<!-- > **Note:** We created a tuple `(String,Int)` here, but there is nothing stoping you from transforming the `RowParser` result to any other type, such as a custom case class. -->
+> **Note:** この例では `(String,Int)` というタプルを生成しましたが、`RowParser` の結果をもっと別の型に変換しても何ら問題ありません。例えば、何らかの case class に変換してもよいでしょう。
 
 <!--
 Now, because transforming `A~B~C` types to `(A,B,C)` is a common task, we provide a `flatten` function that does exactly that. So you finally write:
