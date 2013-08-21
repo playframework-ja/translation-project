@@ -393,7 +393,8 @@ Let’s write a more complicated parser:
 -->
 もっと複雑なパーサーを書いてみましょう。
 
-`str("name") ~ int("population")`, will create a `RowParser` able to parse a row containing a String `name` column and an Integer `population` column. Then we can create a `ResultSetParser` that will parse as many rows of this kind as it can, using `*`: 
+<!-- `str("name") ~ int("population")`, will create a `RowParser` able to parse a row containing a String `name` column and an Integer `population` column. Then we can create a `ResultSetParser` that will parse as many rows of this kind as it can, using `*`:  -->
+`str("name") ~ int("population")` は、文字列型の `name` 列と、Integer 型の `population` 列を含む行をパースできる `RowParser` を作ります。それから `*` を使って、複数のこのような行をパースする `ResultSetParser` を作ることができます:
 
 ```scala
 val populations:List[String~Int] = {
@@ -427,7 +428,7 @@ str("name") ~ int("population") map { case n~p => (n,p) }
 ```
 
 <!--
-> **Note:** We created a tuple `(String,Int)` here, but there is nothing stopping you from transforming the `RowParser` result to any other type, such as a custom case class.
+> **Note:** We created a tuple `(String,Int)` here, but there is nothing stoping you from transforming the `RowParser` result to any other type, such as a custom case class.
 -->
 > **Note:** この例では `(String,Int)` というタプルを生成しましたが、`RowParser` の結果をもっと別の型に変換しても何ら問題ありません。例えば、何らかの case class に変換してもよいでしょう。
 

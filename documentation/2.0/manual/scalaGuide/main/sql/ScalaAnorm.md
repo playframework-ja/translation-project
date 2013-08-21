@@ -340,7 +340,8 @@ Let’s write a more complicated parser:
 -->
 もっと複雑なパーサーを書いてみましょう。
 
-`str("name") ~ int("population")`, will create a `RowParser` able to parse a row containing a String `name` column and an Integer `population` column. Then we can create a `ResultSetParser` that will parse as many rows of this kind as it can, using `*`: 
+<!-- `str("name") ~ int("population")`, will create a `RowParser` able to parse a row containing a String `name` column and an Integer `population` column. Then we can create a `ResultSetParser` that will parse as many rows of this kind as it can, using `*`:  -->
+`str("name") ~ int("population")` は、文字列型の `name` 列と、Integer 型の `population` 列を含む行をパースできる `RowParser` を作ります。それから `*` を使って、複数のこのような行をパースする `ResultSetParser` を作ることができます:
 
 ```scala
 val populations:List[String~Int] = {
