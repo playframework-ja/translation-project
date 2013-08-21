@@ -29,7 +29,8 @@ Play アプリケーションには、アプリケーション自身が使う特
 -->
 > **Note:** 独自のアクターシステムを利用しても全く問題ありません。デフォルトのアクターシステムは、実行するアクターの数が少なく、別のアクター・システムを自分で用意するまでもないような場合に利用するとよいでしょう。
 
-You can access the default application actor system using the `play.libs.concurrent.Akka` helper:
+<!-- You can access the default application actor system using the `play.libs.concurrent.Akka` helper: -->
+アプリケーションのデフォルトのアクターシステムを利用するためには、`play.libs.concurrent.Akka` ヘルパーを利用します。
 
 ```scala
 val myActor = Akka.system.actorOf(Props[MyActor], name = "myactor")
@@ -60,7 +61,8 @@ akka.debug.receive = on
 -->
 ## Akka `Future` から Play `Promise` への変換
 
-When you interact asynchronously with an Akka actor we will get `Future` object. You can easily convert it to a Play `Promise` using the implicit conversion provided in `play.libs.Akka._`:
+<!-- When you interact asynchronously with an Akka actor we will get `Future` object. You can easily convert it to a Play `Promise` using the implicit conversion provided in `play.libs.Akka._`: -->
+Akka アクターと非同期的にやり取りをすると、 `Future` オブジェクトが返ってきます。`play.libs.Akka._` に用意されている implicit conversion を利用すると、この `Future` を Play の `Promise` オブジェクトに簡単に変換することができます。
 
 ```scala
 def index = Action {
