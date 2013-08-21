@@ -84,7 +84,8 @@ object Global extends GlobalSettings {
 -->
 ## アクションが存在しない場合のエラー処理
 
-If the framework doesn’t find an `Action` for a request, the `onActionNotFound` operation will be called:
+<!-- If the framework doesn’t find an `Action` for a request, the `onActionNotFound` operation will be called: -->
+フレームワークがリクエストに対応する `Action` を見つけられなかった場合、`onActionNotFound` 操作が呼び出されます。
 
 ```scala
 import play.api._
