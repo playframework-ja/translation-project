@@ -64,9 +64,9 @@ akka.actor.debug.receive = on
 ## Akka `Future` から Play `Promise` への変換
 
 <!--
-When you interact asynchronously with an Akka actor we will get `Future` object. You can easily convert it to a Play `Promise` using the implicit conversion provided in `play.libs.Akka._`:
+When you interact asynchronously with an Akka actor we will get `Future` object. You can easily convert it to a Play `Promise` using the implicit conversion provided in `play.api.libs.concurrent._`:
 -->
-Akka アクターと非同期的にやり取りをすると、 `Future` オブジェクトが返ってきます。`play.libs.Akka._` に用意されている implicit conversion を利用すると、この `Future` を Play の `Promise` オブジェクトに簡単に変換することができます。
+Akka アクターと非同期的にやり取りをすると、 `Future` オブジェクトが返ってきます。`play.api.libs.concurrent._` に用意されている implicit conversion を利用すると、この `Future` を Play の `Promise` オブジェクトに簡単に変換することができます。
 
 ```scala
 def index = Action {
