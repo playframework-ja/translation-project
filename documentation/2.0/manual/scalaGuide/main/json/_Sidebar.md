@@ -4,8 +4,10 @@
 -->
 ### JSON を使う
 
-- [[The Play Json library | ScalaJson]]
-- [[Handling and serving Json requests | ScalaJsonRequests]]
+<!-- - [[The Play Json library | ScalaJson]]
+- [[Handling and serving Json requests | ScalaJsonRequests]] -->
+- [[Play の JSON ライブラリ | ScalaJson]]
+- [[JSON リクエストと JSON レスポンス | ScalaJsonRequests]]
 
 <!--
 ### Main concepts
