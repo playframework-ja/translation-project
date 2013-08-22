@@ -39,13 +39,15 @@ Now that Play is correctly installed, it’s time to create the new application.
 -->
 Play が正しくインストールされているとして、新しくアプリケーションを作成してみましょう。 Play アプリケーションを作成する事はとても簡単であり、 Play コマンドで全て管理されています。全ての Play アプリケーション間で標準のプロジェクト構成になります。
 
-On the command line and type:
+<!-- On the command line and type: -->
+コマンドラインで以下のように入力してください:
 
 ```
 $ play new todolist
 ```
 
-It will prompt you for a few question. Select the _Create a simple Scala application_ project template.
+<!-- It will prompt you for a few question. Select the _Create a simple Scala application_ project template. -->
+いくつかの質問が表示されます。 _Create a simple Scala application_ プロジェクトのテンプレートを選択しましょう。
 
 [[images/new.png]]
 
@@ -54,11 +56,16 @@ The `play new` command creates a new directory `todolist/` and populates it with
 -->
 `play new` コマンドが新しいディレクトリ `todolist/` を作成し、一連のファイル、ディレクトリを生成します、重要なファイルは以下の通りです:
 
-- `app/` contains the application’s core, split between models, controllers and views directories. This is the directory where .scala source files live.
+<!-- - `app/` contains the application’s core, split between models, controllers and views directories. This is the directory where .scala source files live.
 - `conf/` contains all the application’s configuration files, especially the main `application.conf` file, the `routes` definition files and the `messages` files used for internationalization.
 - `project` contains the build scripts. The build system is based on sbt. But a new play application comes with a default build script that will just works fine for our application.
 - `public/` contains all the publicly available resources, which includes JavaScript, stylesheets and images directories.
-- `test/` contains all the application tests. Tests are written either as Specs2 specifications.
+- `test/` contains all the application tests. Tests are written either as Specs2 specifications. -->
+- `app/` ディレクトリには models 、 controllers 、そして views ディレクトリに分かれたアプリケーションのコアが入っています。本ディレクトリには .scala ソースファイルが入っています。
+- `conf/` ディレクトリには全てのアプリケーションの設定ファイル (特にメインとなる `application.conf` ファイル、 `routes` 定義ファイル、国際化のための `messages` ファイル) が入っています。
+- `project` ディレクトリにはビルドスクリプトが入っています。ビルドシステムは sbt に基づいています。新しい play アプリケーションはアプリケーションを正常動作させるデフォルトのビルドスクリプトが同梱されています。
+- `public/` ディレクトリには全てのパブリックに利用可能なリソース (JavaScript 、スタイルシート、画像イメージ) が入っています。
+- `test/` ディレクトリにはアプリケーションのテストが入っています。 テストは Specs2 の仕様で書かれています。
 
 <!--
 > Because Play uses UTF-8 as single encoding, it’s very important that all text files hosted in these directories are encoded using this charset. Make sure to configure your text editor accordingly.
@@ -237,7 +244,8 @@ As you see errors are beautifully displayed directly in your browser.
 -->
 ## アプリケーションの準備
 
-For our to do list application, we need a few actions and the corresponding urls. Let’s start by defining the **routes**. 
+<!-- For our to do list application, we need a few actions and the corresponding urls. Let’s start by defining the **routes**.  -->
+本 TODO 管理アプリケーションのために、いくつかのアクションと一致する url が必要になります。 **routes** ファイルを定義することから始めましょう。
 
 <!--
 Edit the `conf/routes` file:
@@ -259,7 +267,8 @@ We create a route to list all tasks, and a couple of others to handle task creat
 -->
 全てのタスクを一覧する route 定義を作成し、タスクの作成と削除を処理する2つの定義を作成します。タスク削除を扱うための route には URL パス内に `id` 変数を定義しています。 `id` の値は `Action` を作成する `deleteTask` メソッドへ渡されます。
 
-Now if your reload in your browser, you will see that Play cannot compile your `routes` file:
+<!-- Now if your reload in your browser, you will see that Play cannot compile your `routes` file: -->
+ブラウザをリロードすれば、 Play が `routes` ファイルをコンパイルできないことが確認できます。
 
 [[images/routes.png]]
 
@@ -284,7 +293,8 @@ object Application extends Controller {
 }
 ```
 
-As you see we use `TODO` to define our action implementations. Because we don’t want to write the action implementations yet, we can use the built-in `TODO` action that will return a `503 Not Implemented` HTTP response. 
+<!-- As you see we use `TODO` to define our action implementations. Because we don’t want to write the action implementations yet, we can use the built-in `TODO` action that will return a `503 Not Implemented` HTTP response.  -->
+上記のコードでアクションの暫定的な実装をするために `TODO` という定義を使用しました。まだアクションの実装を書きたくない場合に、ビルドインの `TODO` アクションを使用することが可能です。このアクションからは `503 Not Implemented` HTTP レスポンスが返るようになっています。
 
 <!--
 You can try to access the [[http://localhost:9000/tasks]] to see that:
@@ -492,7 +502,8 @@ def newTask = Action { implicit request =>
 }
 ```
 
-To fill the form we need to have the `request` in the scope, used by `bindFromRequest` to create a new form filled with the request data. If there are any errors in the form, we redisplay it (here we use **400 Bad Request** instead of **200 OK**). If there are no errors, we create the task and then redirect to the task list.
+<!-- To fill the form we need to have the `request` in the scope, used by `bindFromRequest` to create a new form filled with the request data. If there are any errors in the form, we redisplay it (here we use **400 Bad Request** instead of **200 OK**). If there are no errors, we create the task and then redirect to the task list. -->
+フォームに入力するため、リクエストデータが入力されている新しいフォームを作成するために `bindFromRequest` が使う `request` をスコープ内に持つことが必要になります。もしフォーム内に何らかのエラーがあった場合、エラーを再表示します (ここでは、 **200 OK** の代わりに **400 Bad Request** を使用します) 。もし何のエラーも発生しなければ、タスクを作成し、タスクリストにリダイレクトします。
 
 <!--
 > **Note:** Read more about the [[Form submissions|ScalaForms]].
@@ -661,7 +672,8 @@ def deleteTask(id: Long) = Action {
 -->
 ## Heroku へのデプロイ
 
-All features are complete, so it’s time to deploy our application in production. Let’s deploy it to Heroku. First, you need to create a `Procfile` for Heroku. Create the `Procfile` in the root application directory:
+<!-- All features are complete, so it’s time to deploy our application in production. Let’s deploy it to Heroku. First, you need to create a `Procfile` for Heroku. Create the `Procfile` in the root application directory: -->
+全ての機能が完成しました。本アプリケーションを成果物としてデプロイしましょう。 Heroku へデプロイします。はじめに `Procfile` を Heroku 用に作成する必要があります。 `Procfile` をアプリケーションの root ディレクトリに作成してください。
 
 ```
 web: target/start -Dhttp.port=${PORT} -DapplyEvolutions.default=true -Ddb.default.url=${DATABASE_URL} -Ddb.default.driver=org.postgresql.Driver
@@ -672,7 +684,8 @@ web: target/start -Dhttp.port=${PORT} -DapplyEvolutions.default=true -Ddb.defaul
 -->
 > **補足:** Heroku へのデプロイの詳細については [[Heroku へのデプロイ |ProductionHeroku]] を参照してください。
 
-We use system properties to override the application configuration, when running on Heroku. Since Heroku provides an PostgreSQL database, we need to add the required driver to our application dependencies. 
+<!-- We use system properties to override the application configuration, when running on Heroku. Since Heroku provides an PostgreSQL database, we need to add the required driver to our application dependencies.  -->
+Heroku 上で起動する際に、アプリケーションの設定を上書きするためにシステムプロパティを使用します。 Heroku は PostgreSQL データベースを提供しているため、 要求されたドライバーをアプリケーションの依存関係に追加する必要があります。
 
 <!--
 Specify it into the `project/Build.scala` file:
