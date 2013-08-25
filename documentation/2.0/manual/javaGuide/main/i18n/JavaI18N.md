@@ -38,7 +38,8 @@ The default `conf/messages` file matches all languages. You can specify addition
 -->
 デフォルトの `conf/messages` というファイルは、全ての言語にマッチします。このファイルに加えて `conf/messages.fr` や `conf/messages.en-US` のように言語ごとのメッセージファイルを指定することができます。
 
-You can retrieve messages for the current language using the `play.api.i18n.Messages` object:
+<!-- You can retrieve messages for the current language using the `play.api.i18n.Messages` object: -->
+現在の言語向けのメッセージは、`play.api.i18n.Messages`オブジェクトから取得することができます。
 
 ```
 String title = Messages.get("home.title")
