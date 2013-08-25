@@ -83,7 +83,8 @@ public class Global extends GlobalSettings {
 -->
 ## 存在しないアクションを扱う
 
-If the framework doesn’t find an action method for a request, the `onActionNotFound` operation will be called:
+<!-- If the framework doesn’t find an action method for a request, the `onActionNotFound` operation will be called: -->
+フレームワークがリクエストに対応するアクションを見つけられなかった場合、`onActionNotFound` 操作が呼び出されます。
 
 ```java
 import play.*;
