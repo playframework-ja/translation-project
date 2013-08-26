@@ -9,7 +9,8 @@
 -->
 ## sbt セッティングについて
 
-The sbt build script defines settings for your project. You can also define you own custom settings for your project, as described in the [[sbt documentation | https://github.com/harrah/xsbt/wiki]].
+<!-- The sbt build script defines settings for your project. You can also define you own custom settings for your project, as described in the [[sbt documentation | https://github.com/harrah/xsbt/wiki]]. -->
+sbt　ビルドスクリプトはプロジェクトの設定を定義します。[[sbt ドキュメント | https://github.com/harrah/xsbt/wiki]] に記述されているように、プロジェクト独自のカスタム設定を定義することも可能です。
 
 <!--
 To set a basic setting, use the `:=` operator:
