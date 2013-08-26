@@ -24,9 +24,12 @@ System properties can be used to force a different config source:
 -->
 システムプロパティを使うことで、異なる設定ソースの利用を強制することができます。
 
-* `config.resource` specifies a resource name - not a basename, i.e. application.conf not application
+<!-- * `config.resource` specifies a resource name - not a basename, i.e. application.conf not application
 * `config.file` specifies a filesystem path, again it should include the extension, not be a basename
-* `config.url` specifies a URL
+* `config.url` specifies a URL -->
+* `config.resource` はリソースファイルの指定です - ベースネームではありません。例えば、application ではなく、application.conf を指定します。
+* `config.file` はファイルシステム上のパスの指定です。パスには拡張子を含みます。ベースネームの指定はできません。
+* `config.url` は URL の指定です。
 
 <!--
 These system properties specify a replacement for `application.conf`, not an addition. In the replacement config file, you can use include "application" to include the original default config file; after the include statement you could go on to override certain settings.
