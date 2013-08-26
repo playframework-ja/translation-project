@@ -1,12 +1,23 @@
+<!-- translated -->
+<!--
 # Issues tracker
+-->
+# 課題トラッカ
 
 We use Lighthouse as issue tracker at:
 
 [[https://play.lighthouseapp.com/projects/82401-play-20/overview]].
 
+<!--
 ## Reporting bugs
+-->
+## バグを報告する
 
+<!--
 Bug reports are incredibly helpful, so take time to report bugs and request features in our ticket tracker. We’re always grateful for patches to Play’s code. Indeed, bug reports with attached patches will get fixed far quickly than those without any.
+-->
+バグ報告は本当に有難いです。ぜひ少しだけお時間を割いて、バグ報告や新機能のリクエストを課題トラッカに登録してください。また、Play のコードに対するパッチは大歓迎です。通常、パッチが添付されているバグ報告は、パッチが添付されていないものより素早く対応されます。
+
 
 Please include as much relevant information as possible including the exact framework version you're using and a code snippet that reproduces the problem.
 
