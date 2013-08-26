@@ -1,10 +1,20 @@
+<!-- translated -->
+<!--
 # About SBT Settings
+-->
+# SBT セッティングについて
 
+<!--
 ## About sbt settings
+-->
+## sbt セッティングについて
 
 The sbt build script defines settings for your project. You can also define you own custom settings for your project, as described in the [[sbt documentation | https://github.com/harrah/xsbt/wiki]].
 
+<!--
 To set a basic setting, use the `:=` operator:
+-->
+基本的な設定を行うには、 `:=` 演算子を使います:
 
 ```scala
 val main = PlayProject(appName, appVersion, appDependencies).settings(
@@ -12,29 +22,54 @@ val main = PlayProject(appName, appVersion, appDependencies).settings(
 )
 ```
 
+<!--
 ## Default settings for Java applications
+-->
+## Java アプリケーション向けのデフォルトセッティング
 
+<!--
 Play 2.0 defines a default set of settings suitable for Java-based applications. To enable them add the `defaultJavaSettings` set of settings to your application definition:
+-->
+Play 2.0 は Java ベースのアプリケーションに適したデフォルト設定のセットを定義しています。これらを有効にするには、アプリケーション定義に設定の `defaultJavaSettings` セットを追加してください:
 
 ```scala
 val main = PlayProject(appName, appVersion, appDependencies, mainLang = JAVA)
 ```
 
+<!--
 These default settings mostly define the default imports for generated templates. For example, it imports `java.lang.*`, so types like `Long` are the Java ones by default instead of the Scala ones. It also imports `java.util.*` so the default collection library will be the Java one.
+-->
+これらのデフォルト設定は、生成されるテンプレート向けに大部分のデフォルト import 文を定義します。例えば `java.lang.*` をインポートするので、`Long` のような型はデフォルトで Scala のものではなく Java のものになります。`java.util.*` もインポートするので、デフォルトのコレクションライブラリは Java のものになります。
 
+
+<!--
 ## Default settings for Scala applications
+-->
+## Scala アプリケーション向けのデフォルトセッティング
 
+<!--
 Play 2.0 defines a default set of settings suitable for Scala-based applications. To enable them add the `defaultScalaSettings` set of settings to your application definition:
+-->
+Play 2.0 は Scala ベースのアプリケーションに適したデフォルト設定のセットを定義しています。これらを有効にするには、アプリケーション定義に設定の `defaultScalaSettings` セットを追加してください:
 
 ```scala
 val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA)
 ```
 
+<!--
 These default settings define the default imports for generated templates (such as internationalized messages, and core APIs).
+-->
+これらのデフォルト設定は、生成されるテンプレート向けにデフォルト import 文 (国際化メッセージや、主要な API) を定義します。
 
+<!--
 ## Play project settings with their default value
+-->
+## デフォルト値の Play プロジェクトセッティング   
 
+<!--
 When you define your sbt project using `PlayProject` instead of `Project`, you will get a default set of settings. Here is the default configuration:
+-->
+`Project` の代わりに `PlayProject` を使って sbt プロジェクトを定義した場合、設定はデフォルト値のセットになります。以下がデフォルト設定です:
 
 ```scala
 resolvers ++= Seq(
