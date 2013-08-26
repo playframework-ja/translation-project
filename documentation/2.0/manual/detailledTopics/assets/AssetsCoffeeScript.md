@@ -66,7 +66,8 @@ Two JavaScript files will be compiled: `public/javascripts/main.js` and `public/
 -->
 ## オプション
 
-CoffeeScript compilation can be configured in your project’s `Build.scala` file. The only option currently supported is *bare* mode.
+<!-- CoffeeScript compilation can be configured in your project’s `Build.scala` file. The only option currently supported is *bare* mode. -->
+CoffeeScript のコンパイルは `Build.scala` ファイルで制御することができます。現在サポートされている唯一のオプションは *bare* モードです。
 
 ```
 coffeeScriptOptions := Seq("bare")
