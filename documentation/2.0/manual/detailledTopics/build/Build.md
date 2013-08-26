@@ -2,7 +2,7 @@
 <!--
 # The Build System
 -->
-ビルドシステム
+# ビルドシステム
 
 <!--
 The Play 2.0 build system is based on [[sbt|http://www.scala-sbt.org/]], a minimally non-intrusive build tool for Scala and Java projects.
