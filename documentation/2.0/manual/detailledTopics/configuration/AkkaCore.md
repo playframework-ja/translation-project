@@ -14,7 +14,8 @@ Play 2.0 はリクエスト処理のために内部的に Akka Actor システ�
 -->
 ## Action invoker アクター
 
-The action invoker Actors are used to execute the `Action` code. To be able to execute several Action concurrently we are using several of these Actors managed by a Round Robin router. These actors are stateless.
+<!-- The action invoker Actors are used to execute the `Action` code. To be able to execute several Action concurrently we are using several of these Actors managed by a Round Robin router. These actors are stateless. -->
+Action invoker アクターは `Action` のコードを実行するために使われます。複数の Action を並列に実行するために、複数のアクターを起動し、それらを Round Robin ルータで制御しています。また、全てのアクターはステートレスです。
 
 <!--
 These action invoker Actors are also used to retrieve the **body parser** needed to parse the request body. Because this part waits for a reply (the `BodyParser` object to use), it will fail after a configurable timeout.
