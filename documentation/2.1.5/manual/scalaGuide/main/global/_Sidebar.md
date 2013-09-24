@@ -1,11 +1,15 @@
-### The application Global object
+<!-- ### The application Global object -->
+### アプリケーション Global オブジェクト
 
-- [[Application global settings | ScalaGlobal]]
-- [[Intercepting requests | ScalaInterceptors]]
+<!-- - [[Application global settings | ScalaGlobal]]
+- [[Intercepting requests | ScalaInterceptors]] -->
+- [[アプリケーションの全般設定 | ScalaGlobal]]
+- [[リクエストのインターセプト | ScalaInterceptors]]
 
-### Main concepts
+<!-- ### Main concepts -->
+### 主要なコンセプト
 
-- [[HTTP programming | ScalaActions]]
+<!-- - [[HTTP programming | ScalaActions]]
 - [[Asynchronous HTTP programming | ScalaAsync]]
 - [[The template engine | ScalaTemplates]]
 - [[HTTP form submission and validation | ScalaForms]]
@@ -18,12 +22,30 @@
 - [[Integrating with Akka | ScalaAkka]]
 - [[Internationalization | ScalaI18N]]
 - [[The application Global object | ScalaGlobal]]
-- [[Testing your application | ScalaTest]]
+- [[Testing your application | ScalaTest]] -->
+- [[HTTP プログラミング | ScalaActions]]
+- [[非同期 HTTP プログラミング | ScalaAsync]]
+- [[テンプレート・エンジン | ScalaTemplates]]
+- [[HTTP フォーム送信とバリデーション | ScalaForms]]
+- [[JSON を使う | ScalaJson]]
+- [[XML を使う | ScalaXmlRequests]]
+- [[ファイルアップロード処理 | ScalaFileUpload]]
+- [[SQL データベースアクセス | ScalaDatabase]]
+- [[キャッシュを使う | ScalaCache]]
+- [[Web サービスの呼び出し | ScalaWS]]
+- [[Akka との統合 | ScalaAkka]]
+- [[国際化 | ScalaI18N]]
+- [[アプリケーション Global オブジェクト | ScalaGlobal]]
+- [[テストについて | ScalaTest]]
     
-### Advanced topics
+<!-- ### Advanced topics -->
+### 上級編
 
-- [[Handling data streams reactively | Iteratees]]
+<!-- - [[Handling data streams reactively | Iteratees]] -->
+- [[反応的なストリーム処理 | Iteratees]]
 
-### Tutorials
+<!-- ### Tutorials -->
+### チュートリアル
 
-- [[Your first application | ScalaTodoList]]
+<!-- - [[Your first application | ScalaTodoList]] -->
+- [[はじめてのアプリケーション | ScalaTodoList]]
