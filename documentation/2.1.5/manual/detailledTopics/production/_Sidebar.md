@@ -1,36 +1,64 @@
-### Deploying your application
+<!-- translated -->
+<!-- ### Deploying your application -->
+### アプリケーションのデプロイ
 
-- [[Deploying your application | Production]]
+<!-- - [[Deploying your application | Production]]
 - [[Creating a standalone version | ProductionDist]]
 - [[Additional configuration | ProductionConfiguration]]
 - [[Set-up a front-end HTTP server | HTTPServer]]
 - [[Configuring HTTPS|ConfiguringHttps]]
 - [[Deploying to Heroku | ProductionHeroku]]
 - [[Deploying to Cloudbees | Deploying-to-CloudBees]]
-- [[Deploying to Cloud Foundry | Deploying-CloudFoundry]]
+- [[Deploying to Cloud Foundry | Deploying-CloudFoundry]] -->
+- [[アプリケーションのデプロイ | Production]]
+- [[スタンドアローンパッケージを作成する | ProductionDist]]
+- [[追加設定 | ProductionConfiguration]]
+- [[フロントエンド HTTP サーバの設定 | HTTPServer]]
+- [[HTTPS の設定 |ConfiguringHttps]]
+- [[Heroku へデプロイする | ProductionHeroku]]
+- [[CloudBees へデプロイする | Deploying-to-CloudBees]]
+- [[Cloud Foundry へデプロイする | Deploying-CloudFoundry]]
 
-### Getting started
+<!-- ### Getting started -->
+### はじめに
 
-- [[Installing Play | Installing]]
+<!-- - [[Installing Play | Installing]]
 - [[Creating a new application | NewApplication]]
 - [[Anatomy of a Play application | Anatomy]]
 - [[Using the Play console | PlayConsole ]]
 - [[Setting-up your preferred IDE | IDE]]
-- [[Sample applications | Samples]]
+- [[Sample applications | Samples]] -->
+- [[Play のインストール | Installing]]
+- [[新規アプリケーションを作成する | NewApplication]]
+- [[Play アプリケーションの構造 | Anatomy]]
+- [[Play コンソールを使う | PlayConsole ]]
+- [[好きな IDE で開発する | IDE]]
+- [[サンプルアプリケーション | Samples]]
 
-### Working with Play 
-- [[Play for Scala developers | ScalaHome]]
-- [[Play for Java developers | JavaHome]]
+<!-- ### Working with Play  -->
+### Play で開発する
 
-### Detailed topics
+<!-- - [[Play for Scala developers | ScalaHome]]
+- [[Play for Java developers | JavaHome]] -->
+- [[Scala 開発者のための Play | ScalaHome]]
+- [[Java 開発者のための Play | JavaHome]]
 
-- [[The Build system | Build]]
+<!-- ### Detailed topics -->
+### 詳細なトピック
+
+<!-- - [[The Build system | Build]]
 - [[Working with public assets | Assets]]
 - [[Managing database evolutions | Evolutions]]
 - [[Configuration | Configuration]]
-- [[Deploying your application | Production]]
+- [[Deploying your application | Production]] -->
+- [[ビルドシステム | Build]]
+- [[公開アセットを使う | Assets]]
+- [[データベース進化の管理 | Evolutions]]
+- [[設定 | Configuration]]
+- [[アプリケーションのデプロイ | Production]]
 
-### Additional documentations
+<!-- ### Additional documentations -->
+### その他のドキュメント
 
 - [[Scala|http://docs.scala-lang.org/]]
 - [[Akka|http://akka.io/docs/]]
