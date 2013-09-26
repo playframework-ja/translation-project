@@ -1,15 +1,16 @@
 package controllers;
 
-import static org.apache.commons.lang.StringUtils.isEmpty;
-import helper.*;
+import static org.apache.commons.lang.StringUtils.*;
+import helper.StringUtils;
 
-import java.io.*;
-import java.util.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.Arrays;
 
-import jobs.*;
-import play.*;
-import play.libs.*;
-import play.mvc.*;
+import jobs.DocumentParser;
+import play.Play;
+import play.libs.IO;
+import play.mvc.Controller;
 
 /**
  * Documentation controller.
@@ -29,6 +30,20 @@ public class Documentation extends Controller {
         if (isEmpty(version) || version.equals("latest")) {
             redirect(String.format("/documentation/%s/%s", DocumentParser.latestVersion, id));
         }
+        if (!DocumentParser.versions.contains(version)) {
+            if (version.startsWith("1.0")) {
+                version = "1.0.3.2";
+            } else if (version.startsWith("1.1")) {
+                version = "1.1.1";
+            } else if (version.startsWith("1.2")) {
+                version = "1.2.7";
+            } else if (version.startsWith("2.0")) {
+                version = "2.0.8";
+            } else {
+                version = DocumentParser.latestVersion;
+            }
+            redirect(String.format("/documentation/%s/%s", version, id));
+        }
         if (isEmpty(id) || id.equalsIgnoreCase("null")) {
             String home = DocumentParser.isTextile(version) ? "home" : "Home";
             redirect(String.format("/documentation/%s/%s", version, home));
@@ -36,7 +51,8 @@ public class Documentation extends Controller {
         String html = null;
         try {
             if (Play.mode == Play.Mode.PROD) {
-                File file = new File(Play.applicationPath, String.format("html/%s/%s.html", version, id));
+                File file = new File(Play.applicationPath, String.format("html/%s/%s.html",
+                        version, id));
                 if (file == null || !file.exists()) {
                     throw new FileNotFoundException();
                 }
@@ -72,7 +88,8 @@ public class Documentation extends Controller {
      * @param path
      */
     public static void resources(String version, String path) {
-        File file = new File(Play.applicationPath, String.format("documentation/%s/%s", version, path));
+        File file = new File(Play.applicationPath, String.format("documentation/%s/%s", version,
+                path));
         if (!file.exists()) {
             notFound(path);
         }
@@ -107,7 +124,8 @@ public class Documentation extends Controller {
      */
     public static void cheatsheet(String version, String id) {
         final String action = "documentation";
-        File dir = new File(Play.applicationPath, String.format("documentation/%s/cheatsheets/%s", version, id));
+        File dir = new File(Play.applicationPath, String.format("documentation/%s/cheatsheets/%s",
+                version, id));
 
         if (!dir.exists()) {
             if (!version.equals(DocumentParser.latestVersion)) {
