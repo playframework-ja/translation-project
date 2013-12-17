@@ -5,6 +5,7 @@
 .redcar/*
 .settings/*
 .DS_Store
+bin/
 eclipse/*
 eclipse/classes/*
 precompiled/*
