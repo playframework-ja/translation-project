@@ -88,7 +88,7 @@ body{background:#fff;color:sand-text;font-family:"Helvetica Neue","Helvetica",sa
 .split-page #content section,.download #content section,.support #content section,.code #content section{width:100%;float:none;padding:10px}
 }#navigation{position:relative;z-index:1;background:#fff;height:80px;border-top:5px solid #92d13d;-webkit-box-shadow:0 0 5px rgba(0,0,0,0.2);-moz-box-shadow:0 0 5px rgba(0,0,0,0.2);box-shadow:0 0 5px rgba(0,0,0,0.2);}
 #navigation .wrapper{position:relative}
-#navigation #logo{display:block;width:117px;height:40px;float:left;margin:20px 0;background:url("/assets/images/logo.png") no-repeat;overflow:hidden;text-indent:-99em}
+#navigation #logo{display:block;width:117px;height:61px;float:left;margin:10px 0 9px 0;background:url("/assets/images/logo.png") no-repeat;overflow:hidden;text-indent:-99em}
 @media only screen and (-webkit-min-device-pixel-ratio: 2), only screen and (min--moz-device-pixel-ratio: 2),only screen and (min-device-pixel-ratio: 2),only screen and (min-resolution: 192dpi),only screen and (min-resolution: 2dppx){#navigation #logo{background-image:url("/assets/images/logo@2x.png");-webkit-background-size:cover;-moz-background-size:cover;background-size:cover}
 }#navigation #sections{float:right;border-right:1px solid #ebebeb;zoom:1;}
 #navigation #sections:after{content:" ";display:block;clear:both}
