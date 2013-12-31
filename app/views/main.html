@@ -61,7 +61,20 @@
                 </figure>
             </div>
         </div>
-       
+        #{if get('body') == 'download'}
+        <style type="text/css">
+            @import '/assets/mejs-2.13.1/mediaelementplayer.min.css';
+            @import '/assets/mejs-2.13.1/mejs-skins.css';
+        </style>
+        <script src="/assets/mejs-2.13.1/mediaelement-and-player.min.js"></script>
+        <script>
+        $(function() {
+            var player = new MediaElementPlayer('video', {
+            //features: ['playpause','progress','current','duration','tracks','volume','fullscreen']
+            });
+        })
+        </script>
+        #{/if}
         <header id="top">
             <div class="wrapper">
                 <h1>

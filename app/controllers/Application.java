@@ -60,52 +60,75 @@ public class Application extends Controller {
      */
     public static void download() {
 
+        Download activator = null;
         Download latest = null;
-        List<Download> upcomings = null;
-        List<Download> olders = null;
+        List<Download> devels = null;
+        List<Download> prevs = null;
 
         try {
             Document doc = Jsoup.connect("http://www.playframework.com/download").get();
-            Elements elements = doc.select("article table");
 
-            if (elements != null && elements.size() >= 2) {
-                // the first table must have latest version
-                latest = toDownload(elements.first());
-                // the last table must have older versions
-                olders = toDownloads(elements.last());
-                // if there are more than two tables, middle of them might be
-                // upcomings
-                if (elements.size() > 2) {
-                    upcomings = toDownloads(elements.get(1));
-                }
+            Elements latests = doc.select("div.latest");
+            if (latests.size() != 2) {
+                throw new IOException("cannot find latest divisions.");
+            }
+            Elements changeLogs = doc.select("p.changelogLink");
+            if (changeLogs.size() == 0) {
+                throw new IOException("cannot find changelog links.");
+            }
+
+            // the first div must have latest activator info.
+            activator = toDownload(latests.get(0));
+
+            // and the second one must have latest zip info.
+            latest = toDownload(latests.get(1));
+
+            // the last paragraph must have previous versions.
+            prevs = toDownloads(changeLogs.last());
+
+            // and if there are more than one changelogs, the first one must
+            // have development version(s).
+            if (changeLogs.size() > 1) {
+                devels = toDownloads(changeLogs.first());
             }
         } catch (IOException e) {
             Logger.warn(e.getMessage());
         }
-        render(latest, upcomings, olders);
+        render(activator, latest, devels, prevs);
     }
 
-    private static Download toDownload(Element table) {
-        List<Download> downloads = toDownloads(table);
-        if (downloads.size() < 1) {
+    private static Download toDownload(Element latest) {
+        Element h2 = latest.select("h2").first();
+        Element small = h2.select("small").first();
+        Elements cols = latest.select("table").select("tr").select("td");
+        if (cols.size() < 2) {
             return null;
-        } else {
-            return downloads.get(0);
         }
+        Element a = cols.get(0).select("a").first();
+
+        String url = a.attr("href");
+        String txt = h2.ownText().trim();
+        String date = small.text().trim();
+        String size = cols.get(1).text().trim();
+        String misc = a.text().trim();
+        return new Download(url, txt, date, size, misc);
     }
 
-    private static List<Download> toDownloads(Element table) {
+    private static List<Download> toDownloads(Element changelog) {
         List<Download> downloads = new ArrayList<Download>();
-        List<Element> rows = table.select("tr");
+        Elements rows = changelog.nextElementSibling().select("tr");
         for (Element row : rows) {
             List<Element> cols = row.select("td");
             if (cols.size() < 3) {
                 continue;
             }
-            String url = cols.get(0).select("a").attr("href");
+            Element a = cols.get(0).select("a").first();
+
+            String url = a.attr("href");
+            String txt = a.text().trim();
             String date = cols.get(1).html().trim();
             String size = cols.get(2).html().trim();
-            downloads.add(new Download(url, date, size));
+            downloads.add(new Download(url, txt, date, size, StringUtils.EMPTY));
         }
         return downloads;
     }

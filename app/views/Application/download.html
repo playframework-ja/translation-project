@@ -4,61 +4,153 @@
 #{set 'top'}
     Download Play Framework
 #{/set}
-        <article>
-            <h1>Linux, MacOS と Windows で<br>すぐに使えるパッケージ</h1>
-            <div class="latest">
-                <a class="cover" href="${latest.url}">Latest</a>
-                <h2>最新の公式バージョン</h2>
+        <article class="activator">
+            <span class="ribbon"></span>
+            <span class="or"></span>
+            
+            <section>
+                <h1>新しい配布形態</h1>
+                <div class="latest">
+                    <h2>${activator.txt} <small>${activator.date}</small></h2>
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="${activator.url}" class="downloadActivatorLink">${activator.misc}</a>
+                            </td>
+                            <td>
+                                ${activator.size}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <p class="updates">
+                    <a href="http://twitter.com/playframework">フォローしてリリース通知を受け取る</a>
+                </p>
+
+                <h2>Typesafe Activator とは?</h2>
+                <p>
+                    <a href="http://www.typesafe.com/activator" target="_blank">Typesafe Activator</a> は、Play Framework, Akka そして Scala を含む Typesafe Reactive プラットフォームです。
+                    これは、リアクティブなアプリケーションを作成したい開発者に向けた、新しいアプリケーションを作成するためのブラウザ内またはコマンドライン環境を提供する活動拠点です。
+                </p>
+
+                <h2>もっとも早く Play を始める方法</h2>
+                <p>
+                    はじめるのは簡単です! Activator をダウンロードして、展開、実行すると、これから始めるテンプレートを選択するようウィザードベースのインタフェースがガイドしてくれます。
+                    どのテンプレートにも、それぞれの状況に応じたチュートリアルとコードの概要が含まれています。
+                </p>
+
+                <hr/>
+                <h3>チュートリアルを含む人気のテンプレート:</h3>
+                <ul>
+                    <li><a href="http://typesafe.com/activator/template/hello-play" target="_blank">Hello Play Framework!</a></li>
+                    <li><a href="http://typesafe.com/activator/template/play-guice" target="_blank">Play with Guice</a></li>
+                    <li><a href="http://typesafe.com/activator/template/play-mongo-knockout" target="_blank">Play Reactive Mongo with KnockoutJS frontend</a></li>
+                    <li><a href="http://typesafe.com/activator/template/play-java-spring" target="_blank">Play + Java + Spring</a></li>
+                </ul>
+                <a class="button" href="http://typesafe.com/activator/templates" target="_blank">すべてのテンプレートを見る</a>
+
+                <hr/>
+                <h2>Typesafe Activator を実行する</h2>
+
+                <video src="http://downloads.typesafe.com/videos/activator-intro.mp4" width="400" height="225" poster="/assets/images/download/activator-app.png"></video>
+
+                <h3>Typesafe Activator をダウンロードして展開する</h3>
+                <p><a href="${activator.url}">Activator ${activator.version}</a> (${activator.size}) をダウンロードします。</p>
+                <p>ダウンロードした zip ファイルをシステムに展開します。</p>
+                <h3>Typesafe Activator の UI を開始する</h3>
+                
+                <p>ファインダで Typesafe Activator を展開したディレクトリまで移動したら、<code>activator</code> という名前のファイルを右クリックして、"Open" を選択します。警告が表示されたら続行をクリックします。</p>
+                    
+                <p>またはコマンドラインから実行します:</p>
+                <pre><code> $ activator-${activator.version}/activator ui </code></pre>
+                <p>こうすると Typesafe Activator が開始し、ブラウザを開いて Activator UI を表示します。</p>
+                <h2>新しいアプリケーションを作成する</h2>
+                <p>作成するアプリケーションを <a href="http://typesafe.com/activator/templates" target="_blank">多数のアプリケーションテンプレート</a> から選びます。</p>
+                <p>アプリケーションが作成されれば、コードを探索し、テストを実行し、アプリケーションを実行することができます。どのテンプレートにも、アプリケーションの個々のパーツと、それらがどのようにして動作するかについて段階的に説明するチュートリアルが含まれています。</p>
+
+                <h2>さらに詳しく</h2>
+                <p><a href="http://typesafe.com/activator/docs" target="_blank">Activator のドキュメントを読んで</a> コマンドラインから Activator を使う方法と、この他の Activator の機能を使う方法を学習しましょう。</p>
+            </section>
+            
+            <section>
+                <h1>これまでの配布形態</h1>
+
+                <div class="latest">
+                    <h2>${latest.txt} <small>${latest.date}</small></h2>
+                    <table>
+                        <tr>
+                            <td>
+                                <a href="${latest.url}" class="downloadStandaloneLink" data-version="${latest.version}">${latest.misc}</a>
+                            </td>
+                            <td>
+                                ${latest.size}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <h2>従来の Zip を使って始めよう</h2>
+
+                <p>
+                    従来の Play Zip は、新しいアプリケーションを作成し、テストを実行し、そしてアプリケーションを実行する <code>play</code> コマンドを提供します。
+                    <a href="/documentation/latest/Installing">インストールの説明</a> については Play のドキュメントを確認してください。
+                </p>
+
+                <h3>クラウド上で試してみよう</h3>
+                <p>
+                    CloudBees には、クラウド上で Play アプリケーションを実行するためのファーストクラスサポートが含まれています。
+                </p>
+                <p>
+                    <a class="light" href="https://developer.cloudbees.com/bin/view/RUN/Playframework">さらに詳しく</a>
+                </p>
+                <p>
+                    <a class="cloudbees" href="https://grandcentral.cloudbees.com/?CB_clickstart=https://raw.github.com/CloudBees-community/play2-clickstart/master/clickstart.json">
+                        CloudBees を始める
+                    </a>
+                </p>
+
+                <hr/>
+                <h3>開発中のバージョン</h3>
+                <p>
+                    開発中のプレビュー版リリースです。
+                </p>
+                <p class="changelogLink"><a href="/changelog">変更履歴</a></p>
                 <table>
-                    <tr>
-                        <td>
-                            <a href="${latest.url}">${latest.name}</a>
-                        </td>
-                        <td width="200">
-                            ${latest.date.format('yyyy/MM/dd', 'ja')}
-                        </td>
-                        <td width="100">
-                            ${latest.size}M
-                        </td>
-                    </tr>
+                    #{list devels, as:'devel'}
+                        <tr>
+                            <td width="250">
+                                <a href="${devel.url}" class="downloadDevelopmentLink" data-version="${devel.version}">${devel.txt}</a>
+                            </td>
+                            <td width="200">
+                            ${devel.date}
+                            </td>
+                            <td width="100">
+                            ${devel.size}
+                            </td>
+                        </tr>
+                    #{/list}
                 </table>
-            </div>
+                <hr/>
+                <h3>以前のバージョン</h3>
 
-            <p class="updates">
-                <a href="http://twitter.com/playframework">フォローしてリリースアナウンスを受け取ろう</a>
-            </p>
+                <p class="changelogLink"><a href="/changelog">変更履歴</a></p>
 
-            #{if upcomings}
-            <h3>開発中のバージョン</h3>
-            <p>
-                開発版のプレビューリリースです。
-            </p>
-            <table>
-                #{list upcomings, as:'upcoming'}
-                <tr>
-                    <td><a href="${upcoming.url}">${upcoming.name}</a></td>
-                    <td width="200">${upcoming.date.format('yyyy/MM/dd', 'ja')}</td>
-                    <td width="100">${upcoming.size}M</td>
-                </tr>
-                #{/list}
-            </table>
-            #{/if}
+                <table class="previous-verions">
+                    #{list prevs, as:'prev'}
+                        <tr>
+                            <td width="250">
+                                <a href="${prev.url}" class="downloadPreviousLink" data-version="${prev.version}">${prev.txt}</a>
+                            </td>
+                            <td width="200">
+                            ${prev.date}
+                            </td>
+                            <td width="100">
+                            ${prev.size}
+                            </td>
+                        </tr>
+                    #{/list}
+                </table>
 
-            <h3>以前のバージョン</h3>
-            <p>
-                古いバージョンの Play をお探しですか? 以下から、古いリリースを探すことができます。
-            </p>
-
-            <table>
-                #{list olders, as:'older'}
-                <tr class="${older_parity}">
-                    <td><a href="${older.url}">${older.name}</a></td>
-                    <td width="200">${older.date.format('yyyy/MM/dd', 'ja')}</td>
-                    <td width="100">${older.size}M</td>
-                </tr>
-                #{/list}
-            </table>
+            </section>
         </article>
-        <aside>
-#{include 'partials/_download_aside.html'/}
-        </aside>
