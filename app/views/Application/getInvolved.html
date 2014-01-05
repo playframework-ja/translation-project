@@ -5,54 +5,53 @@
     Get involved
 #{/set}
         <article>
-            <h1>貢献するには?</h1>
+            <h1>貢献するには</h1>
 
             <p>
-                貢献するもっとも良い方法は、バグを見つけて報告すること、バグのためのテストを書くこと、そしてドキュメントを改善することです。
+                Play はオープンソースプロジェクトであり、どなたでも貢献することができます! 貢献するにはいくつかの方法があります:
+            </p>
+            <ul>
+                <li>メーリングリストに参加する</li>
+                <li>バグを見つけて報告する</li>
+                <li>バグに対するテストを書く</li>
+                <li>ドキュメントを改善する</li>
+                <li>新しい機能を追加する</li>
+                <li>バグを修正する</li>
+            </ul>
+
+            <h3>メーリングリストに参加する</h3>
+            <p>
+                <a href="http://groups.google.com/forum/#!forum/play-framework"><span class="mailingList">play-framework</span> メーリングリスト</a> は Play コミュニティの出会いの場です。メーリングリスト上で質問の受け答えをすることは、Play に関するノウハウを共有するすばらしい方法です。<a href="http://stackoverflow.com/questions/tagged/playframework">StackOverflow</a> で質問することもできます。
             </p>
 
             <h3>バグを報告する</h3>
             <p>
-                issue トラッカとして <a href="https://github.com/playframework/Play20/issues">Github</a> を使っています。
+                Play は <a href="https://github.com/playframework/playframework/issues">課題を追跡するために GitHub</a> を使っています。バグ報告はとても重要なので、どのような課題でも報告してください。その際、バグの詳細や、バグを再現するテスト、コード例など、手助けになると思うことであれば、どんなものでもバグ報告に含めるようにしてください!
+            </p>
+            <p>
+                自分自身で課題を解決する準備が整っていない場合は、他の人が報告したバグを検証することで貢献することもできます。<a href="https://github.com/playframework/playframework/issues?labels=needs-verification"><span class="issueLabel">needs-verification</span> ラベル</a> でタグ付けされた課題を探してください。これらの課題を調査し、バグか否かを確認するためにいくつかの検査をすることでプロジェクトを支援することができます。バグを再現するテストやサンプルプロジェクトを提供したり、あるいはバグ報告者にさらに詳細な質問をするだけでも結構です。
+            </p>
+
+            <h3>コアにパッチを当てる</h3>
+            <p>
+                Play のコードとドキュメントは <a href="https://github.com/playframework/playframework">Github</a> 上で管理されています。<a href="/documentation/latest/BuildingFromSource">Play のソースコードを取得してビルドする</a> のは簡単です。Play の開発については <a href="https://groups.google.com/forum/#!forum/play-framework-dev"><span class="mailingList">play-framework-dev</span> メーリングリスト</a> 上で議論されています。なにか質問がある場合は、このメーリングリスト上で尋ねることができます。
+            </p>
+            <p>
+                どのような機能に対する作業でも歓迎です&mdash;なんと言っても Play はオープンソースなのだから!&mdash; ただし、なにかいいアイディアを思い付いたら、<a href="https://github.com/playframework/playframework/issues?labels=community"><span class="issueLabel">community label</a> でタグ付けされた課題を探してみてください。これらの課題はボランティアの方に引き取られる準備が整っています。
+            </p>
+            <p>
+                コードをきれいに保ち、そして我々が共にスムーズに作業を行うために従って頂く必要のある、いくつかの<a href="/documentation/latest/Guidelines">開発者および貢献者用ガイドライン</a> があります。
             </p>
 
             <h3>モジュールを作る</h3>
             <p>
-                モジュールの作成について <a href="http://www.objectify.be/wordpress/?p=363">objectify.be</a> と <a href="http://developer.vz.net/2012/03/16/writing-a-play-2-0-module/">developer.vz.net</a> で詳しく学んでください。
+                モジュールを作って Play アプリケーションに新しい機能を追加することができます。ほとんどの場合において、新しいモジュールを書く方が Play のコアにパッチを当てるよりも簡単です。モジュールの作り方については <a href="http://www.objectify.be/wordpress/?p=363">objectify.be</a> と <a href="http://developer.vz.net/2012/03/16/writing-a-play-2-0-module/">developer.vz.net</a> で学習することができます。
             </p>
-
-            <h3>本体へのパッチ</h3>
             <p>
-                <a href="/documentation/latest/Guidelines">貢献者ガイド</a> を確認してください、そして <a href="/documentation/latest/BuildingFromSource">Play をソースからビルドする</a> 方法を学んでください。
+
             </p>
 
         </article>
         <aside>
-            <h3>コードの取得とビルド</h3>
-            <ul>
-                <li><a href="/code">コードと貢献者</a></li>
-                <li><a href="http://github.com/playframework/play20">Github ソースコード</a></li>
-                <li><a href="/documentation/latest/BuildingFromSource">ソースからビルドする</a></li>
-            </ul>
-            <h3>ガイド</h3>
-            <ul>
-                <li><a href="https://github.com/playframework/Play20/blob/master/CONTRIBUTING.md">貢献者ガイド</a></li>
-                <li><a href="http://developer.vz.net/2012/03/16/writing-a-play-2-0-module/">モジュール作成 (簡易)</a></li>
-                <li><a href="http://www.objectify.be/wordpress/?p=363">モジュール作成 (詳細)</a></li>
-            </ul>
-            <h3>バグとテスト</h3>
-            <ul>
-                <li><a href="https://github.com/playframework/Play20/issues">バグトラッカ</a></li>
-                <li><a href="/documentation/latest/CIServer">CI サーバ</a></li>
-                <li><a href="/documentation/latest/Repositories">成果物リポジトリ</a></li>
-            </ul>
-            <h3>メーリングリスト</h3>
-            <ul>
-                <li><a href="https://groups.google.com/group/play-framework">ユーザメーリングリスト</a></li>
-                <li><a href="https://groups.google.com/group/play-framework-dev">開発者メーリングリスト</a></li>
-                <li><a href="https://groups.google.com/group/play-framework-security">セキュリティメーリングリスト</a></li>
-            </ul>
-            <p>
-                <a href="http://www.cloudbees.com"><img src="http://web-static-cloudfront.s3.amazonaws.com/images/badges/BuiltOnDEV.png"></a>
-            </p>
+#{include 'partials/_aside.html'/}
         </aside>
