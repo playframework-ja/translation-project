@@ -68,8 +68,14 @@ ${article.raw()}
         #{/else}
         
         <h3>広告</h3>
+        #{if version =~ "^1"}
         <p>
             <a href="http://www.amazon.co.jp/gp/product/4873115345/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4873115345&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4873115345&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4873115345" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
+        </p>
+        #{/if}
+        #{else}
+        <p>
+            <a href="http://www.amazon.co.jp/gp/product/4798133922/ref=as_li_ss_il?ie=UTF8&camp=247&creative=7399&creativeASIN=4798133922&linkCode=as2&tag=playdocja-22"><img border="0" width="150" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4798133922&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://ir-jp.amazon-adsystem.com/e/ir?t=playdocja-22&l=as2&o=9&a=4798133922" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
         </p>
         <p>
             <a href="http://www.amazon.co.jp/gp/product/4798125415/ref=as_li_tf_il?ie=UTF8&camp=247&creative=1211&creativeASIN=4798125415&linkCode=as2&tag=playdocja-22"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&ASIN=4798125415&Format=_SL160_&ID=AsinImage&MarketPlace=JP&ServiceVersion=20070822&WS=1&tag=playdocja-22" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4798125415" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
@@ -77,6 +83,7 @@ ${article.raw()}
         <p>
             <a href="http://www.amazon.co.jp/gp/product/4774153206/ref=as_li_qf_sp_asin_il?ie=UTF8&tag=playdocja-22&linkCode=as2&camp=247&creative=1211&creativeASIN=4774153206"><img border="0" width="150px" src="http://ws.assoc-amazon.jp/widgets/q?_encoding=UTF8&Format=_SL160_&ASIN=4774153206&MarketPlace=JP&ID=AsinImage&WS=1&tag=playdocja-22&ServiceVersion=20070822" ></a><img src="http://www.assoc-amazon.jp/e/ir?t=playdocja-22&l=as2&o=9&a=4774153206" width="1" height="1" border="0" alt="" style="border:none !important; margin:0px !important;" />
         </p>
+        #{/else}
     </aside>
 
     <style type="text/css">
