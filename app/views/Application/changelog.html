@@ -5,13 +5,95 @@
     Play Change Log
 #{/set}
         <article>
-<h1>Play 2.1.3-RC2</h1><p><em>2013/08/02 リリース</em></p>
+<h2>Play 2.2.2-RC1</h2>
+<p><em>2013/12/11 リリース</em></p>
+<p><a href="https://github.com/playframework/playframework/issues/2145">2145</a> Scala 2.10.3 による SBT の起動<br/>
+  <a href="https://github.com/playframework/playframework/issues/2117">2117</a> less コンパイラがスレッドセーフに実行されることを保証<br/>
+  <a href="https://github.com/playframework/playframework/issues/2116">2116</a> less import が見つからない場合を正しくハンドリング<br/>
+  <a href="https://github.com/playframework/playframework/issues/2087">2087</a> Java の Configuration オブジェクトに underlying メソッドを追加<br/>
+  <a href="https://github.com/playframework/playframework/issues/2048">2048</a> アーティファクトが異なる識別子で存在する場合の起動スクリプトを修正するために SBT Native Packager を 0.6.4 にアップグレード<br/>
+  <a href="https://github.com/playframework/playframework/issues/2046">2046</a> <a href="https://github.com/scala/scala/commit/48c677c#diff-e0c06059ba197fea5927c4e4b0f3d837R100">Future のメモリリーク</a> を修正するために Scala を 2.10.3 にアップグレード<br/>
+  <a href="https://github.com/playframework/playframework/issues/1996">1996</a> SimpleResult メソッドの返却型を修正<br/>
+  <a href="https://github.com/playframework/playframework/issues/1971">1971</a> application.conf で ws.timeout が定義された場合の例外処理を修正<br/>
+  <a href="https://github.com/playframework/playframework/issues/1961">1961</a> コネクション切断ヘッダがセットされることを保証<br/>
+  <a href="https://github.com/playframework/playframework/issues/1912">1912</a> ファイルを開き過ぎるバグ (Enumerator.onDoneEnumerating を修正)</p>
+
+<h2>Play 2.2.1</h2>
+<p><em>2013/10/31 リリース</em></p>
 <ul>
-  <li><a href="https://github.com/playframework/playframework/issues/1370">1370</a> パイプライン処理時のメモリ使用量を削減</li>
-  <li><a href="https://github.com/playframework/playframework/issues/1402">1402</a> dev モードにおけるアプリケーション再起動時のメモリリークを修正</li>
-  <li><a href="https://github.com/playframework/playframework/issues/1406">1406</a> junit-interface を 0.10 に更新</li>
-</ul><p><a href="https://github.com/playframework/playframework/issues?milestone=5&page=1&state=closed">すべての変更内容</a></p>
-<h1>Play 2.1.3-RC1</h1><p><em>2013/07/23 リリース</em></p>
+  <li><a href="https://github.com/playframework/playframework/issues/830">830</a> - インテグレーションテストが Eclipse でもすぐに実行できるよう修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1159">1159</a> - OAuth 処理がクエリ文字列を無視しないよう修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1704">1704</a> - Play 2.2 における SQL クエリのパフォーマンス悪化を修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1722">1722</a> - すべての WebSocket サブプロトコルを受領</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1734">1734</a> - CSRF フィルタのカスタムトークンジェネレータ機能を再度利用できるよう修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1737">1737</a> - アプリケーションを実行しなくても CSRF フィルタがインスタンス化されることを保証</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1750">1750</a> - Promise.timeout 例外ハンドリングの修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1778">1778</a> - 505 body を送信するバグを修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1786">1786</a> - windows における closure コンパイラの不具合を修正 - CommonsJS の機能をオプションに変更</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1815">1815</a> - play run 終了時に echo が利用不可にならないことを保証</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1819">1819</a> - キャッシュされた action 内の iteratee ではなく、result をキャッシュするよう修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1841">1841</a> - テスト結果がテストランナーに伝播することを保証</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1856">1856</a> - ハンドラが見つからない場合にもフィルタが実行されることを保証</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1898">1898</a> - bonecp を 0.8.0.RELEASE にアップグレード</li>
+</ul>
+<p><strong>アップグレードに関する注意</strong></p>
+<ul>
+  <li><a href="/documentation/2.2.1/api/scala/index.html#play.filters.csrf.CSRFFilter">CSRFFilter</a> コンストラクタのシグネチャが変更されました。以前のものを使っているコードは依然としてソース互換性がありますが、リコンパイルする必要があるかもしれません。</li>
+  <li>JavaScript コンパイラを使う際、CommonJS モジュールのサポートがデフォルトで提供されていました。CommonJS の Windows サポートにおいて問題があるため、今後はデフォルトでは提供しません。CommonJS モジュールのサポートは JavaScript コンパイラに <code>commonJs</code> オプションを与えることで再度有効化することができます。</li>
+</ul><p><a href="https://github.com/playframework/playframework/issues?milestone=9&state=closed">すべての変更履歴</a></p>
+
+<h2>Play 2.2.0</h2>
+<p><em>2013/09/20 リリース</em></p>
+<ul>
+  <li>Java および Scala における新しい構造の results</li>
+  <li>バッファリングと keep alive におけるより良い制御</li>
+  <li>新しいアクション合成およびアクションビルダーメソッド</li>
+  <li>Java Promise API の改善</li>
+  <li>実行コンテキストを引き渡す Iteratee ライブラリ</li>
+  <li>SBT 0.13 サポート</li>
+  <li>新しい stage と dist タスク</li>
+  <li>組み込みの gzip サポート</li>
+</ul>
+<p>
+  <a href="/documentation/2.2.0/Highlights22">ハイライト</a><br/>
+  <a href="https://github.com/playframework/playframework/issues?milestone=2&state=closed">すべての変更履歴</a>
+</p>
+
+<h2>Play 2.1.5</h2>
+<p><em>2013/09/20 リリース</em></p>
+<p><strong>脆弱性の修正</strong></p>
+<ul>
+  <li><a href="/security/vulnerability/20130920-XmlExternalEntity">20130920-XmlExternalEntity</a> XML 外部エンティティの悪用</li>
+</ul>
+<p><strong>Other changes</strong></p>
+<ul>
+  <li><a href="https://github.com/playframework/playframework/issues/1623">1623</a> SSL が利用できる場合における Netty のデッドロックを修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1356">1356</a> 最大ボディ長を超える場合の誤ったエラーを無視</li>
+</ul>
+<p><a href="https://github.com/playframework/playframework/issues?milestone=8&state=closed">すべての変更履歴</a></p>
+
+<h2>Play 2.1.4</h2>
+<p><em>2013/09/11 リリース</em></p>
+<p><strong>脆弱性の修正</strong></p>
+<ul>
+  <li><a href="/security/vulnerability/20130911-XmlExternalEntity">20130911-XmlExternalEntity</a> XML 外部エンティティの悪用</li>
+</ul>
+<p><strong>その他の変更</strong></p>
+<ul>
+  <li><a href="https://github.com/playframework/playframework/issues/1440">1440</a> モニタリングツールと統合するための Play 起動フック</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1451">1451</a> junit テストが実行できるように修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1055">1055</a> 設定可能な HTTP リクエストパラメータ - 最大リクエスト長, 最大ヘッダサイズ, チャンクサイズ</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1498">1498</a> cookie への null 値の設定を防止</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1496">1496</a> ehcache.xml の上書きを許可</li>
+</ul>
+<p><a href="https://github.com/playframework/playframework/issues?milestone=6&state=closed">すべての変更履歴</a></p>
+
+<h2>Play 2.1.3</h2>
+<p><em>2013/08/06 リリース</em></p>
+<p><strong>脆弱性の修正</strong></p>
+<ul>
+  <li><a href="/security/vulnerability/20130806-SessionInjection">20130806-SessionInjection</a> セッションインジェクション</li>
+</ul><p><strong>その他の変更</strong></p>
 <ul>
   <li><a href="https://github.com/playframework/playframework/issues/1329">1329</a> If-None-Since と If-Modified-Since の相互作用を仕様に準拠するよう修正</li>
   <li><a href="https://github.com/playframework/playframework/issues/1332">1332</a> SSE 接続断が検出されないリグレッションを修正</li>
@@ -19,8 +101,14 @@
   <li><a href="https://github.com/playframework/playframework/issues/1347">1347</a> URL パスセグメントのエンコーディングを、クエリ文字列エンコーディングを使うのではなく仕様に準拠するよう修正</li>
   <li><a href="https://github.com/playframework/playframework/issues/1359">1359</a> Akka 2.2 を使用できるよう Akka 2.1 へのバイナリ依存性を排除 </li>
   <li><a href="https://github.com/playframework/playframework/issues/1361">1361</a> アクションが不正なコンテキストで実行されるリグレッションを修正</li>
-</ul><p><a href="https://github.com/playframework/playframework/issues?milestone=5&page=1&state=closed">すべての変更内容</a></p>
-<h1>Play 2.1.2</h1><p><em>2013/07/05 リリース</em></p>
+  <li><a href="https://github.com/playframework/playframework/issues/1370">1370</a> パイプライン処理時のメモリ使用量を削減</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1402">1402</a> dev モードにおけるアプリケーション再起動時のメモリリークを修正</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1406">1406</a> junit-interface を 0.10 に更新</li>
+</ul>
+<p><a href="https://github.com/playframework/playframework/issues?milestone=5&page=1&state=closed">すべての変更履歴</a></p>
+
+<h2>Play 2.1.2</h2>
+<p><em>2013/07/05 リリース</em></p>
 <ul>
   <li><a href="https://github.com/playframework/playframework/issues/810">810</a> - XPath.selectText のリグレッションを修正</li>
   <li><a href="https://github.com/playframework/playframework/issues/820">820</a>, <a href="https://github.com/playframework/playframework/issues/1229">1229</a> - Accept-Language ヘッダーのマッチング処理を仕様に準拠するよう修正</li>
@@ -34,8 +122,11 @@
   <li><a href="https://github.com/playframework/playframework/issues/1050">1050</a> - スレッドプールを Scala の ForkJoin に変更</li>
   <li><a href="https://github.com/playframework/playframework/issues/1090">1090</a> - パフォーマンス改善</li>
   <li><a href="https://github.com/playframework/playframework/issues/1152">1152</a> - HTTP 100-continue サポートの修正</li>
-</ul><p><a href="https://github.com/playframework/playframework/issues?milestone=4&state=closed">すべての変更内容</a></p>
-<h1>Play 2.1.1</h1><p><em>2013/04/13 リリース</em></p>
+</ul>
+<p><a href="https://github.com/playframework/playframework/issues?milestone=4&state=closed">すべての変更履歴</a></p>
+
+<h2>Play 2.1.1</h2>
+<p><em>2013/04/13 リリース</em></p>
 <ul>
   <li>multipart/form-data API に対する変更を切り戻し、ファイルが何も送信されない状態を容易に検出できるようになりました</li>
   <li>リバースルーターがパス引数の文字列をエスケープするようになりました</li>
@@ -49,7 +140,10 @@
   <li><a href="https://github.com/playframework/playframework/issues/889">889</a> Scala における JSON シリアライズのパフォーマンス/平行処理性能に関するボトルネックを解消</li>
   <li><a href="https://github.com/playframework/playframework/issues/888">888</a> Javascript リバースルーターのデフォルト値を修正</li>
   <li>JSON マクロの修正と改善</li>
-</ul><h1>Play 2.1.0</h1><p><em>2013/02/06 リリース</em></p>
+</ul>
+
+<h2>Play 2.1.0</h2>
+<p><em>2013/02/06 リリース</em></p>
 <ul>
   <li>Scala 2.10 への移行</li>
   <li>Scala concurrent Futures への移行</li>
@@ -63,7 +157,46 @@
   <li>コンテンツネゴシエーション</li>
   <li>Iteratee API の改善</li>
   <li>issue トラッカーにおける 182 の解決されたバグと改善:</li>
-</ul><p><a href="http://www.playframework-ja.org/documentation/2.1.0/Highlights">ハイライト</a><br/><a href="https://play.lighthouseapp.com/projects/82401-play-20/milestones/137248-21">すべての変更内容</a></p>
+</ul><p><a href="http://www.playframework-ja.org/documentation/2.1.0/Highlights">ハイライト</a><br/><a href="https://play.lighthouseapp.com/projects/82401-play-20/milestones/137248-21">すべての変更履歴</a></p>
+
+<h2>Play 2.0.8</h2>
+<p><em>2013/09/20 リリース</em></p>
+<p><strong>脆弱性の修正</strong></p>
+<ul>
+  <li><a href="/security/vulnerability/20130920-XmlExternalEntity">20130920-XmlExternalEntity</a> XML 外部エンティティの悪用</li>
+</ul>
+
+<h2>Play 2.0.7</h2>
+<p><em>2013/09/11 リリース</em></p>
+<p><strong>脆弱性の修正</strong></p>
+<ul>
+  <li><a href="/security/vulnerability/20130911-XmlExternalEntity">20130911-XmlExternalEntity</a> XML 外部エンティティの悪用</li>
+</ul><p><strong>その他の変更</strong></p>
+<ul>
+  <li><a href="https://github.com/playframework/playframework/issues/1502">1502</a> evolution におけるセミコロンエスケープ</li>
+  <li><a href="https://github.com/playframework/playframework/issues/1503">1503</a> 設定可能な HTTP リクエストパラメータ - 最大リクエスト長, 最大ヘッダサイズ, チャンクサイズ</li>
+</ul>
+<p><a href="https://github.com/playframework/playframework/issues?milestone=7&state=closed">すべての変更履歴</a></p>
+
+<h2>Play 2.0.6</h2>
+<p><em>2013/08/06 リリース</em></p>
+<p><strong>脆弱性修正</strong></p>
+<ul>
+  <li><a href="/security/vulnerability/20130806-SessionInjection">20130806-SessionInjection</a> セッションインジェクション</li>
+</ul>
+
+<h2>Play 2.0.5</h2>
+<p><em>2013/08/01 リリース</em></p>
+<ul>
+  <li>100-continue に関する振る舞いを修正</li>
+  <li>壊れていた Jaxen への依存性を削除</li>
+  <li>Fluentlenium を 0.8 にアップグレード</li>
+  <li>リソースがロールバックされた場合の If-None-Match ハンドリングを修正</li>
+  <li>WS API 向けにタイムアウトとリダイレクトを設定</li>
+  <li>プラグインの逆順起動を停止</li>
+  <li>dev モードのクラスローダーにおける依存性の循環を削除</li>
+</ul>
+
         </article>
         <aside>
 #{include 'partials/_aside.html'/}
