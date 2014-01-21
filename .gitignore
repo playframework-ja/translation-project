@@ -1,5 +1,7 @@
 *~
 *.swp
+*.iml
+*.ipr
 .classpath
 .project
 .redcar/*
