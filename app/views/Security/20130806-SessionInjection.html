@@ -1,0 +1,57 @@
+#{extends 'main.html' /}
+#{set title:'Play Framework Security Advisory' /}
+#{set body:'security' /}
+#{set 'top'}
+    Play Framework Security Advisory
+#{/set}
+        <article>
+
+<h2>セッションインジェクション</h2>
+
+<h3>日付</h3>
+<p>2013/08/06</p>
+
+<h3>説明</h3>
+<p>Play のセッションエンコーディングに脆弱性が見つかりました。</p>
+<p>攻撃者は、Play セッションに null バイトを含む特別に作り上げた値を配置することで Play を騙し、セッションに任意のデータを差し込む可能性があります。</p>
+
+<h3>影響</h3>
+<p>Play のステートレスセッション機構にユーザーの入力データを配置するあらゆるアプリケーションに脆弱性が存在する可能性があります。</p>
+<p>典型的な例では、この脆弱性は認証目的のためにユーザー名をセッションに保存するアプリケーションに影響を与え、攻撃者は他のユーザーになりすますことができます。</p>
+
+<h3>影響を受けるバージョン</h3>
+<ul>
+  <li>Play 2.1.0 - 2.1.2</li>
+  <li>Play 2.0 - 2.0.5</li>
+  <li>Play 1.2 - 1.2.5</li>
+  <li>Play 1.1 - 1.1.2</li>
+  <li>Play 1.0 - 1.0.3.3</li>
+</ul>
+
+<h3>回避方法</h3>
+<p>セッションに保存されるデータが null バイトを含んでいないことを検証してください。</p>
+
+<h3>修正版</h3>
+<p>下記の適切なバージョンにアップグレードしてください:</p>
+<ul>
+  <li><a href="http://downloads.typesafe.com/play/2.1.3/play-2.1.3.zip">Play 2.1.3</a></li>
+  <li><a href="http://downloads.typesafe.com/play/2.0.6/play-2.0.6.zip">Play 2.0.6</a></li>
+  <li><a href="http://downloads.typesafe.com/play/1.2.6/play-1.2.6.zip">Play 1.2.6</a></li>
+  <li><a href="http://downloads.typesafe.com/play/1.1.3/play-1.1.3.zip">Play 1.1.3</a></li>
+  <li><a href="http://downloads.typesafe.com/play/1.0.3.4/play-1.0.3.4.zip">Play 1.0.3.4</a></li>
+</ul>
+
+<h3>CVSS メトリクス (<a href="http://www.first.org/cvss/cvss-guide">もっと詳しく</a>)</h3>
+<ul>
+  <li><strong>Base: 6.4</strong><br/> AV:N/AC:L/Au:N/C:P/I:P/A:N</li>
+  <li><strong>Temporal: 5.6</strong><br/> E:H/RL:OF/RC:C</li>
+  <li><strong>Environmental: 6.8</strong><br/> CDP:ND/TD:H/CR:H/IR:H/AR:ND<br/> <em>Environmental スコアは典型的なインターネットシステムを想定したものです。あなたの組織における実際のスコアとは異なる可能性があります。</em></li>
+</ul>
+
+<h3>謝辞</h3>
+<p>この脆弱性を発見した功績は、National Australia Bank Security Assurance Team に贈られます。</p>
+
+        </article>
+        <aside>
+#{include 'partials/_aside.html'/}
+        </aside>

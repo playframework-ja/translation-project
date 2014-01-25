@@ -148,6 +148,13 @@ public class Application extends Controller {
     }
 
     /**
+     * security action.
+     */
+    public static void security() {
+        redirect("/security/vulnerability");
+    }
+
+    /**
      * code action.
      */
     public static void code() {

@@ -2,6 +2,7 @@
 *.swp
 *.iml
 *.ipr
+*.iws
 .classpath
 .project
 .redcar/*
