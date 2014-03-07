@@ -1,3 +1,4 @@
+<!-- translated -->
 <!-- # Play 2.2 documentation -->
 # Play 2.2 ドキュメント
 
