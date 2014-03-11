@@ -1,8 +1,15 @@
+<!-- translated -->
+<!--
 # Deploying to Cloudbees
+-->
+# Cloudbees へのデプロイ
 
 CloudBees support Play dists natively - with Jenkins and continuous deployment - you can read more about this [here](https://developer.cloudbees.com/bin/view/RUN/Playframework) - yes, you can run it for free.
 
+<!--
 How to use: 
+-->
+使うためには:
 
 1. [Signup for CloudBees](https://www.cloudbees.com/signup) (if you don't already have an account) 
 2. [Run the ClickStart to setup a working Play app, with repo and Jenkins build service](https://grandcentral.cloudbees.com/?CB_clickstart=https://raw.github.com/CloudBees-community/play2-clickstart/master/clickstart.json)
