@@ -91,12 +91,20 @@ If you don't specify your own body parser, Play will use the default one guessin
 -->
 ボディパーサーを指定しない場合、Play はデフォルトのボディパーサーを使用します。このパーサーは `Content-Type` ヘッダから最も適切なコンテントタイプを推測してくれます。
 
+<!--
 - **text/plain**: `String`, accessible via `asText()`
 - **application/json**: `JsonNode`, accessible via `asJson()`
 - **application/xml**, **text/xml** or **application/XXX+xml**: `org.w3c.Document`, accessible via `asXml()`
 - **application/form-url-encoded**: `Map<String, String[]>`, accessible via `asFormUrlEncoded()`
 - **multipart/form-data**: `Http.MultipartFormData`, accessible via `asMultipartFormData()`
 - Any other content type: `Http.RawBuffer`, accessible via `asRaw()`
+-->
+- **text/plain**: `String`。`asText()` でアクセスできます
+- **application/json**: `JsonNode`。`asJson()` でアクセスできます
+- **application/xml**, **text/xml** または **application/XXX+xml**: `org.w3c.Document`。`asXml()` でアクセスできます
+- **application/form-url-encoded**: `Map<String, String[]>`。`asFormUrlEncoded()` でアクセスできます
+- **multipart/form-data**: `Http.MultipartFormData`。`asMultipartFormData()` でアクセスできます
+- その他の Content-Type: `Http.RawBuffer`。`asRaw()`でアクセスできます
 
 <!--
 Example:
