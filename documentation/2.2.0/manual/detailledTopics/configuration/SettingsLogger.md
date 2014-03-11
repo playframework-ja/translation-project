@@ -4,7 +4,10 @@
 -->
 # ログの設定
 
+<!--
 Play uses [logback](http://logback.qos.ch/) as its logging engine.
+-->
+Play のログ機能の実装には、[logback](http://logback.qos.ch/) が使われています。
 
 <!--
 ## Configuration logging level in application.conf
@@ -51,7 +54,10 @@ The default is to define two appenders, one dispatched to the standard out strea
 -->
 デフォルトでは 2 つの appender が定義されています。ひとつは標準出力へのログ用、もうひとつは `logs/application.log` へ出力するログ用です。
 
+<!--
 If you want to fully customize logback, just define a `conf/application-logger.xml` or `conf/logger.xml` configuration file. Here is the default configuration file used by Play:
+-->
+logback を完全にカスタマイズしたい場合も、設定ファイル `conf/application-logger.xml` もしくは `conf/logger.xml` を定義するだけです。Play が使うデフォルトの設定ファイルは以下の通りです。
 
 ```xml
 <configuration>
