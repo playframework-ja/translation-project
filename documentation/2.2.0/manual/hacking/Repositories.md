@@ -9,7 +9,10 @@
 -->
 ## Typesafe レポジトリ
 
+<!--
 All Play artifacts are published to the Typesafe repository at <http://repo.typesafe.com/typesafe/releases/>.
+-->
+全ての Play 関連のアーティファクトは <http://repo.typesafe.com/typesafe/releases/> にある Typesafe レポジトリにパブリッシュされています。
 
 <!--
 > **Note:** it's a Maven2 compatible repository.
@@ -32,7 +35,10 @@ resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/
 -->
 ## Snapshot を利用する
 
+<!--
 Snapshots are published daily from our [[Continuous Integration Server|ThirdPartyTools]] to the Typesafe snapshots repository at <http://repo.typesafe.com/typesafe/snapshots/>.
+-->
+Snapshot は Play の [[継続的インテグレーションサーバ|ThirdPartyTools]] から <http://repo.typesafe.com/typesafe/snapshots/> にある Typesafe Snapshots レポジトリへ、一日一回パブリッシュされています。
 
 ```
 // The Typesafe snapshots repository
