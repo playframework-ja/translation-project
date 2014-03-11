@@ -1,10 +1,23 @@
+<!-- translated -->
+<!--
 # Configuring the JDBC pool.
+-->
+# JDBC コネクションプールの設定
 
+<!--
 The Play JDBC datasource is managed by [BoneCP](http://jolbox.com/). 
+-->
+Play の JDBC データソースの管理には、[BoneCP](http://jolbox.com/) が使われています。
 
+<!--
 ## Special URLs
+-->
+## 特別な URL
 
+<!--
 Play supports special url format for both **MySQL** and **PostgreSQL**:
+-->
+Play は、**MySQL** と **PostgreSQL** 用に特別な URL 形式をサポートしています。
 
 ```
 # To configure MySQL
@@ -14,9 +27,15 @@ db.default.url="mysql://user:password@localhost/database"
 db.default.url="postgres://user:password@localhost/database"
 ```
 
+<!--
 ## Reference
+-->
+## リファレンス
 
+<!--
 In addition to the classical `driver`, `url`, `user`, `password` configuration properties, it also supports additional tuning parameters if you need them:
+-->
+Playの 旧バージョンにも存在した `driver`, `url`, `user`, `password` というおなじみの設定項目に加えて、さらにオプションとして設定できる項目が追加されています。
 
 ```properties
 # The JDBC driver to use
