@@ -311,7 +311,10 @@ Evolutions are stored in your database in a table called PLAY_EVOLUTIONS.  A Tex
 -->
 ## 本番でエボリューションを実行する
 
+<!--
 The appropriate up and down scripts are run in dev mode when you click 'Apply Evolutions' in the play console. To use evolutions in PROD mode there are two things to consider.
+-->
+dev モードでは play コンソールで 'Apply Evolutions' をクリックする事で適切な up と down スクリプトが実行されます。 PROD モードでエボリューションを使用する場合は、考慮しなければならない事が2つあります。
 
 <!--
 If you want to apply UP evolutions automatically, you should set the system property `-DapplyEvolutions.<database>=true` or set `applyEvolutions.<database>=true` in application.conf.
