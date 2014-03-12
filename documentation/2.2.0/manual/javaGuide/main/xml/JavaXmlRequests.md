@@ -9,7 +9,10 @@
 -->
 ## XML リクエストの処理
 
+<!--
 An XML request is an HTTP request using a valid XML payload as request body. It must specify the `application/xml` or `text/xml` MIME type in its `Content-Type` header.
+-->
+XML リクエストはリクエストボディに XML データを含む HTTP リクエストです。XML リクエストの `Content-Type` ヘッダには、 `application/xml` もしくは `text/xml` という MIME タイプを指定する必要があります。
 
 <!--
 By default, an action uses an **any content** body parser, which you can use to retrieve the body as XML (actually as a `org.w3c.Document`):
