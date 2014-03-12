@@ -9,7 +9,10 @@
 -->
 ## Scala ベースのタイプセーフなテンプレートエンジン
 
+<!--
 Play comes with a powerful Scala-based template engine, whose design was inspired by ASP.NET Razor. Specifically it is:
+-->
+Play には強力な Scala ベースのテンプレートエンジンが同梱されています。この新しいテンプレートエンジンのデザインは、ASP.NET Razor にインスパイアされており、特徴は次のとおりです。
 
 <!--
 - **compact, expressive, and fluid**: it minimizes the number of characters and keystrokes required in a file, and enables a fast, fluid coding workflow. Unlike most template syntaxes, you do not need to interrupt your coding to explicitly denote server blocks within your HTML. The parser is smart enough to infer this from your code. This enables a really compact and expressive syntax which is clean, fast and fun to type.
@@ -305,7 +308,10 @@ To make an absolute resolution, use **_root_** prefix in the import statement.
 @import _root_.company.product.core._
 ```
 
+<!--
 If you have common imports, which you need in all templates, you can declare in `build.sbt`
+-->
+全てのテンプレートで必要な共通の import 文がある場合は、 `build.sbt` で指定することができます。
 
 ```scala
 templatesImport += "com.abc.backend._"
