@@ -1,6 +1,13 @@
+<!-- translated -->
+<!--
 A big THANK YOU! to these sponsors for their support of open source projects.
+-->
+これらスポンサーによるオープンソースプロジェクトへのサポートに大いなる感謝の意を表明します。
 
+<!--
 # Continuous Integration
+-->
+# 継続的インテグレーション
 
 [[images/cloudbees.png]]
 
@@ -8,7 +15,10 @@ Our continuous integration runs on [Cloudbees](http://www.cloudbees.com/). We no
 
 <https://playframework2.ci.cloudbees.com/>
 
+<!--
 # Profiling
+-->
+# プロファイリング
 
 [[images/yourkit.png]]
 
