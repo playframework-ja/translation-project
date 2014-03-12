@@ -112,10 +112,17 @@ Play アプリケーションは、`play` パッケージ内にある Java API �
     1. [[テストの書き方 | JavaTest]]
     1. [[機能テストの書き方 | JavaFunctionalTest]]
 
+<!--
 ## Advanced topics
+-->
+## 上級編
 
+<!--
 1. [[Extending Play|JavaPlugins]]
     1. [[Writing Plugins|JavaPlugins]]
+-->
+1. [[Play を拡張する|JavaPlugins]]
+    1. [[プラグインの書き方|JavaPlugins]]
 
 <!--
 ## Tutorials
