@@ -173,10 +173,11 @@ Again, there’s nothing special here. You can just call any other template you 
 ## moreScripts and moreStyles equivalents
 -->
 ## moreScripts と moreStyles 相当の変数
-> **Next:** [[HTTP form submission and validation | ScalaForms]]
 <!--
+> **Next:** [[HTTP form submission and validation | ScalaForms]]
 To define old moreScripts or moreStyles variables equivalents (like on Play! 1.x) on a Scala template, you can define a variable in the main template like this :
 -->
+> **Next:** [[HTTP フォームの投稿とバリデーション | ScalaForms]]
 Scala テンプレートにおいて (Play! 1.x のような) 古い moreScripts または moreStyles 相当の変数を定義するために、メインテンプレートにて以下のような変数を定義することができます :
 
 ```html
@@ -238,4 +239,7 @@ And on an extended template that not need an extra script, just like this :
 }
 ```
 
+<!--
 > **Next:** [[Custom formats | JavaCustomTemplateFormat]]
+-->
+> **次ページ:** [[カスタムフォーマット | JavaCustomTemplateFormat]]
