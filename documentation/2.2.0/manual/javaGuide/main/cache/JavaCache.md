@@ -14,7 +14,10 @@ For any data stored in the cache, a regeneration strategy needs to be put in pla
 -->
 キャッシュに保存されているデータは、いつでも消去される可能性があります。その時に備えて、データを再生成する方法は常に用意しておく必要があります。この哲学は Play の基盤の一つであり、セッションがその有効期間の間ずっと値を保持するという Java EE の哲学とは異なります。
 
+<!--
 The default implementation of the cache API uses [EHCache](http://www.ehcache.org/) and it's enabled by default. You can also provide your own implementation via a plugin. 
+-->
+キャッシュ API のデフォルト実装には [EHCache](http://www.ehcache.org/) を利用しており、これはデフォルトで有効になっています。別の実装をプラグインとして提供することもできます。 
 
 
 <!--
