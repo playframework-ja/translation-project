@@ -23,7 +23,10 @@ public void renderTemplate() {
 }
 ```
 
+<!--
 You can find the complete list of the *test helpers* in the [Helper class API documentation](http://www.playframework.com/documentation/api/2.1.1/java/play/test/Helpers.html). 
+-->
+[ヘルパークラス API ドキュメント](http://www.playframework.com/documentation/api/2.1.1/java/play/test/Helpers.html) で *テストヘルパー* の完全な一覧を参照することができます。
 
 <!--
 ## Testing your controllers
@@ -94,7 +97,10 @@ public void testInServer() {
 -->
 ## Web ブラウザからテストする
 
+<!--
 If you want to test your application from with a Web browser, you can use [Selenium WebDriver](http://code.google.com/p/selenium/?redir=1). Play will start the WebDriver for your, and wrap it in the convenient API provided by [FluentLenium](https://github.com/FluentLenium/FluentLenium).
+-->
+Web ブラウザを通してアプリケーションをテストしたい場合、[Selenium WebDriver](http://code.google.com/p/selenium/?redir=1) を使うことができます。Play は WebDriver を初期化した上で、 [FluentLenium](https://github.com/FluentLenium/FluentLenium) が提供する便利な API にラップします。
 
 ```
 @Test
