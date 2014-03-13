@@ -19,7 +19,8 @@ Unmanaged dependencies work like this: create a `lib/` directory in the root of 
 -->
 「管理されない依存性」は次のように利用します: プロジェクトルートに `lib/` ディレクトリを作成し、このディレクトリに jar ファイルを追加します。これらは自動的にアプリケーションのクラスパスに追加されます。これだけです!
 
-There’s nothing to add to `build.sbt` to use unmanaged dependencies, although you could change a configuration key if you’d like to use a directory different to `lib`.
+<!-- There’s nothing to add to `build.sbt` to use unmanaged dependencies, although you could change a configuration key if you’d like to use a directory different to `lib`. -->
+この場合、`build.sbt` へ依存性を記述する必要はありませんが、`lib` 以外の場所に JAR ファイルを入れたい場合は、設定キーを変更することができます。
 
 <!--
 ## Managed dependencies
@@ -31,7 +32,8 @@ Play uses Apache Ivy (via sbt) to implement managed dependencies, so if you’re
 -->
 Play は「管理された依存性」を実現するために、Apache Ivy を利用しています。もし、Maven や Ivy に詳しければ、特に困ることはないでしょう。
 
-Most of the time you can simply list your dependencies in the `build.sbt` file. 
+<!-- Most of the time you can simply list your dependencies in the `build.sbt` file.  -->
+たいていの場合は、依存モジュールを `build.sbt` ファイルへリストアップするだけでよいでしょう。
 
 <!--
 Declaring a dependency looks like this (defining `group`, `artifact` and `revision`):
@@ -51,7 +53,8 @@ or like this, with an optional `configuration`:
 libraryDependencies += "org.apache.derby" % "derby" % "10.4.1.3" % "test"
 ```
 
-Multiple dependencies can be added either by multiple declarations like the above, or you can provide a Scala sequence:
+<!-- Multiple dependencies can be added either by multiple declarations like the above, or you can provide a Scala sequence: -->
+複数の依存性は上記のように複数の定義によって追加することもできますし、Scala のシーケンスを提供することもできます:
 
 ```scala
 libraryDependencies ++= Seq(
@@ -60,7 +63,8 @@ libraryDependencies ++= Seq(
   )
 ```
 
-Of course, sbt (via Ivy) has to know where to download the module. If your module is in one of the default repositories sbt comes with then this will just work.
+<!-- Of course, sbt (via Ivy) has to know where to download the module. If your module is in one of the default repositories sbt comes with then this will just work. -->
+sbt (内部で Ivy を使っています) は、モジュールのダウンロード元を知っている必要があります。モジュールが sbt に組み込まれたデフォルトのレポジトリのいずれかに含まれていれば、特に何もしなくても動きます。
 
 <!--
 ### Getting the right Scala version with `%%`
@@ -99,7 +103,8 @@ val appDependencies = Seq(
 -->
 ### リゾルバ
 
-sbt uses the standard Maven2 repository and the Typesafe Releases (<http://repo.typesafe.com/typesafe/releases>) repositories by default. If your dependency isn’t on one of the default repositories, you’ll have to add a resolver to help Ivy find it.
+<!-- sbt uses the standard Maven2 repository and the Typesafe Releases (<http://repo.typesafe.com/typesafe/releases>) repositories by default. If your dependency isn’t on one of the default repositories, you’ll have to add a resolver to help Ivy find it. -->
+sbt は、標準 Maven2 レポジトリと、Typesafe Releases レポジトリ (<http://repo.typesafe.com/typesafe/releases>) をデフォルトとして利用します。定義した依存モジュールがデフォルトのレポジトリに無い場合は、Ivy がモジュールを探せるように、リゾルバを自分で追加してやる必要があります。
 
 <!--
 Use the `resolvers` setting key to add your own resolver.
