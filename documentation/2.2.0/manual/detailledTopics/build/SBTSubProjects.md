@@ -19,7 +19,8 @@ It will be helpful to read the [SBT documentation on multi-project builds](http:
 -->
 ## ライブラリをサブプロジェクトとして切り出す
 
-You can make your application depend on a simple library project. Just add another sbt project definition in your `build.sbt` file:
+<!-- You can make your application depend on a simple library project. Just add another sbt project definition in your `build.sbt` file: -->
+アプリケーションからシンプルな「ライブラリプロジェクト」を切り出すことができます。`build.sbt` に、次のような sbt のプロジェクト定義を追加してください。
 
 ```
 import play.Project._
@@ -35,9 +36,11 @@ playScalaSettings
 lazy val myLibrary = project
 ```
 
-The lowercased `project` on the last line is a Scala Macro which will use the name of the val it is being assigned to in order to determine the project's name and folder.
+<!-- The lowercased `project` on the last line is a Scala Macro which will use the name of the val it is being assigned to in order to determine the project's name and folder. -->
+最終行の小文字の `project` は、プロジェクト名とフォルダを決定するために割り当てられた val の名前を使う Scala Macro です。
 
-The above example defines a sub-project in the application’s `myLibrary` folder. This sub-project is a standard sbt project, using the default layout:
+<!-- The above example defines a sub-project in the application’s `myLibrary` folder. This sub-project is a standard sbt project, using the default layout: -->
+上記の例では `myLibrary` ディレクトリにサブプロジェクトを定義しました。サブプロジェクトは普通の sbt プロジェクトの一種であり、標準的なディレクトリ構成に従います。
 
 ```
 myProject
@@ -93,9 +96,11 @@ As a Play application is just a standard sbt project with a default configuratio
 -->
 Play アプリケーションはデフォルト設定に従った普通のsbtプロジェクトでもあるため、お互いに依存性を持たせることができます。
 
-> The following example uses a `build.scala` file to declare a `play.Project`. This approach was the way Play applications were defined prior to version 2.2. The approach is retained in order to support backward compatibility. We recommend that you convert to the `build.sbt` based approach or, if using a `build.scala`, you use sbt's `Project` type and `project` macro.
+<!-- > The following example uses a `build.scala` file to declare a `play.Project`. This approach was the way Play applications were defined prior to version 2.2. The approach is retained in order to support backward compatibility. We recommend that you convert to the `build.sbt` based approach or, if using a `build.scala`, you use sbt's `Project` type and `project` macro. -->
+> 以下の例では `play.Project` を定義するために `build.scala` ファイルを使用します。このアプローチは 2.2 より前のバージョンにおいて Play アプリケーションを定義する方法でした。このアプローチは後方互換性のために残されています。`build.sbt` に基づいたアプローチに移行することをお勧めしますが、`build.scala` を使う場合は sbt の `Project` 型と `project` マクロを使ってください。
 
-Configure your sub-project as a `play.Project`:
+<!-- Configure your sub-project as a `play.Project`: -->
+サブプロジェクトを `play.Projet` として設定してみましょう:
 
 ```
 import sbt._
