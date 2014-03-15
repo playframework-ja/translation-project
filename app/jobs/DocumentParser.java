@@ -1,24 +1,37 @@
 package jobs;
 
-import static org.apache.commons.lang.StringUtils.isEmpty;
+import static org.apache.commons.lang.StringUtils.*;
 
-import java.io.*;
-import java.util.*;
-import java.util.regex.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import jj.play.org.eclipse.mylyn.wikitext.core.parser.*;
-import jj.play.org.eclipse.mylyn.wikitext.textile.core.*;
+import jj.play.org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
+import jj.play.org.eclipse.mylyn.wikitext.textile.core.TextileLanguage;
 
-import org.jsoup.*;
-import org.jsoup.nodes.*;
-import org.jsoup.select.*;
-import org.pegdown.*;
-import org.pegdown.ast.*;
+import org.apache.commons.lang.StringUtils;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
+import org.pegdown.Extensions;
+import org.pegdown.LinkRenderer;
+import org.pegdown.PegDownProcessor;
+import org.pegdown.ast.WikiLinkNode;
 
-import play.*;
-import play.jobs.*;
-import play.libs.*;
-import play.templates.*;
+import play.Logger;
+import play.Play;
+import play.jobs.Job;
+import play.jobs.OnApplicationStart;
+import play.libs.IO;
+import play.templates.Template;
+import play.templates.TemplateLoader;
 
 /**
  * 
@@ -51,11 +64,13 @@ public class DocumentParser extends Job {
             return;
         }
         for (String version : versions) {
-            File srcDir = new File(Play.applicationPath, String.format("documentation/%s/manual", srcdir(version)));
+            File srcDir = new File(Play.applicationPath, String.format("documentation/%s/manual",
+                    srcdir(version)));
             for (File src : sources(srcDir)) {
                 String name = src.getName();
                 String id = name.substring(0, name.lastIndexOf("."));
-                File dest = new File(Play.applicationPath, String.format("html/%s/%s.html", version, id));
+                File dest = new File(Play.applicationPath, String.format("html/%s/%s.html",
+                        version, id));
                 if (dest.exists() && dest.lastModified() > src.lastModified()) {
                     continue;
                 }
@@ -70,7 +85,7 @@ public class DocumentParser extends Job {
         }
         return version;
     }
-    
+
     /**
      * 
      * @param dir
@@ -110,7 +125,8 @@ public class DocumentParser extends Job {
 
         Logger.debug(String.format("version:%s, id:%s", version, id));
 
-        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/", srcdir(version)));
+        File root = new File(Play.applicationPath, String.format("documentation/%s/manual/",
+                srcdir(version)));
         String ext = isTextile(version) ? "textile" : "md";
         File page = findDown(root, id, ext);
         if (page == null || !page.exists()) {
@@ -220,10 +236,8 @@ public class DocumentParser extends Job {
         for (Element link : links) {
             String value = link.attr("href");
             int index = value.indexOf("/@api/") + "/@api/".length();
-            link.attr(
-                    "href",
-                    String.format("http://www.playframework.com/documentation/api/%s/%s", version,
-                            value.substring(index)));
+            link.attr("href", String.format("http://www.playframework.com/documentation/api/%s/%s",
+                    version, value.substring(index)));
             link.attr("target", "_blank");
         }
         return doc.body().html();
@@ -323,7 +337,43 @@ public class DocumentParser extends Job {
     public static String parseMarkdown(File page) {
         PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
         LinkRenderer renderer = new GithubLinkRenderer(page);
-        return processor.markdownToHtml(IO.readContentAsString(page), renderer);
+        return processor.markdownToHtml(toMarkdownSource(page), renderer);
+    }
+
+    private static String toMarkdownSource(File page) {
+        List<String> lines = IO.readLines(page);
+        Pattern p = Pattern.compile("^@\\[(.+)\\]\\((.+)\\)");
+        StringBuilder builder = new StringBuilder();
+        for (String line : lines) {
+            Matcher m = p.matcher(line);
+            if (m.find()) {
+                String id = m.group(1);
+                File file = new File(page.getParentFile(), m.group(2));
+                builder.append("```").append("\n");
+                builder.append(extractCode(file, id));
+                builder.append("```").append("\n");
+            } else {
+                builder.append(line).append("\n");
+            }
+        }
+        return builder.toString();
+    }
+
+    private static String extractCode(File file, String id) {
+        List<String> lines = IO.readLines(file);
+        String mark = String.format("//#%s", id);
+        boolean should_be_extraced = false;
+        StringBuilder builder = new StringBuilder();
+        for (String line : lines) {
+            if (StringUtils.equals(line, mark)) {
+                should_be_extraced = !should_be_extraced;
+                continue;
+            }
+            if (should_be_extraced) {
+                builder.append(line).append("\n");
+            }
+        }
+        return builder.toString();
     }
 
     /**
