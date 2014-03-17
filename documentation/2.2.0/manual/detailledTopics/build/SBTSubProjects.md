@@ -41,7 +41,7 @@ lazy val myLibrary = project
 <!--
 The lowercased `project` on the last line is a Scala Macro which will use the name of the val it is being assigned to in order to determine the project's name and folder.
 -->
-最終行の小文字の `project` は、プロジェクト名とフォルダを決定するために割り当てられた val の名前を使う Scala Macro です。
+最終行の小文字の `project` は、代入先の val の名前を使ってプロジェクトの名前とフォルダを決定する Scala マクロです。
 
 <!--
 The above example defines a sub-project in the application’s `myLibrary` folder. This sub-project is a standard sbt project, using the default layout:
