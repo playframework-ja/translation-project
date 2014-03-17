@@ -1,11 +1,18 @@
+<!-- translated -->
+<!--
 # Introduction to Play HTTP API
+-->
+# Play HTTP API 概論
 
 <!--
 ## What is EssentialAction?
 -->
 ## EssentialAction とは?
 
+<!--
 The EssentialAction is the new simpler type replacing the old Action[A]. To understand EssentialAction we need to understand the Play architecture.
+-->
+EssentialAction は古い Action[A] に変わる、よりシンプルな新しい型です。 EssentialAction を理解するには Play のアーキテクチャを理解する必要があります。
 
 <!--
 The core of Play2 is really small, surrounded by a fair amount of useful APIs, services and structure to make Web Programming tasks easier.
