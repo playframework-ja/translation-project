@@ -1,10 +1,23 @@
+<!-- translated -->
+<!--
 # Play for Scala developers
+-->
+# Scala 開発者のための Play
 
+<!--
 The Scala API for Play application developers is available in the `play.api` package. 
+-->
+Play アプリケーションは、`play.api` パッケージ内にある Scala API を使って開発することができます。
 
+<!--
 > The API available directly inside the `play` package (such as `play.mvc`) is reserved for Java developers. As a Scala developer, look at `play.api.mvc`.
+-->
+> (`play.mvc` のような) `play` パッケージ内の API は Java 開発者に予約されています。Scala 開発者は `play.api.mvc` などを参照してください。
 
+<!--
 ## Main concepts
+-->
+## 主要なコンセプト
 
 1. [[HTTP programming | ScalaActions]]
     1. [[Actions, Controllers and Results | ScalaActions]]
@@ -56,7 +69,10 @@ The Scala API for Play application developers is available in the `play.api` pac
     1. [[Writing tests | ScalaTest]]
     1. [[Writing functional tests | ScalaFunctionalTest]]
     
+<!--
 ## Advanced topics
+-->
+## 上級編
 
 1. [[Handling data streams reactively | Iteratees]]
     1. [[Iteratees | Iteratees]]
@@ -73,6 +89,12 @@ The Scala API for Play application developers is available in the `play.api` pac
 1. [[Extending Play|ScalaPlugins]]
     1. [[Writing Plugins|ScalaPlugins]]
 
+<!--
 ## Tutorials
+-->
+## チュートリアル
 
+<!--
 1. [[Your first application | ScalaTodoList]]
+-->
+1. [[はじめてのアプリケーション | ScalaTodoList]]
