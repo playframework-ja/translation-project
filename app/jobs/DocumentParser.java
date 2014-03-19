@@ -15,7 +15,6 @@ import java.util.regex.Pattern;
 import jj.play.org.eclipse.mylyn.wikitext.core.parser.MarkupParser;
 import jj.play.org.eclipse.mylyn.wikitext.textile.core.TextileLanguage;
 
-import org.apache.commons.lang.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -361,16 +360,19 @@ public class DocumentParser extends Job {
 
     private static String extractCode(File file, String id) {
         List<String> lines = IO.readLines(file);
-        String mark = String.format("//#%s", id);
+        Pattern p_id = Pattern.compile(String.format("(\\s*)//#%s", id));
         boolean should_be_extraced = false;
+        String spaces = "";
         StringBuilder builder = new StringBuilder();
         for (String line : lines) {
-            if (StringUtils.equals(line, mark)) {
+            Matcher m = p_id.matcher(line);
+            if (m.find()) {
+                spaces = m.group(1);
                 should_be_extraced = !should_be_extraced;
                 continue;
             }
             if (should_be_extraced) {
-                builder.append(line).append("\n");
+                builder.append(line.replace(spaces, "")).append("\n");
             }
         }
         return builder.toString();
