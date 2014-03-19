@@ -361,16 +361,37 @@ public class DocumentParser extends Job {
 
     private static String extractCode(File file, String id) {
         List<String> lines = IO.readLines(file);
-        String mark = String.format("//#%s", id);
-        boolean should_be_extraced = false;
+
+        Pattern p_id = Pattern.compile(String.format("(\\s*)//#%s", id));
+        Pattern p_replace = Pattern.compile("//#+replace:(.+)");
+
+        boolean should_be_extracted = false;
+        String replace = "";
+        String spaces = "";
+
         StringBuilder builder = new StringBuilder();
         for (String line : lines) {
-            if (StringUtils.equals(line, mark)) {
-                should_be_extraced = !should_be_extraced;
+            Matcher m = p_id.matcher(line);
+            if (m.find()) {
+                spaces = m.group(1);
+                should_be_extracted = !should_be_extracted;
                 continue;
             }
-            if (should_be_extraced) {
-                builder.append(line).append("\n");
+            if (!should_be_extracted) {
+                continue;
+            }
+
+            m = p_replace.matcher(line);
+            if (m.find()) {
+                replace = m.group(1);
+                continue;
+            }
+
+            if (StringUtils.isNotEmpty(replace)) {
+                builder.append(replace.trim()).append("\n");
+                replace = "";
+            } else {
+                builder.append(line.replace(spaces, "")).append("\n");
             }
         }
         return builder.toString();
