@@ -236,4 +236,7 @@ And on an extended template that not need an extra script, just like this :
 
 }
 ```
+<!--
 > **Next:** [[Custom format | ScalaCustomTemplateFormat]]
+-->
+> **次ページ:** [[カスタムフォーマット | ScalaCustomTemplateFormat]]
