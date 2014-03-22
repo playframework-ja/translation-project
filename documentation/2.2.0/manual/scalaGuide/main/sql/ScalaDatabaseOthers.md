@@ -14,7 +14,10 @@ Play の `play.api.db.DB` ヘルパーを使って `Connection` や `Datasource`
 -->
 ## ScalaQuery の利用
 
+<!--
 From here you can integrate any JDBC access layer that needs a JDBC data source. For example, to integrate with [ScalaQuery](https://github.com/szeiger/scala-query):
+-->
+JDBC データソースを必要とする JDBC アクセスレイヤーを利用する方法を説明します。例えば、[ScalaQuery](https://github.com/szeiger/scala-query) を利用する場合は次のように書きます。
 
 ```scala
 import play.api.db._
