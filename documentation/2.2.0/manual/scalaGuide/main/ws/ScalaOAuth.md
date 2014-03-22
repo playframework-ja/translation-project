@@ -1,18 +1,30 @@
 <!-- translated -->
 # OAuth
 
+<!--
 [OAuth](http://oauth.net/) is a simple way to publish and interact with protected data. It's also a safer and more secure way for people to give you access. For example, it can be used to access your users' data on [Twitter](https://dev.twitter.com/docs/auth/using-oauth).
+-->
+[OAuth](http://oauth.net/) はあなたのサービスのデータを他のサービスへ安全に提供したり、逆にあなたのサービスから他のサービスのデータへ安全にアクセスするための技術です。また、利用者側にとっては、データをあなたのサービスへ安全に提供する方法でもあります。例えば、OAuth を利用すると、あなたのサービス利用者が [Twitter](https://dev.twitter.com/docs/auth/using-oauth) に保存したデータを利用することができます。
 
+<!--
 There are 2 very different versions of OAuth: [OAuth 1.0](http://tools.ietf.org/html/rfc5849) and [OAuth 2.0](http://oauth.net/2/). Version 2 is simple enough to be implemented easily without library or helpers, so Play only provides support for OAuth 1.0.
+-->
+OAuth にはそれぞれ大きく異なる２つのバージョン、[OAuth 1.0](http://tools.ietf.org/html/rfc5849) と [OAuth 2.0](http://oauth.net/2/) が存在します。バージョン 2 はライブラリやヘルパーが必要ないほどシンプルなプロトコルなので、Play は OAuth 1.0 のみサポートしています。
 
 <!--
 ## Required Information
 -->
 ## 必須情報
 
+<!--
 OAuth requires you to register your application to the service provider. Make sure to check the callback URL that you provide, because the service provider may reject your calls if they don't match. When working locally, you can use `/etc/hosts` to fake a domain on your local machine.
+-->
+OAuth を利用するためには、まずアプリケーションをサービス・プロバイダに登録する必要があります。このとき、コールバック URL を間違えないように注意してください。これは、コールバック URL が一致しない場合、サービス・プロバイダによっては OAuth の通信を拒否することがあるからです。ローカル環境で試す場合は、`/etc/hosts` を利用してあなたのマシンのドメインを偽装するとよいでしょう。
 
+<!--
 The service provider will give you:
+-->
+登録が完了すると、サービス・プロバイダから以下の情報が提供されます。
 
 <!--
 * Application ID
