@@ -32,6 +32,14 @@ Modern web browsers natively support two-way live communication via WebSockets.
 >WebSocket is also useful for web applications that require real-time bi-directional communication. Before the implementation of WebSocket, such bi-directional communication was only possible using Comet channels; however, Comet is not trivial to implement reliably, and due to the TCP handshaking and HTTP header overhead, it may be inefficient for small messages. The WebSocket protocol aims to solve these problems without compromising the web’s security assumptions.
 >
 > <http://en.wikipedia.org/wiki/WebSocket>
+-->
+> WebSocket は双方向かつ全多重の通信チャンネルを、単一の Transmission Control Protocol (TCP) ソケット上で実現する Web テクノロジです。WebSocket の API は W3C により、一方 WebSocket のプロトコルは IETF により RFC 6455 として、標準化が進められています。
+>
+> WebSocket は元々、Web ブラウザおよび Web サーバにおいて実装されることを想定して設計されていますが、実際はどんな種類のクライアントやサーバでも利用できます。80 番ポート以外への TCP 接続は家庭内ネットワーク以外では管理者によってブロックされていることがよくありますが、WebSocket を使うとこの制限を迂回することができます。つまり、プロトコルのオーバーヘッドと引き換えにはなりますが、通常の TCP 接続と同じような機能を実現することができ、単一の TCP ポート上で複数の WebSocket サービスを多重化させることもできます。
+>
+> WebSocket は、リアルタイムに双方向通信を行うような web アプリケーションにとっても有用です。WebSocket が実現するまでも、このような双方向通信は Comet チャンネルを使えば実現することができました。しかし、Comet は安定して動作させるのが難しい、また TCP ハンドシェイクや HTTP ヘッダのオーバーヘッドがあるため小さいメッセージを送受信する場合に非効率的であるという欠点がありました。WebSocket は web のセキュリティ要件を落とさずにこのような双方向通信を実現するために開発されました。
+>
+> <http://en.wikipedia.org/wiki/WebSocket>
 
 <!--
 ## Handling WebSockets
@@ -85,7 +93,10 @@ It this example we are creating a simple iteratee that prints each message to co
 -->
 この例では、受信した各メッセージを console に出力するだけのシンプルな Iteratee を作成しています。また、メッセージを送信するため、**Hello!** というメッセージを一回だけ送信する単純なダミーの Enumerator も作成しました。
 
+<!--
 > **Tip:** You can test WebSockets on <http://websocket.org/echo.html>. Just set the location to `ws://localhost:9000`.
+-->
+> **Tip:** WebSocket は <http://websocket.org/echo.html> でテストすることができます。location に `ws://localhost:9000` を設定してください。
 
 <!--
 Let’s write another example that discards the input data and closes the socket just after sending the **Hello!** message:
