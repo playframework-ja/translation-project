@@ -1,33 +1,62 @@
+<!-- translated -->
 # OAuth
 
 [OAuth](http://oauth.net/) is a simple way to publish and interact with protected data. It's also a safer and more secure way for people to give you access. For example, it can be used to access your users' data on [Twitter](https://dev.twitter.com/docs/auth/using-oauth).
 
 There are 2 very different versions of OAuth: [OAuth 1.0](http://tools.ietf.org/html/rfc5849) and [OAuth 2.0](http://oauth.net/2/). Version 2 is simple enough to be implemented easily without library or helpers, so Play only provides support for OAuth 1.0.
 
+<!--
 ## Required Information
+-->
+## 必須情報
 
 OAuth requires you to register your application to the service provider. Make sure to check the callback URL that you provide, because the service provider may reject your calls if they don't match. When working locally, you can use `/etc/hosts` to fake a domain on your local machine.
 
 The service provider will give you:
 
+<!--
 * Application ID
 * Secret key
 * Request Token URL
 * Access Token URL
 * Authorize URL
+-->
+* アプリケーション ID
+* 秘密鍵
+* リクエスト・トークン URL
+* アクセス・トークン URL
+* 認可 URL
 
+<!--
 ## Authentication Flow
+-->
+## 認証フロー
 
+<!--
 Most of the flow will be done by the Play library.
+-->
+OAuth の認証フローのほとんどは Play のライブラリが処理してくれます。
 
+<!--
 1. Get a request token from the server (in a server-to-server call)
 2. Redirect the user to the service provider, where he will grant your application rights to use his data
 3. The service provider will redirect the user back, giving you a /verifier/
 4. With that verifier, exchange the /request token/ for an /access token/ (server-to-server call)
+-->
+1. サーバからリクエスト・トークンを取得します (サーバ間通信を利用) 。
+2. ユーザをサービス・プロバイダへリダイレクトします。リダイレクト先で、ユーザがあなたのアプリケーションにデータのアクセス権を与えます。
+3. サービス・プロバイダがユーザをあなたのサーバへリダイレクトします。このとき、/verifier/ が与えられます。
+4. verifier を使って、/リクエスト・トークン/ を /アクセス・トークン/ に交換します (サーバ間通信を利用) 。
 
+<!--
 Now the /access token/ can be passed to any call to access protected data.
+-->
+以後、/アクセス・トークン/ を使って、保護されたデータへアクセスできるようになります。
 
+<!--
 ## Example
+-->
+## 例
 
 ```scala
 object Twitter extends Controller {
@@ -91,4 +120,7 @@ object Application extends Controller {
 }
 ```
 
+<!--
 > **Next:** [[Integrating with Akka| ScalaAkka]]
+-->
+> **次ページ:** [[Akka の統合| ScalaAkka]]
