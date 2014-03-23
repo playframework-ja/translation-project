@@ -370,7 +370,7 @@ public class DocumentParser extends Job {
     private static String extractCode(File file, String id) {
         List<String> lines = IO.readLines(file);
 
-        Pattern p_id = Pattern.compile(String.format("(\\s*)//#%s", id));
+        Pattern p_id = Pattern.compile(String.format("(\\s*)//#%s$", id));
         Pattern p_replace = Pattern.compile("//#+replace:(.+)");
 
         boolean should_be_extracted = false;
@@ -399,7 +399,7 @@ public class DocumentParser extends Job {
                 builder.append(replace.trim()).append("\n");
                 replace = "";
             } else {
-                builder.append(line.replace(spaces, "")).append("\n");
+                builder.append(line.replaceFirst(spaces, "")).append("\n");
             }
         }
         return builder.toString();
