@@ -184,11 +184,14 @@
     $('a[href="/@api/index.html"]').attr('href', '/documentation/api/${version}/index.html')
 </script>
 #{/if}
-<script type="text/javascript" charset="utf-8" src="http://twitter.github.com/bootstrap/assets/js/google-code-prettify/prettify.js"></script>
+<style type="text/css">
+@import "/assets/stylesheets/prettify.css";
+</style>
+<script type="text/javascript" charset="utf-8" src="/assets/javascripts/prettify.js"></script>
+<script type="text/javascript" charset="utf-8" src="/assets/javascripts/lang-scala.js"></script>
 <script type="text/javascript">
-    $(function(){
-    $("pre").addClass("prettyprint scala")
-    window.prettyPrint && prettyPrint()
-    });
+$(function(){
+window.prettyPrint && prettyPrint()
+});
 </script>
 #{/if}

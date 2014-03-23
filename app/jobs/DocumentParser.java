@@ -23,8 +23,10 @@ import org.jsoup.select.Elements;
 import org.pegdown.Extensions;
 import org.pegdown.LinkRenderer;
 import org.pegdown.PegDownProcessor;
-import org.pegdown.ast.WikiLinkNode;
+import org.pegdown.VerbatimSerializer;
 
+import pegdown.plugins.GithubLinkRenderer;
+import pegdown.plugins.PrettyPrintSerializer;
 import play.Logger;
 import play.Play;
 import play.jobs.Job;
@@ -337,7 +339,9 @@ public class DocumentParser extends Job {
     public static String parseMarkdown(File page) {
         PegDownProcessor processor = new PegDownProcessor(Extensions.ALL);
         LinkRenderer renderer = new GithubLinkRenderer(page);
-        return processor.markdownToHtml(toMarkdownSource(page), renderer);
+        Map<String, VerbatimSerializer> verbatimSerializerMap = new HashMap<String, VerbatimSerializer>();
+        verbatimSerializerMap.put(VerbatimSerializer.DEFAULT, PrettyPrintSerializer.INSTANCE);
+        return processor.markdownToHtml(toMarkdownSource(page), renderer, verbatimSerializerMap);
     }
 
     private static String toMarkdownSource(File page) {
@@ -348,8 +352,12 @@ public class DocumentParser extends Job {
             Matcher m = p.matcher(line);
             if (m.find()) {
                 String id = m.group(1);
-                File file = new File(page.getParentFile(), m.group(2));
-                builder.append("```").append("\n");
+                String path = m.group(2);
+
+                File file = new File(page.getParentFile(), path);
+                String extension = path.substring(path.lastIndexOf(".") + 1);
+
+                builder.append("```").append(extension).append("\n");
                 builder.append(extractCode(file, id));
                 builder.append("```").append("\n");
             } else {
@@ -395,48 +403,5 @@ public class DocumentParser extends Job {
             }
         }
         return builder.toString();
-    }
-
-    /**
-     * 
-     * @author garbagetown
-     * 
-     */
-    private static class GithubLinkRenderer extends LinkRenderer {
-
-        private File page;
-
-        /**
-         * 
-         * @param page
-         */
-        public GithubLinkRenderer(File page) {
-            this.page = page;
-        }
-
-        @Override
-        public Rendering render(WikiLinkNode node) {
-            String text = node.getText();
-            String href = "";
-            if (text.contains("|")) {
-                String[] parts = text.split(Pattern.quote("|"));
-                text = parts[0].trim();
-                href = parts[1].trim();
-            } else if (text.endsWith(".png")) {
-                String version = "";
-                Matcher m = Pattern.compile("/([0-9¥¥.]+)/").matcher(page.getPath());
-                if (m.find()) {
-                    version = m.group(1);
-                }
-                String docroot = String.format("documentation/%s/", version);
-                String parent = page.getParent();
-                String path = parent.substring(parent.indexOf(docroot) + docroot.length());
-                href = String.format("resources/%s/%s", path, text);
-                text = String.format("<img src=%s>", href);
-            } else {
-                href = text;
-            }
-            return new LinkRenderer.Rendering(href, text);
-        }
     }
 }
