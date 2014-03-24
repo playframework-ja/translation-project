@@ -346,10 +346,13 @@ public class DocumentParser extends Job {
 
     private static String toMarkdownSource(File page) {
         List<String> lines = IO.readLines(page);
-        Pattern p = Pattern.compile("^@\\[(.+)\\]\\((.+)\\)");
+
+        Pattern p_code = Pattern.compile("^@\\[(.+)\\]\\((.+)\\)");
+        Pattern p_inlineblock = Pattern.compile("```(.+)```");
+
         StringBuilder builder = new StringBuilder();
         for (String line : lines) {
-            Matcher m = p.matcher(line);
+            Matcher m = p_code.matcher(line);
             if (m.find()) {
                 String id = m.group(1);
                 String path = m.group(2);
@@ -360,9 +363,15 @@ public class DocumentParser extends Job {
                 builder.append("```").append(extension).append("\n");
                 builder.append(extractCode(file, id));
                 builder.append("```").append("\n");
-            } else {
-                builder.append(line).append("\n");
+                continue;
             }
+            m = p_inlineblock.matcher(line);
+            if (m.find()) {
+                line = line.replace(m.group(0), String.format("`%s`", m.group(1)));
+                builder.append(line).append("\n");
+                continue;
+            }
+            builder.append(line).append("\n");
         }
         return builder.toString();
     }
