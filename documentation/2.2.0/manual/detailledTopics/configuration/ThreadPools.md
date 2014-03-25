@@ -98,6 +98,11 @@ All actions in Play Framework use the default thread pool.  When doing certain a
 -->
 Play Framework での全アクションはデフォルトスレッドプールを使用します。例えば、ある非同期動作を行う場合、future での `map` あるいは `flatMap` を呼ぶ場合に、与えられた機能内での実行するために暗黙の実行コンテキストを提供する必要があるかもしれません。実行コンテキストは基本的にスレッドプール用の別名です。
 
+<!-- 
+> When using the Java promise API, for most operations you don't get a choice as to which execution context will be used, the Play default execution context will always be used.
+-->
+> Java の promise API を使用する場合、常に Play のデフォルト実行コンテキストが使用されるので、ほとんどの操作において使用される実行コンテキストを選択することはありません。
+
 <!--
 In most situations, the appropriate execution context to use will be the Play default thread pool.  This can be used by importing it into your Scala source file:
 -->
@@ -118,7 +123,10 @@ The default thread pool can be configured using standard Akka configuration in `
 
 @[default-config](code/ThreadPools.scala)
 
+<!--
 This configuration instructs Akka to create one thread per available processor, with a maximum of 24 threads in the pool.  The full configuration options available to you can be found [here](http://doc.akka.io/docs/akka/2.2.0/general/configuration.html#Listing_of_the_Reference_Configuration).
+-->
+この設定はプール内で 24 スレッドを最大として、有効なプロセッサーごとにスレッドを一つ作成することを Akka に指示します。すべての設定可能なオプションは [ここ](http://doc.akka.io/docs/akka/2.2.0/general/configuration.html#Listing_of_the_Reference_Configuration) で見ることができます。
 
 <!--
 > Note that this configuration is separate from the configuration that the Play Akka plugin uses.  The Play Akka plugin is configured separately, by configuring akka in the root namespace (without the play { } surrounding it).
@@ -145,7 +153,7 @@ In this case, we are using Akka to create the execution context, but you could a
 @[my-context-config](code/ThreadPools.scala)
 
 <!--
-To use this excecution context in Scala, you would simply use the scala `Future` companion object function:
+To use this execution context in Scala, you would simply use the scala `Future` companion object function:
 -->
 Scala 内でのこの実行コンテキストを使用することで、 scala `Future` コンパニオンオブジェクトの関数で簡単に使うことができます。
 
