@@ -377,22 +377,23 @@ public class DocumentParser extends Job {
     }
 
     private static String extractCode(File file, String id) {
-        List<String> lines = IO.readLines(file);
 
-        Pattern p_id = Pattern.compile(String.format("(\\s*)//#%s$", id));
+        Pattern p_id = Pattern.compile(String.format("#%s", id));
         Pattern p_replace = Pattern.compile("//#+replace:(.+)");
 
         boolean should_be_extracted = false;
         String replace = "";
-        String spaces = "";
 
-        StringBuilder builder = new StringBuilder();
-        for (String line : lines) {
+        List<String> codes = new ArrayList<String>();
+        for (String line : IO.readLines(file)) {
             Matcher m = p_id.matcher(line);
             if (m.find()) {
-                spaces = m.group(1);
                 should_be_extracted = !should_be_extracted;
-                continue;
+                if (should_be_extracted) {
+                    continue;
+                } else {
+                    break;
+                }
             }
             if (!should_be_extracted) {
                 continue;
@@ -403,13 +404,27 @@ public class DocumentParser extends Job {
                 replace = m.group(1);
                 continue;
             }
-
             if (StringUtils.isNotEmpty(replace)) {
-                builder.append(replace.trim()).append("\n");
+                codes.add(replace.trim());
                 replace = "";
-            } else {
-                builder.append(line.replaceFirst(spaces, "")).append("\n");
+                continue;
             }
+            codes.add(line);
+        }
+
+        Pattern p_code = Pattern.compile("(\\s+)\\S+");
+        String indents = "";
+
+        StringBuilder builder = new StringBuilder();
+        for (String code : codes) {
+            if (StringUtils.isEmpty(indents)) {
+                Matcher m = p_code.matcher(code);
+                if (m.find()) {
+                    indents = m.group(1);
+                }
+            }
+            builder.append(code.replaceFirst(indents, ""));
+            builder.append("\n");
         }
         return builder.toString();
     }
