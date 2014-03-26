@@ -1,12 +1,22 @@
+<!-- translated -->
+<!--
 # Creating a standalone version of your application
+-->
+# スタンドアロンで実行可能なアプリケーションのビルド
 
+<!--
 ## Using the dist task
+-->
+## dist タスクを使う
 
 The simplest way to deploy a Play application is to retrieve the source (typically via a git workflow) on the server and to use either `play start` or `play stage` to start it in place.
 
 However, you sometimes need to build a binary version of your application and deploy it to the server without any dependency on Play itself. You can do this with the `dist` task.
 
+<!--
 In the Play console, simply type `dist`:
+-->
+Play コンソールで、 `dist` を入力してみましょう。
 
 ```bash
 [My first application] $ dist
@@ -52,9 +62,15 @@ Many other types of archive can be generated including:
 
 Please consult the [documentation](http://www.scala-sbt.org/sbt-native-packager) on the native packager for more information.
 
+<!--
 ## Publishing to a Maven (or Ivy) repository
+-->
+## Maven (または Ivy) レポジトリへパブリッシュする
 
+<!--
 You can also publish your application to a Maven repository. This publishes both the JAR file containing your application and the corresponding POM file.
+-->
+アプリケーションを Maven レポジトリへパブリッシュすることもできます。パブリッシュされるのは、アプリケーションの JAR と、POM ファイルの二つです。
 
 You have to configure the repository you want to publish to, in your `build.sbt` file:
 
@@ -68,7 +84,10 @@ You have to configure the repository you want to publish to, in your `build.sbt`
  )
 ```
 
+<!--
 Then in the Play console, use the `publish` task:
+-->
+設定を記述したら、Play コンソールで `publish` タスクを実行します。
 
 ```bash
 [My first application] $ publish
