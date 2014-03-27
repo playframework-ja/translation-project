@@ -1,4 +1,8 @@
+<!-- translated -->
+<!--
 # Setting up a front end HTTP server
+-->
+# フロント・エンドとなる HTTP サーバのセットアップ
 
 <!--
 You can easily deploy your application as a stand-alone server by setting the application HTTP port to 80:
@@ -14,13 +18,25 @@ $ /path/to/bin/<project-name> -Dhttp.port=80
 -->
 > プロセスを 80 番ポートにバインドするために root 権が必要なことがあります。
 
+<!--
 However, if you plan to host several applications in the same server or load balance several instances of your application for scalability or fault tolerance, you can use a front end HTTP server.
+-->
+一方、同じサーバで複数のアプリケーションをホスティングしたり、スケーラビリティや耐障害性の観点から、アプリケーションのインスタンスを複数たちあげて、それらをロードバランシングしたいこともあるでしょう。その場合は、フロントエンド HTTP サーバを利用することができます。
 
+<!--
 Note that using a front end HTTP server will rarely give you better performance than using Play server directly.  However, HTTP servers are very good at handling HTTPS, conditional GET requests and static assets, and many services assume a front end HTTP server is part of your architecture.
+-->
+フロントエンド HTTP サーバを利用する場合、Play サーバを直接利用する場合よりも優れたパフォーマンスが得られることはめったにないことに注意してください。しかしながら、HTTP サーバは HTTPS や条件付きの GET リクエスト、そして静的なアセットを処理することにとても優れているので、多くのサービスはフロントエンド HTTP サーバをアーキテクチャの一部として見なしています。
 
+<!--
 ## Set up with lighttpd
+-->
+## lighttpd を使う
 
+<!--
 This example shows you how to configure [lighttpd](http://www.lighttpd.net/) as a front end web server. Note that you can do the same with Apache, but if you only need virtual hosting or load balancing, lighttpd is a very good choice and much easier to configure!
+-->
+以下は [lighttpd](http://www.lighttpd.net/) をフロントエンド Web サーバとして構成する例です。全く同じ用途に Apache を利用することもできますが、必要なものがバーチャルホスティングやロードバランスの機能だけであれば、 lighttpd の方が設定が簡単なのでおすすめです。
 
 <!--
 The `/etc/lighttpd/lighttpd.conf` file should define things like this:
@@ -47,9 +63,15 @@ $HTTP["host"] =~ "www.loadbalancedapp.com" {
 }
 ```
 
+<!--
 ## Set up with nginx
+-->
+## nginx を使う
 
+<!--
 This example shows you how to configure [nginx](http://wiki.nginx.org/Main) as a front end web server. Note that you can do the same with Apache, but if you only need virtual hosting or load balancing, nginx is a very good choice and much easier to configure!
+-->
+以下は [nginx](http://wiki.nginx.org/Main) をフロントエンド Web サーバとして構成する例です。全く同じ用途に Apache を利用することもできますが、必要なものがバーチャルホスティングやロードバランスの機能だけであれば、 nginx の方が設定が簡単なのでおすすめです。
 
 <!-- The `/etc/nginx/nginx.conf` file should define things like this: -->
 `/etc/nginx/nginx.conf` ファイルで、以下のように定義します:
@@ -86,11 +108,20 @@ http {
 }
 ```
 
+<!--
 > *Note* Make sure you are using version 1.2 or greater of Nginx otherwise chunked responses won't work properly.
+-->
+> バージョン 1.2 以降の Nginx を使っていることを *確認*  してください。そうでないと、チャンクされたレスポンスは正常に動作しません。
 
+<!--
 ## Set up with Apache
+-->
+## Apache を使う
 
+<!--
 The example below shows a simple set up with [Apache httpd server](http://httpd.apache.org/) running in front of a standard Play configuration.
+-->
+以下は [Apache httpd server](http://httpd.apache.org/) を標準的な設定の Play アプリケーションの前段に配置するシンプルな設定の例です。
 
 ```
 LoadModule proxy_module modules/mod_proxy.so
@@ -201,15 +232,27 @@ Apache の設定ファイルに、次のような設定を記述します。
 </VirtualHost>
 ```
 
+<!--
 The important part is `balancer://mycluster`. This declares a load balancer. The +H option means that the second Play application is on standby. But you can also instruct it to load balance.
+-->
+特に重要なのは、 `balancer://mycluster` という部分です。これがロードバランサーの定義です。 +H オプションは、2 番目の Play アプリケーションが待機系であるということの宣言です。ただし、同時にこの待機系をロードバランス対象に加えることもできます。
 
+<!--
 Apache also provides a way to view the status of your cluster. Simply point your browser to `/balancer-manager` to view the current status of your clusters.
+-->
+Apache には、宣言されたクラスタのステータスを表示する機能も備わっています。現在のステータスを表示するためには、ブラウザで `/balancer-manager` にアクセスしましょう。
 
 <!--
 Because Play is completely stateless you don’t have to manage sessions between the 2 clusters. You can actually easily scale to more than 2 Play instances.
 -->
 Play は完全にステートレスなアーキテクチャになっているため、2 つのクラスタ間でのセッションの共有に頭を悩ませる必要はありません。そのおかげで、特に苦労せず 3 つ以上のインスタンスにスケールアウトさせることが可能です。
 
+<!--
 Note that [Apache does not support Websockets](https://issues.apache.org/bugzilla/show_bug.cgi?id=47485), so you may wish to use another front end proxy (such as haproxy or nginx) that does implement this functionality.
+-->
+[Apache は Websockets をサポートしていない](https://issues.apache.org/bugzilla/show_bug.cgi?id=47485) ので、この機能を実装している (haproxy や nginx のような) 別のフロントエンドサーバを使いたくなるであろうことに注意してください。
 
+<!--
 > **Next:** [[Configuring HTTPS|ConfiguringHttps]]
+-->
+> **Next:** [[HTTPS の設定|ConfiguringHttps]]
