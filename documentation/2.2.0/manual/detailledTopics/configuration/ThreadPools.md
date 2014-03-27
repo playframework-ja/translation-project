@@ -176,7 +176,10 @@ How you should best divide work in your application between different thread poo
 -->
 アプリケーションにおける作業を異なるスレッドプール間でどのように割り振るべきかは、アプリケーションが実行している作業の種類、およびどれだけの作業を平行して行えるよう制御したいのかという要望に大きく依存します。全てのソリューションに合うただひとつの設定値はありませんので、アプリケーションのブロッキング IO 要件と、それらのスレッドプール上における意味を理解することで、最良の決定を行うことができます。設定値の調整および検証にはアプリケーションの負荷テストが役立つでしょう。
 
+<!--
 > Given the fact that JDBC is blocking thread pools can be sized to the # of connections available to a db pool assuming that the thread pool is used exclusively for database access. Any lesser amount of threads will not consume the number of connections available. Any more threads than the number of connections available could be wasteful given contention for the connections.
+-->
+> JDBC がスレッドをブロックするという事実を踏まえ、スレッドプールがデータベースアクセスのためだけに使われると仮定すると、スレッドプールの大きさは利用できる db プールへのコネクションのサイズに設定することができます。これより少ない量のスレッドでは、利用可能なコネクションの数を使い切ることはないでしょう。利用可能なコネクションの数よりも多いスレッドは、コネクションの競合により無駄になる可能性があります。
 
 <!--
 Below we outline a few common profiles that people may want to use in Play Framework:
