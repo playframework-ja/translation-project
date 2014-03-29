@@ -16,8 +16,8 @@
 - [[スタンドアローンパッケージを作成する|ProductionDist]]
 - [[本番環境設定|ProductionConfiguration]]
 - [[フロントエンド HTTP サーバの設定|HTTPServer]]
-- [[HTTPS の設定 |ConfiguringHttps]]
-- [[クラウドサービスへデプロイする | ProductionHeroku]]
+- [[HTTPS の設定|ConfiguringHttps]]
+- [[クラウドサービスへデプロイする|DeployingCloud]]
 
 <!--
 ### Getting started
