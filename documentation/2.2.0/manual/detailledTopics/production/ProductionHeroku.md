@@ -1,14 +1,24 @@
+<!-- translated -->
+<!--
 # Deploying to Heroku
+-->
+# Heroku へのデプロイ
 
 [Heroku](https://www.heroku.com/) is a cloud application platform – a way of building and deploying web apps.
 
+<!--
 To get started:
+-->
+まず始めに以下の作業を行います。
 
 1. [Install the Heroku Toolbelt](https://toolbelt.heroku.com)
 2. [Sign up for a Heroku account](https://id.heroku.com/signup)
 
 
+<!--
 ## Store your application in git
+-->
+## アプリケーションを git で保存する
 
 ```bash
 $ git init
@@ -17,7 +27,11 @@ $ git commit -m "init"
 ```
 
 
+<!--
 ## Create a new application on Heroku
+-->
+## Heroku 上で新規アプリケーションを作成する
+
 
 ```bash
 $ heroku create
@@ -26,12 +40,21 @@ http://warm-1289.herokuapp.com/ | git@heroku.com:warm-1289.git
 Git remote heroku added
 ```
 
+<!--
 This provisions a new application with an HTTP (and HTTPS) endpoint and Git endpoint for your application.  The Git endpoint is set as a new remote named `heroku` in your Git repository's configuration.
+-->
+これで、新しいアプリケーションが、 HTTP (と HTTPS) のエンドポイントおよび Git のエンドポイントと一緒に提供されます。 Git エンドポイントは Git リポジトリの設定に `heroku` というリモートリポジトリとして登録されています。
 
 
+<!--
 ## Deploy your application
+-->
+## アプリケーションをデプロイする
 
+<!--
 To deploy your application on Heroku, just use git to push it into the `heroku` remote repository:
+-->
+Heroku にアプリケーションをデプロイするため、ローカルレポジトリを `heroku` という名前のリモートレポジトリへ git push してください。
 
 ```bash
 $ git push heroku master
@@ -59,9 +82,15 @@ To git@heroku.com:floating-lightning-8044.git
 Heroku will run `sbt clean stage` to prepare your application. On the first deployment, all dependencies will be downloaded, which takes a while to complete (but will be cached for future deployments).
 
 
+<!--
 ## Check that your application has been deployed
+-->
+## アプリケーションがデプロイされたことを確認する
 
+<!--
 Now, let’s check the state of the application’s processes:
+-->
+では、デプロイしたアプリケーションの状態を確認してみましょう。
 
 ```bash
 $ heroku ps
@@ -70,7 +99,10 @@ Process       State               Command
 web.1         up for 10s          target/universal/stage/bin/myapp 
 ```
 
+<!--
 The web process is up.  Review the logs for more information:
+-->
+Web プロセスが起動しています。次は、詳細を確認するため、ログを見てみましょう。
 
 ```bash
 $ heroku logs
@@ -81,14 +113,20 @@ $ heroku logs
 ...
 ```
 
+<!--
 Looks good. We can now visit the app by running:
+-->
+問題なしのようです。さらに以下のコマンドを実行すると、ブラウザが起動してデプロイした Web アプリにアクセスすることができます。
 
 ```bash
 $ heroku open
 ```
 
 
+<!--
 ## Connecting to a database
+-->
+## データベースに接続する
 
 Heroku provides a number of relational and NoSQL databases through [Heroku Add-ons](https://addons.heroku.com).  Play applications on Heroku are automatically provisioned a [Heroku Postgres](https://addons.heroku.com/heroku-postgresql) database.  To configure your Play application to use the Heroku Postgres database, first add the PostgreSQL JDBC driver to your application dependencies (`project/Build.scala`):
 
@@ -102,10 +140,16 @@ Then create a new file in your project's root directory named `Procfile` (with a
 web: bin/myapp -Dhttp.port=${PORT} ${JAVA_OPTS} -DapplyEvolutions.default=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL}
 ```
 
+<!--
 This instructs Heroku that for the process named `web` it will run Play and override the `applyEvolutions.default`, `db.default.driver`, and `db.default.url` configuration parameters.  Note that the `Procfile` command can be maximum 255 characters long.  Alternatively, use the `-Dconfig.resource=` or `-Dconfig.file=` mentioned in [[production configuration|ProductionConfiguration]] page.
+-->
+この設定で、 `web` というプロセスでは Play を起動し `applyEvolutions.default` 、 `db.default.driver` それと `db.default.url` 設定をオーバーライドするように Heroku に指示します。 `Procfile` コマンドは最大で 255 文字である事に注意して下さい。代替手段として [[本番向けの設定|ProductionConfiguration]] ページに書かれている `-Dconfig.resource=` および `-Dconfig.file=` を使用します。
 
 
+<!--
 ## Further learning resources
+-->
+## 更に進んだ学習リソース
 
 * [Play Tutorial for Java](https://github.com/jamesward/play2torial/blob/master/JAVA.md)
 * [Getting Started with Play, Scala, and Squeryl](http://www.artima.com/articles/play2_scala_squeryl.html)
