@@ -42,10 +42,19 @@ Having created your keystore, the following system properties can be used to con
 * **https.keyStorePassword** - パスワード。デフォルトは空パスワードです
 * **https.keyStoreAlgorithm** - キーストアアルゴリズム。デフォルトはプラットフォームのデフォルトアルゴリズムです
 
+<!--
 ## Turning HTTP off
+-->
+## HTTP を無効にする
 
+<!--
 To disable binding on the HTTP port, set the `http.port` system property to be `disabled`, eg:
+-->
+HTTP ポートへのバインドを無効にしたい場合は、以下のようにして `http.port` システムプロパティに `disabled` を設定してください:
 
     ./start -Dhttp.port=disabled -Dhttps.port=9443 -Dhttps.keyStore=/path/to/keystore -Dhttps.keyStorePassword=changeme
 
+<!--
 > **Next:** [[Deploying to a cloud service|DeployingCloud]]
+-->
+> **Next:** [[クラウドサービスへデプロイする|DeployingCloud]]
