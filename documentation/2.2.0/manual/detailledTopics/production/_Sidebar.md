@@ -4,12 +4,20 @@
 -->
 ### アプリケーションのデプロイ
 
+<!--
 - [[Deploying your application|Production]]
 - [[Creating a standalone version|ProductionDist]]
 - [[Production configuration|ProductionConfiguration]]
 - [[Setting up a front end HTTP server|HTTPServer]]
 - [[Configuring HTTPS|ConfiguringHttps]]
 - [[Deploying to a cloud service|DeployingCloud]]
+-->
+- [[アプリケーションのデプロイ|Production]]
+- [[スタンドアローンパッケージを作成する|ProductionDist]]
+- [[本番環境設定|ProductionConfiguration]]
+- [[フロントエンド HTTP サーバの設定|HTTPServer]]
+- [[HTTPS の設定 |ConfiguringHttps]]
+- [[クラウドサービスへデプロイする | ProductionHeroku]]
 
 <!--
 ### Getting started
