@@ -102,7 +102,7 @@
     1. [[追加設定|ProductionConfiguration]]
     1. [[フロントエンド HTTP サーバの設定|HTTPServer]]
     1. [[HTTPS の設定|ConfiguringHttps]]
-    1. [[Cloud Foundry へデプロイする|Deploying-CloudFoundry]]
+    1. [[クラウドサービスへデプロイする|DeployingCloud]]
 
 <!--
 ## Additional documentation
