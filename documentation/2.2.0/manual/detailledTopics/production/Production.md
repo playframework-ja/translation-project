@@ -17,7 +17,10 @@ Play アプリケーションを本番モードで起動する方法はいくつ
 -->
 ## start コマンドを使う
 
+<!--
 The easiest way to start an application in production mode is to use the `start` command from the Play console. This requires a Play installation on the server.
+-->
+アプリケーションを本番モードで起動する最も簡単な方法は、 Play コンソールから `start` コマンドを実行することです。そのためには、サーバに予め Play をインストールしておく必要があります。
 
 ```bash
 [My first application] $ start
@@ -69,7 +72,10 @@ $ play start
 -->
 ## stage タスクを使う
 
+<!--
 The `start` command starts the application interactively, which means that human interaction is needed, and `Ctrl+D` is required to detach the process. This solution is not really convenient for automated deployment.
+-->
+`start` コマンドはアプリケーションを対話的に起動するため、手作業が必要であり、また プロセスを切り離すために `Ctrl+D` が必要です。つまり、この方法はデプロイを自動化するには向いていません。
 
 <!--
 You can use the `stage` task to prepare your application to be run in place. The typical command for preparing a project to be run in place is:
@@ -81,20 +87,35 @@ $ play clean stage
 ```
 [[images/stage.png]]
 
+<!--
 This cleans and compiles your application, retrieves the required dependencies and copies them to the `target/universal/staged` directory. It also creates a `bin/<start>` script where `<start>` is the project's name. The script runs the Play server on Unix style systems and there is also a corresponding `bat` file for Windows.
+-->
+このコマンドにより、アプリケーションのコンパイル時に生成された一時ファイルが削除され、改めてコンパイルが実行され、必要な依存モジュールがダウンロードされ、これら全てが `target/universal/staged` ディレクトリへコピーされます。さらに、`<start>` がプロジェクトの名前となる `bin/<start>` スクリプトも生成されます。このスクリプトは Unix 系のシステム上で Play サーバ を起動し、これに対応する Windows 用の `bat` ファイルも生成されます。
 
+<!--
 For example to start an application of the project 'foo' from the project folder you can:
+-->
+例えば、'foo' プロジェクトのアプリケーションをプロジェクトフォルダから起動する場合は、次のように起動することができます:
 
 ```bash
 $ target/universal/stage/bin/foo
 ```
 
+<!--
 You can also specify a different configuration file for a production environment, from the command line:
+-->
+次のようにして、本番環境用の別の設定ファイルを指定することもできます:
 
 ```bash
 $ target/universal/stage/bin/foo -Dconfig.file=/full/path/to/conf/application-prod.conf
 ```
 
+<!--
 For a full description of usage invoke the start script with a "-h" option.
+-->
+完全な使い方の説明については、"-h" オプションを指定してこのスクリプトを起動してください。
 
+<!--
 > **Next:** [[Creating a standalone distribution|ProductionDist]]
+-->
+> **Next:** [[スタンドアローン版を作成する|ProductionDist]]
