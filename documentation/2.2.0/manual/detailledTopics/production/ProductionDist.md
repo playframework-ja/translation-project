@@ -42,7 +42,7 @@ $ play dist
 <!--
 > For Windows users a start script will be produced with a .bat file extension. Use this file when running a Play application on Windows.
 -->
-> Windows ユーザー向けの起動スクリプトは拡張子 .bat のファイルとして提供されています。
+> Windows ユーザー向けの起動スクリプトは拡張子 .bat のファイルとして提供されています。Windows 上で Play アプリケーションを実行する場合は、このファイルを使用してください。
 >
 <!--
 > For Unix users, zip files do not retain Unix file permissions so when the file is expanded the start script will be required to be set as an executable:
