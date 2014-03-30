@@ -139,9 +139,9 @@ When using an HTTP frontal server, request addresses are seen as coming from the
 フロントエンド HTTP サーバを利用する場合、Play アプリケーションからすると、 HTTP リクエストがその HTTP サーバから送信されているように見えます。通常の設定では、同じマシン上で Play アプリケーションとリバースプロキシを起動している場合、 Play からはリクエストが 127.0.0.1 から送信されているように見えます。
 
 <!--
-Proxy servers can add a specific header to the request to tell the proxied application where the request came from. Most web servers will add an X-Forwarded-For header with the remote client IP address as first argument. If you enable the forward support in the XForwardedSupport configuration, Play will change the request.remoteAddress from the proxy’s IP to the client’s IP. You have to list the IP addresses of your proxy servers for this to work.
+Proxy servers can add a specific header to the request to tell the proxied application where the request came from. Most web servers will add an X-Forwarded-For header with the remote client IP address as first argument. If the proxy server is running on localhost and connecting from 127.0.0.1, Play will trust its `X-Forwarded-For` header.  If you are running a reverse proxy on a different machine, you can set the `trustxforwarded` configuration item to true in the application configuration file, like so:
 -->
-リバースプロキシとなってる HTTP サーバは、プロキシ先の Play アプリケーションにリクエストの送信元を知らせるために、特別なヘッダを付与することができます。ほとんどの Web サーバは X-Forwarded-For というヘッダの第一引数にリクエスト元のクライアントの IP アドレスをつけて送信します。そのような Web サーバを利用している場合、 Play アプリケーションの XForwardedSupport を設定することで、 Play が request.remoteAddress をリバースプロキシの IP アドレスからリクエスト元クライントの IP アドレスに変更してくれます。ただし、この機能を利用するためには、アプリケーションの設定内でリバースプロキシの IP アドレスを全て記述しておく必要があります。
+リバースプロキシとなってる HTTP サーバは、プロキシ先の Play アプリケーションにリクエストの送信元を知らせるために、特別なヘッダを付与することができます。ほとんどの Web サーバは X-Forwarded-For というヘッダの第一引数にリクエスト元のクライアントの IP アドレスをつけて送信します。プロキシサーバがローカルで起動しており、127.0.0.1 から接続されている場合、Play は `X-Forwarded-For` ヘッダを信用します。別のマシンでリバースプロキシを実行している場合は、以下のようにアプリケーション設定ファイル内において `trustxforwarded` を true に設定することができます。
 
 ```
 trustxforwarded=true
