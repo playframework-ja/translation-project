@@ -7,7 +7,7 @@
 <!--
 [Clever Cloud](http://www.clever-cloud.com/en) is a Platform as a Service solution. You can deploy on it Scala, Java, PHP, Python and Node.js applications. Its main particularity is that it supports **automatic vertical and horizontal scaling**.
 -->
-[Clever Cloud](http://www.clever-cloud.com/en) はサービスソリューションプラットフォームです。Scala, Java, PHP, Python そして Node.js アプリケーションをデプロイすることができます。Clever Cloud の主な特徴は **垂直かつ水平なオートスケール** をサポートしている点です。
+[Clever Cloud](http://www.clever-cloud.com/en) は PaaS ソリューションです。Scala, Java, PHP, Python そして Node.js アプリケーションをデプロイすることができます。Clever Cloud の主な特徴は **垂直かつ水平なオートスケール** をサポートしている点です。
 
 <!--
 Clever Cloud supports Play! 2 applications natively. The present guide explains how to deploy your application on Clever Cloud.
