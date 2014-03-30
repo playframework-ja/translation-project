@@ -90,7 +90,7 @@ $ play clean stage
 <!--
 This cleans and compiles your application, retrieves the required dependencies and copies them to the `target/universal/staged` directory. It also creates a `bin/<start>` script where `<start>` is the project's name. The script runs the Play server on Unix style systems and there is also a corresponding `bat` file for Windows.
 -->
-このコマンドにより、アプリケーションのコンパイル時に生成された一時ファイルが削除され、改めてコンパイルが実行され、必要な依存モジュールがダウンロードされ、これら全てが `target/universal/staged` ディレクトリへコピーされます。さらに、`<start>` がプロジェクトの名前となる `bin/<start>` スクリプトも生成されます。このスクリプトは Unix 系のシステム上で Play サーバ を起動し、これに対応する Windows 用の `bat` ファイルも生成されます。
+このコマンドにより、アプリケーションのコンパイル時に生成された一時ファイルが削除され、改めてコンパイルが実行され、必要な依存モジュールがダウンロードされ、これら全てが `target/universal/staged` ディレクトリへコピーされます。さらに、`<start>` がプロジェクトの名前となる `bin/<start>` スクリプトも生成されます。これは Play サーバを起動する Unix 系システム向けのスクリプトですが、 Windows 向けの `bat` ファイルも同様に生成されます。
 
 <!--
 For example to start an application of the project 'foo' from the project folder you can:
