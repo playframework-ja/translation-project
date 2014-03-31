@@ -4,9 +4,15 @@
 -->
 # Play をソースコードからビルドする
 
+<!--
 To benefit from the latest improvements and bug fixes after the initial beta release, you may want to compile Play from sources. You’ll need a [Git client](http://git-scm.com/) to fetch the sources.
+-->
+初回のベータ版リリース以降の最新の改善やバグフィックスの恩恵を受けたいときは、 Play をソースコードからコンパイルしましょう。ソースコードは [Git client](http://git-scm.com/) で取得します。
 
+<!--
 ## Grab the source
+-->
+## ソースを取得する
 
 <!--
 From the shell, first checkout the Play sources:
@@ -17,7 +23,10 @@ From the shell, first checkout the Play sources:
 $ git clone git://github.com/playframework/playframework.git
 ```
 
+<!--
 Then go to the `playframework/framework` directory and launch the `build` script to enter the sbt build console:
+-->
+ソースコードを取得したら、 `playframework/framework` ディレクトリに移動して、 `build` スクリプトを起動し、 sbt によるビルド・コンソールに入ります。
 
 ```bash
 $ cd playframework/framework
@@ -25,16 +34,25 @@ $ ./build
 > publish-local
 ```
 
+<!--
 > Note that you don’t need to install sbt yourself: Play embeds its own version.
+-->
+> sbt を別途インストールする必要はありません。 Play には必要なバージョンの sbt が既に組み込まれているからです。
 
 <!--
 If you want to make changes to the code you can use `publish-local` to rebuild the framework.
 -->
 もし、 Play に独自の変更を加えた場合は、 `publish-local` を使ってフレームワークを再ビルドするとよいでしょう。
 
+<!--
 ## Build the documentation
+-->
+## ドキュメントをビルドする
 
+<!--
 Documentation is available at playframework/documentation as Markdown files.  You can generate formatted documentation, javadoc and scaladoc:
+-->
+ドキュメントは playframework/documentation にて Markdown ファイルとして参照することができます。整形されたドキュメント、javadoc そして scaladoc を生成することができます。
 
 ```bash
 $ cd playframework/framework
@@ -45,7 +63,10 @@ If done properly, once you run a project, you should be able to see documentatio
 -->
 正しく実行できたら、プロジェクトを実行すると手元の [http://localhost:9000/@documentation](http://localhost:9000/@documentation) でドキュメントを参照できるようになるはずです。
 
+<!--
 ## Run tests
+-->
+## テストを実行する
 
 <!--
 You can run basic tests from the sbt console using the `test` task:
@@ -65,7 +86,10 @@ We are also using several Play applications to test the framework. To run this c
 $ ./runtests
 ```
 
+<!--
 ## Use in projects
+-->
+## プロジェクト内で利用する
 
 <!--
 Creating projects using the Play version you have built from source works much the same as a regular Play application.
@@ -74,7 +98,10 @@ Creating projects using the Play version you have built from source works much t
 
 export PATH=$PATH:<projdir>/playframework
 
+<!--
 If you have an existing Play application that you are upgrading, please add
+-->
+既存の Play アプリケーションを自分でビルドしたバージョンにアップグレードしたいときは、
 
 ```
 resolvers ++= Seq(
@@ -86,9 +113,15 @@ resolvers ++= Seq(
 addSbtPlugin("play" % "sbt-plugin" % "2.2-SNAPSHOT")
 ```
 
+<!--
 to project/plugins.sbt. 
+-->
+のような設定を、 project/plugins.sbt に追加しましょう。
 
+<!--
 ## Using Code in Eclipse
+-->
+## コードを Eclipse で開く
 
 <!--
 You can find at [Stackoverflow](http://stackoverflow.com/questions/10053201/how-to-setup-eclipse-ide-work-on-the-playframework-2-0/10055419#10055419) some information how to setup eclipse to work on the code.
