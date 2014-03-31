@@ -9,7 +9,9 @@ There are several ways to deploy a Play application in production mode. Let's st
 -->
 Play アプリケーションを本番モードで起動する方法はいくつかあります。まずは、ローカル環境に Play をインストールするという最も簡単な方法を試してみましょう。
 
-<!-- > Note, different play apps require different configuration in production. The default configuration is setup for apps that are mainly processing requests asynchronously. If your app is executing mainly blocking calls, then it's recommended to increase the number of available threads and the timeouts. -->
+<!--
+> Note, different play apps require different configuration in production. The default configuration is setup for apps that are mainly processing requests asynchronously. If your app is executing mainly blocking calls, then it's recommended to increase the number of available threads and the timeouts.
+-->
 > 本番環境では、play アプリケーション毎に異なる設定が必要であることに注意してください。デフォルトの設定は、リクエストを主に非同期で処理するようアプリケーションをセットアップします。アプリケーションが主にブロッキング呼び出しを実行する場合は、利用可能なスレッド数とタイムアウト値を増やすことをおすすめします。
 
 <!--
@@ -85,7 +87,9 @@ You can use the `stage` task to prepare your application to be run in place. The
 ```bash
 $ play clean compile stage
 ```
-<!-- >Note play is not supporting windows in production mode, therefore `stage` and `start` won't work under windows  -->
+<!--
+>Note play is not supporting windows in production mode, therefore `stage` and `start` won't work under windows
+-->
 > play は windows による本番モードをサポートしていないので、`stage` と `start` は windows では動作しないことに注意してください。
 
 [[images/stage.png]]
@@ -104,7 +108,9 @@ You can start your application using:
 $ target/start
 ```
 
-<!-- You can also specify a different configuration file for production environment, from the command line: -->
+<!--
+You can also specify a different configuration file for production environment, from the command line:
+-->
 次のようにして、本番環境用の別の設定ファイルを指定することもできます:
 
 ```bash
