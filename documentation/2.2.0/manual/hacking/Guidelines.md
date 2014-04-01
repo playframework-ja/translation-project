@@ -1,8 +1,18 @@
+<!-- translated -->
+<!--
 # Developer & Contributor Guidelines
+-->
+# 開発者 & コントリビュータ向けガイドライン
 
+<!--
 ## General Workflow
+-->
+## 一般的なワークフロー
 
+<!--
 This is the process for committing code into master. There are of course exceptions to these rules, for example minor changes to comments and documentation, fixing a broken build etc.
+-->
+これは master にコミットする手順です。もちろん、例えばコメントやドキュメントのちょっとした変更や、壊れたビルドの修正、その他など、これらのルールに対する例外もあります。
 
 1. Make sure you have signed the [Typesafe CLA](http://www.typesafe.com/contribute/cla), if not, sign it online.
 2. Before starting to work on a feature or a fix, you have to make sure that:
@@ -17,13 +27,26 @@ This is the process for committing code into master. There are of course excepti
 6. After the review you should fix the issues as needed (pushing a new commit for new review etc.), iterating until the reviewers give their thumbs up.
 7. Once the code has passed review the Pull Request can be merged into the master branch. 
 
+
+<!--
 ## Developer group & discussions
+-->
+## 開発者グループと議論
 
+<!--
 To discuss features, proposal and pull-requests, use the dedicated group at https://groups.google.com/forum/#!forum/play-framework-dev.
+-->
+機能、提案、そしてプルリクエストの議論には、専用の https://groups.google.com/forum/#!forum/play-framework-dev グループを使います。
 
+<!--
 ## Pull Request Requirements
+-->
+## プルリクエスト要件
 
+<!--
 For a Pull Request to be considered at all it has to meet these requirements:
+-->
+プルリクエストがきちんと検討されるためには、これらの要件を満たす必要があります:
 
 1. Live up to the current code standard:
    - Not violate [DRY](http://programmer.97things.oreilly.com/wiki/index.php/Don%27t_Repeat_Yourself).
@@ -49,21 +72,45 @@ For a Pull Request to be considered at all it has to meet these requirements:
      * wrap scala API for java users ([example](https://github.com/playframework/playframework/blob/master/framework/src/play-cache/src/main/java/play/cache/Cache.java))
    * Features are forever, always think about whether a new feature really belongs to the core framework or it should be implemented as a plugin
 
+<!--
 If these requirements are not met then the code should **not** be merged into master, or even reviewed - regardless of how good or important it is. No exceptions.
+-->
+これらの要件が満たされない場合は、そのコードがどれだけ優れていても、またはどれだけ重要であっても、master にマージされることが **あり得ない** どころか、レビューすらされません。例外はありません。
 
+<!--
 ## Documentation
+-->
+## ドキュメント
 
+<!--
 The documentation live as markdown pages into the `documentation/manual` directory. Each Play branch has it own documentation version.
+-->
+markdown 形式のドキュメントが `documentation/manual` ディレクトリにあります。Play のブランチごとに、各バージョンのドキュメントがあります。
 
+<!--
 ## Work In Progress
+-->
+## 進行中の作業
 
-It is ok to work on a public feature branch in the GitHub repository. Something that can sometimes be useful for early feedback etc. If so then it is preferable to name the branch accordingly. This can be done by either prefix the name with ``wip-`` as in ‘Work In Progress’, or use hierarchical names like ``wip/..``, ``feature/..`` or ``topic/..``. Either way is fine as long as it is clear that it is work in progress and not ready for merge. This work can temporarily have a lower standard. However, to be merged into master it will have to go through the regular process outlined above, with Pull Request, review etc.. 
+<!--
+It is ok to work on a public feature branch in the GitHub repository. Something that can sometimes be useful for early feedback etc. If so then it is preferable to name the branch accordingly. This can be done by either prefix the name with ``wip-`` as in ‘Work In Progress’, or use hierarchical names like ``wip/..``, ``feature/..`` or ``topic/..``. Either way is fine as long as it is clear that it is work in progress and not ready for merge. This work can temporarily have a lower standard. However, to be merged into master it will have to go through the regular process outlined above, with Pull Request, review etc..
+-->
+GitHub リポジトリの公開されたフィーチャーブランチで作業することは問題ありません。早い段階でのフィードバックその他、いろいろなことに便利なときがあるでしょう。この場合、ブランチに `進行中の作業 (Work In Progress)` であることを示す ``wip-`` という接頭辞を付けるか、``wip/..``, ``feature/..`` あるいは ``topic/..`` のような階層的な名前を付けることがより望ましくなります。いずれの方法でも、それが進行中の作業であり、マージする準備が整っていないことを明確にしている限り問題ありません。この作業は一時的に基準を下げて行うこともできますが、master にマージされるには、上記に要点を説明したプルリクエストやレビュー、その他の標準的なプロセスに従う必要があります。
 
+<!--
 Also, to facilitate both well-formed commits and working together, the ``wip`` and ``feature``/``topic`` identifiers also have special meaning.   Any branch labelled with ``wip`` is considered “git-unstable” and may be rebased and have its history rewritten.   Any branch with ``feature``/``topic`` in the name is considered “stable” enough for others to depend on when a group is working on a feature.
+-->
+実際の作業ときれいに整形されたコミットメッセージの組み合わせを促進するために、``wip`` や ``feature``/``topic`` の識別子にもまた、特別な意味を持たせます。``wip`` というラベルの付いたブランチは、いずれも "git-unstable”と見なされ、リベースして履歴を変更される場合があります。``feature``/``topic`` という名前の付いたブランチは、ある機能についてグループで作業している場合、依存するのに十分なほど "stable”であると見なされます。
 
+<!--
 ## Creating Commits And Writing Commit Messages
+-->
+## コミットとコミットメッセージ
 
+<!--
 Follow these guidelines when creating public commits and writing commit messages.
+-->
+公開されたコミットを行い、コミットメッセージを書く場合は、以下のガイドラインに従ってください。
 
 1. If your work spans multiple local commits (for example; if you do safe point commits while working in a feature branch or work in a branch for long time doing merges/rebases etc.) then please do not commit it all but rewrite the history by squashing the commits into a single big commit which you write a good commit message for (like discussed in the following sections). For more info read this article: [Git Workflow](https://sandofsky.com/blog/git-workflow.html). Every commit should be able to be used in isolation, cherry picked etc.
 2. First line should be a descriptive sentence what the commit is doing. It should be possible to fully understand what the commit does by just reading this single line. It is **not ok** to only list the ticket number, type "minor fix" or similar. Include reference to ticket number, prefixed with #, at the end of the first line. If the commit is a small fix, then you are done. If not, go to 3.
@@ -73,11 +120,20 @@ Follow these guidelines when creating public commits and writing commit messages
     * ``Fix/Fixing/Fixes/Close/Closing/Refs #ticket`` - if you want to mark the ticket as fixed in the issue tracker (Assembla understands this).
     * ``backport to _branch name_`` - if the fix needs to be cherry-picked to another branch (like 2.9.x, 2.10.x, etc)
 
+<!--
 Example:
+-->
+例:
 
+<!--
     Adding monadic API to Future. Fixes #2731
 
       * Details 1
       * Details 2
       * Details 3
+-->
+    機能に API をひとつ追加。Fixes #2731
 
+      * 詳細 1
+      * 詳細 2
+      * 詳細 3
