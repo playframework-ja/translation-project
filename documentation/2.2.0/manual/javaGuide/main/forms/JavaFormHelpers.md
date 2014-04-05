@@ -109,7 +109,10 @@ This default field constructor supports additional options you can pass in the i
 -->
 ## Twitter bootstrap フィールドコンストラクタ
 
+<!--
 There is another built-in field constructor that can be used with [Twitter Bootstrap](http://twitter.github.com/bootstrap/).
+-->
+Play には、[Twitter Bootstrap](http://twitter.github.com/bootstrap/) に対応したフィールドコンストラクタが組み込みで用意されています。
 
 <!--
 To use it, just import it in the current scope:
@@ -153,7 +156,10 @@ Often you will need to write your own field constructor. Start by writing a temp
 
 @[template](code/javaguide/forms/myFieldConstructorTemplate.scala.html)
 
+<!--
 Save it in `views/` and name `myFieldConstructorTemplate.scala.html`
+-->
+これを `myFieldConstructorTemplate.scala.html` という名前で `views/` に保存します。
 
 <!--
 > **Note:** This is just a sample. You can make it as complicated as you need. You have also access to the original field using `@elements.field`.
@@ -191,7 +197,7 @@ Use the `min` parameter to display a minimum number of fields, even if the corre
 -->
 フィールドが空の場合であっても、`min` パラメータに指定した個数の input 要素が生成されます。
 
+<!--
 > **Next:** [[Protecting against CSRF|JavaCsrf]]
-
-
-
+-->
+> **Next:** [[CSRF 対策|JavaCsrf]]
