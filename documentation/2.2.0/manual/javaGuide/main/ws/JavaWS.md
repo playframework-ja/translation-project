@@ -12,7 +12,7 @@ Sometimes you want to call other HTTP services from within a Play application. P
 <!--
 A call made by `play.libs.WS` should return a `Promise<WS.Response>`, which you can handle later with Play’s asynchronous mechanisms.
 -->
-`play.libs.WS` による HTTP 呼び出しは、 `Promise<Ws.Response>` を返します。これは、後に Play の非同期メカニズムにより処理されます。
+`play.libs.WS` による HTTP 呼び出しは、 `Promise<WS.Response>` を返します。これは、後に Play の非同期メカニズムにより処理されます。
 
 <!--
 ## Imports
