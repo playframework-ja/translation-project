@@ -9,11 +9,20 @@ Sometimes you want to call other HTTP services from within a Play application. P
 -->
 ときどき、Play アプリケーションから他の HTTP サービスを呼び出したくなることがあります。そんなときは、 Play が提供している、非同期　HTTP 呼び出しを行うためのライブラリ `play.libs.WS` を使いましょう。
 
+<!--
 A call made by `play.libs.WS` should return a `Promise<WS.Response>`, which you can handle later with Play’s asynchronous mechanisms.
+-->
+`play.libs.WS` による HTTP 呼び出しは、 `Promise<Ws.Response>` を返します。これは、後に Play の非同期メカニズムにより処理されます。
 
+<!--
 ## Imports
+-->
+## インポート
 
+<!--
 To use WS, first import the following packages:
+-->
+WS クラスを使うためには、まず以下のパッケージをインポートします:
 
 @[ws-imports](code/javaguide/ws/JavaWS.java)
 
@@ -36,15 +45,27 @@ Alternatively:
 
 @[post-call](code/javaguide/ws/JavaWS.java)
 
+<!--
 ## Recovery
+-->
+## リカバリ
 
+<!--
 If you want to recover from an error in the call transparently, you can use `recover` to substitute a response:
+-->
+透過的な呼び出しにおけるエラーからリカバリしたい場合は、レスポンスの代わりに `recover` を使うことができます。
 
 @[get-call-and-recover](code/javaguide/ws/JavaWS.java)
 
+<!--
 ## Retrieving the HTTP response result
+-->
+## HTTP レスポンスを取得する
 
+<!--
 The call is made asynchronously and you need to manipulate it as a `Promise<WS.Response>` to get the actual content. You can compose several promises and end up with a `Promise<Result>` that can be handled directly by the Play server:
+-->
+HTTP 呼び出しは非同期で行われ、実際のコンテンツを取得するためには `Promise<WS.Response>` を操作する必要があります。また、複数の Promise を合成して、最終的に Play サーバが直接的に処理できるように `Promise<Result>` を返す、という方法も使えます。
 
 @[simple-call](code/javaguide/ws/JavaWS.java)
 
@@ -69,7 +90,7 @@ If you want to make multiple calls in sequence, this can be achieved using `flat
 <!--
 The HTTP client can be configured globally in `application.conf` via a few properties:
 -->
-Play アプリケーション全体で使われる HTTP クライアントの設定は、 `application.conf` にほんの少しプロパティを設定するたけで行えます。
+Play アプリケーション全体で使われる HTTP クライアントの設定は、 `application.conf` にほんの少しプロパティを設定するだけで行えます。
 
 @[application](code/javaguide/ws/application.conf)
 
