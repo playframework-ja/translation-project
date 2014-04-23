@@ -4,9 +4,14 @@
 -->
 ### テンプレートエンジン
 
+<!--
 - [[Templates syntax | JavaTemplates]]
 - [[Common use cases | JavaTemplateUseCases]]
 - [[Custom formats | JavaCustomTemplateFormat]]
+-->
+- [[テンプレートの文法 | JavaTemplates]]
+- [[よくある使い方 | JavaTemplateUseCases]]
+- [[カスタムフォーマット | JavaCustomTemplateFormat]]
 
 <!--
 ### Main concepts
