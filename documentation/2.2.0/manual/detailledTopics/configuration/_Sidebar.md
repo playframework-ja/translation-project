@@ -4,11 +4,18 @@
 -->
 ### 設定
 
+<!--
 - [[Configuration file syntax and features | Configuration]]
 - [[Configuring the JDBC connection pool | SettingsJDBC]]
 - [[Configuring Play's thread pools | ThreadPools]]
 - [[Configuring logging | SettingsLogger]]
 - [[Configuring gzip encoding|GzipEncoding]]
+-->
+- [[設定ファイルのシンタックスと機能 | Configuration]]
+- [[JDBC コネクションプールの設定 | SettingsJDBC]]
+- [[Play スレッドプールの設定 | ThreadPools]]
+- [[ログの設定 | SettingsLogger]]
+- [[gzip エンコーディング設定|GzipEncoding]]
 
 <!--
 ### Getting started
