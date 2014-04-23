@@ -40,11 +40,18 @@
 -->
 ### 上級編
 
+<!--
 - [[Handling data streams reactively | Iteratees]]
 - [[HTTP API | HttpApi]]
 - [[HTTP Filters | ScalaHttpFilters]]
 - [[Dependency Injection | ScalaDependencyInjection]]
 - [[Extending Play|ScalaPlugins]]
+-->
+- [[反応的なストリーム処理 | Iteratees]]
+- [[HTTP API | HttpApi]]
+- [[HTTP フィルター | ScalaHttpFilters]]
+- [[依存性の注入 | ScalaDependencyInjection]]
+- [[Play を拡張する|ScalaPlugins]]
 
 <!--
 ### Tutorials
