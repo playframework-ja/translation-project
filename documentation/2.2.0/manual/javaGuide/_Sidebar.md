@@ -35,9 +35,15 @@
 - [[アプリケーション Global オブジェクト | JavaGlobal]]
 - [[アプリケーションのテスト | JavaTest]]
 
+<!--
 ### Advanced Topics
+-->
+### 上級編
 
+<!--
 - [[Extending Play|JavaPlugins]]
+-->
+- [[Play を拡張する|JavaPlugins]]
 
 <!--
 ### Tutorials
