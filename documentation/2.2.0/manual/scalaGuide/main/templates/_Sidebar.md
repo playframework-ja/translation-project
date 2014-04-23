@@ -4,9 +4,14 @@
 -->
 ### テンプレート・エンジン
 
+<!--
 - [[Scala templates syntax | ScalaTemplates]]
 - [[Common use cases | ScalaTemplateUseCases]]
 - [[Custom format | ScalaCustomTemplateFormat]]
+-->
+- [[テンプレートの文法 | ScalaTemplates]]
+- [[よくある使い方 | ScalaTemplateUseCases]]
+- [[カスタムフォーマット | ScalaCustomTemplateFormat]]
 
 <!--
 ### Main concepts
