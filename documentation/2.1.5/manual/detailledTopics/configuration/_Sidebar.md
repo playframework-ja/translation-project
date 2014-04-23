@@ -28,12 +28,12 @@
 - [[Setting-up your preferred IDE | IDE]]
 - [[Sample applications | Samples]]
 -->
-1. [[Play のインストール | Installing]]
-1. [[新規アプリケーションを作成する | NewApplication]]
-1. [[Play アプリケーションの構造 | Anatomy]]
-1. [[Play コンソールを使う | PlayConsole ]]
-1. [[好きな IDE で開発する | IDE]]
-1. [[サンプルアプリケーション | Samples]]
+- [[Play のインストール | Installing]]
+- [[新規アプリケーションを作成する | NewApplication]]
+- [[Play アプリケーションの構造 | Anatomy]]
+- [[Play コンソールを使う | PlayConsole ]]
+- [[好きな IDE で開発する | IDE]]
+- [[サンプルアプリケーション | Samples]]
 
 <!--
 ### Working with Play
