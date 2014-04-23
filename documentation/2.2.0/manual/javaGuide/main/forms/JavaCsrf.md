@@ -142,7 +142,7 @@ This might render a form that looks like this:
 <!--
 To ensure that a CSRF token is available to be rendered in forms, and sent back to the client, the global filter will generate a new token for all GET requests that accept HTML, if a token isn't already available in the incoming request.
 -->
-CSRF トークンが利用できるよう、フォーム内にレンダリングされ、そしてクライアントに送り返されることを保証するために、グローバルフィルタは HTML を受け取るすべての GET リクエストにおいて、そのリクエストで既にトークンが利用可能でない場合は、新しいトークンを生成します。
+CSRF トークンがフォーム内にレンダリングされ、そしてクライアントに送り返されることを保証するために、グローバルフィルタは HTML を受け取るすべての GET リクエストにおいて、そのリクエストで既にトークンが利用可能でない場合は、新しいトークンを生成します。
 
 <!--
 ## Applying CSRF filtering on a per action basis
