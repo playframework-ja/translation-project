@@ -1,19 +1,27 @@
-<!-- ### Asynchronous HTTP programming -->
+<!-- translated -->
+<!--
+### Asynchronous HTTP programming
+-->
 ### 非同期 HTTP プログラミング
 
-<!-- - [[Handling asynchronous results | JavaAsync]]
+<!--
+- [[Handling asynchronous results | JavaAsync]]
 - [[Streaming HTTP responses | JavaStream]]
 - [[Comet sockets | JavaComet]]
-- [[WebSockets | JavaWebSockets]] -->
+- [[WebSockets | JavaWebSockets]]
+-->
 - [[非同期レスポンスの処理 | JavaAsync]]
 - [[HTTP レスポンスのストリーミング | JavaStream]]
 - [[Comet | JavaComet]]
 - [[WebSockets | JavaWebSockets]]
 
-<!-- ### Main concepts -->
+<!--
+### Main concepts
+-->
 ### 主要なコンセプト
 
-<!-- - [[HTTP programming | JavaActions]]
+<!--
+- [[HTTP programming | JavaActions]]
 - [[Asynchronous HTTP programming | JavaAsync]]
 - [[The template engine | JavaTemplates]]
 - [[HTTP form submission and validation | JavaForms]]
@@ -26,7 +34,8 @@
 - [[Integrating with Akka | JavaAkka]]
 - [[Internationalization | JavaI18N]]
 - [[The application Global object | JavaGlobal]]
-- [[Testing your application | JavaTest]] -->
+- [[Testing your application | JavaTest]]
+-->
 - [[HTTP プログラミング | JavaActions]]
 - [[非同期 HTTP プログラミング | JavaAsync]]
 - [[テンプレートエンジン | JavaTemplates]]
@@ -42,10 +51,14 @@
 - [[アプリケーション Global オブジェクト | JavaGlobal]]
 - [[アプリケーションのテスト | JavaTest]]
 
-<!-- ### Tutorials -->
+<!--
+### Tutorials
+-->
 ### チュートリアル
 
-<!-- - [[Your first application | JavaTodoList]]
-- [[Zentask | JavaGuide1]] -->
+<!--
+- [[Your first application | JavaTodoList]]
+- [[Zentask | JavaGuide1]]
+-->
 - [[はじめてのアプリケーション | JavaTodoList]]
 - [[Zentask | JavaGuide1]]
