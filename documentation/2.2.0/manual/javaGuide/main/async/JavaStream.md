@@ -73,10 +73,16 @@ For this kind of response we have to use **Chunked transfer encoding**.
 -->
 このような種類のレスポンスを返すためには、 **チャンク転送エンコーディング** を利用します。
 
+<!--
 > **Chunked transfer encoding** is a data transfer mechanism in version HTTP 1.1 in which a web server serves content in a series of chunks. This uses the `Transfer-Encoding` HTTP response header instead of the `Content-Length` header, which the protocol would otherwise require. Because the `Content-Length` header is not used, the server does not need to know the length of the content before it starts transmitting a response to the client (usually a web browser). Web servers can begin transmitting responses with dynamically-generated content before knowing the total size of that content.
 > 
 > The size of each chunk is sent right before the chunk itself so that a client can tell when it has finished receiving data for that chunk. The data transfer is terminated by a final chunk of length zero.
 >
+> <http://en.wikipedia.org/wiki/Chunked_transfer_encoding>
+-->
+> **チャンク転送エンコーディング** は HTTP 1.1 で定義されているデータ転送メカニズムの一つで、 web サーバがコンテンツをいくつかのチャンクに分けて送信する、というものです。このレスポンスを送信するためには `Content-Length` ヘッダの代わりに `Transfer-Encoding` HTTP レスポンスヘッダを使います。 `Content-Length` ヘッダがないので、サーバはレスポンスをクライアント（通常は web ブラウザ）へ送信し始める前にコンテンツの長さを知る必要はありません。つまり、 web サーバは動的に生成されるコンテンツの最終的な長さを知ることなく、レスポンスを送り始めることができます。
+>
+> 各チャンクの長さはチャンクの内容の直前に送信されます。これによって、クライアントはチャンクの受信が終わったことを認識できます。最後に、長さがゼロのチャンクを送信すると、データ転送は完了です。
 > <http://en.wikipedia.org/wiki/Chunked_transfer_encoding>
 
 <!--
