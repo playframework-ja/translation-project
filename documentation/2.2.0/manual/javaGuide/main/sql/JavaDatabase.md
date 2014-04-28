@@ -9,9 +9,15 @@
 -->
 ## JDBC コネクションプールの構成
 
+<!--
 Play provides a plugin for managing JDBC connection pools. You can configure as many databases you need.
+-->
+Play には JDBC コネクションプールを管理するプラグインが同梱されています。これを使って、必要なだけデータベースへの接続設定を書くことができます。
 
+<!--
 To enable the database plugin add javaJdbc in your build dependencies :
+-->
+ビルドの依存性に javaJdbc を追加してデータベースプラグインを有効化します :
 
 ```scala
 val appDependencies = Seq(
@@ -19,7 +25,10 @@ val appDependencies = Seq(
 )
 ```
 
+<!--
 Then you must configure a connection pool in the `conf/application.conf` file. By convention the default JDBC data source must be called `default`:
+-->
+その後、`conf/application.conf` ファイルでコネクションプールの設定を行う必要があります。規約によって、デフォルトの JDBC データソースは `default` でなければなりません。
 
 ```properties
 # Default database configuration
@@ -105,7 +114,10 @@ db.default.jndiName=DefaultDS
 -->
 ## データベースドライバをインポートする
 
+<!--
 Other than for the h2 in-memory database, useful mostly in development mode, Play does not provide any database drivers. Consequently, to deploy in production you will have to add your database driver as an application dependency.
+-->
+主に開発時に有効である H2 のインメモリデータベースを除いて、 Play はデータベースドライバを何も提供していません。このため、本番環境にデプロイするには、必要なデータベースドライバを依存性として追加する必要があるでしょう。
 
 <!--
 For example, if you use MySQL5, you need to add a [[dependency| SBTDependencies]] for the connector:
