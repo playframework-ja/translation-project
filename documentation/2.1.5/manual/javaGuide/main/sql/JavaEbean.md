@@ -114,9 +114,9 @@ public class Task extends Model {
 }
 ```
 <!--
-> Play has been designed to generate getter/setter automatically, to ensure compatibility with libraries that expect them to be available at runtime (ORM, Databinder, JSON Binder, etc). **If Play detects any user-written getter/setter in the Model, it will not generate getter/setter in order to avoid any conflict.**
+> Play has been designed to generate getter/setter automatically, to ensure compatibility with libraries that expect them to be available at **runtime** (ORM, Databinder, JSON Binder, etc). **If Play detects any user-written getter/setter in the Model, it will not generate getter/setter in order to avoid any conflict.**
 -->
-> 実行時に getter/setter を必要とするライブラリ (ORM、データバインダ、JSON バインダ、等) との互換性を保つため、Play はこれらを自動生成するように設計されてきました。 **もしユーザが作成した getter/setter が Model で見つかった場合、Play は競合を避けるために getter/setter を生成しません。**
+> **実行時** に getter/setter を必要とするライブラリ (ORM、データバインダ、JSON バインダ、等) との互換性を保つため、Play はこれらを自動生成するように設計されてきました。 **もしユーザが作成した getter/setter が Model で見つかった場合、Play は競合を避けるために getter/setter を生成しません。**
 <!--
 > **Caveats:**
 -->
