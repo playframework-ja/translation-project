@@ -4,11 +4,20 @@
 -->
 # JPA の統合
 
+<!--
 ## Adding dependencies to your project
+-->
+## プロジェクトに依存性を追加する
 
+<!--
 First you need to tell play that your project need javaJpa plugin which provide JDBC and JPA api dependencies.
+-->
+まず初めに、JDBC と JPA の api 依存性を提供する javaJpa プラグインをプロジェクトが 必要としていることを play に伝える必要があります。
 
+<!--
 There is no built-in JPA implementation in Play; you can choose any available implementation. For example, to use Hibernate, just add the dependency to your project:
+-->
+Play に組み込みの JPA 実装は含まれません; どんな実装でも選ぶことができます。例えば Hibernate を使う場合でも、プロジェクトに依存性を追加するだけです:
 
 ```
 val appDependencies = Seq(
@@ -65,7 +74,10 @@ Here is a sample configuration file to use with Hibernate:
 </persistence>
 ```
 
+<!--
 Finally you have to tell Play, which persistent unit should be used by your JPA provider. This is done by the `jpa.default` property in your `application.conf`.
+-->
+最後に、JPA プロバイダが使用すべき依存性ユニットを Play に伝えなければなりません。`application.conf` の `jpa.default` プロパティを指定します。
 
 ```
 jpa.default=defaultPerstistenceUnit
