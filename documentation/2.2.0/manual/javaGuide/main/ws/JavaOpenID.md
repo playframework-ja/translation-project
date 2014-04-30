@@ -4,7 +4,10 @@
 -->
 # Play の OpenID 対応
 
+<!--
 OpenID is a protocol for users to access several services with a single account. As a web developer, you can use OpenID to offer users a way to login with an account they already have (their [Google account](https://developers.google.com/accounts/docs/OpenID) for example). In the enterprise, you can use OpenID to connect to a company's SSO server if it supports it.
+-->
+OpenID はユーザが単一のアカウントで複数のサービスにアクセスできるようにするためのプロトコルです。 Web 開発者としては、 OpenID を使うことで、ユーザが別のサービスで既に作成してあるアカウント (例えば [Google アカウント](http://code.google.com/apis/accounts/docs/OpenID.html)) であなたの Web アプリケーションにログインできるようになります。エンタープライズ向けには、企業の SSO サーバに接続するために OpenID を使うといったことも考えられます。
 
 <!--
 ## The OpenID flow in a nutshell
@@ -54,7 +57,10 @@ In any case, you should catch exceptions and if one is thrown redirect back the 
 -->
 ## 拡張属性
 
+<!--
 The OpenID of a user gives you his identity. The protocol also support getting [extended attributes](http://openid.net/specs/openid-attribute-exchange-1_0.html) such as the email address, the first name, the last name...
+-->
+OpenID はユーザの同一性を確かめるために利用することができます。それ以外にメールアドレスや名前、苗字などの取得のために [拡張属性](http://openid.net/specs/openid-attribute-exchange-1_0.html) というものもサポートされています。
 
 <!--
 You may request from the OpenID server *optional* attributes and/or *required* attributes. Asking for required attributes means the user can not login to your service if he doesn't provides them.
