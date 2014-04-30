@@ -57,7 +57,7 @@ akka.actor.debug.receive = on
 <!--
 > **Note:** You can also configure any other actor system from the same file, just provide a top configuration key.
 -->
-> **ノート:* Akka の規約に基づいて設定ファイルにトップの設定キーを記述することで、同じファイル内で全く別のアクターシステムを構成することもできます。
+> **ノート:** Akka の規約に基づいて設定ファイルにトップの設定キーを記述することで、同じファイル内で全く別のアクターシステムを構成することもできます。
 
 <!--
 ## Converting Akka `Future` to Play `Promise`
