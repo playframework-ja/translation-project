@@ -4,7 +4,10 @@
 -->
 # Akka の統合
 
+<!--
 [Akka](http://akka.io/) uses the Actor Model to raise the abstraction level and provide a better platform to build correct concurrent and scalable applications. For fault-tolerance it adopts the ‘Let it crash’ model, which has been used with great success in the telecoms industry to build applications that self-heal - systems that never stop. Actors also provide the abstraction for transparent distribution and the basis for truly scalable and fault-tolerant applications.
+-->
+[Akka](http://akka.io/) は、アクター・モデルに基づいて、これまでより高い抽象度で、並列かつスケーラブルなアプリケーションを実装するためのプラットフォームです。Akka は耐障害性を実現するために 'Let it crash' モデルを採用しています。これは、自己修復するアプリケーション、言い換えれば落ちないシステムを必要としていた通信業界で大きな成功を収めているモデルです。アクターは分散処理を意識せずに実現できるような抽象化を提供する一方で、スケーラブルかつ耐障害性のアプリケーションを実装するベースにもなります。
 
 <!--
 ## The application actor system
@@ -55,7 +58,10 @@ The default actor system configuration is read from the Play application configu
 -->
 ## Akka `Future` から Play `Promise` への変換
 
+<!--
 When you interact asynchronously with an Akka actor you will get a `Future` object. You can easily convert a `Future` to a Play `Promise` by calling the `play.libs.F.Promise.wrap()` method:
+-->
+Akka アクターと非同期的にやり取りをすると、 `Future` オブジェクトが返ってきます。`play.libs.F.Promise.wrap()` メソッドを利用すると、この `Future` を Play の `Promise` オブジェクトに簡単に変換することができます。
 
 @[ask](code/javaguide/akka/ask/Application.java)
 
@@ -88,7 +94,10 @@ For example, to send a message to the `testActor` every 30 minutes:
 
 @[schedule-actor](code/javaguide/akka/JavaAkka.java)
 
+<!--
 Alternatively, to run a block of code ten milliseconds from now:
+-->
+さらに、今から 10 ミリ秒後にコードブロックを一度だけ実行したい場合は、次のようにします。
 
 @[schedule-code](code/javaguide/akka/JavaAkka.java)
 
