@@ -29,7 +29,10 @@ Will automatically set the `Content-Type` header to `text/plain`, while:
 
 @[content-type_xml](code/ScalaResults.scala)
 
+<!--
 will set the Content-Type header to `application/xml`.
+-->
+このように記述した場合は、`Content-Type` ヘッダに `application/xml` がセットされます。
 
 <!--
 > **Tip:** this is done via the `play.api.http.ContentTypeOf` type class.
@@ -106,7 +109,10 @@ For text based HTTP response it is very important to handle the charset correctl
 -->
 テキストベースの HTTP レスポンスについては、charset を適切に処理することがとても重要です。Play はデフォルトで `utf-8` を使い、この処理を行います。
 
+<!--
 The charset is used to both convert the text response to the corresponding bytes to send over the network socket, and to update the `Content-Type` header with the proper `;charset=xxx` extension.
+-->
+charset はテキストベースのレスポンスをバイトデータに変換してネットワークソケット経由で送信できるようにしたり、`Content-Type` ヘッダを適切な `;charset=xxx` で更新するために利用されます。
 
 <!--
 The charset is handled automatically via the `play.api.mvc.Codec` type class. Just import an implicit instance of `play.api.mvc.Codec` in the current scope to change the charset that will be used by all operations:
