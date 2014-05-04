@@ -92,12 +92,20 @@ This body parser checks the `Content-Type` header and decides what kind of body 
 -->
 このボディパーサーは `Content-Type` ヘッダの内容に応じて、ボディを何として処理すべきかを決定します。
 
+<!--
 - **text/plain**: `String`
 - **application/json**: `JsValue`
 - **application/xml**, **text/xml** or **application/XXX+xml**: `NodeSeq`
 - **application/form-url-encoded**: `Map[String, Seq[String]]`
 - **multipart/form-data**: `MultipartFormData[TemporaryFile]`
 - any other content type: `RawBuffer`
+-->
+- **text/plain**: `String`
+- **application/json**: `JsValue`
+- **application/xml**, **text/xml** または **application/XXX+xml**: `NodeSeq`
+- **application/form-url-encoded**: `Map[String, Seq[String]]`
+- **multipart/form-data**: `MultipartFormData[TemporaryFile]`
+- その他の Content-Type: `RawBuffer`
 
 <!--
 For example:
