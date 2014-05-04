@@ -53,11 +53,20 @@ Here is a simple way to execute a block of code asynchronously and to get a `Fut
 
 @[intensive-computation](code/ScalaAsync.scala)
 
+<!--
 It's important to understand which thread code runs on with futures.  In the two code blocks above, there is an import on Plays default execution context.  This is an implicit parameter that gets passed to all methods on the future API that accept callbacks.  The execution context will often be equivalent to a thread pool, though not necessarily.
+-->
+Future がどのスレッド上で動作するか理解することが重要です。上記ふたつのコードブロックでは、Play のデフォルト実行コンテキストを import しています。これは、コールバックを受け取る Future API のすべてのメソッドに渡される implicit パラメータです。この実行コンテキストは、必ずしもそうではありませんが、多くの場合においてスレッドプールと等価です。
 
+<!--
 ## Returning futures
+-->
+## Future を返す
 
+<!--
 While we were using the `Action.apply` builder methods to build actions until now, to send an asynchronous result, we need to use the `Action.async` buider method:
+-->
+これまでは、アクションをビルドするために `Action.apply` ビルダーメソッドを使ってきましたが、非同期に Result を返すためには `Action.async` ビルダーメソッドを使う必要があります:
 
 @[async-result](code/ScalaAsync.scala)
 
