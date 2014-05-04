@@ -36,7 +36,7 @@ Let’s consider some examples.
 <!--
 Additionally a **body parser** has access to the HTTP request headers before it starts parsing the request body, and has the opportunity to run some precondition checks. For example, a body parser can check that some HTTP headers are properly set, or that the user trying to upload a large file has the permission to do so.
 -->
-これらに加えて、**ボディパーサー** はリクエストボディのパースを始める前に HTTP リクエストヘッダを参照して、いくつか事前条件のチェックをすることがあります。例えば、特定の HTTP ヘッダが正しくセットされていることをチェックしたり、ユーザが大きなファイルをアップロードしようとしたときに本当にその権限を持っているのかチェックする、というようなボディーパーサーが考えられます。
+これらに加えて、 **ボディパーサー** はリクエストボディのパースを始める前に HTTP リクエストヘッダを参照して、いくつか事前条件のチェックをすることがあります。例えば、特定の HTTP ヘッダが正しくセットされていることをチェックしたり、ユーザが大きなファイルをアップロードしようとしたときに本当にその権限を持っているのかチェックする、というようなボディーパーサーが考えられます。
 
 <!--
 > **Note**: That's why a body parser is not really an `Iteratee[Array[Byte],A]` but more precisely a `Iteratee[Array[Byte],Either[Result,A]]`, meaning that it has the opportunity to send directly an HTTP result itself (typically `400 BAD_REQUEST`, `412 PRECONDITION_FAILED` or `413 REQUEST_ENTITY_TOO_LARGE`) if it decides that it is not able to compute a correct value for the request body
@@ -229,7 +229,7 @@ def save = Action(storeInUserFile) { request =>
 <!--
 Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded**) use a maximum content length because they have to load all of the content into memory. 
 -->
-テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** のような。) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。
+テキストベースのボディパーサー ( **text**, **json**, **xml**, **formUrlEncoded** のような。) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。
 
 <!--
 There is a default content length (the default is 100KB), but you can also specify it inline:
