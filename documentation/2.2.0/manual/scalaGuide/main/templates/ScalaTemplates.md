@@ -9,7 +9,10 @@
 -->
 ## Scala ベースのタイプセーフなテンプレートエンジン
 
+<!--
 Play comes with a powerful Scala-based template engine, whose design was inspired by ASP.NET Razor. Specifically it is:
+-->
+Play には強力な Scala ベースのテンプレートエンジンが同梱されています。この新しいテンプレートエンジンのデザインは、ASP.NET Razor にインスパイアされており、特徴は次のとおりです。
 
 <!--
 - **compact, expressive, and fluid**: it minimizes the number of characters and keystrokes required in a file, and enables a fast, fluid coding workflow. Unlike most template syntaxes, you do not need to interrupt your coding to explicitly denote server blocks within your HTML. The parser is smart enough to infer this from your code. This enables a really compact and expressive syntax which is clean, fast and fun to type.
@@ -46,7 +49,10 @@ The template system has been designed to feel comfortable to those used to worki
 -->
 テンプレートシステムは HTML に慣れた人に向けて設計されているので、フロントエンドエンジニアでも簡単に書くことができます。
 
+<!--
 Templates are compiled as standard Scala functions, following a simple naming convention. If you create a `views/Application/index.scala.html` template file, it will generate a `views.html.Application.index` class that has an `apply()` method.
+-->
+テンプレートは簡単な命名規則に従って、ただの Scala の関数としてコンパイルされます。`views/Application/index.scala.html` というテンプレートファイルを作成すると、コンパイルにより `views.html.Application.index` という `apply()` メソッドを持つクラスが生成されます。
 
 <!--
 For example, here is a simple template:
@@ -55,7 +61,10 @@ For example, here is a simple template:
 
 @[example-template](code/scalaguide/templates/views/Application/index.scala.html)
 
+<!--
 You can then call this from any Scala code as you would normally call a method on a class:
+-->
+このテンプレートは、いつもクラスのメソッドを呼び出しているように、あらゆる Scala コードから呼び出すことができます:
 
 @[invoke-template](code/ScalaTemplates.scala)
 
@@ -222,7 +231,10 @@ To make an absolute resolution, use **_root_** prefix in the import statement.
 
 @[absolute](code/scalaguide/templates/importStatement.scala.html)
 
+<!--
 If you have common imports, which you need in all templates, you can declare in `build.sbt`
+-->
+全てのテンプレートで必要な共通の import 文がある場合は、 `build.sbt` で指定することができます。
 
 ```scala
 templatesImport += "com.abc.backend._"
