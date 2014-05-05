@@ -97,7 +97,10 @@ Now add the filter to your `Global` object:
 -->
 ### 現在のトークンを取得する
 
+<!--
 The current CSRF token can be accessed using the `getToken` method.  It takes an implicit `RequestHeader`, so ensure that one is in scope.
+-->
+現在の CSRF トークンには `getToken` メソッドを使ってアクセスすることができます。このメソッドは implicit な `RequestHeader` を取るので、これがスコープに存在することを確認してください。
 
 @[get-token](code/ScalaCsrf.scala)
 
@@ -138,7 +141,10 @@ This might render a form that looks like this:
 </form>
 ```
 
+<!--
 The form helper methods all require an implicit token or request to be available in scope.  This will typically be provided by adding an implicit `RequestHeader` parameter to your template, if it doesn't have one already.
+-->
+これらのフォームヘルパーメソッドは、すべてスコープ上で利用できる implicit なトークンまたはリクエストを必要とします。これらは通常、implicit な `RequestHeader` パラメータがまだテンプレートに存在しない場合、テンプレートに追加することで提供されます。
 
 <!--
 ### Adding a CSRF token to the session
@@ -165,20 +171,35 @@ In these cases, Play provides two actions that can be composed with your applica
 -->
 このような状況のために、Play はアプリケーションのアクションに合成できる二つのアクションを提供しています。
 
+<!--
 The first action is the `CSRFCheck` action, and it performs the check.  It should be added to all actions that accept session authenticated POST form submissions:
+-->
+最初のひとつは、検査を行う `CSRFCheck` アクションです。これは、セッションで認証される POST フォームの投稿を受け取るすべてのアクションに追加する必要があります:
 
 @[csrf-check](code/ScalaCsrf.scala)
 
+<!--
 The second action is the `CSRFAddToken` action, it generates a CSRF token if not already present on the incoming request.  It should be added to all actions that render forms:
+-->
+二つ目は、入力されたリクエストに既に存在しなければ CSRF トークンを生成する `CSRFAddToken` アクションです。これは、フォームをレンダリングするすべてのアクションに追加する必要があります:
 
 @[csrf-add-token](code/ScalaCsrf.scala)
 
+<!--
 A more convenient way to apply these actions is to use them in combination with Play's `ActionBuilder`:
+-->
+これらのアクションをもっと便利に適用する方法は、これらのアクションを Play の `ActionBuilder` と組み合わせて使う方法です:
 
 @[csrf-action-builder](code/ScalaCsrf.scala)
 
+<!--
 Then you can minimise the boiler plate code necessary to write actions:
+-->
+これでアクションを書くために必要なボイラープレートコードを最小化することができます:
 
 @[csrf-actions](code/ScalaCsrf.scala)
 
+<!--
 > **Next:** [[Working with JSON|ScalaJson]]
+-->
+> **Next:** [[JSON を使う|ScalaJson]]
