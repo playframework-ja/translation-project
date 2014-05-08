@@ -326,7 +326,7 @@ The `asOpt[T]` method is like `as[T]`, however it will return `None` instead of 
 - `JsResult[T]` is a monadic structure providing `map`/`flatMap`/`fold` operations to manipulate, compose it.
 -->
 - `JsResult[T]` は (最初のエラーに留まらずに) 検出されたすべてのエラーを蓄積します。
-- `JsResult[T]` は、これを操作、構成する `map`/`flatMap`/`fold` を提供するモナド構造です。.
+- `JsResult[T]` は、これを操作、構成する `map`/`flatMap`/`fold` を提供するモナド構造です。
 
 <!--
 #### `JsResult[T]` in a nutshell
