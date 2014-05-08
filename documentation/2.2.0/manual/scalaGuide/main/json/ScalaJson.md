@@ -55,6 +55,7 @@ This can be seen as a tree structure using the two following structures:
 -->
 これは、以下の二つの仕組みを使った木構造として見ることができます:
 
+<!--
 - **JSON object** contains a set of `name` / `value` pairs:
     - `name` is a String
     - `value` can be :
@@ -65,6 +66,17 @@ This can be seen as a tree structure using the two following structures:
         - true/false
         - null
 - **JSON array** is a sequence of values from the previously listed value types.
+-->
+- **JSON オブジェクト** には `name` / `value` のペアのセットが含まれます:
+    - `name` は文字列
+    - `value` は以下のいずれかです :
+        - 文字列
+        - 数値
+        - 他の JSON オブジェクト
+        - JSON 配列
+        - true/false
+        - null
+- **JSON 配列** は、上述した value の型からなる値の列です。
 
 <!--
 > If you want to have more info about the exact JSON standard, please go to [json.org](http://json.org/)
