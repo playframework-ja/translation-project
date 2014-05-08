@@ -586,7 +586,7 @@ And some sugar such :
 >Please note that **`JsResult[A]` is not just Monadic but Applicative** because it cumulates errors.  
 >This cumulative feature makes `JsResult[T]` makes it **not very good to be used with _for comprehension_** because you'll get only the first error and not all. 
 -->
->エラーを累積するので、**`JsResult[A]` はモナディックなだけでなくアプリカティブである** ことにも注目してください。
+>エラーを累積するので、 **`JsResult[A]` はモナディックなだけでなくアプリカティブである** ことにも注目してください。
 >この累積する機能のため、`JsResult[T]` を _for 内包表記_ で使うことはあまり良いことではありません。すべてのエラーではなく、最初のひとつだけを取り出すことになるからです。
   
 <!--
