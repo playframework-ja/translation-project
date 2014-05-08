@@ -14,7 +14,10 @@ The recommended way of dealing with JSON is using Play’s typeclass based JSON 
 -->
 JSON を使いたければ、```play.api.libs.json``` にある JSON ライブラリを基にした Play の型クラスを使うことをおすすめします。
 
+<!--
 For parsing JSON strings, Play uses the super-fast Java based JSON library, [Jackson](http://jackson.codehaus.org/).
+-->
+JSON 文字列をパースするために、Play は超高速な Java ベースの JSON ライブラリ、[Jerkson](https://github.com/codahale/jerkson/) を使います。
 
 <!--
 The benefit of this approach is that both the Java and the Scala side of Play can share the same underlying library (Jackson), while Scala users can enjoy the extra type safety and functional aspects that Play’s JSON support brings to the table.
@@ -26,7 +29,10 @@ The benefit of this approach is that both the Java and the Scala side of Play ca
 -->
 ## JSON は AST (_Abstract Syntax Tree: 抽象構文木_)
 
+<!--
 Take this JSON for example:
+-->
+例として、この JSON を見てください:
 
 ```json
 { 
@@ -44,7 +50,10 @@ Take this JSON for example:
 }
 ```
 
+<!--
 This can be seen as a tree structure using the two following structures:
+-->
+これは、以下の二つの仕組みを使った木構造として見ることができます:
 
 - **JSON object** contains a set of `name` / `value` pairs:
     - `name` is a String
@@ -68,11 +77,17 @@ This can be seen as a tree structure using the two following structures:
 -->
 ## Json データ型
 
+<!--
 The [`play.api.libs.json`](api/scala/index.html#play.api.libs.json.package) package contains the seven JSON data types, reflecting this structure.
+-->
+[`play.api.libs.json`](api/scala/index.html#play.api.libs.json.package) には、これらの構造を反映した 7 つの JSON データ型が含まれています。
 
 ### [`JsObject`](api/scala/index.html#play.api.libs.json.JsObject)
 
+<!--
 This is a set of name/value pairs as described in the standard, for example:
+-->
+標準で説明されている name/value ペアのセットです。例:
 
 ```json
 { "name" : "toto", "age" : 45 }
@@ -88,11 +103,17 @@ This is a boolean with a value of `true` or `false`.
 
 ### [`JsNumber`](api/scala/index.html#play.api.libs.json.JsNumber)
 
+<!--
 JSON does NOT discriminate `short`, `int`, `long`, `float`, `double` and `BigDecimal`, so it is represented by a `JsNumber` containing a `BigDecimal`.  The Play JSON API brings more type precision when converting to Scala structures.
+-->
+JSON は `short`, `int`, `long`, `float`, `double` そして `BigDecimal` を区別しないので、`BigDecimal` を含む `JsNumber` として表現されます。Play の JSON API は、より正確な型の Scala オブジェクトに変換します。
 
 ### [`JsArray`](api/scala/index.html#play.api.libs.json.JsArray)
 
+<!--
 An array is a sequence of any Json value types (not necessarily the same type), for example:
+-->
+配列は、あらゆる Json 値の型の列です (同じ型である必要はありません) 。例:
 
 ```
 [ "alpha", "beta", true, 123.44, 334]
@@ -105,7 +126,10 @@ A classic String.
 -->
 標準的な文字列です。
 
+<!--
 ## Other data types
+-->
+## その他のデータ型
 
 ### [`JsUndefined`](api/scala/index.html#play.api.libs.json.JsUndefined)
 
@@ -116,11 +140,20 @@ This is not part of the JSON standard and is only used internally by the API to 
 
 ### [`JsValue`](api/scala/index.html#play.api.libs.json.JsValue)
 
+<!--
 This is the super type of all the other types.
+-->
+この他すべての型の親となる型です。
 
+<!--
 ## Working with JSON
+-->
+## JSON を使う
 
+<!--
 The entry point into Play's JSON API is [`play.api.libs.json.Json`](api/scala/index.html#play.api.libs.json.Json$).  It provides the following methods:
+-->
+Play の JSON API の入り口となるのは [`play.api.libs.json.Json`](api/scala/index.html#play.api.libs.json.Json$) です。このクラスは次のメソッドを提供します:
 
 <!--
 - `Json.parse` : parses a string to JsValue
@@ -151,7 +184,10 @@ You can easily parse any JSON string as a `JsValue`:
 
 @[parse-json](code/ScalaJson.scala)
 
+<!--
 The `json` value that the result was assigned to is used in subsequent code samples below.
+-->
+この処理結果と対応付けられた `json` は、以下に続くサンプルコードで使用します。
 
 <!--
 ## Constructing JSON directly
@@ -163,7 +199,10 @@ The `json` value that the result was assigned to is used in subsequent code samp
 -->
 ### 無骨な方法
 
+<!--
 The previous sample Json object can be created in other ways too.  Here is the raw approach:
+-->
+上記した Json オブジェクトの例は、別の方法でも作成することができます。以下は無骨なアプローチです。
 
 @[construct-json-case-class](code/ScalaJson.scala)
 
@@ -172,7 +211,10 @@ The previous sample Json object can be created in other ways too.  Here is the r
 -->
 ### 推奨する方法
 
+<!--
 Play also provides a simplified syntax to build your JSON.  The previous JsObject can be constructed using the following:
+-->
+Play は JSON を作成する簡素化された文法も提供しています。上記の JsObject は以下を使って構築することができます:
 
 @[construct-json-dsl](code/ScalaJson.scala)
 
@@ -193,14 +235,20 @@ Serializing a `JsValue` to its JSON String representation is easy:
 -->
 ## JSON ツリー内パスへのアクセス
 
+<!--
 As soon as you have a `JsValue` you can navigate into the JSON tree.  The API looks like the one provided to navigate into XML document by Scala using `NodeSeq` except you retrieve `JsValue`.
+-->
+`JsValue` さえ手に入れば、JSON ツリーの中を探索することができます。この API は、`JsValue` を探索することを除けば、Scala で `NodeSeq` を使って XML ドキュメントを探索するために提供されている API と似ています。
 
 <!--
 ### Simple path `\`
 -->
 ### シンプルな `\` パス
 
+<!--
 You can navigate through properties in an object using the `\` method:
+-->
+`\` メソッドを使ってオブジェクトのプロパティを渡り歩くことができます:
 
 @[traverse-path](code/ScalaJson.scala)
 
@@ -216,18 +264,28 @@ You can navigate through properties in an object using the `\` method:
 -->
 ## JsValue から Scala 値への変換
 
+<!--
 While navigating JSON tree, you retrieve `JsValue`, however you may want to convert the JsValue to a Scala type.  For example, you may want a `JsString` to be converted to a `String`, or a `JsNumber` to be converted to a `Long`.
+-->
+JSON ツリーを渡り歩いていると `JsValue` を見つけることができますが、JsValue から Scala の型へ変換したくなるかもしれません。
+例えば、`JsString` を `String` に、または `JsNumber` を `Long` に変換したくなることでしょう。
 
 <!--
 ### Unsafe conversion with `json.as[T]`
 -->
 ### `json.as[T]` による安全でない変換
 
+<!--
 The simplest way to convert it to a value is to use the `as[T]` method, like so:
+-->
+JsValue をもっとも簡単に値に変換するのは、以下のようにして `as[T]` メソッドを使う方法です、
 
 @[as-method](code/ScalaJson.scala)
 
+<!--
 This method however is unsafe, if the path is not found, or the conversion is not possible, a `JsResultException` is thrown, containing the error.
+-->
+しかし、このメソッドは安全ではないので、パスが見つからなかったり、変換が不可能だった場合は、エラーを含む `JsResultException` がスローされます。
 
 <!--
 > Please note the error that doesn't return `path.not.found` as you may expect. This is a difference from JSON combinators presented later in the doc. 
@@ -241,7 +299,10 @@ This method however is unsafe, if the path is not found, or the conversion is no
 -->
 ### `Option[T]` による、より安全な変換
 
+<!--
 The `asOpt[T]` method is like `as[T]`, however it will return `None` instead of throwing an exception if the path isn't found, or the conversion isn't possible:
+-->
+`asOpt[T]` メソッドは `as[T]` と似ていますが、パスが見つからなかったり、変換が不可能だった場合は、例外をスローする代わりに `None` を返します:
 
 @[as-opt](code/ScalaJson.scala)
 
@@ -267,7 +328,10 @@ The `asOpt[T]` method is like `as[T]`, however it will return `None` instead of 
 - `JsResult[T]` は (最初のエラーに留まらずに) 検出されたすべてのエラーを蓄積します。
 - `JsResult[T]` は、これを操作、構成する `map`/`flatMap`/`fold` を提供するモナド構造です。.
 
+<!--
 #### `JsResult[T]` in a nutshell
+-->
+#### `JsResult[T]` をひと言で
 
 <!--
 `JsResult[T]` can have 2 values:
@@ -306,15 +370,24 @@ The `asOpt[T]` method is like `as[T]`, however it will return `None` instead of 
     - `errors` は `(JsPath, Seq[ValidationError])` ペアの列です
     - `(JsPath, Seq[ValidationError])` ペアは、与えられた `JsPath` で検出したひとつ以上のエラーを示します
 
+<!--
 So a successful conversion might look like this:
+-->
+このため、成功した変換は次のように見えることでしょう:
 
 @[validate-success](code/ScalaJson.scala)
 
+<!--
 If however the path wasn't found, we get this:
+-->
+パスが見つからない場合は、次のようになります:
 
 @[validate-failure](code/ScalaJson.scala)
 
+<!--
 Since `map` and `flatMap` are provided, for comprehensions can easily be used to extract values out:
+-->
+`map` と `flatMap` が提供されているので、内包表記を使って値を簡単に取り出すことができます:
 
 @[validate-compose](code/ScalaJson.scala)
 
@@ -372,11 +445,17 @@ import play.api.libs.json._
 val jsonArray = Json.toJson(Seq(1, "Bob", 3, 4))
 ```
 
+<!--
 When we try to compile this, we get the following error:
+-->
+これをコンパイルしようとすると、次のエラーが発生します:
 
     No Json deserializer found for type Seq[Any]. Try to implement an implicit Writes or Format for this type.
 
+<!--
 This is because there is no way to convert a `Seq[Any]` to Json (`Any` could be anything including something not supported by Json right?)
+-->
+これは 、`Seq[Any]` を Json に変換する手段がないためです (`Any` は Json でサポートされていないものまで含むことができますよね?)
 
 <!--
 A simple solution is to handle it as a `Seq[JsValue]`:
