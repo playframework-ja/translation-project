@@ -107,11 +107,17 @@ This is a set of name/value pairs as described in the standard, for example:
 
 ### [`JsNull`](api/scala/index.html#play.api.libs.json.JsNull)
 
+<!--
 This represents a `null` value in JSON.
+-->
+JSON の `null` を表現します。
 
 ### [`JsBoolean`](api/scala/index.html#play.api.libs.json.JsBoolean)
 
+<!--
 This is a boolean with a value of `true` or `false`.
+-->
+`true` か `false` の値を取る真偽値です。
 
 ### [`JsNumber`](api/scala/index.html#play.api.libs.json.JsNumber)
 
