@@ -1434,7 +1434,7 @@ Part1 で述べられた通り、`Reads` はシンプルな論理演算子を使
 Scala の関数型の力を使うことで、**`Writes[T]` コンビネータを提供** できるようになりました。
 
 <!--
-  > If you want more theoretical aspects about the way it was implemented based on generic functional structures adapted to our needs, you can read this post ["Applicatives are too restrictive, breaking Applicatives and introducing Functional Builders"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) written by [@sadache](http://www.github.com/sadache)  
+> If you want more theoretical aspects about the way it was implemented based on generic functional structures adapted to our needs, you can read this post ["Applicatives are too restrictive, breaking Applicatives and introducing Functional Builders"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) written by [@sadache](http://www.github.com/sadache)  
 -->
 > この要件に適応するように総称的な関数型の構造に基づいて実装する方法の、より論理的な側面を知りたい場合は、[@sadache](http://www.github.com/sadache) の書いたこのポスト ["アプリカティブは制約し過ぎ。アプリカティブの打破と関数型ビルダの紹介"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) で読むことができます。
 

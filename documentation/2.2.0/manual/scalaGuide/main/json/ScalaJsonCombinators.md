@@ -1,4 +1,8 @@
+<!-- translated -->
+<!--
 # JSON Reads[T]/Writes[T]/Format[T] Combinators
+-->
+# JSON Reads[T]/Writes[T]/Format[T] コンビネータ
 
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](https://github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/09/08/unveiling-play-2-dot-1-json-api-part1-jspath-reads-combinators/)
 
