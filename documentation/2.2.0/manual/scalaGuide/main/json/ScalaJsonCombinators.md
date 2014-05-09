@@ -4,7 +4,10 @@
 -->
 # JSON Reads[T]/Writes[T]/Format[T] コンビネータ
 
+<!--
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](https://github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/09/08/unveiling-play-2-dot-1-json-api-part1-jspath-reads-combinators/)
+-->
+> このドキュメントは、当初 Pascal Voitot ([@mandubian](https://github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/09/08/unveiling-play-2-dot-1-json-api-part1-jspath-reads-combinators/) として公開されたものです
 
 <!--
 ## Summary of main new features added in <code>Play2.1</code>
@@ -805,10 +808,12 @@ Reads[String] AND Reads[Boolean] AND Reads[Float]
 <!--
 > So we need something else to be able to combine our Reads and this is the greatest new feature that `Play2.1` brings for JSON :  
 > **THE READS combinators with JsPath**
+<br/>
+> If you want more theoretical aspects about the way it was implemented based on generic functional structures adapted to our needs, you can read this post ["Applicatives are too restrictive, breaking Applicatives and introducing Functional Builders"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) written by [@sadache](https://github.com/sadache)
 -->
 > このため、Reads を結合できるようにする何かが必要であり、これこそが `Play2.1` が JSON のために用意した素晴らしい新機能 : **JsPath を伴う READS コンビネータ** です。
 <br/>
-> If you want more theoretical aspects about the way it was implemented based on generic functional structures adapted to our needs, you can read this post ["Applicatives are too restrictive, breaking Applicatives and introducing Functional Builders"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) written by [@sadache](https://github.com/sadache)
+> この要件に適応するように総称的な関数型の構造に基づいて実装する方法の、より論理的な側面を知りたい場合は、[@sadache](https://github.com/sadache) の書いたこのポスト ["アプリカティブは制約し過ぎ。アプリカティブの打破と関数型ビルダの紹介"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) で読むことができます。
 
 <!--
 ## Writing Reads[T] combinators
@@ -1425,7 +1430,10 @@ Using functional Scala power, we were able to **provide combinators for `Writes[
 Part1 で述べられた通り、`Reads` はシンプルな論理演算子を使って結合することができました。
 Scala の関数型の力を使うことで、**`Writes[T]` コンビネータを提供** できるようになりました。
 
+<!--
 > If you want more theoretical aspects about the way it was implemented based on generic functional structures adapted to our needs, you can read this post ["Applicatives are too restrictive, breaking Applicatives and introducing Functional Builders"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) written by [@sadache](https://github.com/sadache)
+-->
+> この要件に適応するように総称的な関数型の構造に基づいて実装する方法の、より論理的な側面を知りたい場合は、[@sadache](https://github.com/sadache) の書いたこのポスト ["アプリカティブは制約し過ぎ。アプリカティブの打破と関数型ビルダの紹介"](http://sadache.tumblr.com/post/30955704987/applicatives-are-too-restrictive-breaking-applicativesfrom) で読むことができます。
 
 <!--
 ## <a name="writes-combined">Writes main change: *combinators*</a>
@@ -1530,11 +1538,20 @@ You apply `write[String]` on this JsPath (exactly the same as `Reads`)
 ```
 (__ \ "name").write[String] and (__ \ "isDead").write[Boolean] and (__ \ "weight").write[Float]` 
 ```
-
+<!--
 builds a `Builder[Writes[String ~ Boolean ~ Float])]` whereas you want a `Writes[Creature]`. 
+-->
+
+これは、`Builder[Writes[String ~ Boolean ~ Float])]` を作りますが、欲しいのは `Writes[Creature]` です。
+
+<!--
   - So you apply the `Builder[Writes[String ~ Boolean ~ String])]` to a function `Creature => (String, Boolean, Float)` to finally obtain a `Writes[Creature]`.  
 Please note that it may seem a bit strange to provide `Creature => (String, Boolean, Float)` to obtain a `Writes[Creature]` from a `Builder[Writes[String ~ Boolean ~ String])]` but it's due to the contravariant nature of `Writes[-T]`.
   - We have `Creature.unapply` but its signature is `Creature => Option[(String, Boolean, Float)]` so we `unlift` it to obtain `Creature => (String, Boolean, Float)`.
+-->
+  - そのため、最終的に `Writes[Creature]` を取得するために、関数 `Creature => (String, Boolean, Float)` に `Builder[Writes[String ~ Boolean ~ String])]` を適用します。
+`Builder[Writes[String ~ Boolean ~ String])]` から `Writes[Creature]` を取得するために `Creature => (String, Boolean, Float)` を提供するのは少し奇妙に見えるかもしれませんが、これは `Writes[-T]` の反変的な性質によるものであることに注意してください。
+  - `Creature.unapply` がありますが、このシグネチャは `Creature => Option[(String, Boolean, Float)]` なので、`Creature => (String, Boolean, Float)` を取得するために `unlift` します
 <br/>
 
 <!--
