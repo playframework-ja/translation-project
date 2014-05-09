@@ -1795,7 +1795,7 @@ Useful to write the same value in several branches.
 複数のブランチに同じ値を書き込むのに便利です。
 
 <!--
-  For example:
+For example:
 -->
 例えば:
 
