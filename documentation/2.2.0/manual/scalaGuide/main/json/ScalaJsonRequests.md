@@ -254,7 +254,10 @@ Content-Length: 47
 -->
 ## JSON を直接返す
 
+<!--
 Sending the list of Todos with Play and JSON is very simple:
+-->
+Play と JSON で Todo リストを返すのはとても簡単です:
 
 ```scala
 import play.api.libs.json.Json
