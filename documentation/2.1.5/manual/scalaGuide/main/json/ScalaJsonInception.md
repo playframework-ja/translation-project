@@ -225,7 +225,7 @@ No I stop you immediately…
 I used this term on purpose because I know that injection is now linked immediately to IOC and Spring. But I'd like to re-establish this word with its real meaning.  
 Here code injection just means that **we inject code at compile-time into the compiled scala AST** (Abstract Syntax Tree).
 -->
-私は、一般に「インジェクション」という言葉からは IOC や Spring がすぐ連想される、ということを理解しています。しかし、この用語の本来の意味を改めて確立しなおしたいと考えて、あえてこの用語を使います。ここでのコードインジェクションの意味は、**「コンパイル時に、コンパイル結果としての Scala の AST (Abstract Syntax Tree/抽象構文木) の中に、コードをインジェクトする」**です。
+私は、一般に「インジェクション」という言葉からは IOC や Spring がすぐ連想される、ということを理解しています。しかし、この用語の本来の意味を改めて確立しなおしたいと考えて、あえてこの用語を使います。ここでのコードインジェクションの意味は、 **「コンパイル時に、コンパイル結果としての Scala の AST (Abstract Syntax Tree/抽象構文木) の中に、コードをインジェクトする」** です。
 
 
 <!--
@@ -334,7 +334,7 @@ As you may discover, writing a macro is not a trivial process since your macro c
       他のコードを操作します。
         操作結果のコードはコンパイルされ、
         プログラムの実行時に呼び出されます…
-**これは、一連の処理が*インセプション*と呼ばれる所以でもあります ;)**
+**これは、一連の処理が *インセプション* と呼ばれる所以でもあります ;)**
 
 <!--
 So it requires some mental exercises to follow exactly what you do. The API is also quite complex and not fully documented yet. Therefore, you must persevere when you begin using macros.
@@ -347,7 +347,7 @@ This article is also meant **to begin the reflection about the right way to use 
 Great power means greater responsability so it's better to discuss all together and establish a few good manners…
 -->
 Scala マクロについてはまだまだ説明したいことが沢山あるので、きっと別の記事も書くと思います。
-この記事には、**Scalaマクロの正しい使い方について熟考するきっかけ**になって欲しい、という想いも込められています。
+この記事には、 **Scalaマクロの正しい使い方について熟考するきっかけ**になって欲しい、という想いも込められています。
 強力な力にはより大きな責任が伴いますから、これから一緒に話し合いを重ねて、良い作法を少しずつ確立していければ何よりです。
 
 <br/>
