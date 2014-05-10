@@ -432,9 +432,11 @@ object Person{
 -->
 ## <a name="limitations">既知の制限</a>
 
-<!-- - **Don't override apply function in companion object** because then the Macro will have several apply functions and won't choose.
+<!--
+- **Don't override apply function in companion object** because then the Macro will have several apply functions and won't choose.
 - **Json Macros only work when apply and  unapply have corresponding input/output types**: This is naturally the case for case classes. But if you want to the same with a trait, you must implement the same apply/unapply you would have in a case class.
-- **Json Macros are known to accept Option/Seq/List/Set & Map[String, _]**. For other generic types, test and if not working, use traditional way of writing Reads/Writes manually. -->
+- **Json Macros are known to accept Option/Seq/List/Set & Map[String, _]**. For other generic types, test and if not working, use traditional way of writing Reads/Writes manually.
+-->
 - **コンパニオンオブジェクト内で apply 関数をオーバーライドしないでください。** マクロが複数の apply 関数を持つことになり、選ぶことができません。
 - **Json マクロは、apply と unapply の入力/出力の型が互いに対応している場合にのみ動作します**: これはケースクラスとして自然な状態です。しかし、これをトレイトで行う場合、ケースクラスに含まれることになる apply/unapply と同じものを実装しなければなりません。
 - **Json マクロが Option/Seq/List/Set & Map[String, _] を受け取れる** ことは分かっています。これら以外の総称型については、テストして、もし動作しない場合は、これまで通り手動で Reads/Writes を書いてください。
