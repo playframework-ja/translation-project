@@ -18,7 +18,7 @@ Now you should know how to validate JSON and convert into any structure you can 
 <!--
 ## <a name="json-to-json">Introducing JSON _coast-to-coast_ design</a>
 -->
-## <a name="json-to-json">_端から端への_ JSON 設計の紹介</a>
+## <a name="json-to-json"> _端から端への_ JSON 設計の紹介</a>
 
 <!--
 ### <a name="doomed-to-OO">Are we doomed to convert JSON to OO?</a>
