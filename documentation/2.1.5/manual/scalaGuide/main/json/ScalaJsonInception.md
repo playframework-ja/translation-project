@@ -7,7 +7,8 @@
 <!--
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/)
 
-> **This feature is still experimental because Scala Macros are still experimental in Scala 2.10.0. If you prefer not using an experimental feature from Scala, please use hand-written Reads/Writes/Format which are strictly equivalent.** -->
+> **This feature is still experimental because Scala Macros are still experimental in Scala 2.10.0. If you prefer not using an experimental feature from Scala, please use hand-written Reads/Writes/Format which are strictly equivalent.**
+-->
 > このドキュメントは、当初 Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) として公開されたものです
 
 > **Scala マクロは Scala 2.10.0 においてまだ実験的な位置付けであるため、この機能もあくまで試験的なものです。Scala の実験的な機能を利用したくない場合は、完全に等価である Reads/Writes/Format を手書きしてください。**
@@ -55,10 +56,14 @@ We argued that Play2.1 JSON serializers/deserializers are:
 - 全てがコンパイルされる
 - 実行時にはイントロスペクション/リフレクションを利用した処理が一切行われない
 
-<!-- But for some, this didn’t justify the extra lines of code for case classes. -->
+<!--
+But for some, this didn’t justify the extra lines of code for case classes.
+-->
 しかし、一部の人にとっては、これら利点はケースクラスそれぞれについてのコード量増加を正当化するほどではありませんでした。
 
-<!-- We believe this is a really good approach so we persisted and proposed: -->
+<!--
+We believe this is a really good approach so we persisted and proposed:
+-->
 一方で私達はこのアプローチ自体は正しいと信じているので、追加で次のものを提案しました。
 
 <!--
@@ -140,7 +145,8 @@ As explained just before:
 -->
 先ほどご説明したとおり、以下のコードと等価です。
 
-<!-- ```
+<!--
+```
 import play.api.libs.json._
 // please note we don't import functional.syntax._ as it is managed by the macro itself
 
@@ -153,7 +159,8 @@ implicit val personReads = (
   (__ \ 'age).read[Int] and
   (__ \ 'lovesChocolate).read[Boolean]
 )(Person)
-```	 -->
+```
+-->
 ```
 import play.api.libs.json._
 // functional.syntax._ はマクロ自身が管理しているので、インポートしないことに気を付けてください
@@ -356,10 +363,14 @@ Scala マクロについてはまだまだ説明したいことが沢山ある�
 -->
 # <a name="writes-format">Writes[T] と Format[T]</a>
 
-<!-- >Please remark that JSON inception just works for structures having `unapply/apply` functions with corresponding input/output types. -->
+<!--
+>Please remark that JSON inception just works for structures having `unapply/apply` functions with corresponding input/output types.
+-->
 >JSON インセプションは、`unapply/apply` 関数の入力/出力の型が互いに対応している場合にのみ機能する、ということに気をつけてください。
 
-<!-- Naturally, you can also _incept_ `Writes[T]`and `Format[T]`. -->
+<!--
+Naturally, you can also _incept_ `Writes[T]`and `Format[T]`.
+-->
 もちろん、`Writes[T]` や `Format[T]` を _インセプト_ することもできます。
 
 ## <a name="writes">Writes[T]</a>
@@ -378,11 +389,15 @@ import play.api.libs.json._
 implicit val personWrites = Json.format[Person]
 ```
 
-<!-- ## <a name="cando">Special patterns</a> -->
+<!--
+## <a name="cando">Special patterns</a>
+-->
 ## <a name="cando">特別なパターン</a>
 
-<!-- - **You can define your Reads/Writes in your companion object**
-This is useful because then the implicit Reads/Writes is implicitly infered as soon as you manipulate an instance of your class. -->
+<!--
+- **You can define your Reads/Writes in your companion object**
+This is useful because then the implicit Reads/Writes is implicitly infered as soon as you manipulate an instance of your class.
+-->
 - **コンパニオンオブジェクト中に Reads/Writes を定義することができます**
 こうすることで、コンパニオンオブジェクトに対応するクラスのインスタンスを扱う際に implicit な Reads/Writes が暗黙的に推論されるので、便利です。
 
@@ -396,7 +411,9 @@ object Person{
 }
 ```
 
-<!-- - **You can now define Reads/Writes for single-field case class** (known limitation until 2.1-RC2) -->
+<!--
+- **You can now define Reads/Writes for single-field case class** (known limitation until 2.1-RC2)
+-->
 - **現在は、フィールドがひとつしかないケースクラスの Reads/Writes を定義することもできます** (2.1-RC2 までは既知の制限でした)
 
 ```
@@ -410,7 +427,9 @@ object Person{
 ```
 
 
-<!-- ## <a name="limitations">Known limitations</a> -->
+<!--
+## <a name="limitations">Known limitations</a>
+-->
 ## <a name="limitations">既知の制限</a>
 
 <!-- - **Don't override apply function in companion object** because then the Macro will have several apply functions and won't choose.
