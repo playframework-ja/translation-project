@@ -197,9 +197,15 @@ This is exactly the same `JsValue.validate(reads)`
 -->
 これは `JsValue.validate(reads)` とまったく同じです
 
+<!--
 ## The details
+-->
+## 詳細
 
+<!--
 In the code samples below, we’ll use the following JSON:
+-->
+以降のサンプルでは、以下の JSON を使います:
 
 ```
 {
