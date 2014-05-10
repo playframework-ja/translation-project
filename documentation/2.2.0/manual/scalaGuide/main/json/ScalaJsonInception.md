@@ -4,10 +4,15 @@
 -->
 # マクロによる JSON インセプション
 
+<!--
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](https://github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/)
 
 
 > **This feature is still experimental because Scala Macros are still experimental in Scala 2.10.0. If you prefer not using an experimental feature from Scala, please use hand-written Reads/Writes/Format which are strictly equivalent.**
+-->
+> このドキュメントは、当初 Pascal Voitot ([@mandubian](https://github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) として公開されたものです
+
+> **Scala マクロは Scala 2.10.0 においてまだ実験的な位置付けであるため、この機能もあくまで試験的なものです。Scala の実験的な機能を利用したくない場合は、完全に等価である Reads/Writes/Format を手書きしてください。**
 
 <!--
 ## <a name="wtf-inception-boring">Writing a default case class Reads/Writes/Format is so boring!</a>
