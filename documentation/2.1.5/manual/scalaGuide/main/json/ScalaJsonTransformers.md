@@ -28,7 +28,7 @@ Now you should know how to validate JSON and convert into any structure you can 
 <!--
 For a few years now, in almost all web frameworks (except recent JS serverside stuff maybe in which JSON is the default data structure), we have been used to get JSON from network and **convert JSON (or even POST/GET data) into OO structures** such as classes (or case classes in Scala). Why?  
 -->
-ここ数年、(JSON をデフォルトのデータ構造とする最近のサーバサイド JS フレームワークを除く) ほとんどすべてのフレームワークにおいて、ネットワークから JSON を取得し、**そして JSON を (あるいは POST/GET データさえも) クラス (または Scala ではケースクラス) のようなオブジェクト指向構造に変換** してきました。なぜでしょう?
+ここ数年、(JSON をデフォルトのデータ構造とする最近のサーバサイド JS フレームワークを除く) ほとんどすべてのフレームワークにおいて、ネットワークから JSON を取得し、 **そして JSON を (あるいは POST/GET データさえも) クラス (または Scala ではケースクラス) のようなオブジェクト指向構造に変換** してきました。なぜでしょう?
 
 <!--
 - for a good reason : **OO structures are "language-native"** and allows **manipulating data with respect to your business logic** in a seamless way while ensuring isolation of business logic from web layers.
@@ -94,7 +94,7 @@ I've been working with Stephane Godbillon to integrate ReactiveMongo with Play2.
 <!--
 ### <a name="new-players">JSON _coast-to-coast_ design</a>
 -->
-### <a name="new-players">_端から端への_ JSON 設計</a>
+### <a name="new-players"> _端から端への_ JSON 設計</a>
 
 <!--
 Taking this into account, we can easily imagine the following: 
@@ -145,7 +145,7 @@ Naturally, when you plug this transformation flow on **reactive infrastructure p
 -->
 > このため、これは **端から端への JSON 設計** と (私によって) 呼ばれています:
 >
-> - JSON データは、その都度ごとのチャンクと捉えるのではなく、**サーバーを経由したクライアントから DB (またはその他) への継続的なデータフロー** と考えてください
+> - JSON データは、その都度ごとのチャンクと捉えるのではなく、 **サーバーを経由したクライアントから DB (またはその他) への継続的なデータフロー** と考えてください
 > - 変更や変換を適用している間、並行して **JSON フローを、その他のパイプにつなぐパイプ** として取り扱ってください
 > - フローは **完全に非同期/ノンブロッキング** な方法で取り扱ってください
 >
