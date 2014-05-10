@@ -7,7 +7,8 @@
 <!--
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/)
 
-> **This feature is still experimental because Scala Macros are still experimental in Scala 2.10.0. If you prefer not using an experimental feature from Scala, please use hand-written Reads/Writes/Format which are strictly equivalent.** -->
+> **This feature is still experimental because Scala Macros are still experimental in Scala 2.10.0. If you prefer not using an experimental feature from Scala, please use hand-written Reads/Writes/Format which are strictly equivalent.**
+-->
 > このドキュメントは、当初 Pascal Voitot ([@mandubian](http://www.github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/11/11/JSON-inception/) として公開されたものです
 
 > **Scala マクロは Scala 2.10.0 においてまだ実験的な位置付けであるため、この機能もあくまで試験的なものです。Scala の実験的な機能を利用したくない場合は、完全に等価である Reads/Writes/Format を手書きしてください。**
@@ -55,10 +56,14 @@ We argued that Play2.1 JSON serializers/deserializers are:
 - 全てがコンパイルされる
 - 実行時にはイントロスペクション/リフレクションを利用した処理が一切行われない
 
-<!-- But for some, this didn’t justify the extra lines of code for case classes. -->
+<!--
+But for some, this didn’t justify the extra lines of code for case classes.
+-->
 しかし、一部の人にとっては、これら利点はケースクラスそれぞれについてのコード量増加を正当化するほどではありませんでした。
 
-<!-- We believe this is a really good approach so we persisted and proposed: -->
+<!--
+We believe this is a really good approach so we persisted and proposed:
+-->
 一方で私達はこのアプローチ自体は正しいと信じているので、追加で次のものを提案しました。
 
 <!--
@@ -140,7 +145,8 @@ As explained just before:
 -->
 先ほどご説明したとおり、以下のコードと等価です。
 
-<!-- ```
+<!--
+```
 import play.api.libs.json._
 // please note we don't import functional.syntax._ as it is managed by the macro itself
 
@@ -153,7 +159,8 @@ implicit val personReads = (
   (__ \ 'age).read[Int] and
   (__ \ 'lovesChocolate).read[Boolean]
 )(Person)
-```	 -->
+```
+-->
 ```
 import play.api.libs.json._
 // functional.syntax._ はマクロ自身が管理しているので、インポートしないことに気を付けてください
@@ -225,7 +232,7 @@ No I stop you immediately…
 I used this term on purpose because I know that injection is now linked immediately to IOC and Spring. But I'd like to re-establish this word with its real meaning.  
 Here code injection just means that **we inject code at compile-time into the compiled scala AST** (Abstract Syntax Tree).
 -->
-私は、一般に「インジェクション」という言葉からは IOC や Spring がすぐ連想される、ということを理解しています。しかし、この用語の本来の意味を改めて確立しなおしたいと考えて、あえてこの用語を使います。ここでのコードインジェクションの意味は、**「コンパイル時に、コンパイル結果としての Scala の AST (Abstract Syntax Tree/抽象構文木) の中に、コードをインジェクトする」**です。
+私は、一般に「インジェクション」という言葉からは IOC や Spring がすぐ連想される、ということを理解しています。しかし、この用語の本来の意味を改めて確立しなおしたいと考えて、あえてこの用語を使います。ここでのコードインジェクションの意味は、 **「コンパイル時に、コンパイル結果としての Scala の AST (Abstract Syntax Tree/抽象構文木) の中に、コードをインジェクトする」** です。
 
 
 <!--
@@ -334,7 +341,7 @@ As you may discover, writing a macro is not a trivial process since your macro c
       他のコードを操作します。
         操作結果のコードはコンパイルされ、
         プログラムの実行時に呼び出されます…
-**これは、一連の処理が*インセプション*と呼ばれる所以でもあります ;)**
+**これは、一連の処理が *インセプション* と呼ばれる所以でもあります ;)**
 
 <!--
 So it requires some mental exercises to follow exactly what you do. The API is also quite complex and not fully documented yet. Therefore, you must persevere when you begin using macros.
@@ -347,7 +354,7 @@ This article is also meant **to begin the reflection about the right way to use 
 Great power means greater responsability so it's better to discuss all together and establish a few good manners…
 -->
 Scala マクロについてはまだまだ説明したいことが沢山あるので、きっと別の記事も書くと思います。
-この記事には、**Scalaマクロの正しい使い方について熟考するきっかけ**になって欲しい、という想いも込められています。
+この記事には、 **Scalaマクロの正しい使い方について熟考するきっかけ**になって欲しい、という想いも込められています。
 強力な力にはより大きな責任が伴いますから、これから一緒に話し合いを重ねて、良い作法を少しずつ確立していければ何よりです。
 
 <br/>
@@ -356,10 +363,14 @@ Scala マクロについてはまだまだ説明したいことが沢山ある�
 -->
 # <a name="writes-format">Writes[T] と Format[T]</a>
 
-<!-- >Please remark that JSON inception just works for structures having `unapply/apply` functions with corresponding input/output types. -->
+<!--
+>Please remark that JSON inception just works for structures having `unapply/apply` functions with corresponding input/output types.
+-->
 >JSON インセプションは、`unapply/apply` 関数の入力/出力の型が互いに対応している場合にのみ機能する、ということに気をつけてください。
 
-<!-- Naturally, you can also _incept_ `Writes[T]`and `Format[T]`. -->
+<!--
+Naturally, you can also _incept_ `Writes[T]`and `Format[T]`.
+-->
 もちろん、`Writes[T]` や `Format[T]` を _インセプト_ することもできます。
 
 ## <a name="writes">Writes[T]</a>
@@ -378,11 +389,15 @@ import play.api.libs.json._
 implicit val personWrites = Json.format[Person]
 ```
 
-<!-- ## <a name="cando">Special patterns</a> -->
+<!--
+## <a name="cando">Special patterns</a>
+-->
 ## <a name="cando">特別なパターン</a>
 
-<!-- - **You can define your Reads/Writes in your companion object**
-This is useful because then the implicit Reads/Writes is implicitly infered as soon as you manipulate an instance of your class. -->
+<!--
+- **You can define your Reads/Writes in your companion object**
+This is useful because then the implicit Reads/Writes is implicitly infered as soon as you manipulate an instance of your class.
+-->
 - **コンパニオンオブジェクト中に Reads/Writes を定義することができます**
 こうすることで、コンパニオンオブジェクトに対応するクラスのインスタンスを扱う際に implicit な Reads/Writes が暗黙的に推論されるので、便利です。
 
@@ -396,7 +411,9 @@ object Person{
 }
 ```
 
-<!-- - **You can now define Reads/Writes for single-field case class** (known limitation until 2.1-RC2) -->
+<!--
+- **You can now define Reads/Writes for single-field case class** (known limitation until 2.1-RC2)
+-->
 - **現在は、フィールドがひとつしかないケースクラスの Reads/Writes を定義することもできます** (2.1-RC2 までは既知の制限でした)
 
 ```
@@ -410,12 +427,16 @@ object Person{
 ```
 
 
-<!-- ## <a name="limitations">Known limitations</a> -->
+<!--
+## <a name="limitations">Known limitations</a>
+-->
 ## <a name="limitations">既知の制限</a>
 
-<!-- - **Don't override apply function in companion object** because then the Macro will have several apply functions and won't choose.
+<!--
+- **Don't override apply function in companion object** because then the Macro will have several apply functions and won't choose.
 - **Json Macros only work when apply and  unapply have corresponding input/output types**: This is naturally the case for case classes. But if you want to the same with a trait, you must implement the same apply/unapply you would have in a case class.
-- **Json Macros are known to accept Option/Seq/List/Set & Map[String, _]**. For other generic types, test and if not working, use traditional way of writing Reads/Writes manually. -->
+- **Json Macros are known to accept Option/Seq/List/Set & Map[String, _]**. For other generic types, test and if not working, use traditional way of writing Reads/Writes manually.
+-->
 - **コンパニオンオブジェクト内で apply 関数をオーバーライドしないでください。** マクロが複数の apply 関数を持つことになり、選ぶことができません。
 - **Json マクロは、apply と unapply の入力/出力の型が互いに対応している場合にのみ動作します**: これはケースクラスとして自然な状態です。しかし、これをトレイトで行う場合、ケースクラスに含まれることになる apply/unapply と同じものを実装しなければなりません。
 - **Json マクロが Option/Seq/List/Set & Map[String, _] を受け取れる** ことは分かっています。これら以外の総称型については、テストして、もし動作しない場合は、これまで通り手動で Reads/Writes を書いてください。
