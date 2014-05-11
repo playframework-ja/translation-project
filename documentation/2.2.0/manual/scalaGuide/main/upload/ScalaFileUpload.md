@@ -38,7 +38,10 @@ The `ref` attribute give you a reference to a `TemporaryFile`. This is the defau
 -->
 > **Note:** これまでのように `anyContent` ボディパーサーを使って、`request.asMultipartFormData` によりフォームデータを参照することもできます。
 
+<!--
 At last, add a POST router
+-->
+最後に、POST ルーティングを追加します
 
 @[application-upload-routes](code/scalaguide.upload.fileupload.routes)
 
