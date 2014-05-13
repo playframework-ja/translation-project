@@ -14,7 +14,10 @@ Play には Anorm と呼ばれるシンプルなデータアクセスレイヤ�
 -->
 **Anorm は ORM (Object Relational Mapper) ではありません**
 
+<!--
 > In the following documentation, we will use the [MySQL world sample database](http://dev.mysql.com/doc/index-other.html). 
+-->
+> 以下のドキュメントでは、[MySQL world サンプルデータベース](http://dev.mysql.com/doc/index-other.html) を利用します。
 > 
 <!--
 > If you want to enable it for your application, follow the MySQL website instructions, and configure it as  explained [[on the Scala database page | ScalaDatabase]].
@@ -101,9 +104,15 @@ Writing SQL queries yourself can be tedious for a simple ‘Hello World’ appli
 -->
 SQL クエリを自分で書くのは `Hello World` アプリケーションのようなシンプルな場合には面倒ですが、実際のアプリケーションでは結果的に時間の節約やコードのシンプル化につながります。
 
+<!--
 ## Add Anorm to your project
+-->
+## プロジェクトに Anorm を追加する
 
+<!--
 You will need to add Anorm and jdbc plugin to your dependencies : 
+-->
+ビルド依存性に Anorm と jdbc を追加する必要があります :
 
 ```scala
 val appDependencies = Seq(
