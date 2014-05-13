@@ -128,7 +128,7 @@ public class Task extends Model {
 <!--
 > (2) Enhancement of direct Ebean field access (enabling lazy loading) is only applied to Java classes, not to Scala. Thus, direct field access from Scala source files (including standard Play 2 templates) does not invoke lazy loading, often resulting in empty (unpopulated) entity fields. To ensure the fields get populated, either (a) manually create getter/setters and call them instead, or (b) ensure the entity is fully populated *before* accessing the fields.
 -->
-> (2) Ebean の (遅延評価を可能にする) フィールドに直接アクセスする拡張は、 Java クラスにのみ適用され、Scala には適用されません。このため、(Play 2 の標準テンプレートを含む) Scala ソースファイルからのフィールド直接アクセスは遅延評価を実行せず、その結果、エンティティのフィールドは往々にして空 (未実装) になります。フィールドが実装されていることを保証するには、(a) getter/setter を手動で作成してフィールドアクセスの替わりに呼び出すか、(b) フィールドにアクセスする *前* にエンティティが完全に実装されていることを保証してください。
+> (2) Ebean の (遅延評価を可能にする) フィールドに直接アクセスする拡張は、 Java クラスにのみ適用され、Scala には適用されません。このため、(Play 2 の標準テンプレートを含む) Scala ソースファイルからのフィールド直接アクセスは遅延評価を実行せず、その結果、エンティティのフィールドは往々にして空 (未設定) になります。フィールドが設定されていることを保証するには、(a) getter/setter を手動で作成してフィールドアクセスの替わりに呼び出すか、(b) フィールドにアクセスする *前* にエンティティが完全に設定されていることを保証してください。
 
 <!--
 As you can see, we've added a `find` static field, defining a `Finder` for an entity of type `Task` with a `Long` identifier. This helper field is then used to simplify querying our model:
