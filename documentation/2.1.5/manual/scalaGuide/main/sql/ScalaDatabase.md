@@ -89,7 +89,10 @@ db.default.user=playdbuser
 db.default.pass="a strong password"
 ```
 
+<!--
 ## How to see SQL Statement in the console?
+-->
+## コンソールで SQL 文を確認するには?
 
 ```properties
 db.default.logStatements=true
