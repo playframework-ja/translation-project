@@ -9,10 +9,15 @@
 -->
 ## JDBC コネクションプールの構成
 
+<!--
 Play provides a plug-in for managing JDBC connection pools. You can configure as many databases as you need.
+-->
+Play には JDBC コネクションプールを管理するプラグインが同梱されています。これを使って、必要なだけデータベースへの接続設定を書くことができます。
 
-
+<!--
 To enable the database plug-in, add jdbc in your build dependencies :
+-->
+ビルドの依存性に jdbc を追加してデータベースプラグインを有効化します :
 
 ```scala
 val appDependencies = Seq(
@@ -20,7 +25,10 @@ val appDependencies = Seq(
 )
 ```
 
+<!--
 Then you must configure a connection pool in the `conf/application.conf` file. By convention, the default JDBC data source must be called `default` and the corresponding configuration properties are `db.default.driver` and `db.default.url`.
+-->
+その後、`conf/application.conf` ファイルでコネクションプールの設定を行う必要があります。規約によって、デフォルトの JDBC データソースは `default` でなければならず、関連する設定プロパティは `db.default.driver` と `db.default.url` になります。
 
 <!--
 If something isn't properly configured you will be notified directly in your browser:
@@ -51,7 +59,10 @@ db.default.driver=org.h2.Driver
 db.default.url="jdbc:h2:/path/to/db-file"
 ```
 
+<!--
 The details of the H2 database URLs are found from [H2 Database Engine Cheat Sheet](http://www.h2database.com/html/cheatSheet.html).
+-->
+H2 データベース URL の詳細は [H2 Database Engine Cheat Sheet](http://www.h2database.com/html/cheatSheet.html) で見つけられます。
 
 <!--
 ### SQLite database engine connection properties
@@ -119,7 +130,10 @@ db.customers.url="jdbc:h2:mem:customers"
 -->
 JDBC ドライバの設定
 
+<!--
 Play is bundled only with an [H2](http://www.h2database.com) database driver. Consequently, to deploy in production you will need to add your database driver as a dependency.
+-->
+Play には [H2](http://www.h2database.com) データベースのドライバのみが同梱されています。このため、本番環境にデプロイするには、必要なデータベースドライバを依存性として追加する必要があるでしょう。
 
 <!--
 For example, if you use MySQL5, you need to add a [[dependency | SBTDependencies]] for the connector:
