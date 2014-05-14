@@ -4,7 +4,10 @@
 -->
 # Play キャッシュ API
 
+<!--
 The default implementation of the Cache API uses [EHCache](http://ehcache.org/). You can also provide your own implementation via a plug-in.
+-->
+キャッシュ API のデフォルト実装は [EHCache](http://ehcache.org/) です。その他の実装はプラグイン経由で利用することができます。
 
 <!--
 ## Accessing the Cache API
