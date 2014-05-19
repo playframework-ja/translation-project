@@ -116,7 +116,7 @@ Open a new command line and type:
 <!--
 It will prompt you for the application full name.  Type **'ZenTasks'**.  It will then prompt you for a template to use.  We are creating a Java application, so type **2**.
 -->
-アプリケーションの完全な名前を入力するプロンプトが表示されます。 **'ZenTasks'** とタイプしてください。その後、使用するテンプレートを選択するプロンプトが表示されます。Java アプリケーションを作成するので、**2** をタイプしてください。
+アプリケーションの完全な名前を入力するプロンプトが表示されます。 **'ZenTasks'** とタイプしてください。その後、使用するテンプレートを選択するプロンプトが表示されます。Java アプリケーションを作成するので、 **2** をタイプしてください。
 
 <!--
 > Whether you select Java or Scala now, you can always change it later.
