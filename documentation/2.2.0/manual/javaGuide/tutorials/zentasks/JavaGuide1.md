@@ -9,7 +9,10 @@
 -->
 ## はじめに
 
+<!--
 In this tutorial you will learn the Play Framework by coding a real web application, from start to finish.  In this application, we will try to use everything you would need in a real project, while introducing good practices for Play application development.
+-->
+このチュートリアルでは、実際の web アプリケーションを始めから終わりまでコーディングすることによって、Play フレームワークについて学びます。このアプリケーションでは、Play アプリケーション開発の優れたプラクティスを紹介しつつ、実際のプロジェクトで必要となるあらゆるものを使っていきます。
 
 <!--
 We have split the tutorial into several independent parts.  Each part will introduce more complex features, and provide everything that a real project needs: validation, error handling, a complete security framework, an automated test suite, a shiny web interface, an administration area etc.
@@ -38,7 +41,10 @@ We will call this task engine project **ZenTasks**.
 
 [[images/zentasks.png]]
 
+<!--
 > This tutorial is also distributed as a sample application. You can find the final code in the `samples/java/zentasks` directory of your Play installation.
+-->
+> このチュートリアルはサンプルアプリケーションとしても配布されています。最終的なコードは Play インストール先の `samples/java/zentasks` ディレクトリにあります。
 
 <!--
 ## Prerequisites
@@ -60,27 +66,45 @@ We will assume that you already have knowledge of Java and Web development (espe
 -->
 このチュートリアルは、あなたが Java と Web 開発 (特に HTML, CSS, および JavaScript) に関する知識を既に持つものとします。しかしながら、あらゆる JEE コンポーネントに関する深い知識は必要としません。Play は 'フルスタック' な Java フレームワークであり、必要な Java API のすべての部分を提供するか、またはカプセル化します。JPA エンティティマネージャを設定する方法や、あるいは JEE コンポーネントをデプロイする方法を知っている必要はありません。
 
+<!--
 You will, of course, need a text editor.  If you are accustomed to using a full featured Java IDE like Eclipse or IntelliJ you can, of course, use it.  However with Play you can have fun working with a simple text editor like Textmate, Emacs or VI.  This is because the framework manages the compilation and the deployment process itself, as we will soon see...
+-->
+もちろんテキストエディタが必要です。もし Eclipse や Netbeans のようなフル機能の Java IDE に慣れているなら、もちろんそれを使用できます。しかし、Play であれば、Textmate, Emacs または VI のようにシンプルなテキストエディタでも楽しく作業できます。これは、フレームワーク自身がコンパイルとデプロイを管理するからです。間もなくその様子をご覧に入れます...
 
+<!--
 Later in this tutorial we will use Lighttpd and MySql to show how to deploy a Play application in 'production' mode. But Play can work without these components so if you can't install them, it's not a problem.
+-->
+このチュートリアルの後半で、Lighttpd と MySql を使い、'production' モードの Play アプリケーションをデプロイする方法を示します。しかし、Play はこれらのコンポーネントなしでも動作することができるので、もしこれらをインストールできなくても問題ありません。
 
+<!--
 ## Installation of the Play Framework
+-->
+## Play Framework のインストール
 
 <!--
 Installation is very simple.  Just download the latest binary backage from the download page and unzip it to any path.
 -->
 インストールは非常に簡単です。 ダウンロードページから最新のバイナリパッケージをダウンロードして、任意のパスに展開してください。
 
+<!--
 > If you're using Windows, it is generally a good idea to avoid space characters in the path, so for example `c:\play` would be a better choice than `c:\Documents And Settings\user\play.`
+-->
+> Windows を使用している場合、パスにスペースを含めないのは一般的に良い案です。例えば、 `c:\play` は `c:\Documents And Settings\user\play\` よりも良い選択です。
 
+<!--
 To work efficiently, you need to add the Play directory to your working path.  It allows you to just type `play` at the command prompt to use the Play utility.  To check that the installation worked, just open a new command line and type `play`; it should show you the Play basic usage help.
+-->
+効率的に作業するためには、作業パスに Play ディレクトリを加える必要があります。パスを追加することで、コマンドプロンプトでただ `play` とタイプすれば、play ユーティリティを使用できるようになります。正常にインストールが完了したことを確認するには、新しいコマンドラインを開いて  `play` とタイプしてください; このコマンドは play の基本的なヘルプを表示します。
 
 <!--
 ## Project creation
 -->
 ## プロジェクトの作成
 
+<!--
 Now that Play is correctly installed, it's time to create the task application.  Creating a Play application is pretty easy and fully managed by the Play command line utility.  That allows for standard project layouts between all Play applications.
+-->
+Play が正しくインストールされたので、いよいよタスクアプリケーションを作成します。Play アプリケーションの作成は、Play コマンドラインユーティリティによって完全に管理されており、とても簡単です。Play コマンドラインユーティリティは、すべての Play アプリケーション間において標準的なプロジェクトレイアウトを割り当てます。
 
 <!--
 Open a new command line and type:
@@ -123,20 +147,35 @@ The `play new` command creates a new directory `zentasks/` and populates it with
 -->
 `public/` は JavaScript, スタイルシート、および画像ディレクトリを含む公的に利用可能なリソースを保存します。
 
+<!--
 `project/` contains the project build files, which is in particular where you can declare dependencies on other libraries and plugins for the Play Framework.
+-->
+`project/` は、プロジェクトのビルドファイル、特に Play Framework が依存する外部のライブラリやプラグインを定義することのできるファイルを保存します。
 
 <!--
 `test/` contains all the application tests.  Tests are written either as Java JUnit tests or as Selenium tests.
 -->
 `test/` には、すべてのアプリケーションテストを保存します。テストは Java の JUnit として書かれるか、または Selenium テストとして書かれます。
 
+<!--
 > Because **Play uses UTF-8** as the single encoding, it's very important that all text files hosted in these directories are encoded using this charset.  Make sure to configure your text editor accordingly.
+-->
+> **Play は UTF-8 を**唯一のエンコーディングとして使用するので、これらのディレクトリでホスティングされたすべてのテキストファイルが UTF-8 でエンコードされていることは非常に重要です。テキストエディタの設定がこれに従っていることを確認してください。
 
+<!--
 Now if you're a seasoned Java developer, you may wonder where all the .class files go.  The answer is nowhere: Play doesn't use any class files; instead it reads the java source files directly.  Under the hood we use the SBT compiler to compile Java sources on the fly.
+-->
+もし、あなたが熟練した Java 開発者であれば、すべての .class ファイルがどこに行ってしまったのか不思議に思うことでしょう。実は、どこにもありません: Play はいかなる class ファイルも使用せず、Java ソースファイルを直接読み込みます。舞台裏では、実行中の Java ソースをコンパイルするために SBT コンパイラを使用しています。
 
+<!--
 That allows two very important things in the development process.  The first one is that Play will detect changes you make to any Java source file and automatically reload them at runtime.  The second is that when a Java exception occurs, Play will create better error reports showing you the exact source code.
+-->
+これは、開発工程において 2 つの非常に重要なことを可能にします。最初の 1 つは、Play はあなたが Java ソースファイルに加えたいかなる変更をも検出して、実行時にそれを自動的にリロードするということです。 2 番目は、Java の例外が発生したとき、Play はソースコードそのものを示しながらより良いエラーレポートを作成するということです。
 
+<!--
 > In fact Play can keep a bytecode cache in the application `/target` directory, but only to speed up things between restart on large applications.  You can discard this cache using the `play clean` command if needed.
+-->
+> 実際のところ、Play はアプリケーションの `/target` ディレクトリにバイトコードのキャッシュを保持しますが、これは大きなアプリケーションの再起動を高速化するためだけのものです。必要であれば、 `play clean` コマンドを使うことでこのキャッシュを破棄することができます。
 
 <!--
 ## Running the application
@@ -167,7 +206,10 @@ The main entry point of your application is the `conf/routes` file.  This file d
 
     GET     /                           controllers.Application.index()
 
+<!--
 That simply tells Play that when the web server receives a `GET` request for the `/` path, it must call the `controllers.Application.index()` Java method.
+-->
+この設定は、web サーバが `/` パスに対する `GET` リクエストを受け取った場合には `controllers.Application.index()` という Java メソッドをコールしなければならないことを Play に伝えています。
 
 <!--
 When you create standalone Java applications you generally use a single entry point defined by a method such as:
@@ -180,7 +222,10 @@ public static void main(String[] args) {
 } 
 ```
 
+<!--
 A Play application has several entry points, one for each URL.  We call these methods **'action'** methods. Action methods are defined in special classes that we call **'controllers'**.
+-->
+Play アプリケーションには、各 URL あたり 1 つのエントリーポイントがあります。 私たちは、これらのメソッドを **'アクション'** メソッドと呼びます。アクションメソッドは **'コントローラ'** と呼ぶ特別なクラスで定義されます。
 
 <!--
 Let's see what the `controllers.Application` controller looks like.  Open the `app/controllers/Application.java` source file:
@@ -239,11 +284,20 @@ The template content seems pretty light.  In fact, all you see are Scala templat
 -->
 テンプレートの内容はとても簡単に見えます。実際、ここにあるものはすべて Scala テンプレートディレクティブです。
 
+<!--
 The `@(message: String)` directive declares the arguments that this template accepts, in this case, it is a single parameter called `message` of type `String`.  The `message` parameter gets used later in the template.
+-->
+`@(message: String)` ディレクティブは、このテンプレートが受け付ける引数を宣言します。この場合、引数は `message` と呼ばれる `String` 型のひとつの変数です。この `message` 引数は後でテンプレート内で使用されます。
 
+<!--
 The `@play20.welcome()` directive is a call to the built in Play welcome template that generate the welcome message you saw in the browser.  You can see that it passes the `message` parameter that our arguments directive declared earlier.
+-->
+`@play20.welcome()` ディレクティブは、ブラウザに表示されたウェルカムメッセージを生成する組み込みの Play テンプレートを呼び出します。先に引数ディレクティブで宣言した`message` パラメータを引き渡していることが分かります。
 
+<!--
 The `@main()` directive is a call to another template called `main.scala.html`.  Both the `@play20.welcome()` and the `@main()` calls are examples of template composition.  Template composition is a powerful concept that allows you to create complex web pages by reusing common parts.
+-->
+`@main()` ディレクティブは、`main.scala.html` という別のテンプレートを呼び出します。`@play20.welcome()` と `@main()` は、いずれもテンプレート合成の使用例を示しています。テンプレートの合成は、共通化された部分を再利用することで複雑なウェブページを作成することができる強力な概念です。
 
 <!--
 Open the `app/views/main.scala.html` template:
@@ -286,7 +340,10 @@ The `content` argument is obtained by executing the block inside the curly brace
 -->
 `content` 引数は、`@main` ディレクティブに続く波括弧の中にあるブロックを実行することで取得されます。そして、`@content` は `<body>` タグの間に挿入されています。このようにして、あるテンプレートを別のテンプレートでラップする、テンプレート合成を使用しています。
 
+<!--
 We can try to edit the controller file to see how Play automatically reloads it.  Open the `app/controllers/Application.java` file in a text editor, and add a mistake by removing the trailing semicolon after the `ok()` call:
+-->
+コントローラファイルを編集することで、Play がどのようにして自動的にこれをロードするのか試してみることができます。 `app/controllers/Application.java` ファイルをテキストエディタで開いて、 `ok()` 呼び出しの後に続くセミコロンを削除することで間違いを埋め込んでください:
 
 ```java
 public static Result index() {
@@ -294,7 +351,10 @@ public static Result index() {
 }
 ```
 
+<!--
 Go to the browser and refresh the page.  You can see that Play detected the change and tried to reload the `Application` controller.  But because you made a mistake, you get a compilation error.
+-->
+ブラウザに戻りページをリフレッシュしてください。Play が変更を検出して `Application` コントローラをリロードしようとする様子を見ることができます。しかし、間違いがあるためコンパイルエラーが発生します。
 
 [[images/compileerror.png]]
 
@@ -309,7 +369,10 @@ public static Result index() {
 }
 ```
 
+<!--
 This time, Play has correctly reloaded the controller and replaced the old code in the JVM.  The heading on the page now contains the updated text that you modified.
+-->
+今度は、Play は適切にコントローラをリロードし、JVM 上の古いコードを置き換えました。 ページの表題には変更した後の文字が表示されています。
 
 <!--
 Now edit the `app/views/Application/index.scala.html` template to replace the welcome message:
@@ -331,19 +394,32 @@ Like for the Java code changes, just refresh the page in the browser to see the 
 -->
 Java コードの変更と同じように、変更内容を確認するには、ただブラウザでページをリフレッシュするだけです。
 
+<!--
 > We will now start to code the tasks application.  You can either continue to work with a text editor or open the project in a Java IDE like Eclipse or Netbeans.  If you want to set up a Java IDE, please check [[this page|IDE]].
+-->
+> いよいよタスクアプリケーションのコーディングを始めました。このままテキストエディタで作業し続けることも、Eclipse や NetBeans のような Java IDE でプロジェクトを開くことも可能です。Java IDE をセットアップする場合は、 [[このページ|IDE]] を確認してください。
 
+<!--
 One more thing before starting to code.  For the task engine, we will need a database.  For development purposes, Play comes with a standalone SQL database management system called HSQLDB.  This is the best way to start a project before switching to a more robust database if needed.  You can choose to have either an in-memory database or a filesystem database that will keep your data between application restarts.
+-->
+コーディングを始める前にもうひとつ。ブログエンジンにはデータベースが必要です。開発目的のために Play には HSQLDB と呼ばれるスタンドアロンの SQL データベース管理システムが付属しています。より堅牢なデータベースが必要になって切り替える前までは、これが開発を開始するにはベストな方法です。インメモリデータベースか、またはアプリケーションを再起動してもデータを保持するファイルシステムデータベースのいずれかを選ぶこともできます。
 
 <!--
 At the beginning, we will do a lot of testing and changes in the application model.  For that reason, it's better to use an in-memory database so we always start with a fresh data set.
 -->
 初めのうちは、アプリケーションモデルを何度もテストし、変更します。このため、常にフレッシュなデータセットで起動するインメモリデータベースはより良い方法です。
 
+<!--
 Follow instructions to setup an in-memory H2 database on [[Accessing an SQL database|JavaDatabase]] page.
+-->
+[[SQL データベースアクセス|JavaDatabase]] ページの説明に従って、インメモリ H2 データベースを設定してください。
 
+<!--
 You can easily set up any JDBC compliant database and even configure the connection pool, but for now we'll keep it at this.  Additionally, we need to enable Ebean.
 Define a default Ebean server following instructions on [[Using the Ebean ORM page|JavaEbean]] page.
+-->
+どのような JDBC 対応データベースについても、そしてコネクションプールの設定すらも容易に構成することができますが、今はここまでにしておきます。加えて、Ebean を有効にする必要があります。
+[[Ebean ORM を使う|JavaEbean]] ページの説明に従って、デフォルトの Ebean サーバを定義してください。
 
 <!--
 ## Using a version control system (VCS) to track changes
@@ -355,7 +431,10 @@ When you work on a project, it's highly recommended to store your source code in
 -->
 プロジェクトに従事する場合、ソースコードをバージョン管理システム (VCS) に保存することを強くお勧めします。VCS は、変更が何かを壊した場合に以前のバージョンに戻ることや、複数人で作業すること、そしてアプリケーションの連続したバージョンすべてにアクセスすることを可能にします。もちろん、プロジェクトを保存するには、どのような VCS を使用することができますが、ここでは例として Git を使用します。Git は分散バージョン管理システムで、Play には Play アプリケーションを Git リポジトリ内で構成するサポートが組み込まれています。
 
+<!--
 Installing Git is out of the scope of this tutorial but it is very easy on any system.  Once you have a working installation of Git, go to the `zentasks/` directory and init the application versioning by typing:
+-->
+Git のインストールはこのチュートリアルの範囲を超えていますが、どのようなシステム上においても非常に簡単です。Git をインストールしたら、`zentasks/` ディレクトリに戻り、以下をタイプしてアプリケーションのバージョン管理を初期化してください:
 
 ```bash
 $ git init
@@ -384,4 +463,7 @@ Our initial version is committed, and we have a solid foundation for our project
 -->
 最初のバージョンがコミットされ、プロジェクトのための信頼できる基盤ができました。
 
+<!--
 > Go to the [[next part|JavaGuide2]]
+-->
+> [[次章|JavaGuide2]] に進みましょう
