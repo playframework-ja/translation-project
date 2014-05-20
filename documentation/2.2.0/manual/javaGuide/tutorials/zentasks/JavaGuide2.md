@@ -4,23 +4,35 @@
 -->
 # はじめてのモデル
 
+<!--
 Here we will start to write the model for our task management system.
+-->
+ここから、タスク管理システムのモデルを書いていきます。
 
 <!--
 ## Introduction to Ebean
 -->
 ## Ebean 概論
 
+<!--
 The model layer has a central position in a Play application (and in fact in all well designed applications).  It is the domain-specific representation of the information on which the application operates.  As we want to create a task management system, the model layer will contain classes like `User`, `Project` and `Task`.
+-->
+モデル層は、Play アプリケーション (そして、実際のところはよくデザインされたすべてのアプリケーション) において中心的な位置を占めます。モデルは、アプリケーションが操作する情報のドメインに特化した表現です。ここではタスク管理システムを作りたいので、モデル層は `User`, `Project` そして `Task` といったクラスを含むことになるでしょう。
 
 <!--
 Because most model objects need to survive between application restarts, we have to save them in a persistent datastore. A common choice is to use a relational database.  But because Java is an object oriented language, we will use an **Object Relational Mapper** to help reduce the impedance mismatch.
 -->
 モデルオブジェクトはアプリケーションを再起動する間も存続する必要があるので、これを永続化データストアに保存しなければなりません。一般的にはリレーショナルデータベースを使うことを選択します。しかしながら Java はオブジェクト指向言語なので、インピーダンスミスマッチの減少を手助けする **オブジェクト-リレーショナルマッピングツール** を使用します。
 
+<!--
 > Though Play does come with support for relational databases out of the box, there is nothing stopping you from using the Play framework with a NoSQL database. In fact, this is a very common way to implement models in Play framework. However we will use a relational database for this tutorial.
+-->
+> Play にはリレーショナルデータベースのサポートが組み込まれていますが、Play framework を NoSQL データベースと共に使用することを妨げるものは何もありません。実際、 NoSQL を使用することは Play framework においてモデルを実装するとても一般的な方法です。しかしながら、このチュートリアルではリレーショナルデータベースを使います。
 
+<!--
 Ebean is a Java ORM library that aims to implement a very simple interface to mapping Java objects to the database.  It uses JPA annotations for mapping classes to tables, but if you have had experience with JPA before, Ebean differs in that it is sessionless.  This can greatly simplify the way you interact with the database, removing many of the surprises of things being done at odd times, such as session flushing, and errors with regards to stale or detached objects that can occur when using JPA.
+-->
+Ebean は Java の ORM ライブラリで、とてもシンプルなインタフェースでオブジェクトとデータベースのマッピングを行えるような実装を目指しています。Ebean はクラスをテーブルにマッピングするために JPA アノテーションを使用しますが、もし JPA を以前に使ったことがあるならば、Ebean はセッションレスであるという点で JPA とは異なることが分かるでしょう。このことは、JPA を使っているとちょっとした時に起こり得る、セッションのフラッシュや、失効または切断されたオブジェクトに関わるエラーのような多くの驚きを排除し、データベースとのやり取りをとてもシンプルにします。
 
 <!--
 ## Starting with the User class
@@ -79,7 +91,10 @@ The `find` field will be used to programatically make queries, which we will see
 -->
 後で紹介する `find` フィールドは、プログラムでクエリを組み上げるために使用されます。
 
+<!--
 Now if you're a Java developer with any experience at all, warning sirens are probably clanging like mad at the sight of a public variable.  In Java (as in other object-oriented languages), best practice says to make all fields private and provide accessors and mutators.  This is to promote encapsulation, a concept critical to object oriented design.  In fact, Play takes care of that for you and automatically generates getters and setters while preserving encapsulation; we will see how it works later in this tutorial.
+-->
+どのような経験があろうと、Java 開発者であれば public 変数を目にした途端に警告ベルがじゃんじゃん鳴り出すかもしれません。Java においては (他のオブジェクト指向言語と同様に) すべてのフィールドを private にして、アクセサとミューテータを提供するのを最も良い習慣としています。これは、オブジェクト指向デザインにおいて重要な概念であるカプセル化を促進するためのものです。実際のところ、Play はこれに対応しており、getter と setter を自動生成してカプセル化を保護します; これがどのようにして動作するのかについては、このチュートリアルの後半で紹介します。
 
 <!--
 You can now refresh the application homepage.  This time you should see something different:
@@ -88,9 +103,15 @@ You can now refresh the application homepage.  This time you should see somethin
 
 [[images/evolution.png]]
 
+<!--
 Play has automatically detected that you've added a new model, and has generated a new **evolution** for it.  An evolution is an SQL script that migrates the database schema from one state to the next in your application.  In our case, our database state is empty, and Play has generated scripts that create the tables.  For now during the early stages of development, we will let Play to continue to generate these scripts for us.  Later on in the project lifecycle, you will switch to writing them yourself.  Each time you see this message, you can safely click the apply button.
+-->
+Play は新しいモデルが追加されたことを自動的に検知し、そのための **evolution** を生成しました。evolution は、アプリケーションにおけるデータベーススキーマをある状態から次の状態へ移行する SQL スクリプトです。今回の例では、データベースは空の状態であり、Play はテーブルを作成するスクリプトを生成します。これから開発の初期段階の間は、Play にこれらのスクリプトを生成し続けてもらうことになるでしょう。開発プロジェクトの後半には、これらのスクリプトを Play に代わって自分で書いていくことになります。そのどの場合でもこのメッセージが表示されるので、安全に apply ボタンを押すことができます。
 
+<!--
 > If you don't want to have to worry about applying evolutions each time you restart Play, you can disable this prompting by adding the argument `-DapplyEvolutions.default=true` when you run the `play` command.
+-->
+> Play を再起動するするたびに evolution を適用する心配に気を揉みたくない場合は、`play` コマンド実行時に `-DapplyEvolutions.default=true` 引数を追加することで、このプロンプトを無効にすることができます。
 
 <!--
 ## Writing the first test
@@ -102,7 +123,10 @@ A good way to test the newly created `User` class is to write a JUnit test case.
 -->
 新規に作成した User クラスをテストする良い方法は、JUnit テストケースを書くことです。これによりアプリケーションをくり返し仕上げ、すべてがばっちりであることを確信できるようになります。
 
+<!--
 Create a new file called `test/models/ModelsTest.java`.  We will start off by setting up the application, with an in-memory database, ready to write and run our tests:
+-->
+`test/models/ModelsTest.java` という新しいファイルを作成してください。テストを作成し、実行する準備を整えるため、インメモリデータベースを使用するようアプリケーションを設定することから始めます:
 
 ```java
 package models;
@@ -126,7 +150,10 @@ We have extended the `WithApplication` class.  This is optional, it provides the
 -->
 `WithApplication` クラスを継承しました。これは必須ではありませんが、このクラスは、簡単にフェイクアプリケーションを起動し、さらにテストを実行するたびにアプリケーションを自動的にクリアする、`start()` メソッドを提供します。
 
+<!--
 We have also implemented a `@Before` annotated method.  This annotation means that this method will be run before each test.  In our case we are starting a new `FakeApplication`, and configuring this application to use a new in-memory database.  Because we are using an in-memory database, we don't need to worry about clearing the database before each test, since a new clean database is created for us before each test.
+-->
+また、`@Before` で注釈したメソッドも実装しました。このアノテーションは、このメソッドがそれぞれのテストの前に実行されることを意味します。今回の例の場合、新しい `FakeApplication` を起動して、アプリケーションが新しいインメモリデータベースを使用するよう設定しています。インメモリデータベースを使用するので、それぞれのテストの前に新しいまっさらのデータベースが作成されますから、テスト毎にデータベースをクリアすることに気を揉む必要はありません。
 
 <!--
 Now we will write our first test, which is just going to check that we can insert a row, and retrieve it again:
@@ -148,9 +175,15 @@ You can see that we have programatically created a query using the `User.find` f
 -->
 `email` が Bob のメールアドレスと一致する唯一のインスタンスを見つけるために、`User.find` ファインダを使ってプログラムでクエリを組み立てているのが分かります。
 
+<!--
 To run this test case, make sure that you have stopped the running application by pressing `Ctrl+D` in the Play console, and then run `test`.  The test should pass.
+-->
+このテストケースを実行するには、Play コンソールで `Ctrl+D` を押して実行中のアプリケーションを終了したことを確認してから、`test` を実行します。テストは成功するはずです。
 
+<!--
 Although we could use the `find` object from anywhere in our code to create queries for users, it's not good practice to spread that code all through our application.  One such query that we need is a query that will authenticate users.  In `User.java`, add the `authenticate()` method:
+-->
+ユーザを問い合わせるこの `find` オブジェクトは、コードのどこででも使うことができますが、アプリケーション中にコードを散らかすのは良いプラクティスではありません。必要なのはユーザを認証するクエリです。`User.java` に `authenticate()` メソッドを追加します:
 
 ```java
     public static User authenticate(String email, String password) {
@@ -175,7 +208,10 @@ And now the test case:
     }
 ```
 
+<!--
 Each time you make a modification you can run all the tests from the Play test runner to make sure you didn't break anything.
+-->
+変更を行うたびに Play テストランナーですべてのテストを実行し、なにも壊れていないことを確認することができます。
 
 > The above authentication code stores the password in clear text.  This is considered very bad practice - you should hash the password before storing it, and then hash it before running the query. But that is beyond the scope of this tutorial.
 
@@ -229,11 +265,20 @@ public class Project extends Model {
 }
 ```
 
+<!--
 A project has a name, a folder that it belongs to, and members.  This time you can see that we again have the `@Entity` annotation on the class, extending `Model`, `@Id` on our `id` field and `find` for running queries.  We have also declared a relation with the `User` class, declaring it as `@ManyToMany`.  This means that each user can be a member of many projects, and each project can have many users.
+-->
+あるプロジェクトには、ひとつの名前、格納されるひとつのフォルダ、そして複数のメンバーが存在します。今回もまた、クラスに `@Entity` アノテーションがあること、`Model` を継承していること、`id` フィールドに `@Id` アノテーションがあること、クエリを実行する `find` があることが分かります。`User` クラスを `@ManyToMany` として定義することで、関連も定義しました。これは、それぞれのユーザは複数のプロジェクトのメンバーになれること、そしてそれぞれのプロジェクトは複数のメンバーを保持できることを意味します。
 
+<!--
 We have also implemented a `create()` method.  Note that the many to many `members` association has to be saved explicitly. Note also that we never actually assign the `id` property.  This is because we are going to let the database generate an id for us.
+-->
+`create()` メソッドも実装しました。`members` の多対多の関連は明示的に保存する必要があることに注意してください。`id` プロパティを実質的に設定していないことにも注目してください。これは、データベースに id を生成させているからです。
 
+<!--
 Finally, we have implemented another query method, one that finds all projects involving a particular user.  You can see how the dot notation has been used to refer to the `email` property of `User` in the `members` list.
+-->
+最後に、特定のユーザを含むすべてのプロジェクトを探すもうひとつのクエリメソッドを実装しました。ドット表記を使って、`members` リスト中の `User` の `email` プロパティを参照していることが分かるでしょう。
 
 <!--
 Now we will write a new test in our `ModelsTest` class to test our `Project` class and the query with it:
@@ -255,14 +300,20 @@ Now we will write a new test in our `ModelsTest` class to test our `Project` cla
     }
 ```
 
+<!--
 > **Don't forget** to import `java.util.List` or you will get a compilation error.
+-->
+> コンパイルエラーが発生しないよう `java.util.List` のインポートを **忘れないでください** 。
 
 <!--
 ## Finish with Task
 -->
 ## 最後の Task
 
+<!--
 The last thing that we need for our model draft, and the most important thing, is tasks.
+-->
+モデル設計に必要な、最後の、そしてもっとも重要なこと、それは task です。
 
 ```java
 package models;
@@ -303,11 +354,17 @@ public class Task extends Model {
 }
 ```
 
+<!--
 Each task has a generated id, a title, a flag to say whether it is done or not, a date that it must be completed by, a user it is assigned to, a folder and a project.  The `assignedTo` and `project` relationships are mapped using `@ManyToOne`.  This means a task may have one user and one project, while each user may have many tasks assigned to them and each project may have many tasks.
+-->
+それぞれのタスクには、生成された id とタイトル、そのタスクが完了されたか否かを示すフラグ、そのタスクが完了されるべき日付、もしアサインされていればユーザー、そしてフォルダとプロジェクトが存在します。`assignedTo` と `project` の関連は `@ManyToOne` を使ってマッピングされています。これは、ユーザはそれぞれアサインされた複数のタスクを持ち、プロジェクトはそれぞれ複数のタスクを持つ一方で、あるタスクは一人のユーザとひとつのプロジェクトを持つことを意味します。
 
 We also have a simple query - this time finding all the todo tasks. Tthat is, those tasks that aren't done, assigned to a particular user, and a create method.
 
+<!--
 Let's write a test for this class as well:
+-->
+このクラスのテストも同じように書いてみましょう:
 
 ```java
     @Test
@@ -353,9 +410,16 @@ Edit the `conf/test-data.yml` file and start to describe a User:
 ...
 ```
 
+<!--
 Notice that this object is defined as part of a root object that is a list.  We can now define more objects to be a part of that, however, our dataset is a little large, so you can download a full dataset [here](resources/manual/javaGuide/tutorials/zentasks/files/test-data.yml).
+-->
+このオブジェクトが、リストであるルートオブジェクトの一部として定義されていることに注意してください。これで更に多くのオブジェクトを定義することができますが、データセットは少々大きいので、[ここ](resources/manual/javaGuide/tutorials/zentasks/files/test-data.yml) から完全なデータセットをダウンロードすることができます。
 
+<!--
 Now we create a test case that loads this data and runs some assertions over it:
+-->
+それでは、このデータをロードしていくつかのアサーションを実行するテストケースを作成します。
+
 
 ```java
     @Test
@@ -417,4 +481,7 @@ $ git add .
 $ git commit -m "The model layer is ready"
 ```
 
+<!--
 > Go to the [[next part|JavaGuide3]].
+-->
+> [[次章|JavaGuide3]] に進みましょう
