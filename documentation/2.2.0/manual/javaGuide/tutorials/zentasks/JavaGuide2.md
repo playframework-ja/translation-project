@@ -1,20 +1,36 @@
+<!-- translated -->
+<!--
 # A first iteration for the data model
+-->
+# はじめてのモデル
 
 Here we will start to write the model for our task management system.
 
+<!--
 ## Introduction to Ebean
+-->
+## Ebean 概論
 
 The model layer has a central position in a Play application (and in fact in all well designed applications).  It is the domain-specific representation of the information on which the application operates.  As we want to create a task management system, the model layer will contain classes like `User`, `Project` and `Task`.
 
+<!--
 Because most model objects need to survive between application restarts, we have to save them in a persistent datastore. A common choice is to use a relational database.  But because Java is an object oriented language, we will use an **Object Relational Mapper** to help reduce the impedance mismatch.
+-->
+モデルオブジェクトはアプリケーションを再起動する間も存続する必要があるので、これを永続化データストアに保存しなければなりません。一般的にはリレーショナルデータベースを使うことを選択します。しかしながら Java はオブジェクト指向言語なので、インピーダンスミスマッチの減少を手助けする **オブジェクト-リレーショナルマッピングツール** を使用します。
 
 > Though Play does come with support for relational databases out of the box, there is nothing stopping you from using the Play framework with a NoSQL database. In fact, this is a very common way to implement models in Play framework. However we will use a relational database for this tutorial.
 
 Ebean is a Java ORM library that aims to implement a very simple interface to mapping Java objects to the database.  It uses JPA annotations for mapping classes to tables, but if you have had experience with JPA before, Ebean differs in that it is sessionless.  This can greatly simplify the way you interact with the database, removing many of the surprises of things being done at odd times, such as session flushing, and errors with regards to stale or detached objects that can occur when using JPA.
 
+<!--
 ## Starting with the User class
+-->
+## User クラス
 
+<!--
 We will start to code ZenTasks by creating the `User` class.  Create a new file called `app/models/User.java`, and declare a first implementation of the `User` class:
+-->
+`User` クラスを作成するところから ZenTasks のコーディングを始めましょう。新しく `app/models/User.java` ファイルを作成し、`User` クラスの最初の実装を定義します:
 
 ```java
 package models;
@@ -43,17 +59,32 @@ public class User extends Model {
 }
 ```
 
+<!--
 The `@Entity` annotation marks this class as a managed Ebean entity, and the `Model` superclass automatically provides a set of useful JPA helpers that we will discover later.  All fields of this class will be automatically persisted to the database.
+-->
+`@Entity` アノテーションは、このクラスが管理された Ebean エンティティであることを印付けし、 `Model` スーパークラスは後述する便利な JPA ヘルパを自動的に提供します。このクラスのすべてのフィールドは、自動的にデータベースに永続化されます。
 
+<!--
 > It's not required that your model objects extend the `play.db.ebean.Model` class.  You can use plain Ebean as well. But extending this class is a good choice in most cases as it will make a lot of the Ebean stuff easier.
+-->
+> モデルオブジェクトは `play.db.ebean.Model` クラスを継承しなければならないわけではありません。素の Ebean を使うこともできます。しかし、このクラスは Ebean 周りの多くの部分を簡易にするので、多くのケースにおいて、これを継承するのは良い選択です。
 
+<!--
 If you have used JPA before, you know that every JPA entity must provide an `@Id` property.  In this case, we are choosing `email` to be the id field.
+-->
+もし以前に JPA を使ったことがあるなら、すべての JPA エンティティは `@Id` プロパティを提供しなければならないことを知っているでしょう。ここでは、`email` を id フィールドに選択しています。
 
+<!--
 The `find` field will be used to programatically make queries, which we will see later.
+-->
+後で紹介する `find` フィールドは、プログラムでクエリを組み上げるために使用されます。
 
 Now if you're a Java developer with any experience at all, warning sirens are probably clanging like mad at the sight of a public variable.  In Java (as in other object-oriented languages), best practice says to make all fields private and provide accessors and mutators.  This is to promote encapsulation, a concept critical to object oriented design.  In fact, Play takes care of that for you and automatically generates getters and setters while preserving encapsulation; we will see how it works later in this tutorial.
 
+<!--
 You can now refresh the application homepage.  This time you should see something different:
+-->
+これでアプリケーションのホームページをリフレッシュすることができます。今回は、これまでとは違うものを目にするでしょう:
 
 [[images/evolution.png]]
 
@@ -61,9 +92,15 @@ Play has automatically detected that you've added a new model, and has generated
 
 > If you don't want to have to worry about applying evolutions each time you restart Play, you can disable this prompting by adding the argument `-DapplyEvolutions.default=true` when you run the `play` command.
 
+<!--
 ## Writing the first test
+-->
+## はじめてのテストの作成
 
+<!--
 A good way to test the newly created `User` class is to write a JUnit test case.  It will allow you to incrementally complete the application model and ensure that all is fine.
+-->
+新規に作成した User クラスをテストする良い方法は、JUnit テストケースを書くことです。これによりアプリケーションをくり返し仕上げ、すべてがばっちりであることを確信できるようになります。
 
 Create a new file called `test/models/ModelsTest.java`.  We will start off by setting up the application, with an in-memory database, ready to write and run our tests:
 
@@ -84,11 +121,17 @@ public class ModelsTest extends WithApplication {
 }
 ```
 
+<!--
 We have extended the `WithApplication` class.  This is optional, it provides the `start()` method that allows us to easily start a fake application, and it automatically cleans it up after each test has run.  You could manage these yourself, but we are going to let Play manage it for us. 
+-->
+`WithApplication` クラスを継承しました。これは必須ではありませんが、このクラスは、簡単にフェイクアプリケーションを起動し、さらにテストを実行するたびにアプリケーションを自動的にクリアする、`start()` メソッドを提供します。
 
 We have also implemented a `@Before` annotated method.  This annotation means that this method will be run before each test.  In our case we are starting a new `FakeApplication`, and configuring this application to use a new in-memory database.  Because we are using an in-memory database, we don't need to worry about clearing the database before each test, since a new clean database is created for us before each test.
 
+<!--
 Now we will write our first test, which is just going to check that we can insert a row, and retrieve it again:
+-->
+いよいよ、行を追加すること、そしてそれを再び検索できることを確認するだけの最初のテストを書いていきます:
 
 ```java
     @Test
@@ -100,7 +143,10 @@ Now we will write our first test, which is just going to check that we can inser
     }
 ```
 
+<!--
 You can see that we have programatically created a query using the `User.find` finder, to find a unqiue instance where `email` is equal to Bob's email address.
+-->
+`email` が Bob のメールアドレスと一致する唯一のインスタンスを見つけるために、`User.find` ファインダを使ってプログラムでクエリを組み立てているのが分かります。
 
 To run this test case, make sure that you have stopped the running application by pressing `Ctrl+D` in the Play console, and then run `test`.  The test should pass.
 
@@ -113,7 +159,10 @@ Although we could use the `find` object from anywhere in our code to create quer
     }
 ```
 
+<!--
 And now the test case:
+-->
+これでテストケースは以下のようになります:
 
 ```java
     @Test
@@ -130,9 +179,15 @@ Each time you make a modification you can run all the tests from the Play test r
 
 > The above authentication code stores the password in clear text.  This is considered very bad practice - you should hash the password before storing it, and then hash it before running the query. But that is beyond the scope of this tutorial.
 
+<!--
 ## The Project class
+-->
+## Project クラス
 
+<!--
 The `Project` class will represent projects that tasks can be a part of.  A project also has a list of members that can be assigned to tasks in the project.  Let's do a first implementation:
+-->
+`Project` クラスは、複数のタスクがその一部となり得るプロジェクトを表現します。ひとつのプロジェクトには、そのプロジェクト内のタスクにアサインすることのできるメンバーのリストも存在します。さっそく実装してみましょう:
 
 ```java
 package models;
@@ -180,7 +235,10 @@ We have also implemented a `create()` method.  Note that the many to many `membe
 
 Finally, we have implemented another query method, one that finds all projects involving a particular user.  You can see how the dot notation has been used to refer to the `email` property of `User` in the `members` list.
 
+<!--
 Now we will write a new test in our `ModelsTest` class to test our `Project` class and the query with it:
+-->
+ここで、`Project` クラスとそのクエリをテストする新しいテストを `ModelsTest` クラスに書きましょう:
 
 ```java
     @Test
@@ -199,7 +257,10 @@ Now we will write a new test in our `ModelsTest` class to test our `Project` cla
 
 > **Don't forget** to import `java.util.List` or you will get a compilation error.
 
+<!--
 ## Finish with Task
+-->
+## 最後の Task
 
 The last thing that we need for our model draft, and the most important thing, is tasks.
 
@@ -272,11 +333,17 @@ Let's write a test for this class as well:
     }
 ```
 
+<!--
 ## Using Fixtures to write more complicated tests
+-->
+## Fixture を使ったより複雑なテスト
 
 When you start to write more complex tests, you often need a set of data to test on.  Creating and saving instances of Java classes can be quite cumbersome. For this reason, Play makes it easy to use YAML files to define Java objects, which you can then easily use to declare your data.  When declaring data, be sure to use the YAML `!!` type operator to specify the model class of the data that you are declaring.
 
+<!--
 Edit the `conf/test-data.yml` file and start to describe a User:
+-->
+`conf/test-data.yml` ファイルを編集して User を定義してみましょう:
 
 ```yaml
 - !!models.User
@@ -316,19 +383,34 @@ Now we create a test case that loads this data and runs some assertions over it:
     }
 ```
 
+<!--
 > You may find it more convenient to load the test data in your `@Before` method, so that the test data is available for every test.
+-->
+> テストデータが全てのテストから利用できるように、 `@Before` メソッドでテストデータをロードする方がより便利だと気づくかもしれません。
 
+<!--
 ## Save your work
+-->
+## 作業内容の保存
 
+<!--
 We have now finished a huge part of the task management system.  Now that we have created and tested all these things, we can start to develop the web application itself.
+-->
+ここまででタスク管理システムの大きな部分をやり終えました。これらを作成し、すべてテストしており、web アプリケーションそれ自身の開発を始めることができます。
 
+<!--
 But before continuing, it's time to save your work in git.  Open a command line and type `git status` to see the modifications made since the latest commit:
+-->
+しかし、開発を続ける前に作業内容を git を使って保存しましょう。コマンドラインを開いて `git status` とタイプして、最後のコミットから変更された内容を確認しました:
 
 ```bash
 $ git status
 ```
 
+<!--
 As you can see, some new files are not under version control.  Add all the files, and commit your project.
+-->
+ご覧の通り、いくつかの新しいファイルがバージョン管理されていません。すべてのファイルを追加してプロジェクトをコミットしてください。
 
 ```bash
 $ git add .
