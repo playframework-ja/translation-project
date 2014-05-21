@@ -213,7 +213,10 @@ Each time you make a modification you can run all the tests from the Play test r
 -->
 変更を行うたびに Play テストランナーですべてのテストを実行し、なにも壊れていないことを確認することができます。
 
+<!--
 > The above authentication code stores the password in clear text.  This is considered very bad practice - you should hash the password before storing it, and then hash it before running the query. But that is beyond the scope of this tutorial.
+-->
+> 上記の認証コードはパスワードを平文で保存しています。これはとても悪いプラクティスで、パスワードは保存される前にハッシュ化するべきですし、問い合わせの前にもハッシュ化するべきです。しかし、これはこのチュートリアルの範囲外です。
 
 <!--
 ## The Project class
@@ -359,7 +362,10 @@ Each task has a generated id, a title, a flag to say whether it is done or not, 
 -->
 それぞれのタスクには、生成された id とタイトル、そのタスクが完了されたか否かを示すフラグ、そのタスクが完了されるべき日付、もしアサインされていればユーザー、そしてフォルダとプロジェクトが存在します。`assignedTo` と `project` の関連は `@ManyToOne` を使ってマッピングされています。これは、ユーザはそれぞれアサインされた複数のタスクを持ち、プロジェクトはそれぞれ複数のタスクを持つ一方で、あるタスクは一人のユーザとひとつのプロジェクトを持つことを意味します。
 
+<!--
 We also have a simple query - this time finding all the todo tasks. Tthat is, those tasks that aren't done, assigned to a particular user, and a create method.
+-->
+シンプルな - 今回はすべての todo タスクを見つけ出すクエリもあります。すなわち、まだ完了されておらず、特定のユーザーがアサインされたものであり、これに加えて create メソッドも用意されています。
 
 <!--
 Let's write a test for this class as well:
@@ -395,7 +401,10 @@ Let's write a test for this class as well:
 -->
 ## Fixture を使ったより複雑なテスト
 
+<!--
 When you start to write more complex tests, you often need a set of data to test on.  Creating and saving instances of Java classes can be quite cumbersome. For this reason, Play makes it easy to use YAML files to define Java objects, which you can then easily use to declare your data.  When declaring data, be sure to use the YAML `!!` type operator to specify the model class of the data that you are declaring.
+-->
+より複雑なテストを書き始める場合、しばしばテストに使うデータセットが必要になります。Java クラスを作成して保存することはとても面倒になりがちです。このため、Play では Java オブジェクトを定義するためにデータを簡単に宣言することのできる YAML ファイルが簡単に使えるようになっています。データを宣言するときは、定義しているデータのモデルクラスを指定するために、`!!` 型演算子 を使うことを忘れないでください。
 
 <!--
 Edit the `conf/test-data.yml` file and start to describe a User:
