@@ -26,7 +26,10 @@ In fact before coding the first screen we need one more thing.  Working on a web
 -->
 実は、はじめての画面をコーディングする前にやらなければならないことが、もうひとつあります。テストデータなしに web アプリケーションに関する作業をするのは楽しくありません。テストすることすらできません。しかし、まだタスク管理画面を開発していないので、自分自身でダッシュボードにタスクを追加することもできません。
 
+<!--
 One way to inject default data into the task management system is to load a YAML file at application load time, the same way we did for testing.  To do that we will hook into Play's startup to bootstrap the application with data.  Hooking into Play's startup is as simple as creating a class called `Global` that implements `GlobalSettings` in the root package, and overriding the `onStart()` method.  Let's do that now, by creating the `app/Global.java` file:
+-->
+タスク管理システムにデフォルトデータを投入するひとつの方法は、テストのときと同じようにアプリケーション起動時に YAML ファイルを読み込むことです。このために、アプリケーションがデータと共に起動するよう Play の起動処理をフックします。Play 起動処理のフックはシンプルで、ルートパッケージにある `GlobalSettings` を実装する `Global` と呼ばれるクラスを作成し、`onApplicationStart()` メソッドをオーバーライドします。`app/Global.java` ファイルを作成してみましょう:
 
 ```java
 import play.*;
@@ -46,9 +49,15 @@ public class Global extends GlobalSettings {
 }
 ```
 
+<!--
 Now this will be called whenever Play starts up.
+-->
+これで、このコードは Play の起動時に実行されることになります。
 
+<!--
 > In fact this job will be run differently in dev or prod modes.  In dev mode, Play waits for a first request to start. So this job will be executed synchronously at the first request.  That way, if the job fails, you will get the error message in your browser.  In prod mode however, the job will be executed at application start (synchronously with the `start` command) and will prevent the application from starting in case of an error.
+-->
+> 実際のところ、このジョブは開発モードと本番モードでは異なる動作をします。開発モードの場合、Play は最初のリクエストがあるまでアプリケーションの起動を待機します。このため、このジョブは最初のリクエストと同期して実行されます。この方法では、ジョブが失敗した場合、ブラウザにエラーメッセージが表示されます。一方、本番モードでは、このジョブはアプリケーションの起動時に (`start` コマンドと同期して) 実行され、エラーが発生した場合はアプリケーションの起動を停止します。
 
 <!--
 You have to create an `initial-data.yml` in the `conf` directory.  You can of course reuse the `test-data.yml` content that we just used for tests previously.
@@ -160,7 +169,10 @@ Open the `app/views/index.scala.html` template and modify it to accept and displ
 }
 ```
 
+<!--
 You can read more about the [[template language here|JavaTemplates]].  Basically, it allows you to access your java objects in a type safe manner.  Under the hood we use Scala.  Most of the pretty constructs you see (like `map`, `case` and `=>`) come from Scala.  But you don't really need to learn Scala to write Play templates, just a small amount will allow you to do almost anything.
+-->
+[[ここでテンプレート言語|JavaTemplates]] について更に詳しく読むことができます。基本的に、テンプレートを使うと java オブジェクトに型安全にアクセスすることができます。その背後では Scala を使います。(`map`, `case` そして `=>` のような) すてきな構成要素のほとんどは Scala から来たものです。とは言え、ほんの少量のことでほとんどのことは出来てしまうので、Play のテンプレートを書くために本気で Scala の勉強をする必要はありません。
 
 <!--
 Ok, now refresh the dashboard.
@@ -169,7 +181,10 @@ OK, それではダッシュボードをリフレッシュしてみましょう�
 
 [[images/dashboard1.png]]
 
+<!--
 Not pretty, but it works!
+-->
+きれいな画面ではありませんが、動いています!
 
 <!--
 As we write more pages, we are probably going to run into cases where we need to render tasks again, and all that code to render a single task is going to end up being duplicated.  Let's use the template composition concept we learnt earlier to pull this logic into something like a function that we can call from many places.
@@ -265,7 +280,10 @@ Edit the `app/views/main.scala.html` file:
 </html>
 ```
 
+<!--
 Like with the rendering of each `Task` in our index page, we have made the rendering of a group of projects its own template, for later reuse.  Let's implement that template now, open `app/views/projects/group.scala.html`:
+-->
+それぞれの `Task` を index ページで表示したように、プロジェクトのグループも後から再利用できるよう、専用のテンプレートで表示するようにしました。これもここで実装してしまいましょう。`app/views/projects/group.scala.html` を開いてください:
 
 ```html
 @(group: String, projects: List[Project])
@@ -289,7 +307,10 @@ Like with the rendering of each `Task` in our index page, we have made the rende
 </li>
 ```
 
+<!--
 And again, the individual project items are implemented using their own template, `app/views/projects/item.scala.html`:
+-->
+ここで再び、個々のプロジェクトは専用のテンプレート `app/views/projects/item.scala.html` を使うよう実装しました:
 
 ```html
 @(project: Project)
@@ -313,7 +334,10 @@ Refresh the page.
 
 [[images/dashboard2.png]]
 
+<!--
 Uh oh!  We have a compile error.  We haven't updated the call to the `main` template from our `index` template to pass a list of projects instead of a string.  Let's fix that now, by editing `app/views/index.scala.html`:
+-->
+わあ! コンパイルエラーです。`index` テンプレートから `main` テンプレートを呼び出すときに、ひとつの文字列ではなくプロジェクトのリストを渡すように更新していませんでした。すぐに `app/views/index.scala.html` を編集して修正しましょう:
 
 ```html
 @(projects: List[Project], todoTasks: List[Task])
@@ -332,11 +356,20 @@ And now refresh the page to make sure it all works.  We should see the list of p
 -->
 ## いくつかのスタイルの追加
 
+<!--
 Now the first version of the dashboard is almost done, but it's not very pretty.  We'll add some style to make it shinier.  As you have seen, the main template file `main.scala.html` includes the `public/stylesheets/main.css`.  The first thing to do is delete this stylesheet, because we are not going to use it.  Rather, we are going to implement our stylesheets using LESS.
+-->
+ここまででダッシュボードの最初のバージョンはほとんど出来上がりましたが、あまりきれいではありません。これをよりきらびやかにするいくつかのスタイルを追加します。ご覧になったとおり、`main.scala.html` テンプレートファイルは `public/stylesheets/main.css` を読み込みます。このスタイルシートは使わないので、まず最初にすることはこれを削除することです。その代わり、LESS を使ってスタイルシートを実装します。
 
+<!--
 > There is nothing stopping you from using plain CSS for your stylesheets, but the Play framework comes in built with LESS support, which allows you to define stylesheets in a more dynamic fashion, using varaibles, mixins, functions, etc.
+-->
+> スタイルシートに質素な CSS を使うことを妨げるものは何もありませんが、Play framework には変数やミックスイン、関数その他を使ってスタイルシートをもっとダイナミックなやり方で定義する LESS のサポートが組み込まれています。
 
+<!--
 Explaining CSS and LESS is beyond the scope of this tutorial, so for now we'll just get you to download the stylesheets that we've already written.  These stylesheets should contain all the styles needed to build the rest of the site.  You can download a tarball of these files [here](resources/manual/javaGuide/tutorials/zentasks/files/less-stylesheets.tar.gz), which you can extract from the root folder of your project. This will place a number of `*.less` files in the `app/assets/stylesheets` directory.
+-->
+CSS と LESS の説明はこのチュートリアルの範囲外なので、ここでは作成済みのスタイルシートをダウンロードするだけにしておきます。このスタイルシートには、このサイトの残りを構築するために必要なスタイルがすべて含まれています。これらのファイルの tar ボールは [ここ](resources/manual/javaGuide/tutorials/zentasks/files/less-stylesheets.tar.gz) からダウンロードすることができます。これをプロジェクトのルートフォルダで展開すると、いくつかの `*.less` ファイルが `app/assets/stylesheets` ディレクトリに配置されます。
 
 <!--
 LESS stylesheets need to be compiled to CSS before they can be used.  Just like Play automatically compiles the routes, Java code and templates, when Play sees LESS files on your classpath, it will automatically compile them, and recompile them each time you change them.  And again, it displays errors beautifully in your browser if a compile error is encountered.
@@ -348,7 +381,10 @@ Since there is a `app/assets/stylesheets/main.less` file, Play will automaticall
 -->
 `app/assets/stylesheets/main.less` ファイルが存在するため、Play が古い `public/assets/stylesheets/main.css` を置き換えるようにこれをコンパイルするので、テンプレートには一切変更を加える必要がありません (古い `main.css` を削除したことだけは確認してください)。
 
+<!--
 Our stylesheets also depend on some images.  You can download a tarball of these [here](resources/manual/javaGuide/tutorials/zentasks/files/public-assets.tar.gz), which you can also extract from the root folder of your project.  This will create a `public` folder with all the images and Javascript dependencies required by the project.
+-->
+このスタイルシートはいくつかの画像にも依存します。同じようにプロジェクトのルートフォルダから展開することのできる tar ボールを [ここ](resources/manual/javaGuide/tutorials/zentasks/files/public-assets.tar.gz) からダウンロードすることができます。この tar ボールは、プロジェクトに必要なすべての画像と依存する Javascript と共に `public` フォルダを作成します。
 
 <!--
 Refresh the home page and you should now see a styled page.
@@ -373,4 +409,7 @@ $ git add .
 $ git commit -m "Dashboard"
 ```
 
+<!--
 > Go to the [[next part|JavaGuide4]].
+-->
+> [[次章|JavaGuide4]] に進みましょう
