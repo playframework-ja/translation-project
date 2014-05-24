@@ -4,7 +4,10 @@
 -->
 # 認証機能の追加
 
+<!--
 We can now display a dashboard. But before we can go on to allow users to create, work on and assign tasks, we need a way for users to identify themselves.
+-->
+ここまででダッシュボードを表示することができるようになりました。しかし、ユーザ達にタスクを作り、アサインし、取り組むことを許可する前に、ユーザ達が自身を認証する方法が必要です。
 
 <!--
 ## Implementing a login screen
@@ -31,7 +34,10 @@ public static Result login() {
 }
 ```
 
+<!--
 In our action, we have referred to a new login template, let's write a skeleton for that template now, in `app/views/login.scala.html`:
+-->
+このアクションで新しい login テンプレートを参照しているので、`app/views/login.scala.html` にテンプレートのスケルトンを書いていきましょう:
 
 ```html
 <html>
@@ -49,7 +55,10 @@ In our action, we have referred to a new login template, let's write a skeleton 
 </html>
 ```
 
+<!--
 Now visit [http://localhost:9000/login] (http://localhost:9000/login) in your browser to check that our route is working.  Apart from the title, the page should be blank.
+-->
+ここでブラウザから [http://localhost:9000/login] (http://localhost:9000/login) を開いて、ルートが動作していることを確認してください。タイトルは別として、空白のページが表示されるはずです。
 
 <!--
 ### Adding a form
@@ -61,7 +70,10 @@ Our login page needs to contain a form, which will of course, hold an email addr
 -->
 もちろん、ログインページには email アドレス (ユーザー名) とパスワードを保持するフォームが必要です。
 
+<!--
 Play provides a forms API for handling the rendering, decoding, and validation of forms.  Let's start off by implementing our form as a Java object.  Open the `app/controllers/Application.java` class, and declare a static inner class called `Login` at the end of it:
+-->
+Play はフォームをレンダリングし、その内容を復号化し、そしてその内容に対してバリデーションを行うフォーム API を提供しています。Java オブジェクトとしてフォームを実装するところから始めましょう。`app/controllers/Application.java` クラスを開き、末尾に `Login` という名前の static なインナークラスを宣言してください。
 
 ```java
 public static class Login {
@@ -72,7 +84,10 @@ public static class Login {
 }
 ```
 
+<!--
 Now we need to pass this form into our template to render.  Modify the `login` method in `app/controllers/Application.java` to pass this form to the template:
+-->
+このフォームをレンダリングするためにテンプレートに引き渡す必要があります。このフォームをテンプレートに引き渡すために、`app/controllers/Application.java` の `login` を変更します:
 
 ```java
     public static Result login() {
@@ -82,7 +97,10 @@ Now we need to pass this form into our template to render.  Modify the `login` m
     }
 ```
 
+<!--
 And now declare the form as a parameter for the login template to accept in `app/views/login.scala.html`:
+-->
+そして、ログインテンプレートが受け取れるよう、このフォームを `app/views/login.scala.html` の引数として宣言します:
 
 ```html
 @(form: Form[Application.Login])
@@ -141,14 +159,20 @@ public static Result authenticate() {
 }
 ```
 
+<!--
 > Make sure you add the import statements `import play.data.*;` and `import static play.data.Form.*;` to `Application.java`
+-->
+> `Application.java` に `import play.data.*;` と `import static play.data.Form.*;` のインポート文を追加していることを確認してください
 
 <!--
 ### Validating a form
 -->
 ### フォームのバリデーション
 
+<!--
 Currently, our `authenticate` action is doing nothing but reading our form.  The next thing we want to do is validate the form. There is only one thing we are concerned with in the validation - is the username and password correct?  To implement this validation, we are going to write a `validate()` method on the `Login` class in `app/controllers/Application.java`.
+-->
+今のところ、`authenticate` アクションはフォームを読み込む以外は何もしていません。次にやりたいことはフォームのバリデーションです。このバリデーションについて気に掛けることはただひとつ - ユーザ名とパスワードは正しいか? ということだけです。このバリデーションを実装するため、`app/controllers/Application.java` の `Login` クラスに `validate` メソッドを書いていきましょう。
 
 ```java
 public String validate() {
@@ -159,7 +183,10 @@ public String validate() {
 }
 ```
 
+<!--
 As you can see, this method is able to do any arbitrary validation, in our case, using the `User.authenticate()` method that we've already implemented. If validation fails, it returns a `String` with the error message; otherwise, `null` if validation passes.
+-->
+見ての通り、このメソッドは任意のバリデーションを行うことができますが、ここでは既に実装した `User.authenticate()` メソッドを使っています。バリデーションに失敗した場合、エラーメッセージとして `String` が返却され、バリデーションに成功した場合は `null` が返却されます。
 
 <!--
 We can now use this validation by using the `hasErrors()` method on our `Form` object in the `authenticate` action:
@@ -196,7 +223,10 @@ After setting the user in the session, we issue an HTTP redirect to the dashboar
 -->
 ユーザをセッションに格納した後、ダッシュボードへの HTTP リダイレクトを発行します。テンプレートにアセットを取り込むときと同じように、ダッシュボードアクションを参照するためにリバースルーターを使っていることが分かるでしょう。
 
+<!--
 We are almost finished with validation.  The one thing left to do is to display the error message when validation fails. You saw before that we passed the invalid form back to the template - we will use this to get the error message.  Place the following code in `app/views/login.scala.html`, just below the Sign In heading:
+-->
+バリデーションについてはほとんど完了です。あとひとつ残っているのは、バリデーション失敗時のエラーメッセージの表示です。先ほど不正なフォームをテンプレートに投げ返しました - このフォームを使ってエラーメッセージを取得します。以下のコードを `app/views/login.scala.html` の見出し Sign in のすぐ下に配置してください:
 
 ```html
 @if(form.hasGlobalErrors) {
@@ -223,7 +253,10 @@ Now reenter the valid password (`secret`), and login.  You should be taken to th
 -->
 ## アクションのテスト
 
+<!--
 Now is a good time for us to start writing tests for our actions.  We've written an action that provides the ability to log in - let's check that it works.  Start by creating a skeleton test class called `test/controllers/LoginTest.java`:
+-->
+そろそろアクションのテストを書き始めていい頃です。ログイン機能を提供するアクションを書きました - これが動作することを確認しましょう。`test/controllers/LoginTest.java` というテストクラスのスケルトンを作成するところから始めましょう:
 
 ```java
 package controllers;
@@ -249,7 +282,10 @@ public class LoginTest extends WithApplication {
 }
 ```
 
+<!--
 > Notice that this time we've passed a `fakeGlobal()` to the fake application when we set it up.  In fact, since creating our "real" `Global.java`, the `ModelsTest` we wrote earlier has been broken because it is loading the initial data when the test starts.  So, it too should be updated to use `fakeGlobal()`.
+-->
+> フェイクアプリケーションをセットアップする際に、今度は `fakeGlobal()` を渡していることを確認してください。実は、"本物の" `Global.java` を作ったことで、以前に書いたテスト開始時に初期データを読み込んでしまう `ModelsTest` は壊れてしまっています。このため、このテストも `fakeGlobal()` を使うよう更新するべきです。
 
 <!--
 Now let's write a test that tests what happens when we authenticate successfully:
@@ -270,16 +306,25 @@ public void authenticateSuccess() {
 }
 ```
 
+<!--
 There are a few new concepts introduced here.  The first is the use of Play's "ref" reverse router.  This allows us to get a reference to an action, which we then pass to `callAction()` to invoke.  In our case, we've got a reference to the `Application.authenticate` action.
+-->
+ここにはいくつかの新しい概念が紹介されています。最初のひとつは Play の "ref" リバースルーターを使っていることです。これにより、`callAction()` に引き渡して実行するアクションの参照を取得することができます。ここでは、`Application.authenticate` アクションへの参照を取得しました。
 
 <!--
 We are also creating a fake request.  We are giving this a form body with the email and password to authenticate with.
 -->
 フェイクリクエストも作成しています。認証に使用する email と password を保持するフォームボディを与えています。
 
+<!--
 Finally, we are using the `status()` and `session()` helper methods to get the status and the session of the result.  We ensure that the successful login occurred with Bob's email address being added to the session.  There are other helper methods available to get access to other parts of the result, such as the headers and the body.  You might wonder why we can't just directly get the result.  The reason for this is that the result may, for example, be asynchronous, and so Play needs to unwrap it if necessary in order to access it.
+-->
+最後に、テスト結果のステータスとセッションを取得するために、`status()` と `session()` というヘルパーメソッドを使っています。Bob の email アドレスを使って正しく認証すると、セッションにこのアドレスが追加されることを確認しています。この他に、ヘッダやボディのような、テスト結果のその他の箇所にアクセスするためのヘルパーメソッドが存在します。なぜテスト結果を直接取得しないのか不思議に思うかもしれません。その理由は、テスト結果は例えば非同期になるかもしれないので、それらにアクセスするために、Play は必要に応じてそれらを展開する必要があるためです。
 
+<!--
 Run the test to make sure it passes.  Now let's write another test, this time to ensure that if an invalid email and password are supplied, that we don't get logged in:
+-->
+テストを実行してこれが成功することを確認してください。今度は、不正な email と password が入力された場合にはログインできないことを確認する別のテストを書きましょう:
 
 ```java
 @Test
@@ -310,7 +355,10 @@ Now that we are able to login, we can start protecting actions with authenticati
 -->
 これでログインできるようになったので、アクションを認証機能で保護していきましょう。Play のアクション合成を使うことでこれを実現することができます。アクション合成は、複数のアクションを連鎖するようにまとめて組み立てる機能です。それぞれのアクションは、次のアクションにリクエストを委譲する前に何らかの処理を行うことができますし、処理結果を変更することもできます。あるアクションは、次のアクションにリクエストを引き渡さずに、自分自身で処理結果を生成することを決断することもできます。
 
+<!--
 Play already comes with a built in authenticator action, which we will extend to add our logic.  We will call this authenticator `Secured`.  Open `app/controllers/Secured.java`, and implement this class:
+-->
+Play には認証用のアクションが既に組み込まれているので、これを継承して機能を追加したいと思います。この認証機能を `Secured` と呼ぶことにしましょう。`app/controllers/Secured.java` を開き、このクラスを実装してください:
 
 ```java
 package controllers;
@@ -335,7 +383,10 @@ public class Secured extends Security.Authenticator {
 }
 ```
 
+<!--
 We have implemented two methods here.  `getUsername()` is used to get the username of the current logged in user.  In our case this is the email address, that we set in the `email` attribute in the session when the user logged in.  If this method returns a value, then the authenticator considers the user to be logged in, and lets the request proceed.  If, however, the method returns `null`, then the authenticator will block the request, and instead invoke `onUnathorized()`, which we have implemented to redirect to our login screen.
+-->
+ここでふたつのメソッドを実装しました。`getUsername()` は、現在ログインしているユーザーのユーザー名を取得するために使われます。今回の例の場合は、ユーザーがログインしたときにセッションの `email` 属性に設定した email アドレスを取得します。このメソッドが値を返すと、認証機能はユーザーがログインしているものと見なし、リクエストを続行します。一方で、このメソッドが `null` を返すと、認証機能はリクエストを中断し、その代わりにログイン画面にリダイレクトするよう実装した `onUnathorized()` を実行します。
 
 <!--
 Now let's use this authenticator on the dashboard.  In `app/controllers/Application.java`, add the `@Security.Authenticated` annotation with our authenticator to the `index` method:
@@ -396,7 +447,10 @@ Run the tests to make sure that the authenticator works.
 -->
 ## ログアウト
 
+<!--
 Now try and visit the dashboard in a web browser.  If you logged in successfully before, you're probably now on the dashboard. The authenticator hasn't blocked you because you were already logged in.  You could close your browser and reopen it to log out, but now is as good a time as any for us to implement a log out action.  As always, start with the route:
+-->
+web ブラウザでダッシュボードにアクセスしてみてください。すでに正しくログインしていれば、ダッシュボードを見ることができていると思います。ログイン済みなので、認証機能はリクエストをブロックしません。ブラウザを閉じてログアウトすることもできますが、今こそログアウトアクションを実装するのにふさわしい時です。いつも通り、ルートから始めます:
 
     GET     /logout                     controllers.Application.logout()
 
@@ -445,7 +499,10 @@ Finally lets add a logout link to the main template, `app/views/main.scala.html`
 </header>
 ```
 
+<!--
 Now go to the dashboard in your browser, try logging out, and then visiting the dashboard again.  You should be unable to view the dashboard; it will redirect to the login screen.  Login, and you should be able to see the dashboard again.
+-->
+ブラウザでダッシュボードにアクセスしてログアウトし、再度ダッシュボードにアクセスしてみてください。ダッシュボードを見ることができず、ログイン画面にリダイレクトされるはずです。ログインすれば、再度ダッシュボードを見ることができるでしょう。
 
 <!--
 ## Using the current user
@@ -457,7 +514,10 @@ There is one last thing that we want to do.  We can currently block access to an
 -->
 最後にやっておきたいことがもうひとつあります。今ではユーザーがログインしているかどうかによってアクセスをブロックすることができるようになりましたが、どうすれば現在ログインしているユーザーにアクセスするのでしょう? その答えは `request.username()` メソッドを通じて得られます。このメソッドは現在のユーザーの email アドレスを提供します。
 
+<!--
 Let's put the name of the user in the main template next to the logout link.  To get the name, we'll actually have to load the whole user from the database.  Let's also limit the projects to the one that the user is a member of, and the tasks to the ones that the user is assigned to, using the methods that we've already implemented on our models.
+-->
+メインテンプレートのログアウトリンクの隣りにユーザー名を配置しましょう。ユーザー名を取得するためには、実際にユーザー情報全体をデータベースから読み込まなければなりません。モデルに実装したメソッドを使って、ユーザーがメンバーに含まれているプロジェクトと、ユーザーがアサインされているタスクも絞り込みましょう。
 
 <!--
 Start by loading the user in the `index` method in `app/controllers/Application.java`:
@@ -517,11 +577,17 @@ Now visit the dashboard again, ensuring you are logged in.
 
 [[images/dashboardloggedin.png]]
 
+<!--
 We can now see the currently logged in user, only the projects that the user has access to, and the tasks they have assigned to them.
+-->
+現在ログインしているユーザーと、このユーザーがアクセスできるプロジェクト、そしてこのユーザーがアサインされているタスクだけを見ることができます。
 
 <!--
 As always, commit your work to git.
 -->
 いつも通り、git に作業内容をコミットしてください。
 
+<!--
 > Go to the [[next part|JavaGuide5]]
+-->
+> [[次章|JavaGuide5]] に進みましょう
