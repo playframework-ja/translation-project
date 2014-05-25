@@ -77,9 +77,15 @@ public static Result add() {
 }
 ```
 
+<!--
 We've used our existing `create()` method on our `Project` model to create the new project, owned by the currently logged in user, which is returned by `request().username()`.
+-->
+`request().username()` から返却される、現在ログインしているユーザーが所有する新しいプロジェクトを作成するために、`Project` モデルに存在する `create()` メソッドを使いました。
 
+<!--
 Also notice that we are reusing that `item` template that we created earlier to render the new project.  Now you'll begin to see why we created our templates in the structure that we did earlier.  This method only renders a small part of the page; that's ok, we'll be using this fragment from an AJAX action.
+-->
+新しいプロジェクトを表示するために、以前に作成した `item` テンプレートを再利用していることにも注目してください。これで、なぜ以前に構造的にテンプレートを作成したのかが分かってきたと思います。このメソッドはページの小さな部分しか表示しませんが、この断片は AJAX アクションで使うので、これで問題ありません。
 
 <!--
 Let's now add a method to rename a project, but before we do, let's consider the security requirements of this function. A user should only be allowed to rename a project if they are a member of that project.  Let's write a utility method in our `app/controllers/Secured.java` class that checks this:
@@ -100,7 +106,10 @@ You may notice here that we've used `Context.current()` to get the `request()`. 
 -->
 `request()` を取得するために `Context.current()` を使ったことに気付いたかもしれません。アクションの中にいない場合でも、この便利な方法でリクエストにアクセスすることができます。内部的には、現在のリクエスト、レスポンス、セッションやその他を見つけるために thread local を使用します。
 
+<!--
 Our `isMemberOf()` method has used a new method that we haven't written on our `Project` model yet.  In fact, we are going to need a few new methods on the `Project` object, so let's open `app/models/Project.java` now to add them:
+-->
+この `isMemberOf()` メソッドは、`Project` モデルにまだ書いていない新しいメソッドを使っています。実際のところ、`Project` オブジェクトにいくつかの新しいメソッドが必要なので、ここで `app/models/Project.java` を開いてそれらを追加しましょう:
 
 ```java
 public static boolean isMember(Long project, String user) {
@@ -118,7 +127,10 @@ public static String rename(Long projectId, String newName) {
 }
 ```
 
+<!--
 Having added a `rename()` method to our `Project` model, we are now ready to implement our action in `app/controllers/Projects.java`:
+-->
+`Project` モデルに `rename()` メソッドを追加したことで、`app/controllers/Projects.java` にアクションを実装する準備が整いました:
 
 ```java
 public static Result rename(Long project) {
@@ -135,7 +147,10 @@ public static Result rename(Long project) {
 }
 ```
 
+<!--
 This is the first time we've implemented an action that accepts a parameter, in this case it's a `Long` for the project.  This parameter is going to come from the path to our action, which you'll see later when we add a route for this action to the routes file.
+-->
+これが引数を受け取るアクションを実装する最初の機会です。この場合、引数はプロジェクトを示す `Long` 値です。この引数は、後ほど routes ファイルにこのアクション用のルートを追加する際に目にする、このアクション用のパスから引き渡されることになります。
 
 <!--
 You can see that first we check that the current user is a member of the project, and if they aren't, we return them a `forbidden` response.  Also notice our use of the `form()` method.  We've seen this before, when we were populating and validating our login form.  However this time, we haven't passed in a bean to decode the form into and to validate it with.  Rather, we've used what's called a dynamic form.  A dynamic form just parses a form submission into a map of string keys to string values, and is very convenient for simple form submissions with only one or two values where you don't want to do any validation. 
@@ -281,7 +296,10 @@ public void renameProject() {
 }
 ```
 
+<!--
 And also importantly, let's check that our authorization is working - making sure that someone who is not a member of a project can not change the name of that project:
+-->
+これも重要なことなので、認可機能が動作していることを確認しましょう - プロジェクトのメンバーでない誰かがプロジェクトの名前を変更できないことを確認します:
 
 ```java
 @Test
@@ -309,4 +327,7 @@ Commit your work to git.
 -->
 作業内容を git にコミットしてください。
 
+<!--
 > Go to the [[next part|JavaGuide6]]
+-->
+> [[次章|JavaGuide6]] に進みましょう
