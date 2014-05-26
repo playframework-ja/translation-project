@@ -1,8 +1,15 @@
+<!-- translated -->
+<!--
 # Invoking actions from Javascript
+-->
+# Javascript によるアクションの実行
 
 In the last chapter of the tutorial, we implemented a number of new actions for the navigation drawer that are served by the backend. In this chapter we'll add the client side code necessary to complete the behavior for the navigation drawer.
 
+<!--
 ## Javascript routes
+-->
+## Javasctipt ルート
 
 The first thing we need to do is implement a Javascript router. While you could always just make AJAX calls using hard coded URLs, Play provides a client side router that will supply these URLs for your AJAX requests. Building URLs to make AJAX calls can be quite fragile, and if you change your URL structure or parameter names at all, it can be easy to miss things when you update your Javascript code. For this reason Play has a Javascript router that lets us call actions on the server from Javascript; as if we were invoking them directly.
 
@@ -24,11 +31,17 @@ public static Result javascriptRoutes() {
 
 We've set the response content type to be `text/javascript` because the router will be a Javascript file. We've then used `Routes.javascriptRouter()` to generate the routes. The first parameter that we've passed to it is `jsRoutes`. Our Javascript/CoffeeScript code will be able to access the router using that variable name. We've then passed the list of actions that we want in the router.
 
+<!--
 Of course, we need to add a route for that in the `conf/routes` file:
+-->
+もちろん、`conf/routes` ファイルにルートを追加する必要があります:
 
     GET     /assets/javascripts/routes          controllers.Application.javascriptRoutes()
 
+<!--
 Now before we implement the client side code, we need to source all the javascript dependencies that we're going to need in the `app/views/main.scala.html`:
+-->
+クライアント側のコードを実装する前に、`app/views/main.scala.html` で必要になるすべての javascript の依存性を調達する必要があります:
 
 ```html
 <script type="text/javascript" src="@routes.Assets.at("javascripts/jquery-1.7.1.js")"></script>
@@ -39,6 +52,9 @@ Now before we implement the client side code, we need to source all the javascri
 <script type="text/javascript" src="@routes.Application.javascriptRoutes()"></script>
 ```
 
+<!--
+## CoffeeScript
+-->
 ## CoffeeScript
 
 We are going to implement the client side code using CoffeeScript. CoffeeScript enhances the Javascript syntax, it is translated to Javascript and is fully interoperable with it. For example we can use our Javascript router from it. We could use Javascript, but since Play comes built in with a CoffeeScript compiler we thought we'd show that off instead! 
@@ -99,7 +115,10 @@ $.fn.editInPlace = (method, options...) ->
 
 Now the code that you see above may be a little overwhelming to you. The first block of code activates all the option icons in the page and it is regular jquery. The second is an extension to jquery that we'll use a bit later. The extension transforms a span into one that can be edited in place. These are just some utility methods that we are going to need to help with writing the rest of the logic.
 
+<!--
 Let's start to write our Backbone views:
+-->
+Backbone ビューを書いていきましょう:
 
 ```coffeescript
 class Drawer extends Backbone.View
@@ -253,11 +272,17 @@ class Drawer extends Backbone.View
 
 Try it out. You can now create a new group.
 
+<!--
 ## Testing our client side code
+-->
+## クライアントサイドコードのテスト
 
 Although we've tested that things are working manually, Javascript apps can be quite fragile and easy to break in future. Play provides a very simple mechanism for testing client side code using [FluentLenium](https://github.com/FluentLenium/FluentLenium). FluentLenium provides a simple way to represent your pages and the components on them in a way that is reusable and let's you interact with them and make assertions on them.
 
+<!--
 ### Implementing page objects
+-->
+### ページオブジェクトの実装
 
 Let's start by creating a page that represents our login page. Open `test/pages/Login.java`:
 
@@ -290,9 +315,15 @@ public class Login extends FluentPage {
 
 You can see three methods here. Firstly, we've declared the URL of our page conveniently using the reverse router to get this. Then we've implemented an `isAt()` method that runs some assertions on the page to make sure that we are at this page. FluentLenium will use this when we go to the page to make sure everything is as expected. We've written a simple assertion here to ensure that the heading is the login page heading. Finally, we've implemented an action on the page which fills the login form with the users email and password and then clicks the login button.
 
+<!--
 > You can read more about FluentLenium and the APIs it provides [here](https://github.com/FluentLenium/FluentLenium). We won't go into any more details in this tutorial.
+-->
+> FluentLenium の詳細と提供されている API は [ここ](https://github.com/FluentLenium/FluentLenium) で読むことができます。このチュートリアルでは、これ以上詳しく触れません。
 
+<!--
 Now that we can log in, let's create a page that represents the dashboard in `test/pages/Dashboard.java`:
+-->
+これでログインできるようになりましたので、`test/pages/Dashboard.java` にダッシュボードを表現するページを作りましょう:
 
 ```java
 package pages;
@@ -403,7 +434,10 @@ public class DrawerGroup {
 
 As with `Drawer` we have a method for looking up a project by name. We've also provided a method for checking if a project with a particular name exists and used `Predicate` to capture this. Using `Predicate` will make it easy for us later when we tell FluentLenium to wait until certain conditions are true.
 
+<!--
 Finally, the last component of our model that we'll build out is `test/componenst/DrawerProject.java`:
+-->
+最後に作成するモデルのコンポーネントは `test/componenst/DrawerProject.java` です:
 
 ```java
 package components;
@@ -449,7 +483,10 @@ public class DrawerProject {
 
 The `DrawerProject` allows us to lookup the name of the project, rename the project, and has a predicate for checking if the project name is in edit mode. So, it's been a bit of work to get this far with our selenium tests, and we haven't written any tests yet!  The great thing is though is that all of these components and pages are going to be reusable from all of our selenium tests. When something about our markup changes we can just update these components and all the tests will still work.
 
+<!--
 ### Implementing the tests
+-->
+### テストの実装
 
 Open `test/views/DrawerTest.java` and add the following setup code:
 
@@ -512,6 +549,9 @@ We rename a project, wait for it to disappear, wait for the new one to appear, a
 
 So now we have a working and tested navigation drawer. We've seen how to implement a few more actions, how the Javascript router works, how to use CoffeeScript in our Play application and how to use the Javascript router from our CoffeeScript code. We've also seen how we can use the page object pattern to write tests for a client side code running in a headless browser. There are a few functions we haven't implemented yet including renaming a group and deleting a group. You could try implementing them on your own or check the code in the ZenTasks sample app to see how it's done.
 
+<!--
 Commit your work to git.
+-->
+作業内容を git にコミットしてください。
 
 > Go to the [[next part|JavaGuide7]]
