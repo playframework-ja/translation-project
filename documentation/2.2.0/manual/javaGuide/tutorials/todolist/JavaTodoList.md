@@ -4,7 +4,10 @@
 -->
 # 初めての Play アプリケーション
 
+<!--
 Let’s write a simple task list application with Play and deploy it to the cloud. This is a very small example which can be managed in a few hours.
+-->
+Play でシンプルな TODO 管理アプリケーションを構築し、クラウドにデプロイしましょう。このサンプルはとても小規模で、数時間でやり通すことができます。  
 
 <!--
 ## Prerequisites
@@ -26,7 +29,10 @@ You will of course need a text editor. If you are used-to a fully-featured Java 
 -->
 もちろん、テキストエディタは必要です。もし Eclipse や IntelliJ のようなフル機能の Java の IDE に慣れているのなら、それらを使うことも可能です。しかし、 Playであれば、編集や開発プロセス自身をフレームワークが管理してくれるため、 Textmate, Emacs もしくは vi のようなシンプルなテキストエディタで楽しみながら作業する事が可能です。
 
+<!--
 > **Note:** Read more about [[Setting-up your preferred IDE | IDE]].
+-->
+> **補足:** 詳細については [[好きな IDE で開発する | IDE]] を参照して下さい。
 
 <!--
 ## Project creation
@@ -68,7 +74,7 @@ The `play new` command creates a new directory `todolist/` and populates it with
 -->
 * `app/` ディレクトリには models 、 controllers 、そして views ディレクトリに分かれたアプリケーションのコアが入っています。本ディレクトリには .java ソースファイルが入っています。
 * `conf/` ディレクトリには全てのアプリケーションの設定ファイル (特にメインとなる `application.conf` ファイル、 `routes` 定義ファイル、国際化のための `messages` ファイル) が入っています。
-
+* `project/` ディレクトリにはビルドスクリプトが入っています。ビルドシステムは sbt に基づいています。新しい Play アプリケーションはアプリケーションを正常動作させるデフォルトのビルドスクリプトが同梱されています。
 * `public/` ディレクトリには全てのパブリックに利用可能なリソース (JavaScript 、スタイルシート、画像イメージ) が入っています。
 * `test/` ディレクトリにはアプリケーションのテストが入っています。 テストは JUnit で書くことができます。
 
@@ -77,6 +83,7 @@ The `play new` command creates a new directory `todolist/` and populates it with
 > **Note:** Read more about [[Anatomy of a Play application | Anatomy]].
 -->
 > Play では UTF-8 をエンコーディング形式として採用しており、上記のディレクトリ内に配置された全テキストファイルは本文字セットを使用してエンコードされます。テキストエディタに応じて設定を確認してください。Windows の場合はエディタの文字コード設定は ANSI にする必要があります。
+> **補足:** 詳細については [[Play アプリケーションの構造 | Anatomy]] を参照して下さい。
 
 <!--
 ## Using the Play console
@@ -103,7 +110,10 @@ This launches the Play console. There are several things you can do from the Pla
 
 [[images/run.png]]
 
+<!--
 Now the application is running in development mode. Open a browser at <http://localhost:9000/>:
+-->
+development モードで本アプリケーションが実行されています。ブラウザを開き、 <http://localhost:9000/> へアクセスしてください:
 
 [[images/welcome.png]]
 
@@ -193,7 +203,10 @@ The first line defines the function signature. Here it takes a single `String` p
 -->
 最初の行は関数の仕様を定義します。ここでは、単一の `String` 型のパラメータを受け取ります。テンプレートの内容には Scala と HTML (もしくはテキストベースの言語) を一緒に記入しています。 Scala の式は特殊な `@` 文字から始まります。
 
+<!--
 > **Note:** Don’t worry about the template engine using Scala as its expression language. This is not a problem for a Java developer, and you can almost use it as if the language was Java. We explain the templating system in a bit more deatil below.
+-->
+> **ノート:** テンプレートエンジンの式言語として Scala を使用していますが、心配する必要はありません。 Java 開発者にとっては問題にはならず、 Java とほとんど同等の物として使用することができるでしょう。テンプレートシステムについては下記に少し詳細に説明しています。
 
 <!--
 ## Development work-flow
@@ -310,7 +323,10 @@ As you see we use `TODO` as result in our actions implementation. Because we don
 -->
 上記のコードでアクションの暫定的な実装をするために `TODO` という Result を使用しました。まだアクションの実装を書きたくない場合に、ビルドインの `TODO` という Result を使用することが可能です。このアクションからは `501 Not Implemented` HTTP レスポンスが返るようになっています。
 
+<!--
 You can try to access the <http://localhost:9000/tasks> to see that:
+-->
+確認するために、 <http://localhost:9000/tasks> にアクセスできるか試してみましょう。
 
 [[images/todo.png]]
 
@@ -509,7 +525,10 @@ It renders a **200 OK** result filled with the HTML rendered by the `index.scala
 -->
 本メソッドがタスクリストとタスクフォームを呼出し、 `index.scala.html` テンプレートによってレンダリングされた HTML を含む **200 OK** の結果を返します。
 
+<!--
 You can now try to access <http://localhost:9000/tasks> in your browser:
+-->
+ブラウザ内で <http://localhost:9000/tasks> にアクセスしてみましょう:
 
 [[images/blank.png]]
 
@@ -552,13 +571,25 @@ We use `bindFromRequest` to create a new form filled with the request data. If t
 -->
 ## データベース内のタスクを永続化する
 
+<!--
 It’s now time to persist the tasks in a database to make the application useful. Let’s start by enabling a database in our application. 
+-->
+アプリケーションを使いやすくするため、データベースにタスクの情報を永続化するようにしましょう。本アプリケーション内でデータベースを利用可能にします。
 
+<!--
 For now we will use a simple in memory database using **H2**, follow the process described in the [[Accessing an SQL database|JavaDatabase]] page.
+-->
+現在、 **H2** というシンプルなインメモリデータベースを使用するようにしています。[[SQL データベースへのアクセス|JavaDatabase]] ページに書かれているプロセスに従っています。
 
+<!--
 No need to restart the server, refreshing the browser is enough to set up the database.
+-->
+サーバーを再起動する必要はありません、ブラウザを更新するだけでデータベースをセットアップします。
 
+<!--
 We will use **EBean** (Play's default ORM) in this tutorial to query the database. So you’ll have to enable it as well. Define a default Ebean server following instructions on [[Using the Ebean ORM page|JavaEbean]] page.
+-->
+これからチュートリアル内でデータベースを検索するために (Play のデフォルト ORM である) **Ebean** を使用します。使用するためには Ebean を有効にする必要があります。[[Ebean ORM を使う|JavaEbean]]ページの操作に従ってデフォルトの Ebean サーバーを定義します。
 
 <!--
 By doing this we create an Ebean server connected to the `default` datasource, managing all entities found in the `models` package. Now it’s time to transform our `Task` class to a valid EBean entity:
