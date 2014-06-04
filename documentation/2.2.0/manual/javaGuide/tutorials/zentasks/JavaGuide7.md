@@ -148,7 +148,10 @@ public static List<Task> findByProject(Long project) {
 }
 ```
 
+<!--
 We're now almost ready, we just need to provide a link to click on to get to this action.  Our new Coffeescript file that we've downloaded uses the backbone router to handle AJAX requests to pages, so if we create a link using the format `#/some/path`, it will update the page for that.  So we can use the reverse router to render these links for us.  Let's do that now, first in the navigation drawer, in `app/views/projects/item.scala.html`:
+-->
+これで準備はほとんど整っており、あと必要なのは、クリックするとこのアクションを取得するリンクを提供することだけです。ダウンロードした新しい CoffeeScript は、ページに対する AJAX リクエストを取り扱うために backbone ルーターを使うので、`#/some/path` というフォーマットを使ってリンクを作成すれば、このリンクがページを更新することになります。これらのリンクは、リバースルーターを使ってレンダリングすることができます。これを今やりましょう。はじめは `app/views/projects/item.scala.html` 内のナビゲーションドローワーです:
 
 ```html
 ...
@@ -182,7 +185,10 @@ Now reload the screen, and you should be able to click the projects in the navig
 -->
 ## タスクの追加
 
+<!--
 Let's now implement the ability to add a task.  We'll start off again with the template, we'll need to modify the `app/views/tasks/folder.scala.html` template we added before to include a form for adding tasks.  Place the form after the list of tasks in the folder, and before the folders closing `<div>`:
+-->
+それでは、タスクを追加する機能を実装しましょう。再びテンプレートから始めます。タスクを追加するフォームを含めるために、以前に追加した `app/views/tasks/folder.scala.html` テンプレートを変更する必要があります。フォルダー内のタスク一覧の後ろ、フォルダーの `<div>` の閉じタグの前にフォームを配置してください:
 
 ```html
 ...
