@@ -579,7 +579,7 @@ It’s now time to persist the tasks in a database to make the application usefu
 <!--
 For now we will use a simple in memory database using **H2**, follow the process described in the [[Accessing an SQL database|JavaDatabase]] page.
 -->
-現在、 **H2** というシンプルなインメモリデータベースを使用するようにしています。[[SQL データベースへのアクセス|JavaDatabase]] ページに書かれているプロセスに従っています。
+それでは、[[SQL データベースへのアクセス|JavaDatabase]] ページに書かれているプロセスに従って、H2 というシンプルなインメモリデータベースを使っていきましょう。
 
 <!--
 No need to restart the server, refreshing the browser is enough to set up the database.
