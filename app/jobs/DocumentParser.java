@@ -79,7 +79,7 @@ public class DocumentParser extends Job {
     private List<File> sources(File dir) {
         List<File> sources = new ArrayList<File>();
         File[] files = dir.listFiles();
-        if (files.length == 0) {
+        if (files == null || files.length == 0) {
             return sources;
         }
         for (File file : dir.listFiles()) {
