@@ -2,7 +2,9 @@ package controllers;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 
 import models.Download;
 
@@ -20,6 +22,7 @@ import org.jsoup.select.Elements;
 import play.Logger;
 import play.Play;
 import play.mvc.Controller;
+import play.test.Fixtures;
 
 /**
  * Application controller.
@@ -59,78 +62,17 @@ public class Application extends Controller {
      * download action.
      */
     public static void download() {
-
-        Download activator = null;
-        Download latest = null;
-        List<Download> devels = null;
-        List<Download> prevs = null;
-
-        try {
-            Document doc = Jsoup.connect("http://www.playframework.com/download").get();
-
-            Elements latests = doc.select("div.latest");
-            if (latests.size() != 2) {
-                throw new IOException("cannot find latest divisions.");
+        Map<String, List<Download>> downloads = new LinkedHashMap<String, List<Download>>();
+        for (Download d : (List<Download>) Fixtures.loadYaml("downloads.yml")) {
+            String key = d.version.substring(0, 3);
+            List<Download> list = downloads.get(key);
+            if (list == null) {
+                list = new ArrayList<Download>();
             }
-            Elements changeLogs = doc.select("p.changelogLink");
-            if (changeLogs.size() == 0) {
-                throw new IOException("cannot find changelog links.");
-            }
-
-            // the first div must have latest activator info.
-            activator = toDownload(latests.get(0));
-
-            // and the second one must have latest zip info.
-            latest = toDownload(latests.get(1));
-
-            // the last paragraph must have previous versions.
-            prevs = toDownloads(changeLogs.last());
-
-            // and if there are more than one changelogs, the first one must
-            // have development version(s).
-            if (changeLogs.size() > 1) {
-                devels = toDownloads(changeLogs.first());
-            }
-        } catch (IOException e) {
-            Logger.warn(e.getMessage());
+            list.add(d);
+            downloads.put(key, list);
         }
-        render(activator, latest, devels, prevs);
-    }
-
-    private static Download toDownload(Element latest) {
-        Element h2 = latest.select("h2").first();
-        Element small = h2.select("small").first();
-        Elements cols = latest.select("table").select("tr").select("td");
-        if (cols.size() < 2) {
-            return null;
-        }
-        Element a = cols.get(0).select("a").first();
-
-        String url = a.attr("href");
-        String txt = h2.ownText().trim();
-        String date = small.text().trim();
-        String size = cols.get(1).text().trim();
-        String misc = a.text().trim();
-        return new Download(url, txt, date, size, misc);
-    }
-
-    private static List<Download> toDownloads(Element changelog) {
-        List<Download> downloads = new ArrayList<Download>();
-        Elements rows = changelog.nextElementSibling().select("tr");
-        for (Element row : rows) {
-            List<Element> cols = row.select("td");
-            if (cols.size() < 3) {
-                continue;
-            }
-            Element a = cols.get(0).select("a").first();
-
-            String url = a.attr("href");
-            String txt = a.text().trim();
-            String date = cols.get(1).html().trim();
-            String size = cols.get(2).html().trim();
-            downloads.add(new Download(url, txt, date, size, StringUtils.EMPTY));
-        }
-        return downloads;
+        render(downloads);
     }
 
     /**

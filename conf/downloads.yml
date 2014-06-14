@@ -1,0 +1,257 @@
+- !!models.Download
+  version: 2.2.3
+  url: http://downloads.typesafe.com/play/2.2.3/play-2.2.3.zip
+  date: May 1 2014
+  size: 107.7M
+
+- !!models.Download
+  version: 2.2.2
+  url: http://downloads.typesafe.com/play/2.2.2/play-2.2.2.zip
+  date: Mar 1 2014
+  size: 107.7M
+
+- !!models.Download
+  version: 2.2.1
+  url: http://downloads.typesafe.com/play/2.2.1/play-2.2.1.zip
+  date: Oct 31 2013
+  size: 104.8M
+
+- !!models.Download
+  version: 2.2.0
+  url: http://downloads.typesafe.com/play/2.2.0/play-2.2.0.zip
+  date: Sep 20 2013
+  size: 105.5M
+
+- !!models.Download
+  version: 2.1.5
+  url: http://downloads.typesafe.com/play/2.1.5/play-2.1.5.zip
+  date: Sep 20 2013
+  size: 145.2M
+
+- !!models.Download
+  version: 2.1.4
+  url: http://downloads.typesafe.com/play/2.1.4/play-2.1.4.zip
+  date: Sep 11 2013
+  size: 145.2M
+
+- !!models.Download
+  version: 2.1.3
+  url: http://downloads.typesafe.com/play/2.1.3/play-2.1.3.zip
+  date: Aug 06 2013
+  size: 145.2M
+
+- !!models.Download
+  version: 2.1.2
+  url: http://downloads.typesafe.com/play/2.1.2/play-2.1.2.zip
+  date: Jul 05 2013
+  size: 145.5M
+
+- !!models.Download
+  version: 2.1.1
+  url: http://downloads.typesafe.com/play/2.1.1/play-2.1.1.zip
+  date: Apr 03 2013
+  size: 145.2M
+
+- !!models.Download
+  version: 2.1.0
+  url: http://downloads.typesafe.com/play/2.1.0/play-2.1.0.zip
+  date: Feb 06 2013
+  size: 144.3M
+
+- !!models.Download
+  version: 2.0.8
+  url: http://downloads.typesafe.com/play/2.0.8/play-2.0.8.zip
+  date: Sep 20 2013
+  size: 96.6M
+
+- !!models.Download
+  version: 2.0.7
+  url: http://downloads.typesafe.com/play/2.0.7/play-2.0.7.zip
+  date: Sep 11 2013
+  size: 96.6M
+
+- !!models.Download
+  version: 2.0.6
+  url: http://downloads.typesafe.com/play/2.0.6/play-2.0.6.zip
+  date: Aug 06 2013
+  size: 96.6M
+
+- !!models.Download
+  version: 2.0.5
+  url: http://downloads.typesafe.com/play/2.0.5/play-2.0.5.zip
+  date: Aug 01 2013
+  size: 96.6M
+
+- !!models.Download
+  version: 2.0.4
+  url: http://downloads.typesafe.com/releases/play-2.0.4.zip
+  date: Oct 01 2012
+  size: 96.6M
+
+- !!models.Download
+  version: 2.0.3
+  url: http://downloads.typesafe.com/releases/play-2.0.3.zip
+  date: Aug 03 2012
+  size: 92.1M
+
+- !!models.Download
+  version: 2.0.2
+  url: http://downloads.typesafe.com/releases/play-2.0.2.zip
+  date: Jun 26 2012
+  size: 92.9M
+
+- !!models.Download
+  version: 2.0.1
+  url: http://downloads.typesafe.com/releases/play-2.0.1.zip
+  date: May 02 2012
+  size: 90.1M
+
+- !!models.Download
+  version: 2.0
+  url: http://downloads.typesafe.com/releases/play-2.0.zip
+  date: Mar 13 2012
+  size: 89.4M
+
+- !!models.Download
+  version: 1.2.5.3
+  url: http://downloads.typesafe.com/play/1.2.5.3/play-1.2.5.3.zip
+  date: Sep 23 2013
+  size: 61.8M
+
+- !!models.Download
+  version: 1.2.7
+  url: http://downloads.typesafe.com/play/1.2.7/play-1.2.7.zip
+  date: Aug 29 2013
+  size: 61.7M
+
+- !!models.Download
+  version: 1.2.5.2
+  url: http://downloads.typesafe.com/play/1.2.5.2/play-1.2.5.2.zip
+  date: Aug 29 2013
+  size: 61.7M
+
+- !!models.Download
+  version: 1.2.6
+  url: http://downloads.typesafe.com/play/1.2.6/play-1.2.6.zip
+  date: Aug 06 2013
+  size: 61.7M
+
+- !!models.Download
+  version: 1.2.5.1
+  url: http://downloads.typesafe.com/play/1.2.5.1/play-1.2.5.1.zip
+  date: Aug 06 2013
+  size: 61.7M
+
+- !!models.Download
+  version: 1.2.4
+  url: http://downloads.typesafe.com/releases/play-1.2.5.zip
+  date: Jul 03 2012
+  size: 61.7M
+
+- !!models.Download
+  version: 1.2.5
+  url: http://downloads.typesafe.com/releases/play-1.2.4.zip
+  date: Dec 02 2011
+  size: 58.1M
+
+- !!models.Download
+  version: 1.2.3
+  url: http://downloads.typesafe.com/releases/play-1.2.3.zip
+  date: Aug 24 2011
+  size: 58.2M
+
+- !!models.Download
+  version: 1.2.2
+  url: http://downloads.typesafe.com/releases/play-1.2.2.zip
+  date: Jul 05 2011
+  size: 57.6M
+
+- !!models.Download
+  version: 1.2.1
+  url: http://downloads.typesafe.com/releases/play-1.2.1.zip
+  date: May 02 2011
+  size: 55.7M
+
+- !!models.Download
+  version: 1.2
+  url: http://downloads.typesafe.com/releases/play-1.2.zip
+  date: Apr 13 2011
+  size: 55.7M
+
+- !!models.Download
+  version: 1.1.3
+  url: http://downloads.typesafe.com/play/1.1.3/play-1.1.3.zip
+  date: Aug 06 2013
+  size: 49.1M
+
+- !!models.Download
+  version: 1.1.2
+  url: http://downloads.typesafe.com/releases/play-1.1.2.zip
+  date: Aug 23 2011
+  size: 48.3M
+
+- !!models.Download
+  version: 1.1.1
+  url: http://downloads.typesafe.com/releases/play-1.1.1.zip
+  date: Jan 25 2011
+  size: 48.3M
+
+- !!models.Download
+  version: 1.1
+  url: http://downloads.typesafe.com/releases/play-1.1.zip
+  date: Nov 01 2010
+  size: 48.1M
+
+- !!models.Download
+  version: 1.0.3.4
+  url: http://downloads.typesafe.com/play/1.0.3.4/play-1.0.3.4.zip
+  date: Aug 06 2013
+  size: 32.9M
+
+- !!models.Download
+  version: 1.0.3.3
+  url: http://downloads.typesafe.com/releases/play-1.0.3.3.zip
+  date: Aug 23 2011
+  size: 32.8M
+
+- !!models.Download
+  version: 1.0.3.2
+  url: http://downloads.typesafe.com/releases/play-1.0.3.2.zip
+  date: Jul 28 2010
+  size: 32.9M
+
+- !!models.Download
+  version: 1.0.3.1
+  url: http://downloads.typesafe.com/releases/play-1.0.3.1.zip
+  date: Jul 15 2010
+  size: 32.8M
+
+- !!models.Download
+  version: 1.0.3
+  url: http://downloads.typesafe.com/releases/play-1.0.3.zip
+  date: Jun 16 2010
+  size: 32.8M
+
+- !!models.Download
+  version: 1.0.2.1
+  url: http://downloads.typesafe.com/releases/play-1.0.2.1.zip
+  date: Apr 16 2010
+  size: 32.8M
+
+- !!models.Download
+  version: 1.0.2
+  url: http://downloads.typesafe.com/releases/play-1.0.2.zip
+  date: Apr 06 2010
+  size: 32.8M
+
+- !!models.Download
+  version: 1.0.1
+  url: http://downloads.typesafe.com/releases/play-1.0.1.zip
+  date: Jan 17 2010
+  size: 44.6M
+
+- !!models.Download
+  version: 1.0
+  url: http://downloads.typesafe.com/releases/play-1.0.zip
+  date: Oct 19 2009
+  size: 41.5M
