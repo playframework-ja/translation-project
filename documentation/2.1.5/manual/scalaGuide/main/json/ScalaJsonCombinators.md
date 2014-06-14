@@ -1893,7 +1893,7 @@ assert(Json.fromJson[Creature](zombiejs).get == zombie2)
 
 <!-- `Format[A]` is both covariant and contravariant (invariant) functor.
 So you must give both functions `A => B` and `B => A` to transform into a `Format[B]`. -->
-`Format[A]` は共変でもあり、反変 (不変) でもある要素です。
+`Format[A]` は共変でもあり反変でもある (つまり不変な) Functor です。
 このため、`Format[B]` に変換するための関数 `A => B` と関数 `B => A` の両方を与えてやらなければなりません。
 
 <!-- For example: -->
