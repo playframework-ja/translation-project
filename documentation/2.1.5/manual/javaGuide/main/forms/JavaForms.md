@@ -100,6 +100,7 @@ public class User {
 Since 2.0.2 the `validate`-method can return the following types: `String`, `List<ValidationError>` or `Map<String,List<ValidationError>>`
 -->
 2.0.2 以降、`validate` メソッドは次の型を返すことができます: `String`, `List<ValidationError>` or `Map<String,List<ValidationError>>`
+
 <!--
 ## Handling binding failure
 -->
