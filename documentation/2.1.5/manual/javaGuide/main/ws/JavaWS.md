@@ -107,7 +107,7 @@ If you want to make multiple calls in sequence, this can be achieved using `flat
 <!--
 The HTTP client can be configured globally in `application.conf` via a few properties:
 -->
-Play アプリケーション全体で使われる HTTP クライアントの設定は、 `application.conf` にほんの少しプロパティを設定するたけで行えます。
+Play アプリケーション全体で使われる HTTP クライアントの設定は、 `application.conf` にほんの少しプロパティを設定するだけで行えます。
 
 ```
 # Follow redirects (default true)
