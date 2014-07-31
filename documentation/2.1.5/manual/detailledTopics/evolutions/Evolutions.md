@@ -178,7 +178,7 @@ CREATE TABLE Post (
 # --- !Downs
 DROP TABLE Post;
 =======
-# Update User
+# User 変更
  
 # --- !Ups
 ALTER TABLE User ADD age INT;
