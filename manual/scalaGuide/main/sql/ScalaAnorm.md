@@ -479,7 +479,7 @@ str("name") ~ int("population") map { case n~p => (n,p) }
 <!--
 > **Note:** We created a tuple `(String,Int)` here, but there is nothing stopping you from transforming the `RowParser` result to any other type, such as a custom case class.
 -->
-> **Note:** この例では `(String,Int)` というタプルを生成しましたが、`RowParser` の結果をも自前の case class など別の型に変換しても何ら問題ありません。
+> **Note:** この例では `(String,Int)` というタプルを生成しましたが、`RowParser` の結果を自前の case class など別の型に変換しても何ら問題ありません。
 
 <!--
 Now, because transforming `A~B~C` types to `(A,B,C)` is a common task, we provide a `flatten` function that does exactly that. So you finally write:
