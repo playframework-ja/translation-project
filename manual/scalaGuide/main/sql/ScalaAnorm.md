@@ -2,7 +2,7 @@
 <!--
 # Anorm, simple SQL data access
 -->
-# Anorm によるシンプルなデータアクセス
+# Anorm によるシンプルな SQL データアクセス
 
 <!--
 Play includes a simple data access layer called Anorm that uses plain SQL to interact with the database and provides an API to parse and transform the resulting datasets.
@@ -12,7 +12,7 @@ Play には Anorm と呼ばれるシンプルなデータアクセスレイヤ�
 <!--
 **Anorm is Not an Object Relational Mapper**
 -->
-**Anorm は ORM (Object Relational Mapper) ではありません**
+**Anorm は ORM (Object Relational Mapper) ではない**
 
 <!--
 > In the following documentation, we will use the [MySQL world sample database](http://dev.mysql.com/doc/index-other.html). 
@@ -32,47 +32,47 @@ Play には Anorm と呼ばれるシンプルなデータアクセスレイヤ�
 <!--
 It can feel strange to return to plain old SQL to access an SQL database these days, especially for Java developers accustomed to using a high-level Object Relational Mapper like Hibernate to completely hide this aspect.
 -->
-Hibernate のような、SQL を完全に隠蔽するような高級な ORM に慣れた Java デベロッパーの方にとって、Anorm がデータベースアクセスに昔ながらの SQL を直接使っていることが奇妙に思われるかもしれません。
+Hibernate のような、SQL を完全に隠蔽するような高級な ORM に慣れた Java デベロッパーの方にとって、今時 Anorm がデータベースアクセスに昔ながらの SQL を直接使っていることは奇妙に思われるかもしれません。
 
 <!--
 Although we agree that these tools are almost required in Java, we think that they are not needed at all when you have the power of a higher-level programming language like Scala. On the contrary, they will quickly become counter-productive.
 -->
-そのようなツールは、確かに Java では必要だったと思います。しかしながら，Scala のような高級な言語の恩恵を受けられる場合には全く必要ではないと考えます。実際のところ、そのような高級な ORM は Scala の場合はすぐ非生産的に感じられてしまうでしょう。
+そのようなツールは、確かに Java では必要だったと思います。しかしながら、Scala のような高級な言語の恩恵を受けられる場合には全く必要ではないと考えます。それどころか、そのような高級な ORM は Scala の場合はすぐ非生産的に感じられてしまうことでしょう。
 
 <!--
 #### Using JDBC is a pain, but we provide a better API
 -->
-#### JDBC より良い API
+#### JDBC を使うのはつらいけど、私たちがより良い API を提供する
 
 <!--
 We agree that using the JDBC API directly is tedious, particularly in Java. You have to deal with checked exceptions everywhere and iterate over and over around the ResultSet to transform this raw dataset into your own data structure.
 -->
-特に Java で JDBC API を直接使うことには飽き飽きされていると思います。Java で JDBC を直接使うような場合、コードのあらゆる箇所でチェック例外を考慮しなければならず、また生のデータセットをアプリケーション独自のデータ構造に変換するために ResultSet を何度も何度も読み込む必要があります。
+特に Java で JDBC API を直接使うことには飽き飽きしているかと思います。Java で JDBC を直接使うような場合、コードのあらゆる箇所でチェック例外を考慮しなければならず、また生のデータセットをアプリケーション独自のデータ構造に変換するために ResultSet を何度も何度も読み込む必要があります。
 
 <!--
 We provide a simpler API for JDBC; using Scala you don’t need to bother with exceptions, and transforming data is really easy with a functional language. In fact, the goal of the Play Scala SQL access layer is to provide several APIs to effectively transform JDBC data into other Scala structures.
 -->
-そこで、私たちは JDBC よりシンプルな API を作ることにしました。Scala を利用すると、チェック例外に邪魔されることなく、また関数型言語の機能によりデータ構造の変換が本当に簡単になります。実際、Play の Scala SQL アクセスレイヤーが提供しているのは、JDBC のデータを Scala で定義されたデータ構造へ効率的に変換するための API です。
+私たちは JDBC のよりシンプルな API を作ることにしました。Scala を使えば、例外にわずらわされることもなく、関数型の言語機能によりデータの変換処理がとても簡単になります。実際、Play の Scala SQL アクセスレイヤーの目的は、JDBC のデータを Scala のデータ構造へ効率的に変換するための API を提供することです。
 
 <!--
 #### You don’t need another DSL to access relational databases
 -->
-#### リレーショナルデータベースへアクセスするために新しい DSL は必要ありません
+#### リレーショナルデータベースにアクセスするための別の DSL は必要ない
 
 <!--
 SQL is already the best DSL for accessing relational databases. We don’t need to invent something new. Moreover the SQL syntax and features can differ from one database vendor to another. 
 -->
-SQL はそれ自体が既にリレーショナルデータベースへアクセスするために最適な DSL です。したがって、SQL に代わる何か新しいものを発明する必要はありません。また、SQL の文法や機能はデータベースベンダーによって異っています。
+SQL は既にリレーショナルデータベースにアクセスするための最適な DSL です。私たちは SQL に代わる何か新しい何かを発明する必要はありません。加えて、SQL の文法や機能はデータベースベンダーによって異なってもいます。
 
 <!--
 If you try to abstract this point with another proprietary SQL like DSL you will have to deal with several ‘dialects’ dedicated for each vendor (like Hibernate ones), and limit yourself by not using a particular database’s interesting features.
 -->
-このような SQL の方言をプロプライエタリかつ SQL ライクな DSL で抽象化しようとすると、(Hibernate のそれのように) ベンダ固有の `dialeects` を利用する必要が出てしまいます。これは同時に、データベースの特有の便利な機能を自ら制限することにもなってしまいます。
+このような SQL の方言をプロプライエタリかつ SQL ライクな DSL で抽象化しようとすると、(Hibernate のように) ベンダ固有の `dialects` に対応する必要があります。これは同時に、データベースの特有の便利な機能の利用を自ら制限することにもなってしまいます。
 
 <!--
 Play will sometimes provide you with pre-filled SQL statements, but the idea is not to hide the fact that we use SQL under the hood. Play just saves typing a bunch of characters for trivial queries, and you can always fall back to plain old SQL.
 -->
-Play には SQL ステートメントの組み立てを補助する機能もあります。しかし、その主な目的は SQL を隠蔽してしまうことではありません。Play は平凡なクエリについてタイプ量を削減してくれるだけであり、必要であればいつもどおりの生の SQL へフォールバックすることができます。
+Play には SQL ステートメントの組み立てを補助する機能も提供しています。しかし、その主な目的は SQL を隠蔽することではありません。Play は平凡なクエリについてタイプ量を削減してくれるだけであり、いつでも素の SQL に戻ることができます。
 
 <!--
 #### A type safe DSL to generate SQL is a mistake
@@ -82,12 +82,12 @@ Play には SQL ステートメントの組み立てを補助する機能もあ�
 <!--
 Some argue that a type safe DSL is better since all your queries are checked by the compiler. Unfortunately the compiler checks your queries based on a meta-model definition that you often write yourself by ‘mapping’ your data structure to the database schema. 
 -->
-型安全な DSL は、クエリがコンパイラによって検証されるという点において、ただの SQL より良いと言われることがあります。ただ残念なことに、このようなコンパイラのチェックは、あなたがデータ構造をデータベースのスキーマに人力でマッピングして作ったメタモデルに対するクエリに対して行われます。
+型安全な DSL はコンパイラによって検査されるため、素の SQL より優れていると言われることがあります。しかし、残念ながらコンパイラはあなたが自分自身で書いたデータ構造とデータベーススキーマをマッピングするメタモデル定義をもとにクエリを検査します。
 
 <!--
 There are no guarantees that this meta-model is correct. Even if the compiler says that your code and your queries are correctly typed, it can still miserably fail at runtime because of a mismatch in your actual database definition.
 -->
-このとき、定義したメタモデルが正しいという保証はありません。コンパイラがあなたのコードやクエリが正しく打ち込まれていると判断したとしても、メタモデルとデータベースのスキーマにミスマッチがあれば、残念なことに実行時エラーになってしまいます。
+このメタモデルが正しいという保証はありません。コンパイラがあなたのコードやクエリが正しくタイプされていると判断したとしても、メタモデルと実際のデータベーススキーマにミスマッチがあれば、残念なことに実行時エラーになってしまいます。
 
 <!--
 #### Take Control of your SQL code
@@ -97,12 +97,12 @@ There are no guarantees that this meta-model is correct. Even if the compiler sa
 <!--
 Object Relational Mapping works well for trivial cases, but when you have to deal with complex schemas or existing databases, you will spend most of your time fighting with your ORM to make it generate the SQL queries you want.
 -->
-Object Relational Mapping は一般的なデータモデルに関してはうまくいきます。しかし、実際にあなたが直面すると予想される複雑なスキーマや既存のデータベースに対しては、ORM を使って SQL クエリーを生成するのはかなりの負担になります。
+Object Relational Mapping は平凡なケースではうまくいきます。しかし、実際にあなたが直面すると予想される複雑なスキーマや既存のデータベースに対応する必要があるとき、あなたが求める SQL クエリを生成するために ORM との格闘に多くの時間を費やすことになるでしょう。
 
 <!--
 Writing SQL queries yourself can be tedious for a simple ‘Hello World’ application, but for any real-life application, you will eventually save time and simplify your code by taking full control of your SQL code.
 -->
-SQL クエリを自分で書くのは `Hello World` アプリケーションのようなシンプルな場合には面倒ですが、実際のアプリケーションでは結果的に時間の節約やコードのシンプル化につながります。
+SQL クエリを自分で書くのはシンプルな `Hello World` アプリケーションのような場合にはつまらないものに感じられますが、実際のアプリケーションでは SQL コードを完全にコントロールできることが結果的に時間を節約し、あなたのコードを簡潔にするでしょう。
 
 <!--
 ## Add Anorm to your project
@@ -112,7 +112,7 @@ SQL クエリを自分で書くのは `Hello World` アプリケーションの�
 <!--
 You will need to add Anorm and jdbc plugin to your dependencies : 
 -->
-ビルド依存性に Anorm と jdbc を追加する必要があります :
+依存ライブラリに Anorm と jdbc プラグインを追加する必要があります :
 
 ```scala
 val appDependencies = Seq(
@@ -134,7 +134,7 @@ To start you need to learn how to execute SQL queries.
 <!--
 First, import `anorm._`, and then simply use the `SQL` object to create queries. You need a `Connection` to run a query, and you can retrieve one from the `play.api.db.DB` helper:
 -->
-初めに、 `anorm._` をインポートして、 `SQL` オブジェクトを使ってクエリを作成しましょう。クエリを実行するためには `Connection` が必要で、その習得には `play.api.db.DB` ヘルパー関数が利用できます。
+初めに、 `anorm._` をインポートして、 `SQL` オブジェクトを使ってクエリを作成しましょう。クエリを実行するためには `Connection` が必要なので `play.api.db.DB` ヘルパーを使います。
 
 ```scala
 import anorm._ 
@@ -148,12 +148,12 @@ DB.withConnection { implicit c =>
 <!--
 The `execute()` method returns a Boolean value indicating whether the execution was successful.
 -->
-`execute()` メソッドは実行が成功したかどうかを表す Boolean 値を返します。
+`execute()` メソッドは SQL 実行が成功したかどうかを表す Boolean 値を返します。
 
 <!--
 To execute an update, you can use `executeUpdate()`, which returns the number of rows updated.
 -->
-Update を実行するためには、`executeUpdate()` が利用できます。この関数はアップデートされた行数を返します。
+Update を実行するためには、`executeUpdate()` が利用できます。このメソッドは更新された行数を返します。
 
 ```scala
 val result: Int = SQL("delete from City where id = 99").executeUpdate()
@@ -162,7 +162,7 @@ val result: Int = SQL("delete from City where id = 99").executeUpdate()
 <!--
 If you are inserting data that has an auto-generated `Long` primary key, you can call `executeInsert()`. If you have more than one generated key, or it is not a Long, `executeInsert` can be passed a `ResultSetParser` to return the correct key.
 -->
-自動生成された `Long` 型の主キーを持つデータを Insert するのであれば、`executeInsert()` を呼び出すことができます。生成されるキーがひとつより多い場合や Long 型でない場合、正しいキーを返却する `ResultSetParser` を `executeInsert` に渡すことができます。
+自動採番の `Long` 型の主キーを持つデータを挿入する場合は、`executeInsert()` を使います。生成されるキーが一つより多い場合や Long 型でない場合、正しいキーを返却する `ResultSetParser` を `executeInsert` に渡します。
 
 ```scala
 val id: Option[Long] = SQL("insert into City(name, country) values ({name}, {country})")
@@ -171,7 +171,7 @@ val id: Option[Long] = SQL("insert into City(name, country) values ({name}, {cou
 <!--
 Since Scala supports multi-line strings, feel free to use them for complex SQL statements:
 -->
-Scala は複数行の文字列リテラルをサポートしているため、複雑な SQL ステートも気軽に書けます。
+Scala は複数行の文字列リテラルをサポートしているため、複雑な SQL 文も自由に書くことができます。
 
 ```scala
 val sqlQuery = SQL(
@@ -186,7 +186,7 @@ val sqlQuery = SQL(
 <!--
 If your SQL query needs dynamic parameters, you can declare placeholders like `{name}` in the query string, and later assign a value to them:
 -->
-もし SQL クエリが動的なパラメータをとるような場合、`{name}` のようなプレースホルダをクエリ文字列内に宣言して、後でそこに値を埋め込むことができます。
+もし SQL クエリが動的なパラメータをとる場合、`{name}` のような名前付きのプレースホルダをクエリ文字列内に宣言して、後でそれらに値を埋め込むことができます。
 
 ```scala
 SQL(
@@ -211,7 +211,7 @@ select クエリから結果を参照する第一の方法は、 Stream API を�
 <!--
 When you call `apply()` on any SQL statement, you will receive a lazy `Stream` of `Row` instances, where each row can be seen as a dictionary:
 -->
-SQL 文に対して `apply()` を呼び出すと、`Row` インスタンスの `Stream` を、遅延評価される形で取得することができます。各行は辞書のような構造になっています。
+SQL 文に対して `apply()` を呼び出すと、遅延評価される `Row` インスタンスの `Stream` を取得できます。各行（`Row` ）はディクショナリのデータ型になっています。
 
 ```scala
 // Create an SQL query
@@ -226,7 +226,7 @@ val countries = selectCountries().map(row =>
 <!--
 In the following example we will count the number of `Country` entries in the database, so the result set will be a single row with a single column:
 -->
-次の例ではデータベース内の `Country` の個数を数えます。ResultSet は一カラム・一行になります。
+次の例ではデータベース内の `Country` の行数を数えます。結果セットは一つのカラムを持つ一行だけの結果になります。
 
 ```scala
 // First retrieve the first row
@@ -266,7 +266,7 @@ val countries = SQL("Select name,population from Country")().collect {
 <!--
 Note that since `collect(…)` ignores the cases where the partial function isn’t defined, it allows your code to safely ignore rows that you don’t expect.
 -->
-`collect(…)` は部分関数が定義されていない case を無視してくれるので、期待していない行を安全に読み飛ばすことができます。
+`collect(…)` は部分関数が定義されていない case を無視するので、想定しない行は安全に読み飛ばすことができます。
 
 <!--
 ## Special data types
@@ -278,7 +278,7 @@ Note that since `collect(…)` ignores the cases where the partial function isn�
 <!--
 CLOBs/TEXTs can be extracted as so:
 -->
-CLOBs/TEXT は以下のようにして取り出すことができます:
+CLOB/TEXT は以下のようにして取り出すことができます:
 
 ```scala
 SQL("Select name,summary from Country")().map {
@@ -289,7 +289,7 @@ SQL("Select name,summary from Country")().map {
 <!--
 Here we specifically chose to use `map`, as we want an exception if the row isn't in the format we expect.
 -->
-行が期待するフォーマットでない場合を例外としたいので、ここでは特に `map` を使用しています。
+行が期待するフォーマットでない場合は例外にしたいので、ここでは特に `map` メソッドを使っています。
 
 ### Binary
 
@@ -314,7 +314,7 @@ SQL("Select name,image from Country")().map {
 Note that different databases will return different data types in the Row. For instance, an SQL 'smallint' is returned as a Short by org.h2.Driver and an Integer by org.postgresql.Driver. A solution to this is to simply write separate case statements for each database (i.e. one for development and one for production).
 -->
 
-異なるデータベースからは列内で異なるデータ型が返ることに注意してください。例えば、 SQL 'smallint' は org.h2.Driver は Short を返し、 org.postgresql.Driver は Integer を返します。この件は、単に各データベース(つまり開発用の一つおよび生産用の一つ)で別のステートメントを単に書くことで解決することができます。
+異なるデータベースからは同じ行でも異なるデータ型が返ることに注意してください。例えば、 SQL 'smallint' は org.h2.Driver から Short 型として返され、 org.postgresql.Driver からは Integer 型として返されます。これに対する一つの解決策は、単に各データベース(例：開発用と本番用)に対して case 文を分けることです。
 
 <!--
 ## Dealing with Nullable columns
@@ -324,7 +324,7 @@ Note that different databases will return different data types in the Row. For i
 <!--
 If a column can contain `Null` values in the database schema, you need to manipulate it as an `Option` type.
 -->
-カラムが データベーススキーマにおいて `Null` 値を含む場合、`Option` 型で操作する必要があります。
+あるカラムが データベーススキーマにおいて `Null` 値を含む場合、`Option` 型で操作する必要があります。
 
 <!--
 For example, the `indepYear` of the `Country` table is nullable, so you need to match it as `Option[Int]`:
@@ -340,7 +340,7 @@ SQL("Select name,indepYear from Country")().collect {
 <!--
 If you try to match this column as `Int` it won’t be able to parse `Null` values. Suppose you try to retrieve the column content as `Int` directly from the dictionary:
 -->
-このカラムを `Int` としてマッチさせようとすると、`Null` 値をパースできません。辞書から カラムの内容を `Int` として取得する場合を考えてみましょう。
+このカラムを `Int` としてマッチさせようとすると、`Null` 値をパースできません。辞書型の row から カラムの内容を `Int` として取得する場合を考えてみましょう。
 
 ```scala
 SQL("Select name,indepYear from Country")().map { row =>
@@ -351,7 +351,7 @@ SQL("Select name,indepYear from Country")().map { row =>
 <!--
 This will produce an `UnexpectedNullableFound(COUNTRY.INDEPYEAR)` exception if it encounters a null value, so you need to map it properly to an `Option[Int]`, as:
 -->
-このコードは、null 値にヒットした場合に `UnexpectedNullableFound(COUNTRY.INDEPYEAR)` という例外を投げます。正しくは次のように `Option[Int]` にマップさせる必要があります。
+このコードは null 値がヒットした場合に `UnexpectedNullableFound(COUNTRY.INDEPYEAR)` という例外を投げます。正しくは次のように `Option[Int]` にマップさせる必要があります。
 
 ```scala
 SQL("Select name,indepYear from Country")().map { row =>
@@ -392,7 +392,7 @@ You can use the parser API to create generic and reusable parsers that can parse
 <!--
 First you need a `RowParser`, i.e. a parser able to parse one row to a Scala value. For example we can define a parser to transform a single column result set row, to a Scala `Long`:
 -->
-まずは `RowParser` が必要です。これは、一行をパースして Scala の値へ変換するパーサーです。例えば、一カラムの result set の行をパースして Scala の `Long` 値を生成するようなパーサーは次のように記述します。
+まずは `RowParser` が必要です。これは、一行をパースして Scala の値へ変換するパーサーです。例えば、一カラムの結果セットの行をパースして Scala の `Long` 値を生成するようなパーサーは次のように記述します。
 
 ```scala
 val rowParser = scalar[Long]
@@ -410,7 +410,7 @@ val rsParser = scalar[Long].single
 <!--
 So this parser will parse a result set to return a `Long`. It is useful to parse to result produced by a simple SQL `select count` query:
 -->
-このパーサーは result set をパースして `Long` 値を返します。これは、`select count` のような単純な SQL 文の結果をパースするような場合に便利です。
+このパーサーは結果セットをパースして `Long` 値を返します。これは、`select count` のような単純な SQL 文の結果をパースするような場合に便利です。
 
 ```scala
 val count: Long = SQL("select count(*) from Country").as(scalar[Long].single)
@@ -424,7 +424,7 @@ val count: Long = SQL("select count(*) from Country").as(scalar[Long].single)
 <!--
 Let's say you want to retrieve the country_id from the country name, but the query might return null. We'll use the singleOpt parser :
 -->
-coutry name から country_id を読み出そうとしたとします。しかし、クエリはnullを返すかもしれません。 singleOpt パーサーを使います。 :
+coutry name から country_id を読み出す場合を考えてみましょう。しかし、クエリはnullを返すかもしれません。 その場合は singleOpt パーサーを使いましょう:
 
 ```scala
 val countryId: Option[Long] = SQL("select country_id from Country C where C.country='France'").as(scalar[Long].singleOpt)
@@ -443,7 +443,7 @@ Let’s write a more complicated parser:
 <!--
 `str("name") ~ int("population")`, will create a `RowParser` able to parse a row containing a String `name` column and an Integer `population` column. Then we can create a `ResultSetParser` that will parse as many rows of this kind as it can, using `*`: 
 -->
-`str("name") ~ int("population")` は 文字列型 `name` カラムと整数型 `population` カラムを含む列をパース可能な `RowParser` を作成します。また、 `*` を使うことで、この種の多くの行をパースする `ResultSetParser` を作成できます。
+`str("name") ~ int("population")` は String 型 `name` カラムと Integer 型 `population` カラムを含む列をパース可能な `RowParser` を作成します。また、 `*` を使うことで、この種の多くの行をパースする `ResultSetParser` を作成できます。
 
 ```scala
 val populations:List[String~Int] = {
@@ -479,7 +479,7 @@ str("name") ~ int("population") map { case n~p => (n,p) }
 <!--
 > **Note:** We created a tuple `(String,Int)` here, but there is nothing stopping you from transforming the `RowParser` result to any other type, such as a custom case class.
 -->
-> **Note:** この例では `(String,Int)` というタプルを生成しましたが、`RowParser` の結果をもっと別の型に変換しても何ら問題ありません。例えば、何らかの case class に変換してもよいでしょう。
+> **Note:** この例では `(String,Int)` というタプルを生成しましたが、`RowParser` の結果を自前の case class など別の型に変換しても何ら問題ありません。
 
 <!--
 Now, because transforming `A~B~C` types to `(A,B,C)` is a common task, we provide a `flatten` function that does exactly that. So you finally write:
@@ -502,7 +502,7 @@ val result:List[(String,Int)] = {
 <!--
 Now let’s try with a more complicated example. How to parse the result of the following query to retrieve the country name and all spoken languages for a country code?
 -->
-次はさらに複雑な例に挑戦してみましょう。次のクエリの結果から国名と、国コード別の言語を取得するにはどうしたらよいでしょうか?
+次はさらに複雑な例に挑戦してみましょう。次のクエリの結果から国名とその国コード語毎にその国の口語一覧を取得するにはどうしたらよいでしょうか?
 
 ```
 select c.name, l.language from Country c 
@@ -540,7 +540,7 @@ List(
 <!--
 We can then use the Scala collection API, to transform it to the expected result:
 -->
-次に、この結果を変換して必要なデータを得るために、 Scala の Collection API を利用することができます。
+次に Scala の Collection API を使ってこれを変換して期待される結果に変換します：
 
 ```scala
 case class SpokenLanguages(country:String, languages:Seq[String])
@@ -553,7 +553,7 @@ languages.headOption.map { f =>
 <!--
 Finally, we get this convenient function:
 -->
-最終的に、次のような便利な関数を作ることができます。
+最終的に、このような便利な関数を作ることができました。
 
 ```scala
 case class SpokenLanguages(country:String, languages:Seq[String])
