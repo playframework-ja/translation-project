@@ -56,7 +56,7 @@ object Task extends Table[(Long, String, Date, Boolean)]("tasks") {
 <!--
 Some libraries expect to retrieve the `Datasource` reference from JNDI. You can expose any Play managed datasource via JNDI by adding this configuration in `conf/application.conf`:
 -->
-いくつかのライブラリは `Datasource` を JNDI 経由で取得します。`conf/application.conf` に設定を追加することで Play が管理するデータソースを JNDI 経由で提供することができるでしょう
+いくつかのライブラリは `Datasource` を JNDI 経由で取得します。`conf/application.conf` に設定を追加することで Play が管理するデータソースを JNDI 経由で提供することができるでしょう。
 
 ```
 db.default.driver=org.h2.Driver
