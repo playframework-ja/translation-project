@@ -9,9 +9,9 @@
 - [[Using Anorm to access your database | ScalaAnorm]]
 - [[Integrating with other database access libraries | ScalaDatabaseOthers]]
 -->
-- [[JDBC の設定と利用 | ScalaDatabase]]
-- [[Anorm によるデータベースアクセス | ScalaAnorm]]
-- [[データベースアクセスライブラリの利用 | ScalaDatabaseOthers]]
+- [[SQL データベースアクセス | ScalaDatabase]]
+- [[Anorm によるシンプルなデータアクセス | ScalaAnorm]]
+- [[その他のデータベースライブラリとの統合 | ScalaDatabaseOthers]]
 
 <!--
 ### Main concepts

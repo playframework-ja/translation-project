@@ -17,7 +17,7 @@ Play には JDBC コネクションプールを管理するプラグインが同
 <!--
 To enable the database plug-in, add jdbc in your build dependencies :
 -->
-ビルドの依存性に jdbc を追加してデータベースプラグインを有効化します :
+DB プラグインを有効にするために、依存ライブラリに jdbc を追加しましょう：
 
 ```scala
 val appDependencies = Seq(
@@ -28,19 +28,19 @@ val appDependencies = Seq(
 <!--
 Then you must configure a connection pool in the `conf/application.conf` file. By convention, the default JDBC data source must be called `default` and the corresponding configuration properties are `db.default.driver` and `db.default.url`.
 -->
-その後、`conf/application.conf` ファイルでコネクションプールの設定を行う必要があります。規約によって、デフォルトの JDBC データソースは `default` でなければならず、関連する設定プロパティは `db.default.driver` と `db.default.url` になります。
+そして `conf/application.conf` でコネクションプールの設定を行う必要があります。規約により、デフォルトの JDBC データソースは `default` という名前である必要があり、これに関連する設定属性名は `db.default.driver` や `db.default.url` のようになります。
 
 <!--
 If something isn't properly configured you will be notified directly in your browser:
 -->
-もし何かが適切に設定されていなければ、ブラウザから直接気付くことになります。
+もし設定が適切でない場合は、ブラウザ上ですぐに気づくことができるでしょう：
 
 [[images/dbError.png]]
 
 <!--
 > **Note:** You likely need to enclose the JDBC URL configuration value with double quotes, since ':' is a reserved character in the configuration syntax.
 -->
-> **注意:** 設定文法で `:` は予約された文字なので、JDBC URL 設定値をダブルクォーテーションで囲まなければならないことがあるでしょう。
+> **注意:** 設定ファイルの文法において `:` は予約文字となっているため、JDBC の URL 属性をダブルクォーテーションで囲まなければならない場合があります。
 
 <!--
 ### H2 database engine connection properties
@@ -62,7 +62,7 @@ db.default.url="jdbc:h2:/path/to/db-file"
 <!--
 The details of the H2 database URLs are found from [H2 Database Engine Cheat Sheet](http://www.h2database.com/html/cheatSheet.html).
 -->
-H2 データベース URL の詳細は [H2 Database Engine Cheat Sheet](http://www.h2database.com/html/cheatSheet.html) で見つけられます。
+H2 データベースの URL 設定に関する詳細については [H2 Database Engine Cheat Sheet](http://www.h2database.com/html/cheatSheet.html) を見てください。
 
 <!--
 ### SQLite database engine connection properties
@@ -103,7 +103,7 @@ db.default.pass="a strong password"
 <!--
 ## How to see SQL Statement in the console?
 -->
-## コンソールで SQL 文を確認するには?
+## コンソールで SQL 文を確認する方法
 
 ```properties
 db.default.logStatements=true
@@ -113,7 +113,7 @@ logger.com.jolbox=DEBUG // for EBean
 <!--
 ## How to configure several data sources
 -->
-## 複数データソースを設定するには
+## 複数データソースを設定する方法
 
 ```properties
 # Orders database
@@ -133,12 +133,12 @@ JDBC ドライバの設定
 <!--
 Play is bundled only with an [H2](http://www.h2database.com) database driver. Consequently, to deploy in production you will need to add your database driver as a dependency.
 -->
-Play には [H2](http://www.h2database.com) データベースのドライバのみが同梱されています。このため、本番環境にデプロイするには、必要なデータベースドライバを依存性として追加する必要があるでしょう。
+Play には [H2](http://www.h2database.com) データベースのドライバのみが同梱されています。そのため、本番環境にデプロイする際は必要なデータベースドライバを依存ライブラリに追加する必要があるでしょう。
 
 <!--
 For example, if you use MySQL5, you need to add a [[dependency | SBTDependencies]] for the connector:
 -->
-例えば MySQL5 を使用する場合、コネクタのために [[依存性 | SBTDependencies]] を追加する必要があります:
+例えば MySQL5 を使用する場合、接続するために以下の [[依存性 | SBTDependencies]] を追加する必要があります:
 
 ```scala
 val appDependencies = Seq(
@@ -149,7 +149,7 @@ val appDependencies = Seq(
 <!--
 Or if the driver can't be found from repositories you can drop the driver into your project's [[unmanaged dependencies|Anatomy]] `lib` directory.
 -->
-リポジトリにドライバが見つからない場合は、プロジェクトの [[依存性が管理されない|Anatomy]] `lib` ディレクトリにドライバを放り込むことができます。
+あるいは Maven/Ivy2 リポジトリに必要なドライバが見つからない場合、Play プロジェクトの [[unmanaged な依存ライブラリ|Anatomy]] を配置するための場所である `lib` ディレクトリにドライバを放り込むことができます。
 
 <!--
 ## Accessing the JDBC datasource
@@ -159,7 +159,7 @@ Or if the driver can't be found from repositories you can drop the driver into y
 <!--
 The `play.api.db` package provides access to the configured data sources:
 -->
-`play.api.db` パッケージには、設定したデータソースを参照する方法が用意されています。
+`play.api.db` パッケージ（の DB オブジェクト）は設定されたデータソースにアクセスする手段を提供します。
 
 ```scala
 import play.api.db._
@@ -175,7 +175,7 @@ val ds = DB.getDataSource()
 <!--
 There are several ways to retrieve a JDBC connection. The simplest way is:
 -->
-JDBC コネクションを取得する方法は何種類かあります。一つめの方法が最もシンプルで、次のように書きます。
+JDBC コネクションを取得する方法は何種類かあります。これは最もシンプルなやり方：
 
 ```scala
 val connection = DB.getConnection()
@@ -184,7 +184,7 @@ val connection = DB.getConnection()
 <!--
 But of course you need to call `close()` at some point on the opened connection to return it to the connection pool. Another way is to let Play manage closing the connection for you:
 -->
-しかし、この方法だと、取得したコネクションをコネクションプールに返却するために、どこかの時点で `close()` を呼び出す必要があります。そこで、コネクションのクローズを Play にまかせる方法も用意されています。
+しかし、当然ながらこの方法では取得したコネクションをコネクションプールに返却するために、必ずどこかで `close()` を呼び出さなければなりません。あなたの代わりに Play にコネクションのクローズを管理させる別のやり方があります。
 
 ```scala
 // access "default" database
@@ -218,7 +218,7 @@ The connection will be automatically closed at the end of the block.
 <!--
 A variant is to set the connection's auto-commit to `false` and to manage a transaction for the block:
 -->
-この方法の変形として、コネクションの auto-commit を `false` にして、ブロックを 1 トランザクションとさせる方法もあります。
+少し違ったやり方として、コネクションの auto-commit を `false` に設定し、ブロック内をトランザクション制御する方法もあります。
 
 ```scala
 DB.withTransaction { conn =>

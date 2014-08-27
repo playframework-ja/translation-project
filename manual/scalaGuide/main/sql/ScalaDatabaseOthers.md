@@ -2,22 +2,22 @@
 <!--
 # Integrating with other database libraries
 -->
-# データベースライブラリの利用
+# その他のデータベースライブラリとの統合
 
 <!--
 You can use any **SQL** database access library you like with Play, and easily retrieve either a `Connection` or a `Datasource` from the `play.api.db.DB` helper.
 -->
-Play の `play.api.db.DB` ヘルパーを使って `Connection` や `Datasource` を取得すると、あらゆる **SQL** データベースアクセスライブラリを利用することができます。
+Play ではあらゆる **SQL** データベースアクセスライブラリを利用することができますし、`play.api.db.DB` ヘルパーを使えば `Connection` や `Datasource` を簡単に取得することが可能です。
 
 <!--
 ## Integrating with ScalaQuery
 -->
-## ScalaQuery の利用
+## ScalaQuery との統合
 
 <!--
 From here you can integrate any JDBC access layer that needs a JDBC data source. For example, to integrate with [ScalaQuery](https://github.com/szeiger/scala-query):
 -->
-JDBC データソースを必要とする JDBC アクセスレイヤーを利用する方法を説明します。例えば、[ScalaQuery](https://github.com/szeiger/scala-query) を利用する場合は次のように書きます。
+JDBC データソースを必要とする JDBC アクセスレイヤーを利用する方法を説明します。例えば、[ScalaQuery](https://github.com/szeiger/scala-query) との連携は以下のようになります。
 
 ```scala
 import play.api.db._
@@ -51,12 +51,12 @@ object Task extends Table[(Long, String, Date, Boolean)]("tasks") {
 <!--
 ## Exposing the datasource through JNDI
 -->
-## JNDI を経由してデータソースを公開する
+## JNDI 経由でデータソースを提供する
 
 <!--
 Some libraries expect to retrieve the `Datasource` reference from JNDI. You can expose any Play managed datasource via JNDI by adding this configuration in `conf/application.conf`:
 -->
-いくつかのライブラリは `Datasource` を JNDI 経由で取得します。そのような場合、`conf/application.conf` に設定を追記して、 Play が管理しているデータソースを JNDI 経由で公開するとよいでしょう。
+いくつかのライブラリは `Datasource` を JNDI 経由で取得します。`conf/application.conf` に設定を追加することで Play が管理するデータソースを JNDI 経由で提供することができるでしょう。
 
 ```
 db.default.driver=org.h2.Driver
