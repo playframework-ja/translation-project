@@ -102,7 +102,7 @@ Play アプリケーションは、`play.api` パッケージ内にある Scala 
 1. [[SQL データベースアクセス | ScalaDatabase]]
     1. [[JDBC の設定と利用 | ScalaDatabase]]
     1. [[Anorm によるデータベースアクセス | ScalaAnorm]]
-    1. [[データベースアクセスライブラリの利用 | ScalaDatabaseOthers]]
+    1. [[その他のデータベースライブラリとの統合 | ScalaDatabaseOthers]]
 1. [[キャッシュを使う | ScalaCache]]
     1. [[Play の Cache API | ScalaCache]]
 1. [[Web サービスの呼び出し | ScalaWS]]

@@ -630,4 +630,4 @@ $ spokenLanguages("FRA")
 <!--
 > **Next:** [[Integrating with other database access libraries | ScalaDatabaseOthers]]
 -->
-> **次ページ:** [[データベースアクセスライブラリの利用 | ScalaDatabaseOthers]]
+> **次ページ:** [[その他のデータベースライブラリとの統合 | ScalaDatabaseOthers]]
