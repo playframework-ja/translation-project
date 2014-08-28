@@ -73,7 +73,7 @@ You can schedule sending messages to actors and executing tasks (functions or `R
 -->
 
 アクターへのメッセージ送信やタスク実行（関数もしくは `Runnable` インタフェースを実装したインスタンス）をスケジューリングすることができます。
-`Cancellable` オブジェクトが返されるので、それの `cancel` メソッドを呼び出せばスケジューリングされたオペレーションの実行をキャンセルことができます。
+`Cancellable` オブジェクトが返されるので、それの `cancel` メソッドを呼び出せばスケジューリングされたオペレーションの実行をキャンセルすることができます。
 
 <!--
 For example, to send a message to the `testActor` every 30 microseconds:
