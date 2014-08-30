@@ -3,7 +3,10 @@
 -->
 # Akka の統合
 
+<!--
 [Akka](http://akka.io/) uses the Actor Model to raise the abstraction level and provide a better platform to build correct concurrent and scalable applications. For fault-tolerance it adopts the ‘Let it crash’ model, which has been used with great success in the telecoms industry to build applications that self-heal - systems that never stop. Actors also provide the abstraction for transparent distribution and the basis for truly scalable and fault-tolerant applications.
+-->
+[Akka](http://akka.io/) は抽象レベルを上げるためにアクターモデルを利用し、正しい平行処理のスケーラブルなアプリケーションを構築するためにより良いプラットフォームを提供します。耐障害性を確保するために、通信業界において、自己回復することで決して停止することがないアプリケーションの構築で大きな成功をおさめている 'Let it crash' という設計モデルを採用しています。また、アクターモデルは透過的な分散環境や本当にスケーラブルで耐障害性の高いアプリケーションのための抽象化も提供します。
 
 <!--
 ## The application actor system
@@ -64,7 +67,10 @@ You can schedule sending messages to actors and executing tasks (functions or `R
 -->
 Akka では、アクターへのメッセージ送信やタスク(関数または `Runnable`)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
 
+<!--
 For example, to send a message to the `testActor` every 30 microseconds:
+-->
+例えば、`testActor` というアクターに 30 マイクロ秒毎にメッセージを送信するにはこのようにします:
 
 @[play-akka-actor-schedule-repeat](code/ScalaAkka.scala)
 
@@ -73,7 +79,10 @@ For example, to send a message to the `testActor` every 30 microseconds:
 -->
 > **Note:** この例では `scala.concurrent.duration` に定義されている implicit conversion　を利用して、数値を時間単位の異なる `Duration` オブジェクトへ変換しています。
 
+<!--
 Similarly, to run a block of code one seconds from now:
+-->
+同様に、コードブロックを今から 1 秒後に実行するには、次のように書きます:
 
 @[play-akka-actor-schedule-run-once](code/ScalaAkka.scala)
 
