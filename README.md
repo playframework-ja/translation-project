@@ -1,4 +1,4 @@
-# Play Framework ドキュメント日本語翻訳プロジェクト
+# Play Framework ドキュメント日本語翻訳
 
 ![play_ja_logo](images/play_ja_logo.png)
 
