@@ -3,7 +3,10 @@
 -->
 # 初めての Play アプリケーション
 
+<!--
 Let’s write a simple to do list application with Play and deploy it to the cloud.
+-->
+Play でシンプルな TODO 管理アプリケーションを構築し、クラウドにデプロイしましょう。
 
 <!--
 ## Prerequisites
@@ -58,14 +61,25 @@ The `play new` command creates a new directory `todolist/` and populates it with
 -->
 `play new` コマンドが新しいディレクトリ `todolist/` を作成し、一連のファイル、ディレクトリを生成します、重要なファイルは以下の通りです:
 
+<!--
 - `app/` contains the application’s core, split between models, controllers and views directories. This is the directory where .scala source files live.
 - `conf/` contains all the application’s configuration files, especially the main `application.conf` file, the `routes` definition files and the `messages` files used for internationalization.
 - `project/` contains the build scripts. The build system is based on sbt. But a new Play application comes with a default build script that will just work fine for our application.
 - `public/` contains all the publicly available resources, which includes JavaScript, stylesheets and images directories.
 - `test/` contains all the application tests. Tests are written as Specs2 specifications.
+-->
+- `app/` ディレクトリには models 、 controllers 、そして views ディレクトリに分かれたアプリケーションのコアが入っています。本ディレクトリには .scala ソースファイルが入っています。
+- `conf/` ディレクトリには全てのアプリケーションの設定ファイル (特にメインとなる `application.conf` ファイル、 `routes` 定義ファイル、国際化のための `messages` ファイル) が入っています。
+- `project/` ディレクトリにはビルドスクリプトが入っています。ビルドシステムは sbt に基づいています。新しい Play アプリケーションはアプリケーションを正常動作させるデフォルトのビルドスクリプトが同梱されています。
+- `public/` ディレクトリには全てのパブリックに利用可能なリソース (JavaScript 、スタイルシート、画像イメージ) が入っています。
+- `test/` ディレクトリにはアプリケーションのテストが入っています。 テストは Specs2 の仕様で書かれています。
 
+<!--
 > Because Play uses UTF-8 as single encoding, it’s very important that all text files hosted in these directories are encoded using this charset. Make sure to configure your text editor accordingly.
 > **Note:** Read more about [[Anatomy of a Play application | Anatomy]].
+-->
+> Play では UTF-8 をエンコーディング形式として採用しており、上記のディレクトリ内に配置された全テキストファイルは本文字セットを使用してエンコードされます。テキストエディタに応じて設定を確認してください。
+> **Note:** 詳しくは [[Play アプリケーションの構造 | Anatomy]] を参照してください。
 
 <!--
 ## Using the Play console
@@ -92,7 +106,10 @@ This launches the Play console. There are several things you can do from the Pla
 
 [[images/run.png]]
 
+<!--
 The application is now running in development mode. Open a browser at <http://localhost:9000/>:
+-->
+development モードで本アプリケーションが実行されています。ブラウザを開き、 <http://localhost:9000/> へアクセスしてください:
 
 [[images/welcome.png]]
 
@@ -126,7 +143,10 @@ That simply tells Play that when the web server receives a GET request for the /
 -->
 上記の記述は web サーバーが / パスへの GET リクエストを受信した時に、 `controllers.Application.index` メソッドから実行するための `Action` を検索するという事を簡単に説明しています。
 
+<!--
 Let’s see what the `controllers.Application.index` method looks like. Open the `todolist/app/controllers/Application.scala` source file:
+-->
+`controllers.Application.index` メソッドがどのようなものか見てみましょう。 `todolist/app/controllers/Application.scala` ソースファイルを開いてください:
 
 ```
 package controllers
@@ -173,7 +193,10 @@ This template is defined in the `app/views/index.scala.html` source file:
 }
 ```
 
+<!--
 The first line defines the function signature. Here it takes a single `String` parameter. Then the template content mixes HTML (or any text based language) with Scala statements. The Scala statements start with the special `@` character.
+-->
+最初の行は関数の仕様を定義します。ここでは、単一の `String` 型のパラメータを受け取ります。テンプレートの内容には Scala と HTML (もしくはテキストベースの言語) を一緒に記入しています。 Scala の式は特殊な `@` 文字から始まります。
 
 <!--
 ## Development workflow
@@ -289,7 +312,10 @@ As you see we use `TODO` to define our action implementations. Because we don’
 -->
 上記のコードでアクションの暫定的な実装をするために `TODO` という定義を使用しました。まだアクションの実装を書きたくない場合に、ビルドインの `TODO` アクションを使用することが可能です。このアクションからは `501 Not Implemented` HTTP レスポンスが返るようになっています。
 
+<!--
 You can try to access the <http://localhost:9000/tasks> to see that:
+-->
+確認するために、 <http://localhost:9000/tasks> にアクセスできるか試してみましょう。
 
 [[images/todo.png]]
 
@@ -464,7 +490,10 @@ This renders a **200 OK** result filled with the HTML rendered by the `index.sca
 -->
 本メソッドがタスクリストとタスクフォームを呼出し、 `index.scala.html` テンプレートによってレンダリングされた HTML を含む **200 OK** の結果を返します。
 
+<!--
 You can now try to access <http://localhost:9000/tasks> in your browser:
+-->
+ブラウザ内で <http://localhost:9000/tasks> にアクセスしてみましょう:
 
 [[images/blank.png]]
 
@@ -505,11 +534,20 @@ To fill the form we need to have the `request` in the scope, so it can be used b
 -->
 ## データベース内のタスクを永続化する
 
+<!--
 It’s now time to persist the tasks in a database to make the application useful. Let’s start by enabling a database in our application.
+-->
+アプリケーションを使いやすくするため、データベースにタスクの情報を永続化するようにしましょう。本アプリケーション内でデータベースを利用可能にします。
 
+<!--
 For now we will use a simple in memory database using **H2**, follow the process described in the [[Accessing an SQL database|ScalaDatabase]] page.
+-->
+現在、[[SQL データベースアクセス|ScalaDatabase]] ページに記述されたプロセスに従う **H2** というシンプルなインメモリデータベースを使用するようにしています。
 
+<!--
 No need to restart the server, refreshing the browser is enough to set up the database.
+-->
+この定義を有効にするためにサーバーを再起動する必要はありません、ブラウザを更新するだけでデータベースをセットアップします。
 
 <!--
 We will use **Anorm** in this tutorial to query the database. First we need to define the database schema. Let’s use Play evolutions for that, so create a first evolution script in `conf/evolutions/default/1.sql`:
