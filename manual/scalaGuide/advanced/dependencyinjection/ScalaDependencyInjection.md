@@ -45,7 +45,7 @@ DI フレームワークを使用したコントローラークラスのイン�
 <!--
 The pace of development and the myriad of options even within a single DI framework means that full documentation is beyond the scope of this documentation.  However, there are a number of sample projects that demonstrate how to best leverage DI in your project.
 -->
-DI フレームワークはその開発速度の早さや多岐に渡る使い道を考慮すると、たとえ一つのフレームワークを対象としたとしてもこのドキュメントでは全部を網羅できません。ですが、ここにはいくつかの DI を最大限に活用するためのサンプルがあります。
+DI フレームワークはその開発速度の早さや多岐に渡る使い道を考慮すると、たとえ一つのフレームワークを対象としたとしてもこのドキュメントでは全部を網羅できません。ですが、いくつかの DI を最大限に活用するためのサンプルがあります。
 
 ### Activator
 
@@ -82,7 +82,7 @@ Spring は [Activator](http://www.typesafe.com/activator) プロジェクトが�
 <!--
 There is a Github project by the Subcut team that shows how to integrate Subcut with Play.  You can clone it from [https://github.com/dickwall/play-subcut](https://github.com/dickwall/play-subcut) and it is also an Activator project.
 -->
-Github 上には Subcut チームがどのように Subcat を Play Thereい統合するかを例示しています。 [https://github.com/dickwall/play-subcut](https://github.com/dickwall/play-subcut) から clone 可能です。また、 Activator 上にも存在しています。
+Github 上では Subcut チームが、どのように Subcat と Play を統合するかを例示しています。 [https://github.com/dickwall/play-subcut](https://github.com/dickwall/play-subcut) から clone 可能です。また、 Activator プロジェクトも存在しています。
 
 <!--
 ### Macwire
