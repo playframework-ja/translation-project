@@ -1,4 +1,7 @@
+<!--
 # Writing functional tests
+-->
+# 機能テストを書く
 
 Play provides a number of classes and convenience methods that assist with functional testing.  Most of these can be found either in the [`play.api.test`](api/scala/index.html#play.api.test.package) package or in the [`Helpers`](api/scala/index.html#play.api.test.Helpers$) object.
 
