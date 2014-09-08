@@ -1,4 +1,7 @@
+<!--
 # Testing your application
+-->
+# アプリケーションのテスト
 
 Writing tests for your application can be an involved process.  Play provides a default test framework for you, and provides helpers and application stubs to make testing your application as easy as possible.
 
@@ -15,7 +18,10 @@ You can run tests from the Play console.
 
 Testing in Play is based on SBT, and a full description is available in the [testing SBT](http://www.scala-sbt.org/0.13.0/docs/Detailed-Topics/Testing) chapter.
 
+<!--
 ## Using specs2
+-->
+## specs2 を使う
 
 The default way to test in Play is using [specs2](http://etorreborre.github.io/specs2/).  In specs2, tests are organized into specifications, which contain examples which run the system under test through various different code paths.
 

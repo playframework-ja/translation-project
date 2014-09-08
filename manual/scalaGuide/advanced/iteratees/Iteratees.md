@@ -1,6 +1,12 @@
+<!--
 # Handling data streams reactively
+-->
+# 反応的なストリーム処理
 
+<!--
 Progressive Stream Processing and manipulation is an important task in modern Web Programming, starting from chunked upload/download to Live Data Streams consumption, creation, composition and publishing through different technologies including Comet and WebSockets.
+-->
+現代の Web プログラミングにおいて、ストリーム処理は重要なタスクです。これには、チャンク単位のデータダウンロード/アップロードや、 Comet や WebSocket など様々な技術を利用したデータストリームのリアルタイム処理、作成、合成、提供などが含まれます。
 
 Iteratees provide a paradigm and an API allowing this manipulation, while focusing on several important aspects:
 
@@ -10,7 +16,10 @@ Iteratees provide a paradigm and an API allowing this manipulation, while focusi
 * Being able to stop data being sent mid-way through, and being informed when source is done sending data.
 * Non blocking, reactive and allowing control over resource consumption (Thread, Memory)
 
+<!--
 ## Iteratees
+-->
+## Iteratee
 
 An Iteratee is a consumer - it describes the way input will be consumed to produce some value. An Iteratee is a consumer that returns a value it computes after being fed enough input.
 
@@ -37,7 +46,11 @@ object Step {
 }
 ```
 
+
+<!--
 The fold method defines an iteratee as one of the three mentioned states. It accepts three callback functions and will call the appropriate one depending on its state to eventually extract a required value. When calling `fold` on an iteratee you are basically saying:
+-->
+fold メソッドは、 Iteratee をこれら３つの状態のいずれかに定義します。fold メソッドは 3 つのコールバック関数を引数にとり、状態に応じていずれか一つを呼び出し、最終的には結果値を返します。Iteratee に対する `fold` の呼び出しは、次のような意味になります。
 
 - If the iteratee is in the state `Done`, then I'll take the calculated result of type `A` and what is left from the last consumed chunk of input `Input[E]` and eventually produce a `B`
 - If the iteratee is in the state `Cont`, then I'll take the provided continuation (which is accepting an input) `Input[E] => Iteratee[E,A]` and eventually produce a `B`. Note that this state provides the only way to push input into the iteratee, and get a new iteratee state, using the provided continuation function. 
@@ -47,18 +60,34 @@ Depending on the state of the iteratee, `fold` will produce the appropriate `B` 
 
 To sum up, an iteratee consists of 3 states, and `fold` provides the means to do something useful with the state of the iteratee.
 
+<!--
 ### Some important types in the `Iteratee` definition:
+-->
+### Iteratee の定義における重要な型
 
+<!--
 Before providing some concrete examples of iteratees, let's clarify two important types we mentioned above:
+-->
+Iteratee の具体例を見るために、上記で説明した二つの重要な型について詳しく見ていきます。
 
+<!--
 - `Input[E]` represents a chunk of input that can be either an `El[E]` containing some actual input, an `Empty` chunk or an `EOF` representing the end of the stream.
 For example, `Input[String]` can be `El("Hello!")`, Empty, or EOF
+-->
+- `Input[E]` は入力データのチャンクを表し、実際の入力データを含む `El[E]` か `Empty` チャンクか、またはストリームの終端を表す EOF のいずれかになります。
+例えば、`Input[String]` は `El("Hello!")` や Empty 、 EOF にいずれかになります。
 
 - `Future[A]` represents, as its name indicates, a future value of type `A`. This means that it is initially empty and will eventually be filled in ("redeemed") with a value of type `A`, and you can schedule a callback, among other things you can do, if you are interested in that value. A Future is a very nice primitive for synchronization and composing async calls, and is explained further at the [[ScalaAsync]] section.
 
+<!--
 ### Some primitive iteratees:
+-->
+### 基本的な Iteratee
 
+<!--
 By implementing the iteratee, and more specifically its fold method, we can now create some primitive iteratees that we can use later on.
+-->
+Iteratee や、より具体的にはその fold メソッドを定義することで、後々に再利用できる基本的な Iteratee を作成することができます。
 
 - An iteratee in the `Done` state producing a `1:Int` and returning `Empty` as the remaining value from the last `Input[String]`
 
@@ -70,7 +99,10 @@ val doneIteratee = new Iteratee[String,Int] {
 
 As shown above, this is easily done by calling the appropriate `apply` function, in our case that of `Done`, with the necessary information.
 
+<!--
 To use this iteratee we will make use of the `Future` that holds a promised value.
+-->
+この Iteratee を利用するためには、約束された値を持つ `Future` を使います。
 
 ```scala
 def folder(step: Step[String,Int]):Future[Option[Int]] = step match {
@@ -84,14 +116,20 @@ val eventuallyMaybeResult: Future[Option[Int]] = doneIteratee.fold(folder)
 eventuallyMaybeResult.onComplete(i => println(i))
 ```
 
+<!--
 of course to see what is inside the `Future` when it is redeemed we use `onComplete`
+-->
+redeem されたときに `Future` の中身を取得するためには、 `onComplete` を使います。
 
 ```scala
 // will eventually print 1
 eventuallyMaybeResult.onComplete(i => println(i))
 ```
 
+<!--
 There is already a built-in way allowing us to create an iteratee in the `Done` state by providing a result and input, generalizing what is implemented above:
+-->
+上記の実装をもっと汎用的にしてみましょう。Play には結果と入力値から `Done` 状態の Iteratee を作るヘルパーが用意されています。
 
 ```scala
 val doneIteratee = Done[String,Int](1, Input.Empty)
@@ -134,9 +172,15 @@ In the same manner there is a built-in way to create an iteratee in the `Error` 
 
 Back to the `consumeOneInputAndEventuallyReturnIt`, it is possible to create a two-step simple iteratee manually, but it becomes harder and cumbersome to create any real-world iteratee capable of consuming a lot of chunks before, possibly conditionally, it eventually returns a result. Luckily there are some built-in methods to create common iteratee shapes in the `Iteratee` object.
 
+<!--
 ### Folding input:
+-->
+### 入力データの畳込み
 
+<!--
 One common task when using iteratees is maintaining some state and altering it each time input is pushed. This type of iteratee can be easily created using the `Iteratee.fold` which has the signature:
+-->
+Iteratee でよくあるタスクとして、特定の状態を保持して、入力データを受け取るたびにその状態を更新していくような処理があります。この手の Iteratee は `Iteratee.fold` で作成することができます。
 
 ```scala
 def fold[E, A](state: A)(f: (A, E) => A): Iteratee[E, A]
@@ -165,7 +209,10 @@ There is actually already a method in the `Iteratee` object that does exactly th
 val consume = Iteratee.consume[String]()
 ```
 
+<!--
 One common case is to create an iteratee that does some imperative operation for each chunk of input:
+-->
+このヘルパーの利用例として、入力データのチャンクそれぞれについて、何らかの手続き的な処理を実行する Iteratee を作ってみましょう。
 
 ```scala
 val printlnIteratee = Iteratee.foreach[String](s => println(s))
@@ -175,4 +222,7 @@ More interesting methods exist like `repeat`, `ignore`, and `fold1` - which is d
 
 Of course one should be worried now about how hard it would be to manually push input into an iteratee by folding over iteratee states over and over again. Indeed each time one has to push input into an iteratee, one has to use the `fold` function to check on its state, if it is a `Cont` then push the input and get the new state, or otherwise return the computed result. That's when `Enumerator`s come in handy.
 
+<!--
 > **Next:** [[Enumerators | Enumerators]]
+-->
+> **次ページ:** [[Enumerators | Enumerators]]

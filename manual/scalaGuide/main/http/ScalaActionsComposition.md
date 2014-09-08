@@ -1,6 +1,12 @@
+<!--
 # Action composition
+-->
+# アクション合成
 
+<!--
 This chapter introduces several ways of defining generic action functionality.
+-->
+この章では、アクションの一部機能を汎用的な形で切り出して定義する方法を紹介していきます。
 
 ## Custom action builders
 
@@ -95,4 +101,7 @@ Play also provides a built in authentication action builder.  Information on thi
 
 Play also provides a [[global filter API | ScalaHttpFilters]], which is useful for global cross cutting concerns.
 
+<!--
 > **Next:** [[Content negotiation | ScalaContentNegotiation]]
+-->
+> **次ページ:** [[コンテンツネゴシエーション | ScalaContentNegotiation]]
