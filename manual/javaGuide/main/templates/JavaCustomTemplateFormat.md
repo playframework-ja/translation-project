@@ -53,7 +53,7 @@ In summary, to support your own template format you need to perform the followin
 <!--
 Implement the `play.templates.Format<A>` interface that has the methods `A raw(String text)` and `A escape(String text)` that will be used to integrate static and dynamic template parts, respectively.
 -->
-`play.templates.Format<A>` インタフェースを実装しましょう。このトレイトは `A raw(String text)` および `A escape(String text)` メソッドがあり、それぞれ静的および動的なテンプレートの部品を統合する為に使われます。
+`play.templates.Format<A>` インタフェースを実装しましょう。このインタフェースは `A raw(String text)` および `A escape(String text)` メソッドがあり、それぞれ静的および動的なテンプレートの部品を統合する為に使われます。
 
 <!--
 The type parameter `A` of the format defines the result type of the template rendering, e.g. `Html` for a HTML template. This type must be a subtype of the `play.templates.Appendable<A>` trait that defines how to concatenates parts together.
@@ -63,7 +63,7 @@ The type parameter `A` of the format defines the result type of the template ren
 <!--
 For convenience, Play provides a `play.api.templates.BufferedContent<A>` abstract class that implements `play.templates.Appendable<A>` using a `StringBuilder` to build its result and that implements the `play.mvc.Content` interface so Play knows how to serialize it as an HTTP response body.
 -->
-利便性のため、 Play は `play.api.templates.BufferedContent<A>` 抽象クラスを提供します。このクラスは結果をビルドする為に `play.templates.Appendable<A>` を `StringBuilder` を使って実装していて、また HTTP のレスポンスボディにシリアライズする方法を Play に知らせるために `play.mvc.Content` トレイトを実装しています。
+利便性のため、 Play は `play.api.templates.BufferedContent<A>` 抽象クラスを提供します。このクラスは結果をビルドする為に `play.templates.Appendable<A>` を `StringBuilder` を使って実装していて、また HTTP のレスポンスボディにシリアライズする方法を Play に知らせるために `play.mvc.Content` インタフェースを実装しています。
 
 <!--
 In short, you need to write to classes: one defining the result (implementing `play.templates.Appendable<A>`) and one defining the text integration process (implementing `play.templates.Format<A>`). For instance, here is how the HTML format could be defined:
