@@ -1,5 +1,0 @@
-GET   /          controllers.Application.index()
-
-# #application-upload-routes
-POST  /          controllers.Application.upload()
-# #application-upload-routes

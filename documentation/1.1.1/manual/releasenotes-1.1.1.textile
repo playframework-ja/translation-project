@@ -1,7 +1,0 @@
-h1. Play 1.1.1 — リリースノート
-
-Play 1.1.1 において修正されたバグについて、"ロードマップページ":http://play.lighthouseapp.com/projects/57987/milestones/89984-111 で読むことができます。
-
-p(note). このバージョンは **Play 1.1** のメンテナンスリリースであり、完全に互換性があります。このバージョンは、リリース 1.1 の "重要なバグ":http://play.lighthouseapp.com/projects/57987/milestones/89984-111 を修正しただけのものです。
-
-Play 1.0 から移行する場合は、"Play 1.1 リリースノート":releasenotes-1.1 を読みたいことでしょう。
