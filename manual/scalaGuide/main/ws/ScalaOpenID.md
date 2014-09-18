@@ -3,7 +3,10 @@
 -->
 # Play の OpenID サポート
 
+<!--
 OpenID is a protocol for users to access several services with a single account. As a web developer, you can use OpenID to offer users a way to log in using an account they already have, such as their [Google account](https://developers.google.com/accounts/docs/OpenID). In the enterprise, you may be able to use OpenID to connect to a company’s SSO server.
+-->
+OpenID はユーザが単一のアカウントで複数のサービスにアクセスできるようにするためのプロトコルです。 Web 開発者としては、 OpenID を使うことで、ユーザが別のサービスで既に作成してあるアカウント (例えば [Google アカウント](https://developers.google.com/accounts/docs/OpenID)) であなたの Web アプリケーションにログインできるようになります。エンタープライズ向けには、企業の SSO サーバに接続するために OpenID を使うといったことも考えられます。
 
 <!--
 ## The OpenID flow in a nutshell
@@ -36,10 +39,17 @@ The OpenID API has two important functions:
 -->
 OpenID API には特に重要な関数が二つあります。
 
+<!--
 * `OpenID.redirectURL` calculates the URL where you should redirect the user. It involves fetching the user's OpenID page asynchronously, this is why it returns a `Future[String]`. If the OpenID is invalid, the returned `Future` will fail.
 * `OpenID.verifiedId` needs an implicit `Request` and inspects it to establish the user information, including his verified OpenID. It will do a call to the OpenID server asynchronously to check the authenticity of the information, this is why a `Future[UserInfo]`  is returned. If the information is not correct or if the server check is false (for example if the redirect URL has been forged), the returned `Future` will fail.
+-->
+* `OpenID.redirectURL` は、ユーザのリダイレクト先 URL を計算する関数です。この関数は、非同期でユーザの OpenID ページを検索するため、`Future[String]` を返します。OpenID が無効な場合、返却される `Future` は失敗します。
+* `OpenID.verifiedId` は、暗黙的な `Request` を引数にとり、それを元に検証済みの OpenID を始めとするユーザの認可情報を組み立てます。この関数は、非同期に認可元の情報を確認するため、 OpenID サーバと通信を行います。このため、`Future[UserInfo]` が返却されます。認可情報が不正か、サーバが単に (リダイレクト URL が書き換えられるなどの理由で) 確認に失敗した場合、返却される `Future` は失敗します。
 
+<!--
 If the `Future` fails, you can define a fallback, which redirects back the user to the login page or return a `BadRequest`.
+-->
+`Future` が失敗するかもしれないので、ユーザーをログインページにリダイレクトするか、または `BadRequest` を返すフォールバックを定義することができます。
 
 <!--
 Here is an example of usage (from a controller):
@@ -84,7 +94,10 @@ def openIDCallback = Action { implicit request =>
 -->
 ## 拡張属性
 
+<!--
 The OpenID of a user gives you his identity. The protocol also supports getting [extended attributes](http://openid.net/specs/openid-attribute-exchange-1_0.html) such as the e-mail address, the first name, or the last name.
+-->
+OpenID はユーザの同一性を確かめるために利用することができます。それ以外にメールアドレスや名前、苗字などの取得のために [拡張属性](http://openid.net/specs/openid-attribute-exchange-1_0.html) というものもサポートされています。
 
 <!--
 You may request *optional* attributes and/or *required* attributes from the OpenID server. Asking for required attributes means the user cannot login to your service if he doesn’t provides them.
