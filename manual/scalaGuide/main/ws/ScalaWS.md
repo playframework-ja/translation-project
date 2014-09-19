@@ -6,13 +6,12 @@
 <!--
 Sometimes we would like to call other HTTP services from within a Play application. Play supports this via its [WS library](api/scala/index.html#play.api.libs.ws.package), which provides a way to make asynchronous HTTP calls.
 -->
-ときどき、Play アプリケーションから他の HTTP サービスを呼び出したくなることがあります。Play は非同期の HTTP 呼び出しを実現する [WS library](api/scala/index.html#play.api.libs.ws.package) でこれをサポートしています。
+ときどき、Play アプリケーションから他の HTTP サービスを呼び出したくなることがあります。Play は非同期の HTTP 呼び出しを実現する [WS ライブラリ](api/scala/index.html#play.api.libs.ws.package) でこれをサポートしています。
 
 <!--
 There are two important parts to using the WS API: making a request, and processing the response.  We'll discuss how to make both GET and POST HTTP requests first, and then show how to process the response from WS.  Finally, we'll discuss some common use cases.
 -->
-WS API には、リクエストの作成とレスポンスの処理という2つの重要な部品があります。 まず、 GET および　POST の HTTP リクエストを作成する方法について紹介し、 
-次に WS からレスポンスを処理する方法について紹介します。 最後に、よくあるユースケースを紹介します。
+WS API には、リクエストの作成とレスポンスの処理という2つの重要な部品があります。 まず、 GET および　POST の HTTP リクエストを作成する方法について紹介し、 次に WS からレスポンスを処理する方法について紹介します。 最後に、よくあるユースケースを紹介します。
 
 <!--
 ## Making a Request
@@ -41,8 +40,7 @@ val holder : WSRequestHolder = WS.url(url)
 <!--
 This returns a [WSRequestHolder](api/scala/index.html#play.api.libs.ws.WS$$WSRequestHolder) that you can use to specify various HTTP options, such as setting headers.  You can chain calls together to construct complex requests.
 -->
-これは [WSRequestHolder](api/scala/index.html#play.api.libs.ws.WS$$WSRequestHolder) を返し、 ヘッダの設定のような様々な HTTP のオプションを設定するために使用します。
-メソッド呼び出しを連鎖して、リクエストの構築をまとめることができます。
+これは [WSRequestHolder](api/scala/index.html#play.api.libs.ws.WS$$WSRequestHolder) を返し、 ヘッダの設定のような様々な HTTP のオプションを設定するために使用します。　メソッド呼び出しを連鎖して、複雑なリクエストの構築をまとめることができます。
 
 ```scala
 val complexHolder : WSRequestHolder = holder.withHeaders(...)
@@ -102,7 +100,7 @@ WS.url(url).withFollowRedirects(true).get()
 <!--
 Parameters can be specified as a series of key/value tuples.
 -->
-パラメーターは、 キー/値のタプルをつなげて設定します。
+パラメーターは、 キー/値のタプルをつなげて設定することもできます
 
 ```scala
 WS.url(url).withQueryString("paramKey" -> "paramValue").get()
@@ -194,7 +192,7 @@ JSON データを送信する最も簡単な方法は、 [[JSON|ScalaJson]] ラ�
 <!--
 The easiest way to post XML data is to use XML literals.  XML literals are convenient, but not very fast.  For efficiency, consider using an XML view template, or a JAXB library.
 -->
-XML データを送信する最も簡単な方法は、 XML リテラルを使う事です。 XML リテラルは便利ですが、　それほど速くはありません。　効率を重視するなら、 XML view template や JAXB ライブラリを使う事を検討してください。
+XML データを送信する最も簡単な方法は、 XML リテラルを使う事です。 XML リテラルは便利ですが、　それほど速くはありません。　効率を重視するなら、 XML ビューテンプレート や JAXB ライブラリを使う事を検討してください。
 
 @[scalaws-post-xml](code/ScalaWSSpec.scala)
 
@@ -243,7 +241,7 @@ You can process the response as a [JSON object](api/scala/index.html#play.api.li
 <!--
 The JSON library has a [[useful feature|ScalaJsonCombinators]] that will map an implicit [`Reads[T]`](api/scala/index.html#play.api.libs.json.Reads) directly to a class:
 -->
-JSON ライブラリには　[[有用な機能|ScalaJsonCombinators]] があり、暗黙の [`Reads[T]`](api/scala/index.html#play.api.libs.json.Reads) により直接クラスにマップすることができます。
+JSON ライブラリには、暗黙の [`Reads[T]`](api/scala/index.html#play.api.libs.json.Reads) をクラスに直接マッピングする [[便利な機能|ScalaJsonCombinators]] があります。
 
 @[scalaws-process-json-with-implicit](code/ScalaWSSpec.scala)
 
@@ -267,28 +265,26 @@ You can process the response as an [XML literal](http://www.scala-lang.org/api/c
 <!--
 Calling `get()` or `post()` will cause the body of the request to be loaded into memory before the response is made available.  When you are downloading with large, multi-gigabyte files, this may result in unwelcome garbage collection or even out of memory errors.
 -->
-`get()` や `post()` を実行すると、レスポンスが使用可能になる前に、リクエストの本体をメモリに読込みます。 数ギガバイトのファイルのような大量のダウンロードを行うと、　予期せぬガベージコレクションや、アウトオブメモリーエラーを招くかもしれません。
+`get()` や `post()` を実行すると、レスポンスが使用可能になる前に、リクエストの本体をメモリに読込みます。 数ギガバイトのファイルのような大量のダウンロードを行うと、　不愉快なガベージコレクションや、アウトオブメモリーエラーを招くかもしれません。
 
 <!--
 `WS` lets you use the response incrementally by using an [[iteratee|Iteratees]].
 -->
-[[Iteratee|Iteratees]] を使うと、インククリメンタルにレスポンスを扱うことができます。
+`WS` では、 [[Iteratee|Iteratees]] を使うことにより、レスポンスをインクリメンタルに扱うことができます。
 
 @[scalaws-fileupload](code/ScalaWSSpec.scala)
 
 <!--
 This is an iteratee that will receive a portion of the file as an array of bytes, write those bytes to an OutputStream, and close the stream when it receives the `EOF` signal.  Until it receives an `EOF` signal, the iteratee will keep running.
 -->
-Iteratee は ファイルの一部をバイト配列として受け取り、それを OutputStream に書き込みます。 また、 `EOF` シグナルを受け取ると　ストリームを閉じます。
-`EOF` シグナルを受け取るまで、 Iteratee は実行され続けます。
+Iteratee は ファイルの一部をバイト配列として受け取り、それを OutputStream に書き込みます。 また、 `EOF` シグナルを受け取ると　ストリームを閉じます。　`EOF` シグナルを受け取るまで、 Iteratee は実行され続けます。
 
 <!--
 `WS` doesn't send `EOF` to the iteratee when it's finished -- instead, it redeems the returned future.
 In fact, `WS` has no right to feed `EOF`, since it doesn't control the input.  You may want to feed the result of multiple WS calls into that iteratee (maybe you're building a tar file on the fly), and if `WS` feeds `EOF`, the stream will close unexpectedly.  Sending `EOF` to the stream is the caller's responsibility.
 -->
 `WS` は終了時に `EOF` を Iteratee に送信しません。　その代わりに、 Future　を返すようにしています。
-実際、 `WS` は入力の制御を行わないため、 `EOF` を送信するべきではありません。 
-複数の WS の呼び出し (その場で tar ファイルを構築するような) を Iterateeに送信したくなるかもしれません。 そして、ここでもし `WS` が `EOF` を送信するなら、 ストリームは期待したとおりに閉じられません。 `EOF` の送信は呼び出し側の責任です。
+実際、 `WS` は入力の制御を行わないため、 `EOF` を送信するべきではありません。 複数の WS の呼び出し (その場で tar ファイルを構築するような) を Iteratee に送信したくなるかもしれません。 そして、ここでもし `WS` が `EOF` を送信するなら、 ストリームは期待したとおりに閉じられません。 `EOF` の送信は呼び出し側の責任です。
 
 <!--
 We do this by calling [Iteratee.run](http://www.playframework.com/documentation/2.1.x/api/scala/index.html#play.api.libs.iteratee.Iteratee) which will push an `EOF` into the iteratee when the future is redeemed.
@@ -298,7 +294,7 @@ We do this by calling [Iteratee.run](http://www.playframework.com/documentation/
 <!--
 `POST` and `PUT` calls use a slightly different API than `GET` calls: instead of `post()`, you call `postAndRetrieveStream(body)` which has the same effect.
 -->
-`POST` と `PUT` の呼び出しでは、　`GET` の方法とは違う API を使います。 `post()` の代わりに、 同じ動作をする `postAndRetrieveStream(body)` を使用してください。
+`POST` と `PUT` の呼び出しでは、　`GET` の方法とは少し違う API を使います。 `post()` の代わりに、 同じ動作をする `postAndRetrieveStream(body)` を使用してください。
 
 ```scala
 WS.url(url).postAndRetrieveStream(body) { headers =>
@@ -370,7 +366,7 @@ This is important in a couple of cases.  WS has a couple of limitations that req
 * `WS` does not support client certificates (aka mutual TLS / MTLS / client authentication).  You should set the `SSLContext` directly in an instance of [AsyncHttpClientConfig](http://asynchttpclient.github.io/async-http-client/apidocs/com/ning/http/client/AsyncHttpClientConfig.html) and set up the appropriate KeyStore and TrustStore.
 -->
 * `WS` はマルチパートのフォームアップロードを直接サポートしません。 基礎的なクライアントの [RequestBuilder.addBodyPart](http://asynchttpclient.github.io/async-http-client/apidocs/com/ning/http/client/RequestBuilder.html) を使う事ができます。
-* `WS` は　クライアント認証 (aka mutual TLS / MTLS / client authentication) をサポートしません。  [AsyncHttpClientConfig](http://asynchttpclient.github.io/async-http-client/apidocs/com/ning/http/client/AsyncHttpClientConfig.html) のインスタンスに、 `SSLContext` を直接設定し、 適切なキーストアとトラストストアを設定します。
+* `WS` は (相互 TLS / MTLS / クライアント認証として知られている) クライアント証明書をサポートしません。  [AsyncHttpClientConfig](http://asynchttpclient.github.io/async-http-client/apidocs/com/ning/http/client/AsyncHttpClientConfig.html) のインスタンスに、 `SSLContext` を直接設定し、 適切なキーストアとトラストストアを設定します。
 
 <!--
 ## Configuring WS 
