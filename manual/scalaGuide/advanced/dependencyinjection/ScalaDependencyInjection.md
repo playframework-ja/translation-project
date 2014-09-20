@@ -6,7 +6,7 @@
 <!--
 Play does not use any dependency injection framework under the hood, and leaves the choice of DI framework (if any) in your hands.  Models, Services and Configuration objects can all be handled transparently, and do not need explicit configuration to work in Play.
 -->
-Play は依存性の注入のフレームワークを見えないところでは使っていません。そして、 DI （依存性の注入）フレームワークの選択権をあなたの手に委ねています。
+Play は依存性の注入のフレームワークを見えないところでは使っていません。そして、 （もし必要なら） DI  フレームワークの選択権をあなたの手に委ねています。
 モデル層、サービス層、設定ファイルなど全て率直に扱え、明示的な設定をするような労力は Play を使う上では必要ありません。
 
 <!--
@@ -46,7 +46,7 @@ Then you can manage controller class instantiation using a DI framework by overr
 <!--
 The pace of development and the myriad of options even within a single DI framework means that full documentation is beyond the scope of this documentation.  However, there are a number of sample projects that demonstrate how to best leverage DI in your project.
 -->
-開発のペースと単一の DI フレームワークに含まれる無数のオプションは、 特定の範囲のドキュメントでは足りず、フルのドキュメントが必要であることを意味します。
+一つの DI フレームワークにしても、開発の早さと無数のオプションがあるため、 ここだけのドキュメントでは足りず、フルのドキュメントが必要であることを意味します。
 しかしながら、世にあふれるサンプルプロジェクトは DI をどう使ったら最も効果的なのかを見せてくれます。
 
 
@@ -56,7 +56,7 @@ The pace of development and the myriad of options even within a single DI framew
 [Typesafe Activator](http://www.typesafe.com/activator) is a local web & command-line tool that helps developers get started with the Typesafe Platform.  Using Activator is highly recommended, as you can download a number of sample projects at once and walk through tutorials presented through the Activator UI.
 -->
 [Typesafe Activator](http://www.typesafe.com/activator) は、開発者が Typesafe のプラットフォームでスタートする手助けをするローカルウェブとコマンドラインのツールです。
-このActivator を使うことを、強く薦めます。なぜなら、たくさんのサンプルプロジェクトを一度にダウンロードでき、 Activator の UI で表現されたチュートリアルを進めることが出来るからです。
+この Activator を使うことを、強く薦めます。なぜなら、たくさんのサンプルプロジェクトを一度にダウンロードでき、 Activator の UI で表現されたチュートリアルを進めることが出来るからです。
 
 
 ### Spring
@@ -64,14 +64,14 @@ The pace of development and the myriad of options even within a single DI framew
 <!--
 [Spring](http://www.springsource.org/) is a popular application development for Java that has a dependency injection framework at its core.  There is also an additional project [Spring Scala](https://github.com/SpringSource/spring-scala), which provides additional integration options using Scala and Spring.
 -->
-[Spring](http://www.springsource.org/) はJavaにおいて人気のある開発ツールで、依存性の注入のフレームワークをコアとして持っています。
+[Spring](http://www.springsource.org/) は Java において人気のある開発ツールで、依存性の注入のフレームワークをコアとして持っています。
 [Spring Scala](https://github.com/SpringSource/spring-scala) は、Scala と Spring を使った付加的なオプションを提供しているプロジェクトです。
 
 <!--
 There is an [Activator](http://www.typesafe.com/activator) project available for Spring.  You can download it from Activator [directly](http://typesafe.com/activator/template/play-spring-data-jpa), or clone it from [https://github.com/typesafehub/play-spring-data-jpa](https://github.com/typesafehub/play-spring-data-jpa).
 -->
 [Activator](http://www.typesafe.com/activator) プロジェクトは、 Spring で使えます。
-[directly](http://typesafe.com/activator/template/play-spring-data-jpa) を直接 Activator からダウンロードできます。
+[directly](http://typesafe.com/activator/template/play-spring-data-jpa) からダウンロードできます。
 [https://github.com/typesafehub/play-spring-data-jpa](https://github.com/typesafehub/play-spring-data-jpa) からも clone することも出来ます。
 
 
@@ -98,8 +98,8 @@ Play の中でどのように Subcut を使うのかを示している Subcut �
 <!--
 There is an [Activator](http://www.typesafe.com/activator) project available for Macwire.  You can download it from Activator [directly](http://typesafe.com/activator/template/macwire-activator), or clone it from [https://github.com/adamw/macwire-activator](https://github.com/adamw/macwire-activator).
 -->
-[Activator](http://www.typesafe.com/activator) プロジェクトでMacwireは利用出来ます。
-[directly](http://typesafe.com/activator/template/macwire-activator) を直接  Activator からダウンロード出来ます。
+[Activator](http://www.typesafe.com/activator) プロジェクトで Macwire は利用出来ます。
+[directly](http://typesafe.com/activator/template/macwire-activator) からダウンロード出来ます。
 また、 [https://github.com/adamw/macwire-activator](https://github.com/adamw/macwire-activator) からも clone 出来ます。
 
 ### Guice
@@ -113,5 +113,5 @@ There is an [Activator](http://www.typesafe.com/activator) project available for
 There is an [Activator](http://www.typesafe.com/activator) project available for Guice.  You can download it from Activator [directly](http://typesafe.com/activator/template/play-guice), or clone it from [https://github.com/typesafehub/play-guice](https://github.com/typesafehub/play-guice).
 -->
 Guice は、 [Activator](http://www.typesafe.com/activator) プロジェクトから利用出来ます。
-また、 [directly](http://typesafe.com/activator/template/play-guice) を直接 Activator からダウンロード出来ますし、
+また、 [directly](http://typesafe.com/activator/template/play-guice) からダウンロード出来ますし、
 [https://github.com/typesafehub/play-guice](https://github.com/typesafehub/play-guice) から clone も出来ます。
