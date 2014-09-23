@@ -103,7 +103,7 @@ The router also makes a few other properties available including the ``url``, th
 <!--
 The above approach is required where other properties need setting such as success, error, context etc.
 -->
-このアプローチは、他のプロパティが success, error, context などの設定を要求する場合に必要です。
+このアプローチは、 success, error, context といった、その他のプロパティを指定したい場合に必要です。
 
 <!--
 ## jQuery ajax method support
