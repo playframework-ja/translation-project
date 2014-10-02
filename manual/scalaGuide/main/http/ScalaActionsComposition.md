@@ -26,12 +26,12 @@ These methods for building actions are actually all defined by a trait called [`
 <!--
 Let’s start with the simple example of a logging decorator, we want to log each call to this action.
 -->
-アクションの呼び出しをロギングする、簡単なロギングデコーレータの例から始めてみましょう。
+アクションの呼び出しをロギングする、簡単なロギングデコレーターの例から始めてみましょう。
 
 <!--
 The first way is to implement this functionality in the `invokeBlock` method, which is called for every action built by the `ActionBuilder`:
 -->
-1つめの方法は、 `ActionBuilder`から構築された全てのアクションから呼び出される `invokeBlock` メソッドに、この機能を実装することです。
+1つめの方法は、 `ActionBuilder` から構築された全てのアクションから呼び出される `invokeBlock` メソッドに、この機能を実装することです。
 
 @[basic-logging](code/ScalaActionsComposition.scala)
 
@@ -102,7 +102,7 @@ We can also mix in wrapping actions without the action builder:
 <!--
 So far we've only shown actions that don't impact the request at all.  Of course, we can also read and modify the incoming request object:
 -->
-ここまで見てきたアクションは、リクエストについて全く影響を与えていません。 もちろん、入力されてくるリクエストオブジェクトに対して、読み込みと変更が可能です。
+ここまで見てきたアクションは、リクエストについて全く影響を与えていません。 もちろん、入力されてくるリクエストオブジェクトに対して、読み込みと変更も可能です。
 
 @[modify-request](code/ScalaActionsComposition.scala)
 
@@ -133,13 +133,12 @@ And finally we can also modify the returned result:
 <!--
 The `ActionBuilder` trait is parameterised to allow building actions using different request types.  The `invokeBlock` method can translate the incoming request to whatever request type it wants.  This is useful for many things, for example, authentication, to attach a user object to the current request, or to share logic to load objects from a database.
 -->
-`ActionBuilder` トレイトは、様々なリクエスト型を用いてアクションを構築することをできるようにするために、パラメータ化されています。 `invokeBlock` メソッドは入力リクエストを、自身が望む型に変換することができます。 これは多くの点で有用で、　例えば、認証においてユーザーオブジェクトを現在のリクエストに紐付ける、 データベースからオブジェクトを読込むロジックを共有するなどが考えれます。
+`ActionBuilder` トレイトは、様々なリクエスト型を用いてアクションを構築することをできるようにするために、パラメータ化されています。 `invokeBlock` メソッドは入力リクエストを、自身が望む型に変換することができます。 これは多くの点で有用で、　例えば、認証においてユーザーオブジェクトを現在のリクエストに紐付ける、 データベースからオブジェクトを読込むロジックを共有するなどが考えられます。
 
 <!--
 Let's consider a REST API that works with objects of type `Item`.  There may be many routes under the `/item/:itemId` path, and each of these need to look up the item.  They may also share the same authorisation properties.  In this case, it may be useful to put this logic into an action builder.
 -->
-`Item` 型というオブジェクトについて動作する REST API について考えて見ましょう。 `/item/:itemId` というパスの下に多くのルートがあり、それらのルートでは　Item を見つける必要があるとします。
-また、同じ認可属性を共有します。 このような場合、 このロジックをアクションビルダーの中に入れてしまうと便利です。
+`Item` 型というオブジェクトについて動作する REST API について考えてみましょう。 `/item/:itemId` というパスの下に多くのルートがあり、それらのルートでは　Item を見つける必要があるとします。 また、同じ認可属性を共有します。 このような場合、 このロジックをアクションビルダーの中に入れてしまうと便利です。
 
 <!--
 First of all, we'll create a request object that adds an `Item`:
@@ -185,7 +184,7 @@ Play はまた、組み込みの認証アクションビルダーを提供して
 >
 > If you have more complex requirements than can be met by the built in authentication action, then implementing your own is not only simple, it is recommended.
 -->
-> **Note:** 組み込みの認証アクションビルダーは単純な場合の認証に対する必要なコード量を少なくする便利なヘルパーで、その実装は上記の例に非常に良く似ています。
+> **Note:** 組み込みの認証アクションビルダーは、単純な場合の認証に対して必要なコード量を少なくするための便利なヘルパーで、その実装は上記の例に非常に良く似ています。
 >
 > もし　組み込みの認証アクションビルダーで適応できることよりもさらに複雑な要求がある場合は、　簡潔ではなくりますが自分で実装することを推奨します。
 
