@@ -1,10 +1,21 @@
+<!--
 ### The template engine
+-->
+### テンプレート・エンジン
 
+<!--
 - [[Scala templates syntax | ScalaTemplates]]
 - [[Common use cases | ScalaTemplateUseCases]]
 - [[Custom format | ScalaCustomTemplateFormat]]
+-->
+- [[テンプレートの文法 | ScalaTemplates]]
+- [[よくある使い方 | ScalaTemplateUseCases]]
+- [[カスタムフォーマット | ScalaCustomTemplateFormat]]
 
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | ScalaActions]]
 - [[Asynchronous HTTP programming | ScalaAsync]]
@@ -21,10 +32,22 @@
 - [[The application Global object | ScalaGlobal]]
 - [[Testing your application | ScalaTestingYourApplication]]
     
+<!--
 ### Advanced topics
+-->
+### 上級編
 
+<!--
 - [[Handling data streams reactively | Iteratees]]
+-->
+- [[反応的なストリーム処理 | Iteratees]]
 
+<!--
 ### Tutorials
+-->
+### チュートリアル
 
+<!--
 - [[Your first application | ScalaTodoList]]
+-->
+- [[はじめてのアプリケーション | ScalaTodoList]]

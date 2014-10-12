@@ -88,12 +88,18 @@ You can traverse a `JsValue` structure and extract specific values. The syntax a
 
 > Note: The following examples are applied to the JsValue structure created in previous examples.
 
+<!--
 ### Simple path `\`
+-->
+### シンプルな `\` パス
 Applying the `\` operator to a `JsValue` will return the property corresponding to the field argument, supposing this is a JsObject. 
 
 @[traverse-simple-path](code/ScalaJsonSpec.scala)
 
+<!--
 ### Recursive path `\\`
+-->
+### 再帰的な `\\` パス
 Applying the `\\` operator will do a lookup for the field in the current object and all descendants.
 
 @[traverse-recursive-path](code/ScalaJsonSpec.scala)

@@ -1,10 +1,19 @@
+<!--
 # Handling file upload
+-->
+# ファイルアップロード
 
+<!--
 ## Uploading files in a form using `multipart/form-data`
+-->
+## フォームから `multipart/form-data` 形式でファイルをアップロードする
 
 The standard way to upload files in a web application is to use a form with a special `multipart/form-data` encoding, which allows mixing of standard form data with file attachments. Please note: the HTTP method for the form has to be POST (not GET). 
 
+<!--
 Start by writing an HTML form:
+-->
+まず、 HTML フォームを書きます。
 
 ```
 @form(action = routes.Application.upload, 'enctype -> "multipart/form-data") {
@@ -18,7 +27,10 @@ Start by writing an HTML form:
 }
 ```
 
+<!--
 Now let’s define the `upload` action:
+-->
+次に、 `upload` アクションを定義します。
 
 ```
 public static Result upload() {
@@ -36,9 +48,15 @@ public static Result upload() {
 }
 ```
 
+<!--
 ## Direct file upload
+-->
+## ダイレクトファイルアップロード
 
+<!--
 Another way to send files to the server is to use Ajax to upload files asynchronously from a form. In this case, the request body will not be encoded as `multipart/form-data`, but will just contain the plain file contents.
+-->
+サーバへファイルを送信する別の方法は、Ajax を活用してフォームからファイルを非同期的にアップロードするというものです。この方法では、リクエストボディは `multipart/form-data` としてエンコードされず、単にファイルの内容を含むだけになります。
 
 ```
 public static Result upload() {
@@ -47,4 +65,7 @@ public static Result upload() {
 }
 ```
 
+<!--
 > **Next:** [[Accessing an SQL database | JavaDatabase]]
+-->
+> **次ページ:** [[SQL データベースへのアクセス | JavaDatabase]]

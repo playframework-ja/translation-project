@@ -1,8 +1,17 @@
+<!--
 # Writing functional tests
+-->
+# 機能テストを書く
 
+<!--
 ## Testing a template
+-->
+## テンプレートのテスト
 
+<!--
 As a template is a standard Scala function, you can execute it from a test and check the result:
+-->
+テンプレートは単なる Scala の関数なので、テストから呼び出して結果をチェックすることができます。
 
 ```
 @Test
@@ -13,11 +22,20 @@ public void renderTemplate() {
 }
 ```
 
+<!--
 You can find the complete list of the *test helpers* in the [Helper class API documentation](http://www.playframework.com/documentation/api/2.1.1/java/play/test/Helpers.html). 
+-->
+[ヘルパークラス API ドキュメント](http://www.playframework.com/documentation/api/2.1.1/java/play/test/Helpers.html) で *テストヘルパー* の完全な一覧を参照することができます。
 
+<!--
 ## Testing your controllers
+-->
+## コントローラのテスト
 
+<!--
 You can also retrieve an action reference from the reverse router, such as `controllers.routes.ref.Application.index`. You can then invoke it:
+-->
+`controllers.routes.ref.Application.index` というようにリバースルーターからアクションへの参照を受け取って、呼び出すこともできます。
 
 ```
 @Test
@@ -32,9 +50,15 @@ public void callIndex() {
 }
 ```
 
+<!--
 ## Testing the router
+-->
+## ルータのテスト
 
+<!--
 Instead of calling the `Action` yourself, you can let the `Router` do it:
+-->
+`Action` を自分で呼び出す代わりに、 `Router` に任せることもできます。
 
 ```
 @Test
@@ -44,9 +68,15 @@ public void badRoute() {
 }
 ```
 
+<!--
 ## Starting a real HTTP server
+-->
+## 実際に HTTP サーバを起動する
 
+<!--
 Sometimes you want to test the real HTTP stack from with your test. You can do this by starting a test server:
+-->
+実際の HTTP スタックを通したテストを記述したい場合もあります。その場合は、次のようにテストサーバを起動することができます。
 
 ```
 @Test
@@ -61,7 +91,10 @@ public void testInServer() {
 }
 ```
 
+<!--
 ## Testing from within a web browser
+-->
+## Web ブラウザからテストする
 
 If you want to test your application from with a Web browser, you can use [Selenium WebDriver](http://code.google.com/p/selenium/?redir=1). Play will start the WebDriver for you, and wrap it in the convenient API provided by [FluentLenium](https://github.com/FluentLenium/FluentLenium).
 

@@ -22,10 +22,16 @@
 - [[The application Global object | ScalaGlobal]]
 - [[Testing your application | ScalaTestingYourApplication]]
     
+<!--
 ### Advanced topics
 
 - [[Handling data streams reactively | Iteratees]]
+-->
+### 上級編
 
+<!--
 ### Tutorials
 
 - [[Your first application | ScalaTodoList]]
+-->
+### チュートリアル

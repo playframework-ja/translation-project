@@ -1,4 +1,7 @@
+<!--
 # Handling form submission
+-->
+# フォームの送信
 
 ## Overview
 
@@ -205,7 +208,10 @@ val email = singleForm.bind(Map("email", "bob@example.com")).get
 
 ### Fill values
 
+<!--
 Sometimes you’ll want to populate a form with existing values, typically for editing data:
+-->
+よくあるケースとして、編集などのためにフォームに予め値を設定したい場合は、以下のようにします。
 
 @[userForm-filled](code/ScalaForms.scala)
 
@@ -237,7 +243,10 @@ A form mapping can define repeated values using [`Forms.list`](api/scala/index.h
 
 @[userForm-repeated](code/ScalaForms.scala)
 
+<!--
 When you are using repeated data like this, the form values sent by the browser must be named `emails[0]`, `emails[1]`, `emails[2]`, etc.
+-->
+このようなデータの繰り返しを処理する場合には、ブラウザから送信されるフォーム値の名前は `emails[0]`, `emails[1]`, `examils[2]` のような形式になっている必要があります。
 
 Now you have to generate as many inputs for the `emails` field as the form contains, using the [`repeat`](api/scala/index.html#views.html.helper.repeat$) helper:
 

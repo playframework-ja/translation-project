@@ -1,10 +1,21 @@
+<!--
 ### Accessing an SQL database
+-->
+### SQL データベースアクセス
 
+<!--
 - [[Configuring and using JDBC | ScalaDatabase]]
 - [[Using Anorm to access your database | ScalaAnorm]]
 - [[Integrating with other database access libraries | ScalaDatabaseOthers]]
+-->
+- [[SQL データベースアクセス | ScalaDatabase]]
+- [[Anorm によるシンプルなデータアクセス | ScalaAnorm]]
+- [[その他のデータベースライブラリとの統合 | ScalaDatabaseOthers]]
 
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | ScalaActions]]
 - [[Asynchronous HTTP programming | ScalaAsync]]
@@ -21,10 +32,22 @@
 - [[The application Global object | ScalaGlobal]]
 - [[Testing your application | ScalaTestingYourApplication]]
     
+<!--
 ### Advanced topics
+-->
+### 上級編
 
+<!--
 - [[Handling data streams reactively | Iteratees]]
+-->
+- [[反応的なストリーム処理 | Iteratees]]
 
+<!--
 ### Tutorials
+-->
+### チュートリアル
 
+<!--
 - [[Your first application | ScalaTodoList]]
+-->
+- [[はじめてのアプリケーション | ScalaTodoList]]

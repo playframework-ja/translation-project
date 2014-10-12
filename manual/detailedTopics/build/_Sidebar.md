@@ -1,11 +1,23 @@
+<!--
 ### The Build system
+-->
+### ビルドシステム
 
+<!--
 - [[The Build System | Build]]
 - [[About sbt settings | SBTSettings]]
 - [[Manage application dependencies | SBTDependencies]]
 - [[Working with sub-projects | SBTSubProjects]]
+-->
+- [[ビルドシステム | Build]]
+- [[sbt 設定について | SBTSettings]]
+- [[ライブラリ依存性の管理 | SBTDependencies]]
+- [[サブプロジェクトで作業する | SBTSubProjects]]
 
+<!--
 ### Getting started
+-->
+### はじめに
 
 - [[Installing Play | Installing]]
 - [[Creating a new application | NewApplication]]
@@ -15,18 +27,35 @@
 - [[Sample applications | Samples]]
 
 ### Working with Play 
+<!--
 - [[Play for Scala developers | ScalaHome]]
 - [[Play for Java developers | JavaHome]]
+-->
+- [[Scala 開発者のための Play | ScalaHome]]
+- [[Java 開発者のための Play | JavaHome]]
 
+<!--
 ### Detailed topics
+-->
+### 詳細なトピック
 
+<!--
 - [[The Build system | Build]]
 - [[Working with public assets | Assets]]
 - [[Managing database evolutions | Evolutions]]
 - [[Configuration | Configuration]]
 - [[Deploying your application | Production]]
+-->
+- [[ビルドシステム | Build]]
+- [[公開アセットを使う | Assets]]
+- [[データベース進化の管理 | Evolutions]]
+- [[設定 | Configuration]]
+- [[アプリケーションのデプロイ | Production]]
 
+<!--
 ### Additional documentations
+-->
+### その他のドキュメント
 
 - [Scala](http://docs.scala-lang.org/)
 - [Akka](http://akka.io/docs/)

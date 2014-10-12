@@ -1,4 +1,7 @@
+<!--
 ### Getting started
+-->
+### はじめに
 
 - [[Installing Play|Installing]]
 - [[Creating a new application|NewApplication]]
@@ -8,12 +11,22 @@
 - [[Sample applications|Samples]]
 - [Security policy](http://www.playframework.com/code/security)
 
+<!--
 ### Working with Play
+-->
+### Play で開発する
 
+<!--
 - [[Play for Scala developers|ScalaHome]]
 - [[Play for Java developers|JavaHome]]
+-->
+- [[Scala 開発者のための Play|ScalaHome]]
+- [[Java 開発者のための Play|JavaHome]]
 
+<!--
 ### Detailed topics
+-->
+### 詳細なトピック
 
 - [[The Build system|Build]]
 - [[Working with public assets|Assets]]
@@ -22,7 +35,10 @@
 - [[Configuration|Configuration]]
 - [[Deploying your application|Production]]
 
+<!--
 ### Additional documentation
+-->
+### その他のドキュメント
 
 - [Scala](http://docs.scala-lang.org/)
 - [Akka](http://akka.io/docs/)
