@@ -21,7 +21,7 @@ This guide is for migrating a Play 2.1 application to Play 2.2.  To migrate from
 <!--
 Play is now published under a different organisation id.  This is so that eventually we can deploy Play to Maven Central.  The old organisation id was `play`, the new one is `com.typesafe.play`.
 -->
-Play はこれまでと異なる組織 id の元に公開されるようになりました。これにより、ようやく Play を Maven セントラルに配置することができます。古い組織 id は `play` で、新しい id は `com.typesafe.play` です。
+Play はこれまでと異なる organization id の元に公開されるようになりました。これにより、ようやく Play を Maven Central に配置することができます。古い organization id は `play` で、新しい id は `com.typesafe.play` です。
 
 <!--
 The version also must be updated to 2.2.0.
@@ -31,7 +31,7 @@ The version also must be updated to 2.2.0.
 <!--
 In `project/plugins.sbt`, update the Play plugin to use the new organisation id:
 -->
-新しい組織 id を使って `project/plugins.sbt` 中の Play プラグインを更新してください:
+新しい organization id を使って `project/plugins.sbt` 中の Play プラグインを更新してください:
 
 ```scala
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0")
@@ -40,7 +40,7 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.2.0")
 <!--
 In addition, if you have any other dependencies on Play artifacts, and you are not using the helpers to depend on them, you may have to update the organisation and version numbers there.
 -->
-さらに、もし何か Play のアーティファクトに依存するものがあり、そしてそれらに依存するヘルパーを使っていない場合、それらの組織 id とバージョン番号を更新する必要があるかもしれません。
+さらに、もし何か Play の artifact に依存するものがあり、ヘルパーを使わずに依存している場合、それらの organization id とバージョン番号を更新する必要があるかもしれません。
 
 <!--
 ### Update SBT version
@@ -60,7 +60,7 @@ sbt 0.13.0 を使うように `project/build.properties` を更新する必要�
 <!--
 If you're using a multi-project build, and none of the projects has a root directory of the current directory, the root project is now determined by overriding rootProject instead of alphabetically:
 -->
-マルチプロジェクトビルドを使っていて、かついずれのプロジェクトもカレントディレクトリの root ディレクトリを持っていない場合、root プロジェクトはアルファベット順で決める代わりに、rootProject で上書きすることによって決定されます:
+sbt のマルチプロジェクトビルドを使っていて、このプロジェクトの root ディレクトリを指定した project が存在しない場合、root プロジェクトはアルファベット順で決められる代わりに、rootProject で上書きして設定することができるようになりました:
 
 ```scala
 override def rootProject = Some(myProject) 
@@ -74,7 +74,7 @@ override def rootProject = Some(myProject)
 <!--
 If you have set the scalaVersion (e.g. because you have a multi-project build that uses Project in addition to play.Project), you should update it to 2.10.2.
 -->
-(例えば、play.Project に加えて Project を使うマルチプロジェクトビルドを使っている場合など) いくつかの scalaVersion がある場合、2.10.2 に更新してください。
+(例えば play.Project に加えて、Project を使うマルチプロジェクトビルドがある場合など) 複数の scalaVersion がある場合、2.10.2 に更新してください。
 
 <!--
 ### Play cache module
@@ -157,7 +157,7 @@ def cometAction = Action {
 <!--
 Advanced uses that created or used `ChunkedResult` directly should be replaced with code that manually sets/checks the `TransferEncoding: chunked` header, and uses the new `Results.chunk` and `Results.dechunk` enumeratees.
 -->
-直接 `ChunkedResult` を作ったり使ったりする高度な使い方は、手動で `TransferEncoding: chunked` ヘッダーを設定/チェックし、そして新しい `Results.chunk` と `Results.dechunk` enumeratees を使うコードで置き換えられるべきです。
+直接 `ChunkedResult` を作ったり使ったりする高度な使い方は、手動で `TransferEncoding: chunked` ヘッダーを設定/チェックし、そして新しい `Results.chunk` と `Results.dechunk` enumeratee を使うコードで置き換えられるべきです。
 
 <!--
 ### Action composition
@@ -187,7 +187,7 @@ The iteratee produced by `EssentialAction` now produces `SimpleResult` instead o
 <!--
 ### play.api.http.Writeable application
 -->
-### play.api.http.Writeable application
+### play.api.http.Writeable の適用
 
 <!--
 Previously the constructor to `SimpleResult` took a `Writeable` for the type of the `Enumerator` passed to it.  Now that enumerator must be an `Array[Byte]`, and `Writeable` is only used for the `Status` convenience methods.
