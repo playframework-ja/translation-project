@@ -147,7 +147,7 @@ CSRF トークンがフォーム内にレンダリングされ、そしてクラ
 <!--
 ## Applying CSRF filtering on a per action basis
 -->
-## アクション基盤ごとに CSRF フィルタリングを適用する
+## アクションごとに CSRF フィルタリングを適用する
 
 <!--
 Sometimes global CSRF filtering may not be appropriate, for example in situations where an application might want to allow some cross origin form posts.  Some non session based standards, such as OpenID 2.0, require the use of cross site form posting, or use form submission in server to server RPC communications.
