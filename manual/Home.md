@@ -92,7 +92,7 @@
     1. [[LESS CSS を使う|AssetsLess]]
     1. [[Google Closure Compiler を使う|AssetsGoogleClosureCompiler]]
     1. [[RequireJS を使う|RequireJS-support]]
-1. [[H2 インメモリデータベースと使う|Developing-with-the-H2-Database]]
+1. [[H2 インメモリデータベースを使う|Developing-with-the-H2-Database]]
 1. [[Evolutions でデータベースを管理する|Evolutions]]
 1. [[設定ファイルのシンタックスと機能|Configuration]]
     1. [[JDBC コネクションプールの設定|SettingsJDBC]]
@@ -161,5 +161,5 @@
 <!--
 1. [[Temporary modules directory|Modules]]
 -->
-1. [[一時的なモジュールディレクトリ | Modules]]
+1. [[一時的なモジュールディレクトリ|Modules]]
 
