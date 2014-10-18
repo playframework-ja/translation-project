@@ -1,66 +1,54 @@
-<!-- translated -->
-<!--
+<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 # Writing Plugins
--->
-# プラグインを書く
 
-<!--
-Play comes with a few plugins predefined for all applications, these plugins are the following: 
--->
-Play には、以下に示すあらゆるアプリケーション向けのいくつかのプラグインがあらかじめ同梱されています:
+In the context of the Play runtime, a plugin is a class that is able to plug into the Play lifecycle, and also allows sharing components in a non static way in your application.
 
-<!--
-* `DBPlugin` -> providing a JDBC datasource
-* `EvolutionPlugin` -> provides migration  _(only available if db was configured)_
-* `EbeanPlugin` -> provides Ebean support_ (only available if db was configured)_
-* `MessagesPlugin` - > provides i18n support
-* `BasicCachePlugin` -> provides in-memory caching
-* `GlobalPlugin` -> executes application's settings
--->
-* `DBPlugin` -> JDBC データソースを提供します
-* `EvolutionPlugin` -> マイグレーションを提供します  _(データベースが設定されている場合のみ有効)_
-* `EbeanPlugin` -> Ebean サポートを提供します _(データベースが設定されている場合のみ有効)_
-* `MessagesPlugin` - > 国際化サポートを提供します
-* `BasicCachePlugin` -> インメモリキャッシュを提供します
-* `GlobalPlugin` -> アプリケーションの設定を行います
+Not every library that adds functionality to Play is or needs to be a plugin in this context - a library that provides a custom filter for example does not need to be a plugin.
 
-<!--
-However, one can easily add a new plugin to an application by following these steps:
--->
-一方で、以下の手順に従ってアプリケーションに新しいプラグインを簡単に追加することができます:
+Similarly, plugins don't necessarily imply that they are reusable between applications, it is often very useful to implement a plugin locally within an application, in order to hook into the Play lifecycle and share components in your code.
 
-<!--
-* implement `play.Plugin` (see [this](https://github.com/playframework/playframework/blob/master/framework/src/play-java-ebean/src/main/java/play/db/ebean/EbeanPlugin.java) for an example)
-* this plugin should be available in the application either through pulling in it from a maven repository and referencing it
-as an app dependency or the plugin code can be part of a play application
-* you can access it like 
--->
-* `play.Plugin` を実装します (例として [こちら](https://github.com/playframework/playframework/blob/master/framework/src/play-java-ebean/src/main/java/play/db/ebean/EbeanPlugin.java) を参照してください)
-* maven リポジトリからダウンロードしてアプリケーションの依存性として参照するか、またはプラグインのコードを play アプリケーションの一部とすることで、このプラグインをアプリケーション内で利用することができます
-* 以下のようにしてプラグインにアクセスすることができます
+## Implementing plugins
 
-```java
-import static play.api.Play.*;
-import static play.libs.Scala.*;
+Implementing a plugin requires two steps.  The first is to implement the `play.Plugin` interface.  Implementations of this interface must accept a single argument of type `play.Application`:
 
-public Myplugin plugin() {
-   return orNull(unsafeApplication().plugin(MyPlugin.class)).api();
-}
-``` 
+@[code](code/javaguide/advanced/extending/MyPlugin.java)
 
-<!--
-which will return an instance or subclass of `MyPlugin` fully initialized or `null`.
--->
-このコードは、`MyPlugin` またはサブクラスの初期化されたインスタンスか、`null` を返します。
+The next step is to register this with Play.  This can be done by creating a file called `play.plugins` and placing it in the root of the classloader.  In a typical Play app, this means putting it in the `conf` folder:
 
-<!--
-* in your app create a file: `conf/play.plugins` and add a reference to your plugin:
--->
-* アプリケーション中に `conf/play.plugins` ファイルを作成し、プラグインへの参照を追加します:
+```
+2000:plugins.MyPlugin
+```
 
-    5000:com.example.MyPlugin
+Each line in the `play.plugins` file contains a number followed by the fully qualified name of the plugin to load.  The number is used to control lifecycle ordering, lower numbers will be started first and stopped last.  Multiple plugins can be declared in the one file, and any lines started with `#` are treated as comments.
 
-<!--
-The number represents the plugin loading order, by setting it to > 10000 we can make sure it's loaded after the global plugins.
--->
-この数字はプラグインの読み込み順序を表しており、10000 より大きい値を設定することで、グローバルプラグインより後に読み込まれることを保証することができます。
+Choosing the right number for ordering for a plugin is important, it needs to fit in appropriate according to what other plugins it depends on.  The plugins that Play uses use the following ordering numbers:
+
+* *100* - Utilities that have no dependencies, such as the messages plugin
+* *200* - Database connection pools
+* *300-500* - Plugins that depend on the database, such as JPA, ebean and evolutions
+* *600* - The Play cache plugin
+* *700* - The WS plugin
+* *1000* - The Akka plugin
+* *10000* - The Global plugin, which invokes the `Global.onStart` and `Global.onStop` methods.  This plugin is intended to execute last.
+
+## Accessing plugins
+
+Plugins can be accessed via the `plugin` method on `play.Application`:
+
+@[access-plugin](code/javaguide/advanced/extending/JavaPlugins.java)
+
+## Actor example
+
+A common use case for using plugins is to create and share actors around the application.  This can be done by implementing an actors plugin:
+
+@[code](code/javaguide/advanced/extending/Actors.java)
+
+Note the static methods that allow easy access to the `ActorRef` for each actor, instead of code having to use the plugins API directly.
+
+The plugin can then be registered in `play.plugins`:
+
+```
+1100:actors.Actors
+```
+
+The reason `1100` was chosen for the ordering was because this plugin depends on the Akka plugin, and so must start after that.

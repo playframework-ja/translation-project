@@ -1,28 +1,13 @@
-<!-- translated -->
-<!--
+<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 # Working with public assets
--->
-# 公開アセットを扱う
 
-<!--
 This section covers serving your application’s static resources such as JavaScript, CSS and images.
--->
-この節は JavaScript, CSS と画像などのアプリケーションの静的リソースの提供をカバーします。
 
-<!--
-Serving a public resource in Play is the same as serving any other HTTP request. It uses the same routing as regular resources: using the controller/action path to distribute CSS, JavaScript or image files to the client.
--->
-Play での public リソースを提供することは、他の HTTP リクエストにサービスを提供することとほぼ同じです。通常のリソースと同じルーティングを使用します: クライアントに CSS, JavaScript や画像ファイルを配布するためのコントローラ/アクションのパスを使用します。
+Serving a public resource in Play is the same as serving any other HTTP request. It uses the same routing as regular resources using the controller/action path to distribute CSS, JavaScript or image files to the client.
 
-<!--
 ## The public/ folder
--->
-## public/ フォルダ
 
-<!--
-By convention, public assets are stored in the `public` folder of your application. This folder is organized as follows:
--->
-規約により public の資産は、アプリケーションの `public` フォルダに格納されています。このフォルダは次のように構成されています:
+By convention public assets are stored in the `public` folder of your application. This folder can be organized the way that you prefer. We recommend the following organization:
 
 ```
 public
@@ -31,184 +16,138 @@ public
  └ images
 ```
 
-<!--
 If you follow this structure it will be simpler to get started, but nothing stops you to modifying it once you understand how it works.
--->
-このフォルダ構成に従っていれば、開始するのは簡単ですが、動作の仕組みを理解していれば、変更してもかまいません。
 
-<!--
+## WebJars
+
+[WebJars](http://www.webjars.org/) provide a convenient and conventional packaging mechanism that is a part of Activator and sbt. For example you can declare that you will be using the popular [Bootstrap library](http://getbootstrap.com/) simply by adding the following dependency in your build file:
+
+```scala
+libraryDependencies += "org.webjars" % "bootstrap" % "3.0.0"
+```
+
+WebJars are automatically extracted into a `lib` folder relative to your public assets for convenience. For example if you declared a dependency on [RequireJs](http://requirejs.org/) then you can reference it from a view using a line like:
+
+```html
+<script data-main="@routes.Assets.at("javascripts/main.js")" type="text/javascript" src="@routes.Assets.at("lib/requirejs/require.js")"></script>
+```
+
+Note the `lib/requirejs/require.js` path. The `lib` folder denotes the extract WebJar assets, the `requirejs` folder corresponds to the WebJar artifactId, and the `require.js` refers to the required asset at the root of the WebJar.
+
 ## How are public assets packaged?
--->
-## どのように public アセットは公開されますか?
 
-<!--
-During the build process, the contents of the `public` folder are processed and added to the application classpath. When you package your application, these files are packaged into the application JAR file (under the `public/` path).
--->
-ビルドプロセス中に、`public` フォルダの内容が処理され、アプリケーションのクラスパスに追加します。アプリケーションをパッケージ化するときに、(`public/` パス下にある) これらのファイルはアプリケーションのJARファイルにパッケージ化されます。
+During the build process, the contents of the `public` folder are processed and added to the application classpath.
 
-<!--
+When you package your application, all assets for the application, including all sub projects, are aggregated into a single jar, in `target/my-first-app-1.0.0-assets.jar`.  This jar is included in the distribution so that your Play application can serve them.  This jar can also be used to deploy the assets to a CDN or reverse proxy.
+
 ## The Assets controller
--->
-## アセットコントローラ
 
-<!--
-Play comes with a built-in controller to serve public assets. By default, this controller provides caching, ETag, gzip compression and JavaScript minification support.
--->
-Play には、公開アセットを提供する組み込みのコントローラが付属しています。デフォルトでは、このコントローラは、キャッシュ機能、ETag、gzip圧縮、JavaScript minify のサポートが提供されます。
+Play comes with a built-in controller to serve public assets. By default, this controller provides caching, ETag, gzip and compression support.
 
-<!--
-The controller is available in the default Play JAR as `controllers.Assets`, and defines a single `at` action with two parameters:
--->
-コントローラは `controllers.Assets` などのデフォルトの Play JAR で利用可能であり、2 つのパラメータを持つ `at` アクションで定義します。
+The controller is available in the default Play JAR as `controllers.Assets` and defines a single `at` action with two parameters:
 
 ```
 Assets.at(path: String, file: String)
 ```
 
-<!--
 The `path` parameter must be fixed and defines the directory managed by the action. The `file` parameter is usually dynamically extracted from the request path.
--->
-`path` のパラメータは固定されており、アクションによって管理されるディレクトリを定義する必要があります。 `file` パラメータは、通常、動的にリクエストパスから抽出されます。
 
-<!--
 Here is the typical mapping of the `Assets` controller in your `conf/routes` file:
--->
-`conf/routes` での `Assets` コントローラの典型的な設定を以下でお見せします:
 
 ```
 GET  /assets/*file        controllers.Assets.at(path="/public", file)
 ```
 
-<!--
 Note that we define the `*file` dynamic part that will match the `.*` regular expression. So for example, if you send this request to the server:
--->
-正規表現 `.*` にマッチする動的な部分 `*file` を定義したことに注意してください。このため、例えば次のようなリクエストをサーバに送信した場合:
 
 ```
 GET /assets/javascripts/jquery.js
 ```
 
-<!--
 The router will invoke the `Assets.at` action with the following parameters:
--->
-ルータは次のパラメータを使用して `Assets.at` アクションを起動します:
 
 ```
 controllers.Assets.at("/public", "javascripts/jquery.js")
 ```
 
-<!--
-This action will look-up the file and serve it, if it exists.
--->
-このアクションは、ファイルを探し、存在する場合は提供します。
+This action will look-up and serve the file and if it exists.
 
-<!--
-Note, if you define asset mappings outside "public," you'll need to tell
-sbt about it, e.g. if you want:
--->
-"public" の外部にリソース設定を定義したい場合、そのことを sbt に教えなければならないことに注意してください。例えば以下のように定義したい場合:
 
-```
-GET  /assets/*file               controllers.Assets.at(path="/public", file)
-GET  /liabilities/*file          controllers.Assets.at(path="/foo", file)
-```
-
-<!--
-you should add this to the project settings in `project/Build.scala`:
--->
-`project/Build.scala` にあるプロジェクト設定に以下を追加して下さい。
-
-```
-// Add your own project settings here
-playAssetsDirectories <+= baseDirectory / "foo"
-```
-
-<!--
 ## Reverse routing for public assets
--->
-## 公開リソースのリバースルーティング
 
-<!--
 As for any controller mapped in the routes file, a reverse controller is created in `controllers.routes.Assets`. You use this to reverse the URL needed to fetch a public resource. For example, from a template:
--->
-routes ファイルにマッピングされた任意のコントローラと同様に、リバースコントローラが `controllers.routes.Assets` に作成されます。公開リソースを取得するために必要な URL をリバースする際に使用します。テンプレートでの例は以下のようになります:
 
 ```html
 <script src="@routes.Assets.at("javascripts/jquery.js")"></script>
 ```
 
-<!--
 This will produce the following result:
--->
-以下の結果を生成します。
 
 ```html
 <script src="/assets/javascripts/jquery.js"></script>
 ```
 
-<!--
-Note that we don’t specify the first `folder` parameter when we reverse the route. This is because our routes file defines a single mapping for the `Assets.at` action, where the `folder` parameter is fixed. So it doesn’t need to be specified explicitly.
--->
-リバースルートするときに、 `folder` パラメータを指定しないことに注意してください。これはルートファイルが `folder` のパラメータが固定されている `Assets.at` アクションに対して1つのマッピングを定義しているためです。そのため、明示的に指定する必要はありません。
+Note that we don’t specify the first `folder` parameter when we reverse the route. This is because our routes file defines a single mapping for the `Assets.at` action, where the `folder` parameter is fixed. So it doesn’t need to be specified.
 
-<!--
 However, if you define two mappings for the `Assets.at` action, like this:
--->
-しかしながら、 `Assets.at` アクションに2つのマッピングを定義している場合、このようにしてください:
 
 ```
 GET  /javascripts/*file        controllers.Assets.at(path="/public/javascripts", file)
 GET  /images/*file             controllers.Assets.at(path="/public/images", file)
 ```
 
-<!--
-Then you will need to specify both parameters when using the reverse router:
--->
-リバースルータを使用する場合は、両方のパラメータを指定する必要があります。
+You will then need to specify both parameters when using the reverse router:
 
 ```html
 <script src="@routes.Assets.at("/public/javascripts", "jquery.js")"></script>
 <image src="@routes.Assets.at("/public/images", "logo.png")">
 ```
 
-<!--
+## Reverse routing and fingerprinting for public assets
+
+sbt-web brings the notion of a highly configurable asset pipeline to Play e.g. in your build file:
+
+```scala
+pipelineStages := Seq(rjs, digest, gzip)
+```
+
+The above will order the RequireJs optimizer (`sbt-rjs`), the digester (`sbt-digest`) and then compression (`sbt-gzip`). Unlike many sbt tasks, these tasks will execute in the order declared, one after the other.
+
+In essence asset fingerprinting permits your static assets to be served with aggressive caching instructions to a browser. This will result in an improved experience for your users given that subsequent visits to your site will result in less assets requiring to be downloaded. Rails also describes the benefits of [asset fingerprinting](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care-questionmark). 
+
+The above declaration of `pipelineStages` and the requisite `addSbtPlugin` declarations in your `plugins.sbt` for the plugins you require are your start point. You must then declare to Play what assets are to be versioned. The following routes file entry declares that all assets are to be versioned:
+
+```scala
+GET    /assets/*file    controllers.Assets.versioned(path="/public", file: Asset)
+```
+
+You then use the reverse router, for example within a `scala.html` view:
+
+```html
+<link rel="stylesheet" href="@routes.Assets.versioned("assets/css/app.css")">
+```
+
+We highly encourage the use of asset fingerprinting.
+
 ## Etag support
--->
-## Etag サポート
 
-<!--
-The `Assets` controller automatically manages **ETag** HTTP Headers. The ETag value is generated from the resource name and the file’s last modification date. (If the resource file is embedded into a file, the JAR file’s last modification date is used.)
--->
-`Assets` コントローラーは自動的に **ETag** の HTTP ヘッダーを管理します。ETag の値は、リソース名とファイルの最終更新日時から生成されます。(リソースファイルがファイル内に埋め込まれているならば、JAR ファイルの最終更新日が使われます。)
+The `Assets` controller automatically manages **ETag** HTTP Headers. The ETag value is generated from the digest (if `sbt-digest` is being used in the asset pipeline) or otherwise the resource name and the file’s last modification date. If the resource file is embedded into a file, the JAR file’s last modification date is used.
 
-<!--
-When a web browser makes a request specifying this **Etag**, the server can respond with **304 NotModified**.
--->
-Web ブラウザがこの　**ETag** を指定してリクエストを行うと、サーバは **304 NotModified** で応答することができます。
+When a web browser makes a request specifying this **Etag** then the server can respond with **304 NotModified**.
 
-<!--
 ## Gzip support
--->
-## Gzip サポート
 
-<!--
-But if a resource with the same name but using a `.gz` suffix is found, the `Assets` controller will serve this one by adding the proper HTTP header:
--->
-しかし同じ名前を持つリソースで `.gz` という拡張子を使っているものが見つかった場合、 `Assets` のコントローラは、適切な HTTP ヘッダを追加することによって提供します。
+If a resource with the same name but using a `.gz` suffix is found then the `Assets` controller will also serve the latter and add the following HTTP header:
 
 ```
 Content-Encoding: gzip
 ```
 
-<!--
-## Additional `Cache-Control` directive
--->
-## `Cache-Control` 命令の追加
+Including the `sbt-gzip` plugin in your build and declaring its position in the `pipelineStages` is all that is required to generate gzip files.
 
-<!--
-Usually, using Etag is enough to have proper caching. However if you want to specify a custom `Cache-Control` header for a particular resource, you can specify it in your `application.conf` file. For example:
--->
-通常、ETag を使用すると、適切なキャッシュを持つことができます。特定のリソース用のカスタム `Cache-Control` ヘッダを指定したい場合は、あなたの `application.conf` ファイルに指定することができます。例えば:
+## Additional `Cache-Control` directive
+
+Using Etag is usually enough for the purposes of caching. However if you want to specify a custom `Cache-Control` header for a particular resource, you can specify it in your `application.conf` file. For example:
 
 ```
 # Assets configuration
@@ -216,23 +155,16 @@ Usually, using Etag is enough to have proper caching. However if you want to spe
 "assets.cache./public/stylesheets/bootstrap.min.css"="max-age=3600"
 ```
 
-<!--
 ## Managed assets
--->
-## 管理アセット
 
-<!--
-By default play compiles all managed assets that are kept in the ```app/assets``` folder. The compilation process will clean and recompile all managed assets regardless of the change. This is the safest strategy since tracking dependencies can be very tricky with front end technologies. 
--->
-play は、デフォルトでは ```app/assets``` フォルダに保存された全てのアセットをコンパイルします。このコンパイルプロセスは、すべての管理アセットを、その変更に関わらず、クリーンして再コンパイルします。フロントエンド技術に掛かる依存性の追跡はとても厄介なので、これがもっとも安全な戦略です。
+Starting with Play 2.3 managed assets are processed by [sbt-web](https://github.com/sbt/sbt-web#sbt-web) based plugins. Prior to 2.3 Play bundled managed asset processing in the form of CoffeeScript, LESS, JavaScript linting (ClosureCompiler) and RequireJS optimization. The following sections describe sbt-web and how the equivalent 2.2 functionality can be achieved. Note though that Play is not limited to this asset processing technology as many plugins should become available to sbt-web over time. Please check-in with the [sbt-web](https://github.com/sbt/sbt-web#sbt-web) project to learn more about what plugins are available.
 
-<!--
-You will learn more about managed assets on the next few pages.
--->
-続く数ページで管理アセットについて更に学びます。
+Many plugins use sbt-web's [js-engine plugin](https://github.com/sbt/sbt-js-engine). js-engine is able to execute plugins written to the Node API either within the JVM via the excellent [Trireme](https://github.com/apigee/trireme#trireme) project, or directly on [Node.js](http://nodejs.org/) for superior performance. Note that these tools are used during the development cycle only and have no involvement during the runtime execution of your Play application. If you have Node.js installed then you are encouraged to declare the following environment variable. For Unix, if `SBT_OPTS` has been defined elsewhere then you can:
 
+```bash
+export SBT_OPTS="$SBT_OPTS -Dsbt.jse.engineType=Node"
+```
 
-<!--
+The above declaration ensures that Node.js is used when executing any sbt-web plugin.
+
 > **Next:** [[Using CoffeeScript | AssetsCoffeeScript]]
--->
-> **次:** [[CoffeeScript を使う | AssetsCoffeeScript]]

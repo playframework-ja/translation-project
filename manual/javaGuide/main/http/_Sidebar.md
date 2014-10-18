@@ -1,29 +1,21 @@
-<!-- ### HTTP programming -->
-### HTTP プログラミング
+<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+### HTTP programming
 
-<!-- - [[Actions, Controllers and Results | JavaActions]]
+- [[Actions, Controllers and Results | JavaActions]]
 - [[HTTP routing | JavaRouting]]
 - [[Manipulating the HTTP response | JavaResponse]]
 - [[Session and Flash scopes | JavaSessionFlash]]
 - [[Body parsers | JavaBodyParsers]]
 - [[Actions composition | JavaActionsComposition]]
-- [[Content negotiation | JavaContentNegotiation]] -->
-- [[アクション、コントローラ、レスポンス | JavaActions]]
-- [[HTTP ルーティング | JavaRouting]]
-- [[HTTP レスポンスの操作 | JavaResponse]]
-- [[セッションとフラッシュスコープ | JavaSessionFlash]]
-- [[ボディパーサー | JavaBodyParsers]]
-- [[アクションの合成 | JavaActionsComposition]]
-- [[コンテントネゴシエーション | JavaContentNegotiation]]
+- [[Content negotiation | JavaContentNegotiation]]
 
-<!-- ### Main concepts -->
-### 主要なコンセプト
+### Main concepts
 
-<!-- - [[HTTP programming | JavaActions]]
+- [[HTTP programming | JavaActions]]
 - [[Asynchronous HTTP programming | JavaAsync]]
 - [[The template engine | JavaTemplates]]
 - [[HTTP form submission and validation | JavaForms]]
-- [[Working with JSON | JavaJsonRequests]]
+- [[Working with JSON | JavaJsonActions]]
 - [[Working with XML | JavaXmlRequests]]
 - [[Handling file upload | JavaFileUpload]]
 - [[Accessing an SQL database | JavaDatabase]]
@@ -32,26 +24,5 @@
 - [[Integrating with Akka | JavaAkka]]
 - [[Internationalization | JavaI18N]]
 - [[The application Global object | JavaGlobal]]
-- [[Testing your application | JavaTest]] -->
-- [[HTTP プログラミング | JavaActions]]
-- [[非同期 HTTP プログラミング | JavaAsync]]
-- [[テンプレートエンジン | JavaTemplates]]
-- [[HTTP フォームの投稿とバリデーション | JavaForms]]
-- [[JSON を使う | JavaJsonRequests]]
-- [[XML を使う | JavaXmlRequests]]
-- [[ファイルアップロード処理 | JavaFileUpload]]
-- [[SQL データベースへのアクセス | JavaDatabase]]
-- [[キャッシュを使う | JavaCache]]
-- [[Web サービスの呼び出し | JavaWS]]
-- [[Akka の統合 | JavaAkka]]
-- [[国際化 | JavaI18N]]
-- [[アプリケーション Global オブジェクト | JavaGlobal]]
-- [[アプリケーションのテスト | JavaTest]]
-
-<!-- ### Tutorials -->
-### チュートリアル
-
-<!-- - [[Your first application | JavaTodoList]]
-- [[Zentask | JavaGuide1]] -->
-- [[はじめてのアプリケーション | JavaTodoList]]
-- [[Zentask | JavaGuide1]]
+- [[Testing your application | JavaTest]]
+- [[Logging|JavaLogging]]

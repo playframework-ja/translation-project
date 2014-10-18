@@ -1,73 +1,56 @@
-<!-- translated -->
-<!--
+<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 # Creating a new application
--->
-# 新規アプリケーションを作成する
 
-<!--
-## Create a new application with the play command
--->
-## play コマンドでアプリケーションを新規作成する
+## Create a new application with the activator command
 
-<!--
-The easiest way to create a new application is to use the `play new` command.
--->
-新規アプリケーションを作成する最も基本的な方法は、`play new` コマンドを利用することです。
+The `activator` command can be used to create a new Play application.  Activator allows you to select a template that your new application should be based off.  For vanilla Play projects, the names of these templates are `play-scala` for Scala based Play applications, and `play-java` for Java based Play applications.
+
+> Note that choosing a template for either Scala or Java at this point does not imply that you can’t change language later. For example, you can create a new application using the default Java application template and start adding Scala code whenever you like.
+
+To create a new vanilla Play Scala application, run:
 
 ```bash
-$ play new myFirstApp
+$ activator new my-first-app play-scala
 ```
-<!--
-This will ask for some information.
--->
-このコマンドを実行すると、次のような必要事項の入力が求められます。
 
-<!--
-- The application name (just for display, this name will be used later in several messages).
-- The template to use for this application. You can choose either a default Scala application or a default Java application.
--->
-- アプリケーション名 (アプリケーションのログなどで利用されます)
-- 利用するアプリケーションのひな形。Scala ベースまたは Java ベースのいずれかを選択できます。
-
-[[images/playNew.png]]
-
-<!--
-> Note that choosing a template at this point does not imply that you can’t change language later. For example, you can create a new application using the default Java application template and start adding Scala code whenever you like.
--->
-> ここでひな形を選択したからといって、後で言語を変更できなくなるわけではありません。例えば、最初に Java のテンプレートでアプリケーションを作成し、好きなときに Scala コードを追加することができます。
-
-<!--
-Once the application has been created you can use the `play` command again to enter the [[Play console | PlayConsole]].
--->
-アプリケーションが生成されたら、もう一度 `play` コマンドを実行して、[[Play コンソール | PlayConsole]] を起動しましょう。
+To create a new vanilla Play Java application, run:
 
 ```bash
-$ cd myFirstApp
-$ play
+$ activator new my-first-app play-java
 ```
 
-<!--
-## Create a new application without having Play installed
--->
-## Play をインストールせずに新規アプリケーションを作成する
+In either case, you can replace `my-first-app` with whatever name you want your application to use.  Activator will use this as the directory name to create the application in.  You can change this name later if you choose.
 
-<!--
-You can also create a new Play application without installing Play, by using sbt. 
--->
-sbt を使って、Play をインストールせずに新規 Play アプリケーションを作成することもできます。
+[[images/activatorNew.png]]
 
-<!-- > First install [sbt](http://www.scala-sbt.org/) if needed. -->
-> 必要に応じて [sbt](http://www.scala-sbt.org/) をインストールしておきましょう。
+Once the application has been created you can use the `activator` command again to enter the [[Play console|PlayConsole]].
 
-<!--
-Just create a new directory for your new application and configure your sbt build script with two additions.
--->
-まず、アプリケーションを保存するためのディレクトリをつくります。それから、sbt ビルドスクリプトを作成して、Play 向けの設定を 2 つ追加します。
+```bash
+$ cd my-first-app
+$ activator
+```
 
-<!--
+> If you wish to use other Activator templates, you can do this by running `activator new`.  This will prompt you for an application name, and then give you a chance to browse and select an appropriate template.
+
+## Create a new application with the Activator UI
+
+New Play applications can also be created with the Activator UI.  To use the Activator UI, run:
+
+```bash
+$ activator ui
+```
+
+You can read the documentation for using the Activator UI [here](https://typesafe.com/activator/docs).
+
+## Create a new application without Activator
+
+It is also possible to create a new Play application without installing Activator, using sbt directly.
+
+> First install [sbt](http://www.scala-sbt.org/) if needed.
+
+Create a new directory for your new application and configure your sbt build script with two additions.
+
 In `project/plugins.sbt`, add:
--->
-具体的には、`project/plugins.sbt` に次の内容を記述します。
 
 ```scala
 // The Typesafe repository 
@@ -77,43 +60,40 @@ resolvers += "Typesafe repository" at "http://repo.typesafe.com/typesafe/release
 addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "%PLAY_VERSION%")
 ```
 
-<!-- Be sure to replace %PLAY_VERSION% here with the exact version you want to use. If you want to use a snapshot version, you will have to specify this additional resolver:  -->
-使用したい正確なバージョンをこの %PLAY_VERSION% と置き換えてください。スナップショットバージョンを使用したい場合は、以下の追加のリゾルバを指定する必要があります。
+Be sure to replace `%PLAY_VERSION%` here by the exact version you want to use. If you want to use a snapshot version, you will have to specify this additional resolver: 
 
 ```
 // Typesafe snapshots
 resolvers += "Typesafe Snapshots" at "http://repo.typesafe.com/typesafe/snapshots/"
 ```
 
-<!-- In `build.sbt`: -->
-また、`build.sbt` に次の内容を記述します。
+In `build.sbt` for Java projects:
 
 ```scala
-import play.Project._
-
-name := "My first application"
+name := "my-first-app"
 
 version := "1.0"
 
-playScalaSettings
+lazy val root = (project in file(".")).enablePlugins(PlayJava)
 ```
 
-<!--
+...or Scala projects:
+
+```scala
+name := "my-first-app"
+
+version := "1.0.0-SNAPSHOT"
+
+lazy val root = (project in file(".")).enablePlugins(PlayScala)
+```
+
 You can then launch the sbt console in this directory:
--->
-以上の手順を終えると、このディレクトリで sbt コンソールを起動できるようになります。
 
 ```bash
-$ cd myFirstApp
+$ cd my-first-app
 $ sbt
 ```
 
-<!--
 sbt will load your project and fetch the dependencies.
--->
-sbt コンソールが起動すると、プロジェクトがロードされて、全ての依存モジュールがダウンロードされます。
 
-<!--
-> **Next:** [[Anatomy of a Play application | Anatomy]]
--->
-> **Next:** [[Play アプリケーションの構造 | Anatomy]]
+> **Next:** [[Anatomy of a Play application|Anatomy]]

@@ -1,15 +1,11 @@
-<!--
+<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 ### Testing your application
 
-- [[Writing tests | ScalaTest]]
-- [[Writing functional tests | ScalaFunctionalTest]]
--->
-### アプリケーションのテスト
+- [[Testing with ScalaTest | ScalaTestingWithScalaTest]]
+- [[Writing functional tests with ScalaTest | ScalaFunctionalTestingWithScalaTest]]
+- [[Testing with specs2 | ScalaTestingWithSpecs2]]
+- [[Writing functional tests with specs2 | ScalaFunctionalTestingWithSpecs2]]
 
-- [[テストを書く | ScalaTest]]
-- [[機能テストを書く | ScalaFunctionalTest]]
-
-<!--
 ### Main concepts
 
 - [[HTTP programming | ScalaActions]]
@@ -25,40 +21,13 @@
 - [[Integrating with Akka | ScalaAkka]]
 - [[Internationalization | ScalaI18N]]
 - [[The application Global object | ScalaGlobal]]
-- [[Testing your application | ScalaTest]]
--->
-### 主要なコンセプト
-
-- [[HTTP プログラミング | ScalaActions]]
-- [[非同期 HTTP プログラミング | ScalaAsync]]
-- [[テンプレート・エンジン | ScalaTemplates]]
-- [[HTTP フォーム送信とバリデーション | ScalaForms]]
-- [[JSON を使う | ScalaJson]]
-- [[XML を使う | ScalaXmlRequests]]
-- [[ファイルアップロード処理 | ScalaFileUpload]]
-- [[SQL データベースアクセス | ScalaDatabase]]
-- [[キャッシュを使う | ScalaCache]]
-- [[Web サービスの呼び出し | ScalaWS]]
-- [[Akka との統合 | ScalaAkka]]
-- [[国際化 | ScalaI18N]]
-- [[アプリケーション Global オブジェクト | ScalaGlobal]]
-- [[テストについて | ScalaTest]]
-
-<!--
+- [[Testing your application | ScalaTestingYourApplication]]
+- [[Logging|ScalaLogging]]
+    
 ### Advanced topics
 
 - [[Handling data streams reactively | Iteratees]]
--->
-### 上級編
-
-- [[反応的なストリーム処理 | Iteratees]]
-
-
-<!--
-### Tutorials
-
-- [[Your first application | ScalaTodoList]]
--->
-### チュートリアル
-
-- [[はじめてのアプリケーション | ScalaTodoList]]
+- [[HTTP API | HttpApi]]
+- [[HTTP Filters | ScalaHttpFilters]]
+- [[Dependency Injection | ScalaDependencyInjection]]
+- [[Extending Play|ScalaPlugins]]

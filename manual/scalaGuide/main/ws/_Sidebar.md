@@ -1,3 +1,4 @@
+<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 ### Calling WebServices
 
 - [[The Play WS API  | ScalaWS]]
@@ -19,12 +20,13 @@
 - [[Integrating with Akka | ScalaAkka]]
 - [[Internationalization | ScalaI18N]]
 - [[The application Global object | ScalaGlobal]]
-- [[Testing your application | ScalaTest]]
+- [[Testing your application | ScalaTestingYourApplication]]
+- [[Logging|ScalaLogging]]
     
 ### Advanced topics
 
 - [[Handling data streams reactively | Iteratees]]
-
-### Tutorials
-
-- [[Your first application | ScalaTodoList]]
+- [[HTTP API | HttpApi]]
+- [[HTTP Filters | ScalaHttpFilters]]
+- [[Dependency Injection | ScalaDependencyInjection]]
+- [[Extending Play|ScalaPlugins]]

@@ -1,26 +1,13 @@
-<!-- translated -->
-<!--
+<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 ### Asynchronous HTTP
--->
-### [[非同期 HTTP プログラミング | ScalaAsync]]
 
-<!--
 - [[Asynchronous results | ScalaAsync]]
 - [[Streaming HTTP responses | ScalaStream]]
 - [[Comet sockets | ScalaComet]]
 - [[WebSockets | ScalaWebSockets]]
--->
-- [[非同期レスポンスの処理 | ScalaAsync]]
-- [[HTTP レスポンスのストリーミング | ScalaStream]]
-- [[Comet | ScalaComet]]
-- [[WebSocket | ScalaWebSockets]]
 
-<!--
 ### Main concepts
--->
-### 主要なコンセプト
 
-<!--
 - [[HTTP programming | ScalaActions]]
 - [[Asynchronous HTTP programming | ScalaAsync]]
 - [[The template engine | ScalaTemplates]]
@@ -34,39 +21,13 @@
 - [[Integrating with Akka | ScalaAkka]]
 - [[Internationalization | ScalaI18N]]
 - [[The application Global object | ScalaGlobal]]
-- [[Testing your application | ScalaTest]]
--->
-- [[HTTP プログラミング | ScalaActions]]
-- [[非同期 HTTP プログラミング | ScalaAsync]]
-- [[テンプレート・エンジン | ScalaTemplates]]
-- [[HTTP フォーム送信とバリデーション | ScalaForms]]
-- [[JSON を使う | ScalaJson]]
-- [[XML を使う | ScalaXmlRequests]]
-- [[ファイルアップロード処理 | ScalaFileUpload]]
-- [[SQL データベースアクセス | ScalaDatabase]]
-- [[キャッシュを使う | ScalaCache]]
-- [[Web サービスの呼び出し | ScalaWS]]
-- [[Akka との統合 | ScalaAkka]]
-- [[国際化 | ScalaI18N]]
-- [[アプリケーション Global オブジェクト | ScalaGlobal]]
-- [[テストについて | ScalaTest]]
+- [[Testing your application | ScalaTestingYourApplication]]
+- [[Logging|ScalaLogging]]
     
-<!--
 ### Advanced topics
--->
-### 上級編
 
-<!--
 - [[Handling data streams reactively | Iteratees]]
--->
-- [[反応的なストリーム処理 | Iteratees]]
-
-<!--
-### Tutorials
--->
-### チュートリアル
-
-<!--
-- [[Your first application | ScalaTodoList]]
--->
-- [[はじめてのアプリケーション | ScalaTodoList]]
+- [[HTTP API | HttpApi]]
+- [[HTTP Filters | ScalaHttpFilters]]
+- [[Dependency Injection | ScalaDependencyInjection]]
+- [[Extending Play|ScalaPlugins]]
