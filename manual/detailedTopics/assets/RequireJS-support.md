@@ -1,7 +1,10 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 # RequireJS
 
+<!--
 According to [RequireJS](http://requirejs.org/)' website 
+-->
+[RequireJS](http://requirejs.org/) のウェブサイトによると、
 
 > RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments... Using a modular script loader like RequireJS will improve the speed and quality of your code.
 

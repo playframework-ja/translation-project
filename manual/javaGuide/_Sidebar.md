@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | JavaActions]]
 - [[Asynchronous HTTP programming | JavaAsync]]
@@ -17,6 +20,12 @@
 - [[Testing your application | JavaTest]]
 - [[Logging|JavaLogging]]
 
+<!--
 ### Advanced Topics
+-->
+### 上級編
 
+<!--
 - [[Extending Play|JavaPlugins]]
+-->
+- [[Play を拡張する|JavaPlugins]]

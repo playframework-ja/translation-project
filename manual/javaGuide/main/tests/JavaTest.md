@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Testing your application
+-->
+# アプリケーションのテスト
 
 Writing tests for your application can be an involved process. Play supports JUnit and provides helpers and application stubs to make testing your application as easy as possible.
 
@@ -17,9 +20,15 @@ You can run tests from the Activator console.
 
 Testing in Play is based on [sbt](http://www.scala-sbt.org/), and a full description is available in the [testing documentation](http://www.scala-sbt.org/release/docs/Detailed-Topics/Testing.html).
 
+<!--
 ## Using JUnit
+-->
+## JUnit を使う
 
+<!--
 The default way to test a Play application is with [JUnit](http://www.junit.org/).
+-->
+Play アプリケーションのテストは、デフォルトで [JUnit](http://www.junit.org/) を使います。
 
 @[test-simple](code/javaguide/tests/SimpleTest.java)
 
@@ -101,4 +110,7 @@ As a template is a standard Scala function, you can execute it from a test and c
 
 @[test-template](code/javaguide/tests/ApplicationTest.java)
 
+<!--
 > **Next:** [[Writing functional tests | JavaFunctionalTest]]
+-->
+> **次ページ:** [[機能テスト | JavaFunctionalTest]]

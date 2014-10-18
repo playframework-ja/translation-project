@@ -1,9 +1,15 @@
 <!--- Copyright (C) 2009-2014 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # OpenID Support in Play
+-->
+# Play の OpenID 対応
 
 OpenID is a protocol for users to access several services with a single account. As a web developer, you can use OpenID to offer users a way to log in using an account they already have, such as their [Google account](https://developers.google.com/accounts/docs/OpenID). In the enterprise, you may be able to use OpenID to connect to a company’s SSO server.
 
+<!--
 ## The OpenID flow in a nutshell
+-->
+## OpenID のフロー
 
 1. The user gives you his OpenID (a URL).
 2. Your server inspects the content behind the URL to produce a URL where you need to redirect the user.
@@ -24,7 +30,10 @@ libraryDependencies ++= Seq(
 
 ## OpenID in Play
 
+<!--
 The OpenID API has two important functions:
+-->
+OpenID API には特に重要な関数が二つあります。
 
 * `OpenID.redirectURL` calculates the URL where you should redirect the user. It involves fetching the user's OpenID page asynchronously, this is why it returns a `Promise<String>`. If the OpenID is invalid, the returned `Promise` will be a `Thrown`.
 * `OpenID.verifiedId` inspects the current request to establish the user information, including his verified OpenID. It will do a call to the OpenID server asynchronously to check the authenticity of the information, this is why it returns a `Promise<UserInfo>`. If the information is not correct or if the server check is false (for example if the redirect URL has been forged), the returned `Promise` will be a `Thrown`.
@@ -46,16 +55,25 @@ Java 8
 : @[ws-openid-controller](java8code/java8guide/ws/controllers/OpenIDController.java)
 
 
+<!--
 ## Extended Attributes
+-->
+## 拡張属性
 
 The OpenID of a user gives you his identity. The protocol also supports getting [extended attributes](http://openid.net/specs/openid-attribute-exchange-1_0.html) such as the e-mail address, the first name, or the last name.
 
 You may request *optional* attributes and/or *required* attributes from the OpenID server. Asking for required attributes means the user cannot login to your service if he doesn’t provides them.
 
+<!--
 Extended attributes are requested in the redirect URL:
+-->
+拡張属性はリダイレクト URL の中でリクエストされます。
 
 @[ws-openid-extended-attributes](code/javaguide/ws/controllers/OpenIDController.java)
 
+<!--
 Attributes will then be available in the `UserInfo` provided by the OpenID server.
+-->
+リクエストした属性は OpenID サーバから返却された `UserInfo` より取得することができます。
 
 > **Next:** [[Accessing resources protected by OAuth|JavaOAuth]]

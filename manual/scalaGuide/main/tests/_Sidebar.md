@@ -24,9 +24,12 @@
 - [[Testing your application | ScalaTestingYourApplication]]
 - [[Logging|ScalaLogging]]
     
+<!--
 ### Advanced topics
 
 - [[Handling data streams reactively | Iteratees]]
+-->
+### 上級編
 - [[HTTP API | HttpApi]]
 - [[HTTP Filters | ScalaHttpFilters]]
 - [[Dependency Injection | ScalaDependencyInjection]]

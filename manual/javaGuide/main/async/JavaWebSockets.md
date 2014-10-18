@@ -1,11 +1,17 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # WebSockets
+-->
+# WebSocket
 
 [WebSockets](http://en.wikipedia.org/wiki/WebSocket) are sockets that can be used from a web browser based on a protocol that allows two way full duplex communication.  The client can send messages and the server can receive messages at any time, as long as there is an active WebSocket connection between the server and the client.
 
 Modern HTML5 compliant web browsers natively support WebSockets via a JavaScript WebSocket API.  However WebSockets are not limited in just being used by WebBrowsers, there are many WebSocket client libraries available, allowing for example servers to talk to each other, and also native mobile apps to use WebSockets.  Using WebSockets in these contexts has the advantage of being able to reuse the existing TCP port that a Play server uses.
 
+<!--
 ## Handling WebSockets
+-->
+## WebSocket を使う
 
 Until now, we've been writing methods that return `Result` to handle standard HTTP requests.  WebSockets are quite different and can’t be handled via standard Play actions.
 
@@ -69,7 +75,10 @@ Java
 
 If you don't want to use actors to handle a WebSocket, you can also handle it using simple callbacks.
 
+<!--
 To handle a WebSocket your method must return a `WebSocket` instead of a `Result`:
+-->
+WebSocket を扱うためには、`Result` の代わりに `WebSocket` を返す必要があります。
 
 Java 8
 : @[websocket](java8code/java8guide/async/JavaWebSockets.java)
@@ -77,15 +86,30 @@ Java 8
 Java
 : @[websocket](code/javaguide/async/JavaWebSockets.java)
 
+<!--
 A WebSocket has access to the request headers (from the HTTP request that initiates the WebSocket connection) allowing you to retrieve standard headers and session data. But it doesn't have access to any request body, nor to the HTTP response.
+-->
+WebSocketは リクエストヘッダ (WebSocket 接続を初期化するための HTTP リクエストに付加されていたもの) を参照することができるため、標準的なヘッダの内容やセッションデータを受け取ることができます。しかし、リクエストボディや HTTP レスポンスへは一切アクセスできません。
 
+<!--
 When the `WebSocket` is ready, you get both `in` and `out` channels.
+-->
+`WebSocket` の準備が終わると、`in` と `out` という二つのチャンネルが得られます。
 
+<!--
 It this example, we print each message to console and we send a single **Hello!** message.
+-->
+この例では、受け取ったメッセージをコンソールへ出力しつつ、単一の **Hello!** というメッセージを送信しています。
 
+<!--
 > **Tip:** You can test your WebSocket controller on <http://websocket.org/echo.html>. Just set the location to `ws://localhost:9000`.
+-->
+> **Tip:** WebSocket コントローラは <http://websocket.org/echo.html> でテストすることができます。テストを行うためには、location として `ws://localhost:9000` を指定してください。
 
+<!--
 Let’s write another example that totally discards the input data and closes the socket just after sending the **Hello!** message:
+-->
+次は、入力データを全て捨てつつ、**Hello!** メッセージを送信した後すぐにソケットを閉じる例を書いてみましょう。
 
 Java 8
 : @[discard-input](java8code/java8guide/async/JavaWebSockets.java)
@@ -93,4 +117,7 @@ Java 8
 Java
 : @[discard-input](code/javaguide/async/JavaWebSockets.java)
 
+<!--
 > **Next:** [[The template engine | JavaTemplates]]
+-->
+> **次ページ:** [[テンプレートエンジン | JavaTemplates]]

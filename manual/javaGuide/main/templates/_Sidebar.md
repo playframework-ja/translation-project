@@ -1,11 +1,22 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 ### The template engine
+-->
+### テンプレートエンジン
 
+<!--
 - [[Templates syntax | JavaTemplates]]
 - [[Common use cases | JavaTemplateUseCases]]
 - [[Custom formats | JavaCustomTemplateFormat]]
+-->
+- [[テンプレートの文法 | JavaTemplates]]
+- [[よくある使い方 | JavaTemplateUseCases]]
+- [[カスタムフォーマット | JavaCustomTemplateFormat]]
 
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | JavaActions]]
 - [[Asynchronous HTTP programming | JavaAsync]]

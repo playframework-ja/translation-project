@@ -1,4 +1,7 @@
+<!--
 # The Play WS API
+-->
+# Play WS API
 
 Sometimes we would like to call other HTTP services from within a Play application. Play supports this via its [WS library](api/java/play/libs/ws/package-summary.html), which provides a way to make asynchronous HTTP calls.
 

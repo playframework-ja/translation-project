@@ -1,13 +1,25 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Installing Play
+-->
+# Play のインストール
 
+<!--
 ## Prerequisites
+-->
+## 前提条件
 
+<!--
 To run the Play framework, you need [JDK 6 or later](http://www.oracle.com/technetwork/java/javase/downloads/index.html). 
+-->
+Play framework の実行には、[JDK 6以降](http://www.oracle.com/technetwork/java/javase/downloads/index.html) が必要です。
 
 > If you are using MacOS, Java is built-in. If you are using Linux, make sure to use either the Sun JDK or OpenJDK (and not gcj, which is the default Java command on many Linux distros). If you are using Windows, just download and install the latest JDK package.
 
+<!--
 Be sure to have the `java` and `javac` commands in the current path (you can check this by typing `java -version` and `javac -version` at the shell prompt). 
+-->
+カレントパスで `java` と `javac` コマンドが利用できることを確認してください。(これはプロンプトで `java -version` と `javac -version` と入力することでチェックできます。)
 
 ## Install Activator
 
@@ -42,10 +54,16 @@ From a shell, launch the `activator -help` command.
 $ activator -help
 ```
 
+<!--
 If everything is properly installed, you should see the basic help:
+-->
+インストールが正しく行えていれば、ヘルプが表示されるはずです。
 
 [[images/activator.png]]
 
 You are now ready to create a new Play application.
 
+<!--
 > **Next:** [[Creating a new application | NewApplication]]
+-->
+> **Next:** [[新規アプリケーションを作成する | NewApplication]]

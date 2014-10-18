@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2014 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Handling asynchronous results
+-->
+# 非同期レスポンスの処理
 
 ## Make controllers asynchronous
 
@@ -17,9 +20,15 @@ A `Promise<Result>` will eventually be redeemed with a value of type `Result`. B
 
 The web client will be blocked while waiting for the response, but nothing will be blocked on the server, and server resources can be used to serve other clients.
 
+<!--
 ## How to create a `Promise<Result>`
+-->
+## `Promise<Result>` の生成
 
+<!--
 To create a `Promise<Result>` we need another promise first: the promise that will give us the actual value we need to compute the result:
+-->
+`Promise<Result>` を生成するためには、元となる `Promise`、つまり結果を計算するために必要な値についての Promise が先に必要になります。
 
 Java
 : @[promise-pi](code/javaguide/async/JavaAsync.java)
@@ -28,9 +37,15 @@ Java
 Java 8
 : @[promise-pi](java8code/java8guide/async/JavaAsync.java)
 
+<!--
 Play asynchronous API methods give you a `Promise`. This is the case when you are calling an external web service using the `play.libs.WS` API, or if you are using Akka to schedule asynchronous tasks or to communicate with Actors using `play.libs.Akka`.
+-->
+Play の非同期処理に関する API 呼び出しは `Promise` を返します。例えば、`play.libs.WS` API を使って外部の Web サービスを呼び出す場合や、`play.libs.Akka` API 経由で Akka を使った非同期タスクを実行したり、アクターと通信したりする場合がそうです。
 
+<!--
 A simple way to execute a block of code asynchronously and to get a `Promise` is to use the `promise()` helper:
+-->
+コードブロックを非同期で実行して `Promise` を得る簡単な方法は、`promise()` ヘルパーを利用することです。
 
 Java
 : @[promise-async](code/javaguide/async/JavaAsync.java)
@@ -62,4 +77,7 @@ Play [[actions|JavaActions]] are asynchronous by default. For instance, in the c
 
 > **Note:** Whether the action code returns a `Result` or a `Promise<Result>`, both kinds of returned object are handled internally in the same way. There is a single kind of `Action`, which is asynchronous, and not two kinds (a synchronous one and an asynchronous one). Returning a `Promise` is a technique for writing non-blocking code.
 
+<!--
 > **Next:** [[Streaming HTTP responses | JavaStream]]
+-->
+> **次ページ:** [[HTTP レスポンスのストリーミング | JavaStream]]

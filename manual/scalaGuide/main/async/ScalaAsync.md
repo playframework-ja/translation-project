@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2014 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Handling asynchronous results
+-->
+# 非同期レスポンスの処理
 
 ## Make controllers asynchronous
 
@@ -15,17 +18,32 @@ Because of the way Play works, action code must be as fast as possible, i.e., no
 
 A `Future[Result]` will eventually be redeemed with a value of type `Result`. By giving a `Future[Result]` instead of a normal `Result`, we are able to quickly generate the result without blocking. Play will then serve the result as soon as the promise is redeemed.
 
+<!--
 The web client will be blocked while waiting for the response, but nothing will be blocked on the server, and server resources can be used to serve other clients.
+-->
+web クライアントはレスポンスを待っている間ずっとブロックされますが、その間でもサーバ側の処理は全くブロックされないため、計算リソースを他のクライアントのために使うことができます。
 
+<!--
 ## How to create a `Future[Result]`
+-->
+## `Future[Result]` の生成
 
+<!--
 To create a `Future[Result]` we need another future first: the future that will give us the actual value we need to compute the result:
+-->
+`Future[Result]` を生成するためには、元となる Future 、つまり結果を計算するために必要な値についての Future が先に必要になります。
 
 @[future-result](code/ScalaAsync.scala)
 
+<!--
 All of Play’s asynchronous API calls give you a `Future`. This is the case whether you are calling an external web service using the `play.api.libs.WS` API, or using Akka to schedule asynchronous tasks or to communicate with actors using `play.api.libs.Akka`.
+-->
+Play の全ての非同期処理に関する API 呼び出しは `Future` を返します。例えば、`play.api.libs.WS` API を使って外部の Web サービスを呼び出す場合や、`play.api.libs.Akka` API 経由で Akka を使った非同期タスクを実行したり、アクターと通信したりする場合がそうです。
 
+<!--
 Here is a simple way to execute a block of code asynchronously and to get a `Future`:
+-->
+以下はコードブロックを非同期で実行して `Future` を得る簡単な方法です。
 
 @[intensive-computation](code/ScalaAsync.scala)
 
@@ -35,7 +53,10 @@ Here is a simple way to execute a block of code asynchronously and to get a `Fut
 >
 > It can also be helpful to use Actors for blocking operations. Actors provide a clean model for handling timeouts and failures, setting up blocking execution contexts, and managing any state that may be associated with the service. Also Actors provide patterns like `ScatterGatherFirstCompletedRouter` to address simultaneous cache and database requests and allow remote execution on a cluster of backend servers. But an Actor may be overkill depending on what you need.
 
+<!--
 ## Returning futures
+-->
+## Future を返す
 
 While we were using the `Action.apply` builder method to build actions until now, to send an asynchronous result we need to use the `Action.async` builder method:
 
@@ -49,10 +70,19 @@ Play [[actions|ScalaActions]] are asynchronous by default. For instance, in the 
 
 > **Note:** Both `Action.apply` and `Action.async` create `Action` objects that are handled internally in the same way. There is a single kind of `Action`, which is asynchronous, and not two kinds (a synchronous one and an asynchronous one). The `.async` builder is just a facility to simplify creating actions based on APIs that return a `Future`, which makes it easier to write non-blocking code.
 
+<!--
 ## Handling time-outs
+-->
+## タイムアウト処理
 
+<!--
 It is often useful to handle time-outs properly, to avoid having the web browser block and wait if something goes wrong. You can easily compose a promise with a promise timeout to handle these cases:
+-->
+何らかの問題が発生したとき web ブラウザが延々とブロックしてしまうことを避けるために、タイムアウトが役立つことが多々あります。そのような場合、 Promise と Promise のタイムアウトを簡単に組み合わせることができます。
 
 @[timeout](code/ScalaAsync.scala)
 
+<!--
 > **Next:** [[Streaming HTTP responses | ScalaStream]]
+-->
+> **次ページ:** [[HTTP レスポンスのストリーミング | ScalaStream]]

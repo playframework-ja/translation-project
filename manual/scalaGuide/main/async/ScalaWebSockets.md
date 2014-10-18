@@ -1,13 +1,22 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # WebSockets
+-->
+# WebSocket
 
 [WebSockets](http://en.wikipedia.org/wiki/WebSocket) are sockets that can be used from a web browser based on a protocol that allows two way full duplex communication.  The client can send messages and the server can receive messages at any time, as long as there is an active WebSocket connection between the server and the client.
 
 Modern HTML5 compliant web browsers natively support WebSockets via a JavaScript WebSocket API.  However WebSockets are not limited in just being used by WebBrowsers, there are many WebSocket client libraries available, allowing for example servers to talk to each other, and also native mobile apps to use WebSockets.  Using WebSockets in these contexts has the advantage of being able to reuse the existing TCP port that a Play server uses.
 
+<!--
 ## Handling WebSockets
+-->
+## WebSocket を扱う
 
+<!--
 Until now, we were using `Action` instances to handle standard HTTP requests and send back standard HTTP responses. WebSockets are a totally different beast and can’t be handled via standard `Action`.
+-->
+これまでは、標準的な HTTP リクエストを処理し、標準的な HTTP レスポンスを送信するためには `Action` を使っていました。WebSocket はそれと全く異なるので、通常の `Action` では扱えません。
 
 Play provides two different built in mechanisms for handling WebSockets.  The first is using actors, the second is using iteratees.  Both of these mechanisms can be accessed using the builders provided on [WebSocket](api/scala/index.html#play.api.mvc.WebSocket$).
 
@@ -67,22 +76,40 @@ Now in our actor, we will receive messages of type `InEvent`, and we can send me
 
 While actors are a better abstraction for handling discreet messages, iteratees are often a better  abstraction for handling streams.
 
+<!--
 To handle a WebSocket request, use a `WebSocket` instead of an `Action`:
+-->
+WebSocket リクエストを処理するためには、`Action` の代わりに `WebSocket` を使います。
 
 @[iteratee1](code/ScalaWebSockets.scala)
 
+<!--
 A `WebSocket` has access to the request headers (from the HTTP request that initiates the WebSocket connection), allowing you to retrieve standard headers and session data. However, it doesn’t have access to a request body, nor to the HTTP response.
+-->
+`WebSocket` からはリクエストヘッダ (WebSocket 接続を開始するための HTTP リクエストからの。) を参照でき、標準的なヘッダやセッションデータを取得することが可能です。しかし、リクエストボディを参照したり、HTTP レスポンスを返すことはできません。
 
+<!--
 When constructing a `WebSocket` this way, we must return both `in` and `out` channels.
+-->
+`WebSocket` をこの方法で組み上げる場合、`in` と `out` の二つのチャンネルを返す必要があります。
 
 - The `in` channel is an `Iteratee[A,Unit]` (where `A` is the message type - here we are using `String`) that will be notified for each message, and will receive `EOF` when the socket is closed on the client side.
 - The `out` channel is an `Enumerator[A]` that will generate the messages to be sent to the Web client. It can close the connection on the server side by sending `EOF`.
 
+<!--
 It this example we are creating a simple iteratee that prints each message to console. To send messages, we create a simple dummy enumerator that will send a single **Hello!** message.
+-->
+この例では、受信した各メッセージを console に出力するだけのシンプルな Iteratee を作成しています。また、メッセージを送信するため、**Hello!** というメッセージを一回だけ送信する単純なダミーの Enumerator も作成しました。
 
+<!--
 > **Tip:** You can test WebSockets on <http://websocket.org/echo.html>. Just set the location to `ws://localhost:9000`.
+-->
+> **Tip:** WebSocket は <http://websocket.org/echo.html> でテストすることができます。location に `ws://localhost:9000` を設定してください。
 
+<!--
 Let’s write another example that discards the input data and closes the socket just after sending the **Hello!** message:
+-->
+次は、入力データを全て捨てつつ、**Hello!** メッセージを送信した後すぐにソケットを閉じる例を書いてみましょう。
 
 @[iteratee2](code/ScalaWebSockets.scala)
 
@@ -90,4 +117,7 @@ Here is another example in which the input data is logged to standard out and br
 
 @[iteratee3](code/ScalaWebSockets.scala)
 
+<!--
 > **Next:** [[The template engine | ScalaTemplates]]
+-->
+> **次ページ:** [[テンプレートエンジン | ScalaTemplates]]

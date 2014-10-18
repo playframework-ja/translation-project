@@ -1,11 +1,17 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 ### Calling WebServices
+-->
+### Web サービスの呼び出し
 
 - [[The Play WS API  | JavaWS]]
 - [[Connecting to OpenID services | JavaOpenID]]
 - [[Accessing resources protected by OAuth | JavaOAuth]]
 
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | JavaActions]]
 - [[Asynchronous HTTP programming | JavaAsync]]

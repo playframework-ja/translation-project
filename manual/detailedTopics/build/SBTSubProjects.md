@@ -1,13 +1,28 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Working with sub-projects
+-->
+# サブプロジェクト
 
+<!--
 A complex project is not necessarily composed of a single Play application. You may want to split a large project into several smaller applications, or even extract some logic into a standard Java or Scala library that has nothing to do with a Play application.
+-->
+複雑なプロジェクトを、一つの Play アプリケーションにまとめる必要はありません。大きなプロジェクトは、小さなアプリケーションに分割できます。また、アプリケーションから独立したロジックは Java や Scala ライブラリに切り出すのもよいでしょう。
 
+<!--
 It will be helpful to read the [SBT documentation on multi-project builds](http://www.scala-sbt.org/release/docs/Getting-Started/Multi-Project).  Sub-projects do not have their own build file, but share the parent project's build file.
+-->
+詳細については[「マルチプロジェクト・ビルドについての SBT ドキュメント」](http://scalajp.github.com/sbt-getting-started-guide-ja/multi-project/) [(原文)](http://www.scala-sbt.org/release/docs/Getting-Started/Multi-Project) を参照してください。また、サブプロジェクトを定義するにあたって最も基本的なこととして、サブプロジェクト用のビルドファイルというものはありません。親のビルドファイルにサブプロジェクトを定義します。
 
+<!--
 ## Adding a simple library sub-project
+-->
+## ライブラリをサブプロジェクトとして切り出す
 
+<!--
 You can make your application depend on a simple library project. Just add another sbt project definition in your `build.sbt` file:
+-->
+アプリケーションからシンプルな「ライブラリプロジェクト」を切り出すことができます。`build.sbt` に、次のような sbt のプロジェクト定義を追加してください。
 
 ```
 name := "my-first-application"
@@ -22,11 +37,17 @@ lazy val myFirstApplication = (project in file("."))
 lazy val myLibrary = project
 ```
 
+<!--
 The lowercased `project` on the last line is a Scala Macro which will use the name of the val it is being assigned to in order to determine the project's name and folder.
+-->
+最終行の小文字の `project` は、代入先の val の名前を使ってプロジェクトの名前とフォルダを決定する Scala マクロです。
 
 The `myFirstApplication` project declares the base project.  If you don't have any sub projects, this is already implied, however when declaring sub projects, it's usually required to declare it so that you can ensure that it aggregates (that is, runs things like compile/test etc on the sub projects when run in the base project) and depends on (that is, adds the sub projects to the main projects classpath) the sub projects.
 
+<!--
 The above example defines a sub-project in the application’s `myLibrary` folder. This sub-project is a standard sbt project, using the default layout:
+-->
+上記の例では `myLibrary` ディレクトリにサブプロジェクトを定義しました。サブプロジェクトは普通の sbt プロジェクトの一種であり、標準的なディレクトリ構成に従います。
 
 ```
 myProject
@@ -44,7 +65,10 @@ myProject
 
 `myLibrary` has its own `build.sbt` file, this is where it can declare its own settings, dependencies etc.
 
+<!--
 When you have a sub-project enabled in your build, you can focus on this project and compile, test or run it individually. Just use the `projects` command in the Play console prompt to display all projects:
+-->
+ビルド設定でサブプロジェクトを有効にした場合、それぞれのプロジェクトを個別にコンパイル、テスト、実行することができます。Play コンソールで `projects` コマンドを実行すると、全てのプロジェクトが表示されます。
 
 ```
 [my-first-application] $ projects
@@ -53,7 +77,10 @@ When you have a sub-project enabled in your build, you can focus on this project
 [info] 	   my-library
 ```
 
+<!--
 The default project is the one whose variable name comes first alphabetically.  You may make your main project by making its variable name aaaMain.  To change the current project use the `project` command:
+-->
+デフォルトのプロジェクトは変数名がアルファベット順で最初の物になります。メインプロジェクトを指定したい場合は変数名を aaaMain 等にする事で可能になります。現在のプロジェクトを切り替えるには、`project` コマンドを使ってください。
 
 ```
 [my-first-application] $ project my-library
@@ -61,7 +88,10 @@ The default project is the one whose variable name comes first alphabetically.  
 >
 ```
 
+<!--
 When you run your Play application in dev mode, the dependent projects are automatically recompiled, and if something cannot compile you will see the result in your browser:
+-->
+Play アプリケーションを開発モードで起動している場合、依存するサブプロジェクトも自動的に再コンパイルされます。サブプロジェクトのコンパイルエラーも、ブラウザ上で確認できます。
 
 [[subprojectError.png]]
 
@@ -93,13 +123,19 @@ Common.settings
 libraryDependencies += fooDependency
 ```
 
+<!--
 ## Splitting your web application into several parts
+-->
+## Webアプリケーションを複数のプロジェクトに分割する
 
 As a Play application is just a standard sbt project with a default configuration, it can depend on another Play application.  You can make any sub module a Play application by adding the `PlayJava` or `PlayScala` plugins, depending on whether your project is a Java or Scala project, in its corresponding `build.sbt` file.
 
 > **Note:** In order to avoid naming collision, make sure your controllers, including the Assets controller in your subprojects are using a different name space than the main project
 
+<!--
 ## Splitting the route file
+-->
+## ルートファイルを分割する
 
 It's also possible to split the route file into smaller pieces. This is a very handy feature if you want to create a robust, reusable multi-module play application
 
@@ -176,7 +212,10 @@ GET /assets/*file           controllers.admin.Assets.at(path="/public", file)
 
 > **Note:** To export compiled routes to other projects disable reverse ref routing generation using generateRefReverseRouter := false sbt settings. Since routes_reverseRouting depends on every controller disabling the ref routing generation will also improve the compilation speed.
 
+<!--
 ### Assets and controller classes should be all defined in the `controllers.admin` package
+-->
+### アセットとコントローラクラスは `controllers.admin` パッケージ以下に無ければなりません。
 
 `modules/admin/controllers/Assets.scala`:
 
@@ -199,7 +238,10 @@ public class Assets {
 }
 ```
 
+<!--
 and a controller:
+-->
+コントローラも同様です:
 
 `modules/admin/controllers/Application.scala`:
 
@@ -218,9 +260,15 @@ object Application extends Controller {
 }
 ```
 
+<!--
 ### Reverse routing in ```admin```
+-->
+### ```admin``` でのリバースルーティング
 
+<!--
 in case of a regular controller call:
+-->
+通常のコントローラの場合は以下のように呼び出します:
 
 
 ```
@@ -233,7 +281,10 @@ and for `Assets`:
 controllers.admin.routes.Assets.at("...")
 ```
 
+<!--
 ### Through the browser
+-->
+### ブラウザ経由の場合
 
 ```
 http://localhost:9000/index
@@ -245,7 +296,10 @@ triggers
 controllers.Application.index
 ```
 
+<!--
 and
+-->
+また
 
 ```
 http://localhost:9000/admin/index

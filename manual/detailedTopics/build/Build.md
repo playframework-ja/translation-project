@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # The Build System
+-->
+# ビルドシステム
 
 The Play build system uses [sbt](http://www.scala-sbt.org/), a high-performance integrated build for Scala and Java projects.  Using `sbt` as our build tool brings certain requirements to play which are explained on this page.
 
@@ -62,7 +65,10 @@ import com.typesafe.sbt.less.autoImport._
 import LessKeys._
 ```
 
+<!--
 ## The `/project` directory
+-->
+## `/project` ディレクトリ
 
 Everything related to building your project is kept in the `/project` directory underneath your application directory.  This is an [sbt](http://www.scala-sbt.org/) requirement. Inside that directory, there are two files:
 
@@ -78,9 +84,15 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % playVersion) // where version 
 ```
 > Note that `build.properties` and `plugins.sbt` must be manually updated when you are changing the play version.
 
+<!--
 ## Adding dependencies and resolvers
+-->
+## 依存性とリゾルバの追加
 
+<!--
 Adding dependencies is simple as the build file for the `zentasks` Java sample shows:
+-->
+Java サンプル `zentasks` のビルドファイルが示す通り、依存性の追加はシンプルです:
 
 ```scala
 name := "zentask"
@@ -92,11 +104,17 @@ libraryDependencies ++= Seq(javaJdbc, javaEbean)
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 ```
 
+<!--
 ...and so are resolvers for adding in additional repositories:
+-->
+...これは、リゾルバに対するリポジトリの追加も同様です:
 
 ```scala
 resolvers += "Repository name" at "http://url.to/repository" 
 ```
 
 
+<!--
 > **Next:** [[About SBT Settings | SBTSettings]]
+-->
+> **Next:** [[SBT セッティングについて | SBTSettings]]

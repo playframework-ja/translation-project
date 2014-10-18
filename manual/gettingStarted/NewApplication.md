@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Creating a new application
+-->
+# 新規アプリケーションを作成する
 
 ## Create a new application with the activator command
 
@@ -46,11 +49,17 @@ You can read the documentation for using the Activator UI [here](https://typesaf
 
 It is also possible to create a new Play application without installing Activator, using sbt directly.
 
+<!--
 > First install [sbt](http://www.scala-sbt.org/) if needed.
+-->
+> 必要に応じて [sbt](http://www.scala-sbt.org/) をインストールしておきましょう。
 
 Create a new directory for your new application and configure your sbt build script with two additions.
 
+<!--
 In `project/plugins.sbt`, add:
+-->
+具体的には、`project/plugins.sbt` に次の内容を記述します。
 
 ```scala
 // The Typesafe repository 
@@ -87,13 +96,19 @@ version := "1.0.0-SNAPSHOT"
 lazy val root = (project in file(".")).enablePlugins(PlayScala)
 ```
 
+<!--
 You can then launch the sbt console in this directory:
+-->
+以上の手順を終えると、このディレクトリで sbt コンソールを起動できるようになります。
 
 ```bash
 $ cd my-first-app
 $ sbt
 ```
 
+<!--
 sbt will load your project and fetch the dependencies.
+-->
+sbt コンソールが起動すると、プロジェクトがロードされて、全ての依存モジュールがダウンロードされます。
 
 > **Next:** [[Anatomy of a Play application|Anatomy]]

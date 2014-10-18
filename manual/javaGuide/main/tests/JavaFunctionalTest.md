@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Writing functional tests
+-->
+# 機能テストを書く
 
 Play provides a number of classes and convenience methods that assist with functional testing. Most of these can be found either in the [`play.test`](api/java/play/test/package-summary.html) package or in the [`Helpers`](api/java/play/test/Helpers.html) class.
 
@@ -34,7 +37,10 @@ You can also extend `WithApplication`, this will automatically ensure that a fak
 
 ## Testing with a server
 
+<!--
 Sometimes you want to test the real HTTP stack from with your test. You can do this by starting a test server:
+-->
+実際の HTTP スタックを通したテストを記述したい場合もあります。その場合は、次のようにテストサーバを起動することができます。
 
 Java
 : @[test-server](code/javaguide/tests/FunctionalTest.java)
@@ -52,9 +58,15 @@ Java
 Java 8
 : @[with-browser](java8code/java8guide/tests/FunctionalTest.java)
 
+<!--
 ## Testing the router
+-->
+## ルータのテスト
 
+<!--
 Instead of calling the `Action` yourself, you can let the `Router` do it:
+-->
+`Action` を自分で呼び出す代わりに、 `Router` に任せることもできます。
 
 @[bad-route](code/javaguide/tests/FunctionalTest.java)
 

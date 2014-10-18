@@ -6,7 +6,10 @@
 - [[JSON Transformers | ScalaJsonTransformers]]
 - [[JSON Macro Inception | ScalaJsonInception]]
 
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | ScalaActions]]
 - [[Asynchronous HTTP programming | ScalaAsync]]
@@ -24,9 +27,15 @@
 - [[Testing your application | ScalaTestingYourApplication]]
 - [[Logging|ScalaLogging]]
         
+<!--
 ### Advanced topics
+-->
+### 上級編
 
+<!--
 - [[Handling data streams reactively | Iteratees]]
+-->
+- [[反応的なストリーム処理 | Iteratees]]
 - [[HTTP API | HttpApi]]
 - [[HTTP Filters | ScalaHttpFilters]]
 - [[Dependency Injection | ScalaDependencyInjection]]

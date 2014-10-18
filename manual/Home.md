@@ -1,15 +1,23 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
 # Play %PLAY_VERSION% documentation
 
+<!--
 > Play is a high-productivity Java and Scala web application framework that integrates the components and APIs you need for modern web application development. 
 >
 > Play is based on a lightweight, stateless, web-friendly architecture and features predictable and minimal resource consumption (CPU, memory, threads) for highly-scalable applications thanks to its reactive model, based on Iteratee IO.
+-->
+>Play は、現代の web アプリケーション開発に必要なコンポーネント及び API を統合した生産性の高い Java と Scala の web アプリケーションフレームワークです。
+>
+> Play の特徴は、ライトウェイト、ステートレス、web フレンドリーなアーキテクチャであること、機能予測のしやすさです。また、Iteratee IO をベースにしたリアクティブモデルのおかげで、スケーラブルなアプリケーションでも CPU、メモリ、スレッドなどのリソース消費が最小限になっています。
 
 - [[What's new in Play 2.3?|Highlights23]] / [[Play 2.3 Migration Guide|Migration23]]
 - [[What's new in Play 2.2?|Highlights22]] / [[Play 2.2 Migration Guide|Migration22]]
 - [[What's new in Play 2.1?|Highlights21]] / [[Play 2.1 Migration Guide|Migration21]]
 
+<!--
 ## Getting started
+-->
+## はじめに
 
 1. [[Installing Play|Installing]]
 1. [[Creating a new application|NewApplication]]
@@ -19,12 +27,22 @@
 1. [[Play Tutorials|Tutorials]]
 1. [Security policy](http://www.playframework.com/code/security)
 
+<!--
 ## Working with Play
+-->
+## Play で開発する
 
+<!--
 1. [[Play for Scala developers|ScalaHome]]
 1. [[Play for Java developers|JavaHome]]
+-->
+1. [[Scala 開発者のための Play|ScalaHome]]
+1. [[Java 開発者のための Play|JavaHome]]
 
+<!--
 ## Detailed topics
+-->
+## 詳細なトピック
 
 1. [[The Build system|Build]]
     1. [[About sbt settings|SBTSettings]]
@@ -52,7 +70,10 @@
     1. [[Configuring HTTPS|ConfiguringHttps]]
     1. [[Deploying to a cloud service|DeployingCloud]]
 
+<!--
 ## Additional documentation
+-->
+## その他のドキュメント
 
 1. [Scala](http://docs.scala-lang.org/)
 1. [Akka](http://akka.io/docs/)
@@ -60,7 +81,10 @@
 1. [Configuration](https://github.com/typesafehub/config)
 1. [Logback](http://logback.qos.ch/documentation.html)
 
+<!--
 ## Hacking Play
+-->
+## Play を Hack する
 
 1. [[Building Play from source|BuildingFromSource]]
 1. [[3rd Party Tools|ThirdPartyTools]]
@@ -71,12 +95,25 @@
 1. [[Translating Documentation|Translations]]
 1. [[Working with Git|WorkingWithGit]]
 
+<!--
 ## About Play
+-->
+## Play について
 
+<!--
 1. [[Play Philosophy|Philosophy]]
 1. [[Play User Groups|PlayUserGroups]]
+-->
+1. [[Play の哲学|Philosophy]]
+1. [[Play ユーザーグループ|PlayUserGroups]]
 
+<!--
 ## Modules and plugins
+-->
+## モジュールとプラグイン
 
+<!--
 1. [[Temporary modules directory|Modules]]
+-->
+1. [[一時的なモジュールディレクトリ | Modules]]
 

@@ -1,11 +1,22 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 ### HTTP forms
+-->
+### HTTP フォームの投稿とバリデーション
 
+<!--
 - [[Form definitions | JavaForms]]
 - [[Using the form template helpers | JavaFormHelpers]]
 - [[Protecting against CSRF|JavaCsrf]]
+-->
+- [[フォームの定義 | JavaForms]]
+- [[フォームテンプレートヘルパの利用 | JavaFormHelpers]]
+- [[CSRF 対策|JavaCsrf]]
 
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | JavaActions]]
 - [[Asynchronous HTTP programming | JavaAsync]]

@@ -1,10 +1,20 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 ### Testing your application
+-->
+### アプリケーションのテスト
 
+<!--
 - [[Writing tests | JavaTest]]
 - [[Writing functional tests | JavaFunctionalTest]]
+-->
+- [[テストの書き方 | JavaTest]]
+- [[機能テストの書き方 | JavaFunctionalTest]]
 
+<!--
 ### Main concepts
+-->
+### 主要なコンセプト
 
 - [[HTTP programming | JavaActions]]
 - [[Asynchronous HTTP programming | JavaAsync]]

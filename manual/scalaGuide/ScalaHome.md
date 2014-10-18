@@ -1,11 +1,23 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Play for Scala developers
+-->
+# Scala 開発者のための Play
 
+<!--
 The Scala API for Play application developers is available in the `play.api` package. 
+-->
+Play アプリケーションは、`play.api` パッケージ内にある Scala API を使って開発することができます。
 
+<!--
 > The API available directly inside the `play` package (such as `play.mvc`) is reserved for Java developers. As a Scala developer, look at `play.api.mvc`.
+-->
+> (`play.mvc` のような) `play` パッケージ内の API は Java 開発者に予約されています。Scala 開発者は `play.api.mvc` などを参照してください。
 
+<!--
 ## Main concepts
+-->
+## 主要なコンセプト
 
 1. [[HTTP programming | ScalaActions]]
     1. [[Actions, Controllers and Results | ScalaActions]]
@@ -64,8 +76,12 @@ The Scala API for Play application developers is available in the `play.api` pac
 1. [[Logging|ScalaLogging]]
     1. [[The Logging API|ScalaLogging]]
     
+<!--
 ## Advanced topics
+-->
+## 上級編
 
+<!--
 1. [[Handling data streams reactively | Iteratees]]
     1. [[Iteratees | Iteratees]]
     1. [[Enumerators | Enumerators]]
@@ -80,3 +96,18 @@ The Scala API for Play application developers is available in the `play.api` pac
     1. [[Javascript Routing | ScalaJavascriptRouting]]
 1. [[Extending Play|ScalaPlugins]]
     1. [[Writing Plugins|ScalaPlugins]]
+-->
+1. [[反応的なストリーム処理 | Iteratees]]
+    1. [[Iteratee | Iteratees]]
+    1. [[Enumerator | Enumerators]]
+    1. [[Enumeratee | Enumeratees]]
+1. [[HTTP アーキテクチャ | HttpApi]]
+    1. [[HTTP API | HttpApi]]
+    1. [[HTTP フィルター | ScalaHttpFilters]]
+1. [[依存性の注入 | ScalaDependencyInjection]]
+    1. [[コントローラの注入 | ScalaDependencyInjection]]
+    1. [[プロジェクトの例 | ScalaDependencyInjection]]
+1. リバースルーティング
+    1. [[Javascriptのルーティング | ScalaJavascriptRouting]]
+1. [[Play を拡張する|ScalaPlugins]]
+    1. [[プラグインの書き方|ScalaPlugins]]

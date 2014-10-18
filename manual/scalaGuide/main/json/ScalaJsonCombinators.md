@@ -122,4 +122,7 @@ In the case where your `Reads` and `Writes` are symmetrical (which may not be th
 
 @[format-combinators](code/ScalaJsonCombinatorsSpec.scala)
 
+<!--
 > **Next:** [[JSON Transformers | ScalaJsonTransformers]]
+-->
+> **Next:** [[JSON トランスフォーマー | ScalaJsonTransformers]]
