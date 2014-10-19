@@ -84,6 +84,7 @@ object MyAction extends ActionBuilder[AuthenticatedRequest] {
       block(new AuthenticatedRequest(user, request))
     } getOrElse Future.successful(Forbidden)
   }
+```
 
 <!--
 The resulting action builder can be used just like the built in `Action` object, with optional parser and request parameters, and async variants.  The type of the request parameter passed to the action will be the type specified by the builder, in the above case, `AuthenticatedRequest`:
