@@ -121,6 +121,13 @@ GET   /public/*file       controllers.Assets.at(file)
 # トップページ
 GET   /                   controllers.Application.index
 
+# サブプロジェクトの組み込み
+->    /my-subproject      my.subproject.Routes
+
+# 静的コンテンツ
+GET   /public/*file       controllers.Assets.at(file)
+```
+
 <!--
 In the configuration, at runtime a call to the `/my-subproject` URL will eventually invoke the `my.subproject.controllers.Application.index` Action.
 -->
@@ -148,10 +155,7 @@ In Play 2.0, the HTTP context was lost during the asynchronous callback, since t
 Play 2.0 では、HTTP コンテキストが非同期コールバックの過程で失われてしまっていました。これは、非同期コールバックの過程で、コードを実行スレッドが、最初に HTTP リクエストを処理し始めたスレッドとは別のスレッドへの変わってしまうからです。
 
 <!--
-<!--
 Consider:
--->
-次の例を考えてみましょう。
 -->
 次の例を考えてみましょう。
 
@@ -187,7 +191,10 @@ While running asynchronous code over mutable data structures, chances are right 
 -->
 排他制御を行わずに非同期コードをミュータブルなデータ構造に対して実行すると、何らかのレースコンディションに陥いる可能性が高いと思われます。Play が高度に非同期化されたノンブロッキングなコードを宣伝していることに加えて、 Java のデータ構造が大抵はミュータブルで非スレッドセーフであることを考えると、これまではアプリケーション側で排他制御の問題を解決する必要がありました。
 
+<!--
 Consider:
+-->
+次の例を考えてみましょう。
 
 ```
 public static Result index() {
