@@ -71,7 +71,10 @@ override def rootProject = Some(myProject)
 -->
 ### Scala バージョンの更新
 
+<!--
 If you have set the scalaVersion (e.g. because you have a multi-project build that uses Project in addition to play.Project), you should update it to 2.10.3.
+-->
+(例えば play.Project に加えて、Project を使うマルチプロジェクトビルドがある場合など) 複数の scalaVersion がある場合、2.10.3 に更新してください。
 
 <!--
 ### Play cache module
@@ -96,10 +99,17 @@ Note that if you depend on plugins that depend on versions of Play prior to 2.2 
 -->
 Play 2.2 以前のバージョンに依存するプラグインに依存している場合、複数のキャッシュ機能がロードされることになるため、衝突が発生することに注意してください。この問題が発生した場合は、プラグインを最新化するか、古いバージョンの Play が確実に除外されるようにしてください。
 
+<!--
 ### sbt namespace no longer extended
+-->
+### sbt 名前空間を継承しない
 
+<!--
 The `sbt` namespace was previously extended by Play e.g. `sbt.PlayCommands.intellijCommandSettings`. This is considered bad practice and so
 Play now uses its own namespace for sbt related things e.g. `play.PlayProject.intellijCommandSettings`.
+-->
+これまで `sbt` 名前空間は、例えば `sbt.PlayCommands.intellijCommandSettings` のように Play によって継承されていました。これはバッドプラクティスと考えられているので、
+今後 Play は sbt に関するものに、例えば `play.PlayProject.intellijCommandSettings` のような独自の名前空間を使います。
 
 <!--
 ## New results structure in Scala
@@ -362,6 +372,12 @@ Please consult the [["Starting your application in production mode"|Production]]
 -->
 新しい `stage` および `dist` タスクのより詳しい情報については、ドキュメント [["本番モードでアプリケーションを起動する"|Production]] を参考にしてください。
 
+<!--
 ## Upgrade from Akka 2.1 to 2.2
+-->
+## Akka を 2.1 から 2.2 へアップグレード
 
+<!--
 The migration guide for upgrading from Akka 2.1 to 2.2 can be found [here](http://doc.akka.io/docs/akka/2.2.0/project/migration-guide-2.1.x-2.2.x.html).
+-->
+Akka を 2.1 から 2.2 へアップグレードする移行ガイドは、[ここ](http://doc.akka.io/docs/akka/2.2.0/project/migration-guide-2.1.x-2.2.x.html) にあります。
