@@ -10,15 +10,21 @@
 >
 > Play の特徴は、ライトウェイト、ステートレス、web フレンドリーなアーキテクチャであること、機能予測のしやすさです。また、Iteratee IO をベースにしたリアクティブモデルのおかげで、スケーラブルなアプリケーションでも CPU、メモリ、スレッドなどのリソース消費が最小限になっています。
 
+<!--
 - [[What's new in Play 2.3?|Highlights23]] / [[Play 2.3 Migration Guide|Migration23]]
 - [[What's new in Play 2.2?|Highlights22]] / [[Play 2.2 Migration Guide|Migration22]]
 - [[What's new in Play 2.1?|Highlights21]] / [[Play 2.1 Migration Guide|Migration21]]
+-->
+- [[Play 2.3 の変更点|Highlights23]] / [[Play 2.3 移行ガイド|Migration23]]
+- [[Play 2.2 の変更点|Highlights22]] / [[Play 2.2 移行ガイド|Migration22]]
+- [[Play 2.1 の変更点|Highlights21]] / [[Play 2.1 移行ガイド|Migration21]]
 
 <!--
 ## Getting started
 -->
 ## はじめに
 
+<!--
 1. [[Installing Play|Installing]]
 1. [[Creating a new application|NewApplication]]
 1. [[Anatomy of a Play application|Anatomy]]
@@ -26,6 +32,14 @@
 1. [[Setting up your preferred IDE|IDE]]
 1. [[Play Tutorials|Tutorials]]
 1. [Security policy](http://www.playframework.com/code/security)
+-->
+1. [[Play のインストール|Installing]]
+1. [[新規アプリケーションを作成する|NewApplication]]
+1. [[Play アプリケーションの構造|Anatomy]]
+1. [[Play コンソールを使う|PlayConsole]]
+1. [[好きな IDE で開発する|IDE]]
+1. [[Play チュートリアル|Tutorials]]
+1. [セキュリティポリシー](http://www.playframework-ja.org/code/security)
 
 <!--
 ## Working with Play
@@ -44,6 +58,7 @@
 -->
 ## 詳細なトピック
 
+<!--
 1. [[The Build system|Build]]
     1. [[About sbt settings|SBTSettings]]
     1. [[Manage application dependencies|SBTDependencies]]
@@ -69,12 +84,45 @@
     1. [[Set up a front end HTTP server|HTTPServer]]
     1. [[Configuring HTTPS|ConfiguringHttps]]
     1. [[Deploying to a cloud service|DeployingCloud]]
-
+-->
+1. [[ビルドシステム|Build]]
+    1. [[sbt 設定について|SBTSettings]]
+    1. [[ライブラリ依存性の管理|SBTDependencies]]
+    1. [[サブプロジェクトで作業する|SBTSubProjects]]
+1. [[公開アセットを使う|Assets]]
+    1. [[CoffeeScript を使う|AssetsCoffeeScript]]
+    1. [[LESS CSS を使う|AssetsLess]]
+    1. [[JSHint を使う|AssetsJSHint]]
+    1. [[RequireJS を使う|RequireJS-support]]
+1. [[H2 インメモリデータベースを使う|Developing-with-the-H2-Database]]
+1. [[Evolutions でデータベースを管理する|Evolutions]]
+1. [[設定ファイルのシンタックスと機能|Configuration]]
+    1. [[アプリケーション秘密鍵の設定|ApplicationSecret]]
+    1. [[JDBC コネクションプールの設定|SettingsJDBC]]
+    1. [[Play スレッドプールの設定|ThreadPools]]
+    1. [[ログの設定|SettingsLogger]]
+    1. [[gzip エンコーディングの設定|GzipEncoding]]
+    1. [[セキュリティヘッダの設定|SecurityHeaders]]
+    1. [[WS SSL の設定|WsSSL]]
+1. [[アプリケーションのデプロイ|Production]]
+    1. [[スタンドアローンパッケージを作成する|ProductionDist]]
+    1. [[追加設定|ProductionConfiguration]]
+    1. [[フロントエンド HTTP サーバの設定|HTTPServer]]
+    1. [[HTTPS の設定|ConfiguringHttps]]
+    1. [[クラウドサービスへデプロイする|DeployingCloud]]
+    
 <!--
 ## Additional documentation
 -->
 ## その他のドキュメント
 
+<!--
+1. [Scala](http://docs.scala-lang.org/)
+1. [Akka](http://akka.io/docs/)
+1. [sbt](http://www.scala-sbt.org/0.13/tutorial/index.html)
+1. [Configuration](https://github.com/typesafehub/config)
+1. [Logback](http://logback.qos.ch/documentation.html)
+-->
 1. [Scala](http://docs.scala-lang.org/)
 1. [Akka](http://akka.io/docs/)
 1. [sbt](http://www.scala-sbt.org/0.13/tutorial/index.html)
@@ -86,6 +134,7 @@
 -->
 ## Play を Hack する
 
+<!--
 1. [[Building Play from source|BuildingFromSource]]
 1. [[3rd Party Tools|ThirdPartyTools]]
 1. [[Repositories|Repositories]]
@@ -94,6 +143,15 @@
 1. [[Documentation guidelines|Documentation]]
 1. [[Translating Documentation|Translations]]
 1. [[Working with Git|WorkingWithGit]]
+-->
+1. [[ソースから Play をビルドする|BuildingFromSource]]
+1. [[サードパーティツール|ThirdPartyTools]]
+1. [[リポジトリ|Repositories]]
+1. [[課題トラッカ|Issues]]
+1. [[貢献者ガイドライン|Guidelines]]
+1. [[ドキュメントガイドライン|Documentation]]
+1. [[ドキュメント翻訳|Translations]]
+1. [[Git を使う|WorkingWithGit]]
 
 <!--
 ## About Play
