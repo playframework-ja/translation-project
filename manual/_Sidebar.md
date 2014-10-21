@@ -4,6 +4,7 @@
 -->
 ### はじめに
 
+<!--
 - [[Installing Play|Installing]]
 - [[Creating a new application|NewApplication]]
 - [[Anatomy of a Play application|Anatomy]]
@@ -11,6 +12,14 @@
 - [[Setting-up your preferred IDE|IDE]]
 - [[Play Tutorials|Tutorials]]
 - [Security policy](http://www.playframework.com/code/security)
+-->
+- [[Play のインストール|Installing]]
+- [[新規アプリケーションを作成する|NewApplication]]
+- [[Play アプリケーションの構造|Anatomy]]
+- [[Play コンソールを使う|PlayConsole]]
+- [[好きな IDE で開発する|IDE]]
+- [[Play チュートリアル|Tutorials]]
+- [セキュリティポリシー](http://www.playframework-ja.org/code/security)
 
 <!--
 ### Working with Play
@@ -29,26 +38,45 @@
 -->
 ### 詳細なトピック
 
+<!--
 - [[The Build system|Build]]
 - [[Working with public assets|Assets]]
 - [[Working with the in-memory H2 database|Developing-with-the-H2-Database]]
 - [[Managing database evolutions|Evolutions]]
 - [[Configuration|Configuration]]
 - [[Deploying your application|Production]]
+-->
+- [[ビルドシステム|Build]]
+- [[公開アセットを使う|Assets]]
+- [[H2 インメモリデータベースを使う|Developing-with-the-H2-Database]]
+- [[Evolutions でデータベースを管理する|Evolutions]]
+- [[設定ファイルのシンタックスと機能|Configuration]]
+- [[アプリケーションのデプロイ|Production]]
 
 <!--
 ### Additional documentation
 -->
 ### その他のドキュメント
 
+<!--
+- [Scala](http://docs.scala-lang.org/)
+- [Akka](http://akka.io/docs/)
+- [sbt](http://www.scala-sbt.org/learn.html)
+- [Configuration](https://github.com/typesafehub/config)
+- [Logback](http://logback.qos.ch/documentation.html)
+-->
 - [Scala](http://docs.scala-lang.org/)
 - [Akka](http://akka.io/docs/)
 - [sbt](http://www.scala-sbt.org/learn.html)
 - [Configuration](https://github.com/typesafehub/config)
 - [Logback](http://logback.qos.ch/documentation.html)
 
+<!--
 ### Hacking Play
+-->
+### Play を Hack する
 
+<!--
 - [[Building Play from source|BuildingFromSource]]
 - [[3rd Party Tools|ThirdPartyTools]]
 - [[Repositories|Repositories]]
@@ -57,13 +85,34 @@
 - [[Documentation guidelines|Documentation]]
 - [[Translating Documentation|Translations]]
 - [[Working with Git|WorkingWithGit]]
+-->
+- [[ソースから Play をビルドする|BuildingFromSource]]
+- [[サードパーティツール|ThirdPartyTools]]
+- [[リポジトリ|Repositories]]
+- [[課題トラッカ|Issues]]
+- [[貢献者ガイドライン|Guidelines]]
+- [[ドキュメントガイドライン|Documentation]]
+- [[ドキュメント翻訳|Translations]]
+- [[Git を使う|WorkingWithGit]]
 
+<!--
 ### About Play
+-->
+### Play について
 
+<!--
 - [[Play Philosophy|Philosophy]]
 - [[Play User Groups|PlayUserGroups]]
+-->
+- [[Play の哲学|Philosophy]]
+- [[Play ユーザーグループ|PlayUserGroups]]
 
+<!--
 ### Modules and plugins
+-->
+### モジュールとプラグイン
 
+<!--
 - [[Temporary modules directory|Modules]]
-
+-->
+- [[一時的なモジュールディレクトリ | Modules]]
