@@ -69,7 +69,7 @@ Windowsではシステム環境変数に設定する必要があります。こ�
 > もし、UNIX系のシステムを使っているなら、`activator`スクリプトが実行可能かどうか、確認して下さい。
 > 
 > 実行権限か無い場合はこのコマンドを実行して下さい。:
-> ```bash
+> ```
 > chmod a+x activator
 > ```
 
@@ -78,9 +78,15 @@ Windowsではシステム環境変数に設定する必要があります。こ�
 -->
 > もしプロキシ内のネットワークに居る場合、Windowsなら`set HTTP_PROXY=http://<host>:<port>`が設定されているか確認し、UNIX系システムなら`export  HTTP_PROXY=http://<host>:<port>`が設定されているか確認して下さい。
 
+<!--
 ## Check that the activator command is available
+-->
+## activatorコマンドが利用可能かどうか確認する
 
+<!--
 From a shell, launch the `activator -help` command. 
+-->
+シェルから`activator -help`コマンドを入力して起動します。
 
 ```bash
 $ activator -help
@@ -93,7 +99,10 @@ If everything is properly installed, you should see the basic help:
 
 [[images/activator.png]]
 
+<!--
 You are now ready to create a new Play application.
+-->
+これで、新しいPlayアプリケーションを作る準備が出来ました。
 
 <!--
 > **Next:** [[Creating a new application | NewApplication]]
