@@ -17,13 +17,7 @@ However, using a modern Java or Scala IDE provides cool productivity features li
 ## Eclipse
 
 <!--
-<!--
-<!--
 ### Generate configuration
--->
-### 設定の作成
--->
-### 設定ファイルの生成
 -->
 ### 設定ファイルの生成
 
@@ -36,13 +30,19 @@ Play は単純な Eclipse の設定のためのコマンドを提供します。
 [my-first-app] $ eclipse
 ```
 
+<!--
 If you want to grab the available source jars (this will take longer and it's possible a few sources might be missing):
+-->
+もし取得可能なjarのソースを持ってくる場合は以下のようにします。(これはいくつかのソースが見つからない可能性があるので、時間がかかるかもしれません。)
 
 ```
 [my-first-app] $ eclipse with-source=true
 ```
 
+<!--
 > Note if you are using sub-projects with aggregate, you would need to set `skipParents` appropriately in `build.sbt`:
+-->
+> サブプロジェクトを集める場合、`build.sbt`にある`skipParents`を以下のように設定する必要があるので注意してください。
 
 ```
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
@@ -75,7 +75,10 @@ You then need to import the application into your Workspace with the **File/Impo
 
 [[images/eclipse.png]] 
 
+<!--
 To debug, start your application with `activator -jvm-debug 9999 run` and in Eclipse right-click on the project and select **Debug As**, **Debug Configurations**. In the **Debug Configurations** dialog, right-click on **Remote Java Application** and select **New**. Change **Port** to 9999 and click **Apply**. From now on you can click on **Debug** to connect to the running application. Stopping the debugging session will not stop the server.
+-->
+デバッグを開始するには`activator -jvm-debug 9999 run`を実行し、アプリケーションを起動します。そして、Eclipseでプロジェクトを右クリックし、**Debug As**、**Debug Configurations**を選びます。**Debug Configurations**のダイアログ画面で**Remote Java Application**を右クリックし、**New**を選びます。そして、**Port**を9999に変更し、**Apply**をクリックします。これで実行中のアプリケーションに接続するために**Debug**をクリックできるようになります。デバッグを中止してもサーバは終了しません。
 
 <!--
 > **Tip**: You can run your application using `~run` to enable direct compilation on file change. This way scala template files are auto discovered when you create a new template in `view` and auto compiled when the file changes. If you use normal `run` then you have to hit `Refresh` on your browser each time.
@@ -99,38 +102,84 @@ The generated configuration files contain absolute references to your framework 
 
 ## IntelliJ
 
-Intellij IDEA lets you quickly create a Play application without using a command prompt. You don't need to configure anything outside of the IDE, the SBT build tool takes care of downloading appropriate libraries, resolving dependencies and building the project.
+<!--Intellij IDEA lets you quickly create a Play application without using a command prompt. You don't need to configure anything outside of the IDE, the SBT build tool takes care of downloading appropriate libraries, resolving dependencies and building the project.
+-->
+IntelliJ IDEAはコマンドプロンプトを使用せずに新しいPlayアプリケーションを素早く作成させてくれます。IDEの外部での設定なしに、SBTビルドツールが必要なライブラリをダウンロードし、依存性を解決し、プロジェクトをビルドするまで面倒を見てくれます。
 
+<!--
 Before you start creating a Play application in IntelliJ IDEA, make sure that the latest Scala (if you develop with Scala) and 
 Play 2 plugins are enabled in IntelliJ IDEA.
+-->
+PlayアプリケーションをIntelliJ IDEAで作成する前に、最新のScala(もしScalaで開発する場合)とPlay 2プラグインがIntelliJ IDEAで有効になっているか確認しましょう。
 
+<!--
 To create a Play application:
+-->
+Playアプリケーションを作るには:
 
+<!--
 - Open ***New Project*** wizard, select ***Play 2.x*** under ***Scala*** section and click ***Next***.
 - Enter your project's information and click ***Finish***.
+-->
+- ***New Project***ウィザードを開き、***Scala***セクションにある***Play 2.x***を選択し***Next***をクリックする。
+- プロジェクトの情報を入力し、***Finish***をクリックする。
 
+<!--
 IntelliJ IDEA creates an empty application using SBT.
+-->
+IntelliJ IDEAはSBTを使って空のアプリケーションを作ることができます。
 
+<!--
 You can also import an existing Play project.
+-->
+今あるPlayのプロジェクトをインポートすることも可能です。
 
+<!--
 To import a Play project:
 - Open Project wizard, select ***Import Project***.
 - In the window that opens, select a project you want to import and click ***OK***.
 - On the next page of the wizard, select ***Import project from external model*** option, choose ***SBT project*** and click ***Next***. 
 - On the next page of the wizard, select additional import options and click ***Finish***. 
+-->
 
+Playのプロジェクトをインポートするには:
+
+- プロジェクトウィザードを開き、***Import Project***を選びます。
+- 表示されたウィンドウの中に表示されている、インポートしたいプロジェクトを選択し***OK***をクリックします。
+- ウィザードの次のページで***Import project from external model***オプションを選択し、***SBT project***を選択し、***Next***をクリックします。
+- ウィザードの次のページで追加のインポートオプションを選択し、***Finish***をクリックします。
+
+<!--
 Check the project's structure, make sure all necessary dependencies are downloaded.
 You can use code assistance, navigation and on-the-fly code analysis features.
+-->
+プロジェクトの構造をチェックし、必要な依存関係にあるものが全てダウンロードされているか確認してください。
+コードアシスタンスを案内やコード解析フィーチャーに使用することができます。
 
+<!--
 You can run the created application and view the result in the default browser `http://localhost:9000`. 
+-->
+作成済みのアプリケーションを実行することができ、結果をデフォルトブラウザ上の`http://localhost:9000`で見ることができます。
 
+<!--
 To run a Play application:
 -	In the project tree, right-click the application.
 -	From the list in the context menu, select ***Run Pla2 App***.
+-->
+Playアプリケーションを実行するには:
 
+- プロジェクトツリーでアプリケーションを右クリックする。
+- コンテキストメニューメニューの中から***Run Play2 App***を選択する。
+
+<!--
 You can easily start a debugger session for a Play application using default Run/Debug Configuration settings.
+-->
+Playアプリケーションのデバッガセッションは標準のRun/Debug Configuration settingを使えば簡単に開始することができます。
 
+<!--
 For more detailed information, see the Play Framework 2.x tutorial at the following URL:
+-->
+もっと詳細な情報は以下のPlay Framework 2.x チュートリアルをご覧ください。
 
 <http://confluence.jetbrains.com/display/IntelliJIDEA/Play+Framework+2.0> 
 
@@ -142,7 +191,10 @@ For more detailed information, see the Play Framework 2.x tutorial at the follow
 -->
 ### 設定ファイルの生成
 
+<!--
 Play does not have native Netbeans project generation support at this time.
+-->
+現在、PlayはNetbeansプロジェクトの生成をサポートしていません。
 
 
 ## ENSIME
@@ -157,9 +209,15 @@ Follow the installation instructions at <https://github.com/aemoncannon/ensime>
 -->
 <http://github.com/aemoncannon/ensime> の手順に従ってインストールします。
 
+<!--
 ### Generate configuration
+-->
+### 設定ファイルの生成
 
+<!--
 Edit your project/plugins.sbt file, and add the following line (you should first check <https://github.com/ensime/ensime-sbt-cmd> for the latest version of the plugin):
+-->
+project/plugins.sbtファイルを編集し、以下の行を追加します。(まず、プラグインのバージョンが最新かどうかここで確認する必要があります。<https://github.com/ensime/ensime-sbt-cmd>):
 
 ```
 addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.3")
@@ -231,9 +289,12 @@ That's all there is to it. You should now get type-checking, completion, etc. fo
 -->
 ### 詳しい情報は
 
+<!--
 Check out the ENSIME manual at <http://ensime.github.io/ensime-src/index.html>.
 If you have questions, post them in the ensime group at <https://groups.google.com/forum/?fromgroups=#!forum/ensime>.
-
+-->
+このENSIMEマニュアル<http://ensime.github.io/ensime-src/index.html>をチェックしてください。
+疑問があればensimeグループ<https://groups.google.com/forum/?fromgroups=#!forum/ensime>に投稿してください。
 
 <!--
 ## All Scala Plugins if needed

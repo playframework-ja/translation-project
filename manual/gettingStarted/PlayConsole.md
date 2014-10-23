@@ -14,7 +14,10 @@ The Play console is a development console based on sbt that allows you to manage
 -->
 Play コンソールは、sbt をベースにした開発コンソールです。Play アプリケーションの全ての開発サイクルをサポートしてくれます。
 
+<!--
 To launch the Play console, change to the directory of your project, and run Activator:
+-->
+Playコンソールを起動するにはプロジェクトのディレクトリに移動し、Activatorを実行します。
 
 ```bash
 $ cd my-first-app
@@ -28,7 +31,10 @@ $ activator
 -->
 ## ヘルプの表示
 
+<!--
 Use the `help` command to get basic help about the available commands.  You can also use this with a specific command to get information about that command:
+-->
+`help`コマンドを使えば、利用できるコマンドについての基本的な解説を得られます。これを使えばさらに、特定のコマンドに関する情報を得ることもできます。
 
 ```bash
 [my-first-app] $ help run
@@ -104,9 +110,6 @@ To start application inside scala console (e.g to access database):
 ```bash
 scala> new play.core.StaticApplication(new java.io.File("."))
 ```
-```bash
-scala> new play.core.StaticApplication(new java.io.File("."))
-```
 
 [[images/consoleEval.png]] 
 
@@ -115,7 +118,10 @@ scala> new play.core.StaticApplication(new java.io.File("."))
 -->
 ## デバッグモード
 
+<!--
 You can ask Play to start a **JPDA** debug port when starting the console. You can then connect using Java debugger. Use the `activator -jvm-debug <port>` command to do that:
+-->
+コンソールを起動する時に**JPDA**デバッグポートの開始を依頼できます。その後はJavaデバッガを使って接続することが可能です。そうする場合は`activator -jvm-debug <port>`コマンドを使ってください。
 
 ```
 $ activator -jvm-debug 9999
@@ -182,7 +188,10 @@ You can also do the same for `~ test`, to continuously test your project each ti
 -->
 ## Play コマンドを直接実行する
 
+<!--
 You can also run commands directly without entering the Play console. For example, enter `activator run`:
+-->
+Playコンソールに入らずに直接コマンドを実行することが出来ます。例えば、`actovator run`と入力してみましょう。
 
 ```bash
 $ activator run
