@@ -7,7 +7,7 @@
 <!--
 Working with Play is easy. You don’t even need a sophisticated IDE, because Play compiles and refreshes the modifications you make to your source files automatically, so you can easily work using a simple text editor.
 -->
-Play で開発するのは簡単です。Play は自動的にソースファイルに加えた変更をコンパイルし、変更内容をリフレッシュするので、洗練された IDE は必要なく、単純なテキストエディタで簡単に開発することができます。
+Play で開発するのは簡単です。 Play は自動的にソースファイルに加えた変更をコンパイルし、変更内容をリフレッシュするので、洗練された IDE は必要なく、単純なテキストエディタで簡単に開発することができます。
 
 <!--
 However, using a modern Java or Scala IDE provides cool productivity features like auto-completion, on-the-fly compilation, assisted refactoring and debugging.
@@ -33,7 +33,7 @@ Play は単純な Eclipse の設定のためのコマンドを提供します。
 <!--
 If you want to grab the available source jars (this will take longer and it's possible a few sources might be missing):
 -->
-もし取得可能なjarのソースを持ってくる場合は以下のようにします。(これはいくつかのソースが見つからない可能性があるので、時間がかかるかもしれません。)
+もし取得可能な jar のソースを持ってくる場合は以下のようにします。(これはいくつかのソースが見つからない可能性があるので、時間がかかるかもしれません。)
 
 ```
 [my-first-app] $ eclipse with-source=true
@@ -42,7 +42,7 @@ If you want to grab the available source jars (this will take longer and it's po
 <!--
 > Note if you are using sub-projects with aggregate, you would need to set `skipParents` appropriately in `build.sbt`:
 -->
-> サブプロジェクトを集める場合、`build.sbt`にある`skipParents`を以下のように設定する必要があるので注意してください。
+> サブプロジェクトを集める場合、 `build.sbt` にある `skipParents` を以下のように設定する必要があるので注意してください。
 
 ```
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
@@ -78,7 +78,7 @@ You then need to import the application into your Workspace with the **File/Impo
 <!--
 To debug, start your application with `activator -jvm-debug 9999 run` and in Eclipse right-click on the project and select **Debug As**, **Debug Configurations**. In the **Debug Configurations** dialog, right-click on **Remote Java Application** and select **New**. Change **Port** to 9999 and click **Apply**. From now on you can click on **Debug** to connect to the running application. Stopping the debugging session will not stop the server.
 -->
-デバッグを開始するには`activator -jvm-debug 9999 run`を実行し、アプリケーションを起動します。そして、Eclipseでプロジェクトを右クリックし、**Debug As**、**Debug Configurations**を選びます。**Debug Configurations**のダイアログ画面で**Remote Java Application**を右クリックし、**New**を選びます。そして、**Port**を9999に変更し、**Apply**をクリックします。これで実行中のアプリケーションに接続するために**Debug**をクリックできるようになります。デバッグを中止してもサーバは終了しません。
+デバッグを開始するには `activator -jvm-debug 9999 run` を実行し、アプリケーションを起動します。そして、 Eclipse でプロジェクトを右クリックし、 **Debug As** 、 **Debug Configurations** を選びます。 **Debug Configurations** のダイアログ画面で **Remote Java Application** を右クリックし、 **New** を選びます。そして、 **Port** を9999に変更し、 **Apply** をクリックします。これで実行中のアプリケーションに接続するために **Debug** をクリックできるようになります。デバッグを中止してもサーバは終了しません。
 
 <!--
 > **Tip**: You can run your application using `~run` to enable direct compilation on file change. This way scala template files are auto discovered when you create a new template in `view` and auto compiled when the file changes. If you use normal `run` then you have to hit `Refresh` on your browser each time.
@@ -104,30 +104,30 @@ The generated configuration files contain absolute references to your framework 
 
 <!--Intellij IDEA lets you quickly create a Play application without using a command prompt. You don't need to configure anything outside of the IDE, the SBT build tool takes care of downloading appropriate libraries, resolving dependencies and building the project.
 -->
-IntelliJ IDEAはコマンドプロンプトを使用せずに新しいPlayアプリケーションを素早く作成させてくれます。IDEの外部での設定なしに、SBTビルドツールが必要なライブラリをダウンロードし、依存性を解決し、プロジェクトをビルドするまで面倒を見てくれます。
+IntelliJ IDEA はコマンドプロンプトを使用せずに新しい Play アプリケーションを素早く作成させてくれます。 IDE の外部での設定なしに、SBT ビルドツールが必要なライブラリをダウンロードし、依存性を解決し、プロジェクトをビルドするまで面倒を見てくれます。
 
 <!--
 Before you start creating a Play application in IntelliJ IDEA, make sure that the latest Scala (if you develop with Scala) and 
 Play 2 plugins are enabled in IntelliJ IDEA.
 -->
-PlayアプリケーションをIntelliJ IDEAで作成する前に、最新のScala(もしScalaで開発する場合)とPlay 2プラグインがIntelliJ IDEAで有効になっているか確認しましょう。
+Play アプリケーションを IntelliJ IDEA で作成する前に、最新の Scala (もし Scala で開発する場合)と Play 2 プラグインが IntelliJ IDEAで有効になっているか確認しましょう。
 
 <!--
 To create a Play application:
 -->
-Playアプリケーションを作るには:
+Play アプリケーションを作るには:
 
 <!--
 - Open ***New Project*** wizard, select ***Play 2.x*** under ***Scala*** section and click ***Next***.
 - Enter your project's information and click ***Finish***.
 -->
-- ***New Project***ウィザードを開き、***Scala***セクションにある***Play 2.x***を選択し***Next***をクリックする。
-- プロジェクトの情報を入力し、***Finish***をクリックする。
+- ***New Project*** ウィザードを開き、 ***Scala*** セクションにある ***Play 2.x*** を選択し ***Next*** をクリックします。
+- プロジェクトの情報を入力し、 ***Finish*** をクリックします。
 
 <!--
 IntelliJ IDEA creates an empty application using SBT.
 -->
-IntelliJ IDEAはSBTを使って空のアプリケーションを作ることができます。
+IntelliJ IDEA は SBT を使って空のアプリケーションを作ることができます。
 
 <!--
 You can also import an existing Play project.
@@ -142,12 +142,12 @@ To import a Play project:
 - On the next page of the wizard, select additional import options and click ***Finish***. 
 -->
 
-Playのプロジェクトをインポートするには:
+Play のプロジェクトをインポートするには:
 
-- プロジェクトウィザードを開き、***Import Project***を選びます。
-- 表示されたウィンドウの中に表示されている、インポートしたいプロジェクトを選択し***OK***をクリックします。
-- ウィザードの次のページで***Import project from external model***オプションを選択し、***SBT project***を選択し、***Next***をクリックします。
-- ウィザードの次のページで追加のインポートオプションを選択し、***Finish***をクリックします。
+- プロジェクトウィザードを開き、 ***Import Project*** を選びます。
+- 表示されたウィンドウの中に表示されている、インポートしたいプロジェクトを選択し ***OK*** をクリックします。
+- ウィザードの次のページで ***Import project from external model*** オプションを選択し、 ***SBT project*** を選択し、 ***Next***をクリックします。
+- ウィザードの次のページで追加のインポートオプションを選択し、 ***Finish*** をクリックします。
 
 <!--
 Check the project's structure, make sure all necessary dependencies are downloaded.
@@ -159,7 +159,7 @@ You can use code assistance, navigation and on-the-fly code analysis features.
 <!--
 You can run the created application and view the result in the default browser `http://localhost:9000`. 
 -->
-作成済みのアプリケーションを実行することができ、結果をデフォルトブラウザ上の`http://localhost:9000`で見ることができます。
+作成済みのアプリケーションを実行することができ、結果をデフォルトブラウザ上の `http://localhost:9000` で見ることができます。
 
 <!--
 To run a Play application:
@@ -169,17 +169,17 @@ To run a Play application:
 Playアプリケーションを実行するには:
 
 - プロジェクトツリーでアプリケーションを右クリックする。
-- コンテキストメニューメニューの中から***Run Play2 App***を選択する。
+- コンテキストメニューメニューの中から ***Run Play2 App*** を選択する。
 
 <!--
 You can easily start a debugger session for a Play application using default Run/Debug Configuration settings.
 -->
-Playアプリケーションのデバッガセッションは標準のRun/Debug Configuration settingを使えば簡単に開始することができます。
+Play アプリケーションのデバッガセッションは標準の Run/Debug Configuration setting を使えば簡単に開始することができます。
 
 <!--
 For more detailed information, see the Play Framework 2.x tutorial at the following URL:
 -->
-もっと詳細な情報は以下のPlay Framework 2.x チュートリアルをご覧ください。
+もっと詳細な情報は以下の Play Framework 2.x チュートリアルをご覧ください。
 
 <http://confluence.jetbrains.com/display/IntelliJIDEA/Play+Framework+2.0> 
 
@@ -194,7 +194,7 @@ For more detailed information, see the Play Framework 2.x tutorial at the follow
 <!--
 Play does not have native Netbeans project generation support at this time.
 -->
-現在、PlayはNetbeansプロジェクトの生成をサポートしていません。
+現在、 Play は Netbeans プロジェクトの生成をサポートしていません。
 
 
 ## ENSIME
@@ -217,7 +217,7 @@ Follow the installation instructions at <https://github.com/aemoncannon/ensime>
 <!--
 Edit your project/plugins.sbt file, and add the following line (you should first check <https://github.com/ensime/ensime-sbt-cmd> for the latest version of the plugin):
 -->
-project/plugins.sbtファイルを編集し、以下の行を追加します。(まず、プラグインのバージョンが最新かどうかここで確認する必要があります。<https://github.com/ensime/ensime-sbt-cmd>):
+project/plugins.sbt ファイルを編集し、以下の行を追加します。(まず、プラグインのバージョンが最新かどうかここで確認する必要があります。<https://github.com/ensime/ensime-sbt-cmd>):
 
 ```
 addSbtPlugin("org.ensime" % "ensime-sbt-cmd" % "0.1.3")
