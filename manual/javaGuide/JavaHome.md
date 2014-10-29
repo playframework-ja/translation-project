@@ -96,7 +96,7 @@ Play アプリケーションは、`play` パッケージ内にある Java API �
     1. [[XML リクエストの処理と送信 | JavaXmlRequests]]
 1. [[ファイルアップロード処理 | JavaFileUpload]]
     1. [[multipart/form-data のアップロード | JavaFileUpload]]
-1. [[SQL データベースへのアクセス | JavaDatabase]]
+1. [[SQL データベースアクセス | JavaDatabase]]
     1. [[JDBC の設定と使用 | JavaDatabase]]
     1. [[Ebean ORM の利用 | JavaEbean]]
     1. [[JPA との統合 | JavaJPA]]
