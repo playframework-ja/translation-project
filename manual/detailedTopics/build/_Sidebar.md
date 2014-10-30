@@ -9,12 +9,13 @@
 - [[About sbt settings | SBTSettings]]
 - [[Manage application dependencies | SBTDependencies]]
 - [[Working with sub-projects | SBTSubProjects]]
+- [[Improving Compilation Times | CompilationSpeed]]
 -->
 - [[ビルドシステム | Build]]
 - [[sbt 設定について | SBTSettings]]
 - [[ライブラリ依存性の管理 | SBTDependencies]]
 - [[サブプロジェクトで作業する | SBTSubProjects]]
-- [[Improving Compilation Times | CompilationSpeed]]
+- [[コンパイル時間の改善 | CompilationSpeed]]
 
 <!--
 ### Getting started
