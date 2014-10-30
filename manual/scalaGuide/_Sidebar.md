@@ -23,7 +23,7 @@
 -->
 - [[HTTP プログラミング | ScalaActions]]
 - [[非同期 HTTP プログラミング | ScalaAsync]]
-- [[テンプレート・エンジン | ScalaTemplates]]
+- [[テンプレートエンジン | ScalaTemplates]]
 - [[HTTP フォーム送信とバリデーション | ScalaForms]]
 - [[JSON を使う | ScalaJson]]
 - [[XML を使う | ScalaXmlRequests]]
