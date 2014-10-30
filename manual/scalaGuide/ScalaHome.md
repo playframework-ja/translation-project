@@ -90,7 +90,7 @@ Play アプリケーションは、`play.api` パッケージ内にある Scala 
     1. [[HTTP レスポンスのストリーミング | ScalaStream]]
     1. [[Comet | ScalaComet]]
     1. [[WebSocket | ScalaWebSockets]]
-1. [[テンプレート・エンジン | ScalaTemplates]]
+1. [[テンプレートエンジン | ScalaTemplates]]
     1. [[テンプレートの文法 | ScalaTemplates]]
     1. [[よくある使い方 | ScalaTemplateUseCases]]
     1. [[カスタムフォーマットの追加 | ScalaCustomTemplateFormat]]
