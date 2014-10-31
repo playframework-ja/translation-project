@@ -114,14 +114,17 @@ If you want to define a route that retrieves a client by ID, you’ll need to ad
 <!--
 The default matching strategy for a dynamic part is defined by the regular expression `[^/]+`, meaning that any dynamic part defined as `:id` will match exactly one URI part.
 -->
-動的パートをマッチ方法は、デフォルトでは `[^/]+` という正規表現になっています。したがって、 `:id` のように定義した動的パートは、ちょうど一つの URI パートにマッチします。
+動的パートをマッチングするデフォルトの方法は、`[^/]+` という正規表現によって定義されています。これはすなわち、 `:id` のように定義した動的パートは、ちょうど一つの URI パートにマッチすることを意味します。
 
 <!--
 ### Dynamic parts spanning several /
 -->
 ### 複数の / をまたぐ動的パート
 
+<!--
 If you want a dynamic part to capture more than one URI path segment, separated by forward slashes, you can define a dynamic part using the `*id` syntax, which uses the `.+` regular expression:
+-->
+`/` で区切られる URI パスセグメントを複数キャプチャする動的パートを定義したい場合、`*id` という文法を使って定義することができます。この文法は、正規表現 `.+` を使います。
 
 @[spanning-path](code/scalaguide.http.routing.routes)
 
