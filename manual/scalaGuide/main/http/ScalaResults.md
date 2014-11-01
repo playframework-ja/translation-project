@@ -99,7 +99,10 @@ Also, to discard a Cookie previously stored on the Web browser:
 
 @[discarding-cookies](code/ScalaResults.scala)
 
+<!--
 You can also set and remove cookies as part of the same response:
+-->
+同じレスポンスの中で cookie の設定と破棄を行うこともできます:
 
 @[setting-discarding-cookies](code/ScalaResults.scala)
 
