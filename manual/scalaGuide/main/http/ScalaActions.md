@@ -7,7 +7,7 @@
 <!--
 ## What is an Action?
 -->
-## アクションとは?
+## アクションとは ?
 
 <!--
 Most of the requests received by a Play application are handled by an `Action`. 
@@ -84,7 +84,10 @@ A `Controller` is nothing more than a singleton object that generates `Action` v
 -->
 `Controller` は `Action` を生成する、ただのシングルトンオブジェクトです。
 
+<!--
 The simplest use case for defining an action generator is a method with no parameters that returns an `Action` value	:
+-->
+アクションジェネレータを定義する最もシンプルな方法は、Action 型の値を返す引数なしのメソッドを定義するというものです。
 
 @[full-controller](code/ScalaActions.scala)
 
@@ -105,7 +108,10 @@ For now we are just interested in simple results: An HTTP result with a status c
 -->
 次は、SimpleResult に注目してみましょう。 SimpleResult とは、web クライアントへ送信される HTTP レスポンスを表すオブジェクトで、ステータスコードとレスポンスヘッダ一式、メッセージボディをまとめたものです。
 
+<!--
 These results are defined by `play.api.mvc.Result`:
+-->
+これらの Result は `play.api.mvc.Result` として定義されています:
 
 @[simple-result-action](code/ScalaActions.scala)
 
