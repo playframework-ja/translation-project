@@ -1,9 +1,19 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 ### Working with JSON
+-->
+### JSON を使う
+<!--
 - [[JSON basics | ScalaJson]]
 - [[JSON with HTTP | ScalaJsonHttp]]
 - [[JSON Reads/Writes/Format Combinators | ScalaJsonCombinators]]
 - [[JSON Transformers | ScalaJsonTransformers]]
+- [[JSON Macro Inception | ScalaJsonInception]]
+-->
+- [[JSON の基本 | ScalaJson]]
+- [[JSON と HTTP | ScalaJsonHttp]]
+- [[JSON Reads/Writes/Format コンビネータ | ScalaJsonCombinators]]
+- [[JSON トランスフォーマ | ScalaJsonTransformers]]
 - [[JSON Macro Inception | ScalaJsonInception]]
 
 <!--
