@@ -1,10 +1,19 @@
 <!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 ### Forms
+-->
+### フォーム
 
+<!--
 - [[Handling form submission|ScalaForms]]
 - [[Protecting against CSRF|ScalaCsrf]]
 - [[Custom Validations|ScalaCustomValidations]]
 - [[Custom Field Constructors|ScalaCustomFieldConstructors]]
+-->
+- [[フォームの送信|ScalaForms]]
+- [[CSRF 対策|ScalaCsrf]]
+- [[カスタムバリデーション|ScalaCustomValidations]]
+- [[カスタムフィールドコンストラクタ|ScalaCustomFieldConstructors]]
 
 <!--
 ### Main concepts
