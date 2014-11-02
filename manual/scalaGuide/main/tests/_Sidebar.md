@@ -1,9 +1,18 @@
+<!--
 ### Testing your application
+-->
+### アプリケーションのテスト
 
+<!--
 - [[Testing with ScalaTest | ScalaTestingWithScalaTest]]
 - [[Writing functional tests with ScalaTest | ScalaFunctionalTestingWithScalaTest]]
 - [[Testing with specs2 | ScalaTestingWithSpecs2]]
 - [[Writing functional tests with specs2 | ScalaFunctionalTestingWithSpecs2]]
+-->
+- [[ScalaTest によるテスト | ScalaTestingWithScalaTest]]
+- [[ScalaTest による機能テスト | ScalaFunctionalTestingWithScalaTest]]
+- [[Specs2 によるテスト | ScalaTestingWithSpecs2]]
+- [[Specs2 による機能テスト | ScalaFunctionalTestingWithSpecs2]]
 
 <!--
 ### Main concepts
