@@ -4,7 +4,10 @@
 -->
 # Play 2.1 移行ガイド
 
+<!--
 This guide is for migrating to Play 2.1 from Play 2.0.
+-->
+これは Play 2.0 から Play 2.1 に移行するためのガイドです。
 
 <!--
 To migrate a **Play 2.0.x** application to **Play 2.1.0** first update Play's `sbt-plugin` in the `project/plugins.sbt` file:
