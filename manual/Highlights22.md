@@ -174,10 +174,22 @@ Play now has built in support for gzipping all responses.  For information on ho
 -->
 Play は、すべてのレスポンスの gzip 圧縮を組み込みでサポートするようになりました。これを有効にする方法については、[[gzip エンコードの設定|GzipEncoding]] を参照してください。
 
+<!--
 ## Documentation JAR
+-->
+## ドキュメント JAR
 
+<!--
 Play's distribution now stores its documentation in a JAR file rather than in a directory. A JAR file provides better support for tooling.
+-->
+配布される Play のドキュメントは、ディレクトリ配下ではなく JAR ファイルに格納されるようになりました。JAR ファイルにすることで、ツールによるより良いサポートを提供することができるようになります。
 
+<!--
 Just like in Play 2.1, you can view the documentation when you [[run your Play application in development mode|PlayConsole]] by visiting the special [`/@documentation`](http://localhost:9000/@documentation) address.
+-->
+Play 2.1 と同じように、[[Play アプリケーションを development モードで実行している|PlayConsole]] 場合、特別なアドレス [`/@documentation`](http://localhost:9000/@documentation) にアクセスするとドキュメントを読むことができます。
 
+<!--
 If you want to access the raw files, they can now be found in the `play-docs` JAR file contained in the distribution.
+-->
+ファイルそのものを利用したい場合は、配布物に含められている `play-docs` JAR ファイルの中から見つけてください。
