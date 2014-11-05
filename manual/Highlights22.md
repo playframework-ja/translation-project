@@ -61,7 +61,6 @@ We now provide an [`ActionBuilder`](api/scala/index.html#play.api.mvc.ActionBuil
 -->
 アクションのスタックをより強力に作ることのできる、Scala アプリケーション用の [`ActionBuilder`](api/scala/index.html#play.api.mvc.ActionBuilder) トレイトを提供しています:
 
-<!--
 ```scala
 object MyAction extends ActionBuilder[AuthenticatedRequest] {
   def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[SimpleResult]) = {
@@ -76,15 +75,6 @@ object MyAction extends ActionBuilder[AuthenticatedRequest] {
     LoggingAction(CheckCSRF(OnlyHttpsAction(action)))
 }
 ```
--->
-```scala
-object MyAction extends ActionBuilder[AuthenticatedRequest] {
-  def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[SimpleResult]) = {
-    // アクションを認証し、リクエストを認証済みのものにラップする
-    getUserFromRequest(request).map { user =>
-      block(new AuthenticatedRequest(user, request))
-    } getOrElse Future.successful(Forbidden)
-  }
 
 <!--
 The resulting action builder can be used just like the built in `Action` object, with optional parser and request parameters, and async variants.  The type of the request parameter passed to the action will be the type specified by the builder, in the above case, `AuthenticatedRequest`:
@@ -184,10 +174,22 @@ Play now has built in support for gzipping all responses.  For information on ho
 -->
 Play は、すべてのレスポンスの gzip 圧縮を組み込みでサポートするようになりました。これを有効にする方法については、[[gzip エンコードの設定|GzipEncoding]] を参照してください。
 
+<!--
 ## Documentation JAR
+-->
+## ドキュメント JAR
 
+<!--
 Play's distribution now stores its documentation in a JAR file rather than in a directory. A JAR file provides better support for tooling.
+-->
+配布される Play のドキュメントは、ディレクトリ配下ではなく JAR ファイルに格納されるようになりました。JAR ファイルにすることで、ツールによるより良いサポートを提供することができるようになります。
 
+<!--
 Just like in Play 2.1, you can view the documentation when you [[run your Play application in development mode|PlayConsole]] by visiting the special [`/@documentation`](http://localhost:9000/@documentation) address.
+-->
+Play 2.1 と同じように、[[Play アプリケーションを development モードで実行している|PlayConsole]] 場合、特別なアドレス [`/@documentation`](http://localhost:9000/@documentation) にアクセスするとドキュメントを読むことができます。
 
+<!--
 If you want to access the raw files, they can now be found in the `play-docs` JAR file contained in the distribution.
+-->
+ファイルそのものを利用したい場合は、配布物に含められている `play-docs` JAR ファイルの中から見つけてください。
