@@ -61,7 +61,6 @@ We now provide an [`ActionBuilder`](api/scala/index.html#play.api.mvc.ActionBuil
 -->
 アクションのスタックをより強力に作ることのできる、Scala アプリケーション用の [`ActionBuilder`](api/scala/index.html#play.api.mvc.ActionBuilder) トレイトを提供しています:
 
-<!--
 ```scala
 object MyAction extends ActionBuilder[AuthenticatedRequest] {
   def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[SimpleResult]) = {
@@ -76,15 +75,6 @@ object MyAction extends ActionBuilder[AuthenticatedRequest] {
     LoggingAction(CheckCSRF(OnlyHttpsAction(action)))
 }
 ```
--->
-```scala
-object MyAction extends ActionBuilder[AuthenticatedRequest] {
-  def invokeBlock[A](request: Request[A], block: (AuthenticatedRequest[A]) => Future[SimpleResult]) = {
-    // アクションを認証し、リクエストを認証済みのものにラップする
-    getUserFromRequest(request).map { user =>
-      block(new AuthenticatedRequest(user, request))
-    } getOrElse Future.successful(Forbidden)
-  }
 
 <!--
 The resulting action builder can be used just like the built in `Action` object, with optional parser and request parameters, and async variants.  The type of the request parameter passed to the action will be the type specified by the builder, in the above case, `AuthenticatedRequest`:
