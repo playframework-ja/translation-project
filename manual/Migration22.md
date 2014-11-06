@@ -113,10 +113,7 @@ In order to simplify action composition and filtering, the Play results structur
 アクション合成とフィルターを簡素化するために、Play の Result 構造はシンプルになりました。以前は `SimpleResult`, `ChunkedResult` そして `AsyncResult` に加えて `Result` および `PlainResult` インタフェースがありましたが、Result の型は `SimpleResult` ただひとつになります。`SimpleResult` を除いて、すべて非推奨になりました。`SimpleResult` のサブクラスである `Status` は、Result を組み立てるために便利であるため、まだ残っています。ほとんどの場合において、アクションは非推奨となった型をまだ使うことができますが、非推奨の警告が表示されるでしょう。合成またはフィルターを行うアクションはどうにかして `SimpleResult` を使うように切り替える必要があります。
 
 <!--
-<!--
 ### Async actions
--->
-### 非同期アクション
 -->
 ### 非同期アクション
 
@@ -166,10 +163,7 @@ Advanced uses that created or used `ChunkedResult` directly should be replaced w
 直接 `ChunkedResult` を作ったり使ったりする高度な使い方は、手動で `TransferEncoding: chunked` ヘッダーを設定/チェックし、そして新しい `Results.chunk` と `Results.dechunk` enumeratee を使うコードで置き換えられるべきです。
 
 <!--
-<!--
 ### Action composition
--->
-### アクション合成
 -->
 ### アクション合成
 
@@ -223,7 +217,10 @@ In order to simply action composition, the Java structure of results has been ch
 -->
 アクションの合成をシンプルにするために、Java の Result 構造 は変更されました。`AsyncResult` は非推奨になり、通常の Result を `AsyncResult` 型とはっきり区別するために `SimpleResult` が導入されました。
 
+<!--
 ### Async actions
+-->
+### 非同期アクション
 
 <!--
 Previously, futures in async actions had to be wrapped in the `async` call.  Now actions may return either `Result` or `Promise<Result>`.  For example:
@@ -249,7 +246,10 @@ public static Promise<Result> myAsyncAction() {
 }
 ```
 
+<!--
 ### Action composition
+-->
+### アクション合成
 
 <!--
 The signature of the `call` method in `play.mvc.Action` has changed to now return `Promise<SimpleResult>`.  If nothing is done with the result, then typically the only change necessary will be to update the type signatures.
