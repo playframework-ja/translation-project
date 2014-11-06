@@ -4,7 +4,10 @@
 -->
 # Play 2.2 移行ガイド
 
+<!--
 This guide is for migrating to Play 2.2 from Play 2.1.  To migrate to Play 2.1, first follow the [[Play 2.1 Migration Guide|Migration21]].
+-->
+これは Play 2.1 から Play 2.2 へ移行するためのガイドです。 Play 2.1 へ移行する場合は、まず [[Play 2.1 移行ガイド|Migration21]] に従ってください。
 
 <!--
 ## Build tasks
@@ -97,10 +100,17 @@ Note that if you depend on plugins that depend on versions of Play prior to 2.2 
 -->
 Play 2.2 以前のバージョンに依存するプラグインに依存している場合、複数のキャッシュ機能がロードされることになるため、衝突が発生することに注意してください。この問題が発生した場合は、プラグインを最新化するか、古いバージョンの Play が確実に除外されるようにしてください。
 
+<!--
 ### sbt namespace no longer extended
+-->
+### sbt 名前空間を継承しない
 
+<!--
 The `sbt` namespace was previously extended by Play e.g. `sbt.PlayCommands.intellijCommandSettings`. This is considered bad practice and so
 Play now uses its own namespace for sbt related things e.g. `play.PlayProject.intellijCommandSettings`.
+-->
+これまで `sbt` 名前空間は、例えば `sbt.PlayCommands.intellijCommandSettings` のように Play によって継承されていました。これはバッドプラクティスと考えられているので、
+今後 Play は sbt に関するものに、例えば `play.PlayProject.intellijCommandSettings` のような独自の名前空間を使います。
 
 <!--
 ## New results structure in Scala
@@ -113,10 +123,7 @@ In order to simplify action composition and filtering, the Play results structur
 アクション合成とフィルターを簡素化するために、Play の Result 構造はシンプルになりました。以前は `SimpleResult`, `ChunkedResult` そして `AsyncResult` に加えて `Result` および `PlainResult` インタフェースがありましたが、Result の型は `SimpleResult` ただひとつになります。`SimpleResult` を除いて、すべて非推奨になりました。`SimpleResult` のサブクラスである `Status` は、Result を組み立てるために便利であるため、まだ残っています。ほとんどの場合において、アクションは非推奨となった型をまだ使うことができますが、非推奨の警告が表示されるでしょう。合成またはフィルターを行うアクションはどうにかして `SimpleResult` を使うように切り替える必要があります。
 
 <!--
-<!--
 ### Async actions
--->
-### 非同期アクション
 -->
 ### 非同期アクション
 
@@ -166,10 +173,7 @@ Advanced uses that created or used `ChunkedResult` directly should be replaced w
 直接 `ChunkedResult` を作ったり使ったりする高度な使い方は、手動で `TransferEncoding: chunked` ヘッダーを設定/チェックし、そして新しい `Results.chunk` と `Results.dechunk` enumeratee を使うコードで置き換えられるべきです。
 
 <!--
-<!--
 ### Action composition
--->
-### アクション合成
 -->
 ### アクション合成
 
@@ -223,7 +227,10 @@ In order to simply action composition, the Java structure of results has been ch
 -->
 アクションの合成をシンプルにするために、Java の Result 構造 は変更されました。`AsyncResult` は非推奨になり、通常の Result を `AsyncResult` 型とはっきり区別するために `SimpleResult` が導入されました。
 
+<!--
 ### Async actions
+-->
+### 非同期アクション
 
 <!--
 Previously, futures in async actions had to be wrapped in the `async` call.  Now actions may return either `Result` or `Promise<Result>`.  For example:
@@ -249,7 +256,10 @@ public static Promise<Result> myAsyncAction() {
 }
 ```
 
+<!--
 ### Action composition
+-->
+### アクション合成
 
 <!--
 The signature of the `call` method in `play.mvc.Action` has changed to now return `Promise<SimpleResult>`.  If nothing is done with the result, then typically the only change necessary will be to update the type signatures.
@@ -362,6 +372,12 @@ Please consult the [["Starting your application in production mode"|Production]]
 -->
 新しい `stage` および `dist` タスクのより詳しい情報については、ドキュメント [["本番モードでアプリケーションを起動する"|Production]] を参考にしてください。
 
+<!--
 ## Upgrade from Akka 2.1 to 2.2
+-->
+## Akka を 2.1 から 2.2 へアップグレード
 
+<!--
 The migration guide for upgrading from Akka 2.1 to 2.2 can be found [here](http://doc.akka.io/docs/akka/2.2.0/project/migration-guide-2.1.x-2.2.x.html).
+-->
+Akka を 2.1 から 2.2 へアップグレードする移行ガイドは、[ここ](http://doc.akka.io/docs/akka/2.2.0/project/migration-guide-2.1.x-2.2.x.html) にあります。
