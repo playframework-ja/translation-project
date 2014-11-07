@@ -14,16 +14,25 @@ If you have to keep data across multiple HTTP requests, you can save them in the
 -->
 複数のリクエストにまたがってデータを保持したい場合、セッションまたはフラッシュスコープにデータを保存することができます。一旦セッションに保存されたデータは、ユーザの 1 セッション中ずっと保持され、フラッシュスコープに保存されたデータは次のリクエストまで保持されます。
 
+<!--
 It’s important to understand that Session and Flash data are not stored by the server but are added to each subsequent HTTP request, using the cookie mechanism. This means that the data size is very limited (up to 4 KB) and that you can only store string values. The default name for the cookie is `PLAY_SESSION`. This can be changed by configuring the key `session.cookieName` in application.conf.
+-->
+セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加されることを理解するのは大切なことです。これは、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということを意味します。デフォルトのクッキー名は `PLAY_SESSION` です。これは application.conf 内にある `session.cookieName` キー の設定で変更することができます。
 
+<!--
 > If the name of the cookie is changed, the earlier cookie can be discarded using the same methods mentioned in [[Setting and discarding cookies|ScalaResults]].
+-->
+> クッキーの名前を変更した場合は、[[cookie の設定と破棄|ScalaResults]] に記述されているものと同じメソッドを使って、以前のクッキーを破棄することができます。
 
 <!--
 Of course, cookie values are signed with a secret key so the client can’t modify the cookie data (or it will be invalidated).
 -->
 もちろん、クッキーの値は秘密鍵によって署名されているため、クライアントがクッキーのデータを変更することはできません (変更すると、値が無効化されます) 。
 
+<!--
 The Play Session is not intended to be used as a cache. If you need to cache some data related to a specific Session, you can use the Play built-in cache mechanism and store a unique ID in the user Session to keep them related to a specific user.
+-->
+Play のセッションはキャッシュとして使われることを想定して作られてはいません。もし特定のセッションに関するデータをキャッシュしたい場合、Play に組み込まれたキャッシュ機構を使ってユーザのセッションにユニーク ID を保存して、キャッシュを特定のユーザに対応づけることができます。
 
 <!--
 > There is no technical timeout for the Session. It expires when the user closes the web browser. If you need a functional timeout for a specific application, just store a timestamp into the user Session and use it however your application needs (e.g. for a maximum session duration, maximum inactivity duration, etc.).
@@ -117,12 +126,7 @@ Here are a few examples using the Flash scope:
 To retrieve the Flash scope value in your view, just add an implicit with Flash:
 -->
 フラッシュスコープの値をビューから取得するには Flash に implicit を追加します:
-```
-@()(implicit flash: Flash)
-...
-@flash.get("success").getOrElse("Welcome!")
-...
-```
+
 ```
 @()(implicit flash: Flash)
 ...
