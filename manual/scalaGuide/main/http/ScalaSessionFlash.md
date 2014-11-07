@@ -17,7 +17,7 @@ If you have to keep data across multiple HTTP requests, you can save them in the
 <!--
 It’s important to understand that Session and Flash data are not stored by the server but are added to each subsequent HTTP request, using the cookie mechanism. This means that the data size is very limited (up to 4 KB) and that you can only store string values. The default name for the cookie is `PLAY_SESSION`. This can be changed by configuring the key `session.cookieName` in application.conf.
 -->
-セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加されることを理解するのは大切なことです。これは、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということを意味します。デフォルトのクッキー名は `PLAY_SESSION` です。これは application.conf 内にある `session.cookieName` キー の設定で変更することができます。
+セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加されることを理解するのは大切なことです。これは、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということを意味します。デフォルトのクッキー名は `PLAY_SESSION` です。これは application.conf 内にある `session.cookieName` キーの設定で変更することができます。
 
 <!--
 > If the name of the cookie is changed, the earlier cookie can be discarded using the same methods mentioned in [[Setting and discarding cookies|ScalaResults]].
