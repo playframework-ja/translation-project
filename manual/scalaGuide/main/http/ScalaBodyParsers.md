@@ -193,7 +193,10 @@ Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded
 -->
 テキストベースのボディパーサー ( **text**, **json**, **xml**, **formUrlEncoded** のような。) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。
 
+<!--
 There is a default maximum content length (the default is 100KB), but you can also specify it inline:
+-->
+最大 content length にはデフォルト値 (100KB) がありますが、コード内で指定することもできます:
 
 @[body-parser-limit-text](code/ScalaBodyParser.scala)
 
@@ -201,12 +204,14 @@ There is a default maximum content length (the default is 100KB), but you can al
 > **Tip:** The default content size can be defined in `application.conf`:
 > 
 > `parsers.text.maxLength=128K`
+> 
+> Unit sizes are defined in **Size in bytes format** section of the [[Configuration]] page.
 -->
 > **Tip:** デフォルトの content length は `application.conf` から次のように定義できます。
 >
 > `parsers.text.maxLength=128K`
 > 
-> Unit sizes are defined in **Size in bytes format** section of the [[Configuration]] page.
+> 大きさの単位は [[設定|Configuration]] ページの **サイズのバイト指定用フォーマット** で定義されています。
 
 <!--
 You can also wrap any body parser with `maxLength`:
