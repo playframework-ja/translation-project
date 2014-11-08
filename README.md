@@ -6,6 +6,6 @@
 
 このプロジェクトの成果は [playframework.com/documentation/ja](https://playframework.com/documentation/ja/) に公開されます。
 
-翻訳にご協力頂ける場合は、[wiki](https://github.com/playframework-ja/translation-project/wiki) をご一読ください。
+翻訳にご協力頂く際は、[CONTRIBUTING.md](https://github.com/playframework-ja/translation-project/blob/2.3.x/CONTRIBUTING.md) を確認してください。
 
-なにか不明な点がある場合は [@garbagetown](https://twitter.com/garbagetown) までお気軽にお問い合わせください。
+不明な点がある場合は [@garbagetown](https://twitter.com/garbagetown) までお気軽にお問い合わせください。
