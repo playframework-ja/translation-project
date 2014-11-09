@@ -4,7 +4,10 @@
 -->
 # gzip エンコードの設定
 
+<!--
 Play provides a gzip filter that can be used to gzip responses.  It can be added to the applications filters using the `Global` object. To enable the gzip filter, add the Play filters helpers dependency to your project in `build.sbt`:
+-->
+Play はレスポンスを gzip に変換するフィルタを提供しています。`Global` オブジェクトを使うことでアプリケーションにこのフィルタを追加することができます。 gzip フィルタを有効にするには、 Play の filters ヘルパの依存性を `build.sbt` に追加します。
 
 ```scala
 libraryDependencies += filters
