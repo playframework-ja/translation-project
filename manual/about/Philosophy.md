@@ -4,7 +4,10 @@
 -->
 # Play 2 の紹介
 
+<!--
 Since 2007, we have been working on making Java web application development easier. Play started as an internal project at [Zenexity](http://www.zenexity.com) and was heavily influenced by our way of doing web projects: focusing on developer productivity, respecting web architecture, and using a fresh approach to packaging conventions from the start - breaking so-called JEE best practices where it made sense.
+-->
+2007 年以来、私たちは Java での web アプリケーション の開発を容易なものにしようとしてきました。Play は、 [Zenexity](http://www.zenexity.com) における内部的なプロジェクトとしてスタートし、私たちの web プロジェクトの進め方に強く影響されてきました。つまり、開発者の生産性に焦点を当て、 web のアーキテクチャを尊重し、初めからパッケージング規約に対して斬新なやり方を採用してきたのです - そうすることが理にかなっている場合には、いわゆる JEE のベストプラクティスをも破ってきました。
 
 <!--
 In 2009, we decided to share these ideas with the community as an open source project. The immediate feedback was extremely positive and the project gained a lot of traction. Today - after two years of active development - Play has several versions, an active community of 4,000 people, with a growing number of applications running in production all over the globe.
@@ -31,7 +34,10 @@ That’s why we created Play 2, a new web framework for a new era.
 -->
 ## 非同期プログラミングの構築
 
+<!--
 Today’s web applications are integrating more concurrent real-time data, so web frameworks need to support a full asynchronous HTTP programming model. Play was initially designed to handle classic web applications with many short-lived requests. But now, the event model is the way to go for persistent connections - through Comet, long-polling and WebSockets.
+-->
+今日の web アプリケーションは、これまで以上にリアルタイムデータの並行処理を統合するようになってきており、 web フレームワークには完全な非同期 HTTP プログラミングモデルをサポートすることが求められます。 Play はまず、短期間に処理される大量のリクエストを処理する、クラシックな web アプリケーションを扱うように設計されました。しかし今日では、Comet、長期間のポーリング、WebSockets を通じて、接続が保持され続けるコネクションを処理するため、イベントモデルへと進むべきです。
 
 <!--
 Play 2 is architected from the start under the assumption that every request is potentially long-lived. But that’s not all: we also need a powerful way to schedule and run long-running tasks. The Actor-based model is unquestionably the best model today to handle highly concurrent systems, and the best implementation of that model available for both Java and Scala is Akka - so it’s going in. Play 2 provides native Akka support for Play applications, making it possible to write highly-distributed systems.
@@ -118,7 +124,10 @@ Existing Java build systems, however, were not flexible enough to support this n
 -->
 一方で、既存の Java のビルドシステムは、この新しいアプローチをサポートするには、柔軟性が不足していました。私たちは、Play のアプリケーションを実行し、デプロイするための単純明快なツールを提供したいと考えていたことから、Play 1.x では ビルドとデプロイメントのタスクのすべてを処理するために、Python スクリプトの集合体を作り上げました。
 
+<!--
 Meanwhile, developers using Play for more enterprise-scale projects, which require build process customization and integration with their existing company build systems, were a bit lost. The Python scripts we provided with Play 1.x are in no way a fully-featured build system and are not easily customizable. That’s why we’ve decided to go for a more powerful build system for Play 2.
+-->
+しかし、ビルドのプロセスのカスタマイズや、企業内の既存のビルドシステムとの統合が求められる、よりエンタープライズ規模のプロジェクトで Play を使っている開発者の方々は、少々困っていました。私たちが Play 1.x で提供していた Python のスクリプト群は、完全な機能を完備したビルドシステムではまったくありませんでしたし、カスタマイズも容易ではありませんでした。これが、私たちが Play 2 でさらに強力なビルドシステムへ舵を切ることを決めた理由です。
 
 <!--
 Since we need a modern build tool, flexible enough to support Play original conventions and able to build Java and Scala projects, we have chosen to integrate sbt in Play 2. This, however, should not scare existing Play users who are happy with the simplicity of the original Play build. We are leveraging the same simple `play new`, `run`, `start` experience on top of an extensible model: Play 2 comes with a preconfigured build script that will just work for most users. On the other hand, if you need to change the way your application is built and deployed, the fact that a Play project is a standard sbt project gives you all the power you need to customize and adapt it.
