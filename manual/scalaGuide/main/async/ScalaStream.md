@@ -118,7 +118,7 @@ def index = Action {
 <!--
 This way Play will consume the body enumerator in a lazy way, copying each chunk of data to the HTTP response as soon as it is available.
 -->
-こうすると、Play は body enumerator の内容をチャンクに分割して少しずつ読み込み、読み込んだチャンクを随侍 HTTP レスポンスにコピーします。
+こうすると、Play は body enumerator の内容をチャンクに分割して少しずつ読み込み、読み込んだチャンクを随時 HTTP レスポンスにコピーします。
 
 <!--
 ## Serving files
