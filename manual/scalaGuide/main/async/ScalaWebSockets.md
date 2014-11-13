@@ -99,7 +99,7 @@ When constructing a `WebSocket` this way, we must return both `in` and `out` cha
 <!--
 It this example we are creating a simple iteratee that prints each message to console. To send messages, we create a simple dummy enumerator that will send a single **Hello!** message.
 -->
-この例では、受信した各メッセージを console に出力するだけのシンプルな Iteratee を作成しています。また、メッセージを送信するため、**Hello!** というメッセージを一回だけ送信する単純なダミーの Enumerator も作成しました。
+この例では、受信した各メッセージを console に出力するだけのシンプルな Iteratee を作成しています。また、メッセージを送信するため、 **Hello!** というメッセージを一回だけ送信する単純なダミーの Enumerator も作成しました。
 
 <!--
 > **Tip:** You can test WebSockets on <http://websocket.org/echo.html>. Just set the location to `ws://localhost:9000`.
@@ -109,7 +109,7 @@ It this example we are creating a simple iteratee that prints each message to co
 <!--
 Let’s write another example that discards the input data and closes the socket just after sending the **Hello!** message:
 -->
-次は、入力データを全て捨てつつ、**Hello!** メッセージを送信した後すぐにソケットを閉じる例を書いてみましょう。
+次は、入力データを全て捨てつつ、 **Hello!** メッセージを送信した後すぐにソケットを閉じる例を書いてみましょう。
 
 @[iteratee2](code/ScalaWebSockets.scala)
 
