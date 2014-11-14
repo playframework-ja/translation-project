@@ -17,7 +17,7 @@ Play コンソールは、sbt をベースにした開発コンソールです�
 <!--
 To launch the Play console, change to the directory of your project, and run Activator:
 -->
-Play コンソールを起動するにはプロジェクトのディレクトリに移動し、Activatorを実行します。
+Play コンソールを起動するにはプロジェクトのディレクトリに移動し、Activator を実行します。
 
 ```bash
 $ cd my-first-app
@@ -191,7 +191,7 @@ You can also do the same for `~ test`, to continuously test your project each ti
 <!--
 You can also run commands directly without entering the Play console. For example, enter `activator run`:
 -->
-Play コンソールに入らずに直接コマンドを実行することが出来ます。例えば、 `actovator run` と入力してみましょう。
+Play コンソールに入らずに直接コマンドを実行することができます。例えば、 `actovator run` と入力してみましょう。
 
 ```bash
 $ activator run
