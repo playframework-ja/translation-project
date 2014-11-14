@@ -33,7 +33,7 @@ Play は単純な Eclipse の設定のためのコマンドを提供します。
 <!--
 If you want to grab the available source jars (this will take longer and it's possible a few sources might be missing):
 -->
-もし取得可能な jar のソースを持ってくる場合は以下のようにします。(これはいくつかのソースが見つからない可能性があるので、時間がかかるかもしれません。)
+もし取得可能な jar のソースを持ってくる場合は以下のようにします (これには時間がかかるでしょうし、いくつかのソースが見つからない場合もあります)。
 
 ```
 [my-first-app] $ eclipse with-source=true
@@ -42,7 +42,7 @@ If you want to grab the available source jars (this will take longer and it's po
 <!--
 > Note if you are using sub-projects with aggregate, you would need to set `skipParents` appropriately in `build.sbt`:
 -->
-> サブプロジェクトを集める場合、 `build.sbt` にある `skipParents` を以下のように設定する必要があるので注意してください。
+> もしサブプロジェクトを使っている場合は、 `build.sbt` にある `skipParents` を以下のように適切に設定する必要があるので注意してください:
 
 ```
 import com.typesafe.sbteclipse.core.EclipsePlugin.EclipseKeys
@@ -78,7 +78,7 @@ You then need to import the application into your Workspace with the **File/Impo
 <!--
 To debug, start your application with `activator -jvm-debug 9999 run` and in Eclipse right-click on the project and select **Debug As**, **Debug Configurations**. In the **Debug Configurations** dialog, right-click on **Remote Java Application** and select **New**. Change **Port** to 9999 and click **Apply**. From now on you can click on **Debug** to connect to the running application. Stopping the debugging session will not stop the server.
 -->
-デバッグを開始するには `activator -jvm-debug 9999 run` を実行し、アプリケーションを起動します。そして、 Eclipse でプロジェクトを右クリックし、 **Debug As** 、 **Debug Configurations** を選びます。 **Debug Configurations** のダイアログ画面で **Remote Java Application** を右クリックし、 **New** を選びます。そして、 **Port** を9999に変更し、 **Apply** をクリックします。これで実行中のアプリケーションに接続するために **Debug** をクリックできるようになります。デバッグを中止してもサーバは終了しません。
+デバッグを開始するには `activator -jvm-debug 9999 run` を実行し、アプリケーションを起動します。そして、 Eclipse でプロジェクトを右クリックし、 **Debug As** 、 **Debug Configurations** を選びます。 **Debug Configurations** のダイアログ画面で **Remote Java Application** を右クリックし、 **New** を選びます。そして、 **Port** を 9999 に変更し、 **Apply** をクリックします。これで実行中のアプリケーションに接続するために **Debug** をクリックできるようになります。デバッグを中止してもサーバは終了しません。
 
 <!--
 > **Tip**: You can run your application using `~run` to enable direct compilation on file change. This way scala template files are auto discovered when you create a new template in `view` and auto compiled when the file changes. If you use normal `run` then you have to hit `Refresh` on your browser each time.
@@ -110,7 +110,7 @@ IntelliJ IDEA はコマンドプロンプトを使用せずに新しい Play ア
 Before you start creating a Play application in IntelliJ IDEA, make sure that the latest Scala (if you develop with Scala) and 
 Play 2 plugins are enabled in IntelliJ IDEA.
 -->
-Play アプリケーションを IntelliJ IDEA で作成する前に、最新の Scala (もし Scala で開発する場合)と Play 2 プラグインが IntelliJ IDEAで有効になっているか確認しましょう。
+Play アプリケーションを IntelliJ IDEA で作成する前に、最新の Scala (もし Scala で開発する場合)と Play 2 プラグインが IntelliJ IDEA で有効になっているか確認しましょう。
 
 <!--
 To create a Play application:
@@ -132,7 +132,7 @@ IntelliJ IDEA は SBT を使って空のアプリケーションを作ること�
 <!--
 You can also import an existing Play project.
 -->
-今あるPlayのプロジェクトをインポートすることも可能です。
+既存の Play プロジェクトをインポートすることも可能です。
 
 <!--
 To import a Play project:
@@ -141,9 +141,7 @@ To import a Play project:
 - On the next page of the wizard, select ***Import project from external model*** option, choose ***SBT project*** and click ***Next***. 
 - On the next page of the wizard, select additional import options and click ***Finish***. 
 -->
-
 Play のプロジェクトをインポートするには:
-
 - プロジェクトウィザードを開き、 ***Import Project*** を選びます。
 - 表示されたウィンドウの中に表示されている、インポートしたいプロジェクトを選択し ***OK*** をクリックします。
 - ウィザードの次のページで ***Import project from external model*** オプションを選択し、 ***SBT project*** を選択し、 ***Next***をクリックします。
@@ -154,7 +152,7 @@ Check the project's structure, make sure all necessary dependencies are download
 You can use code assistance, navigation and on-the-fly code analysis features.
 -->
 プロジェクトの構造をチェックし、必要な依存関係にあるものが全てダウンロードされているか確認してください。
-コードアシスタンスを案内やコード解析フィーチャーに使用することができます。
+コードアシスタントやナビゲーション、そして、その場で動作するコード解析機能を使用することができます。
 
 <!--
 You can run the created application and view the result in the default browser `http://localhost:9000`. 
@@ -167,9 +165,8 @@ To run a Play application:
 -	From the list in the context menu, select ***Run Pla2 App***.
 -->
 Playアプリケーションを実行するには:
-
 - プロジェクトツリーでアプリケーションを右クリックする。
-- コンテキストメニューメニューの中から ***Run Play2 App*** を選択する。
+- コンテキストメニューの中から ***Run Play2 App*** を選択する。
 
 <!--
 You can easily start a debugger session for a Play application using default Run/Debug Configuration settings.
@@ -293,8 +290,8 @@ That's all there is to it. You should now get type-checking, completion, etc. fo
 Check out the ENSIME manual at <http://ensime.github.io/ensime-src/index.html>.
 If you have questions, post them in the ensime group at <https://groups.google.com/forum/?fromgroups=#!forum/ensime>.
 -->
-このENSIMEマニュアル<http://ensime.github.io/ensime-src/index.html>をチェックしてください。
-疑問があればensimeグループ<https://groups.google.com/forum/?fromgroups=#!forum/ensime>に投稿してください。
+この ENSIME マニュアル <http://ensime.github.io/ensime-src/index.html> をチェックしてください。
+疑問があれば ensime グループ <https://groups.google.com/forum/?fromgroups=#!forum/ensime> に投稿してください。
 
 <!--
 ## All Scala Plugins if needed
