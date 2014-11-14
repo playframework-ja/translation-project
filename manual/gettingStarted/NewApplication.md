@@ -161,4 +161,7 @@ sbt will load your project and fetch the dependencies.
 -->
 sbt コンソールが起動すると、プロジェクトがロードされて、全ての依存モジュールがダウンロードされます。
 
+<!--
 > **Next:** [[Anatomy of a Play application|Anatomy]]
+-->
+> **Next:** [[Play アプリケーションの構造|Anatomy]]
