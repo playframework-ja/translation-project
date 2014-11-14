@@ -326,6 +326,11 @@ Scala は新しいプログラミング言語です。そのため、機能は I
 
 &nbsp;
 
+<!--
 > **Next:** 
 >
 > – [[Play Tutorials|Tutorials]]
+-->
+> **Next:** 
+>
+> – [[Play チュートリアル|Tutorials]]
