@@ -7,17 +7,17 @@
 <!--
 ## Create a new application with the activator command
 -->
-## activatorコマンドで新しいアプリケーションを作成する
+## activator コマンドで新しいアプリケーションを作成する
 
 <!--
 The `activator` command can be used to create a new Play application.  Activator allows you to select a template that your new application should be based off.  For vanilla Play projects, the names of these templates are `play-scala` for Scala based Play applications, and `play-java` for Java based Play applications.
 -->
-`activator` コマンドは新しい Play のアプリケーションを作成することに使えます。 Activator は新しいアプリケーションがベースにするテンプレートを選択することを可能にします。単純な Play プロジェクトとして、Scalaベースのアプリケーション向けには `play-scala` が、 Java ベースの Play アプリケーション向けには `play-java` が、それぞれのテンプレートテンプレートとして存在します。
+`activator` コマンドは新しい Play のアプリケーションを作成することに使えます。 Activator は新しいアプリケーションがベースにするテンプレートを選択することを可能にします。単純な Play プロジェクトとして、Scalaベースのアプリケーション向けには `play-scala` が、 Java ベースの Play アプリケーション向けには `play-java` が、それぞれのテンプレートとして存在します。
 
 <!--
 > Note that choosing a template for either Scala or Java at this point does not imply that you can’t change language later. For example, you can create a new application using the default Java application template and start adding Scala code whenever you like.
 -->
-> 注意点として、ScalaとJavaどちらのテンプレートを選択したらその後、実装する言語を変更出来ないことを意味しません。例えば、新しいアプリケーションを標準のJavaアプリケーションテンプレートを使って作り、Scalaのコードを追加することはいつでも可能です。
+> Scala と Java どちらのテンプレートを選択しても、あとから実装する言語を変更できないということではないことに注意してください。例えば、新しいアプリケーションを標準の Java アプリケーションテンプレートを使って作り、Scala のコードを追加することはいつでも可能です。
 
 <!--
 To create a new vanilla Play Scala application, run:
@@ -39,14 +39,14 @@ $ activator new my-first-app play-java
 <!--
 In either case, you can replace `my-first-app` with whatever name you want your application to use.  Activator will use this as the directory name to create the application in.  You can change this name later if you choose.
 -->
-どちらの場合も、 `my-first-app` のところはお好みでアプリケーション名として使いたい名前に置き換えることが出来ます。Activatorはこれをアプリケーション内で作成するディレクトリ名として使用します。この名前は後で変更することが出来ます。
+どちらの場合も、 `my-first-app` のところはお好みでアプリケーション名として使いたい名前に置き換えることができます。Activator はこれをアプリケーション内で作成するディレクトリ名として使用します。この名前は後で変更することができます。
 
 [[images/activatorNew.png]]
 
 <!--
 Once the application has been created you can use the `activator` command again to enter the [[Play console|PlayConsole]].
 -->
-一度アプリケーションを作成したら、 [[Play console|PlayConsole]] に入るために `activator` コマンドを繰り返し使うことが出来る。
+一度アプリケーションを作成したら、 [[Play console|PlayConsole]] に入るために `activator` コマンドをくり返し使うことができます。
 
 ```bash
 $ cd my-first-app
@@ -56,7 +56,7 @@ $ activator
 <!--
 > If you wish to use other Activator templates, you can do this by running `activator new`.  This will prompt you for an application name, and then give you a chance to browse and select an appropriate template.
 -->
-> もし他の Activator テンプレートを使用したい場合、 `activator new` が使えまえす。これはアプリケーション名をさせ、そして適切なテンプレートを閲覧、選択するチャンスを提供してくれます。
+> もし他の Activator テンプレートを使用したい場合、 `activator new` が使えます。これによりアプリケーション名を入力するよう促され、その後で適切なテンプレートを閲覧、選択する機会が与えられます。
 
 <!--
 ## Create a new application with the Activator UI
@@ -66,7 +66,7 @@ $ activator
 <!--
 New Play applications can also be created with the Activator UI.  To use the Activator UI, run:
 -->
-Play の新しいアプリケーションは Activator UI でも作ることができる。 Activator UI を使うには以下のように入力します。
+Play の新しいアプリケーションは Activator UI でも作ることができます。 Activator UI を使うには以下のように入力します。
 
 ```bash
 $ activator ui
@@ -75,7 +75,7 @@ $ activator ui
 <!--
 You can read the documentation for using the Activator UI [here](https://typesafe.com/activator/docs).
 -->
-Activator UIの使い方については[こちら](https://typesafe.com/activator/docs)のドキュメントをお読みください。
+Activator UI の使い方については [こちら](https://typesafe.com/activator/docs) のドキュメントをお読みください。
 
 <!--
 ## Create a new application without Activator
@@ -94,7 +94,7 @@ sbt を直接使うことで、 Activator をインストールせずに新し�
 
 <!--
 Create a new directory for your new application and configure your sbt build script with two additions.
---?
+-->
 新しいアプリケーションのために新しいディレクトリを作成し、そして2つのスクリプトを sbt のビルドスクリプトに追加します。
 
 <!--
