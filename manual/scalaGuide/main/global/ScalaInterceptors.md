@@ -56,4 +56,7 @@ It’s also possible to intercept a specific Action method, using [[Action compo
 ここで紹介した方法以外にも、 [[アクション合成 | ScalaActionsComposition]] を使って特定のアクションメソッドだけをインターセプトする、というテクニックもあります。
 
 
+<!--
 > **Next:** [[Testing your application | ScalaTestingYourApplication]]
+-->
+> **次ページ:** [[アプリケーションのテスト | ScalaTestingYourApplication]]
