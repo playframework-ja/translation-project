@@ -39,7 +39,10 @@ Snapshots are published daily from our [[Continuous Integration Server|ThirdPart
 -->
 Snapshot は Play の [[継続的インテグレーションサーバ|ThirdPartyTools]] から <http://repo.typesafe.com/typesafe/snapshots/> にある Typesafe Snapshots レポジトリへ、一日一回パブリッシュされています。
 
+<!--
 > **Note:** it's an ivy style repository.
+-->
+> **Note:** このリポジトリは ivy 形式です。
 
 ```
 // The Typesafe snapshots repository
