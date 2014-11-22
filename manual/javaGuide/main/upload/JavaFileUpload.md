@@ -9,7 +9,10 @@
 -->
 ## フォームから `multipart/form-data` 形式でファイルをアップロードする
 
+<!--
 The standard way to upload files in a web application is to use a form with a special `multipart/form-data` encoding, which allows mixing of standard form data with file attachments. Please note: the HTTP method for the form has to be POST (not GET). 
+-->
+web アプリケーションにおけるファイルアップロードの標準的な方法は、`multipart/form-data` エンコーディングのフォームを使うことです。`multipart/form-data` を使うと、標準的なフォームデータに加えて、ファイルを添付データとして一緒に送信することができます。このフォームが使用する HTTP メソッドは (GET ではなく) POST でなければならないことに注意してください。
 
 <!--
 Start by writing an HTML form:
