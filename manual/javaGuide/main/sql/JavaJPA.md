@@ -31,7 +31,10 @@ libraryDependencies ++= Seq(
 -->
 ## JNDI を経由してデータソースを公開する
 
+<!--
 JPA requires the datasource to be accessible via JNDI. You can expose any Play-managed datasource via JNDI by adding this configuration in `conf/application.conf`:
+-->
+JPA を使用するには JNDI 経由でデータソースをアクセス可能にする必要があります。Play で管理しているデータソースは `conf/application.conf` に以下の設定を追加する事で JNDI に公開することができます。
 
 ```
 db.default.driver=org.h2.Driver
