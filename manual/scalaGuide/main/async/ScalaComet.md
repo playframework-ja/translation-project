@@ -33,7 +33,10 @@ We can write this in a better way by using `play.api.libs.iteratee.Enumeratee` t
     
 @[enumeratee](code/ScalaComet.scala)
 
+<!--
 > **Tip:** Writing `events &> toCometMessage` is just another way of writing `events.through(toCometMessage)`
+-->
+> **Tip:** `events &> toCometMessage` は `events.through(toCometMessage)` の別の書き方です
 
 <!--
 ## Using the `play.api.libs.Comet` helper
