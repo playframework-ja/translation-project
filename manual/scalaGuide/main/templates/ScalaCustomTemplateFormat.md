@@ -9,7 +9,10 @@ The built-in template engine supports common template formats (HTML, XML, etc.) 
 -->
 組み込みのテンプレートエンジンは一般的なテンプレートフォーマット (HTML、XML、等) をサポートしていますが、必要であれば独自のフォーマットのサポートを簡単に追加する事ができます。このページではカスタムフォーマットをサポートする為に必要なステップをまとめています。
 
+<!--
 ## Overview of the templating process
+-->
+## テンプレートプロセスの概要
 
 <!--
 The template engine builds its result by appending static and dynamic content parts of a template. Consider for instance the following template:
@@ -54,15 +57,26 @@ In summary, to support your own template format you need to perform the followin
 -->
 ## フォーマットを実装する
 
+<!--
 Implement the `play.twirl.api.Format[A]` trait that has the methods `raw(text: String): A` and `escape(text: String): A` that will be used to integrate static and dynamic template parts, respectively.
-
-The type parameter `A` of the format defines the result type of the template rendering, e.g. `Html` for a HTML template. This type must be a subtype of the `play.twirl.api.Appendable[A]` trait that defines how to concatenates parts together.
-
-For convenience, Play provides a `play.twirl.api.BufferedContent[A]` abstract class that implements `play.twirl.api.Appendable[A]` using a `StringBuilder` to build its result and that implements the `play.twirl.api.Content` trait so Play knows how to serialize it as an HTTP response body (see the last section of this page for details).
-
-In short, you need to write to classes: one defining the result (implementing `play.twirl.api.Appendable[A]`) and one defining the text integration process (implementing `play.twirl.api.Format[A]`). For instance, here is how the HTML format is defined:
+-->
+`play.twirl.api.Format[A]` トレイトを実装しましょう。このトレイトは `raw(text: String): A` および `escape(text: String): A` メソッドがあり、それぞれ静的および動的なテンプレートの部品を統合する為に使われます。
 
 <!--
+The type parameter `A` of the format defines the result type of the template rendering, e.g. `Html` for a HTML template. This type must be a subtype of the `play.twirl.api.Appendable[A]` trait that defines how to concatenates parts together.
+-->
+フォーマットの `A` 型パラメータは、例えば HTML のテンプレートには `Html` といったように、テンプレートのレンダリング結果の型を定義します。この型は `play.twirl.api.Appendable[A]` のサブタイプである必要があり、各部品をどうやって結合するかを定義します。
+
+<!--
+For convenience, Play provides a `play.twirl.api.BufferedContent[A]` abstract class that implements `play.twirl.api.Appendable[A]` using a `StringBuilder` to build its result and that implements the `play.twirl.api.Content` trait so Play knows how to serialize it as an HTTP response body (see the last section of this page for details).
+-->
+利便性のため、 Play は `play.twirl.api.BufferedContent[A]` 抽象クラスを提供します。このクラスは結果をビルドする為に `play.twirl.api.Appendable[A]` を `StringBuilder` を使って実装していて、また HTTP のレスポンスボディにシリアライズする方法を Play に知らせるために `play.twirl.api.Content` トレイトを実装しています (詳細はこのページの最後のセクションを見て下さい) 。
+
+<!--
+In short, you need to write to classes: one defining the result (implementing `play.twirl.api.Appendable[A]`) and one defining the text integration process (implementing `play.twirl.api.Format[A]`). For instance, here is how the HTML format is defined:
+-->
+つまり、二つのクラスを書く必要があります: 一つは (`play.twirl.api.Appendable[A]` を実装する事で) 結果を定義したクラスで、もう一つは (`play.twirl.api.Format[A]` を実装する事で) テキストの統合プロセスを定義したクラスです。例えば、 HTML フォーマットを定義するには以下のようにします:
+
 ```scala
 // The `Html` result type. We extend `BufferedContent[Html]` rather than just `Appendable[Html]` so
 // Play knows how to make an HTTP result from a `Html` value
@@ -75,26 +89,25 @@ object HtmlFormat extends Format[Html] {
   def escape(text: String): Html = …
 }
 ```
--->
-```scala
-// `Html` の結果の型です。 Play に `Html` の値から HTTP の結果を生成方法を知らせるために、
-// `Appendable[Html]` ではなく `BufferedContent[Html]` を継承しています。
-class Html(buffer: StringBuilder) extends BufferedContent[Html](buffer) {
-  val contentType = MimeTypes.HTML
-}
 
 <!--
 ## Associate a file extension to the format
 -->
 ## ファイル拡張子をフォーマットと関連づける
 
+<!--
 The templates are compiled into a `.scala` files by the build process just before compiling the whole application sources. The `TwirlKeys.templateFormats` key is a sbt setting of type `Map[String, String]` defining the mapping between file extensions and template formats. For instance, if HTML was not supported out of the box by Play, you would have to write the following in your build file to associate the `.scala.html` files to the `play.twirl.api.HtmlFormat` format:
+-->
+テンプレートは、ビルドプロセスでアプリケーションのソース全体をコンパイルする直前に `.scala` ファイルにコンパイルされます。 `TwirlKeys.templateFormats` キーは `Map[String, String]` 型の sbt 設定で、ファイル拡張子とテンプレートフォーマットのマッピングを定義しています。例えば、もし HTML が Play で標準でサポートされていなかった場合、以下のようにビルドファイルに書く事で `.scala.html` を `play.twirl.api.HtmlFormat` フォーマットに関連づける必要があります:
 
 ```scala
 TwirlKeys.templateFormats += ("html" -> "my.HtmlFormat.instance")
 ```
 
+<!--
 Note that the right side of the arrow contains the fully qualified name of a value of type `play.twirl.api.Format[_]`.
+-->
+矢印の右側には `play.twirl.api.Format[_]` の値の完全修飾名が含まれている事に注意して下さい。
 
 <!--
 ## Tell Play how to make an HTTP result from a template result type
@@ -111,8 +124,16 @@ implicit def writableHttp(implicit codec: Codec): Writeable[Http] =
   Writeable[Http](result => codec.encode(result.body), Some(ContentTypes.HTTP))
 ```
 
+<!--
 > **Note:** if your template result type extends `play.twirl.api.BufferedContent` you only need to define an
 > implicit `play.api.http.ContentTypeOf` value:
+> ```scala
+> implicit def contentTypeHttp(implicit codec: Codec): ContentTypeOf[Http] =
+>   ContentTypeOf[Http](Some(ContentTypes.HTTP))
+> ```
+-->
+> **ノート:** テンプレート結果の型が `play.twirl.api.BufferedContent` を継承している場合、やらなければいけないのは
+> 暗黙の `play.api.http.ContentTypeOf` を定義する事です:
 > ```scala
 > implicit def contentTypeHttp(implicit codec: Codec): ContentTypeOf[Http] =
 >   ContentTypeOf[Http](Some(ContentTypes.HTTP))
