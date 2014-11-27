@@ -24,9 +24,14 @@ System properties can be used to force a different config source:
 -->
 システムプロパティを使うことで、異なる設定ソースの利用を強制することができます。
 
+<!--
 * `config.resource` specifies a resource name including the extension, i.e. `application.conf` and not just `application`
 * `config.file` specifies a filesystem path, again it should include the extension, not be a basename
 * `config.url` specifies a URL
+-->
+* `config.resource` は拡張子を含んだリソースファイルの指定で、例えば `application.conf` であり、ただの `application` ではありません。
+* `config.file` はファイルシステム上のパスの指定です。パスには拡張子を含みます。ベースネームの指定はできません。
+* `config.url` は URL の指定です。
 
 <!--
 These system properties specify a replacement for `application.conf`, not an addition. In the replacement config file, you can use include "application" to include the original default config file; after the include statement you could go on to override certain settings.
@@ -739,8 +744,17 @@ For powers of two, exactly these strings are supported:
 -->
 ## 慣習としてのシステムプロパティによる上書き
 
+<!--
 For an application's config, Java system properties _override_ settings found in the configuration file. This supports specifying config options on the command line. ie. `play -Dkey=value run`
+-->
+アプリケーションの設定において、Java のシステムプロパティは設定ファイルに記述された設定を _上書き_ します。これにより、設定オプションをコマンドラインから指定することができます。（例） `play -Dkey=value run`
 
+<!--
 Note : Play forks the JVM for tests - and so to use command line overrides in tests you must add `Keys.fork in Test := false` in `build.sbt` before you can use them for a test.
+-->
+注意： Play はテストの間 JVM をフォークします。テストでコマンドラインを使って設定オプションを上書きするには、事前に `build.sbt` に `Keys.fork in Test := false` を追加しなければいけません。
 
+<!--
 > **Next:** [[Configuring the application secret|ApplicationSecret]]
+-->
+**Next:** [[アプリケーション秘密鍵の設定|ApplicationSecret]]
