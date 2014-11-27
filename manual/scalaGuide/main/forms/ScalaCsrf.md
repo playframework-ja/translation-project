@@ -9,7 +9,10 @@ Cross Site Request Forgery (CSRF) is a security exploit where an attacker tricks
 -->
 クロスサイトリクエストフォージェリ (CSRF) は、攻撃者が被害者のブラウザに被害者のセッションを使ったリクエストを行わせるように仕向ける、セキュリティ上の脆弱性です。セッショントークンはすべてのリクエストにおいて送信されるので、攻撃者が被害者のブラウザに代わってリクエストを強制できる場合、攻撃者は被害者に代わってリクエストを行えるということになります。
 
+<!--
 It is recommended that you familiarise yourself with CSRF, what the attack vectors are, and what the attack vectors are not.  We recommend starting with [this information from OWASP](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29).
+-->
+CSRF の攻撃ベクトルがどのようなもので、何が攻撃ベクトルでないかについて習熟することをお勧めします。[OWASP のこの情報](https://www.owasp.org/index.php/Cross-Site_Request_Forgery_%28CSRF%29) から始めるとよいでしょう。
 
 <!--
 Simply put, an attacker can coerce a victims browser to make the following types of requests:
@@ -71,7 +74,10 @@ To allow simple protection for non browser requests, such as requests made throu
 -->
 ## グローバル CSRF フィルタの適用
 
+<!--
 Play provides a global CSRF filter that can be applied to all requests.  This is the simplest way to add CSRF protection to an application.  To enable the global filter, add the Play filters helpers dependency to your project in `build.sbt`:
+-->
+Play はすべてのリクエストに適用できるグローバル CSRF フィルタを提供しています。これがアプリケーションに CSRF 対策を追加するもっとも簡単な方法です。このグローバルフィルタを利用できるようにするには、Play フィルタヘルパーの依存性をプロジェクトの `build.sbt` に追加します:
 
 ```scala
 libraryDependencies += filters
