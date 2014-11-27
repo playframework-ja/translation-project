@@ -197,14 +197,30 @@ Then you can minimise the boiler plate code necessary to write actions:
 
 @[csrf-actions](code/ScalaCsrf.scala)
 
+<!--
 ## CSRF configuration options
+-->
+## CSRF 設定オプション
 
+<!--
 The following options can be configured in `application.conf`:
+-->
+`application.conf` に、以下のオプションを設定することができます:
 
+<!--
 * `csrf.token.name` - The name of the token to use both in the session and in the request body/query string. Defaults to `csrfToken`.
 * `csrf.cookie.name` - If configured, Play will store the CSRF token in a cookie with the given name, instead of in the session.
 * `csrf.cookie.secure` - If `csrf.cookie.name` is set, whether the CSRF cookie should have the secure flag set.  Defaults to the same value as `session.secure`.
 * `csrf.body.bufferSize` - In order to read tokens out of the body, Play must first buffer the body and potentially parse it.  This sets the maximum buffer size that will be used to buffer the body.  Defaults to 100k.
 * `csrf.sign.tokens` - Whether Play should use signed CSRF tokens.  Signed CSRF tokens ensure that the token value is randomised per request, thus defeating BREACH style attacks.
+-->
+* `csrf.token.name` - セッションとリクエストボディ/クエリ文字列の双方で使用されるトークンの名前。デフォルトは `csrfToken` です。
+* `csrf.cookie.name` - このオプションを設定すると、Play は CSRF トークンをセッションではなく cookie に保存します。
+* `csrf.cookie.secure` - `csrf.cookie.name` が設定されている場合に、CSRF cookie がセキュアフラグを持つか否かを設定します。デフォルトは `session.secure` と同じ値です。
+* `csrf.body.bufferSize` - リクエストボディからトークンを読みだすために、Play はまずリクエストボディをバッファリングし、これを内部的にパースしなければなりません。このオプションは、リクエストボディのバッファリングに使われる最大バッファサイズを設定します。デフォルトは 100k です。
+* `csrf.sign.tokens` - Play が CSRF トークンを暗号化すべきか否かを設定します。暗号化された CSRF トークンは、その値がリクエストごとにランダムであることと、これにより BREACH 型の攻撃を無効化することを保証します。
 
+<!--
 > **Next:** [[Custom Validations|ScalaCustomValidations]]
+-->
+> **Next:** [[カスタムバリデーション|ScalaCustomValidations]]
