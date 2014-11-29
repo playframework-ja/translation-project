@@ -9,9 +9,15 @@ The default implementation of the Cache API uses [EHCache](http://ehcache.org/).
 -->
 キャッシュ API のデフォルト実装は [EHCache](http://ehcache.org/) です。その他の実装はプラグイン経由で利用することができます。
 
+<!--
 ## Importing the Cache API
+-->
+## キャッシュ API のインポート
 
+<!--
 Add `cache` into your dependencies list. For example, in `build.sbt`:
+-->
+依存ライブラリの一覧に `cache` を追加してください。 `build.sbt` の例です。
 
 ```scala
 libraryDependencies ++= Seq(
@@ -77,22 +83,39 @@ Play provides a default built-in helper for standard cases:
 -->
 標準的なアクション合成の方法を使って、簡単にスマートなキャッシュ機能を備えたアクションを実装できます。
 
+> **Note:** Play HTTP の `Result` インスタンスは安全にキャッシュして後で再利用できます。
+
+Play は標準的なケースのためにデフォルトのビルトインヘルパーを提供しています。
+
 @[cached-action](code/ScalaCache.scala)
 
-
+<!--
 Or even:
+-->
+あるいは
 
 @[composition-cached-action](code/ScalaCache.scala)
 
+<!--
 ### Control caching
+-->
+### キャッシュ制御
 
+<!--
 You can easily control what you want to cache or what you want to exclude from the cache.
 
 You may want to only cache 200 Ok results.
+-->
+キャッシュしたり、キャッシュから除外することを簡単に制御できます。
+
+200 Ok の結果だけをキャッシュすることもできます。
 
 @[cached-action-control](code/ScalaCache.scala)
 
+<!--
 Or cache 404 Not Found only for a couple of minutes
+-->
+また数分間だけ 404 Not Found をキャッシュすることもできます。
 
 @[cached-action-control-404](code/ScalaCache.scala)
 
