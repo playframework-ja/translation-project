@@ -216,7 +216,7 @@ The following options can be configured in `application.conf`:
 -->
 * `csrf.token.name` - セッションとリクエストボディ/クエリ文字列の双方で使用されるトークンの名前。デフォルトは `csrfToken` です。
 * `csrf.cookie.name` - このオプションを設定すると、Play は CSRF トークンをセッションではなく cookie に保存します。
-* `csrf.cookie.secure` - `csrf.cookie.name` が設定されている場合に、CSRF cookie がセキュアフラグを持つか否かを設定します。デフォルトは `session.secure` と同じ値です。
+* `csrf.cookie.secure` - `csrf.cookie.name` が設定されている場合に、CSRF cookie が secure フラグを持つか否かを設定します。デフォルトは `session.secure` と同じ値です。
 * `csrf.body.bufferSize` - リクエストボディからトークンを読みだすために、Play はまずリクエストボディをバッファリングし、これを内部的にパースしなければなりません。このオプションは、リクエストボディのバッファリングに使われる最大バッファサイズを設定します。デフォルトは 100k です。
 * `csrf.sign.tokens` - Play が CSRF トークンを暗号化すべきか否かを設定します。暗号化された CSRF トークンは、その値がリクエストごとにランダムであることと、これにより BREACH 型の攻撃を無効化することを保証します。
 
