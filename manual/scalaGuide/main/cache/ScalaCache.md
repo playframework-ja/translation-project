@@ -103,11 +103,12 @@ Or even:
 
 <!--
 You can easily control what you want to cache or what you want to exclude from the cache.
-
-You may want to only cache 200 Ok results.
 -->
 キャッシュしたり、キャッシュから除外することを簡単に制御できます。
 
+<!--
+You may want to only cache 200 Ok results.
+-->
 200 Ok の結果だけをキャッシュすることもできます。
 
 @[cached-action-control](code/ScalaCache.scala)
