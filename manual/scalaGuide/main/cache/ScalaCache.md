@@ -76,15 +76,17 @@ To remove an item from the cache use the `remove` method:
 
 <!--
 You can easily create smart cached actions using standard Action composition. 
-
-> **Note:** Play HTTP `Result` instances are safe to cache and reuse later.
-
-Play provides a default built-in helper for standard cases:
 -->
 標準的なアクション合成の方法を使って、簡単にスマートなキャッシュ機能を備えたアクションを実装できます。
 
-> **Note:** Play HTTP の `Result` インスタンスは安全にキャッシュして後で再利用できます。
+<!--
+> **Note:** Play HTTP `Result` instances are safe to cache and reuse later.
+-->
+> **Note:** Play HTTP の `Result` インスタンスはキャッシュして後で再利用しても安全です。
 
+<!--
+Play provides a default built-in helper for standard cases:
+-->
 Play は標準的なケースのためにデフォルトのビルトインヘルパーを提供しています。
 
 @[cached-action](code/ScalaCache.scala)
