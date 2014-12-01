@@ -392,5 +392,7 @@ object Person{
 - **Json マクロは、apply と unapply の入力/出力の型が互いに対応している場合にのみ動作します**: これはケースクラスとして自然な状態です。しかし、これをトレイトで行う場合、ケースクラスに含まれることになる apply/unapply と同じものを実装しなければなりません。
 - **Json マクロが Option/Seq/List/Set & Map[String, _] を受け取れる** ことは分かっています。これら以外の総称型については、テストして、もし動作しない場合は、これまで通り手動で Reads/Writes を書いてください。
 
-
+<!--
 > **Next:** [[Working with XML | ScalaXmlRequests]]
+-->
+> **Next:** [[XML を使う | ScalaXmlRequests]]
