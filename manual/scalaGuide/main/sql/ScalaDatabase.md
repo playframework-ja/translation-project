@@ -178,7 +178,10 @@ JDBC コネクションを取得する方法は何種類かあります。これ
 val connection = DB.getConnection()
 ```
 
+<!--
 Following code show you a JDBC example very simple, working with MySQL 5.*:
+-->
+以下のコードは、MySQL 5.* を使った JDBC のとてもシンプルな例です:
 
 ```scala
 package controllers
