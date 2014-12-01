@@ -29,7 +29,10 @@ Then you must configure a connection pool in the `conf/application.conf` file. B
 -->
 そして `conf/application.conf` でコネクションプールの設定を行う必要があります。規約により、デフォルトの JDBC データソースは `default` という名前である必要があり、これに関連する設定属性名は `db.default.driver` や `db.default.url` のようになります。
 
+<!--
 If something isn’t properly configured you will be notified directly in your browser:
+-->
+もし設定が適切でない場合は、ブラウザ上ですぐに気づくことができるでしょう：
 
 [[images/dbError.png]]
 
