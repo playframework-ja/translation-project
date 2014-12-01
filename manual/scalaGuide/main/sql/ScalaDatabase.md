@@ -172,7 +172,7 @@ val ds = DB.getDataSource()
 <!--
 There are several ways to retrieve a JDBC connection. The simplest way is:
 -->
-JDBC コネクションを取得する方法は何種類かあります。これは最もシンプルなやり方：
+JDBC コネクションを取得する方法は何種類かあります。以下が一番シンプルな方法です：
 
 ```scala
 val connection = DB.getConnection()
