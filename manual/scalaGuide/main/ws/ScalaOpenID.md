@@ -30,9 +30,15 @@ Step 1 may be omitted if all your users are using the same OpenID provider (for 
 -->
 すべてのユーザが同じ OpenID プロバイダを使う場合 (例えば Google アカウントにのみ依存すると決断した場合) 、ステップ 1 を省略することができます。
 
+<!--
 ## Usage
+-->
+## 使い方
 
+<!--
 To use OpenId, first add `ws`  to your `build.sbt` file:
+-->
+OpenId を使うには、まず `build.sbt` ファイルに `ws` を追加します:
 
 ```scala
 libraryDependencies ++= Seq(
@@ -131,4 +137,7 @@ Attributes will then be available in the `UserInfo` provided by the OpenID serve
 -->
 リクエストした属性は OpenID サーバから返却された `UserInfo` より取得することができます。
 
+<!--
 > **Next:** [[Accessing resources protected by OAuth|ScalaOAuth]]
+-->
+> **Next:** [[OAuth によリ保護されたデータへのアクセス|ScalaOAuth]]
