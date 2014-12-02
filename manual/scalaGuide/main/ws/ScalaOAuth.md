@@ -11,9 +11,15 @@ There are 2 very different versions of OAuth: [OAuth 1.0](http://tools.ietf.org/
 -->
 OAuth にはそれぞれ大きく異なる２つのバージョン、[OAuth 1.0](http://tools.ietf.org/html/rfc5849) と [OAuth 2.0](http://oauth.net/2/) が存在します。バージョン 2 はライブラリやヘルパーが必要ないほどシンプルなプロトコルなので、Play は OAuth 1.0 のみサポートしています。
 
+<!--
 ## Usage
+-->
+## 使い方
 
+<!--
 To use OAuth, first add `ws`  to your `build.sbt` file:
+-->
+OAuth を使うには、まず `build.sbt` ファイルに `ws` を追加します:
 
 ```scala
 libraryDependencies ++= Seq(
