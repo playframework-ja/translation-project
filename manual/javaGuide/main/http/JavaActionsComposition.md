@@ -14,7 +14,10 @@ This chapter introduces several ways to define generic action functionality.
 -->
 ## アクションのおさらい
 
+<!--
 Previously, we said that an action is a Java method that returns a `play.mvc.Result` value. Actually, Play manages internally actions as functions. Because Java doesn't yet support first class functions, an action provided by the Java API is an instance of [`play.mvc.Action`](api/java/play/mvc/Action.html):
+-->
+前のページで、アクションとは `play.mvc.Result` 値を返す Java のメソッドだということを説明しました。より正確には、Play はアクションを内部的には関数として管理しています。しかし、Java は第一級オブジェクトとしての関数をサポートしていないため、Java API では [`play.mvc.Action`](api/java/play/mvc/Action.html) のインスタンスでアクションを定義します :
 
 ```java
 public abstract class Action {
