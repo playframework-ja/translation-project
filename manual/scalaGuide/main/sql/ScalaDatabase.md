@@ -29,7 +29,10 @@ Then you must configure a connection pool in the `conf/application.conf` file. B
 -->
 そして `conf/application.conf` でコネクションプールの設定を行う必要があります。規約により、デフォルトの JDBC データソースは `default` という名前である必要があり、これに関連する設定属性名は `db.default.driver` や `db.default.url` のようになります。
 
+<!--
 If something isn’t properly configured you will be notified directly in your browser:
+-->
+もし設定が適切でない場合は、ブラウザ上ですぐに気づくことができるでしょう：
 
 [[images/dbError.png]]
 
@@ -169,13 +172,16 @@ val ds = DB.getDataSource()
 <!--
 There are several ways to retrieve a JDBC connection. The simplest way is:
 -->
-JDBC コネクションを取得する方法は何種類かあります。これは最もシンプルなやり方：
+JDBC コネクションを取得する方法は何種類かあります。以下が一番シンプルな方法です：
 
 ```scala
 val connection = DB.getConnection()
 ```
 
+<!--
 Following code show you a JDBC example very simple, working with MySQL 5.*:
+-->
+以下のコードは、MySQL 5.* を使った JDBC のとてもシンプルな例です:
 
 ```scala
 package controllers
