@@ -95,7 +95,7 @@ Using jQuery as an example, making a call is as simple as:
 <!--
 The router also makes a few other properties available including the ``url`` and the ``type`` (the HTTP method). For example the above call to jQuery's ajax function can also be made like:
 -->
-ルータはいくつかの ``url`` や ``type`` (HTTP method)を含めて利用できるプロパティを生成します。例えば以下のように上行がjQueryのajax関数を呼び出すように作ることもできます。
+ルータは `` url`` や(HTTP メソッドの)  ``type`` ,を含めていくつかのプロパティを提供します。例えば、jQuery による ajax 関数の呼び出しは次のように書くこともできます:
 
     var r = jsRoutes.controllers.Users.get(someId);
     $.ajax({url: r.url, type: r.type, success: /*...*/, error: /*...*/ });
