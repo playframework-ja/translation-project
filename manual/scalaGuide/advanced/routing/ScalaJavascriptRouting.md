@@ -95,7 +95,7 @@ Using jQuery as an example, making a call is as simple as:
 <!--
 The router also makes a few other properties available including the ``url`` and the ``type`` (the HTTP method). For example the above call to jQuery's ajax function can also be made like:
 -->
-ルータはいくつかのurlやtype(HTTP method）を含めて利用できるプロパティを生成します。例えば以下のように上行がjQueryのajax関数を呼び出すように作ることもできます。
+ルータはいくつかの ``url`` や ``type`` (HTTP method)を含めて利用できるプロパティを生成します。例えば以下のように上行がjQueryのajax関数を呼び出すように作ることもできます。
 
     var r = jsRoutes.controllers.Users.get(someId);
     $.ajax({url: r.url, type: r.type, success: /*...*/, error: /*...*/ });
@@ -107,7 +107,7 @@ The above approach is required where other properties need setting such as succe
 <!--
 The ``absoluteURL`` and the ``webSocketURL`` are methods (not properties) which return the complete url string. A Websocket connection can be made like:
 -->
-'absoluteURL' と 'webSocketURL'は完全なURL文字列を返すメソッドです（プロパティではありません）。Websocket接続は以下のように作ることができます。
+ ``absoluteURL``  と `` webSocketURL`` は完全なURL文字列を返すメソッドです(プロパティではありません)。Websocket接続は以下のように作ることができます。
 
     var r = jsRoutes.controllers.Users.list();
     var ws = new WebSocket(r.webSocketURL());
