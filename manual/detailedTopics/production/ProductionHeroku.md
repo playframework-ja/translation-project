@@ -88,7 +88,7 @@ To git@heroku.com:floating-lightning-8044.git
 <!--
 Heroku will run `sbt clean stage` to prepare your application. On the first deployment, all dependencies will be downloaded, which takes a while to complete (but will be cached for future deployments).
 -->
-git push が完了すると、 Heroku は `sbt clean stage` を実行して、アプリケーションをビルドします。初回のデプロイ時には、全ての依存モジュールがダウンロードされるため、多少の時間がかかります (2回目以降のデプロイ時はキャッシュが使われます) 。
+git push が完了すると、 Heroku は `sbt clean stage` を実行して、アプリケーションをビルドします。初回のデプロイ時には、全ての依存モジュールがダウンロードされるため、多少の時間がかかります (2 回目以降のデプロイ時はキャッシュが使われます) 。
 
 
 <!--
@@ -111,7 +111,7 @@ web.1         up for 10s          target/universal/stage/bin/myapp
 <!--
 The web process is up.  Review the logs for more information:
 -->
-Web プロセスが起動しています。次は、詳細を確認するため、ログを見てみましょう。
+Web プロセスが起動しています。次は、詳細を確認するため、ログを見てみましょう:
 
 ```bash
 $ heroku logs
@@ -138,7 +138,7 @@ $ heroku logs -t --app floating-lightning-8044
 <!--
 Looks good. We can now visit the app by running:
 -->
-問題なしのようです。さらに以下のコマンドを実行すると、ブラウザが起動してデプロイした Web アプリにアクセスすることができます。
+問題なしのようです。さらに以下のコマンドを実行すると、ブラウザが起動してデプロイした Web アプリにアクセスすることができます:
 
 ```bash
 $ heroku open
