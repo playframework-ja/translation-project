@@ -14,7 +14,10 @@
 -->
 ## アプリケーションのアクターシステム
 
+<!--
 Akka can work with several containers called `ActorSystems`. An actor system manages the resources it is configured to use in order to run the actors which it contains. 
+-->
+Akka は `アクターシステム` と呼ばれるいくつかのコンテナを持ちます。それぞれのアクターシステムは、それに含まれるアクターを動かすためのリソースを管理します。
 
 <!--
 A Play application defines a special actor system to be used by the application. This actor system follows the application life-cycle and restarts automatically when the application restarts.
@@ -54,7 +57,10 @@ akka.actor.debug.receive = on
 -->
 > **Note:** Akka の規約に基づいて設定ファイルにトップの設定キーを記述することで、同じファイル内で全く別のアクターシステムを構成することもできます。
 
+<!--
 For Akka logging configuration, see [[configuring logging|SettingsLogger]].
+-->
+Akka のログ設定については、 [[ログの設定|SettingsLogger]] を参照してください。
 
 <!--
 ## Scheduling asynchronous tasks
@@ -66,7 +72,10 @@ You can schedule sending messages to actors and executing tasks (functions or `R
 -->
 Akka では、アクターへのメッセージ送信やタスク(関数または `Runnable`)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
 
+<!--
 For example, to send a message to the `testActor` every 300 microseconds:
+-->
+例えば、`testActor` というアクターに 300 マイクロ秒毎にメッセージを送信するにはこのようにします:
 
 @[play-akka-actor-schedule-repeat](code/ScalaAkka.scala)
 
