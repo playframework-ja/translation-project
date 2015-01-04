@@ -4,7 +4,10 @@
 -->
 # <a name="json-to-json">JSON トランスフォーマー</a>
 
+<!--
 > Please note this documentation was initially published as an article by Pascal Voitot ([@mandubian](https://github.com/mandubian)) on [mandubian.com](http://mandubian.com/2012/10/29/unveiling-play-2-dot-1-json-api-part3-json-transformers/)
+-->
+> このドキュメントは、当初 Pascal Voitot ([@mandubian](https://github.com/mandubian)) の記事 [mandubian.com](http://mandubian.com/2012/10/29/unveiling-play-2-dot-1-json-api-part3-json-transformers/) として公開されたものです
 
 <!--
 Now you should know how to validate JSON and convert into any structure you can write in Scala and back to JSON. But as soon as I've begun to use those combinators to write web applications, I almost immediately encountered a case : read JSON from network, validate it and convert it into… JSON. 
@@ -122,8 +125,12 @@ This is exactly the same case when serving data from DB:
 - クライアントが期待するフォーマット (例えば、セキュリティに関する情報は外部に送信したくありません) にて要求されたデータのみを送信するために JSON をフィルタリング/変換して、
 - クライアントに JSON を直接送信する
 
+<!--
 In this context, we can easily imagine **manipulating a flow of JSON data** from client to DB and back without any (explicit) transformation in anything else than JSON.  
 Naturally, when you plug this transformation flow on **reactive infrastructure provided by Play2.1**, it suddenly opens new horizons.  
+-->
+この文脈において、JSON ではない何かへのあらゆる (明示的な) 変換を伴わずに、クライアントから DB へ、そしてその逆方向へ **JSON データフローを操作** できたらと容易に想像します。
+この変換フローを **Play2.1 が提供するリアクティブなインフラ** にごく自然に当てはめたとき、新たな地平線が突然開けます。
 
 <!--
 > This is the so-called (by me) **JSON coast-to-coast design**: 
