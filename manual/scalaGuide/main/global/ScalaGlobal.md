@@ -9,7 +9,10 @@
 -->
 ## Global オブジェクト
 
+<!--
 Defining a `Global` object in your project allows you to handle global settings for your application. This object must be defined in the default (empty) package and must extend [`GlobalSettings`](api/scala/index.html#play.api.GlobalSettings).
+-->
+プロジェクト内に `Global` オブジェクトを定義して、アプリケーションのグローバル設定をカスタマイズすることができます。このオブジェクトは、デフォルトパッケージ (無名パッケージ) 内に定義され、 [`GlobalSettings`](api/scala/index.html#play.api.GlobalSettings) を継承している必要があります。
 
 @[global-define](code/ScalaGlobal.scala)
 
