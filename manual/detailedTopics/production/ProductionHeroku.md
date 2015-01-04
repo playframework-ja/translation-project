@@ -122,7 +122,10 @@ $ heroku logs
 ...
 ```
 
+<!--
 We can also tail the logs in the same manner as we could do at a regular command line.  This is useful for debugging:
+-->
+通常のコマンドラインで行うのと同じやり方でログを追いかけることもできます。これはデバッグに便利です:
 ```bash
 $ heroku logs -t --app floating-lightning-8044
 2011-08-18T00:13:41+00:00 heroku[web.1]: Starting process with command `target/start`
@@ -147,7 +150,10 @@ $ heroku open
 -->
 ## データベースに接続する
 
+<!--
 Heroku provides a number of relational and NoSQL databases through [Heroku Add-ons](https://addons.heroku.com).  Play applications on Heroku are automatically provisioned a [Heroku Postgres](https://addons.heroku.com/heroku-postgresql) database.  To configure your Play application to use the Heroku Postgres database, first add the PostgreSQL JDBC driver to your application dependencies (`build.sbt`):
+-->
+Heroku は [Heroku Add-ons](https://addons.heroku.com) によって多くのリレーショナルデータベースと NoSQL データベースを提供しています。Heroku 上の Play アプリケーションには、自動的に [Heroku Postgres](https://addons.heroku.com/heroku-postgresql) が提供されています。この Postgres データベースを Play アプリケーションが使うように設定するには、まず PostgreSQL JDBC ドライバをアプリケーション依存性 (`build.sbt`) に追加します:
 
 ```scala
 libraryDependencies += "postgresql" % "postgresql" % "9.1-901-1.jdbc4"
@@ -166,7 +172,10 @@ web: target/universal/stage/bin/retailos -Dhttp.port=${PORT} -DapplyEvolutions.d
 This instructs Heroku that for the process named `web` it will run Play and override the `applyEvolutions.default`, `db.default.driver`, and `db.default.url` configuration parameters.  Note that the `Procfile` command can be maximum 255 characters long.  Alternatively, use the `-Dconfig.resource=` or `-Dconfig.file=` mentioned in [[production configuration|ProductionConfiguration]] page.
 -->
 この設定で、 `web` というプロセスでは Play を起動し `applyEvolutions.default` 、 `db.default.driver` それと `db.default.url` 設定をオーバーライドするように Heroku に指示します。 `Procfile` コマンドは最大で 255 文字である事に注意して下さい。代替手段として [[本番向けの設定|ProductionConfiguration]] ページに書かれている `-Dconfig.resource=` および `-Dconfig.file=` を使用します。
+<!--
 Note that the creation of a Procfile is not actually required by Heroku, as Heroku will look in your play application's conf directory for an application.conf file in order to determine that it is a play application.
+-->
+Heroku はデプロイされたアプリケーションが play アプリケーションであると断定するために conf ディレクトリの中にある application.conf ファイルを探すので、実際のところ Procfile の作成は必須でないことを覚えておいてください。
 
 <!--
 ## Further learning resources
