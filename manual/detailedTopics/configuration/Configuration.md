@@ -231,16 +231,7 @@ In other words:
     foo.bar : 42
 
 <!--
-<!--
-<!--
-<!--
 is equivalent to:
--->
-は、
--->
-は、
--->
-は、
 -->
 は、
 
@@ -249,11 +240,13 @@ is equivalent to:
 <!--
 and:
 -->
-と等しく、また、
+と等しく、また更に以下の書き方もすべて等しくなります。
 
     foo.bar.baz : 42
 
+<!--
 is equivalent to:
+-->
 
     foo { bar { baz : 42 } }
 
@@ -264,20 +257,25 @@ and so on. These values are merged in the usual way; which implies that:
 
     a.x : 42, a.y : 43
 
-is equivalent to:
+は、
 
     a { x : 42, y : 43 }
 
 <!--
+is equivalent to:
 Because path expressions work like value concatenations, you can have whitespace in keys:
 -->
-パス式は値の結合と同じように扱われるため、キー中に空白を含めることができます。
+と等しく、パス式は値の結合と同じように扱われるため、キー中に空白を含めることができます。つまり
 
     a b c : 42
 
-is equivalent to:
+は、
 
     "a b c" : 42
+
+
+と等しくなります。
+
 
 <!--
 Because path expressions are always converted to strings, even single values that would normally have another type become strings.
