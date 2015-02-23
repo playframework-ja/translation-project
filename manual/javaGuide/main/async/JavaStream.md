@@ -8,7 +8,10 @@
 -->
 ## 標準的なレスポンスと Content-length ヘッダ
 
+<!--
 Since HTTP 1.1, to keep a single connection open to serve several HTTP requests and responses, the server must send the appropriate `Content-Length` HTTP header along with the response. 
+-->
+HTTP 1.1 以降、複数の HTTP リクエストとレスポンスにまたがって単一のコネクションを使いまわすためには、サーバはレスポンスと一緒に適切な `Content-Length` HTTP ヘッダを送信する必要があります。
 
 <!--
 By default, when you send a simple result, such as:
@@ -27,7 +30,10 @@ You are not specifying a `Content-Length` header. Of course, because the content
 -->
 > 文字列をバイト列に変換するために使われたエンコーディングにしたがって `Content-Length` をヘッダを計算しなければならないので、このようなテキストベースのコンテンツを返すことは見た目ほど単純なことではないことに **注意** してください。
 
+<!--
 To be able to compute the `Content-Length` header properly, Play must consume the whole response data and load its content into memory. 
+-->
+`Content-Length` ヘッダを正しく計算するため、Play はレスポンスのデータ全てを読んで、内容をメモリにロードしなければなりません。
 
 <!--
 ## Serving files
@@ -61,7 +67,10 @@ For now, this works well with streaming file content, since we are able to compu
 -->
 今のところ、ストリーミングを始める前にコンテンツの長さを計算することができるため、うまくファイルの内容をストリーミングすることができていました。しかし、コンテンツのサイズが事前にわからないような動的に生成されるコンテンツをストリーミングする場合はどうでしょうか？
 
+<!--
 For this kind of response we have to use **Chunked transfer encoding**. 
+-->
+このような種類のレスポンスを返すためには、 **チャンク転送エンコーディング** を利用します
 
 <!--
 > **Chunked transfer encoding** is a data transfer mechanism in version HTTP 1.1 in which a web server serves content in a series of chunks. This uses the `Transfer-Encoding` HTTP response header instead of the `Content-Length` header, which the protocol would otherwise require. Because the `Content-Length` header is not used, the server does not need to know the length of the content before it starts transmitting a response to the client (usually a web browser). Web servers can begin transmitting responses with dynamically-generated content before knowing the total size of that content.
