@@ -12,7 +12,7 @@ Sometimes we would like to call other HTTP services from within a Play applicati
 <!--
 There are two important parts to using the WS API: making a request, and processing the response.  We'll discuss how to make both GET and POST HTTP requests first, and then show how to process the response from WS.  Finally, we'll discuss some common use cases.
 -->
-WS API には、リクエストの作成とレスポンスの処理という2つの重要な部品があります。 まず、 GET および　POST の HTTP リクエストを作成する方法について紹介し、 次に WS からレスポンスを処理する方法について紹介します。 最後に、よくあるユースケースを紹介します。
+WS API には、リクエストの作成とレスポンスの処理という2つの重要な部品があります。まず、GET および POST の HTTP リクエストを作成する方法について紹介し、次に WS からレスポンスを処理する方法について紹介します。最後に、よくあるユースケースを紹介します。
 
 <!--
 ## Making a Request
@@ -40,21 +40,21 @@ Then import the following:
 <!--
 To build an HTTP request, you start with `WS.url()` to specify the URL.
 -->
-HTTP リクエストを構築するために、　`WS.url()` を URL を設定して呼び出します。
+HTTP リクエストを構築するために、 `WS.url()` を URL を設定して呼び出します。
 
 @[simple-holder](code/ScalaWSSpec.scala)
 
 <!--
 This returns a [WSRequestHolder](api/scala/index.html#play.api.libs.ws.WS$$WSRequestHolder) that you can use to specify various HTTP options, such as setting headers.  You can chain calls together to construct complex requests.
 -->
-これは [WSRequestHolder](api/scala/index.html#play.api.libs.ws.WS$$WSRequestHolder) を返し、 ヘッダの設定のような様々な HTTP のオプションを設定するために使用します。　メソッド呼び出しを連鎖して、複雑なリクエストの構築をまとめることができます。
+これは [WSRequestHolder](api/scala/index.html#play.api.libs.ws.WS$$WSRequestHolder) を返し、ヘッダの設定のような様々な HTTP のオプションを設定するために使用します。メソッド呼び出しを連鎖して、複雑なリクエストの構築をまとめることができます。
 
 @[complex-holder](code/ScalaWSSpec.scala)
 
 <!--
 You end by calling a method corresponding to the HTTP method you want to use.  This ends the chain, and uses all the options defined on the built request in the `WSRequestHolder`.
 -->
-使用したい HTTP メソッドに対応するメソッドを最後に呼びだします。　これで連鎖が終了し、 `WSRequestHolder`　のリクエストに設定した全てのオプションが使用されます。
+使用したい HTTP メソッドに対応するメソッドを最後に呼び出します。これで連鎖が終了し、 `WSRequestHolder` のリクエストに設定した全てのオプションが使用されます。
 
 @[holder-get](code/ScalaWSSpec.scala)
 
@@ -68,7 +68,7 @@ This returns a `Future[WSResponse]` where the [Response](api/scala/index.html#pl
 <!--
 If you need to use HTTP authentication, you can specify it in the builder, using a username, password, and an [AuthScheme](api/scala/index.html#play.api.libs.ws.WSAuthScheme).  Valid case objects for the AuthScheme are `BASIC`, `DIGEST`, `KERBEROS`, `NONE`, `NTLM`, and `SPNEGO`.
 -->
-HTTP認証を使う必要があるなら、 ビルダーにユーザー名、パスワード、 [AuthScheme](api/scala/index.html#play.api.libs.ws.WSAuthScheme) を設定します。 AuthScheme に適用可能なケースオブジェクトは、`BASIC` , `DIGEST` , `KERBEROS` , `NONE` , `NTLM` そして `SPNEGO` です。
+HTTP 認証を使う必要があるなら、ビルダーにユーザー名、パスワード、 [AuthScheme](api/scala/index.html#play.api.libs.ws.WSAuthScheme) を設定します。AuthScheme に適用可能なケースオブジェクトは、`BASIC`, `DIGEST`, `KERBEROS`, `NONE`, `NTLM` そして `SPNEGO` です。
 
 
 @[auth-request](code/ScalaWSSpec.scala)
@@ -81,7 +81,7 @@ HTTP認証を使う必要があるなら、 ビルダーにユーザー名、パ
 <!--
 If an HTTP call results in a 302 or a 301 redirect, you can automatically follow the redirect without having to make another call.
 -->
-もし、 HTTP 呼び出しの結果が、 302 や 301 のようなリダイレクトであるなら、 他のメソッド呼び出しをしなくとも自動的にリダイレクトされます。
+もし、HTTP 呼び出しの結果が、302 や 301 のようなリダイレクトであるなら、他のメソッド呼び出しをしなくとも自動的にリダイレクトされます。
 
 @[redirects](code/ScalaWSSpec.scala)
 
@@ -93,7 +93,7 @@ If an HTTP call results in a 302 or a 301 redirect, you can automatically follow
 <!--
 Parameters can be specified as a series of key/value tuples.
 -->
-パラメーターは、 キー/値のタプルをつなげて設定することもできます
+パラメーターは、キー/値のタプルをつなげて設定することもできます
 
 @[query-string](code/ScalaWSSpec.scala)
 
@@ -112,7 +112,7 @@ Headers can be specified as a series of key/value tuples.
 <!--
 If you are sending plain text in a particular format, you may want to define the content type explicitly.
 -->
-もし、　プレーンなテキストを特定のフォーマットで送信したいのなら、 コンテントタイプを明示的に設定する必要があります。
+もし、プレーンなテキストを特定のフォーマットで送信したいのなら、コンテントタイプを明示的に設定する必要があります。
 
 @[content-type](code/ScalaWSSpec.scala)
 
@@ -136,7 +136,7 @@ A virtual host can be specified as a string.
 <!--
 If you wish to specify a request timeout, you can use `withRequestTimeout` to set a value in milliseconds.
 -->
-リクエストにタイムアウトを設定するなら、　`withRequestTimeout`　を使用しミリ秒で値を設定します。
+リクエストにタイムアウトを設定するなら、 `withRequestTimeout` を使用しミリ秒で値を設定します。
 
 @[request-timeout](code/ScalaWSSpec.scala)
 
@@ -148,7 +148,7 @@ If you wish to specify a request timeout, you can use `withRequestTimeout` to se
 <!--
 To post url-form-encoded data a `Map[String, Seq[String]]` needs to be passed into `post`.
 -->
-フォームエンコードされたデータを POST で送信するには、 `post` に `Map[String, Seq[String]]` を渡す必要があります。
+フォームエンコードされたデータを POST で送信するには、`post` に `Map[String, Seq[String]]` を渡す必要があります。
 
 @[url-encoded](code/ScalaWSSpec.scala)
 
@@ -172,7 +172,7 @@ JSON データを送信する最も簡単な方法は、 [[JSON|ScalaJson]] ラ�
 <!--
 The easiest way to post XML data is to use XML literals.  XML literals are convenient, but not very fast.  For efficiency, consider using an XML view template, or a JAXB library.
 -->
-XML データを送信する最も簡単な方法は、 XML リテラルを使う事です。 XML リテラルは便利ですが、　それほど速くはありません。　効率を重視するなら、 XML ビューテンプレート や JAXB ライブラリを使う事を検討してください。
+XML データを送信する最も簡単な方法は、XML リテラルを使う事です。XML リテラルは便利ですが、それほど速くはありません。効率を重視するなら、XML ビューテンプレート や JAXB ライブラリを使う事を検討してください。
 
 @[scalaws-post-xml](code/ScalaWSSpec.scala)
 
@@ -184,7 +184,7 @@ XML データを送信する最も簡単な方法は、 XML リテラルを使�
 <!--
 Working with the [Response](api/scala/index.html#play.api.libs.ws.Response) is easily done by mapping inside the [Future](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future).
 -->
-[Response](api/scala/index.html#play.api.libs.ws.Response)　に対する操作は [Future](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future) の中でマッピングをすることで簡単に行えます。
+[Response](api/scala/index.html#play.api.libs.ws.Response) に対する操作は [Future](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future) の中でマッピングをすることで簡単に行えます。
 
 <!--
 The examples given below have some common dependencies that will be shown once here for brevity.
@@ -194,7 +194,7 @@ The examples given below have some common dependencies that will be shown once h
 <!--
 Whenever an operation is done on a `Future`, an implicit execution context must be available - this declares which thread pool the callback to the future should run in.  The default Play execution context is often sufficient:
 -->
-`Future` 上で処理を実行するときにはいつでも、 暗黙的な実行コンテキストが必要となります。 実行コンテキストとは futruer が実行されてコールバックを行うスレッドプールのことです 。 Play のデフォルトの実行コンテキストを使えば、通常では充分でしょう。
+`Future` 上で処理を実行するときにはいつでも、暗黙的な実行コンテキストが必要となります。実行コンテキストとは futruer が実行されてコールバックを行うスレッドプールのことです 。Play のデフォルトの実行コンテキストを使えば、通常では充分でしょう。
 
 @[scalaws-context](code/ScalaWSSpec.scala)
 
@@ -213,7 +213,7 @@ The examples also use the folowing case class for serialization / deserializatio
 <!--
 You can process the response as a [JSON object](api/scala/index.html#play.api.libs.json.JsValue) by calling `response.json`.
 -->
-レスポンスを [JSON オブジェクト](api/scala/index.html#play.api.libs.json.JsValue) として処理するには、 `response.json` を呼び出します。
+レスポンスを [JSON オブジェクト](api/scala/index.html#play.api.libs.json.JsValue) として処理するには、`response.json` を呼び出します。
 
 @[scalaws-process-json](code/ScalaWSSpec.scala)
 
@@ -232,7 +232,7 @@ JSON ライブラリには、暗黙の [`Reads[T]`](api/scala/index.html#play.ap
 <!--
 You can process the response as an [XML literal](http://www.scala-lang.org/api/current/index.html#scala.xml.NodeSeq) by calling `response.xml`.
 -->
-レスポンスを　[XML リテラル](http://www.scala-lang.org/api/current/index.html#scala.xml.NodeSeq) として処理するには、 `response.xml` を呼び出します。
+レスポンスを [XML リテラル](http://www.scala-lang.org/api/current/index.html#scala.xml.NodeSeq) として処理するには、`response.xml` を呼び出します。
 
 @[scalaws-process-xml](code/ScalaWSSpec.scala)
 
@@ -244,12 +244,12 @@ You can process the response as an [XML literal](http://www.scala-lang.org/api/c
 <!--
 Calling `get()` or `post()` will cause the body of the request to be loaded into memory before the response is made available.  When you are downloading with large, multi-gigabyte files, this may result in unwelcome garbage collection or even out of memory errors.
 -->
-`get()` や `post()` を実行すると、レスポンスが使用可能になる前に、リクエストの本体をメモリに読込みます。 数ギガバイトのファイルのような大量のダウンロードを行うと、　不愉快なガベージコレクションや、アウトオブメモリーエラーを招くかもしれません。
+`get()` や `post()` を実行すると、レスポンスが使用可能になる前に、リクエストの本体をメモリに読込みます。数ギガバイトのファイルのような大量のダウンロードを行うと、不愉快なガベージコレクションや、アウトオブメモリーエラーを招くかもしれません。
 
 <!--
 `WS` lets you use the response incrementally by using an [[iteratee|Iteratees]].  The `stream()` and `getStream()` methods on `WSRequestHolder` return `Future[(WSResponseHeaders, Enumerator[Array[Byte]])]`.  The enumerator contains the response body.
 -->
-`WS` では　インクリメンタルなレスポンスを [[iteratee|Iteratees]] によって扱うことができます。　`WSRequestHolder` の `stream()` と `getStream()` メソッドは` Future[(WSResponseHeaders, Enumerator[Array[Byte]])]` を返します。 Enumerator には　レスポンスボディが含まれています。
+`WS` では インクリメンタルなレスポンスを [[iteratee|Iteratees]] によって扱うことができます。`WSRequestHolder` の `stream()` と `getStream()` メソッドは` Future[(WSResponseHeaders, Enumerator[Array[Byte]])]` を返します。Enumerator には レスポンスボディが含まれています。
 
 <!--
 Here is a trivial example that uses an iteratee to count the number of bytes returned by the response:
@@ -262,14 +262,14 @@ Iteratee を使用して、レスポンスによって返却されたバイト�
 <!--
 Of course, usually you won't want to consume large bodies like this, the more common use case is to stream the body out to another location.  For example, to stream the body to a file:
 -->
-もちろん、通常はこのような方法で大きなボディを消費したくはないでしょう。　より一般的な使用方法は、ボディを別の場所にストリームによって出力することです。　次の例では、ボディをファイルにストリームで出力します。
+もちろん、通常はこのような方法で大きなボディを消費したくはないでしょう。より一般的な使用方法は、ボディを別の場所にストリームによって出力することです。次の例では、ボディをファイルにストリームで出力します。
 
 @[stream-to-file](code/ScalaWSSpec.scala)
 
 <!--
 Another common destination for response bodies is to stream them through to a response that this server is currently serving:
 -->
-レスポンスボディの行き先として他にありうるのは、　このサーバーが現在処理しているレスポンスへのストリームによる出力です。
+レスポンスボディの行き先として他にありうるのは、このサーバーが現在処理しているレスポンスへのストリームによる出力です。
 
 @[stream-to-result](code/ScalaWSSpec.scala)
 
@@ -293,7 +293,7 @@ Another common destination for response bodies is to stream them through to a re
 <!--
 Using for comprehensions is a good way to chain WS calls in a trusted environment.  You should use for comprehensions together with [Future.recover](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future) to handle possible failure.
 -->
-for 内包を使うのは、 信頼できる環境で WS の呼び出しを連結する良い方法です。 起こりうる失敗に対応するために、 for 内包と一緒に　[Future.recover](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future)　を使用してください。
+for 内包を使うのは、信頼できる環境で WS の呼び出しを連結する良い方法です。起こりうる失敗に対応するために、for 内包と一緒に [Future.recover](http://www.scala-lang.org/api/current/index.html#scala.concurrent.Future) を使用してください。
 
 @[scalaws-forcomprehension](code/ScalaWSSpec.scala)
 
@@ -305,19 +305,19 @@ for 内包を使うのは、 信頼できる環境で WS の呼び出しを連�
 <!--
 When making a request from a controller, you can map the response to a `Future[Result]`.  This can be used in combination with Play's `Action.async` action builder, as described in [[Handling Asynchronous Results|ScalaAsync]].
 -->
-コントローラーからリクエストを作成するとき、　レスポンスを `Future[Result]` へマッピングできます。　これは　Play の　`Action.async` アクションビルダーと組み合わせることで使用できます。 詳細は [[非同期レスポンスの処理|ScalaAsync]] にあります。
+コントローラーからリクエストを作成するとき、レスポンスを `Future[Result]` へマッピングできます。これは Play の `Action.async` アクションビルダーと組み合わせることで使用できます。詳細は [[非同期レスポンスの処理|ScalaAsync]] にあります。
 
 @[async-result](code/ScalaWSSpec.scala)
 
 <!--
 ## Using WSClient
 -->
-## WSClient　を使用する
+## WSClient を使用する
 
 <!--
 WSClient is a wrapper around the underlying AsyncHttpClient.  It is useful for defining multiple clients with different profiles, or using a mock.
 -->
-WSClient　は内部的な　AsyncHttpClient　を包むラッパーです。　いくつかのプロパティを指定した複数のクライアントを定義したり、モックを使用できたりする点で有用です。
+WSClient は内部的な AsyncHttpClient を包むラッパーです。いくつかのプロパティを指定した複数のクライアントを定義したり、モックを使用できたりする点で有用です。
 
 <!--
 The default client can be called from the WS singleton:
@@ -329,14 +329,14 @@ The default client can be called from the WS singleton:
 <!--
 You can define a WS client directly from code without going through WS, and use implicitly with `WS.clientUrl()`
 -->
-WS　クライアントを、　WS を介さず直接コードから定義することができます。　その場合、暗黙的なクライアントと一緒に`WS.clientUrl()` を使用します。
+WS クライアントを、WS を介さず直接コードから定義することができます。その場合、暗黙的なクライアントと一緒に`WS.clientUrl()` を使用します。
 
 @[implicit-client](code/ScalaWSSpec.scala)
 
 <!--
 > NOTE: if you instantiate a NingWSClient object, it does not use the WS plugin system, and so will not be automatically closed in `Application.onStop`. Instead, the client must be manually shutdown using `client.close()` when processing has completed.  This will release the underlying ThreadPoolExecutor used by AsyncHttpClient.  Failure to close the client may result in out of memory exceptions (especially if you are reloading an application frequently in development mode).
 -->
-> 注意: もし NingWSClient オブジェクトをインスタンス化した場合、　それは WS のプラグインシステムを使用していません。　そのため、　`Application.onStop` の実行時に自動で閉じられません。　その代わり、　クライアントは処理が完了した際に、 `client.close()` を用いて手動でシャットダウンする必要があります。　これは　AsyncHttpClient　が内部で使用している ThreadPoolExecutor を解放します。　クライアントを閉じることを行わないと、(開発モードで頻繁にアプリケーションをリロードしている場合は、特に)アウトオブメモリー例外を引き起こすかもしれません。
+> 注意: もし NingWSClient オブジェクトをインスタンス化した場合、それは WS のプラグインシステムを使用していません。そのため、`Application.onStop` の実行時に自動で閉じられません。その代わり、クライアントは処理が完了した際に、 `client.close()` を用いて手動でシャットダウンする必要があります。これは AsyncHttpClient が内部で使用している ThreadPoolExecutor を解放します。クライアントを閉じることを行わないと、 (開発モードで頻繁にアプリケーションをリロードしている場合は、特に) アウトオブメモリー例外を引き起こすかもしれません。
 
 <!--
 or directly:
@@ -348,14 +348,14 @@ or directly:
 <!--
 Or use a magnet pattern to match up certain clients automatically:
 -->
-また、　適切なクライアントを自動的に結びつけるマグネットパターンを使用できます。
+また、適切なクライアントを自動的に結びつけるマグネットパターンを使用できます。
 
 @[pair-magnet](code/ScalaWSSpec.scala)
 
 <!--
 By default, configuration happens in `application.conf`, but you can also set up the builder directly from configuration:
 -->
-デフォルトでは、 設定は `application.conf` で行われますが、 設定から直接ビルダーを構築することも可能です。
+デフォルトでは、設定は `application.conf` で行われますが、設定から直接ビルダーを構築することも可能です。
 
 @[programmatic-config](code/ScalaWSSpec.scala)
 
@@ -369,14 +369,14 @@ You can also get access to the underlying [async client](http://sonatype.github.
 <!--
 This is important in a couple of cases.  WS has a couple of limitations that require access to the client:
 -->
-重要な事柄が2点あります。　WS はクライアントへのアクセス要求時に2つの制限があります。
+重要な事柄が 2 点あります。WS はクライアントへのアクセス要求時に 2 つの制限があります。
 
 <!--
 * `WS` does not support multi part form upload directly.  You can use the underlying client with [RequestBuilder.addBodyPart](http://asynchttpclient.github.io/async-http-client/apidocs/com/ning/http/client/RequestBuilder.html).
 * `WS` does not support streaming body upload.  In this case, you should use the `FeedableBodyGenerator` provided by AsyncHttpClient.
 -->
-* `WS` はマルチパートのフォームのアップロードを直接サポートしていません。　内部的なクライアントの [RequestBuilder.addBodyPart](http://asynchttpclient.github.io/async-http-client/apidocs/com/ning/http/client/RequestBuilder.html) を使用してください。
-* `WS` はストリームによるボディのアップロードをサポートしていません。　この場合は、　AsyncHttpClient　によって提供される　`FeedableBodyGenerator` を使用してください。
+* `WS` はマルチパートのフォームのアップロードを直接サポートしていません。内部的なクライアントの [RequestBuilder.addBodyPart](http://asynchttpclient.github.io/async-http-client/apidocs/com/ning/http/client/RequestBuilder.html) を使用してください。
+* `WS` はストリームによるボディのアップロードをサポートしていません。この場合は、AsyncHttpClient によって提供される `FeedableBodyGenerator` を使用してください。
 
 <!--
 ## Configuring WS
@@ -407,7 +407,7 @@ WS クライアントの設定は、 `application.conf` にある以下のプロ
 <!--
 To configure WS for use with HTTP over SSL/TLS (HTTPS), please see [[Configuring WS SSL|WsSSL]].
 -->
-HTTP オーバー SSL/TLS (HTTPS) を使用するための WS の設定については、 [[WS SSLの設定]]　を参照してください。
+HTTP オーバー SSL/TLS (HTTPS) を使用するための WS の設定については、 [[WS SSLの設定]] を参照してください。
 
 <!--
 ### Configuring Timeouts
@@ -417,7 +417,7 @@ HTTP オーバー SSL/TLS (HTTPS) を使用するための WS の設定につい
 <!--
 There are 3 different timeouts in WS. Reaching a timeout causes the WS request to interrupt.
 -->
-WS には3種類のタイムアウト設定があります。 タイムアウトになると、WS リクエストに割り込みが発生します。
+WS には3種類のタイムアウト設定があります。タイムアウトになると、WS リクエストに割り込みが発生します。
 
 <!--
 * `ws.timeout.connection`: The maximum time to wait when connecting to the remote host *(default is **120 seconds**)*.
@@ -432,7 +432,7 @@ WS には3種類のタイムアウト設定があります。 タイムアウト
 <!--
 The request timeout can be overridden for a specific connection with `withRequestTimeout()` (see "Making a Request" section).
 -->
-リクエストのタイムアウトは　`withRequestTimeout()`　を使用した接続において上書き可能です。("リクエストの作成"の節を参照してください。)
+リクエストのタイムアウトは `withRequestTimeout()` を使用した接続において上書き可能です。 ("リクエストの作成"の節を参照してください。)
 
 <!--
 > **Next:** [[OpenID Support in Play|ScalaOpenID]]
