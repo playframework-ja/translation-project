@@ -66,7 +66,10 @@ val title = Messages("home.title")(Lang("fr"))
 -->
 ## メッセージの書式
 
+<!--
 Messages are formatted using the `java.text.MessageFormat` library. For example, assuming you have message defined like:
+-->
+メッセージは `java.text.MessageFormat` ライブラリを使ってフォーマットされます。例えば、次のようなメッセージが定義されているとしましょう。
 
 ```
 files.summary=The disk {1} contains {0} file(s).
