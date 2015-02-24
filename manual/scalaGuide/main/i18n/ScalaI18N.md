@@ -12,7 +12,7 @@
 <!--
 A valid language code is specified by a valid **ISO 639-2 language code**, optionally followed by a valid **ISO 3166-1 alpha-2 country code**, such as `fr` or `en-US`.
 -->
-アプリケーションの対応言語は、`fr` や `en-US` のように、**ISO 639-2 言語コード** の後に省略可能な **ISO 3166-1 alpha-2 国コード** を続けて指定します。
+アプリケーションの対応言語は、`fr` や `en-US` のように、 **ISO 639-2 言語コード** の後に省略可能な **ISO 3166-1 alpha-2 国コード** を続けて指定します。
 
 <!--
 To start you need to specify the languages supported by your application in the `conf/application.conf` file:
@@ -66,7 +66,10 @@ val title = Messages("home.title")(Lang("fr"))
 -->
 ## メッセージの書式
 
+<!--
 Messages are formatted using the `java.text.MessageFormat` library. For example, assuming you have message defined like:
+-->
+メッセージは `java.text.MessageFormat` ライブラリを使ってフォーマットされます。例えば、次のようなメッセージが定義されているとしましょう。
 
 ```
 files.summary=The disk {1} contains {0} file(s).
@@ -81,16 +84,28 @@ You can then specify parameters as:
 Messages("files.summary", d.files.length, d.name)
 ```
 
+<!--
 ## Notes on apostrophes
+-->
+## アポストロフィに対する注意
 
+<!--
 Since Messages uses `java.text.MessageFormat`, please be aware that single quotes are used as a meta-character for escaping parameter substitutions.
+-->
+メッセージには `java.text.MessageFormat` を使うので、シングルクォーテーションは引数代入をエスケープするためのメタキャラクタとして使われることに注意してください。
 
+<!--
 For example, if you have the following messages defined:
+-->
+例えば、以下のようなメッセージが定義されているとします:
 
 @[apostrophe-messages](code/scalaguide/i18n/messages)
 @[parameter-escaping](code/scalaguide/i18n/messages)
 
+<!--
 you should expect the following results:
+-->
+結果は以下のようになるでしょう:
 
 @[apostrophe-messages](code/ScalaI18N.scala)
 @[parameter-escaping](code/ScalaI18N.scala)
