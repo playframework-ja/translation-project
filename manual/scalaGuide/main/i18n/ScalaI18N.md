@@ -12,7 +12,7 @@
 <!--
 A valid language code is specified by a valid **ISO 639-2 language code**, optionally followed by a valid **ISO 3166-1 alpha-2 country code**, such as `fr` or `en-US`.
 -->
-アプリケーションの対応言語は、`fr` や `en-US` のように、**ISO 639-2 言語コード** の後に省略可能な **ISO 3166-1 alpha-2 国コード** を続けて指定します。
+アプリケーションの対応言語は、`fr` や `en-US` のように、 **ISO 639-2 言語コード** の後に省略可能な **ISO 3166-1 alpha-2 国コード** を続けて指定します。
 
 <!--
 To start you need to specify the languages supported by your application in the `conf/application.conf` file:
