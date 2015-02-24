@@ -230,9 +230,15 @@ To validate that the documentation is structurely sound, run `./build validate-d
 -->
 ドキュメントの構造が妥当であることを確認するには、`./build validate-docs` を実行します。このコマンドは、壊れた wiki リンクやコード参照、またはリソースリンクが存在しないことを確認し、ドキュメントの markdown ファイル名がユニークであることを保証し、そして孤立したページが存在しないことを保証します。
 
+<!--
 ## Code samples from external Play modules
+-->
+## 外部 Play モジュールのコードサンプル
 
+<!--
 To avoid circular dependencies, any documentation that documents a Play module that is not a core part of Play can't include its code samples along with the rest of the Play documentation.  To address this, the documentation for that module can place an entry into the `externalPlayModules` map in `project/Build.scala`, including all the extra settings (namely library dependencies) required to build the code snippets for that module.  For example:
+-->
+依存性の循環を避けるため、Play 本体に含まれない Play モジュールに関するあらゆるドキュメントは、そのコードサンプルを Play のその他のドキュメントと一緒に含めることができません。この問題に対処するため、これらモジュールのドキュメントは `project/Build.scala` 内の `externalPlayModules` マップのエントリに、そのモジュールのコードスニペットをビルドするために必要なその他の設定 (すなわち、ライブラリ依存性) と共に含めることができます。以下に例を示します:
 
 ```scala
 val externalPlayModules: Map[String, Seq[Setting[_]]] = Map(
@@ -243,4 +249,7 @@ val externalPlayModules: Map[String, Seq[Setting[_]]] = Map(
 )
 ```
 
+<!--
 Now place all code snippets that use that module in `code-some-module`.  Now to run any SBT commands, ensuring that that module is included, run `./build -Dexternal.modules=some-module test`, or to run the tests for all modules, run `./build -Dexternal-modules=all test`.
+-->
+ここで、このモジュールを使うコードスニペットをすべて `code-some-module` に配置します。これであらゆる SBT コマンドを実行することができます。モジュールが含まれていることを確認したら `./build -Dexternal.modules=some-module test` を実行してみましょう。すべてのモジュールをテストするには `./build -Dexternal-modules=all test` を実行します。
