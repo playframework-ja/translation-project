@@ -84,8 +84,7 @@ object SomeFeatureSpec extends Specification {
 <!--
 In the above case, the ``val msg = ...`` line will be extracted and rendered as code in the page.  All code samples should be checked to ensure they compile, run, and if it makes sense, ensure that it does what the documentation says it does.  It should not try to test the features themselves.
 -->
-上記の場合は 行 ``val msg = ...`` が抽出され、コードとしてページ内にレンダリングされます。すべてのサンプルコードは、それらがコンパイル、実行できること、そして当然のことですが、それらがドキュメントに記述されているとおりに動作することを
-確認する必要があります。サンプルコードは、その機能をサンプルコード自身でテストすべきではありません。
+上記の場合は 行 ``val msg = ...`` が抽出され、コードとしてページ内にレンダリングされます。すべてのサンプルコードは、それらがコンパイル、実行できること、そして当然のことですが、それらがドキュメントに記述されているとおりに動作することを確認する必要があります。サンプルコードは、その機能をサンプルコード自身でテストすべきではありません。
 
 <!--
 All code samples get run on the same classloader.  Consequently they must all be well namespaced, within a package that corresponds to the part of the documentation they are associated with.
@@ -97,10 +96,16 @@ In some cases, it may not be possible for the code that should appear in the doc
 -->
 いくつかの場面では、上記のガイドラインに沿って書くことのできるコードを、ドキュメント内に表示されるコードと完全に一致させることができない場合があるかもしれません。特に、いくつかのコードサンプルは `controllers` のようなパッケージ名を使う必要があります。他に方法がない場合は最後の手段として、コードサンプル抽出機能にサンプルを変更するよう指示する、いくつかのディレクティブをコードに配置することができます。以下がそのディレクティブです:
 
+<!--
 * `###replace: foo` - Replace the next line with `foo`.  You may optionally terminate this command with `###`
 * `###insert: foo` - Insert `foo` before the next line.  You may optionally terminate this command with `###`
 * `###skip` - Skip the current line
 * `###skip: n` - Skip the next n lines
+-->
+* `###replace: foo` - 次の行を `foo` で置き換えます。このコマンドを `###` で終端することもできます
+* `###insert: foo` - 次の行の前に `foo` を挿入します。このコマンドを `###` で終端することもできます
+* `###skip` - 現在の行をスキップします
+* `###skip: n` - 次の n 行をスキップします
 
 <!--
 For example:
@@ -225,9 +230,15 @@ To validate that the documentation is structurely sound, run `./build validate-d
 -->
 ドキュメントの構造が妥当であることを確認するには、`./build validate-docs` を実行します。このコマンドは、壊れた wiki リンクやコード参照、またはリソースリンクが存在しないことを確認し、ドキュメントの markdown ファイル名がユニークであることを保証し、そして孤立したページが存在しないことを保証します。
 
+<!--
 ## Code samples from external Play modules
+-->
+## 外部 Play モジュールのコードサンプル
 
+<!--
 To avoid circular dependencies, any documentation that documents a Play module that is not a core part of Play can't include its code samples along with the rest of the Play documentation.  To address this, the documentation for that module can place an entry into the `externalPlayModules` map in `project/Build.scala`, including all the extra settings (namely library dependencies) required to build the code snippets for that module.  For example:
+-->
+依存性の循環を避けるため、Play 本体に含まれない Play モジュールに関するあらゆるドキュメントは、そのコードサンプルを Play のその他のドキュメントと一緒に含めることができません。この問題に対処するため、これらモジュールのドキュメントは `project/Build.scala` 内の `externalPlayModules` マップのエントリに、そのモジュールのコードスニペットをビルドするために必要なその他の設定 (すなわち、ライブラリ依存性) と共に含めることができます。以下に例を示します:
 
 ```scala
 val externalPlayModules: Map[String, Seq[Setting[_]]] = Map(
@@ -238,4 +249,7 @@ val externalPlayModules: Map[String, Seq[Setting[_]]] = Map(
 )
 ```
 
+<!--
 Now place all code snippets that use that module in `code-some-module`.  Now to run any SBT commands, ensuring that that module is included, run `./build -Dexternal.modules=some-module test`, or to run the tests for all modules, run `./build -Dexternal-modules=all test`.
+-->
+ここで、このモジュールを使うコードスニペットをすべて `code-some-module` に配置します。これであらゆる SBT コマンドを実行することができます。モジュールが含まれていることを確認したら `./build -Dexternal.modules=some-module test` を実行してみましょう。すべてのモジュールをテストするには `./build -Dexternal-modules=all test` を実行します。
