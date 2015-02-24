@@ -97,10 +97,16 @@ In some cases, it may not be possible for the code that should appear in the doc
 -->
 いくつかの場面では、上記のガイドラインに沿って書くことのできるコードを、ドキュメント内に表示されるコードと完全に一致させることができない場合があるかもしれません。特に、いくつかのコードサンプルは `controllers` のようなパッケージ名を使う必要があります。他に方法がない場合は最後の手段として、コードサンプル抽出機能にサンプルを変更するよう指示する、いくつかのディレクティブをコードに配置することができます。以下がそのディレクティブです:
 
+<!--
 * `###replace: foo` - Replace the next line with `foo`.  You may optionally terminate this command with `###`
 * `###insert: foo` - Insert `foo` before the next line.  You may optionally terminate this command with `###`
 * `###skip` - Skip the current line
 * `###skip: n` - Skip the next n lines
+-->
+* `###replace: foo` - 次の行を `foo` で置き換えます。このコマンドを `###` で終端することもできます
+* `###insert: foo` - 次の行の前に `foo` を挿入します。このコマンドを `###` で終端することもできます
+* `###skip` - 現在の行をスキップします
+* `###skip: n` - 次の n 行をスキップします
 
 <!--
 For example:
