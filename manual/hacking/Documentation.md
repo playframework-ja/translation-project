@@ -84,8 +84,7 @@ object SomeFeatureSpec extends Specification {
 <!--
 In the above case, the ``val msg = ...`` line will be extracted and rendered as code in the page.  All code samples should be checked to ensure they compile, run, and if it makes sense, ensure that it does what the documentation says it does.  It should not try to test the features themselves.
 -->
-上記の場合は 行 ``val msg = ...`` が抽出され、コードとしてページ内にレンダリングされます。すべてのサンプルコードは、それらがコンパイル、実行できること、そして当然のことですが、それらがドキュメントに記述されているとおりに動作することを
-確認する必要があります。サンプルコードは、その機能をサンプルコード自身でテストすべきではありません。
+上記の場合は 行 ``val msg = ...`` が抽出され、コードとしてページ内にレンダリングされます。すべてのサンプルコードは、それらがコンパイル、実行できること、そして当然のことですが、それらがドキュメントに記述されているとおりに動作することを確認する必要があります。サンプルコードは、その機能をサンプルコード自身でテストすべきではありません。
 
 <!--
 All code samples get run on the same classloader.  Consequently they must all be well namespaced, within a package that corresponds to the part of the documentation they are associated with.
