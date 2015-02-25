@@ -12,7 +12,7 @@
 <!--
 To specify your application’s languages, you need a valid language code, specified by a valid **ISO Language Code**, optionally followed by a valid **ISO Country Code**. For example, `fr` or `en-US`.
 -->
-アプリケーションの対応言語を指定するためには、まず正しい言語コードが必要です。言語コードの形式は、**ISO 言語コード**の後に省略可能な **ISO 国コード** を続ける、というものです。例えば、 `fr` や `en-US` は正しい言語コードです。
+アプリケーションの対応言語を指定するためには、まず正しい言語コードが必要です。言語コードの形式は、 **ISO 言語コード** の後に省略可能な **ISO 国コード** を続ける、というものです。例えば、 `fr` や `en-US` は正しい言語コードです。
 
 <!--
 To start, you need to specify the languages that your application supports in its `conf/application.conf` file:
@@ -78,7 +78,10 @@ String title = Messages.get(new Lang(Lang.forCode("fr")), "home.title")
 -->
 ## メッセージのフォーマット
 
+<!--
 Messages are formatted using the `java.text.MessageFormat` library. For example, if you have defined a message like this:
+-->
+メッセージは `java.text.MessageFormat` ライブラリを使ってフォーマットされます。例えば、次のようなメッセージが定義されているとしましょう:
 
 ```
 files.summary=The disk {1} contains {0} file(s).
@@ -93,16 +96,28 @@ You can then specify parameters as:
 Messages.get("files.summary", d.files.length, d.name)
 ```
 
+<!--
 ## Notes on apostrophes
+-->
+## アポストロフィに対する注意
 
+<!--
 Since Messages uses `java.text.MessageFormat`, please be aware that single quotes are used as a meta-character for escaping parameter substitutions.
+-->
+メッセージには `java.text.MessageFormat` を使うので、シングルクォーテーションは引数代入をエスケープするためのメタキャラクタとして使われることに注意してください。
 
+<!--
 For example, if you have the following messages defined:
+-->
+例えば、以下のようなメッセージが定義されているとします:
 
 @[single-apostrophe](code/javaguide/i18n/messages)
 @[parameter-escaping](code/javaguide/i18n/messages)
 
+<!--
 you should expect the following results:
+-->
+結果は以下のようになるでしょう:
 
 @[single-apostrophe](code/javaguide/i18n/JavaI18N.java)
 @[parameter-escaping](code/javaguide/i18n/JavaI18N.java)
