@@ -9,7 +9,10 @@
 -->
 ## Scala ベースのタイプセーフなテンプレートエンジン
 
+<!--
 Play comes with <a href="https://github.com/playframework/twirl">Twirl</a>, a powerful Scala-based template engine, whose design was inspired by ASP.NET Razor. Specifically it is:
+-->
+Play には <a href="https://github.com/playframework/twirl">Twirl</a> という、ASP.NET Razor に影響を受けた強力な Scala ベースのテンプレートエンジンが含まれています。特徴は以下の通りです:
 
 <!--
 - **compact, expressive, and fluid**: it minimizes the number of characters and keystrokes required in a file, and enables a fast, fluid coding workflow. Unlike most template syntaxes, you do not need to interrupt your coding to explicitly denote server blocks within your HTML. The parser is smart enough to infer this from your code. This enables a really compact and expressive syntax which is clean, fast and fun to type.
@@ -247,7 +250,10 @@ Note that you can also declare reusable pure code blocks:
 <h1>@title("hello world")</h1>
 ```
 
+<!--
 > **Note:** Declaring code block this way in a template can be sometime useful but keep in mind that a template is not the best place to write complex logic. It is often better to externalize these kind of code in a Java class (that you can store under the `views/` package as well if you want).
+-->
+> **ノート:** このようにコードブロックをテンプレートで宣言すると便利なこともありますが、テンプレートは込み入ったロジックを置く場所としては適切でないことを覚えておいてください。このようなコードは、(必要であれば `views` パッケージ配下に配置することもできる) Scala クラスに切り出すと良いことが多いです。
 
 <!--
 By convention a reusable block defined with a name starting with **implicit** will be marked as `implicit`:
