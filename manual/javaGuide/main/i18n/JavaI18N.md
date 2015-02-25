@@ -78,7 +78,10 @@ String title = Messages.get(new Lang(Lang.forCode("fr")), "home.title")
 -->
 ## メッセージのフォーマット
 
+<!--
 Messages are formatted using the `java.text.MessageFormat` library. For example, if you have defined a message like this:
+-->
+メッセージは `java.text.MessageFormat` ライブラリを使ってフォーマットされます。例えば、次のようなメッセージが定義されているとしましょう:
 
 ```
 files.summary=The disk {1} contains {0} file(s).
