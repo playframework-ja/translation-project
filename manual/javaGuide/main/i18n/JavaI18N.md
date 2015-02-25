@@ -12,7 +12,7 @@
 <!--
 To specify your application’s languages, you need a valid language code, specified by a valid **ISO Language Code**, optionally followed by a valid **ISO Country Code**. For example, `fr` or `en-US`.
 -->
-アプリケーションの対応言語を指定するためには、まず正しい言語コードが必要です。言語コードの形式は、**ISO 言語コード**の後に省略可能な **ISO 国コード** を続ける、というものです。例えば、 `fr` や `en-US` は正しい言語コードです。
+アプリケーションの対応言語を指定するためには、まず正しい言語コードが必要です。言語コードの形式は、 **ISO 言語コード** の後に省略可能な **ISO 国コード** を続ける、というものです。例えば、 `fr` や `en-US` は正しい言語コードです。
 
 <!--
 To start, you need to specify the languages that your application supports in its `conf/application.conf` file:
