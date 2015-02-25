@@ -96,16 +96,28 @@ You can then specify parameters as:
 Messages.get("files.summary", d.files.length, d.name)
 ```
 
+<!--
 ## Notes on apostrophes
+-->
+## アポストロフィに対する注意
 
+<!--
 Since Messages uses `java.text.MessageFormat`, please be aware that single quotes are used as a meta-character for escaping parameter substitutions.
+-->
+メッセージには `java.text.MessageFormat` を使うので、シングルクォーテーションは引数代入をエスケープするためのメタキャラクタとして使われることに注意してください。
 
+<!--
 For example, if you have the following messages defined:
+-->
+例えば、以下のようなメッセージが定義されているとします:
 
 @[single-apostrophe](code/javaguide/i18n/messages)
 @[parameter-escaping](code/javaguide/i18n/messages)
 
+<!--
 you should expect the following results:
+-->
+結果は以下のようになるでしょう:
 
 @[single-apostrophe](code/javaguide/i18n/JavaI18N.java)
 @[parameter-escaping](code/javaguide/i18n/JavaI18N.java)
