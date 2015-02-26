@@ -113,4 +113,7 @@ Attributes will then be available in the `UserInfo` provided by the OpenID serve
 -->
 リクエストした属性は OpenID サーバから返却された `UserInfo` より取得することができます。
 
+<!--
 > **Next:** [[Accessing resources protected by OAuth|JavaOAuth]]
+-->
+> **Next:** [[OAuth によリ保護されたデータへのアクセス|JavaOAuth]]
