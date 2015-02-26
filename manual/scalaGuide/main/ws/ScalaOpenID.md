@@ -117,7 +117,7 @@ OpenID はユーザの同一性を提供します。メールアドレスや名�
 <!--
 You may request *optional* attributes and/or *required* attributes from the OpenID server. Asking for required attributes means the user cannot login to your service if he doesn’t provides them.
 -->
-OpenID サーバに対しては、*任意* および *必須* の属性のどちらか一方または両方をリクエストすることができます。必須の属性を要求するということは、ユーザがその情報を提供しないかぎり、あなたのサービスへログインできないことを意味します。
+OpenID サーバに対しては、 *任意* および *必須* の属性のどちらか一方または両方をリクエストすることができます。必須の属性を要求するということは、ユーザがその情報を提供しないかぎり、あなたのサービスへログインできないことを意味します。
 
 <!--
 Extended attributes are requested in the redirect URL:
