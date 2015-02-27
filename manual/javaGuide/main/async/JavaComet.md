@@ -4,7 +4,10 @@
 -->
 # Comet ソケット
 
+<!-- 
 ## Using chunked responses to create Comet sockets
+-->
+## Comet ソケットを作成するためにチャンクレスポンスを利用する
 
 <!--
 An useful usage of **Chunked responses** is to create Comet sockets. A Comet socket is just a chunked `text/html` response containing only `<script>` elements. For each chunk, we write a `<script>` tag containing JavaScript that is immediately executed by the web browser. This way we can send events live to the web browser from the server: for each message, wrap it into a `<script>` tag that calls a JavaScript callback function, and write it to the chunked response.
@@ -53,9 +56,15 @@ Java
 Java 8
 : @[comet](java8code/java8guide/async/JavaComet.java)
 
+<!-- 
 ## The forever iframe technique
+-->
+## Forever iframe テクニック
 
+<!--
 The standard technique to write a Comet socket is to load an infinite chunked comet response in an iframe and to specify a callback calling the parent frame:
+-->
+Comet ソケットを書く標準的なテクニックとして、 iframe 内でチャンク分割された Comet レスポンスを無限にロードし、親フレームを呼び出すコールバック関数を特定するというものがあります:
 
 Java
 : @[forever-iframe](code/javaguide/async/JavaComet.java)
@@ -63,7 +72,10 @@ Java
 Java 8
 : @[forever-iframe](java8code/java8guide/async/JavaComet.java)
 
+<!-- 
 With an HTML page like:
+-->
+これを、次のような HTML ページと共に使用します:
 
 ```
 <script type="text/javascript">
