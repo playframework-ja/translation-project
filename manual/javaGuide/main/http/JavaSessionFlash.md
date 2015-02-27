@@ -19,7 +19,10 @@ It’s important to understand that Session and Flash data are not stored in the
 -->
 セッションやフラッシュのデータはサーバに保存されるのではなく、クッキーを利用して後続のリクエストに追加されるということはとても重要です。このことは、データサイズがかなり制限される (4KB まで) と同時に、文字列型の値しか保存できないということを意味します。
 
+<!--
 Cookies are signed with a secret key so the client can’t modify the cookie data (or it will be invalidated). The Play session is not intended to be used as a cache. If you need to cache some data related to a specific session, you can use the Play built-in cache mechanism and use the session to store a unique ID to associate the cached data with a specific user.
+-->
+クッキーの値は秘密鍵によって署名されているため、クライアントがクッキーのデータを変更することはできません (変更すると、値が無効化されます) 。Play のセッションはキャッシュとして使われることを想定して作られてはいません。もし、特定のセッションに関するデータをキャッシュしたい場合、Play に組み込まれたキャッシュ機構を利用し、そしてキャッシュされたデータを特定のユーザに対応付けるユニークな ID をセッションに格納することができます。
 
 <!--
 > There is no technical timeout for the session, which expires when the user closes the web browser. If you need a functional timeout for a specific application, just store a timestamp into the user Session and use it however your application needs (e.g. for a maximum session duration, maxmimum inactivity duration, etc.).
@@ -91,11 +94,17 @@ The Flash scope works exactly like the Session, but with two differences:
 -->
 > **重要:** フラッシュスコープはシンプルかつ非 Ajax なアプリケーションにおいて、成功/失敗メッセージをやり取りするためだけに利用すべきです。その理由は、データが次のリクエストまでしか保持されない、また複雑な Web アプリケーションにおいてはリクエストの順序が保証できないためにフラッシュスコープが競合状態に陥る可能性があるからです。
 
+<!--
 So for example, after saving an item, you might want to redirect the user back to the index page, and you might want to display an error on the index page saying that the save was successful.  In the save action, you would add the success message to the flash scope:
+-->
+例えば、アイテムを保存した後、ユーザを index ページにリダイレクトさせて、この index ページに保存処理が成功したことを示す通知を表示したいとします。この場合、save アクションで flash スコープに処理成功メッセージを追加します:
 
 @[store-flash](code/javaguide/http/JavaSessionFlash.java)
 
+<!--
 Then in the index action, you could check if the success message existed in the flash scope, and if so, render it:
+-->
+そして index アクションで flash スコープにメッセージが存在することを確認し、存在した場合はこれをレンダリングします:
 
 @[read-flash](code/javaguide/http/JavaSessionFlash.java)
 
