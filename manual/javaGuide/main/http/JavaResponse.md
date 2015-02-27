@@ -33,11 +33,17 @@ will set the `Content-Type` header to `application/json`.
 -->
 のように記述した場合は、`Content-Type` ヘッダに `application/json` がセットされます。
 
+<!--
 This is pretty useful, but sometimes you want to change it. Just use the `as(newContentType)` method on a result to create a new similar result with a different `Content-Type` header:
+-->
+これはかなり便利な機能ですが、`Content-Type` を任意に変更したいこともあるでしょう。そんな時は、Result の `as(newContentType)` というメソッドを呼び出して、`Content-Type` ヘッダを変更した新たなレスポンスを生成しましょう。
 
 @[custom-content-type](code/javaguide/http/JavaResponse.java)
 
+<!--
 You can also set the content type on the HTTP response context:
+-->
+HTTP レスポンスのコンテキストにコンテントタイプを指定する事もできます。
 
 @[context-content-type](code/javaguide/http/JavaResponse.java)
 
@@ -70,15 +76,24 @@ You can easily add a Cookie to the HTTP response:
 
 @[set-cookie](code/javaguide/http/JavaResponse.java)
 
+<!--
 If you need to set more details, including the path, domain, expiry, whether it's secure, and whether the HTTP only flag should be set, you can do this with the overloaded methods:
+-->
+パスやドメイン、有効期限、セキュアか否か、そして HTTP only フラグがセットされるべきか否かなどを含む詳細を設定する必要がある場合は、オーバーロードされたメソッドを使うことができます:
 
 @[detailed-set-cookie](code/javaguide/http/JavaResponse.java)
 
+<!--
 To discard a Cookie previously stored on the web browser:
+-->
+すでに web ブラウザに格納された Cookie を破棄する場合は、以下のようにします: 
 
 @[discard-cookie](code/javaguide/http/JavaResponse.java)
 
+<!--
 Make sure, if you set a path or domain when setting the cookie, that you set the same path or domain when discarding the cookie, as the browser will only discard it if the name, path and domain matches.
+-->
+ブラウザは名前、パス、そしてドメインが一致している場合にのみ cookie を破棄するので、cookie をセットする際にパスやドメインを設定している場合は、cookie を破棄する際にパスまたはドメインを設定していることを確認してください。
 
 <!--
 ## Specifying the character encoding for text results
