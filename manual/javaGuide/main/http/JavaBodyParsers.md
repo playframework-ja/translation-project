@@ -14,16 +14,24 @@ An HTTP request (at least for those using the POST and PUT operations) contains 
 -->
 HTTP PUT や POST リクエストはボディを含みます。このボディは `Content-Type` リクエストヘッダで指定さえしておけば、どんなフォーマットであっても構いません。**ボディパーサー** はリクエストボディを Java の値に変換する役割を持ちます。
 
+<!--
 > **Note:** You can't write `BodyParser` implementation directly using Java. Because a Play `BodyParser` must handle the body content incrementally using an `Iteratee[Array[Byte], A]` it must be implemented in Scala.
 >
 > However Play provides default `BodyParser`s that should fit most use cases (parsing Json, Xml, Text, uploading files). And you can reuse these default parsers to create your own directly in Java; for example you can provide an RDF parsers based on the Text one.
+-->
+> **ノート:** Java を使って `BodyParser` を直接実装する事はできません。Play の `BodyParser` はリクエストボディの内容を `Iteratee[Array[Byte], A]` を使ってインクリメンタルに処理する必要があるため、 Scala で実装しなければなりません。
+>
+> しかし Play が提供するデフォルトの `BodyParser` はほとんどのケースで十分機能します (Json、Xml、テキストの解析やファイルアップロードなど)。そしてこれらのデフォルトパーサーを再利用して独自のボディパーサーを作ることができます。例えば、テキストのパーサーから RDF のパーサーを提供することができます。
 
 <!--
 ## The `BodyParser` Java API
 -->
 ## `BodyParser` API
 
+<!--
 When working with request bodies, ensure that have the following imports in your controller:
+-->
+リクエストボディを取り扱う場合は、コントローラに以下をインポートしていることを確認してください:
 
 @[imports](code/javaguide/http/JavaBodyParsers.java)
 
@@ -51,7 +59,10 @@ As we just said all body parsers in the Java API will give you a `play.mvc.Http.
 -->
 先ほど Java の API では全てのボディパーサーは `play.mvc.Http.RequestBody` を提供すると述べました。このボディオブジェクトからはリクエストボディの内容を Java における適切な型で取得できます。
 
+<!--
 > **Note:** The `RequestBody` methods like `asText()` or `asJson()` will return `null` if the parser used to compute this request body doesn't support this content type. For example in an action method annotated with `@BodyParser.Of(BodyParser.Json.class)`, calling `asXml()` on the generated body will return `null`.
+-->
+> **ノート:** `asText()` や `asJson()` 等の `RequestBody` のメソッドは、パーサーがこのコンテントタイプをサポートしていない場合は `null` を返します。例えば、`@BodyParser.Of(BodyParser.Json.class)` アノテーションが付いたアクションメソッド内では、リクエストボディの `asXml()` を呼び出すと `null` を返します。
 
 <!--
 ## Default body parser: AnyContent
@@ -78,7 +89,10 @@ If you don't specify your own body parser, Play will use the default one guessin
 - **multipart/form-data**: `Http.MultipartFormData`。`asMultipartFormData()` でアクセスできます
 - その他の Content-Type: `Http.RawBuffer`。`asRaw()`でアクセスできます
 
+<!--
 For example:
+-->
+例えば、以下のように使用します。
 
 @[default-parser](code/javaguide/http/JavaBodyParsers.java)
 
@@ -92,7 +106,10 @@ Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded
 -->
 テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。
 
+<!-- 
 There is a default maximum content length of 100KB.  It can be overridden by specifying the `parsers.text.maxLength` property in `application.conf`:
+-->
+content length の最大値はデフォルトで 100KB です。この値は `application.conf` 中に `parsers.text.maxLength` プロパティを指定することで上書きできます:
 
     parsers.text.maxLength=128K
 
