@@ -50,13 +50,25 @@ In summary, to support your own template format you need to perform the followin
 -->
 ## フォーマットを実装する
 
+<!--
 Implement the `play.twirl.api.Format<A>` interface that has the methods `A raw(String text)` and `A escape(String text)` that will be used to integrate static and dynamic template parts, respectively.
+-->
+`play.twirl.api.Format<A>` インタフェースを実装しましょう。このインタフェースは `A raw(String text)` および `A escape(String text)` メソッドがあり、それぞれ静的および動的なテンプレートの部品を統合する為に使われます。
 
+<!--
 The type parameter `A` of the format defines the result type of the template rendering, e.g. `Html` for a HTML template. This type must be a subtype of the `play.twirl.api.Appendable<A>` trait that defines how to concatenates parts together.
+-->
+フォーマットの `A` 型パラメータは、例えば HTML のテンプレートには `Html` といったように、テンプレートのレンダリング結果の型を定義します。この型は `play.twirl.api.Appendable<A>` のサブタイプである必要があり、各部品をどうやって結合するかを定義します。
 
+<!--
 For convenience, Play provides a `play.twirl.api.BufferedContent<A>` abstract class that implements `play.twirl.api.Appendable<A>` using a `StringBuilder` to build its result and that implements the `play.twirl.api.Content` interface so Play knows how to serialize it as an HTTP response body.
+-->
+利便性のため、 Play は `play.twirl.api.templates.BufferedContent<A>` 抽象クラスを提供します。このクラスは結果をビルドする為に `play.twirl.api.Appendable<A>` を `StringBuilder` を使って実装していて、また HTTP のレスポンスボディにシリアライズする方法を Play に知らせるために `play.twirl.api.Content` インタフェースを実装しています。
 
+<!--
 In short, you need to write two classes: one defining the result (implementing `play.twirl.api.Appendable<A>`) and one defining the text integration process (implementing `play.twirl.api.Format<A>`). For instance, here is how the HTML format could be defined:
+-->
+つまり、二つのクラスを書く必要があります: 一つは (`play.twirl.api.Appendable<A>` を実装する事で) 結果を定義したクラスで、もう一つは (`play.twirl.api.Format<A>` を実装する事で) テキストの統合プロセスを定義したクラスです。例えば、 HTML フォーマットを定義するには以下のようにします:
 
 <!--
 ```java
@@ -85,19 +97,26 @@ public class Html extends BufferedContent<Html> {
     return "text/html";
   }
 }
+```
 
 <!--
 ## Associate a file extension to the format
 -->
 ## ファイル拡張子をフォーマットと関連づける
 
+<!--
 The templates are compiled into a `.scala` files by the build process just before compiling the whole application sources. The `TwirlKeys.templateFormats` key is a sbt setting of type `Map[String, String]` defining the mapping between file extensions and template formats. For instance, if you want Play to use your own HTML format implementation you have to write the following in your build file to associate the `.scala.html` files to your custom `my.HtmlFormat` format:
+-->
+テンプレートは、ビルドプロセスでアプリケーションのソース全体をコンパイルする直前に `.scala` ファイルにコンパイルされます。 `TwirlKeys.templateFormats` キーは `Map[String, String]` 型の sbt 設定で、ファイル拡張子とテンプレートフォーマットのマッピングを定義しています。例えば、もし独自の HTML 形式の実装を使いたい場合、以下のようにビルドファイルに書く事で `.scala.html` を独自の `my.HtmlFormat` フォーマットに関連づける必要があります:
 
 ```scala
 TwirlKeys.templateFormats += ("html" -> "my.HtmlFormat.instance")
 ```
 
+<!--
 Note that the right side of the arrow contains the fully qualified name of a static value of type `play.twirl.api.Format<?>`.
+-->
+矢印の右側には `play.twirl.api.Format<?>` 型の静的な値への完全修飾名が含まれている事に注意して下さい。
 
 <!--
 > **Next:** [[HTTP form submission and validation | JavaForms]]
