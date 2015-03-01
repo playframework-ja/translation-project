@@ -74,7 +74,10 @@ To allow simple protection for non browser requests, such as requests made throu
 -->
 ## グローバル CSRF フィルタの適用
 
+<!--
 Play provides a global CSRF filter that can be applied to all requests.  This is the simplest way to add CSRF protection to an application.  To enable the global filter, add the Play filters helpers dependency to your project in `build.sbt`:
+-->
+Play はすべてのリクエストに適用できるグローバル CSRF フィルタを提供しています。これがアプリケーションに CSRF 対策を追加するもっとも簡単な方法です。このグローバルフィルタを利用できるようにするには、Play フィルタヘルパーの依存性をプロジェクトの `build.sbt` に追加します:
 
 ```scala
 libraryDependencies += filters
@@ -168,16 +171,32 @@ The second action is the `play.filters.csrf.AddCSRFToken` action, it generates a
 
 @[csrf-add-token](code/javaguide/forms/JavaCsrf.java)
 
+<!--
 ## CSRF configuration options
+-->
+## CSRF 設定オプション
 
+<!-- 
 The following options can be configured in `application.conf`:
+-->
+`application.conf` に以下のオプションを設定できます:
 
+<!--
 * `csrf.token.name` - The name of the token to use both in the session and in the request body/query string. Defaults to `csrfToken`.
 * `csrf.cookie.name` - If configured, Play will store the CSRF token in a cookie with the given name, instead of in the session.
 * `csrf.cookie.secure` - If `csrf.cookie.name` is set, whether the CSRF cookie should have the secure flag set.  Defaults to the same value as `session.secure`.
 * `csrf.body.bufferSize` - In order to read tokens out of the body, Play must first buffer the body and potentially parse it.  This sets the maximum buffer size that will be used to buffer the body.  Defaults to 100k.
 * `csrf.sign.tokens` - Whether Play should use signed CSRF tokens.  Signed CSRF tokens ensure that the token value is randomised per request, thus defeating BREACH style attacks.
 * `csrf.error.handler` - The error handler.  Must implement `play.filters.csrf.CSRFErrorHandler` or `play.filters.csrf.CSRF.ErrorHandler`.
+-->
+* `csrf.token.name` - セッションとリクエストボディ/クエリ文字列の両方で使われるトークンの名前。デフォルトは `csrfToken` です。
+* `csrf.cookie.name` - 設定されている場合、Play はセッションの代わりに cookie に CSRF トークンを設定された名前で格納します。
+* `csrf.cookie.secure` - `csrf.cookie.name` が設定されている場合に、この CSRF cookie の secure フラグを設定するか否か。デフォルトは `session.secure` と同じ値です。
+* `csrf.body.bufferSize` - ボディからトークンを取り出して読み込むために、Play は最初にボディをバッファリングしてからパースしなければなりません。このオプションは、ボディをバッファリングするために使う最大のバッファサイズを設定します。デフォルトは 100k です。
+* `csrf.sign.tokens` - 署名された CSRF トークンを使うか否か。署名された CSRF トークンはリクエスト毎にランダムであることを保証するので、BREACH スタイルの攻撃を無効にします。
+* `csrf.error.handler` - エラーハンドラ。 `play.filters.csrf.CSRFErrorHandler` または `play.filters.csrf.CSRF.ErrorHandler` を実装する必要があります。
 
+<!--
 > **Next:** [[Working with JSON| JavaJsonActions]]
-
+-->
+> **Next:** [[JSON を使う| JavaJsonActions]]
