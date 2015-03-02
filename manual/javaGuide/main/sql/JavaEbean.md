@@ -11,7 +11,7 @@
 
 <!--
 Play comes with the [Ebean](http://www.avaje.org/) ORM. To enable it, add javaEbean to your
-dependencies : 
+dependencies :
 -->
 Play には [Ebean](http://www.avaje.org/) ORM が同梱されています。有効にするには、依存性に javaEbean を追加します :
 
@@ -28,7 +28,10 @@ then add the following line to `conf/application.conf`:
 ebean.default="models.*"
 ```
 
+<!--
 This defines a `default` Ebean server, using the `default` data source, which must be properly configured. You can also override the name of the default Ebean server by configuring `ebeanconfig.datasource.default` property. This might be useful if you want to use separate databases for testing and development. You can actually create as many Ebean servers you need, and explicitly define the mapped class for each server.
+-->
+ここでは `default` データソースを使用する `default` Ebean サーバを定義していて、これは適切に設定する必要があります。 `ebeanconfig.datasource.default` プロパティを設定することでデフォルトの Ebean サーバの名前を上書きすることもできます。これはテストと開発で別々のデータベースを使いたい場合に便利でしょう。実際のところ、Ebean サーバを必要な数だけ作成し、それぞれのサーバに対するマッパークラスを明示的に定義することができます。
 
 ```properties
 ebean.orders="models.Order,models.OrderItem"
@@ -99,24 +102,24 @@ import play.db.ebean.*;
 import play.data.format.*;
 import play.data.validation.*;
 
-@Entity 
+@Entity
 public class Task extends Model {
 
   @Id
   @Constraints.Min(10)
   public Long id;
-  
+
   @Constraints.Required
   public String name;
-  
+
   public boolean done;
-  
+
   @Formats.DateTime(pattern="dd/MM/yyyy")
   public Date dueDate = new Date();
-  
+
   public static Finder<Long,Task> find = new Finder<Long,Task>(
     Long.class, Task.class
-  ); 
+  );
 
 }
 ```
@@ -148,7 +151,7 @@ As you can see, we've added a `find` static field, defining a `Finder` for an en
 ```
 // Find all tasks
 List<Task> tasks = Task.find.all();
-    
+
 // Find a task by ID
 Task anyTask = Task.find.byId(34L);
 
@@ -177,7 +180,7 @@ Ebean はデフォルトでトランザクションを使用します。以下�
 
 ```
 //Created implicit transaction
-List<User> users =   
+List<User> users =
             Ebean.find(User.class)  
                 .join("customer")  
                 .where().eq("state", UserState.ACTIVE)  
@@ -199,15 +202,15 @@ So, if you want to do more than one action in the same transaction you can use T
 // run in Transactional scope...  
 Ebean.execute(new TxRunnable() {  
   public void run() {  
-      
+
     // code running in "REQUIRED" transactional scope  
     // ... as "REQUIRED" is the default TxType  
     System.out.println(Ebean.currentTransaction());  
-      
+
     // find stuff...  
     User user = Ebean.find(User.class, 1);  
     ...  
-      
+
     // save and delete stuff...  
     Ebean.save(user);  
     Ebean.delete(order);  
@@ -239,13 +242,13 @@ try {
     // fetch some stuff...  
     User u = Ebean.find(User.class, 1);  
     ...  
-  
+
     // save or delete stuff...  
     Ebean.save(u);  
     ...  
-  
+
     Ebean.commitTransaction();  
-      
+
 } finally {  
     Ebean.endTransaction();  
 }  
