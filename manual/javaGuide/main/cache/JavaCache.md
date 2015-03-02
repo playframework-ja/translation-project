@@ -10,15 +10,24 @@ Caching data is a typical optimization in modern applications, and so Play provi
 データのキャッシュは現代的なアプリケーションではよく使われるパフォーマンスの最適化手法です。Play は、アプリケーション全体で利用できるグローバルなキャッシュを提供しています。キャッシュの重要な点は、通常のキャッシュとして期待されている通りに振る舞うということです。つまり、たった今保存したデータが、いつの間にか消えているということがありえます。
 
 <!--
-For any data stored in the cache, a regeneration strategy needs to be put in place in case the data goes missing. This philosophy is one of the fundamentals behind Play, and is different from Java EE, where the session is expected to retain values throughout its lifetime. 
+For any data stored in the cache, a regeneration strategy needs to be put in place in case the data goes missing. This philosophy is one of the fundamentals behind Play, and is different from Java EE, where the session is expected to retain values throughout its lifetime.
 -->
 キャッシュに保存されているデータは、いつでも消去される可能性があります。その時に備えて、データを再生成する方法は常に用意しておく必要があります。この哲学は Play の基盤の一つであり、セッションがその有効期間の間ずっと値を保持するという Java EE の哲学とは異なります。
 
-The default implementation of the cache API uses [EHCache](http://www.ehcache.org/) and it's can be enabled by adding `cache` in  `libraryDependencies` of your `build.sbt` file . You can also provide your own implementation via a plugin. 
+<!--
+The default implementation of the cache API uses [EHCache](http://www.ehcache.org/) and it's can be enabled by adding `cache` in  `libraryDependencies` of your `build.sbt` file . You can also provide your own implementation via a plugin.
+-->
+キャッシュ API のデフォルト実装には [EHCache](http://www.ehcache.org/) を利用しており、これは `build.sbt` ファイルの `libraryDependencies` に `cache` を追加することで有効にすることができます。別の実装をプラグインとして提供することもできます。
 
+<!--
 ## Importing the Cache API
+-->
+## Cache API の実装
 
+<!--
 Add `cache` into your dependencies list. For example, in `build.sbt`:
+-->
+依存性リストに `cache` を追加してください。例えば、 `build.sbt` を以下のようにします:
 
 ```scala
 libraryDependencies ++= Seq(
@@ -49,7 +58,10 @@ Using this simple API you can store data in the cache:
 
 @[simple-set](code/javaguide/cache/JavaCache.java)
 
+<!--
 Optionally you can specify an expiration (in seconds) for the cache:
+-->
+オプションとして、キャッシュの有効期間を (秒単位で) 指定することができます: 
 
 @[time-set](code/javaguide/cache/JavaCache.java)
 
@@ -73,7 +85,7 @@ To remove an item from the cache use the `remove` method:
 ## HTTP レスポンスのキャッシュ
 
 <!--
-You can easily create a smart cached action using standard `Action` composition. 
+You can easily create a smart cached action using standard `Action` composition.
 -->
 標準的な `Action` の合成を使って、レスポンスをキャッシュするアクションを簡単に作成することができます。
 
