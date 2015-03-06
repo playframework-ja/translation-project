@@ -41,7 +41,7 @@ The default `conf/messages` file matches all languages. Additionally you can spe
 <!--
 You can then retrieve messages using the `play.api.i18n.Messages` object:
 -->
-メッセージは、`play.api.libs.i18n.Messages` オブジェクトから取得することができます。
+メッセージは、`play.api.i18n.Messages` オブジェクトから取得することができます。
 
 ```scala
 val title = Messages("home.title")
@@ -50,7 +50,7 @@ val title = Messages("home.title")
 <!--
 All internationalization API calls take an implicit `play.api.i18.Lang` argument retrieved from the current scope. You can also specify it explicitly:
 -->
-全ての国際化対応に関する API は、現在のスコープ内の implicit な `play.api.libs.i18n.Lang` を implicit parameter として受け取ります。implicit なしで、次のように明示することも可能です。
+全ての国際化対応に関する API は、現在のスコープ内の implicit な `play.api.i18n.Lang` を implicit parameter として受け取ります。implicit なしで、次のように明示することも可能です。
 
 ```scala
 val title = Messages("home.title")(Lang("fr"))
