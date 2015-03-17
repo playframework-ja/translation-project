@@ -165,7 +165,7 @@ Then create a new file in your project's root directory named `Procfile` (with a
 そして、プロジェクトのルートディレクトリに `Procfile` ("P" は大文字) というファイルを以下の内容で作成します (`myapp` は自身のプロジェクト名に置き換えてください):
 
 ```txt
-web: target/universal/stage/bin/retailos -Dhttp.port=${PORT} -DapplyEvolutions.default=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL}
+web: target/universal/stage/bin/myapp -Dhttp.port=${PORT} -DapplyEvolutions.default=true -Ddb.default.driver=org.postgresql.Driver -Ddb.default.url=${DATABASE_URL}
 ```
 
 <!--
