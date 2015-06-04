@@ -124,7 +124,7 @@ charset はテキストベースのレスポンスをバイトデータに変換
 <!--
 The charset is handled automatically via the `play.api.mvc.Codec` type class. Just import an implicit instance of `play.api.mvc.Codec` in the current scope to change the charset that will be used by all operations:
 -->
-charset は `paly.api.mvc.Codec` という型クラスにより自動的に決定されます。全操作で利用される charset を変更するためには、`play.api.mvc.Codec` のインスタンスを implicit val として現在のスコープ内に定義してください。
+charset は `play.api.mvc.Codec` という型クラスにより自動的に決定されます。全操作で利用される charset を変更するためには、`play.api.mvc.Codec` のインスタンスを implicit val として現在のスコープ内に定義してください。
 
 @[full-application-set-myCustomCharset](code/ScalaResults.scala)
 
