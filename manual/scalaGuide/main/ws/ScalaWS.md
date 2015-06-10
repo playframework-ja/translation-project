@@ -194,7 +194,7 @@ The examples given below have some common dependencies that will be shown once h
 <!--
 Whenever an operation is done on a `Future`, an implicit execution context must be available - this declares which thread pool the callback to the future should run in.  The default Play execution context is often sufficient:
 -->
-`Future` 上で処理を実行するときにはいつでも、暗黙的な実行コンテキストが必要となります。実行コンテキストとは futruer が実行されてコールバックを行うスレッドプールのことです 。Play のデフォルトの実行コンテキストを使えば、通常では充分でしょう。
+`Future` 上で処理を実行するときにはいつでも、暗黙的な実行コンテキストが必要となります。実行コンテキストとは future が実行されてコールバックを行うスレッドプールのことです 。Play のデフォルトの実行コンテキストを使えば、通常では充分でしょう。
 
 @[scalaws-context](code/ScalaWSSpec.scala)
 
