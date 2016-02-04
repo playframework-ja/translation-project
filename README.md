@@ -8,4 +8,6 @@
 
 翻訳にご協力頂く際は、[CONTRIBUTING.md](https://github.com/playframework-ja/translation-project/blob/2.3.x/CONTRIBUTING.md) を確認してください。
 
-不明な点がある場合は [@garbagetown](https://twitter.com/garbagetown) までお気軽にお問い合わせください。
+不明な点がある場合は [@garbagetown](https://twitter.com/garbagetown) または Gitter までお気軽にお問い合わせください。
+
+[![Gitter](https://badges.gitter.im/playframework-ja/translation-project.svg)](https://gitter.im/playframework-ja/translation-project?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge)
