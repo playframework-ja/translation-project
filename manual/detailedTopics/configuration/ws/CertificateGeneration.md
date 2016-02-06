@@ -1,3 +1,4 @@
+<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
 # Generating X.509 Certificates
 
 ## X.509 Certificates
@@ -8,13 +9,11 @@ The best way to think about public key certificates is as a passport system. Cer
 
 ## Using Keytool
 
-keytool comes in several versions:
+Use the keytool version that comes with JDK 8:
 
-* [1.8](http://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html)
-* [1.7](http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html)
-* [1.6](http://docs.oracle.com/javase/6/docs/technotes/tools/solaris/keytool.html)
+* [1.8](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html)
 
-The examples below use keytool 1.7, as 1.6 does not support the minimum required certificate extensions needed for marking a certificate for CA usage or for a hostname.
+The examples below use keytool 1.8 for marking a certificate for CA usage or for a hostname.
 
 ## Generating a random password
 
@@ -108,7 +107,7 @@ Issuer: CN=exampleCA, OU=Example Org, O=Example Company, L=San Francisco, ST=Cal
 The `exampletrust.jks` store will be used in the TrustManager.
 
 ```
-ws.ssl {
+play.ws.ssl {
   trustManager = {
     stores = [
       { path = "/Users/wsargent/work/ssltest/conf/exampletrust.jks" }
@@ -123,7 +122,7 @@ ws.ssl {
 
 Client authentication can be obscure and poorly documented, but it relies on the following steps:
 
-1. The server asks for a client certificate, presenting a CA that it expects a client certificate to be signed with.  In this case, `CN=clientCA` (see the [debug example](http://docs.oracle.com/javase/7/docs/technotes/guides/security/jsse/ReadDebug.html)).
+1. The server asks for a client certificate, presenting a CA that it expects a client certificate to be signed with.  In this case, `CN=clientCA` (see the [debug example](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/ReadDebug.html)).
 2. The client looks in the KeyManager for a certificate which is signed by `clientCA`, using `chooseClientAlias` and `certRequest.getAuthorities`.
 3. The KeyManager will return the `client` certificate to the server.
 4. The server will do an additional ClientKeyExchange in the handshake.
@@ -149,7 +148,7 @@ Issuer: CN=clientCA, OU=Example Org, O=Example Company, L=San Francisco, ST=Cali
 And put `client.jks` in the key manager:
 
 ```
-ws.ssl {
+play.ws.ssl {
   keyManager = {
     stores = [
       { type = "JKS", path = "conf/client.jks", password = $PW }
@@ -170,7 +169,7 @@ If you want to use a command line tool with more flexibility than keytool, try [
 
 ### Secure
 
-If you want the best security, consider using [ECDSA](http://blog.cloudflare.com/ecdsa-the-digital-signature-algorithm-of-a-better-internet) as the signature algorithm (in keytool, this would be `-sigalg EC`). ECDSA is also known as "ECC SSL Certificate".
+If you want the best security, consider using [ECDSA](https://blog.cloudflare.com/ecdsa-the-digital-signature-algorithm-of-a-better-internet) as the signature algorithm (in keytool, this would be `-sigalg EC`). ECDSA is also known as "ECC SSL Certificate".
 
 ### Compatible
 
@@ -178,8 +177,6 @@ For compatibility with older systems, use RSA with 2048 bit keys and SHA256 as t
 
 ## Further Reading
 
-* [JSSE Reference Guide To Creating KeyStores](http://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#CreateKeystore)
-* [Java PKI Programmer's Guide](http://docs.oracle.com/javase/7/docs/technotes/guides/security/certpath/CertPathProgGuide.html)
-* [Fixing X.509 Certificates](http://tersesystems.com/2014/03/20/fixing-x509-certificates/)
-
-> **Next:** [[Configuring Trust Stores and Key Stores|KeyStores]]
+* [JSSE Reference Guide To Creating KeyStores](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#CreateKeystore)
+* [Java PKI Programmer's Guide](https://docs.oracle.com/javase/8/docs/technotes/guides/security/certpath/CertPathProgGuide.html)
+* [Fixing X.509 Certificates](https://tersesystems.com/2014/03/20/fixing-x509-certificates/)

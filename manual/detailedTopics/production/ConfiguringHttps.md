@@ -1,72 +1,55 @@
-<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
-<!--
+<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
 # Configuring HTTPS
--->
-# HTTPS の設定
 
 Play can be configured to serve HTTPS.  To enable this, simply tell Play which port to listen to using the `https.port` system property.  For example:
 
     ./start -Dhttps.port=9443
 
-<!--
+## Providing configuration
+
+HTTPS configuration can either be supplied using system properties or in `application.conf`. For more details see the [[configuration|Configuration]] and [[production configuration|ProductionConfiguration]] pages.
+
 ## SSL Certificates
--->
-## SSL 証明書
 
 ### SSL Certificates from a keystore
 
 By default, Play will generate itself a self-signed certificate, however typically this will not be suitable for serving a website.  Play uses Java key stores to configure SSL certificates and keys.
 
-Signing authorities often provide instructions on how to create a Java keystore (typically with reference to Tomcat configuration).  The official Oracle documentation on how to generate keystores using the JDK keytool utility can be found [here](http://docs.oracle.com/javase/7/docs/technotes/tools/solaris/keytool.html).  There is also an example in the [[Generating X.509 Certificates|CertificateGeneration]] section.
+Signing authorities often provide instructions on how to create a Java keystore (typically with reference to Tomcat configuration).  The official Oracle documentation on how to generate keystores using the JDK keytool utility can be found [here](https://docs.oracle.com/javase/8/docs/technotes/tools/unix/keytool.html).  There is also an example in the [[Generating X.509 Certificates|CertificateGeneration]] section.
 
-<!--
-Having created your keystore, the following system properties can be used to configure Play to use it:
--->
-キーストアを作成したら、以下のシステムプロパティを使って Play がこれを使用するよう設定することができます:
+Having created your keystore, the following configuration properties can be used to configure Play to use it:
 
-<!--
-* **https.keyStore** - The path to the keystore containing the private key and certificate, if not provided generates a keystore for you
-* **https.keyStoreType** - The key store type, defaults to `JKS`
-* **https.keyStorePassword** - The password, defaults to a blank password
-* **https.keyStoreAlgorithm** - The key store algorithm, defaults to the platforms default algorithm
--->
-* **https.keyStore** - 秘密鍵と証明書を含むキーストアへのパス。このプロパティが指定されない場合はキーストアを生成します
-* **https.keyStoreType** - キーストアタイプ。デフォルトは `JKS` です
-* **https.keyStorePassword** - パスワード。デフォルトは空パスワードです
-* **https.keyStoreAlgorithm** - キーストアアルゴリズム。デフォルトはプラットフォームのデフォルトアルゴリズムです
+* **play.server.https.keyStore.path** - The path to the keystore containing the private key and certificate, if not provided generates a keystore for you
+* **play.server.https.keyStore.type** - The key store type, defaults to `JKS`
+* **play.server.https.keyStore.password** - The password, defaults to a blank password
+* **play.server.https.keyStore.algorithm** - The key store algorithm, defaults to the platforms default algorithm
 
 ### SSL Certificates from a custom SSL Engine
 
-Another alternative to configure the SSL certificates is to provide a custom [SSLEngine](http://docs.oracle.com/javase/7/docs/api/javax/net/ssl/SSLEngine.html).  This is also useful in cases where a customized SSLEngine is required, such as in the case of client authentication.
+Another alternative to configure the SSL certificates is to provide a custom [SSLEngine](https://docs.oracle.com/javase/8/docs/api/javax/net/ssl/SSLEngine.html).  This is also useful in cases where a customized SSLEngine is required, such as in the case of client authentication.
 
 #### in Java, an implementation must be provided for [`play.server.SSLEngineProvider`](api/java/play/server/SSLEngineProvider.html)
 
 @[javaexample](code/java/CustomSSLEngineProvider.java)
 
-#### in Scala, an implementation must be provided for [`play.server.api.SSLEngineProvider`](api/scala/index.html#play.server.api.SSLEngineProvider)
+#### in Scala, an implementation must be provided for [`play.server.api.SSLEngineProvider`](api/scala/play/server/api/SSLEngineProvider.html)
 
 @[scalaexample](code/scala/CustomSSLEngineProvider.scala)
 
 Having created an implementation for `play.server.SSLEngineProvider` or `play.server.api.SSLEngineProvider`, the following system property configures Play to use it:
 
-* **play.http.sslengineprovider** - The path to the class implementing `play.server.SSLEngineProvider` or `play.server.api.SSLEngineProvider`:
+* **play.server.https.engineProvider** - The path to the class implementing `play.server.SSLEngineProvider` or `play.server.api.SSLEngineProvider`:
 
 Example:
 
-    ./start -Dhttps.port=9443 -Dplay.http.sslengineprovider=mypackage.CustomSSLEngineProvider
+    ./start -Dhttps.port=9443 -Dplay.server.https.engineProvider=mypackage.CustomSSLEngineProvider
 
 
-<!--
 ## Turning HTTP off
--->
-## HTTP を無効にする
 
-<!--
 To disable binding on the HTTP port, set the `http.port` system property to be `disabled`, eg:
--->
-HTTP ポートへのバインドを無効にしたい場合は、以下のようにして `http.port` システムプロパティに `disabled` を設定してください:
 
-    ./start -Dhttp.port=disabled -Dhttps.port=9443 -Dhttps.keyStore=/path/to/keystore -Dhttps.keyStorePassword=changeme
+    ./start -Dhttp.port=disabled -Dhttps.port=9443 -Dplay.server.https.keyStore.path=/path/to/keystore -Dplay.server.https.keyStore.password=changeme
 
 ## Production usage of HTTPS
 
@@ -74,11 +57,6 @@ If Play is serving HTTPS in production, it should be running JDK 1.8.  JDK 1.8 p
 
 If you intend to use Play for TLS termination layer, please note the following settings:
 
-* **[`SSLParameters.setUseCipherSuiteorder()`](http://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#cipher_suite_preference)** - Reorders cipher suite order to the server's preference.
+* **[`SSLParameters.setUseCipherSuiteorder()`](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#cipher_suite_preference)** - Reorders cipher suite order to the server's preference.
 * **-Djdk.tls.ephemeralDHKeySize=2048** - Increases the key size in a DH key exchange.
 * **-Djdk.tls.rejectClientInitiatedRenegotiation=true** - Rejects client renegotiation.
-
-<!--
-> **Next:** [[Deploying to a cloud service|DeployingCloud]]
--->
-> **Next:** [[クラウドサービスへデプロイする|DeployingCloud]]

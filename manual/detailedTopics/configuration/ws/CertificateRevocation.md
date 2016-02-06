@@ -1,4 +1,4 @@
-<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
 # Configuring Certificate Revocation
 
 Certificate Revocation in JSSE can be done through two means: certificate revocation lists (CRLs) and OCSP.
@@ -7,7 +7,7 @@ Certificate Revocation can be very useful in situations where a server's private
 
 Certificate Revocation is disabled by default in JSSE.  It is defined in two places:
 
-* [PKI Programmer's Guide, Appendix C](http://docs.oracle.com/javase/6/docs/technotes/guides/security/certpath/CertPathProgGuide.html#AppC)
+* [PKI Programmer's Guide, Appendix C](https://docs.oracle.com/javase/8/docs/technotes/guides/security/certpath/CertPathProgGuide.html#AppC)
 * [Enable OCSP Checking](https://blogs.oracle.com/xuelei/entry/enable_ocsp_checking)
 
 To enable OCSP, you must set the following system properties on the command line:
@@ -19,7 +19,7 @@ java -Dcom.sun.security.enableCRLDP=true -Dcom.sun.net.ssl.checkRevocation=true
 After doing the above, you can enable certificate revocation in the client:
 
 ```
-ws.ssl.checkRevocation = true
+play.ws.ssl.checkRevocation = true
 ```
 
 Setting `checkRevocation` will set the internal `ocsp.enable` security property automatically:
@@ -30,12 +30,12 @@ java.security.Security.setProperty("ocsp.enable", "true")
 
 And this will set OCSP checking when making HTTPS requests.
 
-> NOTE: Enabling OCSP requires a round trip to the OCSP responder.  This adds a notable overhead on HTTPS calls, and can make calls up to [33% slower](http://blog.cloudflare.com/ocsp-stapling-how-cloudflare-just-made-ssl-30).  The mitigation technique, OCSP stapling, is not supported in JSSE.
+> NOTE: Enabling OCSP requires a round trip to the OCSP responder.  This adds a notable overhead on HTTPS calls, and can make calls up to [33% slower](https://blog.cloudflare.com/ocsp-stapling-how-cloudflare-just-made-ssl-30).  The mitigation technique, OCSP stapling, is not supported in JSSE.
 
 Or, if you wish to use a static CRL list, you can define a list of URLs:
 
 ```
-ws.ssl.revocationLists = [ "http://example.com/crl" ]
+play.ws.ssl.revocationLists = [ "http://example.com/crl" ]
 ```
 
 ## Debugging
@@ -43,7 +43,10 @@ ws.ssl.revocationLists = [ "http://example.com/crl" ]
 To test certificate revocation is enabled, set the following options:
 
 ```
-ws.ssl.debug = [ "certpath", "ocsp" ]
+play.ws.ssl.debug = {
+ certpath = true
+ ocsp = true
+}
 ```
 
 And you should see something like the following output:
@@ -67,6 +70,4 @@ certpath: -checker7 validation succeeded
 
 ## Further Reading
 
-* [Fixing Certificate Revocation](http://tersesystems.com/2014/03/22/fixing-certificate-revocation/)
-
-> **Next:** [[Configuring Hostname Verification|HostnameVerification]]
+* [Fixing Certificate Revocation](https://tersesystems.com/2014/03/22/fixing-certificate-revocation/)

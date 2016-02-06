@@ -1,3 +1,4 @@
+<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
 # Quick Start to WS SSL
 
 This section is for people who need to connect to a remote web service over HTTPS, and don't want to read through the entire manual.  If you need to set up a web service or configure client authentication, please proceed to the [[next section|CertificateGeneration]].
@@ -74,7 +75,7 @@ which can be copied and pasted into a file.  The very last certificate in the ch
 Add the following into `conf/application.conf`, specifying `PEM` format specifically:
 
 ```
-ws.ssl {
+play.ws.ssl {
   trustManager = {
     stores = [
       { type = "PEM", path = "/path/to/cert/globalsign.crt" }
@@ -92,5 +93,3 @@ WS.url("https://example.com").get()
 ```
 
 You can see more examples on the [[example configurations|ExampleSSLConfig]] page.
-
-> **Next:** [[Generating X.509 Certificates|CertificateGeneration]]

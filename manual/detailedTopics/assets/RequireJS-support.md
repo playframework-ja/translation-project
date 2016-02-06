@@ -1,10 +1,7 @@
-<!--- Copyright (C) 2009-2013 Typesafe Inc. <http://www.typesafe.com> -->
+<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
 # RequireJS
 
-<!--
 According to [RequireJS](http://requirejs.org/)' website 
--->
-[RequireJS](http://requirejs.org/) のウェブサイトによると、
 
 > RequireJS is a JavaScript file and module loader. It is optimized for in-browser use, but it can be used in other JavaScript environments... Using a modular script loader like RequireJS will improve the speed and quality of your code.
 
@@ -23,7 +20,7 @@ If you're using WebJars with your build then the RequireJS optimizer plugin will
 RequireJS optimization is enabled by simply adding the plugin to your plugins.sbt file when using the `PlayJava` or `PlayScala` plugins:
 
 ```scala
-addSbtPlugin("com.typesafe.sbt" % "sbt-rjs" % "1.0.1")
+addSbtPlugin("com.typesafe.sbt" % "sbt-rjs" % "1.0.7")
 ```
 
 To add the plugin to the asset pipeline you can declare it as follows (assuming just the one plugin for the pipeline - add others into the sequence such as digest and gzip as required):

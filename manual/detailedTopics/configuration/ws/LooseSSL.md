@@ -1,3 +1,4 @@
+<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
 # Loose Options
 
 ## We understand
@@ -16,7 +17,7 @@ The information security community is very well aware of how insecure most inter
 
 The average company can expect to have seven or eight [Man in the Middle](https://sites.google.com/site/cse825maninthemiddle/) attacks a year.  In some cases, up to 300,000 users can be compromised [over several months](https://security.stackexchange.com/questions/12041/are-man-in-the-middle-attacks-extremely-rare).
 
-### Attackers have a suite of tools that automatically exploit flaws 
+### Attackers have a suite of tools that automatically exploit flaws
 
 The days of the expert hacker are over.  Most security professionals use automated linux environments such as Kali Linux to do penetration testing, packed with hundreds of tools to check for exploits.  A video of [Cain & Abel](https://www.youtube.com/watch?v=pfHsRscy540) shows passwords being compromised in less than 20 seconds.
 
@@ -26,27 +27,27 @@ Hackers won't bother to see whether something will "look encrypted" or not.  Ins
 
 More and more information flows through computers every day.  The public and the media are taking increasing notice of the possibility that their private communications can be intercepted.  Google, Facebook, Yahoo, and other leading companies have made secure communication a priority and have devoted millions to ensuring that [data cannot be read](https://www.eff.org/deeplinks/2013/11/encrypt-web-report-whos-doing-what).
 
-### Ethernet / Password protected WiFi does not provide a meaningful level of security. 
+### Ethernet / Password protected WiFi does not provide a meaningful level of security.
 
 A networking auditing tool such as a [Wifi Pineapple](https://wifipineapple.com/) costs around $100, picks up all traffic sent over a wifi network, and is so good at intercepting traffic that people have turned it on and started [intercepting traffic accidentally](http://www.troyhunt.com/2013/04/the-beginners-guide-to-breaking-website.html).
 
 ### Companies have been sued for inadequate security
 
-PCI compliance is not the only thing that companies have to worry about.  The FTC sued [Fandango and Credit Karma](http://www.ftc.gov/news-events/press-releases/2014/03/fandango-credit-karma-settle-ftc-charges-they-deceived-consumers) on charges that they failed to securely transmit information, including credit card information.
+PCI compliance is not the only thing that companies have to worry about.  The FTC sued [Fandango and Credit Karma](https://www.ftc.gov/news-events/press-releases/2014/03/fandango-credit-karma-settle-ftc-charges-they-deceived-consumers) on charges that they failed to securely transmit information, including credit card information.
 
 ### Correctly configured HTTPS clients are important
 
-Sensitive, company confidential information goes over web services.  A paper discussing insecurities in WS clients was titled [The Most Dangerous Code in the World: Validating SSL Certificates in Non-Browser Software](http://www.cs.utexas.edu/~shmat/shmat_ccs12.pdf), and lists poor default configuration and explicit disabling of security options as the primary reason for exposure.  The WS client has been configured as much as possible to be secure by default, and there are example configurations provided for your benefit.
+Sensitive, company confidential information goes over web services.  A paper discussing insecurities in WS clients was titled [The Most Dangerous Code in the World: Validating SSL Certificates in Non-Browser Software](https://www.cs.utexas.edu/~shmat/shmat_ccs12.pdf), and lists poor default configuration and explicit disabling of security options as the primary reason for exposure.  The WS client has been configured as much as possible to be secure by default, and there are example configurations provided for your benefit.
 
 ## Mitigation
 
 If you must turn on loose options, there are a couple of things you can do to minimize your exposure.
 
-**Custom WSClient**: You can create a [[custom WSClient|ScalaWS]] specifically for the server, using the [`DefaultWSConfigParser`](api/scala/index.html#play.api.libs.ws.DefaultWSConfigParser) together with `ConfigFactory.parseString`, and ensure it is never used outside that context.
+**Custom WSClient**: You can create a [[custom WSClient|ScalaWS]] specifically for the server, using the [`WSConfigParser`](api/scala/play/api/libs/ws/WSConfigParser.html) together with `ConfigFactory.parseString`, and ensure it is never used outside that context.
 
 **Environment Scoping**: You can define [environment variables in HOCON](https://github.com/typesafehub/config/blob/master/HOCON.md#substitution-fallback-to-environment-variables) to ensure that any loose options are not hardcoded in configuration files, and therefore cannot escape an development environment.
 
-**Runtime / Deployment Checks**: You can add code to your deployment scripts or program that checks that `ws.ssl.loose` options are not enabled in a production environment.  The runtime mode can be found in the [`Application.mode`](api/scala/index.html#play.api.Application) method.
+**Runtime / Deployment Checks**: You can add code to your deployment scripts or program that checks that `play.ws.ssl.loose` options are not enabled in a production environment.  The runtime mode can be found in the [`Application.mode`](api/scala/play/api/Application.html) method.
 
 ## Loose Options
 
@@ -66,17 +67,17 @@ Finally, here are the options themselves.
 If you've read the above and you still want to completely disable certificate verification, set the following;
 
 ```
-ws.acceptAllCertificates=true
+play.ws.ssl.loose.acceptAnyCertificate=true
 ```
 
-With certificate verification completely disabled, you are vulnerable to attack from anyone on the network using a tool such as [mitmproxy](http://mitmproxy.org/). 
+With certificate verification completely disabled, you are vulnerable to attack from anyone on the network using a tool such as [mitmproxy](https://mitmproxy.org/).
 
 ### Disabling Weak Ciphers Checking
 
 There are some ciphers which are known to have flaws, and are [disabled](http://sim.ivi.co/2011/08/jsse-oracle-provider-default-disabled.html) in 1.7.  WS will throw an exception if a weak cipher is found in the `ws.ssl.enabledCiphers` list.  If you specifically want a weak cipher, set this flag:
 
 ```
-ws.ssl.loose.allowWeakCiphers=true
+play.ws.ssl.loose.allowWeakCiphers=true
 ```
 
 With weak cipher checking disabled, you are vulnerable to attackers that use forged certificates, such as [Flame](http://arstechnica.com/security/2012/06/flame-crypto-breakthrough/).
@@ -86,10 +87,10 @@ With weak cipher checking disabled, you are vulnerable to attackers that use for
 If you want to disable hostname verification, you can set a loose flag:
 
 ```
-ws.ssl.loose.disableHostnameVerification=true
+play.ws.ssl.loose.disableHostnameVerification=true
 ```
 
-With hostname verification disabled, a DNS proxy such as `dnschef` can [easily intercept communication](http://tersesystems.com/2014/03/31/testing-hostname-verification/).
+With hostname verification disabled, a DNS proxy such as `dnschef` can [easily intercept communication](https://tersesystems.com/2014/03/31/testing-hostname-verification/).
 
 ### Disabled Protocols
 
@@ -98,9 +99,7 @@ WS recognizes "SSLv3", "SSLv2" and "SSLv2Hello" as weak protocols with a number 
 If you specifically want a weak protocol, set the loose flag to disable the check:
 
 ```
-ws.ssl.loose.allowWeakProtocols=true
+play.ws.ssl.loose.allowWeakProtocols=true
 ```
 
 SSLv2 and SSLv2Hello (there is no v1) are obsolete and usage in the field is [down to 25% on the public Internet](https://www.trustworthyinternet.org/ssl-pulse/).  SSLv3 is known to have [security issues](http://www.yaksman.org/~lweith/ssl.pdf) compared to TLS.  The only reason to turn this on is if you are connecting to a legacy server, but doing so does not make you vulnerable per se.
-
-> **Next**:  [[Testing SSL|TestingSSL]]

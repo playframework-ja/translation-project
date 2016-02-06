@@ -1,3 +1,4 @@
+<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
 # Testing SSL
 
 Testing an SSL client not only involves unit and integration testing, but also involves adversarial testing, which tests that an attacker cannot break or subvert a secure connection.
@@ -34,13 +35,13 @@ javaOptions in Test ++= Seq("-Dcom.sun.security.enableCRLDP=true", "-Dcom.sun.ne
 
 There are several points of where a connection can be attacked.  Writing these tests is fairly easy, and running these adversarial tests against unsuspecting programmers can be extremely satisfying.  
 
-> **NOTE**:This should not be taken as a complete list, but as a guide.  In situations where security is paramount, a review should be done by professsional info-sec consultants.
+> **NOTE**:This should not be taken as a complete list, but as a guide.  In situations where security is paramount, a review should be done by professional info-sec consultants.
 
 ### Testing Certificate Verification
 
 Write a test to connect to "https://example.com".  The server should present a certificate which says the subjectAltName is dnsName, but the certificate should be signed by a CA certificate which is not in the trust store.  The client should reject it.
 
-This is a very common failure.  There are a number of proxies like [mitmproxy](http://mitmproxy.org) or [Fiddler](http://www.telerik.com/fiddler) which will only work if certificate verification is disabled or the proxy's certificate is explicitly added to the trust store.
+This is a very common failure.  There are a number of proxies like [mitmproxy](https://mitmproxy.org) or [Fiddler](http://www.telerik.com/fiddler) which will only work if certificate verification is disabled or the proxy's certificate is explicitly added to the trust store.
 
 ### Testing Weak Cipher Suites
 
@@ -60,5 +61,5 @@ To test for weak certificate, The server should send the client a certificate wh
 
 Write a test to "https://example.com".  If the server presents a certificate where the subjectAltName's dnsName is not example.com, the connection should terminate.
 
-> **NOTE**: For a more in depth test, see [dnschef](http://tersesystems.com/2014/03/31/testing-hostname-verification/). 
+> **NOTE**: For a more in depth test, see [dnschef](https://tersesystems.com/2014/03/31/testing-hostname-verification/). 
 
