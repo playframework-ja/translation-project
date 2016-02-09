@@ -1,17 +1,35 @@
 <!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Actions, Controllers and Results
+-->
+# アクション、コントローラ、Results
 
+<!--
 ## What is an Action?
+-->
+## アクションとは何か?
 
-Most of the requests received by a Play application are handled by an `Action`. 
+<!--
+Most of the requests received by a Play application are handled by an `Action`.
+-->
+Play アプリケーションが受け取ったリクエストのほとんどは、 `Action` によって処理されます。
 
+<!--
 An action is basically a Java method that processes the request parameters, and produces a result to be sent to the client.
+-->
+アクションは基本的にリクエストを処理し、クライアントへ送るレスポンスを生成する Java のメソッドです。
 
 @[simple-action](code/javaguide/http/JavaActions.java)
 
+<!--
 An action returns a `play.mvc.Result` value, representing the HTTP response to send to the web client. In this example `ok` constructs a **200 OK** response containing a **text/plain** response body.
+-->
+アクションは`play.mvc.Result` 型を返します。これはクライアントに返す HTTP レスポンスを表しています。上記の例では、`ok` はコンテントタイプ **text/plain** のレスポンスボディを含む、ステータス **200 OK** のレスポンスを生成しています。
 
-## Controllers 
+<!--
+## Controllers
+-->
+## コントローラ
 
 A controller is nothing more than a class extending `play.mvc.Controller` that groups several action methods.
 
