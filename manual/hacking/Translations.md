@@ -189,11 +189,20 @@ Play ドキュメント内にある外部サイトへのリンクを検証する
 sbt validateExternalLinks
 ```
 
+<!-- 
 ## Translation report
+-->
+## 翻訳レポート
 
+<!--
 Another very helpful tool provided by Play is a translation report, which shows which files have not been translated, and also tries to detect issues, for example, if the translation introduces new files, or if the translation is missing code samples.  This can particularly help when translating a new version of the documentation, since the addition or removal of code samples will often be a good signal that something has changed.
+-->
+Play が提供するもうひとつの便利なツールが翻訳レポートで、これはどのファイルが翻訳されていないか表示したり、翻訳に新しいファイルが含まれている、あるいは翻訳にコードサンプルが見つからないなどの問題も検知します。コードサンプルの追加または削除は何かが変更された兆候であることが多いので、とくに新しいバージョンのドキュメントを翻訳する際に便利です。
 
+<!--
 To view the translation report, run the documentation server (like normal), and then visit <http://localhost:9000/@report> in your browser.  By default it will serve a cached version of the report if it has been generated in the past, you can rerun the report by clicking the rerun report link.
+-->
+翻訳レポートを見るには、(通常と同じように) ドキュメントサーバを起動し、ブラウザから <http://localhost:9000/@report> にアクセスします。以前にレポートを生成したことがある場合は、デフォルトでこのキャッシュを表示しますが、レポート再生成リンクをクリックすることでレポートを再生成することができます。
 
 <!--
 ## Deploying documentation to playframework.com
@@ -215,12 +224,21 @@ Once the Play team has configured playframework.com to serve your translation, a
 -->
 playframework.com はすべてのリポジトリに対して 10 分ごとに `git fetch` を実行するので、Play チームがあなたの翻訳を提供するよう playframework.com を設定したあとは、GitHub リポジトリに push したあらゆる変更は、おおよそ 10 分以内に拾い上げられます。
 
+<!--
 ## Specifying the documentation version
+-->
+## ドキュメントバージョンの指定
 
+<!--
 By default, the `play-docs-sbt-plugin` uses the same version of the Play documentation code samples and fallback markdown files as itself, so if in `plugins.sbt` you're using `2.4.0`, when you run the documentation, you will get `2.4.0` of the documentation code samples.  You can control this version by setting `PlayDocsKeys.docsVersion` in `build.sbt`:
+-->
+`play-docs-sbt-plugin` のデフォルトは同じバージョンの Play ドキュメントコードサンプルを使って markdown ファイルとして書き戻すので、 `plugins.sbt` において `2.4.0` を指定している場合、ドキュメントサーバを起動すると `2.4.0` のドキュメントコードサンプルが表示されます。このバージョンは `build.sbt` 内の `PlayDocsKeys.docsVersion` でコントロールすることができます:
 
 ```scala
 PlayDocsKeys.docsVersion := "2.3.1"
 ```
 
+<!--
 This is particularly useful if you are wanting to provide documentation for versions of Play prior to when the `play-docs-sbt-plugin` was introduced, as far back as `2.2.0`.  For `2.1.x` and earlier, the documentation was not packaged and published as a jar file, so the tooling will not work for those older versions.
+-->
+この機能は、`play-docs-sbt-plugin` が提供された `2.2.0` 以前まで遡ったバージョンのドキュメントを提供したい場合に便利です。 `2.1.x` より前の古いバージョンでは、ドキュメントは jar ファイルとしてパッケージングして提供されていないので、このツールはこれらのバージョンでは動作しません。
