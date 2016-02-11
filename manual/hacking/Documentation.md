@@ -216,6 +216,7 @@ Other code may or may not be testable.  It may make sense to test Javascript cod
 ## ドキュメントをテストする
 
 To build the docs, you'll first need to build and publish Play locally. You can do this by running `./build publishLocal` from within the `framework` directory of the playframework repository.
+ドキュメントをビルドするには、まず Play をビルドしてローカルに publish する必要があります。これをするには、playframework リポジトリの `framework` ディレクトリで `./build publishLocal` を実行します。
 
 <!--
 To ensure that the docs render correctly, run `./build run` from within the `documentation` directory.  This will start a small Play server that does nothing but serve the documentation.
