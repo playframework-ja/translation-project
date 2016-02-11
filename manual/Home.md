@@ -19,7 +19,7 @@
 - [[What's new in Play 2.2?|Highlights22]] / [[Play 2.2 Migration Guide|Migration22]]
 - [[What's new in Play 2.1?|Highlights21]] / [[Play 2.1 Migration Guide|Migration21]]
 -->
-- [[Play 2.4 の変更点|Highlights24]] / [[Play 2.4 Migration Guide|Migration24]]
+- [[Play 2.4 の変更点|Highlights24]] / [[Play 2.4 移行ガイド|Migration24]]
 - [[Play 2.3 の変更点|Highlights23]] / [[Play 2.3 移行ガイド|Migration23]]
 - [[Play 2.2 の変更点|Highlights22]] / [[Play 2.2 移行ガイド|Migration22]]
 - [[Play 2.1 の変更点|Highlights21]] / [[Play 2.1 移行ガイド|Migration21]]
