@@ -29,15 +29,32 @@ Some tutorials we recommend:
 -->
 お勧めのテンプレート:
 
+<!--
+## Scala
+-->
 ## Scala
 
+<!--
 * [Play Scala Intro](https://typesafe.com/activator/template/play-scala-intro): Introduction to create a simple CRUD application with Play Scala.
 * [Reactive Maps](https://typesafe.com/activator/template/reactive-maps): This template and tutorial shows how the Typesafe Reactive Platform can be used to implement scalable, resilient, responsive event driven apps.
 * [AngularJS Play Mongo](https://typesafe.com/activator/template/modern-web-template): Application shows how to build a modern web application, comprising of a Client-side JavaScript App built using AngularJS wrote in CoffeeScript, served from the Play Framework and using document persistence with Reactive Mongo a non-blocking Scala client for MongoDB.
 * [Super Slick Play](https://typesafe.com/activator/template/play-slick): This template combines Play Framework with [Slick](http://slick.typesafe.com/) for quick start Slick integrated database-backed web application development.
+-->
+* [Play Scala Intro](https://typesafe.com/activator/template/play-scala-intro): Play Scala でシンプルな CRUD アプリケーションを作る入門編です。
+* [Reactive Maps](https://typesafe.com/activator/template/reactive-maps): Typesafe リアクティブプラットフォームを使った、スケーラブルで、レジリエントで、レスポンシブなイベント駆動アプリケーションの作り方を紹介するテンプレートとチュートリアルです。
+* [AngularJS Play Mongo](https://typesafe.com/activator/template/modern-web-template): モダンな web アプリケーションの作り方を紹介する Play Framework アプリケーションで、CoffeeScript で書かれた AngularJS によるクライアントサイド JavaScript アプリケーションを含み、ノンブロッキングな MongoDB の Scala クライアントである Reactive Mongo をドキュメントの永続化に使います。
+* [Super Slick Play](https://typesafe.com/activator/template/play-slick): データベースをバックエンドに持ち、Slick と統合されている web アプリケーション開発の取っ掛かりとなる、Play Framework と [Slick](http://slick.typesafe.com/) を組み合わせたテンプレートです。
 
+<!--
+## Java
+-->
 ## Java
 
+<!--
 * [Play Java Intro](https://typesafe.com/activator/template/play-java-intro): Introduction to create a simple CRUD application with Play Java.
 * [Reactive Maps in Java](https://typesafe.com/activator/template/reactive-maps-java): This template and tutorial shows how the Typesafe Reactive Platform can be used to implement scalable, resilient, responsive event driven apps.
 * [Play with Spring Data JPA](https://typesafe.com/activator/template/play-spring-data-jpa): This is a Play example that uses [Spring Data JPA](https://projects.spring.io/spring-data-jpa/).
+-->
+* [Play Java Intro](https://typesafe.com/activator/template/play-java-intro): Play Java でシンプルな CRUD アプリケーションを作る入門編です。
+* [Reactive Maps in Java](https://typesafe.com/activator/template/reactive-maps-java): Typesafe リアクティブプラットフォームを使った、スケーラブルで、レジリエントで、レスポンシブなイベント駆動アプリケーションの作り方を紹介するテンプレートとチュートリアルです。
+* [Play with Spring Data JPA](https://typesafe.com/activator/template/play-spring-data-jpa): Play で [Spring Data JPA](https://projects.spring.io/spring-data-jpa/) を使う例です。
