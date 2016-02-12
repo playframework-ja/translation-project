@@ -121,7 +121,10 @@ Be sure to replace `%PLAY_VERSION%` here by the exact version you want to use. I
 resolvers += "Typesafe Snapshots" at "https://repo.typesafe.com/typesafe/snapshots/"
 ```
 
+<!--
 To ensure the proper sbt version is used, make sure you have the following in `project/build.properties`:
+-->
+使用される sbt のバージョンを正確に保証したい場合は、`project/build.properties` に以下の行が存在することを確認してください:
 
 ```
 sbt.version=0.13.8
@@ -130,7 +133,7 @@ sbt.version=0.13.8
 <!--
 In `build.sbt` for Java projects:
 -->
-`build.sbt` の Java プロジェクトの記述:
+Java プロジェクトにおける `build.sbt` は以下のような内容になります:
 
 ```scala
 name := "my-first-app"
@@ -140,7 +143,10 @@ version := "1.0"
 lazy val root = (project in file(".")).enablePlugins(PlayJava)
 ```
 
+<!--
 ...or Scala projects:
+-->
+... Scala プロジェクトの場合は、以下のような内容になります:
 
 ```scala
 name := "my-first-app"
@@ -160,4 +166,7 @@ $ cd my-first-app
 $ sbt
 ```
 
+<!--
 sbt will load your project and fetch the dependencies.
+-->
+sbt がプロジェクトをロードし、依存性を取得するでしょう。
