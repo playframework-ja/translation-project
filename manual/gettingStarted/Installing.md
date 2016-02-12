@@ -1,7 +1,13 @@
 <!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Installing Play
+-->
+# Play のインストール
 
+<!--
 ## Prerequisites
+-->
+## 前提条件
 
 You need to have a JDK 1.8 (or later) installed on your machine (see [General Installation Tasks](#JDK-installation)).
 
@@ -34,7 +40,7 @@ You are now ready to work with Play!
 
 ## General Installation Tasks
 
-You may need to deal with those general tasks in order to install Play! on your system. 
+You may need to deal with those general tasks in order to install Play! on your system.
 
 ### JDK installation
 
@@ -48,13 +54,16 @@ javac -version
 If you don't have the JDK, you have to install it:
 
 1. **MacOS**, Java is built-in, but you may have to [Update to the latest](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
-2. **Linux**, use either the latest Oracle JDK or OpenJDK (do not use not gcj). 
+2. **Linux**, use either the latest Oracle JDK or OpenJDK (do not use not gcj).
 3. **Windows** just download and install the [latest JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) package.
 
 
 ### Add Executables to Path
 
+<!--
 For convenience, you should add the Activator installation directory to your system `PATH`.
+-->
+利便性のため、Activator に `PATH` を通す方が良いでしょう。
 
 On **Unix**, use `export PATH=/path/to/activator:$PATH`
 
@@ -70,4 +79,7 @@ Make sure that the `activator` script is executable. If it's not, do a `chmod u+
 
 ### Proxy Setup
 
+<!--
 If you're behind a proxy make sure to define it with `set HTTP_PROXY=http://<host>:<port>` on Windows or `export  HTTP_PROXY=http://<host>:<port>` on UNIX.
+-->
+もしプロキシ内のネットワークにいる場合、 Windows なら `set HTTP_PROXY=http://<host>:<port>` が設定されているか確認し、 UNIX 系システムなら `export  HTTP_PROXY=http://<host>:<port>` が設定されているか確認して下さい。
