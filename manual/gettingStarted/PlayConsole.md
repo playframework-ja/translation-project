@@ -89,9 +89,15 @@ Play では、 `compile` コマンドを使って、サーバを起動せずに�
 
 [[images/consoleCompile.png]]
 
+<!--
 ## Running the tests
+-->
+## テストの実行
 
+<!--
 Like the commands above, you can run your tests without running the server. Just use the `test` command:
+-->
+上記のコマンドと同じように、サーバを起動せずにテストを実行することができます。 `test` コマンドを使用します:
 
 ```bash
 [my-first-app] $ test
@@ -215,7 +221,10 @@ $ activator run
 (Server started, use Ctrl+D to stop and go back to the console...)
 ```
 
+<!--
 The application starts directly. When you quit the server using `Ctrl+D`, you will come back to your OS prompt. Of course, the **triggered execution** is available here as well:
+-->
+直ちにアプリケーションが起動します。`Ctrl+D` を使ってサーバを停止すると、OS の プロンプトに戻ります。もちろん、ここでも同様に **triggered execution** を使うことができます。
 
 ```bash
 $ activator ~run
