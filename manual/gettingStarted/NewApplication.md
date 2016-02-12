@@ -44,7 +44,10 @@ In either case, you can replace `my-first-app` with whatever name you want your 
 
 [[images/activatorNew.png]]
 
+<!--
 > If you wish to use other Activator templates, you can do this by running `activator new`. This will prompt you for an application name, and then give you a chance to browse and select an appropriate template.
+-->
+> もし他の Activator テンプレートを使用したい場合、 `activator new` が使えます。これによりアプリケーション名を入力するよう促され、その後で適切なテンプレートを閲覧、選択する機会が与えられます。
 
 <!--
 Once the application has been created you can use the `activator` command again to enter the [[Play console|PlayConsole]].
