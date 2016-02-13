@@ -1,9 +1,9 @@
 Home:Home
-gettingStarted:Getting started
-working:Working with Play
-detailedTopics:Detailed topics
-experimental:Experimental libraries
-hacking:Hacking Play
-about:About Play
-releases:Play releases
-ModuleDirectory:Temporary module directory
+gettingStarted:はじめに
+working:Play で開発する
+detailedTopics:詳細なトピック
+experimental:実験的なライブラリ
+hacking:Play を Hack する
+about:Play について
+releases:Play のリリース
+ModuleDirectory:一時的なモジュールディレクトリ
