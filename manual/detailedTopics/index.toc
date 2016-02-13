@@ -1,6 +1,6 @@
-build:The build system
-assets:Working with public assets
-configuration:Configuration
-database:Databases
-evolutions:Managing database evolutions
-production:Deploying your application
+build:ビルドシステム
+assets:公開アセットを使う
+configuration:設定
+database:データベース
+evolutions:Evolutions によるデータベースの管理
+production:アプリケーションのデプロイ
