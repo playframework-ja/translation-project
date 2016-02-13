@@ -1,9 +1,9 @@
-Build:The Build System
-SBTSettings:About sbt settings
-SBTDependencies:Manage application dependencies
-SBTSubProjects:Working with sub-projects
-PlayEnhancer:Play enhancer
-AggregatingReverseRouters:Aggregating reverse routers
-CompilationSpeed:Improving Compilation Times
-SBTCookbook:Cookbook
-SBTDebugging:Debugging your build
+Build:ビルドシステム
+SBTSettings:sbt 設定について
+SBTDependencies:依存性の管理
+SBTSubProjects:サブプロジェクトを使う
+PlayEnhancer:Play エンハンサ
+AggregatingReverseRouters:リバースルートの統合
+CompilationSpeed:コンパイル時間の改善
+SBTCookbook:SBT クックブック
+SBTDebugging:ビルドのデバッグ
