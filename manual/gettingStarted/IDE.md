@@ -19,24 +19,39 @@ However, using a modern Java or Scala IDE provides cool productivity features li
 -->
 ## Eclipse
 
+<!--
 ### Setup sbteclipse
+-->
+### sbteclipse の設定
 
+<!--
 Play requires [sbteclipse](https://github.com/typesafehub/sbteclipse) 4.0.0 or newer.  Append the following to project/plugins.sbt:
+-->
+Play には 4.0.0 か、それより新しい [sbteclipse](https://github.com/typesafehub/sbteclipse) が必要です。project/plugins.sbt に以下を追記します:
 
 ```scala
 addSbtPlugin("com.typesafe.sbteclipse" % "sbteclipse-plugin" % "4.0.0")
 ```
 
+<!--
 You must `compile` your project before running the `eclipse` command. You can force compilation to happen when the `eclipse` command is run by adding the following setting to build.sbt:
+-->
+`eclipse` コマンドを実行する前にプロジェクトを `compile` する必要があります。以下を build.sbt に追加することで、`eclipse` コマンドが実行されたときに強制的にコンパイルを実行することができます:
 
 ```scala
 // Compile the project before generating Eclipse files, so that generated .scala or .class files for views and routes are present
 EclipseKeys.preTasks := Seq(compile in Compile)
 ```
 
+<!--
 If you have Scala sources in your project, you will need to install [Scala IDE](http://scala-ide.org/).
+-->
+プロジェクト内に Scala ソースがある場合、[Scala IDE](http://scala-ide.org/) をインストールしている必要があります。
 
+<!--
 If you do not want to install Scala IDE and have only Java sources in your project, then you can set the following:
+-->
+プロジェクト内は Java ソースのみで Scala IDE をインストールしたくない場合は、以下のように設定することができます:
 
 ```scala
 EclipseKeys.projectFlavor := EclipseProjectFlavor.Java           // Java project. Don't expect Scala IDE
@@ -126,12 +141,15 @@ The generated configuration files contain absolute references to your framework 
 -->
 [Intellij IDEA](https://www.jetbrains.com/idea/) はコマンドプロンプトを使用せずに新しい Play アプリケーションを素早く作成させてくれます。 IDE の外部での設定なしに、SBT ビルドツールが必要なライブラリをダウンロードし、依存性を解決し、プロジェクトをビルドするまで面倒を見てくれます。
 
+<!--
 Before you start creating a Play application in IntelliJ IDEA, make sure that the latest [Scala Plugin](http://www.jetbrains.com/idea/features/scala.html) is installed and enabled in IntelliJ IDEA. Even if you don't develop in Scala, it will help with the template engine and also resolving dependencies.
+-->
+IntelliJ IDEA を使って Play アプリケーションを作り始める前に、[Scala プラグイン](http://www.jetbrains.com/idea/features/scala.html) がインストールされ、IntelliJ IDEA で使えるようになっていることを確認してください。Scala を使って開発しない場合でも、このプラグインはテンプレートエンジンの役に立ちますし、依存性も解決してくれます。
 
 <!--
 To create a Play application:
 -->
-Play アプリケーションを作るには:
+Play アプリケーションは以下のように作ります:
 
 <!--
 1. Open ***New Project*** wizard, select ***Play 2.x*** under ***Scala*** section and click ***Next***.
@@ -145,7 +163,10 @@ IntelliJ IDEA creates an empty application using SBT.
 -->
 IntelliJ IDEA は SBT を使って空のアプリケーションを作ることができます。
 
+<!--
 Currently, for Play 2.4.x, instead of using the IntelliJ wizard to create a new project, we suggest that you create it using Activator and then Import it to IntelliJ.
+-->
+現在の　Play 2.4.x では、IntelliJ のウィザードを使って新しいプロジェクトを作る代わりに、Activator を使ってプロジェクトを作り、IntelliJ にインポートすることを推奨しています。
 
 <!--
 You can also import an existing Play project.
@@ -155,7 +176,7 @@ You can also import an existing Play project.
 <!--
 To import a Play project:
 -->
-Play のプロジェクトをインポートするには:
+Play のプロジェクトは以下のようにインポートします:
 
 <!--
 1. Open Project wizard, select ***Import Project***.
@@ -176,14 +197,22 @@ Check the project's structure, make sure all necessary dependencies are download
 <!--
 You can run the created application and view the result in the default browser `http://localhost:9000`. To run a Play application:
 -->
-作成済みのアプリケーションを実行することができ、結果をデフォルトブラウザ上の `http://localhost:9000` で見ることができます。Playアプリケーションを実行するには:
+作成済みのアプリケーションを実行することができ、結果をデフォルトブラウザ上の `http://localhost:9000` で見ることができます。Play アプリケーションは以下のように実行します:
 
+<!--
 1. Create a new Run Configuration -- From the main menu, select Run -> Edit Configurations
 2. Click on the + to add a new configuration
 3. From the list of configurations, choose "SBT Task"
 4. In the "tasks" input box, simply put "run"
 5. Apply changes and select OK.
 6. Now you can choose "Run" from the main Run menu and run your application
+-->
+1. 新しい起動設定を作成します -- メインメニューから Run -> Edit Configurations を選択します
+2. \+ をクリックして新しい設定を追加します
+3. 設定リストから "SBT Task" を選択します
+4. "tasks" 入力ボックス内に "run" を追加します
+5. 変更を適用して OK を選択します
+6. これでメインの起動メニューから "Run" を選んでアプリケーションを起動できます
 
 <!--
 You can easily start a debugger session for a Play application using default Run/Debug Configuration settings.
@@ -193,16 +222,25 @@ Play アプリケーションのデバッガセッションは標準の Run/Debu
 <!--
 For more detailed information, see the Play Framework 2.x tutorial at the following URL:
 -->
-もっと詳細な情報は以下の Play Framework 2.x チュートリアルをご覧ください:
+より詳しい情報は以下の Play Framework 2.x チュートリアルをご覧ください:
 
 <https://confluence.jetbrains.com/display/IntelliJIDEA/Play+Framework+2.0> 
 
+<!--
 ### Navigate from an error page to the source code
+-->
+### エラーページからソースコードへの移動
 
+<!--
 Using the `play.editor` configuration option, you can set up Play to add hyperlinks to an error page. Since then, you can easily navigate from error pages to IntelliJ, directly into the source code (you need to install the Remote Call <https://github.com/Zolotov/RemoteCall> IntelliJ plugin first).
+-->
+`play.editor` 設定オプションを使って、Play がエラーページにハイパーリンクを追加するよう設定することができます。これにより、エラーページから IntelliJ 内のソースコードに直接移動できるようになります (はじめに Remote Call <https://github.com/Zolotov/RemoteCall> IntelliJ プラグインをインストールする必要があります)。
 
+<!--
 Just install the Remote Call plugin and run your app with the following options:
 `-Dplay.editor=http://localhost:8091/?message=%s:%s -Dapplication.mode=dev`
+-->
+普通に Remote Call プラグインをインストールして `-Dplay.editor=http://localhost:8091/?message=%s:%s -Dapplication.mode=dev` オプションを付けてアプリケーションを起動してください: 
 
 
 <!--
@@ -215,11 +253,17 @@ Just install the Remote Call plugin and run your app with the following options:
 -->
 ### 設定ファイルの生成
 
+<!--
 Play does not have native [Netbeans](https://netbeans.org/) project generation support at this time, but there is a Scala plugin for NetBeans which can help with both Scala language and SBT:
+-->
+Play は今のところ [Netbeans](https://netbeans.org/) のプロジェクト生成をサポートしていませんが、Scala 言語と SBT 両方を支援する NetBeans 用 Scala プラグインがあります:
 
 <https://github.com/dcaoyuan/nbscala>
 
+<!--
 There is also a SBT plugin to create Netbeans project definition:
+-->
+Netbeans プロジェクト定義を生成する SBT プラグインもあります:
 
 <https://github.com/dcaoyuan/nbsbt>
 
@@ -348,9 +392,9 @@ Scala は新しいプログラミング言語です。そのため、機能は I
 1. Eclipse Scala IDE: <http://scala-ide.org/>
 2. NetBeans Scala プラグイン: <https://github.com/dcaoyuan/nbscala>
 3. IntelliJ IDEA Scala プラグイン: <http://confluence.jetbrains.net/display/SCA/Scala+Plugin+for+IntelliJ+IDEA>
-4. IntelliJ IDEA のプラグインは活発に開発されているため、ナイトリービルドを使う事で、小さな問題と引き換えにより多くの機能を使えるようになります。
+4. IntelliJ IDEA のプラグインは活発に開発されているため、ナイトリービルドを使うことで、小さな問題と引き換えにより多くの機能を使えるようになります。
 5. Nika (11.x) プラグインリポジトリ: <https://www.jetbrains.com/idea/plugins/scala-nightly-nika.xml>
 6. Leda (12.x) プラグインリポジトリ: <https://www.jetbrains.com/idea/plugins/scala-nightly-leda.xml>
 7. IntelliJ IDEA Play プラグイン (Leda 12.x のみに対応): <http://plugins.intellij.net/plugin/?idea&pluginId=7080>
 8. ENSIME - Emacs 用の Scala IDE モード: <https://github.com/aemoncannon/ensime>
-(see below for ENSIME/Play instructions)
+(ENSIME/Play の使い方は以下を参照してください)
