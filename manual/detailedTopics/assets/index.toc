@@ -1,5 +1,5 @@
-Assets:Working with public assets
-AssetsCoffeeScript:Using CoffeeScript
-AssetsLess:Using LESS CSS
-AssetsJSHint:Using JSHint
-RequireJS-support:Using RequireJs
+Assets:公開アセットを使う
+AssetsCoffeeScript:CoffeeScript を使う
+AssetsLess:LESS CSS を使う
+AssetsJSHint:JSHint を使う
+RequireJS-support:RequireJs を使う
