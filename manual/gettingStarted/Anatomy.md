@@ -4,10 +4,17 @@
 -->
 # Play アプリケーションの構造
 
+<!--
 ## The Play application layout
+-->
+## Play アプリケーションの構成
 
+<!--
 The layout of a Play application is standardized to keep things as simple as possible. After a first successful compile, a Play application looks like this:
+-->
+Play アプリケーションの構成は、できるだけシンプルさを重視して標準化されています。正常にコンパイルされた後の Play アプリケーションの構成は、以下のようになっています:
 
+<!--
 ```
 app                      → Application sources
  └ assets                → Compiled asset sources
@@ -42,6 +49,41 @@ target                   → Generated stuff
  └ web                   → Compiled web assets
 test                     → source folder for unit or functional tests
 ```
+-->
+```
+app                      → アプリケーションソース
+ └ assets                → コンパイルされたアセットソース
+    └ stylesheets        → 通常は LESS CSS ソース
+    └ javascripts        → 通常は CoffeeScript ソース
+ └ controllers           → アプリケーションコントローラ
+ └ models                → アプリケーションビジネス層
+ └ views                 → テンプレート
+build.sbt                → アプリケーションビルドスクリプト
+conf                     → 設定ファイル、および (クラスパス上の) その他のコンパイルされないリソース
+ └ application.conf      → メイン設定ファイル
+ └ routes                → ルート定義
+dist                     → プロジェクト成果物に含める任意のファイル
+public                   → 公開アセット
+ └ stylesheets           → CSS ファイル
+ └ javascripts           → Javascript ファイル
+ └ images                → 画像ファイル
+project                  → sbt 設定ファイル群
+ └ build.properties      → sbt プロジェクトの目印
+ └ plugins.sbt           → Play 自身の定義を含む sbt プラグイン
+lib                      → 管理されていない依存ライブラリ
+logs                     → ログフォルダ
+ └ application.log       → デフォルトログファイル
+target                   → 生成物
+ └ resolution-cache      → 依存性に関する情報
+ └ scala-2.10
+    └ api                → 生成された API ドキュメント
+    └ classes            → コンパイルされたクラスファイル
+    └ routes             → routes から生成されたソース
+    └ twirl              → テンプレートから生成されたソース
+ └ universal             → アプリケーションパッケーｓ時
+ └ web                   → コンパイルされた web アセット
+test                     → 単体、および機能テスト用のソースフォルダ
+```
 
 <!--
 ## The `app/` directory
@@ -53,7 +95,10 @@ The `app` directory contains all executable artifacts: Java and Scala source cod
 -->
 `app` ディレクトリには、実行可能な全てのコードが含まれます。Java や Scala のコードや、テンプレート、LESS や CoffeeScript のような、別の言語へコンパイルされるアセットのソースファイルなど、全てです。
 
+<!--
 There are three packages in the `app` directory, one for each component of the MVC architectural pattern: 
+-->
+`app` ディレクトリには、それぞれが MVC アーキテクチャパターンと対応する 3 つのパッケージがあります:
 
 - `app/controllers`
 - `app/models`
@@ -67,7 +112,7 @@ You can of course add your own packages, for example an `app/utils` package.
 <!--
 > Note that in Play, the controllers, models and views package name conventions are now just that and can be changed if needed (such as prefixing everything with `com.yourcompany`).
 -->
-> Play では、`controllers`、`models`、`views` というパッケージ名はゆるい規約で、必要なら変更することができます（例えば、全てのパッケージに `com.yourcompany` というプレフィックスをつけるとか）。
+> Play では、`controllers`, `models`, `views` というパッケージ名はゆるい規約で、必要であれば (例えば、全てのパッケージに `com.yourcompany` という接頭辞をつけると言ったように) 変更することができます。
 
 <!--
 There is also an optional directory called `app/assets` for compiled assets such as [LESS sources](http://lesscss.org/) and [CoffeeScript sources](http://coffeescript.org/).
@@ -84,7 +129,10 @@ Resources stored in the `public` directory are static assets that are served dir
 -->
 `public/` ディレクトリに保存されたリソースはいわゆる静的コンテンツとなり、Web ブラウザへそのまま送信されます。
 
+<!--
 This directory is split into three sub-directories for images, CSS stylesheets and JavaScript files. You should organize your static assets like this to keep all Play applications consistent.
+-->
+このディレクトリには、画像ファイル、CSS スタイルシート、JavaScript ファイル用の 3 つのサブディレクトリがあります。全ての Play アプリケーションが似たような構成になるように、静的コンテンツはこれらのディレクトリに入れておくと良いでしょう。
 
 <!--
 > In a newly-created application, the `/public` directory is mapped to the `/assets` URL path, but you can easily change that, or even use several directories for your static assets.
@@ -101,8 +149,12 @@ The `conf` directory contains the application’s configuration files. There are
 -->
 `conf` ディレクトリにはアプリケーションの設定ファイルを入れます。主な設定ファイルは次の二つです。
 
+<!--
 - `application.conf`, the main configuration file for the application, which contains configuration parameters
 - `routes`, the routes definition file.
+-->
+- `application.conf` という、設定パラメータを含むアプリケーションのメイン設定ファイル。
+- `routes` という、ルート定義ファイル。
 
 <!--
 If you need to add configuration options that are specific to your application, it’s a good idea to add more options to the `application.conf` file.
@@ -195,10 +247,17 @@ dist
 .cache
 ```
 
+<!--
 ## Default SBT layout
+-->
+## デフォルトの SBT 構成
 
+<!--
 You also have the option of using the default layout used by SBT and Maven. Please note that this layout is experimental and may have issues. In order to use this layout, use `disablePlugins(PlayLayoutPlugin)`. This will stop Play from overriding the default SBT layout, which looks like this:
+-->
+SBT および Maven で使われるデフォルトの構成を使うオプションもあります。この構成は実験的で、問題を含むかもしれない点に注意してください。この構成を使うには、`disablePlugins(PlayLayoutPlugin)` を使います。これで Play が以下に示すデフォルトの SBT 構成を上書きしないようになります:
 
+<!--
 ```
 build.sbt                  → Application build script
 src                        → Application sources
@@ -238,4 +297,45 @@ target                     → Generated stuff
     └ classes_managed      → Managed class files (templates, ...)
     └ resource_managed     → Managed resources (less, ...)
     └ src_managed          → Generated sources (templates, ...)
+```
+-->
+```
+build.sbt                  → アプリケーションビルドスクリプト
+src                        → アプリケーションソース
+ └ main                    → コンパイルされたアセットソース
+    └ java                 → Java ソース
+       └ controllers       → Java コントローラ
+       └ models            → Java ビジネス層
+    └ scala                → Scala ソース
+       └ controllers       → Scala コントローラ
+       └ models            → Scala ビジネス層
+    └ resources            → 設定ファイル、および (クラスパス上の) その他のコンパイルされないリソース
+       └ application.conf  → メイン設定ファイル
+       └ routes            → ルート定義
+    └ twirl                → テンプレート
+    └ assets               → コンパイルされたアセットソース
+       └ css               → 通常は LESS CSS ソース
+       └ js                → 通常は CoffeeScript ソース
+    └ public               → 公開アセット
+       └ css               → CSS ファイル
+       └ js                → Javascript ファイル
+       └ images            → 画像ファイル
+ └ test                    → 単体または機能テスト
+    └ java                 → 単体、および機能テスト用の Java ソースフォルダ
+    └ scala                → 単体、および機能テスト用の Scala ソースフォルダ
+    └ resources            → 単体、および機能テスト用のリソースフォルダ
+ └ universal               → プロジェクト成果物に含める任意のファイル
+project                    → sbt 設定ファイル群
+ └ build.properties        → sbt プロジェクトの目印
+ └ plugins.sbt             → Play 自身の定義を含む sbt プラグイン
+lib                        → 管理されていない依存ライブラリ
+logs                       → ログフォルダ
+ └ application.log         → デフォルトログファイル
+target                     → 生成物
+ └ scala-2.10.0            
+    └ cache              
+    └ classes              → コンパイルされたクラスファイル
+    └ classes_managed      → 管理されたクラスファイル (テンプレート, ...)
+    └ resource_managed     → 管理されたリソース (less, ...)
+    └ src_managed          → 生成されたソース (テンプレート, ...)
 ```
