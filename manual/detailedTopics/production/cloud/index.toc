@@ -1,5 +1,5 @@
-DeployingCloud:Deploying to a cloud service
-ProductionHeroku:Deploying to Heroku
-Deploying-CloudFoundry:Deploying to Cloud Foundry
-Deploying-CleverCloud:Deploying to Clever Cloud
-Deploying-Boxfuse:Deploying to Boxfuse and AWS
+DeployingCloud:クラウドサービスにデプロイする
+ProductionHeroku:Heroku にデプロイする
+Deploying-CloudFoundry:Cloud Foundry にデプロイする
+Deploying-CleverCloud:Clever Cloud にデプロイする
+Deploying-Boxfuse:Boxfuse と AWS にデプロイする
