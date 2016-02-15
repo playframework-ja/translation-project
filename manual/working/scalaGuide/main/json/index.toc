@@ -1,5 +1,5 @@
-ScalaJson:JSON basics
-ScalaJsonHttp:JSON with HTTP
-ScalaJsonCombinators:JSON Reads/Writes/Format Combinators
-ScalaJsonTransformers:JSON Transformers
+ScalaJson:JSON の基本
+ScalaJsonHttp:JSON と HTTP
+ScalaJsonCombinators:JSON Reads/Writes/Format コンビネータ
+ScalaJsonTransformers:JSON トランスフォーマ
 ScalaJsonInception:JSON Macro Inception

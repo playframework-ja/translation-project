@@ -1,8 +1,8 @@
-ScalaTestingYourApplication:Testing your Application
-ScalaTestingWithScalaTest:Testing with ScalaTest
-ScalaFunctionalTestingWithScalaTest:Writing functional tests with ScalaTest
-ScalaTestingWithSpecs2:Testing with specs2
-ScalaFunctionalTestingWithSpecs2:Writing functional tests with specs2
-ScalaTestingWithGuice:Testing with Guice
-ScalaTestingWithDatabases:Testing with databases
-ScalaTestingWebServiceClients:Testing web service clients
+ScalaTestingYourApplication:アプリケーションのテスト
+ScalaTestingWithScalaTest:ScalaTest によるテスト
+ScalaFunctionalTestingWithScalaTest:ScalaTest による機能テスト
+ScalaTestingWithSpecs2:Specs2 によるテスト
+ScalaFunctionalTestingWithSpecs2:Specs2 による機能テスト
+ScalaTestingWithGuice:Guice によるテスト
+ScalaTestingWithDatabases:データベースを使ったテスト
+ScalaTestingWebServiceClients:web サービスクライアントのテスト

@@ -1,1 +1,1 @@
-ScalaAkka:Integrating with Akka
+ScalaAkka:Akka との統合

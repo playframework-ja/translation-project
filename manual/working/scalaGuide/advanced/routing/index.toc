@@ -1,2 +1,2 @@
-ScalaSirdRouter:String Interpolating Routing DSL
-ScalaJavascriptRouting:Javascript routing
+ScalaSirdRouter:文字列補間ルーティング DSL
+ScalaJavascriptRouting:Javascript ルーティング

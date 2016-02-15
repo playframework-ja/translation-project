@@ -1,1 +1,1 @@
-ScalaPlugins:Writing plugins
+ScalaPlugins:プラグインの書き方

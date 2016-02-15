@@ -1,1 +1,1 @@
-ScalaLogging:Logging
+ScalaLogging:ロギング

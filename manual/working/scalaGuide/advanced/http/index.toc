@@ -1,3 +1,3 @@
 HttpApi:HTTP API
-ScalaHttpFilters:HTTP filters
-ScalaHttpRequestHandlers:HTTP request handlers
+ScalaHttpFilters:HTTP フィルタ
+ScalaHttpRequestHandlers:HTTP リクエストの処理
