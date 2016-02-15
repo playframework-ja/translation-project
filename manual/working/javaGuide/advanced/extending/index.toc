@@ -1,1 +1,1 @@
-JavaPlugins:Writing plugins
+JavaPlugins:プラグインの書き方
