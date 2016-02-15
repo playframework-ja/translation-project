@@ -1,8 +1,8 @@
-JavaActions:Actions, Controllers and Results
-JavaRouting:HTTP routing
-JavaResponse:Manipulating the HTTP response
-JavaSessionFlash:Session and Flash scopes
-JavaBodyParsers:Body parsers
-JavaActionsComposition:Actions composition
-JavaContentNegotiation:Content negotiation
-JavaErrorHandling:Error handling
+JavaActions:アクション、コントローラ、レスポンス
+JavaRouting:HTTP ルーティング
+JavaResponse:HTTP レスポンスの操作
+JavaSessionFlash:セッションとフラッシュスコープ
+JavaBodyParsers:ボディパーサー
+JavaActionsComposition:アクションの合成
+JavaContentNegotiation:コンテントネゴシエーション
+JavaErrorHandling:エラーハンドリング

@@ -1,1 +1,1 @@
-JavaEmbeddingPlay:Embedding Play
+JavaEmbeddingPlay:Play の組み込み

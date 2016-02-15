@@ -1,2 +1,2 @@
-JavaHttpFilters:HTTP filters
-JavaHttpRequestHandlers:HTTP request handlers
+JavaHttpFilters:HTTP フィルタ
+JavaHttpRequestHandlers:HTTP リクエストの処理

@@ -1,1 +1,1 @@
-JavaJsonActions:Handling and serving JSON
+JavaJsonActions:JSON リクエストの送信と処理

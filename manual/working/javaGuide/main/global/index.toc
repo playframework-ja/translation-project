@@ -1,2 +1,2 @@
-JavaGlobal:Application global settings
-JavaInterceptors:Intercepting requests
+JavaGlobal:アプリケーションのグローバル設定
+JavaInterceptors:リクエストのインターセプト

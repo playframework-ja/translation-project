@@ -1,1 +1,1 @@
-JavaAkka:Integrating with Akka
+JavaAkka:Akka との統合

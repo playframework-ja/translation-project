@@ -1,2 +1,2 @@
-ScalaDependencyInjection:Runtime dependency injection
-ScalaCompileTimeDependencyInjection:Compile time dependency injection
+ScalaDependencyInjection:実行時の DI
+ScalaCompileTimeDependencyInjection:コンパイル時の DI

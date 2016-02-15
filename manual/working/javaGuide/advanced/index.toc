@@ -1,5 +1,5 @@
-dependencyinjection:Dependency injection
-http:HTTP architecture
-routing:Advanced routing
-extending:Extending Play
-embedding:Embedding Play
+dependencyinjection:依存性の注入
+http:HTTP アーキテクチャ
+routing:拡張ルーティング
+extending:Play の拡張
+embedding:Play の組み込み
