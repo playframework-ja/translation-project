@@ -4,7 +4,10 @@
 -->
 # Play 2.1 移行ガイド
 
+<!--
 This is a guide for migrating from Play 2.0 to Play 2.1.
+-->
+このドキュメントは Play 2.0 から Play 2.1 への移行ガイドです。
 
 <!--
 To migrate a **Play 2.0.x** application to **Play 2.1.0** first update Play's `sbt-plugin` in the `project/plugins.sbt` file:
@@ -72,6 +75,7 @@ Because Play 2.1 introduces further modularization, you now have to explicitly s
 -->
 Play 2.1 では今まで以上にモジュール化が進められました。そのため、これからはアプリケーションに必要なモジュールへの依存性を明示的に指定する必要があります。デフォルトの `play.Project` には Play の核となるたった一つのコアモジュールへの依存性のみが定義されています。それ以外のモジュールは必要に応じて選択しましょう。 **Play 2.1** で新たに切りだされたモジュールは次の通りです。
 
+<!--
 - `jdbc` : The **JDBC** connection pool and the the `play.api.db` API.
 - `anorm` : The **Anorm** component.
 - `javaCore` : The core **Java** API.
@@ -79,6 +83,14 @@ Play 2.1 では今まで以上にモジュール化が進められました。�
 - `javaEbean` : The Ebean plugin for Java.
 - `javaJpa` : The JPA plugin for Java.
 - `filters` : A set of build-in filters for Play (such as the CSRF filter).
+-->
+- `jdbc` : **JDBC** コネクションプールと `play.api.db` API
+- `anorm` : **Anorm** コンポーネント
+- `javaCore` : **Java** コア API
+- `javaJdbc` : Java データベース API
+- `javaEbean` : Java 用の Ebean プラグイン
+- `javaJpa` : Java 用の JPA プラグイン
+- `filters` : Play 用の (例えば CSRF フィルタのような) 組み込みフィルタ
 
 <!--
 Here is a typical `Build.scala` file for **Play 2.1**:
@@ -129,17 +141,17 @@ Play のモジュール化に関連して、 `play.data` パッケージとそ�
 <!--
 As part of the cleanup the Finder API join methods are replaced with fetch methods. They behave exactly same.
 -->
-コード整理の一環として、 Finder API の join メソッドが fetch メソッドに置き換えられました。機能には変更ありません。
+コード整理の一環として、Finder API の join メソッドが fetch メソッドに置き換えられました。機能には変更ありません。
 
 <!--
 ## Play's Promise to become Scala's Future
 -->
-## Play の Promise から、Scala の Future への移行
+## Play の Promise から Scala の Future への移行
 
 <!--
 With the introduction of `scala.concurrent.Future` in Scala 2.10 the scala ecosystem made a huge jump to unify the various Future and Promise libraries out there.
 -->
-Scala 2.10 で `scala.concurrent.Future` が導入されたことで、Scala のエコシステムに散在していた様々な Future 、 Promise ライブラリが統合され始めました。
+Scala 2.10 で `scala.concurrent.Future` が導入されたことで、Scala のエコシステムに散在していた様々な Future と Promise ライブラリが統合され始めました。
 
 <!--
 The fact that Play is now using `scala.concurrent.Future` directly means that users can effortlessly combine futures/promises coming from both internal API-s or external libraries.
@@ -390,6 +402,9 @@ The `discardingCookies(String\*)` (Scala) and `discardCookies(String...)` (Java)
 -->
 `SimpleResult` の `discardingCookies(String\*)` (Scala) と `discardCookies(String…)` (Java) メソッドは特定のパスやドメインにセットされた Cookie や、セキュア Cookie を扱えなかったため、非推奨になりました。代わりに、`discardingCookies(DiscardingCookie*)` (Scala) と `discardCookie` (Java) メソッドを利用してください。
 
+<!--
+## RequireJS
+-->
 ## RequireJS
 
 <!--
