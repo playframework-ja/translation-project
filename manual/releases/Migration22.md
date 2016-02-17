@@ -4,7 +4,10 @@
 -->
 # Play 2.2 移行ガイド
 
+<!--
 This is a guide for migrating from Play 2.1 to Play 2.2. If you need to migrate from an earlier version of Play then you must first follow the [[Play 2.1 Migration Guide|Migration21]].
+-->
+これは Play 2.1 から Play 2.2 への移行ガイドです。これより古いバージョンの Play から移行する場合は、まず [[Play 2.1 移行ガイド|Migration21]] の内容に従ってください。
 
 <!--
 ## Build tasks
