@@ -2,11 +2,17 @@
 
 # Play User Groups
 
+<!--
 ## New York
+-->
+## ニューヨーク
 
 http://www.meetup.com/Play-NYC/
 
+<!--
 ## Berlin
+-->
+## ベルリン
 
 http://www.meetup.com/Play-Berlin-Brandenburg/
 
@@ -18,19 +24,31 @@ http://www.meetup.com/Play-Berlin-Brandenburg/
 
 [Xing](https://www.xing.com/communities/groups/scala-user-group-koeln-bonn-1035441) / [Twitter](https://twitter.com/scalacgn)
 
+<!--
 ## Buenos Aires
+-->
+## ブエノスアイレス
 
 http://www.meetup.com/play-argentina/
 
+<!--
 ## Stockholm
+-->
+## ストックホルム
 
 http://www.meetup.com/play-stockholm/
 
+<!--
 ## Belgium
+-->
+## ベルギー
 
 http://www.play-be.org
 
+<!--
 ## Japan
+-->
+## 日本
 
 * http://www.playframework-ja.org/
 * https://groups.google.com/forum/?fromgroups#!forum/play_ja
