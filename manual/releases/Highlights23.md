@@ -1,8 +1,14 @@
 <!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # What's new in Play 2.3
+-->
+# Play 2.3 の変更点
 
 This page highlights the new features of Play 2.3. If you want learn about the changes you need to make to migrate to Play 2.3, check out the [[Play 2.3 Migration Guide|Migration23]].
 
+<!--
+## Activator
+-->
 ## Activator
 
 The first thing you'll notice about Play 2.3 is that the `play` command has become the `activator` command. Play has been updated to use [Activator](https://typesafe.com/activator) so that we can:
@@ -13,6 +19,9 @@ The first thing you'll notice about Play 2.3 is that the `play` command has beco
 
 In the future Activator will get even more features, and these features will automatically benefit Play and other projects that use Activator. [Activator is open source](https://github.com/typesafehub/activator), so the community can contribute to its evolution.
 
+<!--
+### Activator command
+-->
 ### Activator command
 
 All the features that were available with the `play` command are still available with the `activator` command.
@@ -23,6 +32,9 @@ All the features that were available with the `play` command are still available
 
 > The new `activator` command and the old `play` command are both wrappers around [sbt](http://www.scala-sbt.org/). If you prefer, you can use the `sbt` command directly. However, if you use sbt you will miss out on several Activator features, such as templates (`activator new`) and the web user interface (`activator ui`). Both sbt and Activator support all the usual console commands such as `test` and `run`.
 
+<!--
+### Activator distribution
+-->
 ### Activator distribution
 
 Play is distributed as an Activator distribution that contains all Play's dependencies. You can download this distribution from the [Play download](https://www.playframework.com/download) page.
@@ -31,8 +43,14 @@ If you prefer, you can also download a minimal (1MB) version of Activator from t
 
 Since Activator is a wrapper around sbt, you can also download and use [sbt](http://www.scala-sbt.org/) directly, if you prefer.
 
+<!--
+## Build improvements
+-->
 ## Build improvements
 
+<!--
+### sbt-web
+-->
 ### sbt-web
 
 The largest new feature for Play 2.3 is the introduction of [sbt-web](https://github.com/sbt/sbt-web#sbt-web). In summary sbt-web allows HTML, CSS and JavaScript functionality to be factored out of Play's core into a family of pure sbt plugins. There are two major advantages to you:
@@ -40,11 +58,17 @@ The largest new feature for Play 2.3 is the introduction of [sbt-web](https://gi
 * Play is less opinionated on the HTML, CSS and JavaScript; and
 * sbt-web can have its own community and thrive in parallel to Play's.
 
+<!--
+### Auto Plugins
+-->
 ### Auto Plugins
 
 Play now uses sbt 0.13.5. This version brings a new feature named "auto plugins" which, in essence permits a large reduction in settings-oriented code for your build files.
 
+<!--
 ### Asset Pipeline and Fingerprinting
+-->
+### アセットパイプラインとフィンガープリント
 
 sbt-web brings the notion of a highly configurable asset pipeline to Play e.g.:
 
@@ -56,14 +80,23 @@ The above will order the RequireJs optimizer (sbt-rjs), the digester (sbt-digest
 
 One new capability for Play 2.3 is the support for asset fingerprinting, similar in principle to [Rails asset fingerprinting](http://guides.rubyonrails.org/asset_pipeline.html#what-is-fingerprinting-and-why-should-i-care-questionmark). A consequence of asset fingerprinting is that we now use far-future cache expiries when they are served. The net result of this is that your user's will experience faster downloads when they visit your site given the aggressive caching strategy that a browser is now able to employ.
 
+<!--
 ### Default ivy cache and local repository
+-->
+### デフォルトの ivy キャッシュとローカルリポジトリ
 
 Play now uses the default ivy cache and repository, in the `.ivy2` folder in the users home directory.
 
 This means Play will now integrate better with other sbt builds, not requiring artifacts to be cached multiple times, and allowing the sharing of locally published artifacts.
 
+<!--
 ## Java improvements
+-->
+## Java の改善
 
+<!--
+### Java 8
+-->
 ### Java 8
 
 Play 2.3 has been tested with Java 8. Your project will work just fine with Java 8; there is nothing special to do other than ensuring that your Java environment is configured for Java 8. There is a new Activator sample available for Java 8:
@@ -74,7 +107,10 @@ Our documentation has been improved with Java examples in general and, where app
 
 For a complete overview of going Reactive with Java 8 and Play check out this blog: http://typesafe.com/blog/go-reactive-with-java-8
 
+<!--
 ### Java performance
+-->
+### Java パフォーマンス
 
 We've worked on Java performance. Compared to Play 2.2, throughput of simple Java actions has increased by 40-90%. Here are the main optimizations:
 
@@ -87,6 +123,9 @@ Some of these changes also improved Scala performance, but Java had the biggest 
 
 Thankyou to [YourKit](https://www.yourkit.com/) for supplying the Play team with licenses to make this work possible.
 
+<!--
+## Scala 2.11
+-->
 ## Scala 2.11
 
 Play 2.3 is the first release of Play to have been cross built against multiple versions of Scala, both 2.10 and 2.11.
@@ -105,9 +144,15 @@ For Scala 2.10:
 scalaVersion := "2.10.4"
 ```
 
+<!--
+## Play WS
+-->
 ## Play WS
 
+<!--
 ### Separate library
+-->
+### 分離されたライブラリ
 
 The WS client library has been refactored into its own library which can be used outside of Play. You can now have multiple `WSClient` objects, rather than only using the `WS` singleton.
 
@@ -129,11 +174,17 @@ Each WS client can be configured with its own options. This allows different Web
 
 The underlying `AsyncHttpClient` object can also now be accessed, which means that multi-part form and streaming body uploads are supported.
 
+<!--
 ### WS Security
+-->
+### WS セキュリティ
 
 WS clients have [[settings|WsSSL]] for comprehensive SSL/TLS configuration. WS client configuration is now more secure by default.
 
+<!--
 ## Actor WebSockets
+-->
+## Actor WebSocket
 
 A method to use actors for handling websocket interactions has been incorporated for both Java and Scala e.g. using Scala:
 
@@ -152,10 +203,16 @@ def webSocket = WebSocket.acceptWithActor[JsValue, JsValue] { req => out =>
   MyWebSocketActor.props(out)
 ```
 
+<!--
 ## Results restructuring completed
+-->
+## Results の再構築完了
 
 In Play 2.2, a number of new result types were introduced and old results types deprecated. Play 2.3 finishes this restructuring. See *Results restructure* in the [[Migration Guide|Migration23]] for more information.
 
+<!--
+## Anorm
+-->
 ## Anorm
 
 There are various fixes included in Play 2.3's Anorm (type safety, option parsing, error handling, ...) and new interesting features.
@@ -166,6 +223,9 @@ There are various fixes included in Play 2.3's Anorm (type safety, option parsin
 - Query results include not only data, but execution context (with SQL warning).
 - More types are supported as parameter and as column: `java.util.UUID`, numeric types (Java/Scala big decimal and integer, more column conversions between numerics), temporal types (`java.sql.Timestamp`), character types.
 
+<!--
 ## Custom SSLEngine for HTTPS
+-->
+## HTTPS 用のカスタム SSL エンジン
 
 The Play server can now [[use a custom `SSLEngine`|ConfiguringHttps]]. This is also useful in cases where customization is required, such as in the case of client authentication.
