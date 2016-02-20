@@ -4,9 +4,15 @@
 -->
 # Play 2 の紹介
 
+<!--
 Since 2007, we have been working on making Java web application development easier. Play started as an internal project at Zenexity (now [Zengularity](http://zengularity.com/)) and was heavily influenced by our way of doing web projects: focusing on developer productivity, respecting web architecture, and using a fresh approach to packaging conventions from the start - breaking so-called JEE best practices where it made sense.
+-->
+2007 年以来、私たちは Java での web アプリケーション の開発を容易なものにしようとしてきました。Play は、 Zenexity (現在は [Zengularity](http://zengularity.com/)) における内部的なプロジェクトとしてスタートし、私たちの web プロジェクトの進め方に強く影響されてきました。つまり、開発者の生産性に焦点を当て、 web のアーキテクチャを尊重し、初めからパッケージング規約に対して斬新なやり方を採用してきたのです - そうすることが理にかなっている場合には、いわゆる JEE のベストプラクティスをも破ってきました。
 
+<!--
 In 2009, we decided to share these ideas with the community as an open source project. The immediate feedback was extremely positive and the project gained a lot of traction. Today - after two years of active development - Play has several versions, an active community of more than 10,000 people, with a growing number of applications running in production all over the globe.
+-->
+2009 年に、私たちはこれらのアイデアを、オープンソースプロジェクトとしてコミュニティと共有することを決断しました。即座に返されたフィードバックは極めてポジティブなものであり、このプロジェクトは大きな関心を引きつけました。今日 - 2 年間の活発な開発を経て - Play にはいくつかのバージョンができ、10,000 人以上の参加者からなる活発なコミュニティが存在し、世界中で実際に使われているアプリケーションの数は増え続けています。
 
 <!--
 Opening a project to the world certainly means more feedback, but it also means discovering and learning about new use cases, requiring features and un-earthing bugs that we were not specifically considered in the original design and its assumptions. During the two years of work on Play as an open source project we have worked to fix this kind of issues, as well as to integrate new features to support a wider range of scenarios. As the project has grown, we have learned a lot from our community and from our own experience - using Play in more and more complex and varied projects.
@@ -33,7 +39,10 @@ Today’s web applications are integrating more concurrent real-time data, so we
 -->
 今日の web アプリケーションは、これまで以上にリアルタイムデータの並行処理を統合するようになってきており、 web フレームワークには完全な非同期 HTTP プログラミングモデルをサポートすることが求められます。 Play はまず、短期間に処理される大量のリクエストを処理する、クラシックな web アプリケーションを扱うように設計されました。しかし今日では、Comet、長期間のポーリング、WebSockets を通じて、接続が保持され続けるコネクションを処理するため、イベントモデルへと進むべきです。
 
+<!--
 Play 2 is architected from the start under the assumption that every request is potentially long-lived. But that’s not all: we also need a powerful way to schedule and run long-running tasks. The Actor-based model is unquestionably the best model today to handle highly concurrent systems, and the best implementation of that model available for both Java and Scala is Akka - so it’s going in. Play 2 provides native [Akka](http://akka.io/) support for Play applications, making it possible to write highly-distributed systems.
+-->
+Play 2 は、最初からすべてのリクエストが潜在的に長期間保持されるものと見なして設計されています。しかしそれだけではなく、私たちには、長時間にわたって処理されるタスクのスケジューリングと実行を扱う、強力な方法も必要です。 今日、並列度が非常に高いシステムを扱うモデルとしては、Actor ベースのモデルが最良であること、そして Java と Scala の双方で利用可能な Actor ベースのモデルの実装として、Akka が最良のものであることは、疑問の余地がありません - これが、Akka を使う理由です。Play 2 は Play アプリケーションで [Akka](http://akka.io/) をネイティブにサポートし、高度な分散システムを書くことができるようにします。
 
 <!--
 ## Focused on type safety
@@ -50,7 +59,10 @@ Adding Scala to the mix for Play 2, we clearly benefit from even stronger compil
 -->
 Play 2 の中に Scala を追加することで、私たちは間違いなく、コンパイラによるさらに強力な保障という利点を得ることになります - しかし、それでもまだ十分ではありません。Play 1.x では、テンプレートシステムは動的なものであり、 Groovy に基づくもので、コンパイラにできることはそれほどありませんでした。その結果、テンプレートで発生するエラーは、実行時にしか検出できなかったのです。これは、コントローラとの間を取り持つコードの検証についても同じことが言えました。
 
+<!--
 In version 2.0, we really wanted to push this idea of having Play check most of your code at compilation time further. This is why we decided to use the Scala-based template engine as the default for Play applications - even for developers using Java as the main programming language. This doesn't mean that you have to become a Scala expert to write templates in Play 2, just as you were not really required to know Groovy to write templates in Play 1.x.
+-->
+私たちは Play 2 において、コードのほとんどをコンパイル時にチェックさせるという考え方をさらに推し進めたいと強く考えています。そのため、私たちは Play のアプリケーションのデフォルトとして、 Scala ベースのテンプレートエンジンを使うことに決めました - これは、Java をメインのプログラミング言語として使う開発者にとっても、です。ただしだからといって、Play 1.x でテンプレートを書くために、Groovy を本当に知っていることが必要だったわけではないのと同様に、Scala のエキスパートにならなければ Play 2 でテンプレートを書くことができないということではありません。
 
 <!--
 In templates, Scala is mainly used to navigate your object graph in order to display relevant information, with a syntax that is very close to Java’s. However, if you want to unleash the power of Scala to write advanced templates abstractions, you will quickly discover how Scala, being expression-oriented and functional, is a perfect fit for a template engine.
@@ -82,7 +94,10 @@ Properly integrating Scala into a Java-based framework is not trivial. Consideri
 -->
 Scala を適切に Java ベースのフレームワークに統合することは容易なことではありません。Scala が持つ Java との互換性を考慮すれば、単純に Scala のシンタックスを Java のシンタックスの代わりに使う形で、まず単純に素早く統合してしまうことは可能です。しかしこれは間違いなく、Scala を利用する上で最適な方法ではありません。 Scala は、真のオブジェクト指向と関数型プログラミングを混合したものです。Scala の本当のパワーを解放するには、Play のフレームワークの API の多くを再検討しなければなりません。
 
+<!--
 We quickly reached the limits of what we can do with Scala support as a separate module. Initial design choices we made in Play 1.x, relying heavily on Java reflection API and byte code manipulation, have made it harder to progress without completely rethinking some essential parts of Play’s internals. Meanwhile, we have created several awesome components for the Scala module, such as the new type-safe template engine and the brand new SQL access component [Anorm](https://github.com/playframework/anorm). This is why we decided that, to fully unleash the power of Scala with Play, we would move Scala support from a separate module to the core of Play 2, which is designed from the beginning to natively support Scala as a programming language.
+-->
+今では、私たちは個別のモジュールとして Scala をサポートするやり方の限界点に到達しています。私たちが Play 1.x で行った、初期の設計における選択は、Java のリフレクションAPIとバイトコードの操作に強く依存しており、Play の内部の重要な部分のいくつかについて完全に再検討し直さなければ、これ以上の進歩は難しくなっていました。一方で、私たちは Scala モジュールのために、新たな型安全テンプレートエンジンや、まったく新しい SQL アクセスコンポーネントである [Anorm](https://github.com/playframework/anorm) といった、複数の素晴らしいコンポーネントを作成していました。そこで私たちは、 Scala の持つパワーを Play で完全に解放するために、Scala のサポートを個別のモジュールから、Play 2 のコアへ移すことを決断しました。この Play 2 のコアは、初めからプログラミング言語として Scala をネイティブにサポートするよう設計されることになります。
 
 <!--
 Java, on the other hand, is certainly not getting any less support from Play 2; quite the contrary. The Play 2 build provides us with an opportunity to enhance the development experience for Java developers. Java developers get a real Java API written with all the Java specificity in mind.
@@ -99,7 +114,10 @@ From the beginning of the Play project, we have chosen a fresh way to run, compi
 -->
 私たちは初めから、Play のアプリケーションの実行、コンパイル、デプロイについて、斬新な方法を選択してきました。当初、私たちの採った方法は、難解な設計に見えたかも知れません - しかし、標準的な Servlet API の代わりに非同期 HTTP API を提供し、ライブコンパイルと開発中のソースコードのリロードによって短いフィードバックサイクルを提供し、斬新なパッケージングのアプローチを推進することは、極めて重要なことだったのです。その結果として、Play が標準的な JEE の規約に従うことは難しくなりました。
 
+<!--
 Today, this idea of container-less deployment is increasingly accepted in the Java world. It’s a design choice that has allowed the Play framework to run natively on platforms like [Heroku](https://www.heroku.com/), which introduced a model that we consider the future of Java application deployment on elastic PaaS platforms.
+-->
+今日では、コンテナレスデプロイメントの概念は、Javaの世界において非常に広く受け入れられるようになってきました。この設計上の選択によって、Play framework は Heroku のようなプラットフォームにおいてネイティブに動作できるようになりました。私たちは、[Heroku](https://www.heroku.com/) によって紹介されたモデルは、エラスティックな PaaS プラットフォームにおける Java アプリケーションのデプロイメントの未来だと考えています。
 
 <!--
 Existing Java build systems, however, were not flexible enough to support this new approach. Since we wanted to provide straightforward tools to run and deploy Play applications, in Play 1.x we created a collection of Python scripts to handle build and deployment tasks.
@@ -111,7 +129,10 @@ Meanwhile, developers using Play for more enterprise-scale projects, which requi
 -->
 しかし、ビルドのプロセスのカスタマイズや、企業内の既存のビルドシステムとの統合が求められる、よりエンタープライズ規模のプロジェクトで Play を使っている開発者の方々は、少々困っていました。私たちが Play 1.x で提供していた Python のスクリプト群は、完全な機能を完備したビルドシステムではまったくありませんでしたし、カスタマイズも容易ではありませんでした。これが、私たちが Play 2 でさらに強力なビルドシステムへ舵を切ることを決めた理由です。
 
+<!--
 Since we need a modern build tool, flexible enough to support Play original conventions and able to build Java and Scala projects, we have chosen to integrate [sbt](http://www.scala-sbt.org/) in Play 2. This, however, should not scare existing Play users who are happy with the simplicity of the original Play build. We are using [Activator](https://www.typesafe.com/get-started) to provide simple commands like `activator new`, `run`, `start` on top of an extensible model and if you need to change the way your application is built and deployed, the fact that a Play project is a standard sbt project gives you all the power you need to customize and adapt it.
+-->
+Play 独自の規約をサポートでき、Java と Scala のプロジェクトをビルドできるだけの柔軟性を持った、現代的なビルドツールが必要だったことから、私たちは [sbt](http://www.scala-sbt.org/) を Play 2 に統合することにしました。ただしこれによって、既存の Play のビルドのシンプルさに満足しているユーザーが脅かされることがあってはなりません。私たちは [Activator](https://www.typesafe.com/get-started) を使って拡張性のあるモデルの上に `activator new`, `run`, `start` などのシンプルなコマンドを提供していますし、アプリケーションのビルドやデプロイの方法を変更する必要がある場合は、Play のプロジェクトは標準的な sbt プロジェクトなので、カスタマイズや特殊な要求への適用に応えるだけのあらゆるパワーを活用できるのです。
 
 <!--
 This also means better integration with Maven projects out of the box, the ability to package and publish your project as a simple set of JAR files to any repository, and especially live compiling and reloading at development time of any depended project, even for standard Java or Scala library projects.
@@ -128,4 +149,7 @@ This also means better integration with Maven projects out of the box, the abili
 -->
 データストアは、もはや「SQL データベース」の同義語ではありませんし、おそらくはこれまでもそうではありませんでした。データストアの興味深いモデルは、数多くのものが広く使われるようになり、様々なシナリオにおいて、様々な特徴が提供されてきました。そのため、Play のような web フレームワークにとっては、開発者がどのようなデータストアを利用するのか、明確な推測をすることが難しくなってきたのです。Play における汎用モデルの考え方は、単一の API でこういった技術のすべてを抽象化するのはほとんど不可能である以上、もはや意味を成さないものになってしまっています。
 
+<!--
 In Play 2, we wanted to make it really easy to use any data store driver, ORM, or any other database access library without any special integration with the web framework. We simply want to offer a minimal set of helpers to handle common technical issues, like managing the connection bounds. We also want, however, to maintain the full-stack aspect of Play framework by bundling default tools to access classical databases for users WHO don’t have specialized needs, and that’s why Play 2 comes with built-in relational database access libraries such as [Ebean](http://ebean-orm.github.io/), JPA and Anorm.
+-->
+私たちは Play 2 で、どのようなデータストアドライバ、ORM あるいはその他のデータベースアクセスライブラリも、特にこのフレームワークに統合することなく、容易に利用できるようにしたいと考えています。私たちは単に、コネクションのバインドの管理のような、一般的な技術的課題を扱うための、最小限のヘルパーを提供するようにしたいのです。とはいえ、私たちはまた、特殊な要求を持たないユーザーがクラシックなデータベースへアクセスするためのデフォルトのツールをバンドルすることで、 Play フレームワークのフルスタックという性格も保ち続けたいと思っています。それこそが、 Play 2 が [Ebean](http://ebean-orm.github.io/), JPA, Anorm といったビルドインのリレーショナルデータベースアクセスライブラリを同梱している理由です。
