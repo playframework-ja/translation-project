@@ -1,5 +1,8 @@
 <!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # The Build System
+-->
+# ビルドシステム
 
 The Play build system uses [sbt](http://www.scala-sbt.org/), a high-performance integrated build for Scala and Java projects.  Using `sbt` as our build tool brings certain requirements to play which are explained on this page.
 
@@ -58,7 +61,10 @@ import com.typesafe.sbt.less.autoImport._
 import LessKeys._
 ```
 
+<!--
 ## The `/project` directory
+-->
+## `/project` ディレクトリ
 
 Everything related to building your project is kept in the `/project` directory underneath your application directory.  This is an [sbt](http://www.scala-sbt.org/) requirement. Inside that directory, there are two files:
 
