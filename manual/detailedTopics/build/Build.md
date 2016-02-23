@@ -7,7 +7,7 @@
 <!--
 The Play build system uses [sbt](http://www.scala-sbt.org/), a high-performance integrated build for Scala and Java projects.  Using `sbt` as our build tool brings certain requirements to play which are explained on this page.
 -->
-Play のビルドシステムは、Scala および Java プロジェクトに統合された高性能なツールである [sbt](http://www.scala-sbt.org/) を使います。ビルドツールに `sbt` を使うことは、このページで説明するいくつかの要件を play にもたらします。
+Play のビルドシステムは、Scala および Java プロジェクトに統合された高性能なビルドツールである [sbt](http://www.scala-sbt.org/) を使います。ビルドツールに `sbt` を使うことは、このページで説明するいくつかの要件を play にもたらします。
 
 <!--
 ## Understanding sbt
@@ -17,17 +17,17 @@ Play のビルドシステムは、Scala および Java プロジェクトに統
 <!--
 sbt functions quite differently to the way many traditional build tasks.  Fundamentally, sbt is a task engine.  Your build is represented as a tree of task dependencies that need to be executed, for example, the `compile` task depends on the `sources` task, which depends on the `sourceDirectories` task and the `sourceGenerators` task, and so on.
 -->
-sbt の機能は、多くの古典的なビルドタスクと完全に異なっています。基本的に、sbt はタスクエンジンです。ビルドは実行する必要のあるタスクの依存ツリーとして表現されます。例えば、`compile` タスクは `sourceDirectories` と `sourceGenerators` に依存する `sources` タスクに依存するなど。
+sbt の機能は、多くの古典的なビルドタスクのやり方と完全に異なっています。基本的に、sbt はタスクエンジンです。例えば `compile` タスクは、`sourceDirectories` と `sourceGenerators` に依存する `sources` タスクに依存すると言ったように、ビルドは実行する必要のあるタスクの依存ツリーとして表現されます。
 
 <!--
 sbt breaks typical build executions up into very fine grained tasks, and any task at any point in the tree can be arbitrarily redefined in your build.  This makes sbt very powerful, but also requires a shift in thinking if you've come from other build tools that break your build up into very coarsely grained tasks.
 -->
-sbt は典型的なビルドタスクをきめ細やかなタスクに分解し、ビルドツリーのあらゆる場所にあるすべてのタスクはビルド内にて任意に再定義することができます。これにより sbt はとてもパワフルになりますが、荒削りなビルドツールに慣れ親しんだ考え方を切り替える必要もあります。
+sbt は典型的なビルドタスクをきめ細やかなタスクに分解し、ビルドツリーのあらゆる場所にあるすべてのタスクは、ビルド内にて任意に再定義することができます。これにより sbt はとてもパワフルになりますが、荒削りなビルドツール由来の考え方を切り替える必要もあります。
 
 <!--
 The documentation here describes Play's usage of sbt at a very high level.  As you start to use sbt more in your project, it is recommended that you follow the [sbt tutorial](http://www.scala-sbt.org/0.13/tutorial/index.html) to get an understanding for how sbt fits together.  Another resource that many people have found useful is [this series of blog posts](https://jazzy.id.au/2015/03/03/sbt-task-engine.html).
 -->
-このドキュメントでは、Play における sbt を高いレベルで記述します。プロジェクトにおいて sbt をより使い込んでいく際は、[sbt チュートリアル](http://www.scala-sbt.org/0.13/tutorial/index.html) を参照して sbt の組み合わせ方を理解することをお勧めします。このほかに、[この一連のブログ](https://jazzy.id.au/2015/03/03/sbt-task-engine.html) も多くの人に利用されています。
+このドキュメントでは、Play における sbt を上位のレベルで記述します。プロジェクトにおいて sbt をより使い込んでいく際は、[sbt チュートリアル](http://www.scala-sbt.org/0.13/docs/ja/Getting-Started.html) を参照して sbt の組み合わせ方を理解することをお勧めします。このほかに、[この一連のブログ](https://jazzy.id.au/2015/03/03/sbt-task-engine.html) も多くの人に利用されています。
 
 <!--
 ## Play application directory structure
@@ -37,7 +37,7 @@ The documentation here describes Play's usage of sbt at a very high level.  As y
 <!--
 Most people get started with Play using the `activator new` command which produces a directory structure like this:
 -->
-多くのユーザは、以下のようなディレクトリ構造を生成する `activator new` コマンドを使って Play に入門します:
+多くのユーザが Play を始める際に使用する `activator new` コマンドは、以下のようなディレクトリ構造を生成します:
 
 <!--
 - `/`: The root folder of your application
@@ -61,7 +61,7 @@ Most people get started with Play using the `activator new` command which produc
 <!--
 For now, we are going to concern ourselves with the `/build.sbt` file and the `/project` directory.
 -->
-今後は この `/build.sbt` ファイルと `/project` ディレクトリを気にかけることになります。
+今後は この `/build.sbt` ファイルと `/project` ディレクトリが重要になります。
 
 <!--
 ## The `/build.sbt` file.
@@ -71,19 +71,19 @@ For now, we are going to concern ourselves with the `/build.sbt` file and the `/
 <!--
 When you use the `activator new foo` command, the build description file, `/build.sbt`, will be generated like this:
 -->
-`activator new foo` コマンドを使うと、ビルド定義ファイルである `/build.sbt` が以下のように生成されます:
+`activator new foo` コマンドを使うと、以下のようなビルド定義ファイル `/build.sbt` が生成されます:
 
 @[default](code/build.sbt)
 
 <!--
 The `name` line defines the name of your application and it will be the same as the name of your application's root directory, `/`, which is derived from the argument that you gave to the `activator new` command.
 -->
-`name` 行はアプリケーションの名前を定義し、それは `activator new` コマンドに与えた引数より引き渡される `/` であるアプリケーションルートと同じ名前になるでしょう。
+`name` 行は、 `/`、すなわち `activator new` コマンドに与えた引数より引き渡されるアプリケーションルートと同じ名前となる、アプリケーションの名前を定義します。
 
 <!--
 The `version` line provides  the version of your application which is used as part of the name for the artifacts your build will produce.
 -->
-`version` 行はビルドが提供するアーティファクト名の一部に使われるアプリケーションのバージョンを提供します。
+`version` 行は、ビルドするアーティファクト名の一部に使われる、アプリケーションのバージョンを提供します。
 
 <!--
 The `libraryDependencies` line specifies the libraries that your application depends on. More on this below.
@@ -93,7 +93,7 @@ The `libraryDependencies` line specifies the libraries that your application dep
 <!--
 You should use the `PlayJava` or `PlayScala` plugin to configure sbt for Java or Scala respectively.
 -->
-Java または Scala 向けに、`PlayJava` または `PlayScala` プラグインを sbt に個別に設定すべきです。
+Java または Scala 向けに、`PlayJava` または `PlayScala` プラグインを sbt に個別に設定しなければなりません。
 
 <!--
 ### Using scala for building
@@ -103,7 +103,7 @@ Java または Scala 向けに、`PlayJava` または `PlayScala` プラグイ�
 <!--
 Activator is also able to construct the build requirements from scala files inside your project's `project` folder. The recommended practice is to use `build.sbt` but there are times when using scala directly is required. If you find yourself, perhaps because you're migrating an older project, then here are a few useful imports:
 -->
-Activator は、プロジェクトの `project` フォルダ内にある scala ファイルからビルド要件を組み立てることもできます。おすすめは `build.sbt` を使うことですが、scala ディレクトリが必要になるときがあります。おそらく古いプロジェクトから移行するためにそれに気付いた場合は、いくつか便利なインポートがあります:
+Activator は、プロジェクトの `project` フォルダ内にある scala ファイルからビルド要件を組み立てることもできます。おすすめは `build.sbt` を使うことですが、scala ディレクトリが必要になるときがあります。おそらく古いプロジェクトから移行する場合などに、このことに気付くことになりますが、いくつかの便利なインポートがあります:
 
 ```scala
 import sbt._
@@ -115,7 +115,7 @@ import PlayKeys._
 <!--
 The line indicating `autoImport` is the correct means of importing an sbt plugin's automatically declared properties. Along the same lines, if you're importing an sbt-web plugin then you might well:
 -->
-`autoImport` で示される行は、正確にはプロパティに宣言された sbt プラグインを自動的にインポートすることを意味します。これらと併せて、例えば sbt-web プラグインをインポートすることもうまくやれます:
+`autoImport` で示される行の正確な意味は、プロパティに宣言された sbt プラグインを自動的にインポートするということです。これらと併せて、例えば sbt-web プラグインをインポートすることもできます:
 
 ```scala
 import com.typesafe.sbt.less.autoImport._
@@ -137,7 +137,7 @@ Everything related to building your project is kept in the `/project` directory 
 - `/project/plugins.sbt`: SBT plugins used by the project build including Play itself.
 -->
 - `/project/build.properties`: 使用する sbt のバージョンを宣言するマーカーファイルです。
-- `/project/plugins.sbt`: Play 自身を含む、プロジェクトが使用する SBT プラグインです。
+- `/project/plugins.sbt`: Play 自身を含む、プロジェクトが使用する SBT プラグイン群です。
 
 <!--
 ## Play plugin for sbt (`/project/plugins.sbt`)
