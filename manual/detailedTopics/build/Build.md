@@ -103,7 +103,7 @@ Java または Scala 向けに、`PlayJava` または `PlayScala` プラグイ�
 <!--
 Activator is also able to construct the build requirements from scala files inside your project's `project` folder. The recommended practice is to use `build.sbt` but there are times when using scala directly is required. If you find yourself, perhaps because you're migrating an older project, then here are a few useful imports:
 -->
-Activator は、プロジェクトの `project` フォルダ内にある scala ファイルからビルド要件を組み立てることもできます。おすすめは `build.sbt` を使うことですが、scala ディレクトリが必要になるときがあります。おそらく古いプロジェクトから移行する場合などに、このことに気付くことになりますが、いくつかの便利なインポートがあります:
+Activator は、プロジェクトの `project` フォルダ内にある scala ファイルからビルド要件を組み立てることもできます。おすすめは build.sbt を使うことですが、ことによると古いプロジェクトから移行する場合などに、scala ディレクトリが必要になるときがあります。その場合は、いくつかの便利なインポートがあります:
 
 ```scala
 import sbt._
@@ -115,7 +115,7 @@ import PlayKeys._
 <!--
 The line indicating `autoImport` is the correct means of importing an sbt plugin's automatically declared properties. Along the same lines, if you're importing an sbt-web plugin then you might well:
 -->
-`autoImport` で示される行の正確な意味は、プロパティに宣言された sbt プラグインを自動的にインポートするということです。これらと併せて、例えば sbt-web プラグインをインポートすることもできます:
+`autoImport` と書かれた行は、sbt プラグインに宣言されたプロパティを自動的にインポートする手段を是正したものです。これらと併せて、例えば sbt-web プラグインをインポートすることもできます:
 
 ```scala
 import com.typesafe.sbt.less.autoImport._
