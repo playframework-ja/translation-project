@@ -34,12 +34,15 @@ Play uses Apache Ivy (via sbt) to implement managed dependencies, so if you’re
 -->
 Play は「管理された依存性」を実現するために、Apache Ivy を利用しています。もし、Maven や Ivy に詳しければ、特に困ることはないでしょう。
 
+<!--
 Most of the time you can simply list your dependencies in the `build.sbt` file. 
+-->
+ほとんどの場合、単純に `build.sbt` ファイルの中に依存性を羅列することができます。
 
 <!--
 Declaring a dependency looks like this (defining `group`, `artifact` and `revision`):
 -->
-依存性の定義は、次のように書きます (`group`、`artifact`、`revision` を定義します):
+依存性の定義は、次のように書きます (`group`, `artifact`, `revision` を定義します):
 
 ```scala
 libraryDependencies += "org.apache.derby" % "derby" % "10.11.1.1"
@@ -69,7 +72,7 @@ libraryDependencies ++= Seq(
 <!--
 Of course, sbt (via Ivy) has to know where to download the module. If your module is in one of the default repositories sbt comes with then this will just work.
 -->
-sbt (内部で Ivy を使っています) は、モジュールのダウンロード元を知っている必要があります。モジュールが sbt に組み込まれたデフォルトのレポジトリのいずれかに含まれていれば、特に何もしなくても動きます。
+sbt (内部で Ivy を使っています) は、モジュールのダウンロード元を知っている必要があります。モジュールが sbt に組み込まれたデフォルトのリポジトリのいずれかに含まれていれば、特に何もしなくても動きます。
 
 <!--
 ### Getting the right Scala version with `%%`
@@ -104,7 +107,10 @@ libraryDependencies += "org.scala-tools" %% "scala-stm" % "0.3"
 -->
 ### リゾルバ
 
+<!--
 sbt uses the standard Maven2 repository and the Typesafe Releases (<https://repo.typesafe.com/typesafe/releases>) repositories by default. If your dependency isn’t on one of the default repositories, you’ll have to add a resolver to help Ivy find it.
+-->
+sbt は、標準 Maven2 リポジトリと、Typesafe Releases リポジトリ (<https://repo.typesafe.com/typesafe/releases>) をデフォルトとして利用します。定義した依存モジュールがデフォルトのリポジトリに無い場合は、Ivy がモジュールを探せるように、リゾルバを自分で追加する必要があります。
 
 <!--
 Use the `resolvers` setting key to add your own resolver.
@@ -127,7 +133,7 @@ resolvers += "sonatype snapshots" at "https://oss.sonatype.org/content/repositor
 <!--
 sbt can search your local Maven repository if you add it as a repository:
 -->
-ローカルに Maven レポジトリを作成しておき、sbt に検索させることも可能です。
+ローカルに Maven リポジトリを作成しておき、sbt に検索させることも可能です。
 
 ```scala
 resolvers += (
