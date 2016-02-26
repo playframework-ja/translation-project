@@ -7,12 +7,12 @@
 <!--
 A complex project is not necessarily composed of a single Play application. You may want to split a large project into several smaller applications, or even extract some logic into a standard Java or Scala library that has nothing to do with a Play application.
 -->
-複雑なプロジェクトを、一つの Play アプリケーションにまとめる必要はありません。大きなプロジェクトは、小さなアプリケーションに分割できます。また、アプリケーションから独立したロジックは Java や Scala ライブラリに切り出すのもよいでしょう。
+複雑なプロジェクトを、ひとつの Play アプリケーションにまとめる必要はありません。大きなプロジェクトを小さないくつかのアプリケーションに分割したり、Play アプリケーションと関係のないロジックは標準的な Java や Scala のライブラリを抽出したくなることがあるでしょう。
 
 <!--
 It will be helpful to read the [SBT documentation on multi-project builds](http://www.scala-sbt.org/release/docs/Getting-Started/Multi-Project).  Sub-projects do not have their own build file, but share the parent project's build file.
 -->
-詳細については [マルチプロジェクト・ビルドについての SBT ドキュメント](http://scalajp.github.com/sbt-getting-started-guide-ja/multi-project/)  を参照してください。また、サブプロジェクトを定義するにあたって最も基本的なこととして、サブプロジェクト用のビルドファイルというものはありません。親のビルドファイルにサブプロジェクトを定義します。
+[マルチプロジェクト・ビルドについての SBT ドキュメント](http://scalajp.github.com/sbt-getting-started-guide-ja/multi-project/)  を読むといいでしょう。サブプロジェクトは独自のビルドファイルを持たず、親プロジェクトのビルドファイルを共有します。
 
 <!--
 ## Adding a simple library sub-project
@@ -22,7 +22,7 @@ It will be helpful to read the [SBT documentation on multi-project builds](http:
 <!--
 You can make your application depend on a simple library project. Just add another sbt project definition in your `build.sbt` file:
 -->
-アプリケーションからシンプルなライブラリプロジェクトを切り出すことができます。`build.sbt` に、次のような sbt のプロジェクト定義を追加してください。
+アプリケーションをシンプルなライブラリプロジェクトに依存させることができます。`build.sbt` に、次のような sbt のプロジェクト定義を追加してください:
 
 ```
 name := "my-first-application"
@@ -50,7 +50,7 @@ The `myFirstApplication` project declares the base project.  If you don't have a
 <!--
 The above example defines a sub-project in the application’s `myLibrary` folder. This sub-project is a standard sbt project, using the default layout:
 -->
-上記の例では `myLibrary` ディレクトリにサブプロジェクトを定義しました。サブプロジェクトは普通の sbt プロジェクトの一種であり、標準的なディレクトリ構成に従います。
+上記の例では `myLibrary` ディレクトリにサブプロジェクトを定義しました。サブプロジェクトは普通の sbt プロジェクトの一種であり、標準的なディレクトリ構成に従います:
 
 ```
 myProject
@@ -74,7 +74,7 @@ myProject
 <!--
 When you have a sub-project enabled in your build, you can focus on this project and compile, test or run it individually. Just use the `projects` command in the Play console prompt to display all projects:
 -->
-ビルド設定でサブプロジェクトを有効にした場合、それぞれのプロジェクトを個別にコンパイル、テスト、実行することができます。Play コンソールで `projects` コマンドを実行すると、全てのプロジェクトが表示されます。
+ビルド設定でサブプロジェクトを有効にした場合、それぞれのプロジェクトを個別にコンパイル、テスト、実行することができます。Play コンソールで `projects` コマンドを実行すると、全てのプロジェクトが表示されます:
 
 ```
 [my-first-application] $ projects
@@ -86,7 +86,7 @@ When you have a sub-project enabled in your build, you can focus on this project
 <!--
 The default project is the one whose variable name comes first alphabetically.  You may make your main project by making its variable name aaaMain.  To change the current project use the `project` command:
 -->
-デフォルトのプロジェクトは変数名がアルファベット順で最初の物になります。メインプロジェクトを指定したい場合は変数名を aaaMain 等にする事で可能になります。現在のプロジェクトを切り替えるには、`project` コマンドを使ってください。
+デフォルトのプロジェクトは変数名がアルファベット順で最初の物になります。メインプロジェクトを指定したい場合は変数名を aaaMain 等にする事で可能になります。現在のプロジェクトを切り替えるには、`project` コマンドを使ってください:
 
 ```
 [my-first-application] $ project my-library
@@ -97,7 +97,7 @@ The default project is the one whose variable name comes first alphabetically.  
 <!--
 When you run your Play application in dev mode, the dependent projects are automatically recompiled, and if something cannot compile you will see the result in your browser:
 -->
-Play アプリケーションを開発モードで起動している場合、依存するサブプロジェクトも自動的に再コンパイルされます。サブプロジェクトのコンパイルエラーも、ブラウザ上で確認できます。
+Play アプリケーションを開発モードで起動している場合、依存するサブプロジェクトも自動的に再コンパイルされます。サブプロジェクトのコンパイルエラーも、ブラウザ上で確認できます:
 
 [[subprojectError.png]]
 
