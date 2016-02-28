@@ -17,7 +17,7 @@ Play のコア、Playはとても軽量な HTTP サーバで HTTP リクエス�
 <!--
 There is no strict definition in Play of what a module is or isn't - a module could be just a library that provides some helper methods to help you do something, or it could be a full framework providing complex functionality such as user management. Some modules are built in to Play, others are written and maintained by members of the Play community.
 -->
-Play では何がモジュールで何がモジュールでないかという厳格な定義はありません。モジュールは何かの手助けになるいくつかのヘルパーメソッドを提供するだけのただのライブラリになりえますし、ユーザ管理のような複雑な機能を提供する重厚なフレームワークにもなりえます。いくつかのモジュールは Play に組み込まれており、その他は Play のコミュニティメンバーにより作成、メンテナンスされています。
+Play では何がモジュールで何がモジュールでないかという厳格な定義はありません。モジュールは何かの手助けになるいくつかのヘルパーメソッドを提供するだけのただのライブラリになりますし、ユーザ管理のような複雑な機能を提供する重厚なフレームワークにもなります。いくつかのモジュールは Play に組み込まれており、その他は Play のコミュニティメンバーにより作成、メンテナンスされています。
 
 <!--
 Some modules provide components - objects that represent resources, for example a database connection.  These objects may have a lifecycle and need to be started and stopped when the application starts and stops, and they may hold some state such as a cache. Play provides a variety of mechanisms for accessing and using these components. Components are not only provided by modules, they may be provided by the application themselves.
