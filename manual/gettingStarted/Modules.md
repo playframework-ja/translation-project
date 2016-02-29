@@ -38,7 +38,7 @@ One of the earliest decisions that you need to make when starting a new Play pro
 <!--
 At its core, Play is agnostic to any particular form of dependency injection, however out of the box Play provides and we recommend that you use [Guice](https://github.com/google/guice). The remainder of this documentation will assume that this is the decision that you have made, however there will be examples of how to integrate with other dependency injection mechanisms.
 -->
-Play のコアでは依存性注入の方式については不可知論です。しかし形にとらわれない Play が提供し推奨しているのは [Guice](https://github.com/google/guice) です。以降のこのドキュメントではこれはあなたがした決定だと想定しますが他の依存性の注入の機構の例もあります。
+Play のコアはいかなる特定の依存性注入方式にも依存しませんが、展開したての Play は [Guice](https://github.com/google/guice) を提供しており、また、これを利用することを推奨します。以降のこのドキュメントでは Guice を選択したと想定しますが、他の依存性注入機構の例もあります。
 
 <!--
 You can read more about dependency injection in [[Scala|ScalaDependencyInjection]] or [[Java|JavaDependencyInjection]].
