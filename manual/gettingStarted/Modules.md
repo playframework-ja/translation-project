@@ -7,7 +7,7 @@
 <!--
 At its core, Play is a very lightweight HTTP server, providing mechanisms for serving HTTP requests, but not much else. Additional functionality in Play is provided through the use of Play modules.
 -->
-Play のコア、Playはとても軽量な HTTP サーバで HTTP リクエストを扱える機能を提供しているだけではありません。Play では追加の機能を Play モジュールを利用することで提供できます。
+Play のコアはとても軽量な HTTP サーバで HTTP リクエストを扱える機能を提供していますが、それだけではありません。Play では追加の機能を Play モジュールを利用することで提供できます。
 
 
 <!--
