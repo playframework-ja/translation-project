@@ -100,12 +100,12 @@ Of course, the action generator method can have parameters, and these parameters
 <!--
 ## Simple results
 -->
-## SimpleResult
+## シンプルな Result
 
 <!--
 For now we are just interested in simple results: An HTTP result with a status code, a set of HTTP headers and a body to be sent to the web client.
 -->
-次は、SimpleResult に注目してみましょう。 SimpleResult とは、web クライアントへ送信される HTTP レスポンスを表すオブジェクトで、ステータスコードとレスポンスヘッダ一式、メッセージボディをまとめたものです。
+次は、シンプルな Result に注目してみましょう。Result とは、web クライアントへ送信される HTTP レスポンスを表すオブジェクトで、ステータスコードとレスポンスヘッダ一式、メッセージボディをまとめたものです。
 
 <!--
 These results are defined by `play.api.mvc.Result`:
@@ -124,12 +124,12 @@ Of course there are several helpers available to create common results such as t
 <!--
 This produces exactly the same result as before.
 -->
-このコードは、一つ前のサンプルと同じ SimpleResult を生成します。
+このコードは、一つ前のサンプルと同じ Result を生成します。
 
 <!--
 Here are several examples to create various results:
 -->
-SimpleResult を生成する例をいくつかご紹介します。
+Result を生成する例をいくつかご紹介します。
 
 @[other-results](code/ScalaActions.scala)
 
@@ -141,12 +141,12 @@ All of these helpers can be found in the `play.api.mvc.Results` trait and compan
 <!--
 ## Redirects are simple results too
 -->
-## リダイレクトも SimpleResult
+## リダイレクトもシンプルな Result
 
 <!--
 Redirecting the browser to a new URL is just another kind of simple result. However, these result types don't take a response body.
 -->
-ブラウザを新しい URL へリダイレクトさせることも SimpleResult の一種です。ただし、リダイレクトの SimpleResult はレスポンスボディを取りません。
+ブラウザを新しい URL へリダイレクトさせることもシンプルな Result の一種です。ただし、リダイレクトの Result はレスポンスボディを取りません。
 
 <!--
 There are several helpers available to create redirect results:
@@ -162,7 +162,10 @@ The default is to use a `303 SEE_OTHER` response type, but you can also set a mo
 
 @[moved-permanently-action](code/ScalaActions.scala)
 
+<!--
 ## `TODO` dummy page
+-->
+## `TODO` ダミーページ
 
 <!--
 You can use an empty `Action` implementation defined as `TODO`: the result is a standard ‘Not implemented yet’ result page:
