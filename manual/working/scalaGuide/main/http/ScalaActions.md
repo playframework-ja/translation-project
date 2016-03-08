@@ -65,6 +65,7 @@ It is often useful to mark the `request` parameter as `implicit` so it can be im
 <!--
 The last way of creating an Action value is to specify an additional `BodyParser` argument:
 -->
+アクションを生成する最後の方法は、他の引数に加えて `BodyParser` を指定するというものです。
 
 @[json-parser-action](code/ScalaActions.scala)
 
