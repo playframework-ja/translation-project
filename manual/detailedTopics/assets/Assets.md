@@ -9,14 +9,20 @@ This section covers serving your application’s static resources such as JavaSc
 -->
 この節は JavaScript, CSS と画像などのアプリケーションの静的リソースの提供をカバーします。
 
+<!--
 Serving a public resource in Play is the same as serving any other HTTP request. It uses the same routing as regular resources using the controller/action path to distribute CSS, JavaScript or image files to the client.
+-->
+Play での public リソースを提供することは、他の HTTP リクエストにサービスを提供することとほぼ同じです。コントローラ/アクションのパスが使う通常のリソースと同じルーティングを使用てクライアントに CSS, JavaScript や画像ファイルを配布します。
 
 <!--
 ## The public/ folder
 -->
 ## public/ フォルダ
 
+<!--
 By convention public assets are stored in the `public` folder of your application. This folder can be organized the way that you prefer. We recommend the following organization:
+-->
+規約により、公開アセットはアプリケーションの `public` フォルダに格納されます。このフォルダは好きなように構成できます。以下の構成がおすすめです:
 
 ```
 public
@@ -49,7 +55,7 @@ Note the `lib/requirejs/require.js` path. The `lib` folder denotes the extract W
 <!--
 ## How are public assets packaged?
 -->
-## どのように public アセットは公開されますか?
+## 公開アセットはどのようにパッケージングされる?
 
 During the build process, the contents of the `public` folder are processed and added to the application classpath.
 
