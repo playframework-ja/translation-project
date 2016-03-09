@@ -31,8 +31,9 @@ Step 1 may be omitted if all your users are using the same OpenID provider (for 
 すべてのユーザが同じ OpenID プロバイダを使う場合 (例えば Google アカウントにのみ依存すると決断した場合) 、ステップ 1 を省略することができます。
 
 <!--
-## 使用方法
+## Usage
 -->
+## 使用方法
 
 <!--
 To use OpenID, first add `ws`  to your `build.sbt` file:
@@ -56,7 +57,6 @@ Now any controller or component that wants to use OpenID will have to declare a 
 We've called the `OpenIdClient` instance `openIdClient`, all the following examples will assume this name.
 -->
 `OpenIdClient` のインスタンスを `openIdClient` と名付けたので、以下の例ではこの名前を用いることとします。
-We've called the `OpenIdClient` instance `openIdClient`, all the following examples will assume this name.
 
 <!--
 ## OpenID in Play
