@@ -56,9 +56,9 @@ This returns a [WSRequest](api/scala/play/api/libs/ws/WSRequest.html) that you c
 
 @[complex-holder](code/ScalaWSSpec.scala)
 
-
+<!--
 You end by calling a method corresponding to the HTTP method you want to use.  This ends the chain, and uses all the options defined on the built request in the `WSRequest`.
-
+-->
 最後に、使用したい HTTP メソッドに対応するメソッドを呼び出します。連鎖はこれで終了し、 `WSRequest` のリクエストに設定した全てのオプションが使用されます。
 
 @[holder-get](code/ScalaWSSpec.scala)
