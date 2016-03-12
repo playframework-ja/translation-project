@@ -12,7 +12,7 @@ This section covers serving your application’s static resources such as JavaSc
 <!--
 Serving a public resource in Play is the same as serving any other HTTP request. It uses the same routing as regular resources using the controller/action path to distribute CSS, JavaScript or image files to the client.
 -->
-Play での public リソースを提供することは、他の HTTP リクエストにサービスを提供することとほぼ同じです。コントローラ/アクションのパスが使う通常のリソースと同じルーティングを使用てクライアントに CSS, JavaScript や画像ファイルを配布します。
+Play で public リソースを提供することは、他の HTTP リクエストにサービスを提供することと同じです。コントローラ/アクションのパスが使う通常のリソースと同じルーティングを使って、クライアントに CSS, JavaScript や画像ファイルを配布します。
 
 <!--
 ## The public/ folder
