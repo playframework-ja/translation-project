@@ -1,19 +1,31 @@
 <!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Using CoffeeScript
+-->
+# CoffeeScript を使う
 
 [CoffeeScript](http://coffeescript.org/) is a small and elegant language that compiles into JavaScript. It provides a nice syntax for writing JavaScript code.
 
 Compiled assets in Play must be defined in the `app/assets` directory. They are handled by the build process and CoffeeScript sources are compiled into standard JavaScript files. The generated JavaScript files are distributed as standard resources into the same `public/` folder as other unmanaged assets, meaning that there is no difference in the way you use them once compiled.
 
+<!--
 For example a CoffeeScript source file `app/assets/javascripts/main.coffee` will be available as a standard JavaScript resource, at `public/javascripts/main.js`.
+-->
+例えば、 `app/assets/javascripts/main.coffee` は `public/javascripts/main.js` において通常の JavaScript リソースとして利用できるようになります。
 
 CoffeeScript sources are compiled automatically during an `assets` command, or when you refresh any page in your browser while you are running in development mode. Any compilation errors will be displayed in your browser:
 
 [[images/coffeeError.png]]
 
+<!--
 ## Layout
+-->
+## ディレクトリ構造
 
+<!--
 Here is an example layout for using CoffeeScript in your projects:
+-->
+CoffeeScript を使うプロジェクトの基本的なデイレクトリ構造は次のようになります。
 
 ```
 app
