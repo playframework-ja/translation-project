@@ -7,52 +7,90 @@
 <!--
 > The configuration file used by Play is based on the [Typesafe config library](https://github.com/typesafehub/config).
 -->
-> Play における設定ファイルは [Typesafe config library](https://github.com/typesafehub/config) をベースにしています。
+> Play で使われる設定ファイルは [Typesafe config library](https://github.com/typesafehub/config) をベースにしています。
 
 <!--
 The configuration file of a Play application must be defined in `conf/application.conf`. It uses the [HOCON format](https://github.com/typesafehub/config/blob/master/HOCON.md).
 -->
-Play アプリケーションの設定ファイルは、`conf/application.conf` に保存されている必要があります。この設定ファイルは、HOCON フォーマットを使います。
+Play アプリケーションの設定ファイルは、`conf/application.conf` に保存されている必要があります。この設定ファイルは、[HOCON フォーマット](https://github.com/typesafehub/config/blob/master/HOCON.md) を使います。
 
+<!--
 As well as the `application.conf` file, configuration comes from a couple of other places.
+-->
+`application.conf` ファイルだけではなく、その他いくつかの場所から設定を取得します。
 
+<!--
 * Default settings are loaded from any `reference.conf` files found on the classpath. Most Play JARs include a `reference.conf` file with default settings. Settings in `application.conf` will override settings in `reference.conf` files.
 * It's also possible to set configuration using system properties. System properties override `application.conf` settings.
+-->
+* デフォルト設定は、クラスパス上に存在するあらゆる `reference.conf` ファイルからロードされます。ほとんどの Play JAR は、デフォルト設定が記述された `reference.conf` を含んでいます。`application.conf` の設定は、`reference.conf` ファイル内の設定で上書きされます。
+* システムプロパティを使って設定することもできます。システムプロパティは `application.conf` の設定を上書きします。
 
 <!--
 ## Specifying an alternative configuration file
 -->
 ## 代替設定ファイルの指定
 
+<!--
 At runtime, the default `application.conf` is loaded from the classpath. System properties can be used to force a different config source:
+-->
+実行時にクラスパスからデフォルトの `application.conf` がロードされます。システムプロパティを使って、強制的に別の設定ソースを使うことができます:
 
+<!--
 * `config.resource` specifies a resource name including the extension, i.e. `application.conf` and not just `application`
 * `config.file` specifies a filesystem path, again it should include the extension, not be a basename
+-->
+* `config.resource` は、例えばただの `application` ではなく、`application.conf` のように拡張子を含んだリソース名を指定します
+* `config.file` は、やはりベース名だけではなく、拡張子まで含めたファイルシステムパスを指定します
 
+<!--
 These system properties specify a replacement for `application.conf`, not an addition. If you still want to use some values from the `application.conf` file then you can include the `application.conf` in your other `.conf` file by writing `include "application"` at the top of that file. After you've included the `application.conf`'s settings in your new `.conf` file you can then specify any settings that you want override.
+-->
+これらのシステムプロパティは、`application.conf` に対する追加ではなく、置き換えるリソースを指定します。`application.conf` ファイルの値をいくつか使いたい場合は、別の `.conf` ファイルの先頭に `include "application"` と書くことで `application.conf` を取り込むことができます。新しい `.conf` ファイルに `application.conf` の設定を取り込んだあとは、上書きしたいどんな設定でも指定することができます。
 
 <!--
 ## Using with Akka
 -->
 ## Akka と一緒に使う
 
+<!--
 Akka will use the same configuration file as the one defined for your Play application. Meaning that you can configure anything in Akka in the `application.conf` directory. In Play, Akka reads its settings from within the `play.akka` setting, not from the `akka` setting.
+-->
+Akka は、Play アプリケーション用に定義されたものと同じ設定ファイルを使います。これは、Akka に関するあらゆる設定を `application.conf` で行えるということです。Play の中では、Akka は `akka` 設定ではなく、`play.akka` 設定を読み込みます。
 
+<!--
 ## Using with the `run` command
+-->
+## `run` コマンドと使う
 
+<!--
 There are a couple of special things to know about configuration when running your application with the `run` command.
+-->
+`run` コマンドでアプリケーションを実行するときに知っておく、設定に関するいくつかの特別なことがあります。
 
+<!--
 ### Extra `devSettings`
+-->
+### 特別な `devSettings`
 
+<!--
 You can configure extra settings for the `run` command in your `build.sbt`. These settings won't be used when you deploy your application.
+-->
+`run` コマンドに関する特別な設定を `build.sbt` に設定することができます。これらの設定はアプリケーションのデプロイ時には使われません。
 
 ```
 devSettings := Map("play.server.http.port" -> "8080")
 ```
 
+<!--
 ### HTTP server settings in `application.conf`
+-->
+`application.conf` の HTTP サーバ設定
 
+<!--
 In `run` mode the HTTP server part of Play starts before the application has been compiled. This means that the HTTP server cannot access the `application.conf` file when it starts. If you want to override HTTP server settings while using the `run` command you cannot use the `application.conf` file. Instead, you need to either use system properties or the `devSettings` setting shown above. An example of a server setting is the HTTP port. Other server settings can be seen [[here|ProductionConfiguration#Server-configuration-options]].
+-->
+`run` モードでは、Play の HTTP サーバ部分はアプリケーションがコンパイルされるより前に起動します。これは HTTP サーバは起動時に `application.conf` にアクセスできないということを意味しています。`run` コマンド時に HTTP サーバ設定を上書きしたくても、`application.conf` ファイルは使えません。その代わりに、システムプロパティ、または上述した `devSettings` のいずれかを使う必要があります。サーバ設定の例は HTTP ポートです。その他のサーバ設定は [[ここ|ProductionConfiguration#Server-configuration-options]] で見ることができます。
 
 ```
 > run -Dhttp.port=1234
@@ -63,7 +101,10 @@ In `run` mode the HTTP server part of Play starts before the application has bee
 -->
 ## HOCON の文法
 
+<!--
 HOCON has similarites to JSON; you can find the JSON spec at <http://json.org/> of course.
+-->
+HOCON には JSON との類似点があります; JSON の仕様は、もちろん <http://json.org/> で見つけることができます。
 
 <!--
 ### Unchanged from JSON
@@ -177,9 +218,14 @@ To merge objects:
 -->
 オブジェクトのマージは次のように行われます。
 
+<!--
  - add fields present in only one of the two objects to the merged object.
  - for non-object-valued fields present in both objects, the field found in the second object must be used.
  - for object-valued fields present in both objects, the object values should be recursively merged according to these same rules.
+ -->
+ - ふたつのオブジェクトのうち、ひとつにしか存在しないフィールドをマージ後オブジェクトに追加する。
+ - 両方のオブジェクトにオブジェクト値ではないフィールドが存在する場合、後者のオブジェクトにあるフィールドが使われる。
+ - 両方のオブジェクトにオブジェクト値のフィールドが存在する場合、このオブジェクト値はこれらと同じルールに従って再帰的にマージされなければならない。
 
 <!--
 Object merge can be prevented by setting the key to another value first. This is because merging is always done two values at a time; if you set a key to an object, a non-object, then an object, first the non-object falls back to the object (non-object always wins), and then the object falls back to the non-object (no merging, object is the new value). So the two objects never see each other.
