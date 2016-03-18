@@ -40,7 +40,7 @@ You can run tests from the Play console.
 <!--
 Testing in Play is based on SBT, and a full description is available in the [testing SBT](http://www.scala-sbt.org/0.13.0/docs/Detailed-Topics/Testing) chapter.
 -->
-SBT でテストを実行する際は、 [testing SBT](http://www.scala-sbt.org/0.13.0/docs/Detailed-Topics/Testing) に詳細が記載されています。
+Play のテストは SBT に基づいており、 [testing SBT](http://www.scala-sbt.org/0.13.0/docs/Detailed-Topics/Testing) に詳細が記載されています。
 
 <!--
 ## Using specs2
@@ -59,7 +59,7 @@ libraryDependencies += specs2 % Test
 <!--
 In [specs2](https://etorreborre.github.io/specs2/), tests are organized into specifications, which contain examples which run the system under test through various different code paths.
 -->
-[specs2](https://etorreborre.github.io/specs2/) では、テストは複数の specification にまとめ、そこにさまざまなコードパスでのテストでシステムを実行する例を記述します。
+[specs2](https://etorreborre.github.io/specs2/) のテストは、様々なコードパスでテスト対象システムを動作させるサンプル値を含んだ specifications にまとめられます。 
 
 <!--
 Specifications extend the [`Specification`](https://etorreborre.github.io/specs2/api/SPECS2-3.4/index.html#org.specs2.mutable.Specification) trait and are using the should/in format:
@@ -140,12 +140,12 @@ There are also [optional matchers](https://etorreborre.github.io/specs2/guide/SP
 <!--
 Mocks are used to isolate unit tests against external dependencies.  For example, if your class depends on an external `DataService` class, you can feed appropriate data to your class without instantiating a `DataService` object.
 -->
-モックは外部の依存関係から独立したユニットテストを行う際に用います。例えば、外部の `DataService` クラスに依存するクラスの場合、 `DataService` のオブジェクトをインスタンス化しなくても、モックを使って適切なデータを提供できます。
+モックは外部の依存関係から独立したユニットテストを行う際に用います。例えば、クラスが外部の `DataService` クラスに依存する場合、 `DataService` のオブジェクトをインスタンス化しなくても、モックを使って適切なデータを提供できます。
 
 <!--
 [Mockito](https://github.com/mockito/mockito) is integrated into specs2 as the default [mocking library](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.UseMockito.html).
 -->
-[Mockito](https://github.com/mockito/mockito) は、標準の[モックライブラリ](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.UseMockito.html)として、 spec2 に組み込まれています。
+[Mockito](https://github.com/mockito/mockito) は、標準の[モックライブラリ](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.UseMockito.html)として、 specs2 に組み込まれています。
 
 <!--
 To use Mockito, add the following import:
@@ -168,7 +168,7 @@ Mockito を使えば、クラスへの参照を次のようにモックに向け
 <!--
 Mocking is especially useful for testing the public methods of classes.  Mocking objects and private methods is possible, but considerably harder.
 -->
-モックは特に、パブリックなメソッドに対してのテストに便利です。モックオブジェクトとプライベートメソッドの組み合わせも可能ではありますが、非常に困難です。
+モックは特に、public なメソッドに対してのテストに便利です。モックオブジェクトと private なメソッドとの組み合わせも可能ではありますが、非常に困難です。
 
 <!--
 ## Unit Testing Models
@@ -226,7 +226,7 @@ and then access them through services:
 <!--
 In this way, the `isAdmin` method can be tested by mocking out the `UserRepository` reference and passing it into the service:
 -->
-この方法で、 `UserRepository` を参照しサービス層へ渡すことで、 `isAdmin` メソッドをモックでテストすることができます。
+こうすることで、モック化した `UserRepository` の参照をサービスに渡して `isAdmin` メソッドをテストすることができます
 
 @[scalatest-userservicespec](code/specs2/UserServiceSpec.scala)
 
