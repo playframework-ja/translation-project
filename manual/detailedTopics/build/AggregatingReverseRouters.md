@@ -17,7 +17,7 @@ For example, you might have a `web` sub project, and an `api` sub project.  Thes
 <!--
 Play's routes compiler offers a feature that allows a common dependency to generate the reverse routers for projects that depend on it so that the reverse routers can be shared between those projects.  This is configured using the `aggregateReverseRoutes` sbt configuration item, like this:
 -->
-Play のルートコンパイラには、依存するプロジェクト用にリバースルートを生成する共通の依存性を提供する機能があるので、これらのプロジェクト間でリバースルートを共有することができます。以下のように、`aggregateReverseRoutes` sbt 設定項目を使って設定することができます:
+Play のルートコンパイラには、共通の依存性がこれに依存するプロジェクト用にリバースルータを生成できるようにすることで、これらのプロジェクト間でリバースルートを共有できるようにする機能があります。以下のように、`aggregateReverseRoutes` sbt 設定項目を使って設定することができます:
 
 @[content](code/aggregate.sbt)
 
