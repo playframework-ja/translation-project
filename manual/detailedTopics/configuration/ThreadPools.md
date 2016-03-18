@@ -320,7 +320,7 @@ These might then be configured like so:
 <!--
 Then in your code, you would create `Future`s and pass the relevant `ExecutionContext` for the type of work that `Future` was doing.
 -->
-この後、コードにて future を作成し、future が実行していた作業と関係のある実行コンテキストを引き渡します。
+それからコードにて `Future` を作成し、この `Future` が実行していた作業と関連する `ExecutionContext` を引き渡します。
 
 <!--
 > **Note:** The configuration namespace can be chosen freely, as long as it matches the dispatcher ID passed to `Akka.system.dispatchers.lookup`.
