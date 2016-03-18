@@ -7,7 +7,7 @@
 <!--
 Writing tests for your application can be an involved process. Play offers integration with both [ScalaTest](http://www.scalatest.org) and [specs2](https://etorreborre.github.io/specs2/) and provides helpers and application stubs to make testing your application as easy as possible. For the details of using your preferred test framework with Play, see the pages on [[ScalaTest|ScalaTestingWithScalaTest]] or [[specs2|ScalaTestingWithSpecs2]].
 -->
-アプリケーションのテストを作成するのは複雑な作業となりがちです。Play は [ScalaTest](http://www.scalatest.org) および [specs2](https://etorreborre.github.io/specs2/) との統合を提供しており、テストの作成をできる限り容易にするヘルパーやスタブを提供しています。 テストフレームワークを Play で使う詳しい方法は、 [[ScalaTest|ScalaTestingWithScalaTest]] あるいは [[specs2|ScalaTestingWithSpecs2]] を参照してください。
+アプリケーションのテストを作成するのは複雑な作業となりがちです。Play は [ScalaTest](http://www.scalatest.org) および [specs2](https://etorreborre.github.io/specs2/) をサポートしており、テストの作成をできる限り容易にするヘルパーやスタブを提供しています。 テストフレームワークを Play で使う詳しい方法は、 [[ScalaTest|ScalaTestingWithScalaTest]] あるいは [[specs2|ScalaTestingWithSpecs2]] を参照してください。
 
 <!--
 * [[Testing your Application with ScalaTest|ScalaTestingWithScalaTest]]
