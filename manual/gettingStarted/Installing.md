@@ -66,7 +66,7 @@ activator run
 <!--
 You are now ready to work with Play!
 -->
-Play で開発をするための準備が整いました！
+Play で開発をするための準備が整いました!
 
 <!--
 ## General Installation Tasks
@@ -96,7 +96,7 @@ javac -version
 <!--
 If you don't have the JDK, you have to install it:
 -->
-もし JDK がない場合、インストールする必要があります：
+もし JDK がない場合、インストールする必要があります:
 
 <!--
 1. **MacOS**, Java is built-in, but you may have to [Update to the latest](http://www.oracle.com/technetwork/java/javase/downloads/index.html)
@@ -104,7 +104,7 @@ If you don't have the JDK, you have to install it:
 3. **Windows** just download and install the [latest JDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) package.
 -->
 1. **MacOS** の場合、Java は導入済みですが、[最新版にアップデート](http://www.oracle.com/technetwork/java/javase/downloads/index.html) する必要があるかもしれません。
-2. **Linux** の場合、最新の Oracle JDK か OpenJDK を使用してください。( gcj は使用しないでください。)
+2. **Linux** の場合、最新の Oracle JDK か OpenJDK を使用してください (gcj は使用しないでください)。
 3. **Windows** の場合、[最新のJDK](http://www.oracle.com/technetwork/java/javase/downloads/index.html) を単にダウンロードしてインストールしてください。
 
 <!--
@@ -137,13 +137,12 @@ On **Windows**, add `;C:\path\to\activator` to your `PATH` environment variable.
 <!--
 Running `activator` writes some files to directories within the distribution, so don't install to `/opt`, `/usr/local` or anywhere else you’d need special permission to write to.
 -->
-実行中の `activator` はディストリビューションのディレクトリのいくつかのファイルに書き込むので、 `/opt` 、 `/usr/local`  などの特別な書き込み許可が必要な場所にインストールしてはいけません。
+実行中の `activator` はディストリビューションのディレクトリのいくつかのファイルに書き込むので、 `/opt`, `/usr/local`  などの特別な書き込み許可が必要な場所にインストールしてはいけません。
 
 <!--
 Make sure that the `activator` script is executable. If it's not, do a `chmod u+x /path/to/activator`.
 -->
-`activator` が実行可能かどうか確認してください。
-実行権限がない場合は、 `chmod u+x /path/to/activator` を実行してください。
+`activator` が実行可能かどうか確認してください。実行権限がない場合は、 `chmod u+x /path/to/activator` を実行してください。
 
 <!--
 ### Proxy Setup
@@ -153,4 +152,4 @@ Make sure that the `activator` script is executable. If it's not, do a `chmod u+
 <!--
 If you're behind a proxy make sure to define it with `set HTTP_PROXY=http://<host>:<port>` on Windows or `export  HTTP_PROXY=http://<host>:<port>` on UNIX.
 -->
-もしプロキシ内のネットワークにいる場合、 Windows なら `set HTTP_PROXY=http://<host>:<port>` が設定されているか確認し、 UNIX 系システムなら `export  HTTP_PROXY=http://<host>:<port>` が設定されているか確認して下さい。
+もしプロキシ内のネットワークにいる場合、Windows なら `set HTTP_PROXY=http://<host>:<port>` が設定されているか確認し、UNIX 系システムなら `export  HTTP_PROXY=http://<host>:<port>` が設定されているか確認して下さい。
