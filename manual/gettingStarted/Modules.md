@@ -22,7 +22,7 @@ Play では何がモジュールで何がモジュールでないかという厳
 <!--
 Some modules provide components - objects that represent resources, for example a database connection.  These objects may have a lifecycle and need to be started and stopped when the application starts and stops, and they may hold some state such as a cache. Play provides a variety of mechanisms for accessing and using these components. Components are not only provided by modules, they may be provided by the application themselves.
 -->
-いくつかのモジュールはコンポーネントを提供しています。例えばデータベース接続などのオブジェクトはリソースを表しています。これらのオブジェクトはライフサイクルをもっているかもしれないし、アプリケーションが開始されたときや停止したときに開始や停止をする必要があるかもしれないですし、キャッシュのような状態を保持するかもしれません。Play はこれらのコンポーネントにアクセスしたり利用したりする様々な機構を提供しています。
+いくつかのモジュールはコンポーネントを提供しています。例えばデータベース接続などのオブジェクトはリソースを表しています。これらのオブジェクトはライフサイクルをもっているかもしれないし、アプリケーションが開始されたときや停止したときに開始や停止をする必要があるかもしれないですし、キャッシュのような状態を保持するかもしれません。Play はこれらのコンポーネントにアクセスしたり利用したりする様々な機構を提供しています。コンポーネントは、モジュールから提供されるだけではなく、アプリケーション自身から提供される場合もあります。
 
 <!--
 ## Accessing modules
