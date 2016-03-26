@@ -795,8 +795,14 @@ For powers of two, exactly these strings are supported:
 <!--
 ## Conventional override by system properties
 -->
-## 慣習としてのシステムプロパティによる上書き
+## 慣習的なシステムプロパティによる上書き
 
+<!--
 Java system properties override settings found in the `application.conf` and `reference.conf` files. This supports specifying config options on the command line. ie. `play -Dkey=value run`
+-->
+Java のシステムプロパティは `application.conf` と `reference.conf` ファイルの設定を上書きします。これにより、設定オプションをコマンドラインから指定することができます。(例) play -Dkey=value run
 
+<!--
 Note : Play forks the JVM for tests - and so to use command line overrides in tests you must add `Keys.fork in Test := false` in `build.sbt` before you can use them for a test.
+-->
+注意 : Play はテストの間 JVM をフォークします - そのため、テストでコマンドラインを使って設定オプションを上書きするには、それらをテストで使う前に `build.sbt` に `Keys.fork in Test := false` を追加しなければいけません。
