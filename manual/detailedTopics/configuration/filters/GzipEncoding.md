@@ -35,7 +35,7 @@ Java
 <!--
 The `Filters` class can either be in the root package, or if it has another name or is in another package, needs to be configured using `play.http.filters` in `application.conf`:
 -->
-`Filters` クラスはルートパッケージに置くか、もし違う名前にする、あるいは違うパッケージに置く場合は、`application.conf` 内で `play.http.filters` を使って設定することができます:
+`Filters` クラスはルートパッケージに置くか、もし違う名前にする、あるいは違うパッケージに置く場合は、`application.conf` 内で `play.http.filters` を使って設定する必要があります:
 
 ```
 play.http.filters = "filters.MyFilters"
