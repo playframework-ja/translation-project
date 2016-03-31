@@ -9,6 +9,6 @@ CertificateRevocation:証明書失効の設定
 HostnameVerification:ホスト名検証の設定
 ExampleSSLConfig:設定の例
 DefaultContext:デフォルトの SSLContext の使用
-DebuggingSSL:SSL のデバッグ
+DebuggingSSL:SSL 接続のデバッグ
 LooseSSL:緩いオプション
 TestingSSL:SSL のテスト
