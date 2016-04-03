@@ -168,7 +168,7 @@ Mockito を使えば、クラスへの参照を次のようにモックに向け
 <!--
 Mocking is especially useful for testing the public methods of classes.  Mocking objects and private methods is possible, but considerably harder.
 -->
-モックは特に、public なメソッドに対してのテストに便利です。モックオブジェクトと private なメソッドとの組み合わせも可能ではありますが、非常に困難です。
+モックは特に、public なメソッドに対してのテストに便利です。object や private メソッドのモックも可能ではありますが、非常に困難です。
 
 <!--
 ## Unit Testing Models
