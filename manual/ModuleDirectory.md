@@ -105,7 +105,7 @@
 -->
 ## ClojureScript プラグイン
 
-* **ウェブサイト:** <https://bitbucket.org/jmhofer/play-clojurescript> (docs, code)
+* **ウェブサイト:** <https://bitbucket.org/jmhofer/play-clojurescript> (ドキュメント、コード)
 * **概要:** ClojureScript アサートファイルを JavaScript にコンパイルする
 
 <!--
@@ -132,7 +132,7 @@
 
 * **ウェブサイト:** <https://edulify.github.io/play-currency-converter-module.edulify.com/>
 * **ドキュメント:** <https://github.com/edulify/play-currency-converter-module.edulify.com/blob/master/README.md>
-* **概要:** 通貨変換器。現在のレートを取得するためにウェブサービスを利用する。
+* **概要:** Play 用の通貨変換器。現在のレートを取得するためにウェブサービスを利用する。
 
 <!--
 ## Deadbolt 2 Plugin
@@ -150,7 +150,7 @@
 -->
 ## DDSL プラグイン - Dynamic Distributed Service Locator
 * **ウェブサイト (ドキュメント、サンプル):** <https://github.com/mbknor/ddsl-play2-module>
-* **概要:** DDSL は、ZooKeeper を使用して、インハウスあるいは EC2 やJoyent を利用した独自の動的な「プライベートクラウド」を簡単に構築できるようにします。 
+* **概要:** DDSL は、ZooKeeper を使用して、インハウスあるいは EC2 やJoyent を利用した独自の動的な "プライベートクラウド" を簡単に構築できるようにします。 
 
 <!--
 ## Dust Plugin
@@ -183,7 +183,7 @@
 * **ウェブサイト:** <https://github.com/cleverage/play2-elasticsearch>
 * **ドキュメント:** <https://github.com/cleverage/play2-elasticsearch/blob/master/README.md>
 * **リポジトリ:** <http://cleverage.github.io/play2-elasticsearch/releases/>
-* **概要:** ElasticSearchのサーバやリモートノードに埋め込まれたオブジェクトのインデックス・リクエスト 
+* **概要:** 組み込みの ElasticSearch サーバまたはリモートノード内のオブジェクトをインデクシング/リクエストします
 
 <!--
 ## Ember.js
@@ -259,7 +259,7 @@
 ## Google's HTML Compressor (Java and Scala)
 * **ウェブサイト:** <https://github.com/mohiva/play-html-compressor>
 * **ドキュメント:** <https://github.com/mohiva/play-html-compressor/blob/master/README.md>
-* **概要:** Google 製 HTML 圧縮器
+* **概要:** Play 2 用の Google 製 HTML 圧縮器
 
 <!--
 ## Groovy Templates plugin
@@ -307,7 +307,7 @@
 ## HTML5 Tags モジュール (Java and Scala)
 * **ウェブサイト:** <https://github.com/loicdescotte/Play2-HTML5Tags>
 * **ドキュメント:** <https://github.com/loicdescotte/Play2-HTML5Tags/blob/master/README.md>
-* **概要:** モデルの制約 (required, email pattern, max|min lentgh 等) や and 特定の input フィールド (date, telephone number, url 等) をもとに、クライアントサイドでバリデーションできるようにする。 
+* **概要:** モデルの制約 (required, email pattern, max|min lentgh 等) や特定の input フィールド (date, telephone number, url 等) をもとに、クライアントサイドでバリデーションできるようにする。 
 
 <!--
 ## InputValidator (Scala)
@@ -318,7 +318,7 @@
 ## InputValidator (Scala)
 
 * **ウェブサイト:** <https://github.com/seratch/inputvalidator/tree/master/play-module>
-* **概要:** シンプルなバリデーションAPIを提供する
+* **概要:** Play 用のシンプルなバリデーション API を提供する
 
 <!--
 ## JackRabbit Plugin (Java and Scala)
@@ -340,7 +340,7 @@
 
 * **ウェブサイト:** <https://github.com/branaway/japid42>
 * **ドキュメント:** <https://github.com/branaway/japid42>
-* **概要:** Japid の Play java テンプレート
+* **概要:** Play 用の Japid java テンプレートを提供する
 
 <!--
 ## JsMessages
@@ -375,7 +375,7 @@
 ## JSONP filter
 
 * **ウェブサイト:** <https://github.com/julienrf/play-jsonp-filter>
-* **概要:** JSONP 既存の HTTP API で JSONP を有効化する
+* **概要:** 既存の HTTP API で JSONP を有効化する
 
 <!--
 ## Lessc Plugin
@@ -388,7 +388,7 @@
 
 * **ウェブサイト:** <https://github.com/jmparsons/play-lessc>
 * **ドキュメント:** <https://github.com/jmparsons/play-lessc/blob/master/README.md>
-* **概要:** Node を経由して[Less](http://lesscss.org/) コマンドラインコンパイルをできるようにする
+* **概要:** Node を経由して [Less](http://lesscss.org/) をコマンドラインでコンパイルできるようにする
 
 <!--
 ## Liquibase Module
@@ -661,7 +661,7 @@
 -->
 ## Redis プラグイン  (Java and Scala)
 * **ウェブサイト (ドキュメント、サンプル):** <https://github.com/typesafehub/play-plugins>
-* **概要:** Redis ベースのキャッシュ実装を提供し、Redis 独自 APIs も使用できるようにする
+* **概要:** Redis ベースのキャッシュ実装を提供し、Redis 独自 API も使用できるようにする
 
 <!--
 ## Swaggerkit (Scala)
@@ -721,7 +721,7 @@
 ## SecureSocial (Java and Scala)
 
 * **ウェブサイト:** <http://securesocial.ws/>
-* **概要:** OAuth、OAuth2、OpenID、 Username/Password、そして独自の認証スキームをサポートする認証モジュール
+* **概要:** OAuth, OAuth2, OpenID, Username/Password, そして独自の認証スキームをサポートする認証モジュール
 
 <!--
 ## Silhouette (Scala)
@@ -734,7 +734,7 @@
 
 * **ウェブサイト:** <http://silhouette.mohiva.com/>
 * **ドキュメント:** <http://silhouette.mohiva.com/docs/>
-* **概要:** OAuth1、OAuth2、OpenID、Credentials、Basic認証、二段階認証、カスタム認証スキームなどを提供する認証ライブラリ
+* **概要:** OAuth1, OAuth2, OpenID, Credentials, Basic認証、二段階認証、カスタム認証スキームなどを提供する認証ライブラリ
 
 <!--
 ## Sitemap Generator (Java)
@@ -778,7 +778,7 @@
 ## Stateless client authentication (Scala)
 * **ウェブサイト:** <https://github.com/blendlabs/play20-stateless-auth>
 * **ドキュメント:** <https://github.com/blendlabs/play20-stateless-auth/blob/master/README.md>
-* **概要:** サーバサイドの状態なしに（状態はクライアントが保持する）必須あるいはオプションの認証を提供する
+* **概要:** サーバサイドの状態なしに (状態はクライアントが保持する) 必須あるいはオプションの認証を提供する
 
 <!--
 ## Statsd Plugin (Java and Scala)
