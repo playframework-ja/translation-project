@@ -119,7 +119,7 @@ ScalaTest は [`MockitoSugar`](http://doc.scalatest.org/2.1.5/index.html#org.sca
 <!--
 To use Mockito, mix `MockitoSugar` into your test class and then use the Mockito library to mock dependencies:
 -->
-Mockito を使用するには、 `MockitoSugar` をテストクラスにミックスインし、 依存性をモックするためにMockito ライブラリを使用します。
+Mockito を使用するには、 `MockitoSugar` をテストクラスにミックスインし、 依存性をモックするために Mockito ライブラリを使用します。
 
 @[scalatest-mockito-dataservice](code-scalatestplus-play/ExampleMockitoSpec.scala)
 
