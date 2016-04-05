@@ -32,4 +32,4 @@
 <!--
 [[Temporary modules directory|ModuleDirectory]]
 -->
-[[一時的なモジュールディレクトリ | Modules]]
+[[一時的なモジュールディレクトリ | ModuleDirectory]]
