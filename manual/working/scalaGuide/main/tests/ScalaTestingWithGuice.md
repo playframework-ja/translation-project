@@ -41,7 +41,7 @@ The [Environment](api/scala/play/api/Environment.html), or parts of the environm
 <!--
 Additional configuration can be added. This configuration will always be in addition to the configuration loaded automatically for the application. When existing keys are used the new configuration will be preferred.
 -->
-設定を追加することもできます。この設定は、アプリケーションに自動的にロードされる設定に加えてつねに有効です。既存のキーが使用されている場合は新しく設定することが望ましいです。
+設定を追加することもできます。この設定は、アプリケーションに自動的にロードされる設定に加えてつねに有効です。既にキーが使用されている場合は新しい設定が優先されます。
 
 @[add-configuration](code/tests/guice/ScalaGuiceApplicationBuilderSpec.scala)
 
