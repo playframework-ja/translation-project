@@ -41,7 +41,7 @@ You may want to specify other configuration for the database, including a custom
 <!--
 After using a database, since the database is typically backed by a connection pool that holds open connections and may also have running threads, you need to shut it down.  This is done by calling the `shutdown` method:
 -->
-データベースの使用後は、データベースはよく、コネクションが開いている、ことによるとスレッドが実行中の可能性すらあるコネクションプールによって戻されることがあるので、閉じる必要があります。これは `shutdown` メソッドで行うことができます。
+基本的に、データベースは、開いているコネクションや、ことによると実行中かもしれないスレッドを保持するコネクションプールによって支えられているので、データベースの使用後には閉じる必要があります。これは `shutdown` メソッドで行うことができます。
 
 @[shutdown](code/database/ScalaTestingWithDatabases.scala)
 
@@ -134,7 +134,7 @@ Like `withDatabase`, it is recommended that to reduce boilerplate code, you crea
 <!--
 When running tests, you will typically want your database schema managed for your database.  If you're already using evolutions, it will often make sense to reuse the same evolutions that you use in development and production in your tests.  You may also want to create custom evolutions just for testing.  Play provides some convenient helpers to apply and manage evolutions without having to run a whole Play application.
 -->
-テストを実行する際には、よくデータベーススキーマをデータベースのために管理したいことがあります。evolutions をすでに使用している場合は、テストでも開発環境や本番環境と同じ evolutions を使用することにはしばしば意味があります。
+テストを実行する際には、よくデータベーススキーマをデータベースのために管理したいことがあります。evolutions をすでに使用している場合は、テストでも開発環境や本番環境と同じ evolutions を使用することにはしばしば意味があります。テストのためだけに独自の evolutions を作りたくなるかもしれません。Play は、Play アプリケーション全体を起動することなく evolutions を適用、管理する便利なヘルパーをいくつか提供しています。
 
 <!--
 To apply evolutions, you can use `applyEvolutions` from the [`Evolutions`](api/scala/play/api/db/evolutions/Evolutions$.html) companion object:
