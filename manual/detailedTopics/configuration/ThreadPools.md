@@ -296,7 +296,7 @@ So if you don't have enough available processors, you will never be able to reac
 <!--
 ### Many specific thread pools
 -->
-### 多くの特定のスレッドプール
+### 多くの特別なスレッドプール
 
 <!--
 This profile is for when you want to do a lot of synchronous IO, but you also want to control exactly how much of which types of operations your application does at once.  In this profile, you would only do non blocking operations in the default execution context, and then dispatch blocking operations to different execution contexts for those specific operations.
@@ -330,9 +330,9 @@ Then in your code, you would create `Future`s and pass the relevant `ExecutionCo
 <!--
 ### Few specific thread pools
 -->
-### わずかな特定のスレッドプール
+### 少数の特別なスレッドプール
 
 <!--
 This is a combination between the many specific thread pools and the highly synchronized profile.  You would do most simple IO in the default execution context and set the number of threads there to be reasonably high (say 100), but then dispatch certain expensive operations to specific contexts, where you can limit the number of them that are done at one time.
 -->
-これは、多くの特定のスレッドプールと高度に同期化されたプロファイルの組み合わせです。デフォルト実行コンテキスト中でほとんどの単純な IO を行い、(100 くらいの) 合理的な複数のスレッドを設定しますが、その後、一度に行われる数を制限することのできる特定のコンテキストに負荷の高いオペレーションを割り振ります。
+これは、多くの特別なスレッドプールと高度に同期化されたプロファイルの組み合わせです。デフォルト実行コンテキスト中でほとんどの単純な IO を行い、(100 くらいの) 合理的な複数のスレッドを設定しますが、その後、一度に行われる数を制限することのできる特別なコンテキストに負荷の高いオペレーションを割り振ります。
