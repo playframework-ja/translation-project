@@ -41,7 +41,7 @@ You may want to specify other configuration for the database, including a custom
 <!--
 After using a database, since the database is typically backed by a connection pool that holds open connections and may also have running threads, you need to shut it down.  This is done by calling the `shutdown` method:
 -->
-基本的に、データベースは、開いているコネクションや、ことによると実行中かもしれないスレッドを保持するコネクションプールによって支えられているので、データベースの使用後には閉じる必要があります。これは `shutdown` メソッドで行うことができます。
+一般的に、データベースを支えるコネクションプールは、開いているコネクションや、ことによると実行中かもしれないスレッドを保持しているので、データベースの使用後には閉じる必要があります。これは `shutdown` メソッドで行うことができます。
 
 @[shutdown](code/database/ScalaTestingWithDatabases.scala)
 
