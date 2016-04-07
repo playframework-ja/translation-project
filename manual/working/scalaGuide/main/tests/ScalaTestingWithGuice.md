@@ -60,7 +60,7 @@ The automatic loading of configuration from the application environment can also
 <!--
 The bindings used for dependency injection are completely configurable. The builder methods support [[Play Modules and Bindings|ScalaDependencyInjection]] and also Guice Modules.
 -->
-依存性注入に使用されるバインディングは完全に設定可能です。ビルダーメソッドは [[Play のモジュールとバインディング|ScalaDependencyInjection]] あるいはGuiceのモジュールをサポートしています。
+依存性注入に使用されるバインディングは完全に設定可能です。ビルダーメソッドは [[Play のモジュールとバインディング|ScalaDependencyInjection]] あるいは Guice のモジュールをサポートしています。
 
 <!--
 #### Additional bindings
