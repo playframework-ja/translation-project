@@ -1,12 +1,21 @@
+<!--
 # Generating X.509 Certificates
+-->
+# X.509 証明書の生成
 
+<!--
 ## X.509 Certificates
+-->
+## X.509 証明書
 
 Public key certificates are a solution to the problem of identity.  Encryption alone is enough to set up a secure connection, but there's no guarantee that you are talking to the server that you think you are talking to.  Without some means to verify the identity of a remote server, an attacker could still present itself as the remote server and then forward the secure connection onto the remote server.  Public key certificates solve this problem.
 
 The best way to think about public key certificates is as a passport system. Certificates are used to establish information about the bearer of that information in a way that is difficult to forge. This is why certificate verification is so important: accepting **any** certificate means that even an attacker's certificate will be blindly accepted.
 
+<!--
 ## Using Keytool
+-->
+## キーツールを使う
 
 keytool comes in several versions:
 
@@ -16,23 +25,35 @@ keytool comes in several versions:
 
 The examples below use keytool 1.7, as 1.6 does not support the minimum required certificate extensions needed for marking a certificate for CA usage or for a hostname.
 
+<!--
 ## Generating a random password
+-->
+## ランダムなパスワードの生成
 
 Create a random password using pwgen (`brew install pwgen` if you're on a Mac):
 
 @[context](code/genpassword.sh)
 
+<!--
 ## Server Configuration
+-->
+## サーバの設定
 
 You will need a server with a DNS hostname assigned, for hostname verification.  In this example, we assume the hostname is `example.com`.
 
+<!--
 ### Generating a server CA
+-->
+### サーバ証明書の生成
 
 The first step is to create a certificate authority that will sign the example.com certificate.  The root CA certificate has a couple of additional attributes (ca:true, keyCertSign) that mark it explicitly as a CA certificate, and will be kept in a trust store.
 
 @[context](code/genca.sh)
 
+<!--
 ### Generating example.com certificates
+-->
+### example.com 証明書の生成
 
 The example.com certificate is presented by the `example.com` server in the handshake.
 
@@ -52,7 +73,10 @@ Issuer: CN=exampleCA, OU=Example Org, O=Example Company, L=San Francisco, ST=Cal
 
 > **NOTE**: Also see the [[Configuring HTTPS|ConfiguringHttps]] section for more information.
 
+<!--
 ### Configuring example.com certificates in Nginx
+-->
+### example.com 証明書を Nginx に設定する
 
 If example.com does not use Java as a TLS termination point, and you are using nginx, you may need to export the certificates in PEM format.
 
@@ -84,11 +108,17 @@ keytool -printcert -sslserver example.com
 
 > **NOTE**: Also see the [[Setting up a front end HTTP server|HTTPServer]] section for more information.
 
+<!--
 ## Client Configuration
+-->
+## クライアントの設定
 
 There are two parts to setting up a client -- configuring a trust store, and configuring client authentication.
 
+<!--
 ### Configuring a Trust Store
+-->
+### トラストストアの設定
 
 Any clients need to see that the server's example.com certificate is trusted, but don't need to see the private key.  Generate a trust store which contains only the certificate and hand that out to clients.  Many java clients prefer to have the trust store in JKS format.
 
@@ -119,7 +149,10 @@ ws.ssl {
 
 > **NOTE**: Also see the [[Configuring Key Stores and Trust Stores|KeyStores]] section for more information.
 
+<!--
 ### Configure Client Authentication
+-->
+### クライアント認証の設定
 
 Client authentication can be obscure and poorly documented, but it relies on the following steps:
 
@@ -160,23 +193,38 @@ ws.ssl {
 
 > **NOTE**: Also see the [[Configuring Key Stores and Trust Stores|KeyStores]] section for more information.
 
+<!--
 ## Certificate Management Tools
+-->
+## 証明書管理ツール
 
 If you want to examine certificates in a graphical tool than a command line tool, you can use [Keystore Explorer](http://keystore-explorer.sourceforge.net/) or [xca](http://sourceforge.net/projects/xca/).  [Keystore Explorer](http://keystore-explorer.sourceforge.net/) is especially convenient as it recognizes JKS format.  It works better as a manual installation, and requires some tweaking to the export policy.
 
 If you want to use a command line tool with more flexibility than keytool, try [java-keyutil](https://code.google.com/p/java-keyutil/), which understands multi-part PEM formatted certificates and JKS.
 
+<!--
 ## Certificate Settings
+-->
+## 証明書の設定
 
+<!--
 ### Secure
+-->
+### セキュリティ
 
 If you want the best security, consider using [ECDSA](http://blog.cloudflare.com/ecdsa-the-digital-signature-algorithm-of-a-better-internet) as the signature algorithm (in keytool, this would be `-sigalg EC`). ECDSA is also known as "ECC SSL Certificate".
 
+<!--
 ### Compatible
+-->
+### 互換性
 
 For compatibility with older systems, use RSA with 2048 bit keys and SHA256 as the signature algorithm.  If you are creating your own CA certificate, use 4096 bits for the root.
 
+<!--
 ## Further Reading
+-->
+## 併せて読みたい
 
 * [JSSE Reference Guide To Creating KeyStores](http://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#CreateKeystore)
 * [Java PKI Programmer's Guide](http://docs.oracle.com/javase/7/docs/technotes/guides/security/certpath/CertPathProgGuide.html)
