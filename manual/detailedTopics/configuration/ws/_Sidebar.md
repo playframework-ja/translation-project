@@ -25,7 +25,7 @@
 - [[X.509 証明書の生成|CertificateGeneration]]
 - [[トラストストアとキーストアの設定|KeyStores]]
 - [[プロトコルの設定|Protocols]]
-- [[Cipher Suites の設定|CipherSuites]]
+- [[暗号スイートの設定|CipherSuites]]
 - [[Certificate Validation の設定|CertificateValidation]]
 - [[証明書失効の設定|CertificateRevocation]]
 - [[ホスト名検証の設定|HostnameVerification]]
