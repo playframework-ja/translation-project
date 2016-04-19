@@ -86,9 +86,14 @@ These settings are based in part on [keylength.com](https://keylength.com), and 
 -->
 これらの設定は [keylength.com](https://keylength.com) と Mozilla 推奨の一部に基づいています:
 
+<!--
 > The NIST recommendation is to discontinue 1024-bit RSA certificates by December 31, 2010. Therefore, CAs have been advised that they should not sign any more certificates under their 1024-bit roots by the end of this year.
 >
 > The date for disabling/removing 1024-bit root certificates will be dependent on the state of the art in public key cryptography, but under no circumstances should any party expect continued support for this modulus size past December 31, 2013. As mentioned above, this date could get moved up substantially if new attacks are discovered. We recommend all parties involved in secure transactions on the web move away from 1024-bit moduli as soon as possible.
+-->
+> NIST は 2010 年 12 月 31 日までに 1024-bit RSA 証明書を中止するよう勧告しています。そのため、認証局はこの年末までどのような証明書にも 1024 ビットで署名すべきではないと忠告されています。
+> 
+> 1024 ビットのルート証明書を削除/無効にするための日付は公開鍵暗号方式における最先端の技術に依存することになりますが、どのような場合でも、あらゆる組織は 2013 年 12 月 31 日以降、このモジュールサイズの継続的なサポートを期待すべきではありません。上述したとおり、新しい攻撃が発見された場合、この日付は実質的に早まることがあります。web 上のセキュアなトランザクションに関与するすべての組織が、できるだけ早く 1024 ビットのモジュールから離れることをお勧めします。
 
 <!--
 **NOTE:** because weak key sizes also apply to root certificates (which is not included in the certificate chain available to the PKIX certpath checker included in JSSE), setting this option will check the accepted issuers in any configured trustmanagers and keymanagers, including the default.
