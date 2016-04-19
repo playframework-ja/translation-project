@@ -4,7 +4,7 @@ CertificateGeneration:X.509 証明書の生成
 KeyStores:トラストストアとキーストアの設定
 Protocols:プロトコルの設定
 CipherSuites:暗号スイートの設定
-CertificateValidation:Certificate Validation の設定
+CertificateValidation:証明書検証の設定
 CertificateRevocation:証明書失効の設定
 HostnameVerification:ホスト名検証の設定
 ExampleSSLConfig:設定の例
