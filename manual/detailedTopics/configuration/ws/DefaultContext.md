@@ -31,5 +31,7 @@ play.ws.ssl.debug {
 }
 ```
 
+<!--
 If you are using the default SSLContext, then the only way to change JSSE behavior is through manipulating the [JSSE system properties](https://docs.oracle.com/javase/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#Customization).
+-->
 デフォルトの SSLContext を使っている場合、JSSE の振る舞いは [JSSE システムプロパティ](https://docs.oracle.com/javase/jp/8/docs/technotes/guides/security/jsse/JSSERefGuide.html#Customization) の操作を通じてのみ変更することができます。
