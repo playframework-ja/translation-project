@@ -7,8 +7,8 @@ CipherSuites:暗号スイートの設定
 CertificateValidation:証明書検証の設定
 CertificateRevocation:証明書失効の設定
 HostnameVerification:ホスト名検証の設定
-ExampleSSLConfig:設定の例
-DefaultContext:デフォルトの SSLContext の使用
+ExampleSSLConfig:設定例
+DefaultContext:デフォルト SSLContext を使う
 DebuggingSSL:SSL 接続のデバッグ
 LooseSSL:緩いオプション
 TestingSSL:SSL のテスト
