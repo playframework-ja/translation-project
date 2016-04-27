@@ -10,5 +10,5 @@ HostnameVerification:ホスト名検証の設定
 ExampleSSLConfig:設定例
 DefaultContext:デフォルト SSLContext を使う
 DebuggingSSL:SSL 接続のデバッグ
-LooseSSL:緩いオプション
+LooseSSL:ゆるいオプション
 TestingSSL:SSL のテスト
