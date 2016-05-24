@@ -24,7 +24,10 @@ Cookies are signed with a secret key so the client can’t modify the cookie dat
 -->
 クッキーの値は秘密鍵によって署名されているため、クライアントがクッキーのデータを変更することはできません (変更すると、値が無効化されます) 。Play のセッションはキャッシュとして使われることを想定して作られてはいません。もし、特定のセッションに関するデータをキャッシュしたい場合、Play に組み込まれたキャッシュ機構を利用し、そしてキャッシュされたデータを特定のユーザに対応付けるユニークな ID をセッションに格納することができます。
 
+<!--
 > There is no technical timeout for the session, which expires when the user closes the web browser. If you need a functional timeout for a specific application, just store a timestamp into the user Session and use it however your application needs (e.g. for a maximum session duration, maximum inactivity duration, etc.).
+-->
+> このセッションに技術的なタイムアウトは存在せず、ユーザが web ブラウザを閉じると失効します。特定のアプリケーション用にタイムアウト機能が必要な場合は、ユーザセッションにタイムスタンプを格納して、アプリケーションが望むように利用してください (例えば、セッションの最大期間や、活動していない最小期間など)
 
 <!--
 ## Storing data into the Session
@@ -98,10 +101,16 @@ So for example, after saving an item, you might want to redirect the user back t
 
 @[store-flash](code/javaguide/http/JavaSessionFlash.java)
 
+<!--
 Then in the index action, you could check if the success message exists in the flash scope, and if so, render it:
+-->
+その後、index アクションにおいて flash スコープ内に成功メッセージが存在するか確認し、存在する場合はレンダリングします:
 
 @[read-flash](code/javaguide/http/JavaSessionFlash.java)
 
+<!--
 A flash value is also automatically available in Twirl templates. For example:
+-->
+flash の値は自動的に Twirl テンプレートから利用できます。例:
 
 @[flash-template](code/javaguide/http/views/index.scala.html)
