@@ -101,12 +101,21 @@ For example:
 -->
 ## 最大 content length
 
+<!--
 Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded**) use a max content length because they have to load all the content into memory.  By default, the maximum content length that they will parse is 100KB.  It can be overridden by specifying the `play.http.parser.maxMemoryBuffer` property in `application.conf`:
+-->
+テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。これらがパースするデフォルトの最大コンテント長は 100KB です。これは `application.conf` 内で `play.http.parser.maxMemoryBuffer` を指定して上書くことができます:
 
     play.http.parser.maxMemoryBuffer=128K
 
+<!--
 For parsers that buffer content on disk, such as the raw parser or `multipart/form-data`, the maximum content length is specified using the `play.http.parser.maxDiskBuffer` property, it defaults to 10MB.  The `multipart/form-data` parser also enforces the text max length property for the aggregate of the data fields.
+-->
+raw データや `multipart/form-data` などの、ディスクにコンテンツをバッファリングするパーサの最大コンテント長は `play.http.parser.maxDiskBuffer` プロパティを使って指定され、デフォルトは 10MB です。`multipart/form-data` パーサは、データフィールドを集約するためにテキストの最大コンテンツ長も適用します。
 
+<!--
 You can also override the default maximum content length for a given action via the `@BodyParser.Of` annotation:
+-->
+`@BodyParser.Of` アノテーションを使って、特定のアクションで最大コンテント長のデフォルト値を上書くこともできます:
 
 @[max-length](code/javaguide/http/JavaBodyParsers.java)
