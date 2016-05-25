@@ -63,10 +63,13 @@ You also mix several actions by using custom action annotations:
 
 <!--
 > **Note:**  ```play.mvc.Security.Authenticated``` and ```play.cache.Cached``` annotations and the corresponding predefined Actions are shipped with Play. See the relevant API documentation for more information.
--->
-> **ノート:** ```play.mvc.Security.Authenticated``` と ```play.cache.Cached``` アノテーションやそれに対応するアクションは Play に同梱されています。詳しくは、関連する API ドキュメントを参照してください。
 
 > **Note:**  Every request must be served by a distinct instance of your `play.mvc.Action`. If a singleton pattern is used, requests will be routed incorrectly during multiple request scenarios. For example, if you are using Spring as a DI container for Play, you need to make sure that your action beans are prototype scoped.
+-->
+
+> **注意:** ```play.mvc.Security.Authenticated``` と ```play.cache.Cached``` アノテーションやそれに対応するアクションは Play に同梱されています。詳しくは、関連する API ドキュメントを参照してください。
+
+> **注意:** すべてのリクエストは、`play.mvc.Action` の個別のインスタンスによって扱われなければなりません。シングルトンパターンが使われていると、複数のリクエスト間におけるシナリオにおいて、リクエストは正しくルーティングされません。例えば Play の DI コンテナに Spring を使っている場合、アクションのビーンが prototype スコープであることを確認する必要があります。
 
 <!--
 ## Defining custom action annotations
@@ -113,7 +116,10 @@ public class Admin extends Controller {
 }
 ```
 
+<!--
 > **Note:** If you want the action composition annotation(s) put on a ```Controller``` class to be executed before the one(s) put on action methods set ```play.http.actionComposition.controllerAnnotationsFirst = true``` in ```application.conf```. However, be aware that if you use a third party module in your project it may rely on a certain execution order of its annotations.
+-->
+**注意:** ```Controller``` クラスに付与した アクションを合成するアノテーションを、アクションメソッドよりも先に実行したい場合は、```application.conf``` 内で ```play.http.actionComposition.controllerAnnotationsFirst = true``` を設定します。ただし、サードパーティのモジュールを使っている場合、アノテーションの実行順序に依存しているかもしれないことに気をつけて下さい。
 
 <!--
 ## Passing objects from action to controller
@@ -127,6 +133,9 @@ You can pass an object from an action to a controller by utilizing the context a
 
 @[pass-arg-action](code/javaguide/http/JavaActionsComposition.java)
 
+<!--
 Then in an action you can get the arg like this:
+-->
+その後、以下のようにこの引数をアクション内で取得することができます:
 
 @[pass-arg-action-index](code/javaguide/http/JavaActionsComposition.java)
