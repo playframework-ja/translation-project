@@ -1,7 +1,13 @@
 <!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # Handling asynchronous results
+-->
+# 非同期レスポンスの処理
 
+<!--
 ## Make controllers asynchronous
+-->
+## コントローラを非同期にする
 
 Internally, Play Framework is asynchronous from the bottom up. Play handles every request in an asynchronous, non-blocking way.
 
@@ -9,7 +15,10 @@ The default configuration is tuned for asynchronous controllers. In other words,
 
 Although it's possible to increase the number of threads in the default execution context to allow more concurrent requests to be processed by blocking controllers, following the recommended approach of keeping the controllers asynchronous makes it easier to scale and to keep the system responsive under load.
 
+<!--
 ## Creating non-blocking actions
+-->
+## ノンブロッキングなアクションの作成
 
 Because of the way Play works, action code must be as fast as possible, i.e., non-blocking. So what should we return from our action if we are not yet able to compute the result? We should return the *promise* of a result!
 
@@ -17,15 +26,27 @@ A `Promise<Result>` will eventually be redeemed with a value of type `Result`. B
 
 The web client will be blocked while waiting for the response, but nothing will be blocked on the server, and server resources can be used to serve other clients.
 
+<!--
 ## How to create a `Promise<Result>`
+-->
+## `Promise<Result>` の生成
 
+<!--
 To create a `Promise<Result>` we need another promise first: the promise that will give us the actual value we need to compute the result:
+-->
+`Promise<Result>` を生成するためには、元となる `Promise`、つまり結果を計算するために必要な値についての Promise が先に必要になります。
 
 @[promise-pi](code/javaguide/async/JavaAsync.java)
 
+<!--
 Play asynchronous API methods give you a `Promise`. This is the case when you are calling an external web service using the `play.libs.WS` API, or if you are using Akka to schedule asynchronous tasks or to communicate with Actors using `play.libs.Akka`.
+-->
+Play の非同期処理に関する API 呼び出しは `Promise` を返します。例えば、`play.libs.WS` API を使って外部の Web サービスを呼び出す場合や、`play.libs.Akka` API 経由で Akka を使った非同期タスクを実行したり、アクターと通信したりする場合がそうです。
 
+<!--
 A simple way to execute a block of code asynchronously and to get a `Promise` is to use the `promise()` helper:
+-->
+コードブロックを非同期で実行して `Promise` を得る簡単な方法は、`promise()` ヘルパーを利用することです。
 
 @[promise-async](code/javaguide/async/JavaAsync.java)
 
@@ -35,13 +56,19 @@ A simple way to execute a block of code asynchronously and to get a `Promise` is
 >
 > It can also be helpful to use Actors for blocking operations. Actors provide a clean model for handling timeouts and failures, setting up blocking execution contexts, and managing any state that may be associated with the service. Also Actors provide patterns like `ScatterGatherFirstCompletedRouter` to address simultaneous cache and database requests and allow remote execution on a cluster of backend servers. But an Actor may be overkill depending on what you need.
 
+<!--
 ## Async results
+-->
+## 非同期な Result
 
 We have been returning `Result` up until now. To send an asynchronous result our action needs to return a `Promise<Result>`:
 
 @[async](code/javaguide/async/controllers/Application.java)
 
+<!--
 ## Actions are asynchronous by default
+-->
+## アクションはデフォルトで非同期
 
 Play [[actions|JavaActions]] are asynchronous by default. For instance, in the controller code below, the returned `Result` is internally enclosed in a promise:
 
