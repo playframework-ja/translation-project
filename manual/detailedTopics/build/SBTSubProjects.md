@@ -12,7 +12,7 @@ A complex project is not necessarily composed of a single Play application. You 
 <!--
 It will be helpful to read the [SBT documentation on multi-project builds](http://www.scala-sbt.org/release/docs/Getting-Started/Multi-Project).  Sub-projects do not have their own build file, but share the parent project's build file.
 -->
-[マルチプロジェクト・ビルドについての SBT ドキュメント](http://scalajp.github.com/sbt-getting-started-guide-ja/multi-project/)  を読むといいでしょう。サブプロジェクトは独自のビルドファイルを持たず、親プロジェクトのビルドファイルを共有します。
+[マルチプロジェクト・ビルドについての SBT ドキュメント](http://www.scala-sbt.org/0.13/docs/ja/Multi-Project.html)  を読むといいでしょう。サブプロジェクトは独自のビルドファイルを持たず、親プロジェクトのビルドファイルを共有します。
 
 <!--
 ## Adding a simple library sub-project
