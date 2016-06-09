@@ -104,7 +104,7 @@ For example:
 <!--
 Text based body parsers (such as **text**, **json**, **xml** or **formUrlEncoded**) use a max content length because they have to load all the content into memory.  By default, the maximum content length that they will parse is 100KB.  It can be overridden by specifying the `play.http.parser.maxMemoryBuffer` property in `application.conf`:
 -->
-テキストベースのボディパーサー (**text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。これらがパースするデフォルトの最大コンテント長は 100KB です。これは `application.conf` 内で `play.http.parser.maxMemoryBuffer` を指定して上書くことができます:
+テキストベースのボディパーサー ( **text**, **json**, **xml**, **formUrlEncoded** 等) は全てのコンテンツを一旦メモリにロードする必要があるため、最大 content length が設定されています。これらがパースするデフォルトの最大コンテント長は 100KB です。これは `application.conf` 内で `play.http.parser.maxMemoryBuffer` を指定して上書くことができます:
 
     play.http.parser.maxMemoryBuffer=128K
 
