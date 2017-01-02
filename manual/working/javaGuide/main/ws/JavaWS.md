@@ -1,13 +1,28 @@
 <!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--
 # The Play WS API
+-->
+# Play WS API
 
+<!--
 Sometimes we would like to call other HTTP services from within a Play application. Play supports this via its [WS library](api/java/play/libs/ws/package-summary.html), which provides a way to make asynchronous HTTP calls.
+-->
+ときどき、Play アプリケーションから他の HTTP サービスを呼び出したくなることがあります。そんなときは、 Play が提供している、非同期　HTTP 呼び出しを行うためのライブラリ [WS library](api/java/play/libs/ws/package-summary.html) を使いましょう。
 
+<!--
 There are two important parts to using the WS API: making a request, and processing the response. We'll discuss how to make both GET and POST HTTP requests first, and then show how to process the response from the WS. Finally, we'll discuss some common use cases.
+-->
+WS APIの使用には、リクエストの作成とレスポンスの処理の2つの重要な部分があります。まずGETとPOSTの両方のHTTP要求を作成する方法を説明し、次にWSからの応答を処理する方法を示します。最後に、一般的な使用例について説明します。
 
+<!--
 ## Making a Request
+-->
+## リクエストの作成
 
+<!--
 To use WS, first add `javaWs` to your `build.sbt` file:
+-->
+WS クラスを使うためには、まず `javaWs` を `build.sbt` ファイルに追加します:
 
 ```scala
 libraryDependencies ++= Seq(
@@ -15,19 +30,31 @@ libraryDependencies ++= Seq(
 )
 ```
 
+<!--
 Now any controller or component that wants to use WS will have to add the following imports and then declare a dependency on the `WSClient`:
+-->
+WS を使用するすべてのコントローラまたはコンポーネントは、次のインポートを追加し、`WSClient` に依存関係を宣言する必要があります。
 
 @[ws-controller](code/javaguide/ws/Application.java)
 
+<!--
 To build an HTTP request, you start with `ws.url()` to specify the URL.
+-->
+HTTP リクエストを作成するためには、まず `ws.url()` で URL を指定します。
 
 @[ws-holder](code/javaguide/ws/JavaWS.java)
 
+<!--
 This returns a [`WSRequest`](api/java/play/libs/ws/WSRequest.html) that you can use to specify various HTTP options, such as setting headers. You can chain calls together to construct complex requests.
+-->
+その結果、例えばヘッダをセットする、といったような 各種 HTTP オプションを指定するために使用できる [`WSRequest`](api/java/play/libs/ws/WSRequest.html) を返します。複雑なリクエストを組み立てるために、呼び出しを繋ぎ合わせてチェーンさせられます。
 
 @[ws-complex-holder](code/javaguide/ws/JavaWS.java)
 
+<!--
 You end by calling a method corresponding to the HTTP method you want to use.  This ends the chain, and uses all the options defined on the built request in the [`WSRequest`](api/java/play/libs/ws/WSRequest.html).
+-->
+オプションの指定が終わったら、最後に利用したい HTTP メソッドに対応するメソッドを呼び出します。 これでチェーンが終了し、 [`WSRequest`](api/java/play/libs/ws/WSRequest.html) で作成されたリクエストで定義されたすべてのオプションが使用されます。
 
 @[ws-get](code/javaguide/ws/JavaWS.java)
 
