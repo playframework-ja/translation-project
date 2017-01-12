@@ -41,7 +41,7 @@ Routes are defined in the `conf/routes` file, which is compiled. This means that
 <!--
 Play supports generating two types of routers, one is a dependency injected router, the other is a static router.  The default is the static router, but if you created a new Play application using the Play seed Activator templates, your project will include the following configuration in `build.sbt` telling it to use the injected router:
 -->
-Play は、2 種類のルータ生成をサポートしています。１ つは依存性が注入されたルータ、もう 1 つは静的なルータです。デフォルトは静的ルータですが、もし Play seed Activator テンプレートを使用して新しい Play アプリケーションを作成した場合、プロジェクトには、注入されたルータを使用するように指示するため `build.sbt` に以下の設定が含まれます。
+Play は、2 種類のルータ生成をサポートしています。1 つは依存性が注入されたルータ、もう 1 つは静的なルータです。デフォルトは静的ルータですが、もし Play seed Activator テンプレートを使用して新しい Play アプリケーションを作成した場合、プロジェクトには、注入されたルータを使用するように指示するため `build.sbt` に以下の設定が含まれます。
 
 ```scala
 routesGenerator := InjectedRoutesGenerator
@@ -50,7 +50,7 @@ routesGenerator := InjectedRoutesGenerator
 <!--
 The code samples in Play's documentation assumes that you are using the injected routes generator.  If you are not using this, you can trivially adapt the code samples for the static routes generator, either by prefixing the controller invocation part of the route with an `@` symbol, or by declaring each of your action methods as `static`.
 -->
-Play のドキュメントにあるコードサンプルは、注入されたルータ生成を使用することを前提としています。もしこれを使用しない場合は、コントローラの呼び出し部分の前に`@`シンボルを付けるか、それぞれのアクションメソッドを `static` として宣言することで、静的なルータ生成用のコードサンプルに作り変えることができます。
+Play のドキュメントにあるコードサンプルは、注入されたルータ生成を使用することを前提としています。もしこれを使用しない場合は、コントローラの呼び出し部分の前に `@` シンボルを付けるか、それぞれのアクションメソッドを `static` として宣言することで、静的なルータ生成用のコードサンプルに作り変えることができます。
 
 <!--
 ## The routes file syntax
@@ -94,7 +94,7 @@ You can also add comments to the route file, with the `#` character:
 <!--
 The HTTP method can be any of the valid methods supported by HTTP (`GET`, `PATCH`, `POST`, `PUT`, `DELETE`, `HEAD`).
 -->
-HTTP メソッドには、HTTP がサポートするあらゆるメソッド(`GET`、`PATCH`、`POST`、`PUT`、`DELETE`、`HEAD`)が指定できます。
+HTTP メソッドには、HTTP がサポートするあらゆるメソッド (`GET`、`PATCH`、`POST`、`PUT`、`DELETE`、`HEAD`) が指定できます。
 
 <!--
 ## The URI pattern
