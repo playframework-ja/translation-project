@@ -36,7 +36,7 @@ Routes are defined in the `conf/routes` file, which is compiled. This means that
 <!--
 ## Dependency Injection
 -->
-依存性の注入
+## 依存性の注入
 
 <!--
 Play supports generating two types of routers, one is a dependency injected router, the other is a static router.  The default is the static router, but if you created a new Play application using the Play seed Activator templates, your project will include the following configuration in `build.sbt` telling it to use the injected router:
