@@ -17,7 +17,7 @@ The router is the component in charge of translating each incoming HTTP request 
 <!--
 An HTTP request is seen as an event by the MVC framework. This event contains two major pieces of information:
 -->
-HTTP リクエストは MVC フレームワークにとってはイベントであるといえます。このイベントには、次の２つの重要データが含まれています。
+HTTP リクエストは MVC フレームワークにとってはイベントであるといえます。このイベントには、次の 2 つの重要データが含まれています。
 
 <!--
 - the request path (e.g. `/clients/1542`, `/photos/list`), including the query string
@@ -41,7 +41,7 @@ Routes are defined in the `conf/routes` file, which is compiled. This means that
 <!--
 Play supports generating two types of routers, one is a dependency injected router, the other is a static router.  The default is the static router, but if you created a new Play application using the Play seed Activator templates, your project will include the following configuration in `build.sbt` telling it to use the injected router:
 -->
-Play は2種類のルータ生成をサポートしていて、1つは依存性注入のルータ、もうひとつは静的なルータです。デフォルトは静的なルータですが、Activator のテンプレートを使用して新しい Play アプリケーションを作成した場合は、プロジェクトには依存性注入のルータが使用されるように  `build.sbt` に次の設定が含まれます。
+Play は 2 種類のルータ生成をサポートしていて、ひとつは依存性注入のルータ、もうひとつは静的なルータです。デフォルトは静的なルータですが、Activator のテンプレートを使用して新しい Play アプリケーションを作成した場合は、プロジェクトには依存性注入のルータが使用されるように `build.sbt` に次の設定が含まれます。
 
 ```scala
 routesGenerator := InjectedRoutesGenerator
@@ -60,7 +60,7 @@ Play のドキュメントのコードサンプルは依存性注入のルート
 <!--
 `conf/routes` is the configuration file used by the router. This file lists all of the routes needed by the application. Each route consists of an HTTP method and URI pattern, both associated with a call to an `Action` generator.
 -->
-`conf/routes` はルータによって利用される設定ファイルです。このファイルにはアプリケーションの全てのルートの一覧があります。各ルートは HTTP メソッドと URI パターン、そしてその２つが関連付けられた `Action` ジェネレータで構成されています。
+`conf/routes` はルータによって利用される設定ファイルです。このファイルにはアプリケーションの全てのルートの一覧があります。各ルートは HTTP メソッドと URI パターン、そしてその 2 つが関連付けられた `Action` ジェネレータで構成されています。
 
 <!--
 Let’s see what a route definition looks like:
@@ -138,7 +138,7 @@ The default matching strategy for a dynamic part is defined by the regular expre
 <!--
 ### Dynamic parts spanning several `/`
 -->
-### 複数の / をまたぐ動的パート
+### 複数の `/` をまたぐ動的パート
 
 <!--
 If you want a dynamic part to capture more than one URI path segment, separated by forward slashes, you can define a dynamic part using the `*id` syntax, which uses the `.+` regular expression:
