@@ -127,7 +127,7 @@ db.customers.url="jdbc:h2:mem:customers"
 <!--
 ## Configuring the JDBC Driver
 -->
-JDBC ドライバの設定
+## JDBC ドライバの設定
 
 <!--
 Play is bundled only with an [H2](http://www.h2database.com) database driver. Consequently, to deploy in production you will need to add your database driver as a dependency.
