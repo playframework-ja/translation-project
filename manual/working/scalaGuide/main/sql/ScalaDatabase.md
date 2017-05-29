@@ -261,7 +261,7 @@ DB.withTransaction { conn =>
 <!--
 Out of the box, Play provides two database connection pool implementations, [HikariCP](https://github.com/brettwooldridge/HikariCP) and [BoneCP](http://jolbox.com/). **The default is HikariCP**, but this can be changed by setting the `play.db.pool` property:
  -->
-特別な設定がなくても、Play は [HikariCP](https://github.com/brettwooldridge/HikariCP) と [BoneCP](http://jolbox.com/) の2つのデータベースコネクションプールの実装を提供しています。**デフォルトは HikariCP です** が、 `play.db.pool` 属性を設定することで変更できます:
+特別な設定がなくても、Play は [HikariCP](https://github.com/brettwooldridge/HikariCP) と [BoneCP](http://jolbox.com/) の 2 つのデータベースコネクションプールの実装を提供しています。 **デフォルトは HikariCP です** が、 `play.db.pool` 属性を設定することで変更できます:
 
 ```
 play.db.pool=bonecp
@@ -280,7 +280,7 @@ The full range of configuration options for connection pools can be found by ins
 <!--
 For information on testing with databases, including how to setup in-memory databases and, see [[Testing With Databases|ScalaTestingWithDatabases]].
  -->
-データベースのテストに関する情報は、インメモリデータベースのセットアップを含め、[[Testing With Databases|ScalaTestingWithDatabases]] を参照してください。
+データベースのテストに関する情報は、インメモリデータベースのセットアップを含め、[[データベースを使用したテスト|ScalaTestingWithDatabases]] を参照してください。
 
 <!--
 ## Enabling Play database evolutions
