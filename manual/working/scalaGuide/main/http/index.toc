@@ -1,7 +1,7 @@
 ScalaActions:アクション、コントローラ、レスポンス
 ScalaRouting:HTTP ルーティング
 ScalaResults:レスポンスの操作
-ScalaSessionFlash:セッションとフラッシュスコープ
+ScalaSessionFlash:Session と Flash スコープ
 ScalaBodyParsers:ボディパーサー
 ScalaActionsComposition:アクションの合成
 ScalaContentNegotiation:コンテントネゴシエーション
