@@ -22,7 +22,7 @@ We saw [[previously|ScalaActions]] that there are multiple ways to declare an ac
 <!--
 These methods for building actions are actually all defined by a trait called [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) and the [`Action`](api/scala/play/api/mvc/Action$.html) object that we use to declare our actions is just an instance of this trait.  By implementing your own `ActionBuilder`, you can declare reusable action stacks, that can then be used to build actions.
 -->
-アクションを構築するためのこれらのメソッドは、実際は [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) と呼ばれるトレイトに全て定義されています。　また、 これまでに定義してきた [`Action`](api/scala/play/api/mvc/Action$.html) オブジェクトはこのトレイトの単なるインスタンスです。独自の `ActionBuilder` を実装することで、再利用可能なアクションスタックを宣言、作成してアクションを構築することができます。
+アクションを構築するためのこれらのメソッドは、実際は [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) と呼ばれるトレイトに全て定義されています。　また、 これまでに定義してきた [`Action`](api/scala/play/api/mvc/Action$.html) オブジェクトはこのトレイトの単なるインスタンスです。独自の `ActionBuilder` を実装することで、アクションを作るために使用できる、再利用可能なアクションスタックを宣言することができます。
 
 <!--
 Let’s start with the simple example of a logging decorator, we want to log each call to this action.
@@ -191,7 +191,7 @@ Play はまた、組み込みの認証アクションビルダーを提供して
 <!--
 Now let's consider a REST API that works with objects of type `Item`.  There may be many routes under the `/item/:itemId` path, and each of these need to look up the item.  In this case, it may be useful to put this logic into an action function.
 -->
-次に、`Item` 型のオブジェクトで動作する REST API について考えてみましょう。`/item/:itemId` パスの下には多くのルートがあり、そして各々アイテムを調べる必要があります。この場合、このロジックをアクション関数に入れると便利です。
+`Item` 型というオブジェクトについて動作する REST API について考えてみましょう。 `/item/:itemId` というパスの下に多くのルートがあり、それらのルートでは　Item を見つける必要があるとします。この場合、このロジックをアクション関数に入れると便利です。
 
 <!--
 First of all, we'll create a request object that adds an `Item` to our `UserRequest`:
@@ -235,4 +235,4 @@ Now we can chain these action functions together (starting with an `ActionBuilde
 <!--
 Play also provides a [[global filter API | ScalaHttpFilters]], which is useful for global cross cutting concerns.
 -->
-Play には [[グローバルなフィルター API | ScalaHttpFilters]] も用意されていて、グローバルなクロスカッティングの問題に役立ちます。
+Play は全体的な横断的関心事に便利な [[グローバルなフィルター API | ScalaHttpFilters]] も提供しています。
