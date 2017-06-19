@@ -17,12 +17,12 @@ This chapter introduces several ways of defining generic action functionality.
 <!--
 We saw [[previously|ScalaActions]] that there are multiple ways to declare an action - with a request parameter, without a request parameter, with a body parser etc.  In fact there are more than this, as we'll see in the chapter on [[asynchronous programming|ScalaAsync]].
 -->
-[[以前のページ|ScalaActions]] で、 リクエストパラメータを使用する、リクエストパラメータを使用しない、ボディパーサーを使用するなど アクションを宣言する複数の方法を見てきました。　実際のところ、[[非同期プログラミング|ScalaAsync]] の章にもあるとおり、ほかにも方法があります。
+[[以前のページ|ScalaActions]] で、リクエストパラメータを使用する、リクエストパラメータを使用しない、ボディパーサーを使用するなど アクションを宣言する複数の方法を見てきました。実際のところ、[[非同期プログラミング|ScalaAsync]] の章にもあるとおり、ほかにも方法があります。
 
 <!--
 These methods for building actions are actually all defined by a trait called [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) and the [`Action`](api/scala/play/api/mvc/Action$.html) object that we use to declare our actions is just an instance of this trait.  By implementing your own `ActionBuilder`, you can declare reusable action stacks, that can then be used to build actions.
 -->
-アクションを構築するためのこれらのメソッドは、実際は [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) と呼ばれるトレイトに全て定義されています。　また、 これまでに定義してきた [`Action`](api/scala/play/api/mvc/Action$.html) オブジェクトはこのトレイトの単なるインスタンスです。独自の `ActionBuilder` を実装することで、アクションを作るために使用できる、再利用可能なアクションスタックを宣言することができます。
+アクションを構築するためのこれらのメソッドは、実際は [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) と呼ばれるトレイトに全て定義されています。また、これまでに定義してきた [`Action`](api/scala/play/api/mvc/Action$.html) オブジェクトはこのトレイトの単なるインスタンスです。独自の `ActionBuilder` を実装することで、アクションを作るために使用できる、再利用可能なアクションスタックを宣言することができます。
 
 <!--
 Let’s start with the simple example of a logging decorator, we want to log each call to this action.
@@ -32,7 +32,7 @@ Let’s start with the simple example of a logging decorator, we want to log eac
 <!--
 The first way is to implement this functionality in the `invokeBlock` method, which is called for every action built by the `ActionBuilder`:
 -->
-最初の方法は、`invokeBlock` メソッドでこの機能を実装するやり方です。このメソッドは、` ActionBuilder` によって構築されたすべてのアクションに対して呼び出されます。
+最初の方法は、`invokeBlock` メソッドでこの機能を実装するやり方です。このメソッドは、`ActionBuilder` によって構築されたすべてのアクションに対して呼び出されます。
 
 @[basic-logging](code/ScalaActionsComposition.scala)
 
@@ -151,7 +151,7 @@ There are a few pre-defined traits implementing `ActionFunction` that are useful
 * [`ActionTransformer`](api/scala/play/api/mvc/ActionTransformer.html) は、追加情報を加えるなど、リクエストを変更することができます。
 * [`ActionFilter`](api/scala/play/api/mvc/ActionFilter.html) は、リクエストの値を変更することなくエラーを生成するなど、リクエストを選択的に受け取ることができます。
 * [`ActionRefiner`](api/scala/play/api/mvc/ActionRefiner.html) は、上記の両方の一般的なケースです。
-* [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) は、 `Request` を入力として受け取り、アクションを構築する関数の特殊なケースです。
+* [`ActionBuilder`](api/scala/play/api/mvc/ActionBuilder.html) は、`Request` を入力として受け取り、アクションを構築する関数の特殊なケースです。
 
 <!--
 You can also define your own arbitrary `ActionFunction` by implementing the `invokeBlock` method.  Often it is convenient to make the input and output types instances of `Request` (using `WrappedRequest`), but this is not strictly necessary.
@@ -196,7 +196,7 @@ Now let's consider a REST API that works with objects of type `Item`.  There may
 <!--
 First of all, we'll create a request object that adds an `Item` to our `UserRequest`:
 -->
-まず、`Item`を `UserRequest` に追加するリクエストオブジェクトを作成します。
+まず、`Item` を `UserRequest` に追加するリクエストオブジェクトを作成します。
 
 @[request-with-item](code/ScalaActionsComposition.scala)
 
