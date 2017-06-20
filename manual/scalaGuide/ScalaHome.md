@@ -83,7 +83,7 @@ Play アプリケーションは、`play.api` パッケージ内にある Scala 
     1. [[レスポンスの操作 | ScalaResults]]
     1. [[セッションとフラッシュスコープ | ScalaSessionFlash]]
     1. [[ボディパーサー | ScalaBodyParsers]]
-    1. [[アクションの合成 | ScalaActionsComposition]]
+    1. [[アクションの構成 | ScalaActionsComposition]]
     1. [[コンテントネゴシエーション | ScalaContentNegotiation]]
 1. [[非同期 HTTP プログラミング | ScalaAsync]]
     1. [[非同期レスポンスの処理 | ScalaAsync]]
