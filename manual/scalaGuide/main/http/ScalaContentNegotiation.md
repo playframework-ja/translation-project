@@ -17,7 +17,8 @@ Content negotiation is a mechanism that makes it possible to serve different rep
 <!--
 You can get the list of acceptable languages for a request using the `play.api.mvc.RequestHeader#acceptLanguages` method that retrieves them from the `Accept-Language` header and sorts them according to their quality value. Play uses it in the `play.api.mvc.Controller#lang` method that provides an implicit `play.api.i18n.Lang` value to your actions, so they automatically use the best possible language (if supported by your application, otherwise your application’s default language is used).
 -->
-`play.api.mvc.RequestHeader#acceptLanguages` メソッドを呼び出すと、リクエストの `Accept-Language` ヘッダから、クライアント側で受付可能な言語のリストを取り出すことができます。リストは quality 値によってソートされます。Play は `play.api.mvc.Controller#lang` メソッド内でこのメソッドを呼び出して、 implicit な `play.api.i18n.Lang` 値をアクションのスコープ内に提供しています。これによって、アクション内では常に最適な言語 (クライアントが希望している言語をあなたのアプリケーションがサポートしている場合はそれを、そうでなければアプリケーションのデフォルト言語が代わりに提供されます) を利用することができます。　
+`play.api.mvc.RequestHeader#acceptLanguages` メソッドを呼び出すと、リクエストの `Accept-Language` ヘッダから、クライアント側で受付可能な言語のリストを取り出すことができます。リストは quality 値によってソートされます。Play は `play.api.mvc.Controller#lang` メソッド内でこのメソッドを呼び出して、暗黙の値 `play.api.i18n.Lang` をアクションのスコープ内に提供しています。これによって、アクション内では常に最適な言語 (クライアントが希望している言語をあなたのアプリケーションがサポートしている場合はそれを、そうでなければアプリケーションのデフォルト言語が代わりに提供されます) を利用することができます。　
+
 
 <!--
 # Content
@@ -26,10 +27,13 @@ You can get the list of acceptable languages for a request using the `play.api.m
 
 <!--
 Similarly, the `play.api.mvc.RequestHeader#acceptedTypes` method gives the list of acceptable result’s MIME types for a request. It retrieves them from the `Accept` request header and sorts them according to their quality factor.
+-->
+同様に、`play.api.mvc.RequestHeader#acceptedTypes` メソッドを呼び出すことで、リクエストの `Accept` ヘッダから、クライアント側で受付可能な MIME タイプのリストを取り出すことができます。リストは quality 値でソートされます。
 
+<!--
 Actually, the `Accept` header does not really contain MIME types but media ranges (*e.g.* a request accepting all text results may set the `text/*` range, and the `*/*` range means that all result types are acceptable). Controllers provide a higher-level `render` method to help you to handle media ranges. Consider for example the following action definition:
 -->
-同様に、 `play.api.mvc.RequestHeader#acceptedTypes` メソッドを呼び出すことで、リクエストの `Accept` ヘッダから、クライアント側で受付可能な MIME タイプのリストを取り出すことができます。リストは quality 値でソートされます。
+実際には、`Accept` ヘッダーは実際には MIME タイプではなくメディアレンジを含みます (例えば、すべてのテキスト結果を受け入れるリクエストは `text/*` レンジを設定し、`*/*` レンジはすべての結果タイプを受け入れることができる)。コントローラはメディアレンジを扱うのに役立つ、より高いレベルの `render` メソッドを提供します。たとえば、次のアクション定義を考えてみましょう。
 
 @[negotiate_accept_type](code/ScalaContentNegotiation.scala)
 
@@ -41,7 +45,7 @@ Actually, the `Accept` header does not really contain MIME types but media range
 <!--
 For example, if a client makes a request with the following value for the `Accept` header: `*/*;q=0.5,application/json`, meaning that it accepts any result type but prefers JSON, the above code will return the JSON representation. If another client makes a request with the following value for the `Accept` header: `application/xml`, meaning that it only accepts XML, the above code will return `NotAcceptable`.
 -->
-例えば、任意の型の結果を受け入れるが、 JSON を優先する、という意味である `*/*;q=0.5,application/json` という `Accept` ヘッダを持つリクエストをクライアントが送信したとします。この場合、前述のコードは `JSON` 形式の結果を返します。一方、XML のみ受け付けるという意味である `Accept` ヘッダ `application/xml` を含むリクエストを他のクライアントが送信したとすると、 `NotAcceptable` を返します。
+例えば、クライアントが `*/*;q=0.5,application/json` という `Accept` ヘッダを持つリクエストを送信したとします。これは、任意の型の結果を受け入れるが JSON を優先する、という意味で、この場合、上記のコードは `JSON` 形式の結果を返します。同様に、クライアントが `application/xml` という `Accept` ヘッダを持つリクエストを送信したとします。これは、XML のみ受け付けるという意味で、この場合は上記のコードは `NotAcceptable` を返します。
 
 <!--
 # Request extractors
@@ -51,7 +55,7 @@ For example, if a client makes a request with the following value for the `Accep
 <!--
 See the API documentation of the `play.api.mvc.AcceptExtractors.Accepts` object for the list of the MIME types supported by Play out of the box in the `render` method. You can easily create your own extractor for a given MIME type using the `play.api.mvc.Accepting` case class, for example the following code creates an extractor checking that a media range matches the `audio/mp3` MIME type:
 -->
-`play.api.mvc.AcceptExtractors.Accepts` オブジェクトの API ドキュメントには、 Play が始めからから `render` メソッドでサポートしている MIME タイプの一覧が掲載されています。さらに、 `play.api.mvc.Accepting` ケースクラスを使うと、任意の MIME タイプに対応する独自の抽出子を実装することができます。例えば、メディアレンジが `audo/mp3` MIME タイプにマッチするかどうかをチェックする抽出子は、次のように定義します。
+`play.api.mvc.AcceptExtractors.Accepts` オブジェクトの API ドキュメントには、 Play が `render` メソッドにてデフォルトでサポートしている MIME タイプの一覧が掲載されています。 `play.api.mvc.Accepting` ケースクラスを使うと、任意の MIME タイプに対応する独自の抽出子を簡単に作成することができます。例えば、次のコードは、メディアレンジが `audo/mp3` MIME タイプにマッチするかどうかをチェックする抽出子を作成します。
 
 @[extract_custom_accept_type](code/ScalaContentNegotiation.scala)
 
