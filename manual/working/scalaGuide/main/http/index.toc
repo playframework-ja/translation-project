@@ -3,6 +3,6 @@ ScalaRouting:HTTP ルーティング
 ScalaResults:レスポンスの操作
 ScalaSessionFlash:Session と Flash スコープ
 ScalaBodyParsers:ボディパーサー
-ScalaActionsComposition:アクションの合成
+ScalaActionsComposition:アクションの構成
 ScalaContentNegotiation:コンテントネゴシエーション
 ScalaErrorHandling:エラーハンドリング
