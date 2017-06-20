@@ -54,7 +54,7 @@ For example, if a client makes a request with the following value for the `Accep
 <!--
 See the API documentation of the `play.api.mvc.AcceptExtractors.Accepts` object for the list of the MIME types supported by Play out of the box in the `render` method. You can easily create your own extractor for a given MIME type using the `play.api.mvc.Accepting` case class, for example the following code creates an extractor checking that a media range matches the `audio/mp3` MIME type:
 -->
-`render` メソッドでの用途に限らず、PlayでサポートされているMIMEタイプのリストについては、 `play.api.mvc.AcceptExtractors.Accepts` オブジェクトのAPIドキュメントを参照してください。 `play.api.mvc.Accepting` ケースクラスを使うと、任意の MIME タイプに対応する独自の抽出子を簡単に作成することができます。例えば、次のコードは、メディアレンジが `audo/mp3` MIME タイプにマッチするかどうかをチェックする抽出子を作成します。
+`play.api.mvc.AcceptExtractors.Accepts` オブジェクトの API ドキュメントには、 Play が `render` メソッドにてデフォルトでサポートしている MIME タイプの一覧が掲載されています。 `play.api.mvc.Accepting` ケースクラスを使うと、任意の MIME タイプに対応する独自の抽出子を簡単に作成することができます。例えば、次のコードは、メディアレンジが `audo/mp3` MIME タイプにマッチするかどうかをチェックする抽出子を作成します。
 
 @[extract_custom_accept_type](code/ScalaContentNegotiation.scala)
 
