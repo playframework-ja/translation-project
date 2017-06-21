@@ -4,5 +4,5 @@ ScalaResults:レスポンスの操作
 ScalaSessionFlash:Session と Flash スコープ
 ScalaBodyParsers:ボディパーサー
 ScalaActionsComposition:アクションの構成
-ScalaContentNegotiation:コンテントネゴシエーション
+ScalaContentNegotiation:コンテンツネゴシエーション
 ScalaErrorHandling:エラーハンドリング
