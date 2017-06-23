@@ -46,7 +46,7 @@ If you don't want to place your error handler in the root package, or if you wan
 <!--
 Out of the box, Play's default error handler provides a lot of useful functionality.  For example, in dev mode, when a server error occurs, Play will attempt to locate and render the piece of code in your application that caused that exception, so that you can quickly see and identify the problem.  You may want to provide custom server errors in production, while still maintaining that functionality in development.  To facilitate this, Play provides a [`DefaultHttpErrorHandler`](api/java/play/http/DefaultHttpErrorHandler.html) that has some convenience methods that you can override so that you can mix in your custom logic with Play's existing behavior.
 -->
-Play のデフォルトエラーハンドラは、そのままでも多数の便利な機能を備えています。例えば、dev モードにおいてサーバエラーが発生すると、Play は例外を引き起こしたアプリケーションコードの一部を見つけてレンダリング使用と試みるので、すぐに問題を参照して識別することができます。開発中はその機能を維持しながら、運用環境ではカスタムサーバエラーを提供したいこともあるでしょう。Play はこれを容易にするために、オーバーライドできる便利なメソッドをいくつも持つ [`DefaultHttpErrorHandler`](api/java/play/http/DefaultHttpErrorHandler.html) を提供しているので、Play の既存の振る舞いにカスタムロジックを混ぜ込むことができます。
+Play のデフォルトエラーハンドラは、そのままでも多数の便利な機能を備えています。例えば、dev モードにおいてサーバエラーが発生すると、Play は例外を引き起こしたアプリケーションコードの一部を見つけてレンダリングしようと試みるので、すぐに問題を参照して識別することができます。開発中はその機能を維持しながら、運用環境ではカスタムサーバエラーを提供したいこともあるでしょう。Play はこれを容易にするために、オーバーライドできる便利なメソッドをいくつも持つ [`DefaultHttpErrorHandler`](api/java/play/http/DefaultHttpErrorHandler.html) を提供しているので、Play の既存の振る舞いにカスタムロジックを混ぜ込むことができます。
 
 <!--
 For example, to just provide a custom server error message in production, leaving the development error message untouched, and you also wanted to provide a specific forbidden error page:
