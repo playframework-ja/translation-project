@@ -17,7 +17,7 @@ Internally, Play Framework is asynchronous from the bottom up. Play handles ever
 <!--
 The default configuration is tuned for asynchronous controllers. In other words, the application code should avoid blocking in controllers, i.e., having the controller code wait for an operation. Common examples of such blocking operations are JDBC calls, streaming API, HTTP requests and long computations.
 -->
-標準設定は非同期のコントローラー用に最適化されています。言い換えると、アプリケーションコードはコントローラーをブロックさせないべきで、すなわち、コントローラーのコードをオペレーションのために待たせることです。ブロックするオペレーションの一般的な例として、JDBCの呼び出し、ストリーミング API 、HTTP のリクエスト、そして長い計算処理に当たります。
+標準設定は非同期のコントローラー用に最適化されています。言い換えると、アプリケーションコードはコントローラーをブロックさせないべきで、すなわち、コントローラーのコードをオペレーションのために待たせることです。ブロックするオペレーションの一般的な例として、JDBC の呼び出し、ストリーミング API 、HTTP のリクエスト、そして長い計算処理に当たります。
 
 <!--
 Although it's possible to increase the number of threads in the default execution context to allow more concurrent requests to be processed by blocking controllers, following the recommended approach of keeping the controllers asynchronous makes it easier to scale and to keep the system responsive under load.
