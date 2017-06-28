@@ -71,7 +71,7 @@ Here is a simple way to execute a block of code asynchronously and to get a `Fut
 <!--
 > **Note:** It's important to understand which thread code runs on with futures. In the two code blocks above, there is an import on Plays default execution context. This is an implicit parameter that gets passed to all methods on the future API that accept callbacks. The execution context will often be equivalent to a thread pool, though not necessarily.
 -->
-> **Note:** スレッドのコードは Future と実行されることを理解することが重要です。上記の二つのコードブロックでは、 Play の標準実行コンテキストのインポートがあります。これは implicit parameter で、コールバックを許容している Future API 上の全てのメソッドに渡されます。実行コンテキストはしばしばスレッドプールと等価で、必要ではありません。
+> **メモ:** スレッドのコードは Future と実行されることを理解することが重要です。上記の二つのコードブロックでは、 Play の標準実行コンテキストのインポートがあります。これは implicit parameter で、コールバックを許容している Future API 上の全てのメソッドに渡されます。実行コンテキストはしばしばスレッドプールと等価で、必要ではありません。
 >
 <!--
 > You can't magically turn synchronous IO into asynchronous by wrapping it in a `Future`. If you can't change the application's architecture to avoid blocking operations, at some point that operation will have to be executed, and that thread is going to block. So in addition to enclosing the operation in a `Future`, it's necessary to configure it to run in a separate execution context that has been configured with enough threads to deal with the expected concurrency. See [[Understanding Play thread pools|ThreadPools]] for more information.
@@ -110,7 +110,7 @@ Play [[actions|ScalaActions]] は、標準で非同期です。例えば、以�
 <!--
 > **Note:** Both `Action.apply` and `Action.async` create `Action` objects that are handled internally in the same way. There is a single kind of `Action`, which is asynchronous, and not two kinds (a synchronous one and an asynchronous one). The `.async` builder is just a facility to simplify creating actions based on APIs that return a `Future`, which makes it easier to write non-blocking code.
 -->
-> **Note:** `Action.apply` と `Action.async` は、内部的に同じように扱う `Action` オブジェクトを作成しています。非同期の一種類の `Action` があり、(同期のものと非同期のもののように)二種類あるわけではありません。`.async` ビルダーは、ノンブロッキングコードを簡単に書ける `Future` を返す API ベースの Action を簡単にそして単純に作れます。 
+> **メモ:** `Action.apply` と `Action.async` は、内部的に同じように扱う `Action` オブジェクトを作成しています。非同期の一種類の `Action` があり、(同期のものと非同期のもののように)二種類あるわけではありません。`.async` ビルダーは、ノンブロッキングコードを簡単に書ける `Future` を返す API ベースの Action を簡単にそして単純に作れます。 
 
 <!--
 ## Handling time-outs
