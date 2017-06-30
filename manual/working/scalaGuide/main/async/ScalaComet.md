@@ -12,7 +12,7 @@
 <!--
 A good use for **Chunked responses** is to create Comet sockets. A Comet socket is just a chunked `text/html` response containing only `<script>` elements. At each chunk we write a `<script>` tag that is immediately executed by the web browser. This way we can send events live to the web browser from the server: for each message, wrap it into a `<script>` tag that calls a JavaScript callback function, and writes it to the chunked response.
 -->
-**チャンクレスポンス** を応用すると、Comet ソケットを作成することができます。 Comet ソケットは、 `<script>` のみを含むチャンク分割された単なる `text/html` レスポンスです。それぞれのチャンクに、 web ブラウザによって実行される JavaScript を含んだ `<script>` タグを書き込みます。これを利用することで、サーバから web ブラウザへ、イベントをリアルタイムに送信することができます: それぞれのメッセージ毎に、JavaScript のコールバック関数を呼び出す `<script>` タグでイベントをラップして、それをチャンクレスポンスに書き込みます。
+**チャンクレスポンス** を応用すると、Comet ソケットを作成することができます。 Comet ソケットは、 `<script>` のみを含むチャンク分割された単なる `text/html` レスポンスです。それぞれのチャンクに、 web ブラウザによって実行される JavaScript を含んだ `<script>` タグを書き込みます。これを利用することで、サーバから web ブラウザへ、イベントをリアルタイムに送信することができます。 それぞれのメッセージ毎に、JavaScript のコールバック関数を呼び出す `<script>` タグでイベントをラップして、それをチャンクレスポンスに書き込みます。
     
 <!--
 Let’s write a first proof-of-concept: an enumerator that generates `<script>` tags that each call the browser `console.log` JavaScript function:
@@ -56,7 +56,7 @@ We provide a Comet helper to handle these Comet chunked streams that do almost t
 <!--
 Let’s just rewrite the previous example to use it:
 -->
-これを使って前述の例を書き直してみましょう:
+これを使って前述の例を書き直してみましょう。
 
 @[helper](code/ScalaComet.scala)
 
@@ -68,14 +68,14 @@ Let’s just rewrite the previous example to use it:
 <!--
 The standard technique to write a Comet socket is to load an infinite chunked comet response in an HTML `iframe` and to specify a callback calling the parent frame:
 -->
-Comet ソケットを書く標準的なテクニックとして、 iframe 内でチャンク分割された Comet レスポンスを無限にロードし、親フレームを呼び出すコールバック関数を特定するというものがあります:
+Comet ソケットを書く標準的なテクニックとして、 iframe 内でチャンク分割された Comet レスポンスを無限にロードし、親フレームを呼び出すコールバック関数を特定するというものがあります。
 
 @[iframe](code/ScalaComet.scala)
 
 <!--
 With an HTML page like:
 -->
-これを、次のような HTML ページと共に使用します:
+これを、次のような HTML ページと共に使用します。
 
 ```
 <script type="text/javascript">
