@@ -51,7 +51,7 @@ We provide a Comet helper to handle these Comet chunked streams that do almost t
 <!--
 > **Note:** Actually it does more, like pushing an initial blank buffer data for browser compatibility, and it supports both String and JSON messages. It can also be extended via type classes to support more message types.
 -->
-> **ノート:** 実際のところ Comet ヘルパは、ブラウザの互換性のため最初に空のバッファデータを送信したり、メッセージとして String と JSON の両方をサポートするなど、上で書いた内容以上のことを行います。さらに、特定の type class を定義することで、他の型のメッセージをサポートするように拡張することもできます。
+> **ノート:** 実際のところ Comet ヘルパーは、ブラウザの互換性のため最初に空のバッファデータを送信したり、メッセージとして String と JSON の両方をサポートするなど、上で書いた内容以上のことを行います。さらに、特定の type class を定義することで、他の型のメッセージをサポートするように拡張することもできます。
 
 <!--
 Let’s just rewrite the previous example to use it:
