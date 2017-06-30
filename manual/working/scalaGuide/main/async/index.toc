@@ -1,4 +1,4 @@
 ScalaAsync:非同期レスポンス
 ScalaStream:HTTP レスポンスのストリーミング
-ScalaComet:Comet
+ScalaComet:Comet ソケット
 ScalaWebSockets:WebSocket
