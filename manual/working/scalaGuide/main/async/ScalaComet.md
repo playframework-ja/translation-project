@@ -2,7 +2,7 @@
 <!--
 # Comet sockets
 -->
-# Coment ソケット
+# Comet ソケット
 
 <!--
 ## Using chunked responses to create Comet sockets
