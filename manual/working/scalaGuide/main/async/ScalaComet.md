@@ -24,7 +24,7 @@ Let’s write a first proof-of-concept: an enumerator that generates `<script>` 
 <!--
 If you run this action from a web browser, you will see the three events logged in the browser console.
 -->
-このアクションを web ブラウザから実行すると、ブラウザのコンソールに３つのイベントログが出力されるでしょう。
+このアクションを web ブラウザから実行すると、ブラウザのコンソールに3つのイベントログが出力されるでしょう。
 
 <!--
 We can write this in a better way by using `play.api.libs.iteratee.Enumeratee` that is just an adapter to transform an `Enumerator[A]` into another `Enumerator[B]`. Let’s use it to wrap standard messages into the `<script>` tags:
