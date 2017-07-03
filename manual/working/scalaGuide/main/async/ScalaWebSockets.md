@@ -11,7 +11,7 @@ Modern HTML5 compliant web browsers natively support WebSockets via a JavaScript
 <!--
 ## Handling WebSockets
 -->
-## WebSocket を扱う
+## WebSocket の処理
 
 <!--
 Until now, we were using `Action` instances to handle standard HTTP requests and send back standard HTTP responses. WebSockets are a totally different beast and can’t be handled via standard `Action`.
@@ -86,12 +86,12 @@ WebSocket リクエストを処理するためには、`Action` の代わりに 
 <!--
 A `WebSocket` has access to the request headers (from the HTTP request that initiates the WebSocket connection), allowing you to retrieve standard headers and session data. However, it doesn’t have access to a request body, nor to the HTTP response.
 -->
-`WebSocket` からはリクエストヘッダ (WebSocket 接続を開始するための HTTP リクエストからの。) を参照でき、標準的なヘッダやセッションデータを取得することが可能です。しかし、リクエストボディを参照したり、HTTP レスポンスを返すことはできません。
+`WebSocket` からはリクエストヘッダ (WebSocket 接続を開始するための HTTP リクエストからの) を参照でき、標準的なヘッダやセッションデータを取得することが可能です。しかし、リクエストボディを参照したり、HTTP レスポンスを返すことはできません。
 
 <!--
 When constructing a `WebSocket` this way, we must return both `in` and `out` channels.
 -->
-`WebSocket` をこの方法で組み上げる場合、`in` と `out` の二つのチャンネルを返す必要があります。
+`WebSocket` をこの方法で組み立てる場合、`in` と `out` の二つのチャンネルを返す必要があります。
 
 - The `in` channel is an `Iteratee[A,Unit]` (where `A` is the message type - here we are using `String`) that will be notified for each message, and will receive `EOF` when the socket is closed on the client side.
 - The `out` channel is an `Enumerator[A]` that will generate the messages to be sent to the Web client. It can close the connection on the server side by sending `EOF`.
