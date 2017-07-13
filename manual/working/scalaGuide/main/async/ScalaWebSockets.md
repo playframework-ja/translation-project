@@ -12,7 +12,7 @@
 <!--
 Modern HTML5 compliant web browsers natively support WebSockets via a JavaScript WebSocket API.  However WebSockets are not limited in just being used by WebBrowsers, there are many WebSocket client libraries available, allowing for example servers to talk to each other, and also native mobile apps to use WebSockets.  Using WebSockets in these contexts has the advantage of being able to reuse the existing TCP port that a Play server uses.
 -->
-最新の HTML5 に準拠した Web ブラウザは、JavaScript WebSocket API を介して WebSocket をネイティブにサポートします。しかし、WebSocket は Web ブラウザだけで使用されているだけでなく、WebSocket クライアントライブラリが数多くあるため、サーバー同士でやりとりすることができ、WebSocket を使用するネイティブのモバイルアプリもあります。これらのコンテキストで WebSocket を使用すると、Play サーバーが使用する既存の TCP ポートを再利用できるという利点があります。
+最新の HTML5 に準拠した Web ブラウザは、JavaScript WebSocket API を介して WebSocket をネイティブにサポートします。しかし、WebSocket は Web ブラウザだけで使用されているだけでなく、例えばサーバ同士で会話したり、ネイティブのモバイルアプリで WebSocket を使ったりすることのできる WebSocket クライアントライブラリがたくさんあります。このような状況において WebSocket を使用することには、Play サーバーが使用する既存の TCP ポートを再利用できるという利点があります。
 
 <!--
 ## Handling WebSockets
@@ -51,7 +51,7 @@ The actor that we're sending to here in this case looks like this:
 <!--
 Any messages received from the client will be sent to the actor, and any messages sent to the actor supplied by Play will be sent to the client.  The actor above simply sends every message received from the client back with `I received your message: ` prepended to it.
 -->
-クライアントから受信したメッセージはすべてアクターに送信され、Play から提供されたアクターに送信されたメッセージはすべてクライアントに送信されます。アクターは、単にクライアントから受け取ったすべてのメッセージを `I received your message: ` を先頭に付けて送るだけです。
+クライアントから受信したメッセージはすべてアクターに送信され、Play から提供されたアクターに送信されたメッセージはすべてクライアントに送信されます。上記のアクターは、単にクライアントから受け取ったすべてのメッセージを `I received your message: ` を先頭に付けて送るだけです。
 
 <!--
 ### Detecting when a WebSocket has closed
@@ -61,7 +61,7 @@ Any messages received from the client will be sent to the actor, and any message
 <!--
 When the WebSocket has closed, Play will automatically stop the actor.  This means you can handle this situation by implementing the actors `postStop` method, to clean up any resources the WebSocket might have consumed.  For example:
 -->
-WebSocket が閉じると、Playは自動的にアクターを停止します。つまり、WebSocket が消費した可能性のあるリソースをすべて綺麗に片付ける処理を行うような、アクターの `postStop` メソッドを実装することで、この状況を処理することができます。例を示します。
+WebSocket が閉じると、Playは自動的にアクターを停止します。つまり、WebSocket が消費した可能性のあるリソースをすべて片付ける処理を行うような、アクターの `postStop` メソッドを実装することで、この状況を処理することができます。例を示します。
 
 @[actor-post-stop](code/ScalaWebSockets.scala)
 
@@ -85,7 +85,7 @@ WebSocket を処理するアクターが終了すると、Play は WebSocket を
 <!--
 Sometimes you may wish to reject a WebSocket request, for example, if the user must be authenticated to connect to the WebSocket, or if the WebSocket is associated with some resource, whose id is passed in the path, but no resource with that id exists.  Play provides `tryAcceptWithActor` to address this, allowing you to return either a result (such as forbidden, or not found), or the actor to handle the WebSocket with:
 -->
-場合によっては、WebSocket リクエストを拒否することもできます。たとえば、WebSocket に接続するためにユーザーを認証する必要がある場合、または WebSocket がパスの中で ID を通過させるようなリソースに関連付けられている場合で、その ID を持つリソースが存在しない場合などです。Play はこれに対処するための `tryAcceptWithActor` を提供し、結果(禁止されている、見つからないなど)、または WebSocket を処理するアクターを返すことができます。
+例えば WebSocket に接続するためにユーザーを認証する必要がある場合、または WebSocket がパスの中で ID を通過させるようなリソースに関連付けられている場合で、その ID を持つリソースが存在しない場合など、WebSocket リクエストを拒否したい場合もあるでしょう。Play はこれに対処するための `tryAcceptWithActor` を提供し、結果(禁止されている、見つからないなど)、または WebSocket を処理するアクターを返すことができます。
 
 @[actor-try-accept](code/ScalaWebSockets.scala)
 
@@ -97,7 +97,7 @@ Sometimes you may wish to reject a WebSocket request, for example, if the user m
 <!--
 So far we have only seen handling `String` frames.  Play also has built in handlers for `Array[Byte]` frames, and `JsValue` messages parsed from `String` frames.  You can pass these as the type parameters to the WebSocket creation method, for example:
 -->
-これまでのところ、`String` フレームの処理しか見ていませんでした。Play には  `Array [Byte]` フレーム用のハンドラと `String` フレームから解析された ` JsValue` メッセージが組み込まれています。これらを型パラメータとして WebSocket 作成メソッドに渡すことができます。たとえば、次のようにします。
+これまでのところ、`String` フレームの処理しか見ていませんでした。Play には `Array[Byte]` フレームと、`String` フレームから解析された `JsValue` メッセージ用のハンドラが組み込まれています。これらを型パラメータとして WebSocket 作成メソッドに渡すことができます。たとえば、次のようにします。
 
 @[actor-json](code/ScalaWebSockets.scala)
 
@@ -165,7 +165,7 @@ When constructing a `WebSocket` this way, we must return both `in` and `out` cha
 -->
 - `in` チャンネルは各メッセージについて通知される `Iteratee[A,Unit]` (`A`
  はメッセージタイプです - ここでは `String` を使用しています）であり、クライアント側でソケットが閉じられたときに `EOF` を受け取ります。
-- `out` チャンネルは、Web クライアントに送信されるメッセージを生成する `Enumerator[A]` チャネルです。`EOF` を送信することで、サーバー側の接続を閉じることができます。
+- `out` チャンネルは、Web クライアントに送信されるメッセージを生成する `Enumerator[A]` です。`EOF` を送信することで、サーバー側の接続を閉じることができます。
 
 <!--
 It this example we are creating a simple iteratee that prints each message to console. To send messages, we create a simple dummy enumerator that will send a single **Hello!** message.
