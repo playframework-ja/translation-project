@@ -17,7 +17,7 @@ CSRF の攻撃ベクトルがどのようなもので、何が攻撃ベクトル
 <!--
 Simply put, an attacker can coerce a victims browser to make the following types of requests:
 -->
-端的に言えば、攻撃者は被害者のブラウザに次の種類のリクエストを行うよう強制することができます:
+端的に言えば、攻撃者は被害者のブラウザに次の種類のリクエストを行うよう強制することができます。
 
 <!--
 * All `GET` requests
@@ -29,7 +29,7 @@ Simply put, an attacker can coerce a victims browser to make the following types
 <!--
 An attacker can not:
 -->
-攻撃者は次のことは行えません:
+攻撃者は次のことは行えません。
 
 <!--
 * Coerce the browser to use other request methods such as `PUT` and `DELETE`
@@ -60,7 +60,7 @@ Play はリクエストが CSRF リクエストでないことを検証する複
 <!--
 To allow simple protection for non browser requests, such as requests made through AJAX, Play also supports the following:
 -->
-例えば AJAX を通じて行われるような、ブラウザ以外からのリクエストについて簡易に対策できるよう、Play は以下も提供しています:
+例えば AJAX を通じて行われるような、ブラウザ以外からのリクエストについて簡易に対策できるよう、Play は以下も提供しています。
 
 <!--
 * If an `X-Requested-With` header is present, Play will consider the request safe.  `X-Requested-With` is added to requests by many popular Javascript libraries, such as jQuery.
@@ -77,7 +77,7 @@ To allow simple protection for non browser requests, such as requests made throu
 <!--
 Play provides a global CSRF filter that can be applied to all requests.  This is the simplest way to add CSRF protection to an application.  To enable the global filter, add the Play filters helpers dependency to your project in `build.sbt`:
 -->
-Play はすべてのリクエストに適用できるグローバル CSRF フィルタを提供しています。これがアプリケーションに CSRF 対策を追加するもっとも簡単な方法です。このグローバルフィルタを利用できるようにするには、Play フィルタヘルパーの依存性をプロジェクトの `build.sbt` に追加します:
+Play はすべてのリクエストに適用できるグローバル CSRF フィルタを提供しています。これがアプリケーションに CSRF 対策を追加するもっとも簡単な方法です。このグローバルフィルタを利用できるようにするには、Play フィルタヘルパーの依存性をプロジェクトの `build.sbt` に追加します。
 
 ```scala
 libraryDependencies += filters
@@ -114,14 +114,14 @@ The current CSRF token can be accessed using the `getToken` method.  It takes an
 <!--
 To help in adding CSRF tokens to forms, Play provides some template helpers.  The first one adds it to the query string of the action URL:
 -->
-フォームへの CSRF トークンの追加を支援するために、Play はいくつかのテンプレートヘルパを提供しています。最初のひとつはトークンをアクション URL のクエリ文字列に追加します:
+フォームへの CSRF トークンの追加を支援するために、Play はいくつかのテンプレートヘルパを提供しています。最初のひとつはトークンをアクション URL のクエリ文字列に追加します。
 
 @[csrf-call](code/scalaguide/forms/csrf.scala.html)
 
 <!--
 This might render a form that looks like this:
 -->
-これはフォームを以下のようにレンダリングするでしょう:
+これはフォームを以下のようにレンダリングするでしょう。
 
 ```html
 <form method="POST" action="/items?csrfToken=1234567890abcdef">
@@ -132,7 +132,7 @@ This might render a form that looks like this:
 <!--
 If it is undesirable to have the token in the query string, Play also provides a helper for adding the CSRF token as hidden field in the form:
 -->
-クエリ文字列にトークンを持つことが望しくない場合もあるので、Play は CSRF トークンをフォーム内の hidden フィールドとして追加するヘルパも提供しています:
+クエリ文字列にトークンを持つことが望しくない場合もあるので、Play は CSRF トークンをフォーム内の hidden フィールドとして追加するヘルパも提供しています。
 
 @[csrf-input](code/scalaguide/forms/csrf.scala.html)
 
@@ -181,28 +181,28 @@ In these cases, Play provides two actions that can be composed with your applica
 <!--
 The first action is the `CSRFCheck` action, and it performs the check.  It should be added to all actions that accept session authenticated POST form submissions:
 -->
-最初のひとつは、検査を行う `CSRFCheck` アクションです。これは、セッションで認証される POST フォームの投稿を受け取るすべてのアクションに追加する必要があります:
+最初のひとつは、検査を行う `CSRFCheck` アクションです。これは、セッションで認証される POST フォームの投稿を受け取るすべてのアクションに追加する必要があります。
 
 @[csrf-check](code/ScalaCsrf.scala)
 
 <!--
 The second action is the `CSRFAddToken` action, it generates a CSRF token if not already present on the incoming request.  It should be added to all actions that render forms:
 -->
-二つ目は、入力されたリクエストに既に存在しなければ CSRF トークンを生成する `CSRFAddToken` アクションです。これは、フォームをレンダリングするすべてのアクションに追加する必要があります:
+二つ目は、入力されたリクエストに既に存在しなければ CSRF トークンを生成する `CSRFAddToken` アクションです。これは、フォームをレンダリングするすべてのアクションに追加する必要があります。
 
 @[csrf-add-token](code/ScalaCsrf.scala)
 
 <!--
 A more convenient way to apply these actions is to use them in combination with Play's [[action composition|ScalaActionsComposition]]:
 -->
-これらのアクションをもっと便利に適用する方法は、これらのアクションを Play の [[アクションの構成|ScalaActionsComposition]] と組み合わせて使う方法です:
+これらのアクションをもっと便利に適用する方法は、これらのアクションを Play の [[アクションの構成|ScalaActionsComposition]] と組み合わせて使う方法です。
 
 @[csrf-action-builder](code/ScalaCsrf.scala)
 
 <!--
 Then you can minimise the boiler plate code necessary to write actions:
 -->
-これでアクションを書くために必要なボイラープレートコードを最小化することができます:
+これでアクションを書くために必要なボイラープレートコードを最小化することができます。
 
 @[csrf-actions](code/ScalaCsrf.scala)
 
