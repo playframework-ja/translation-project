@@ -83,11 +83,17 @@ Play はすべてのリクエストに適用できるグローバル CSRF フィ
 libraryDependencies += filters
 ```
 
+<!--
 Now add them to your `Filters` class as described in [[HTTP filters|ScalaHttpFilters]]:
+-->
+[[HTTP フィルタ|ScalaHttpFilters]] の説明に従って、それらを `Filters` クラスに追加してください。
 
 @[http-filters](code/ScalaCsrf.scala)
 
+<!--
 The `Filters` class can either be in the root package, or if it has another name or is in another package, needs to be configured using `play.http.filters` in `application.conf`:
+-->
+`Filters` クラスは、ルートパッケージに含まれていても別の名前を持っていても別のパッケージに入っていても、`application.conf` の `play.http.filters` を使って設定する必要があります。
 
 ```
 play.http.filters = "filters.MyFilters"
@@ -130,7 +136,10 @@ If it is undesirable to have the token in the query string, Play also provides a
 
 @[csrf-input](code/scalaguide/forms/csrf.scala.html)
 
+<!--
 This might render a form that looks like this:
+-->
+これはフォームを以下のようにレンダリングするでしょう。
 
 ```html
 <form method="POST" action="/items">
@@ -202,7 +211,10 @@ Then you can minimise the boiler plate code necessary to write actions:
 -->
 ## CSRF 設定オプション
 
+<!--
 The full range of CSRF configuration options can be found in the filters [reference.conf](resources/confs/filters-helpers/reference.conf).  Some examples include:
+-->
+CSRF 設定オプションのすべては、フィルタ [reference.conf](resources/confs/filters-helpers/reference.conf) で見ることができます。以下はいくつかの例です。
 
 <!--
 * `play.filters.csrf.token.name` - The name of the token to use both in the session and in the request body/query string. Defaults to `csrfToken`.
