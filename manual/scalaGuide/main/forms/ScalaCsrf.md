@@ -110,10 +110,7 @@ To help in adding CSRF tokens to forms, Play provides some template helpers.  Th
 @[csrf-call](code/scalaguide/forms/csrf.scala.html)
 
 <!--
-<!--
 This might render a form that looks like this:
--->
-これはフォームを以下のようにレンダリングするでしょう:
 -->
 これはフォームを以下のようにレンダリングするでしょう:
 
@@ -130,7 +127,10 @@ If it is undesirable to have the token in the query string, Play also provides a
 
 @[csrf-input](code/scalaguide/forms/csrf.scala.html)
 
+<!--
 This might render a form that looks like this:
+-->
+これはフォームを以下のようにレンダリングするでしょう:
 
 ```html
 <form method="POST" action="/items">
