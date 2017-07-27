@@ -7,12 +7,12 @@
 <!--
 A field rendering is not only composed of the `<input>` tag, but it also needs a `<label>` and possibly other tags used by your CSS framework to decorate the field.
 -->
-フィールドレンダリングは `<input>` タグで構成するだけでなく、フィールドを修飾するためにCSSフレームワークで使用される `<label>` や他のタグも必要です。
+フィールドのレンダリングは `<input>` タグだけから構成されるものではなく、`<label>` や、おそらくフィールドを修飾する CSS フレームワーク が使用するその他のタグも必要になります。
 
 <!--
 All input helpers take an implicit [`FieldConstructor`](api/scala/views/html/helper/FieldConstructor.html) that handles this part. The [default one](api/scala/views/html/helper/defaultFieldConstructor$.html) (used if there are no other field constructors available in the scope), generates HTML like:
 -->
-すべての入力ヘルパーは、この役割を担う暗黙の [`FieldConstructor`](api/scala/views/html/helper/FieldConstructor.html) を使用します。[デフォルトフィールドコンストラクタ](api/scala/views/html/helper/defaultFieldConstructor$.html) (スコープ内で利用可能な他のフィールドコンストラクタがない場合に使用) は、次のような HTML を生成します。
+すべての入力ヘルパーは、この役割を担う暗黙の [`FieldConstructor`](api/scala/views/html/helper/FieldConstructor.html) を使用します。[デフォルトのフィールドコンストラクタ](api/scala/views/html/helper/defaultFieldConstructor$.html) (スコープ内で利用可能な他のフィールドコンストラクタがない場合に使用) は、次のような HTML を生成します。
 
 ```html
 <dl class="error" id="username_field">
@@ -76,7 +76,7 @@ Now create a [`FieldConstructor`](api/scala/views/html/helper/FieldConstructor.h
 <!--
 And to make the form helpers use it, just import it in your templates:
 -->
-これをフォームヘルパーで使えるようにするには、テンプレートでインポートします。
+そして、これをフォームヘルパーで使えるようにするために、テンプレート内にインポートします。
 
 @[import-myhelper](code/scalaguide/forms/scalafieldconstructor/userImport.scala.html)
 
@@ -85,7 +85,7 @@ And to make the form helpers use it, just import it in your templates:
 <!--
 It will then use your field constructor to render the input text.
 -->
-次に、フィールドコンストラクターを使用して入力テキストをレンダリングします。
+すると、フォームヘルパーはこのフィールドコンストラクタを使って入力テキストをレンダリングします。
 
 <!--
 You can also set an implicit value for your [`FieldConstructor`](api/scala/views/html/helper/FieldConstructor.html) inline:
