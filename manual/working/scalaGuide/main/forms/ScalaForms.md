@@ -55,14 +55,14 @@ We'll go through the basics of form handling:
 -->
 * フォームを定義し、
 * フォームの制約を定義し、
-* アクション内のフォームを検証し、
+* アクション内でフォームを検証し、
 * ビューテンプレートにフォームを表示し、
 * 最後に、ビューテンプレート内でフォームの結果 (またはエラー) を処理します。
 
 <!--
 The end result will look something like this:
 -->
-最終的には次のようになります。
+最終的な結果は次のようになります。
 
 [[images/lifecycle.png]]
 
@@ -88,7 +88,7 @@ Now that we have a case class, the next step is to define a [`Form`](api/scala/p
 <!--
 The [Forms](api/scala/play/api/data/Forms$.html) object defines the [`mapping`](api/scala/play/api/data/Forms$.html#mapping%5BR%2CA1%5D\(\(String%2CMapping%5BA1%5D\)\)\(\(A1\)%E2%87%92R\)\(\(R\)%E2%87%92Option%5BA1%5D\)%3AMapping%5BR%5D) method. This method takes the names and constraints of the form, and also takes two functions: an `apply` function and an `unapply` function.  Because UserData is a case class, we can plug its `apply` and `unapply` methods directly into the mapping method.
 -->
-この [Forms](api/scala/play/api/data/Forms$.html) には、[`mapping`](api/scala/play/api/data/Forms$.html#mapping%5BR%2CA1%5D\(\(String%2CMapping%5BA1%5D\)\)\(\(A1\)%E2%87%92R\)\(\(R\)%E2%87%92Option%5BA1%5D\)%3AMapping%5BR%5D) メソッドが定義されています。
+この [Forms](api/scala/play/api/data/Forms$.html) オブジェクトには、[`mapping`](api/scala/play/api/data/Forms$.html#mapping%5BR%2CA1%5D\(\(String%2CMapping%5BA1%5D\)\)\(\(A1\)%E2%87%92R\)\(\(R\)%E2%87%92Option%5BA1%5D\)%3AMapping%5BR%5D) メソッドが定義されています。このメソッドは、フォームの名前と制約を受け取り、`apply` 関数と `unapply` 関数の2つの関数も受け取ります。UserData はケースクラスなので、`apply` メソッドと `unapply` メソッドを直接マッピングメソッドにつなぐことができます。
 
 <!--
 > **Note:** Maximum number of fields for a single tuple or mapping is 22 due to the way form handling is implemented. If you have more than 22 fields in your form, you should break down your forms using lists or nested values.
@@ -124,8 +124,8 @@ You are not limited to using case classes in your form mapping.  As long as the 
 * **Form specific case classes are powerful.**  Tuples are convenient to use, but do not allow for custom apply or unapply methods, and can only reference contained data by arity (`_1`, `_2`, etc.)
 * **Form specific case classes are targeted specifically to the Form.**  Reusing model case classes can be convenient, but often models will contain additional domain logic and even persistence details that can lead to tight coupling.  In addition, if there is not a direct 1:1 mapping between the form and the model, then sensitive fields must be explicitly ignored to prevent a [parameter tampering](https://www.owasp.org/index.php/Web_Parameter_Tampering) attack.
 -->
-* **フォーム専用のケースクラスは便利です。** ケースクラスは、データのシンプルなコンテナになるように設計されており、`Form` 機能と自然にマッチした機能をすぐに提供します。
-* **フォーム専用のケースクラスは強力です。** タプルを使用するのは便利ですが、カスタムの apply や unapply メソッドは許可されず、含まれるデータの参照は、項数 (`_1`, `_2` など) によってのみ可能です。
+* **フォーム専用のケースクラスは便利です。** ケースクラスは、データのシンプルなコンテナになるように設計されており、`Form` 機能と自然にマッチした機能をデフォルトで提供します。
+* **フォーム専用のケースクラスは強力です。** タプルを使用するのは便利ですが、カスタムの apply や unapply メソッドは許可されず、含まれるデータは、(`_1`, `_2` など) 項数によってのみ参照できます。
 * **フォーム固有のケースクラスは、フォームに特化したものです。** モデルケースクラスを再利用することは便利ですが、モデルには、追加のドメインロジックや、密結合につながる明細の永続化さえ含まれることがよくあります。さらに、フォームとモデルの間に直接の1対1のマッピングがない場合、[パラメータタンパリング](https://www.owasp.org/index.php/Web_Parameter_Tampering) 攻撃を防止するために、機密フィールドを明示的に無視する必要があります。
 
 <!--
@@ -136,7 +136,7 @@ You are not limited to using case classes in your form mapping.  As long as the 
 <!--
 The `text` constraint considers empty strings to be valid.  This means that `name` could be empty here without an error, which is not what we want.  A way to ensure that `name` has the appropriate value is to use the `nonEmptyText` constraint.
 -->
-`text` 制約は、空文字列が有効であるとみなします。つまり、ここでは `name` はエラーなしで空にできることを意味します。これは望む形ではありません。`name` が適切な値を持つことを保証する方法は `nonEmptyText` 制約を使うことです。
+`text` 制約は、空文字列が有効であるとみなします。これは `name` をエラーなしで空にできることを意味しますが、これは望ましいものではありません。`name` が適切な値を持つことを保証するには `nonEmptyText` 制約を使います。
 
 @[userForm-constraints-2](code/ScalaForms.scala)
 
@@ -150,7 +150,7 @@ Using this form will result in a form with errors if the input to the form does 
 <!--
 The out of the box constraints are defined on the [Forms object](api/scala/play/api/data/Forms$.html):
 -->
-すぐに使用できる制約は [Forms object](api/scala/play/api/data/Forms$.html) に定義されています。
+デフォルトで使える制約は [Forms object](api/scala/play/api/data/Forms$.html) に定義されています。
 
 <!--
 * [`text`](api/scala/play/api/data/Forms$.html#text%3AMapping%5BString%5D): maps to `scala.String`, optionally takes `minLength` and `maxLength`.
@@ -226,7 +226,7 @@ In the failure case, we render the page with BadRequest, and pass in the form _w
 <!--
 In the success case, we're sending a `Redirect` with a route to `routes.Application.home` here instead of rendering a view template.  This pattern is called  [Redirect after POST](https://en.wikipedia.org/wiki/Post/Redirect/Get), and is an excellent way to prevent duplicate form submissions.
 -->
-成功の場合、ビューテンプレートをレンダリングする代わりに `routes.Application.home` へのルートを持つ `Redirect` をここに送ります。このパターンは [Redirect after POST](https://en.wikipedia.org/wiki/Post/Redirect/Get) と呼ばれ、重複したフォームの送信を防ぐ優れた方法です。
+成功の場合、ビューテンプレートをレンダリングする代わりに `routes.Application.home` へのルートを持つ `Redirect` を送ります。このパターンは [Redirect after POST](https://en.wikipedia.org/wiki/Post/Redirect/Get) と呼ばれ、フォームの重複送信を防ぐ優れた方法です。
 
 <!--
 > **Note:** "Redirect after POST" is **required** when using `flashing` or other methods with [[flash scope|ScalaSessionFlash]], as new cookies will only be available after the redirected HTTP request.
@@ -269,7 +269,7 @@ Because `user.scala.html` needs a form passed in, you should pass the empty `use
 <!--
 The first thing is to be able to create the [form tag](api/scala/views/html/helper/form$.html). It is a simple view helper that creates a [form tag](http://www.w3.org/TR/html5/forms.html#the-form-element) and sets the `action` and `method` tag parameters according to the reverse route you pass in:
 -->
-最初に、[form タグ](api/scala/views/html/helper/form$.html) を作成することができます。これは単純なビューヘルパーで、[form タグ](http://www.w3.org/TR/html5/forms.html#the-form-element) を作成し、通るルートの逆に従って `action` と `method` タグのパラメータを設定します。
+最初に、[form タグ](api/scala/views/html/helper/form$.html) を作成することができます。これは単純なビューヘルパーで、[form タグ](http://www.w3.org/TR/html5/forms.html#the-form-element) を作成し、引数に渡したリバースルートに従って `action` と `method` タグのパラメータを設定します。
 
 @[form-user](code/scalaguide/forms/scalaforms/views/user.scala.html)
 
@@ -309,7 +309,7 @@ There are several input helpers, but the most helpful are:
 * [`select`](api/scala/views/html/helper/select$.html): [select](http://www.w3.org/TR/html-markup/select.html#select) 要素をレンダリングします。
 * [`textarea`](api/scala/views/html/helper/textarea$.html): [textarea](http://www.w3.org/TR/html-markup/textarea.html#textarea) 要素をレンダリングします。
 * [`checkbox`](api/scala/views/html/helper/checkbox$.html): [checkbox](http://www.w3.org/TR/html-markup/input.checkbox.html#input.checkbox) 要素をレンダリングします。
-* [`input`](api/scala/views/html/helper/input$.html): 一般的な入力要素 (明示的な引数が必要) をレンダリングします。
+* [`input`](api/scala/views/html/helper/input$.html): 汎用的な入力要素 (明示的な引数が必要) をレンダリングします。
 
 <!--
 As with the `form` helper, you can specify an extra set of parameters that will be added to the generated Html:
@@ -321,7 +321,7 @@ As with the `form` helper, you can specify an extra set of parameters that will 
 <!--
 The generic `input` helper mentioned above will let you code the desired HTML result:
 -->
-上記の一般的な `input` ヘルパーは、あなたが望む HTML の結果をコード化することを可能にします。
+上記の汎用的な `input` ヘルパーは、あなたが望む HTML の結果をコード化することを可能にします。
 
 @[form-user-parameters-html](code/scalaguide/forms/scalaforms/views/user.scala.html)
 
@@ -423,7 +423,7 @@ Tuples are only possible when there are multiple values.  If there is only one f
 <!--
 Sometimes you’ll want to populate a form with existing values, typically for editing data:
 -->
-一般的なデータ編集において、フォームに既存の値を設定したくなる場合があります。
+典型的にはデータを編集する場合など、フォームに既存の値を設定したくなる場合があります。
 
 @[userForm-filled](code/ScalaForms.scala)
 
