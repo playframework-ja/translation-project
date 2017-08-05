@@ -26,14 +26,14 @@ The examples on this page will use this `JsValue` structure and corresponding mo
 <!--
 [`JsPath`](api/scala/play/api/libs/json/JsPath.html) is a core building block for creating `Reads`/`Writes`. `JsPath` represents the location of data in a `JsValue` structure. You can use the `JsPath` object (root path) to define a `JsPath` child instance by using syntax similar to traversing `JsValue`:
 -->
-[`JsPath`](api/scala/play/api/libs/json/JsPath.html) は、`Reads`/`Writes` を作るための中核となる構成要素です。`JsPath` は `JsValue` 構造体におけるデータの位置を表します。`JsValue` を走査するのと同様の構文を使って、`JsPath` オブジェクト (ルートパス) を使用して `JsPath` の子インスタンスを定義することができます。
+[`JsPath`](api/scala/play/api/libs/json/JsPath.html) は、`Reads`/`Writes` を作るための中核となる構成要素です。`JsPath` は `JsValue` 構造体におけるデータの位置を表します。`JsValue` を走査する構文と同様のものを使うことにより、(ルートパスの) `JsPath` オブジェクトを使って `JsPath` 子インスタンスを定義できます。
 
 @[jspath-define](code/ScalaJsonCombinatorsSpec.scala)
 
 <!--
 The [`play.api.libs.json`](api/scala/play/api/libs/json/package.html) package defines an alias for `JsPath`: `__` (double underscore). You can use this if you prefer:
 -->
-[`play.api.libs.json`](api/scala/play/api/libs/json/package.html) パッケージは、`JsPath` の別名として `__` (ダブルアンダースコア) を定義します。必要に応じてこれを使用することができます。
+[`play.api.libs.json`](api/scala/play/api/libs/json/package.html) パッケージは、`JsPath` の別名として `__` (ダブルアンダースコア) を定義します。必要に応じてこれを使用できます。
 
 @[jspath-define-alias](code/ScalaJsonCombinatorsSpec.scala)
 
@@ -96,7 +96,7 @@ You can combine individual path `Reads` to form more complex `Reads` which can b
 <!--
 For easier understanding, we'll break down the combine functionality into two statements. First combine `Reads` objects using the `and` combinator:
 -->
-理解をより簡単にするために、組み合わせた機能を 2 つのステートメントに分解します。最初に、`and` コンビネータを使用して `Reads` オブジェクトを結合します。
+分かりやすくするために、組み合わせた機能を 2 つのステートメントに分解します。最初に、`and` コンビネータを使用して `Reads` オブジェクトを結合します。
 
 @[reads-complex-builder](code/ScalaJsonCombinatorsSpec.scala)
 
@@ -108,7 +108,7 @@ This will yield a type of `FunctionalBuilder[Reads]#CanBuild2[Double, Double]`. 
 <!--
 Second call the `apply` method of `CanBuildX` with a function to translate individual values to your model, this will return your complex `Reads`. If you have a case class with a matching constructor signature, you can just use its `apply` method:
 -->
-個々の値をモデルに変換する関数を持つ `CanBuildX` の 2 番目の `apply` メソッドを呼び出すと、複雑な `Reads` が返されます。コンストラクタのシグネチャが一致するケースクラスがある場合は、単にその `apply` メソッドを使うことができます。
+次に、個々の値をモデルに変換する関数を持つ `CanBuildX` の `apply` メソッドを呼び出すと、複雑な `Reads` が返ります。コンストラクタのシグネチャが一致するケースクラスがある場合は、単にその `apply` メソッドを使うことができます。
 
 @[reads-complex-buildertoreads](code/ScalaJsonCombinatorsSpec.scala)
 
@@ -151,7 +151,7 @@ Default validation for `Reads` is minimal, such as checking for type conversion 
 - `Reads.max` - 数値の最大を検証します。
 - `Reads[A] keepAnd Reads[B] => Reads[A]` - `Reads[A]` と `Reads[B]` を試みるが、`Reads[A]` の結果だけを保持する演算子 (Scala パーサーコンビネータ `keepAnd == <~` を知っている人向け)。
 - `Reads[A] andKeep Reads[B] => Reads[B]` - `Reads[A]` と `Reads[B]` を試みるが、`Reads[B]` の結果だけを保持する演算子 (Scala パーサーコンビネータ `andKeep == ~>` を知っている人向け)。
-- `Reads[A] or Reads[B] => Reads` - 論理 OR を実行し、最後の `Reads` の結果をチェックし続ける演算子。
+- `Reads[A] or Reads[B] => Reads` - 論理 OR を実行し、最後の `Reads` の結果を保持する演算子。
 
 <!--
 To add validation, apply helpers as arguments to the `JsPath.read` method:
@@ -168,7 +168,7 @@ To add validation, apply helpers as arguments to the `JsPath.read` method:
 <!--
 By using complex `Reads` and custom validation we can define a set of effective `Reads` for our example model and apply them:
 -->
-複雑な `Reads` と独自のバリデーションを使うことで、サンプルモデルに対して有効な `Reads` のセットを定義して適用することができます。
+複雑な `Reads` と独自のバリデーションを使うことで、例題モデルに対して有効な `Reads` のセットを定義して適用することができます。
 
 @[reads-model](code/ScalaJsonCombinatorsSpec.scala)
 
@@ -190,7 +190,7 @@ Note that complex `Reads` can be nested. In this case, `placeReads` uses the pre
 <!--
 You can build complex `Writes` using `JsPath` and combinators very similar to `Reads`. Here's the `Writes` for our example model:
 -->
-`JsPath` と、`Reads` に非常によく似たコンビネータを使って複雑な `Writes` を構築することができます。
+`JsPath` と、`Reads` にとてもよく似たコンビネータを使って複雑な `Writes` を構築することができます。例題モデルの `Writes` はこのようになります。
 
 @[writes-model](code/ScalaJsonCombinatorsSpec.scala)
 
@@ -216,7 +216,7 @@ There are a few differences between complex `Writes` and `Reads`:
 <!--
 One special case that our example model doesn't demonstrate is how to handle `Reads` and `Writes` for recursive types. `JsPath` provides `lazyRead` and `lazyWrite` methods that take call-by-name parameters to handle this:
 -->
-例題モデルが示していない特殊なケースの 1 つは、再帰型に対して `Reads` と `Writes` をどのように扱うかです。`JsPath` は、これを処理するための名前による引数を取る `lazyRead` メソッドと `lazyWrite` メソッドを提供します。
+例題モデルが示していない特殊なケースの 1 つは、再帰型に対して `Reads` と `Writes` を扱う方法です。`JsPath` は、これを処理するための名前による引数を取る `lazyRead` メソッドと `lazyWrite` メソッドを提供します。
 
 @[reads-writes-recursive](code/ScalaJsonCombinatorsSpec.scala)
 
