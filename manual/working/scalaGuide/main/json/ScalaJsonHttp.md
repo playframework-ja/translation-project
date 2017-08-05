@@ -17,7 +17,7 @@ Play は、JSON ライブラリと組み合わせて HTTP API を使用するこ
 <!--
 We'll demonstrate the necessary concepts by designing a simple RESTful web service to GET a list of entities and accept POSTs to create new entities. The service will use a content type of JSON for all data.
 -->
-エンティティのリストを GET したり、新しいエンティティを作成する POST を受け入れる、簡単な RESTful Web サービスを設計することにより、必要な概念を説明します。このサービスでは、すべてのデータに JSON のコンテンツタイプが使用されます。
+エンティティのリストを GET したり、新しいエンティティを作成する POST を受け入れる、簡単な RESTful Web サービスを設計することにより、必要な概念を説明します。このサービスでは、すべてのデータに JSON のコンテンツタイプを使用します。
 
 <!--
 Here's the model we'll use for our service:
@@ -55,7 +55,7 @@ Next we write our `Action`:
 <!--
 The `Action` retrieves a list of `Place` objects, converts them to a `JsValue` using `Json.toJson` with our implicit `Writes[Place]`, and returns this as the body of the result. Play will recognize the result as JSON and set the appropriate `Content-Type` header and body value for the response. 
 -->
-`Action` は `Place` オブジェクトのリストを取得し、暗黙の `Writes[Place]` 付きの `Json.toJson` を使って `JsValue` に変換し、これを結果のボディとして返します。Play は結果を JSON として認識し、適切な `Content-Type` ヘッダとレスポンス用のボディ値を設定します。
+`Action` は `Place` オブジェクトのリストを取得し、暗黙の `Writes[Place]` による `Json.toJson` を使って `JsValue` に変換し、これを結果のボディとして返します。Play は結果を JSON として認識し、適切な `Content-Type` ヘッダとレスポンス用のボディ値を設定します。
 
 <!--
 The last step is to add a route for our `Action` in `conf/routes`:
@@ -119,10 +119,10 @@ This `Action` is more complicated than our list case. Some things to note:
 - To process the validation result, we used a `fold` with error and success flows. This pattern may be familiar as it is also used for [[form submission|ScalaForms]].
 - The `Action` also sends JSON responses.
 -->
-- この `Action` は、`Content-Type` ヘッダが `text-json` や `application/json` となっているリクエストと、作成するエンティティの JSON 表現を含むボディを要求します。
-- リクエストを解析したり、`request.body` を `JsValue` として提供する、JSON 固有の `BodyParser` を使用します。
+- この `Action` は、`Content-Type` ヘッダが `text-json` や `application/json` となっているリクエストと、作成するエンティティの JSON 表現を含むボディを期待します。
+- リクエストを解析したり、`request.body` を `JsValue` として提供する、JSON に特化した `BodyParser` を使用します。
 - 暗黙の `Reads[Place]` に依存する変換のために `validate` メソッドを使いました。
-- バリデーションの結果を処理するために、エラーと成功のフローを持つ `fold` を使用しました。このパターンは、[[フォームの送信|ScalaForms]] でも使用されているのでよく知られているかもしれません。
+- バリデーションの結果を処理するために、エラーと成功のフローを持つ `fold` を使用しました。このパターンは、[[フォームの送信|ScalaForms]] でも使用されているので、よく知られているかもしれません。
 - `Action` は JSON のレスポンスも送信します。
 
 <!--
@@ -222,4 +222,4 @@ Content-Length: 92
 <!--
 Play is designed to support REST with JSON and developing these services should hopefully be straightforward. The bulk of the work is in writing `Reads` and `Writes` for your model, which is covered in detail in the next section. 
 -->
-Play は JSON を用いた REST をサポートするように設計されており、これらのサービスの開発作業はやり易くなるでしょう。作業の大部分は、モデルの `Reads` と `Writes` を記述することになります。詳細については次の章で説明します。
+Play は JSON を用いた REST をサポートするように設計されており、これらのサービスの開発作業はすんなりと進むことでしょう。作業の大部分は、モデルの `Reads` と `Writes` を記述することになります。詳細については次の章で説明します。
