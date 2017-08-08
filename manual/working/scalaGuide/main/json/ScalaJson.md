@@ -7,7 +7,7 @@
 <!--
 Modern web applications often need to parse and generate data in the JSON (JavaScript Object Notation) format. Play supports this via its [JSON library](api/scala/play/api/libs/json/package.html).
 -->
-最新の Web アプリケーションでは、JSON (JavaScript Object Notation) 形式のデータを解析・生成する必要があります。Play はこれを [JSON ライブラリ](api/scala/play/api/libs/json/package.html) でサポートしています。
+近年の Web アプリケーションでは、JSON (JavaScript Object Notation) 形式のデータを解析・生成する必要があります。Play はこれを [JSON ライブラリ](api/scala/play/api/libs/json/package.html) でサポートしています。
 
 <!--
 JSON is a lightweight data-interchange format and looks like this:
@@ -72,14 +72,14 @@ Using the various `JsValue` types, you can construct a representation of any JSO
 <!--
 The `Json` object provides utilities, primarily for conversion to and from `JsValue` structures.
 -->
-`Json` オブジェクトは、主に `JsValue` 構造との間の変換のためのユーティリティを提供します。
+`Json` オブジェクトは、主に `JsValue` 構造との変換に用いるユーティリティを提供します。
 
 ### [`JsPath`](api/scala/play/api/libs/json/JsPath.html)
 
 <!--
 Represents a path into a `JsValue` structure, analogous to XPath for XML. This is used for traversing `JsValue` structures and in patterns for implicit converters.
 -->
-XML に対する XPath のような、`JsValue` 構造へのパスを表します。これは、`JsValue` 構造を走査するために使用され、暗黙のコンバータのためのパターンに含まれます。
+XML に対する XPath のような、`JsValue` 構造へのパスを表します。これは、`JsValue` 構造を走査するために使うものであり、暗黙のコンバータパターン内にて使われています。
 
 <!--
 ## Converting to a `JsValue`
@@ -103,7 +103,7 @@ XML に対する XPath のような、`JsValue` 構造へのパスを表しま�
 <!--
 `Json.obj` and `Json.arr` can simplify construction a bit. Note that most values don't need to be explicitly wrapped by JsValue classes, the factory methods use implicit conversion (more on this below).
 -->
-`Json.obj` と `Json.arr` は構築を少しだけ簡単にすることができます。ほとんどの値は JsValue クラスで明示的にラップする必要はないことに注意してください。ファクトリメソッドは暗黙の変換を使用します (詳細は後述) 。
+`Json.obj` と `Json.arr` は構築を少しだけ簡単にできます。ほとんどの値は JsValue クラスで明示的にラップする必要はないことに注意してください。ファクトリメソッドは暗黙の変換を使用します (詳細は後述) 。
 
 @[convert-from-factory](code/ScalaJsonSpec.scala)
 
@@ -120,14 +120,14 @@ Scala から `JsValue` への変換は、ユーティリティメソッド `Json
 <!--
 The Play JSON API provides implicit `Writes` for most basic types, such as `Int`, `Double`, `String`, and `Boolean`. It also supports `Writes` for collections of any type `T` that a `Writes[T]` exists. 
 -->
-Play JSON API は、`Int`、`Double`、`String`、`Boolean` などのほとんどの基本型に対して暗黙の `Writes` を提供します。`Writes[T]` が存在する `T` 型のコレクションのための `Writes` もサポートしています。
+Play JSON API は、`Int`、`Double`、`String`、`Boolean` などのほとんどの基本型に対して暗黙の `Writes` を提供します。`Writes[T]` が存在するあらゆる `T` 型について、これらのコレクションの `Writes` もサポートしています。
 
 @[convert-from-simple](code/ScalaJsonSpec.scala)
 
 <!--
 To convert your own models to `JsValue`s, you must define implicit `Writes` converters and provide them in scope.
 -->
-独自のモデルを `JsValue` に変換するには、暗黙の `Writes` コンバータを定義し、それらをスコープで提供する必要があります。
+独自のモデルを `JsValue` に変換するには、暗黙の `Writes` コンバータを定義し、それらをスコープ内に提供する必要があります。
 
 @[sample-model](code/ScalaJsonSpec.scala)
 
@@ -153,7 +153,7 @@ Alternatively, you can define your `Writes` using the combinator pattern:
 <!--
 You can traverse a `JsValue` structure and extract specific values. The syntax and functionality is similar to Scala XML processing.
 -->
-`JsValue` 構造を走査して特定の値を抽出することができます。構文と機能は Scala の XML 処理と似ています。
+`JsValue` 構造を走査して特定の値を抽出できます。構文と機能は Scala の XML 処理と似ています。
 
 <!--
 > Note: The following examples are applied to the JsValue structure created in previous examples.
@@ -168,7 +168,7 @@ You can traverse a `JsValue` structure and extract specific values. The syntax a
 <!--
 Applying the `\` operator to a `JsValue` will return the property corresponding to the field argument, supposing this is a `JsObject`. 
 -->
-`\` 演算子を `JsValue` に適用すると、フィールド引数が `JsObject` の場合に、対応するプロパティが返されます。
+`\` 演算子を `JsValue` に適用すると、これが `JsObject` であると仮定して、フィールド引数に対応するプロパティを返します。
 
 @[traverse-simple-path](code/ScalaJsonSpec.scala)
 
@@ -180,7 +180,7 @@ Applying the `\` operator to a `JsValue` will return the property corresponding 
 <!--
 Applying the `\\` operator will do a lookup for the field in the current object and all descendants.
 -->
-`\\` 演算子を適用すると、現在のオブジェクトとすべての子孫のフィールドが参照されます。
+`\\` 演算子を適用すると、現在のオブジェクトとすべての子孫のフィールドを検索します。
 
 @[traverse-recursive-path](code/ScalaJsonSpec.scala)
 
@@ -192,7 +192,7 @@ Applying the `\\` operator will do a lookup for the field in the current object 
 <!--
 You can retrieve a value in a `JsArray` using an apply operator with the index number.
 -->
-インデックス番号付きの apply 演算子を使用して、`JsArray` の中の値を検索することができます。
+インデックス番号付きの apply 演算子を使用して、`JsArray` の中の値を検索できます。
 
 @[traverse-array-index](code/ScalaJsonSpec.scala)
 
@@ -251,7 +251,7 @@ Readable:
 <!--
 The simplest way to convert a `JsValue` to another type is using `JsValue.as[T](implicit fjs: Reads[T]): T`. This requires an implicit converter of type [`Reads[T]`](api/scala/play/api/libs/json/Reads.html) to convert a `JsValue` to `T` (the inverse of `Writes[T]`). As with `Writes`, the JSON API provides `Reads` for basic types.
 -->
-`JsValue` を別の型に変換する最も簡単な方法は、`JsValue.as[T](implicit fjs: Reads[T]): T` を使用することです。これには、`JsValue` を `T` に変換するための型 [`Reads[T]`](api/scala/play/api/libs/json/Reads.html) (`Writes[T]` の逆) の暗黙のコンバータが必要です。`Writes` と同様に、JSON API は基本の型の `Reads` を提供します。
+`JsValue` を別の型に変換する最も簡単な方法は、`JsValue.as[T](implicit fjs: Reads[T]): T` を使用することです。これには、`JsValue` を `T` に変換する型 [`Reads[T]`](api/scala/play/api/libs/json/Reads.html) (`Writes[T]` の逆) の暗黙のコンバータが必要です。`Writes` と同様に、JSON API は基本的な型の `Reads` を提供します。
 
 @[convert-to-type-as](code/ScalaJsonSpec.scala)
 
@@ -275,7 +275,7 @@ Although the `asOpt` method is safer, any error information is lost.
 <!--
 The preferred way to convert from a `JsValue` to another type is by using its `validate` method (which takes an argument of type `Reads`). This performs both validation and conversion, returning a type of [`JsResult`](api/scala/play/api/libs/json/JsResult.html). `JsResult` is implemented by two classes:
 -->
-`JsValue` から別の型に変換するための好ましい方法は、`validate` メソッド (`Reads` 型の引数を取る) を使うことです。これにより、バリデーションと変換の両方が実行され、[`JsResult`](api/scala/play/api/libs/json/JsResult.html) の型が返されます。`JsResult` は2つのクラスによって実装されます。
+`JsValue` から別の型に変換するための好ましい方法は、(`Reads` 型の引数を取る) `validate` メソッドを使うことです。これはバリデーションと変換の両方を実行し、[`JsResult`](api/scala/play/api/libs/json/JsResult.html) の型を返します。`JsResult` は2つのクラスによって実装されます。
 
 <!--
 - [`JsSuccess`](api/scala/play/api/libs/json/JsSuccess.html): Represents a successful validation/conversion and wraps the result.
@@ -299,7 +299,7 @@ You can apply various patterns for handling a validation result:
 <!--
 To convert from JsValue to a model, you must define implicit `Reads[T]` where `T` is the type of your model.
 -->
-JsValue からモデルに変換するには、暗黙の `Reads[T]` を定義しなければなりません。ここで `T` はモデルの型です。
+JsValue からモデルに変換するには、`T` がモデルの型である暗黙の `Reads[T]` を定義しなければなりません。
 
 <!--
 > Note: The pattern used to implement `Reads` and custom validation are covered in detail in [[JSON Reads/Writes/Formats Combinators|ScalaJsonCombinators]].
