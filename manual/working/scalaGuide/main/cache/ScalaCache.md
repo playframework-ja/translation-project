@@ -130,7 +130,7 @@ You can easily create smart cached actions using standard Action composition.
 <!--
 > **Note:** Play HTTP `Result` instances are safe to cache and reuse later.
 -->
-> **Note:** Play HTTP の `Result` インスタンスはキャッシュして後で再利用しても安全です。
+> **メモ:** Play HTTP の `Result` インスタンスはキャッシュして後で再利用しても安全です。
 
 <!--
 The [Cached](api/scala/play/api/cache/Cached.html) class helps you build cached actions.
