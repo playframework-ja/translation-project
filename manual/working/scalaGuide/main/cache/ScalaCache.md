@@ -7,7 +7,7 @@
 <!--
 Caching data is a typical optimization in modern applications, and so Play provides a global cache.
 -->
-データのキャッシュは、近年のアプリケーションでは典型的な最適化であるため、Play はグローバルキャッシュを提供します。
+データのキャッシュは、近年のアプリケーションでは典型的な最適化であるため、Play は包括的なキャッシュを提供します。
 
 <!--
 > An important point about the cache is that it behaves just like a cache should: the data you just stored may just go missing.
@@ -17,7 +17,7 @@ Caching data is a typical optimization in modern applications, and so Play provi
 <!--
 For any data stored in the cache, a regeneration strategy needs to be put in place in case the data goes missing. This philosophy is one of the fundamentals behind Play, and is different from Java EE, where the session is expected to retain values throughout its lifetime. 
 -->
-キャッシュに格納されたデータのために、データが失われた場合に備えて再生手段を用意しておく必要があります。この哲学は Play を支える基本のひとつであり、セッションがその有効期間の間ずっと値を保持することが期待されている Java EE とは異なります。
+キャッシュに格納されたデータについて、データが失われた場合に備えて再生手段を用意しておく必要があります。この哲学は Play を支える基本のひとつであり、セッションがその生存期間を通じてずっと値を保持することが期待されている Java EE とは異なります。
 
 <!--
 The default implementation of the Cache API uses [EHCache](http://ehcache.org/).
@@ -101,12 +101,12 @@ To remove an item from the cache use the `remove` method:
 <!--
 It is possible to access different caches.  The default cache is called `play`, and can be configured by creating a file called `ehcache.xml`.  Additional caches may be configured with different configurations, or even implementations.
 -->
-異なるキャッシュにアクセスすることは可能です。デフォルトのキャッシュは `play` と呼ばれ、`ehcache.xml` というファイルを作成することにより設定できます。追加のキャッシュは、別の構成設定によって設定や実装ができます。
+別のキャッシュにアクセスすることができます。デフォルトのキャッシュは `play` と呼ばれ、`ehcache.xml` というファイルを作成することにより設定できます。追加のキャッシュは別の設定、または実装によっても構成できます。
 
 <!--
 If you want to access multiple different ehcache caches, then you'll need to tell Play to bind them in `application.conf`, like so:
 -->
-複数の異なる Ehcache キャッシュにアクセスしたい場合、そのバインドを `application.conf` で Play に知らせる必要があります。このような感じです。
+複数の異なる Ehcache キャッシュにアクセスしたい場合、それらを `application.conf` 内に記述して Play に区別させる必要があります。このような感じです。
 
     play.cache.bindCaches = ["db-cache", "user-cache", "session-cache"]
 
@@ -135,7 +135,7 @@ You can easily create smart cached actions using standard Action composition.
 <!--
 The [Cached](api/scala/play/api/cache/Cached.html) class helps you build cached actions.
 -->
-[Cached](api/scala/play/api/cache/Cached.html) クラスはキャッシュのアクションを作成するのに役立ちます。
+[Cached](api/scala/play/api/cache/Cached.html) クラスはキャッシュされるアクションを作成するのに役立ちます。
 
 @[cached-action-app](code/ScalaCache.scala)
 
@@ -149,7 +149,7 @@ You can cache the result of an action using a fixed key like `"homePage"`.
 <!--
 If results vary, you can cache each result using a different key. In this example, each user has a different cached result.
 -->
-結果が変化する時、異なるキーを使ってそれぞれの結果をキャッシュすることができます。この例では、それぞれのユーザーは異なるキャッシュ結果を持ちます。
+結果が変化する場合、異なるキーを使ってそれぞれの結果をキャッシュすることができます。この例では、それぞれの結果はユーザごとにキャッシュされます。
 
 @[composition-cached-action](code/ScalaCache.scala)
 
@@ -185,7 +185,7 @@ Or cache 404 Not Found only for a couple of minutes
 <!--
 It is possible to provide a custom implementation of the [CacheApi](api/scala/play/api/cache/CacheApi.html) that either replaces, or sits along side the default implementation.
 -->
-[CacheApi](api/scala/play/api/cache/CacheApi.html) のカスタム実装を提供することは可能ですが、置き換えるか、デフォルト実装と並行して使用するかのどちらかになります。
+デフォルト実装を置き換えるか、または合わせて使う [CacheApi](api/scala/play/api/cache/CacheApi.html) の独自実装を提供できます。
 
 <!--
 To replace the default implementation, you'll need to disable the default implementation by setting the following in `application.conf`:
@@ -204,4 +204,4 @@ Then simply implement `CacheApi` and bind it in the [[DI container|ScalaDependen
 <!--
 To provide an implementation of the cache API in addition to the default implementation, you can either create a custom qualifier, or reuse the `NamedCache` qualifier to bind the implementation.
 -->
-キャッシュ API の実装を提供するには、デフォルトの実装に加え、カスタムの修飾子を作るか、`NamedCache` 修飾子を再利用するかして実装をバインドします。
+デフォルトの実装に加えてキャッシュ API の実装を提供するには、カスタムの修飾子を作るか、`NamedCache` 修飾子を再利用するかして実装をバインドします。
