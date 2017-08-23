@@ -259,24 +259,24 @@ play.akka.actor-system = "custom-name"
 <!--
 You can schedule sending messages to actors and executing tasks (functions or `Runnable`). You will get a `Cancellable` back that you can call `cancel` on to cancel the execution of the scheduled operation.
 -->
-Akka では、アクターへのメッセージ送信やタスク(関数または `Runnable`)の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
+Akka では、アクターへのメッセージ送信やタスク (関数または `Runnable`) の実行を予約することができます。予約を行うと、結果として `Cancellable` のインスタンスが返ってきます。その `cancel` メソッドを呼び出すことで、予約した操作の実行をキャンセルすることができます。
 
 <!--
 For example, to send a message to the `testActor` every 300 microseconds:
 -->
-例えば、`testActor` というアクターに 300 マイクロ秒毎にメッセージを送信するにはこのようにします:
+例えば、`testActor` というアクターに 300 マイクロ秒毎にメッセージを送信するにはこのようにします。
 
 @[schedule-actor](code/ScalaAkka.scala)
 
 <!--
 > **Note:** This example uses implicit conversions defined in `scala.concurrent.duration` to convert numbers to `Duration` objects with various time units.
 -->
-> **Note:** この例では `scala.concurrent.duration` に定義されている implicit conversion　を利用して、数値を時間単位の異なる `Duration` オブジェクトへ変換しています。
+> **メモ:** この例では `scala.concurrent.duration` に定義されている implicit conversion を利用して、数値を時間単位の異なる `Duration` オブジェクトへ変換しています。
 
 <!--
 Similarly, to run a block of code 10 milliseconds from now:
 -->
-同様に、コードブロックを今から 10 ミリ秒後に実行するには、次のように書きます:
+同様に、コードブロックを今から 10 ミリ秒後に実行するには、次のように書きます。
 
 @[schedule-callback](code/ScalaAkka.scala)
 
