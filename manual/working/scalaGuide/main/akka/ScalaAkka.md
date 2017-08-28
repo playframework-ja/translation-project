@@ -45,8 +45,8 @@ This actor follows a few Akka conventions:
 * The messages it sends/receives, or its _protocol_, are defined on its companion object
 * It also defines a `props` method on its companion object that returns the props for creating it
 -->
-* 送受信を行うメッセージやその _手順_ は、コンパニオンオブジェクトに定義されています。
-* 同様に `props` メソッドもコンパニオンオブジェクトに定義されていて、アクターを作成するための props を返します。
+* アクターが送受信するメッセージや _手順_ は、コンパニオンオブジェクトに定義されています。
+* 同様に、アクターを作成するためのプロパティを返す `props` メソッドをコンパニオンオブジェクトに定義しています。
 
 <!--
 ### Creating and using actors
@@ -56,7 +56,7 @@ This actor follows a few Akka conventions:
 <!--
 To create and/or use an actor, you need an `ActorSystem`.  This can be obtained by declaring a dependency on an ActorSystem, like so:
 -->
-アクターの作成や使用には、`ActorSystem` が必要です。ActorSystem で依存関係を宣言することにより取得します。
+アクターの作成や使用には、`ActorSystem` が必要です。この ActorSystem は次のように依存関係を宣言することで取得できます。
 
 @[controller](code/ScalaAkka.scala)
 
@@ -99,7 +99,7 @@ A few things to notice:
 -->
 * ask パターンはインポートされる必要があり、そしてアクター上で `?` 演算子を提供します。
 * ask の戻り値の型は `Future[Any]` で、通常、アクターに要求した後に最初にまずやりたいことは、期待する型への対応付けを `mapTo` メソッドを使用して行うことです。
-* 暗黙のタイムアウトは適用範囲内において必要で、ask パターンはタイムアウトを持つべきです。アクターが応答よりも長くかかった場合、返された future はタイムアウトエラーで完了します。
+* 暗黙のタイムアウトは適用範囲内において必要で、ask パターンはタイムアウトを持つべきです。アクターが応答にタイムアウトよりも長い時間を掛けた場合は、返された future はタイムアウトエラーで完了します。
 
 <!--
 ## Dependency injecting actors
@@ -121,14 +121,14 @@ For example, if you wanted to have an actor that depended on the Play configurat
 <!--
 Play provides some helpers to help providing actor bindings.  These allow the actor itself to be dependency injected, and allows the actor ref for the actor to be injected into other components.  To bind an actor using these helpers, create a module as described in the [[dependency injection documentation|ScalaDependencyInjection#Play-applications]], then mix in the [`AkkaGuiceSupport`](api/scala/play/api/libs/concurrent/AkkaGuiceSupport.html) trait and use the `bindActor` method to bind the actor:
 -->
-Play は、アクターのバインドに役立つ、いくつかのヘルパーを提供します。それらはアクター自身が依存性注入されることを許可し、アクターのためのアクターの参照が他のコンポーネントに注入されることも許可します。これらのヘルパーを用いたアクターをバインドするには、[[依存性注入ドキュメント|ScalaDependencyInjection#Play-applications]] の説明に従ってモジュールを作成し、[`AkkaGuiceSupport`](api/scala/play/api/libs/concurrent/AkkaGuiceSupport.html) トレイトをミックスインし、`bindActor` メソッドを使用してアクターをバインドします。
+Play は、アクターのバインドに役立つ、いくつかのヘルパーを提供します。それらはアクター自身が依存性注入されることを許可し、そのアクターに対するアクター参照が他のコンポーネントに注入されることも許可します。これらのヘルパーを用いたアクターをバインドするには、[[依存性注入ドキュメント|ScalaDependencyInjection#Play-applications]] の説明に従ってモジュールを作成し、[`AkkaGuiceSupport`](api/scala/play/api/libs/concurrent/AkkaGuiceSupport.html) トレイトをミックスインし、`bindActor` メソッドを使用してアクターをバインドします。
 
 @[binding](code/ScalaAkka.scala)
 
 <!--
 This actor will both be named `configured-actor`, and will also be qualified with the `configured-actor` name for injection.  You can now depend on the actor in your controllers and other components:
 -->
-このアクターは `configured-actor` という名前になり、また `configured-actor` という名前での注入が適切です。コントローラーや他のコンポーネントのアクターに依存することができます。
+このアクターは `configured-actor` という名前になり、また `configured-actor` という名前で注入を限定します。これにより、コントローラーや他のコンポーネントでこのアクターに依存することができます。
 
 @[inject](code/ScalaAkka.scala)
 
@@ -162,7 +162,7 @@ Note that the `key` parameter is declared to be `@Assisted`, this tells that it'
 <!--
 We've also defined a `Factory` trait, this takes the `key`, and returns an `Actor`.  We won't implement this, Guice will do that for us, providing an implementation that not only passes our `key` parameter, but also locates the `Configuration` dependency and injects that.  Since the trait just returns an `Actor`, when testing this actor we can inject a factory that returns any actor, for example this allows us to inject a mocked child actor, instead of the actual one.
 -->
-また、`key` を持ち `Actor` を返す `Factory` トレイトを定義しました。これを実装しない場合、Guice は `key` パラメータを渡すだけでなく、`Configuration` 依存関係を配置し注入する実装も提供します。このアクターのテストを行った時、トレイトは単に `Actor` を返すので、任意のアクターを返すファクトリーを注入することができます。例えば、実際の子アクターの代わりにモック化された子アクターを注入することができます。
+また、`key` を持ち `Actor` を返す `Factory` トレイトを定義しました。このトレイトの実装は我々ではなく、Guice が行なってくれ、引数の `key` を渡すだけでなく、`Configuration` への依存性の注入も行ないます。トレイトは単に `Actor` を返すだけなので、このアクターのテストを行った時、任意のアクターを返すファクトリーを注入することができます。例えば、実際の子アクターの代わりにモック化された子アクターを注入することができます。
 
 <!--
 Now, the actor that depends on this can extend [`InjectedActorSupport`](api/scala/play/api/libs/concurrent/InjectedActorSupport.html), and it can depend on the factory we created:
@@ -186,7 +186,7 @@ Finally, we need to bind our actors.  In our module, we use the `bindActorFactor
 <!--
 This will get Guice to automatically bind an instance of `ConfiguredChildActor.Factory`, which will provide an instance of `Configuration` to `ConfiguredChildActor` when it's instantiated.
 -->
-`ConfiguredChildActor.Factory` のインスタンスを自動的にバインドするために Guice を取得し、インスタンス化の際に `Configuration` のインスタンスを `ConfiguredChildActor` に提供します。
+これで Guice に `ConfiguredChildActor.Factory` のインスタンスを自動的にバインドさせます。`ConfiguredChildActor.Factory` は、インスタンス化の際に `ConfiguredChildActor` に `Configuration` のインスタンスを提供します。
 
 <!--
 ## Configuration
@@ -225,7 +225,7 @@ play.akka.config = "my-akka"
 <!--
 Now settings will be read from the `my-akka` prefix instead of the `akka` prefix.
 -->
-`akka` 接頭辞の代わりに `my-akka` 接頭辞から設定が読み込まれます。
+これにより、`akka` 接頭辞の代わりに `my-akka` 接頭辞から設定が読み込まれます。
 
 ```
 my-akka.actor.default-dispatcher.fork-join-executor.pool-size-max = 64
@@ -288,13 +288,13 @@ Similarly, to run a block of code 10 milliseconds from now:
 <!--
 While we recommend you use the built in actor system, as it sets up everything such as the correct classloader, lifecycle hooks, etc, there is nothing stopping you from using your own actor system.  It is important however to ensure you do the following:
 -->
-組み込みのアクターシステムの使用をおすすめしますが、正しいクラスローダー、ライフサイクルのフックなどをすべてセットアップするような独自のアクターシステムを使用することは全然構いません。ただし、次のことを確実に行うことが重要です。
+クラスローダー、ライフサイクルのフックなどをすべて正しくセットアップするので、組み込みのアクターシステムの使用をおすすめします。独自のアクターシステムを使用することは全然構いません。ただし、次のことを確実に行うことが重要です。
 
 <!--
 * Register a [[stop hook|ScalaDependencyInjection#Stopping/cleaning-up]] to shut the actor system down when Play shuts down
 * Pass in the correct classloader from the Play [Environment](api/scala/play/api/Application.html) otherwise Akka won't be able to find your applications classes
 * Ensure that either you change the location that Play reads it's akka configuration from using `play.akka.config`, or that you don't read your akka configuration from the default `akka` config, as this will cause problems such as when the systems try to bind to the same remote ports
 -->
-* Play が停止した時にアクターシステムを停止させるための [[停止フック|ScalaDependencyInjection#Stopping/cleaning-up]] の登録。
-* Play [環境](api/scala/play/api/Application.html) からの正しいクラスローダーの受け取り。そうでないと、Akka はアプリケーションクラスを見つけることができません。
+* Play が停止した時にアクターシステムを停止させるための [[停止フック|ScalaDependencyInjection#Stopping/cleaning-up]] を登録する。
+* Play [環境](api/scala/play/api/Application.html) から正しいクラスローダーを渡す。そうでないと、Akka はアプリケーションクラスを見つけることができません。
 * Play が Akka の設定を読み込む場所を `play.akka.config` から変更するか、デフォルトの `akka` 設定から akka の設定を読み込まないようにする。これは、システムが同一のリモートポートにバインドしようとする時のような問題を引き起こすからです。
