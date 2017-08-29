@@ -78,7 +78,7 @@ The most basic thing that you can do with an actor is send it a message.  When y
 <!--
 In a web application however, the _tell_ pattern is often not useful, since HTTP is a protocol that has requests and responses.  In this case, it is much more likely that you will want to use the _ask_ pattern.  The ask pattern returns a `Future`, which you can then map to your own result type.
 -->
-しかし、web アプリケーションにおいては、HTTP がリクエストとレスポンスを持つプロトコルであるため、この _tell_ パターンはあまり有用ではありません。この場合、_ask_ パターンが使われる傾向にあるようです。ask パターンは、結果の型に関連付けられる `Future` を返します。
+しかし、web アプリケーションにおいては、HTTP がリクエストとレスポンスを持つプロトコルであるため、この _tell_ パターンはあまり有用ではありません。この場合、 _ask_ パターンが使われる傾向にあるようです。ask パターンは、結果の型に関連付けられる `Future` を返します。
 
 <!--
 Below is an example of using our `HelloActor` with the ask pattern:
