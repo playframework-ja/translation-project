@@ -50,13 +50,19 @@ val title = Messages("home.title")
 <!--
 All internationalization API calls take an implicit `play.api.i18n.Messages` argument retrieved from the current scope. This implicit value contains both the language to use and (essentially) the internationalized messages.
 -->
-全ての国際化対応に関する API は、現在のスコープ内の implicit な `play.api.i18n.Messages` を implicit parameter として受け取ります。
+全ての国際化対応に関する API は、現在のスコープ内の implicit な `play.api.i18n.Messages` を implicit parameter として受け取ります。この暗黙の値は、使用言語と (原則的に) 国際化されたメッセージの両方を含んでいます。
 
+<!--
 The simplest way to get such an implicit value is to use the `I18nSupport` trait. For instance you can use it as follows in your controllers:
+-->
+このような暗黙の値を取得する最も簡単な方法は、`I18nSupport` トレイトを使用することです。例えばコントローラーの中で次のように使用することができます。
 
 @[i18n-support](code/ScalaI18N.scala)
 
+<!--
 The `I18nSupport` trait gives you an implicit `Messages` value as long as there is a `Lang` or a `RequestHeader` in the implicit scope.
+-->
+暗黙のスコープ内に `Lang` もしくは `RequestHeader` が存在する限り、`I18nSupport` トレイトは暗黙の `Messages` 値を与えます。
 
 <!--
 > **Note:** If you have a `RequestHeader` in the implicit scope, it will use the preferred language extracted from the `Accept-Language` header and matching one of the `MessagesApi` supported languages. You should add a `Messages` implicit parameter to your template like this: `@()(implicit messages: Messages)`.
