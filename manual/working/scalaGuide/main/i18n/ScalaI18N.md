@@ -69,7 +69,10 @@ The `I18nSupport` trait gives you an implicit `Messages` value as long as there 
 -->
 > **メモ:** `RequestHeader` が暗黙のスコープ内に存在する場合は、その `Accept-Language` ヘッダと `MessagesApi` の対応言語を考慮した上で適切な言語が決定され、使用されます。 テンプレートに `@()(implicit messages: Messages)` のように、暗黙のパラメータ `Messages` を追加する必要があります。
 
+<!--
 > **Note:** Also, Play “knows” out of the box how to inject a `MessagesApi` value (that uses the `DefaultMessagesApi` implementation), so you can just annotate your controller with the `@javax.inject.Inject` annotation and let Play automatically wire the components for you.
+-->
+> **メモ:** Play はなにも設定しなくても (`DefaultMessagesApi` 実装を使う) `MessagesApi` をインジェクションする方法も "知って" いるので、 `@javax.inject.Inject` アノテーションでコントローラを注釈するだけで、Play は自動的にこのコンポーネントを結びつけることができます。
 
 <!--
 ## Messages format
