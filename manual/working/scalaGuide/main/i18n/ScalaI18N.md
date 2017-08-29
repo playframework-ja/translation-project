@@ -50,7 +50,7 @@ val title = Messages("home.title")
 <!--
 All internationalization API calls take an implicit `play.api.i18n.Messages` argument retrieved from the current scope. This implicit value contains both the language to use and (essentially) the internationalized messages.
 -->
-全ての国際化対応に関する API は、現在のスコープ内の implicit な `play.api.i18n.Messages` を implicit parameter として受け取ります。この暗黙の値は、使用言語と (原則的に) 国際化されたメッセージの両方を含んでいます。
+全ての国際化対応に関する API 呼び出しは、現在のスコープから暗黙の引数 `play.api.i18n.Messages` を受け取ります。この暗黙の値は、使用言語と (原則的に) 国際化されたメッセージの両方を含んでいます。
 
 <!--
 The simplest way to get such an implicit value is to use the `I18nSupport` trait. For instance you can use it as follows in your controllers:
