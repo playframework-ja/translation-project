@@ -7,12 +7,12 @@
 <!--
 Play provides a number of classes and convenience methods that assist with functional testing.  Most of these can be found either in the [`play.api.test`](api/scala/play/api/test/package.html) package or in the [`Helpers`](api/scala/play/api/test/Helpers$.html) object. The [_ScalaTest + Play_](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.package) integration library builds on this testing support for ScalaTest.
 -->
-Playには、機能テストを支援する、多くのクラスや便利なメソッドが用意されています。これらの大半は、[`play.api.test`](api/scala/play/api/test/package.html) パッケージか [`Helpers`](api/scala/play/api/test/Helpers$.html) オブジェクトに含まれています。[_ScalaTest + Play_](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.package) 統合ライブラリは、このテストに基づいていて、ScalaTest に対応しています。
+Playには、機能テストを支援する、多くのクラスや便利なメソッドが用意されています。これらの大半は、[`play.api.test`](api/scala/play/api/test/package.html) パッケージか [`Helpers`](api/scala/play/api/test/Helpers$.html) オブジェクトに含まれています。[_ScalaTest + Play_](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.package) 統合ライブラリは、この ScalaTest のテスト支援に基づいています。
 
 <!--
 You can access all of Play's built-in test support and _ScalaTest + Play_ with the following imports:
 -->
-すべての Play 組み込みのテスト支援と _ScalaTest + Play_ は、次のようなインポートによって利用できます。
+すべての Play 組み込みのテスト支援と _ScalaTest + Play_ は、次のインポートによって利用できます。
 
 ```scala
 import org.scalatest._
@@ -29,7 +29,7 @@ import org.scalatestplus.play._
 <!--
 Play frequently requires a running [`Application`](api/scala/play/api/Application.html) as context: it is usually provided from [`play.api.Play.current`](api/scala/play/api/Play$.html).
 -->
-Play では頻繁に [`Application`](api/scala/play/api/Application.html) をコンテキストとして実行する必要がありますが、これはたいてい [`play.api.Play.current`](api/scala/play/api/Play$.html) によって提供されます。
+Play では頻繁に実行中の [`Application`](api/scala/play/api/Application.html) をコンテキストとして実行する必要がありますが、これはたいてい [`play.api.Play.current`](api/scala/play/api/Play$.html) によって提供されます。
 
 <!--
 To provide an environment for tests, Play provides a [`FakeApplication`](api/scala/play/api/test/FakeApplication.html) class which can be configured with a different `Global` object, additional configuration, or even additional plugins.
@@ -55,7 +55,7 @@ If you need each test to get its own `FakeApplication`, instead of sharing the s
 <!--
 The reason _ScalaTest + Play_ provides both `OneAppPerSuite` and `OneAppPerTest` is to allow you to select the sharing strategy that makes your tests run fastest. If you want application state maintained between successive tests, you'll need to use `OneAppPerSuite`. If each test needs a clean slate, however, you could either use `OneAppPerTest` or use `OneAppPerSuite`, but clear any state at the end of each test. Furthermore, if your test suite will run fastest if multiple test classes share the same application, you can define a master suite that mixes in [`OneAppPerSuite`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.OneAppPerSuite) and nested suites that mix in [`ConfiguredApp`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.ConfiguredApp), as shown in the example in the [documentation for `ConfiguredApp`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.ConfiguredApp). You can use whichever strategy makes your test suite run the fastest.
 -->
-_ScalaTest + Play_ が `OneAppPerSuite` と `OneAppPerTest` の両方を提供する理由は、テストの実行を最も速くさせる方法を選択できるようにするためです。もし、連続したテストの中でアプリケーションの状態を維持したい場合は `OneAppPerSuite` を使う必要があります。しかし、各テストでクリーンな状態を望む場合は `OneAppPerTest` を用いるか、あるいは `OneAppPerSuite` を使用して各テストの最後で状態をクリアするかのいずれかになります。さらに、テストスイートが最も速く実行され、複数のテストクラスが同一アプリケーションを共有する場合、[`OneAppPerSuite`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.OneAppPerSuite) をミックスインした親のスイートと、[`ConfiguredApp`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.ConfiguredApp) をミックスインした入れ子のスイートを定義できます。この例については [`ConfiguredApp` のドキュメント](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.ConfiguredApp) で参照できます。どちらの方法でも、テストスイートを最も速く実行できるほうを使用できます。
+_ScalaTest + Play_ が `OneAppPerSuite` と `OneAppPerTest` の両方を提供する理由は、テストの実行を最も速くさせる方法を選択できるようにするためです。もし、連続したテストの中でアプリケーションの状態を維持したい場合は `OneAppPerSuite` を使う必要があります。一方で、各テストでクリーンな状態が必要な場合は、`OneAppPerTest` または `OneAppPerSuite` のいずれかを使えますが、各テストの最後であらゆる状態をクリアしてください。さらに、テストスイートが最も速く実行され、複数のテストクラスが同一アプリケーションを共有する場合、[`OneAppPerSuite`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.OneAppPerSuite) をミックスインした親のスイートと、[`ConfiguredApp`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.ConfiguredApp) をミックスインした入れ子のスイートを定義できます。この例については [`ConfiguredApp` のドキュメント](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.ConfiguredApp) で参照できます。どちらの方法でも、テストスイートを最も速く実行できるほうを使用できます。
 
 <!--
 ## Testing with a server
@@ -79,7 +79,7 @@ If all tests in your test class require separate server instance, use [`OneServe
 <!--
 The `OneServerPerSuite` and `OneServerPerTest` traits provide the port number on which the server is running as the `port` field.  By default this is 19001, however you can change this either overriding `port` or by setting the system property `testserver.port`.  This can be useful for integrating with continuous integration servers, so that ports can be dynamically reserved for each build.
 -->
-`OneServerPerSuite` および `OneServerPerTest` トレイトは、サーバーが実行しているポート番号を `port` フィールドとして提供します。デフォルトは 19001 ですが、`port` を上書きするか、システムプロパティ `testserver.port` を設定することにより変更できます。これは、各ビルドごとにポートを動的に予約できるので、継続的な統合サーバーとの統合に役立ちます。
+`OneServerPerSuite` および `OneServerPerTest` トレイトは、サーバーが実行しているポート番号を `port` フィールドとして提供します。デフォルトは 19001 ですが、`port` を上書きするか、システムプロパティ `testserver.port` を設定することにより変更できます。継続的統合サーバーに組み入れる際に便利なので、各ビルドごとにポートを動的に予約できます。
 
 <!--
 You can also customize the [`FakeApplication`](api/scala/play/api/test/FakeApplication.html) by overriding `app`, as demonstrated in the previous examples.
@@ -115,7 +115,7 @@ In addition to mixing in a [`BrowserFactory`](http://doc.scalatest.org/plus-play
 <!--
 For example, the following test class mixes in `OneServerPerSuite` and `HtmUnitFactory`:
 -->
-例として、`OneServerPerSuite` と `HtmUnitFactory` をミックスインした次のようなテストクラスがあります。
+例えば、以下のテストクラスは `OneServerPerSuite` と `HtmUnitFactory` をミックスインします。
 
 @[scalafunctionaltest-onebrowserpersuite](code-scalatestplus-play/onebrowserpersuite/ExampleSpec.scala)
 
@@ -139,14 +139,14 @@ If you need multiple test classes to share the same browser instance, mix [`OneB
 <!--
 If you want to run tests in multiple web browsers, to ensure your application works correctly in all the browsers you support, you can use traits [`AllBrowsersPerSuite`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerSuite) or [`AllBrowsersPerTest`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerTest). Both of these traits declare a `browsers` field of type `IndexedSeq[BrowserInfo]` and an abstract `sharedTests` method that takes a `BrowserInfo`. The `browsers` field indicates which browsers you want your tests to run in. The default is Chrome, Firefox, Internet Explorer, `HtmlUnit`, and Safari. You can override `browsers` if the default doesn't fit your needs. You place tests you want run in multiple browsers in the `sharedTests` method, placing the name of the browser at the end of each test name. (The browser name is available from the `BrowserInfo` passed into `sharedTests`.) Here's an example that uses `AllBrowsersPerSuite`:
 -->
-もし、複数の Web ブラウザでテストを行いたい場合は、対応させたいすべてのブラウザでアプリケーションが正しく動作するように、[`AllBrowsersPerSuite`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerSuite) または [`AllBrowsersPerTest`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerTest) トレイトを使用できます。これらのトレイトはいずれも `IndexedSeq[BrowserInfo]` 型の `browsers` フィールドと、`BrowserInfo` を引数に取る abstract メソッド `sharedTests` を宣言します。`browsers` フィールドはテストを実行したいブラウザを示しています。デフォルトは、Chrome、Firefox、Internet Explorer、 `HtmlUnit` 、Safari です。希望するブラウザとデフォルトが異なる場合は `browsers` を上書きできます。複数のブラウザで実行させたいテストを `sharedTests` メソッドに配置し、それぞれのテスト名の末尾にブラウザの名前を記述します。(ブラウザの名前は `sharedTests` に渡される `BrowserInfo` から取得できます) `AllBrowsersPerSuite` を使用した例はこちらです。
+もし、アプリケーションがサポートするすべてのブラウザで正しく動作することを保証するために、テストを複数の Web ブラウザで実行したい場合は、[`AllBrowsersPerSuite`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerSuite) または [`AllBrowsersPerTest`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerTest) トレイトを使用できます。これらのトレイトはいずれも `IndexedSeq[BrowserInfo]` 型の `browsers` フィールドと、`BrowserInfo` を引数に取る abstract メソッド `sharedTests` を宣言します。`browsers` フィールドはテストを実行したいブラウザを示しています。デフォルトは、Chrome、Firefox、Internet Explorer、 `HtmlUnit` 、Safari です。希望するブラウザとデフォルトが異なる場合は `browsers` を上書きできます。複数のブラウザで実行させたいテストを `sharedTests` メソッドに配置し、それぞれのテスト名の末尾にブラウザの名前を記述します。(ブラウザの名前は `sharedTests` に渡される `BrowserInfo` から取得できます) `AllBrowsersPerSuite` を使用した例はこちらです。
 
 @[scalafunctionaltest-allbrowserspersuite](code-scalatestplus-play/allbrowserspersuite/ExampleSpec.scala)
 
 <!--
 All tests declared by `sharedTests` will be run with all browsers mentioned in the `browsers` field, so long as they are available on the host system. Tests for any browser that is not available on the host system will be canceled automatically. Note that you need to append the `browser.name` manually to the test name to ensure each test in the suite has a unique name (which is required by ScalaTest). If you leave that off, you'll get a duplicate-test-name error when you run your tests.
 -->
-`sharedTests` によって宣言されたすべてのテストは、`browsers` フィールドで定義されている、ホストシステムで利用可能なすべてのブラウザで実行されます。ホストシステムで利用できない、いずれのブラウザのテストも自動的にキャンセルされます。スイートの各テストが (ScalaTest によって要求された) 一意的な名前を持つように、テスト名に `browser.name` を手動で追加する必要があることに注意して下さい。もしこれを行わなかった場合、テストの実行時にテスト名の重複エラーが発生します。
+`sharedTests` によって宣言されたすべてのテストは、`browsers` フィールドで定義されているすべてのブラウザで、それらがホストシステムで利用できれば、実行されます。ホストシステムで利用できない、いずれのブラウザのテストも自動的にキャンセルされます。スイートの各テストが (ScalaTest によって要求された) 一意的な名前を持つように、テスト名に `browser.name` を手動で追加する必要があることに注意して下さい。もしこれを行わなかった場合、テストの実行時にテスト名の重複エラーが発生します。
 
 <!--
 [`AllBrowsersPerSuite`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerSuite) will create a single instance of each type of browser and use that for all the tests declared in `sharedTests`. If you want each test to have its own, brand new browser instance, use [`AllBrowsersPerTest`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.AllBrowsersPerTest) instead:
@@ -165,7 +165,7 @@ Although both `AllBrowsersPerSuite` and `AllBrowsersPerTest` will cancel tests f
 <!--
 The previous test class will only attempt to run the shared tests with Firefox and Chrome (and cancel tests automatically if a browser is not available).
 -->
-前述のテストクラスは、Firefox と Chrome で共有されたテストの実行を試みるだけです (そしてブラウザが利用できない場合は自動的にテストはキャンセルされます)。
+前述のテストクラスは、Firefox と Chrome でのみ、共有されたテストの実行を試みます (そしてブラウザが利用できない場合は自動的にテストはキャンセルされます)。
 
 <!--
 ## PlaySpec
@@ -197,14 +197,14 @@ In all the test classes shown in previous examples, all or most tests in the tes
 <!--
 You cannot mix [`MixedFixtures`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.MixedFixtures) into [`PlaySpec`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.PlaySpec) because `MixedFixtures` requires a ScalaTest [`fixture.Suite`](http://doc.scalatest.org/2.1.5/index.html#org.scalatest.fixture.Suite) and `PlaySpec` is just a regular [`Suite`](http://doc.scalatest.org/2.1.5/index.html#org.scalatest.Suite). If you want a convenient base class for mixed fixtures, extend [`MixedPlaySpec`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.MixedPlaySpec) instead. Here's an example:
 -->
-`MixedFixtures` は ScalaTest の [`fixture.Suite`](http://doc.scalatest.org/2.1.5/index.html#org.scalatest.fixture.Suite) を必要とし、`PlaySpec` は まさに標準の [`Suite`](http://doc.scalatest.org/2.1.5/index.html#org.scalatest.Suite) であるため、[`MixedFixtures`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.MixedFixtures) を [`PlaySpec`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.PlaySpec) にミックスインできません。ミックスインされたフィクスチャー向けの便利なベースクラスが欲しい場合は、代わりに [`MixedPlaySpec`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.MixedPlaySpec) を継承します。例はこちらです。
+`MixedFixtures` は ScalaTest の [`fixture.Suite`](http://doc.scalatest.org/2.1.5/index.html#org.scalatest.fixture.Suite) を必要とし、`PlaySpec` は単なる標準の [`Suite`](http://doc.scalatest.org/2.1.5/index.html#org.scalatest.Suite) であるため、[`MixedFixtures`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.MixedFixtures) を [`PlaySpec`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.PlaySpec) にミックスインできません。ミックスインされたフィクスチャー向けの便利なベースクラスが欲しい場合は、代わりに [`MixedPlaySpec`](http://doc.scalatest.org/plus-play/1.0.0/index.html#org.scalatestplus.play.MixedPlaySpec) を継承します。例はこちらです。
 
 @[scalafunctionaltest-mixedfixtures](code-scalatestplus-play/mixedfixtures/ExampleSpec.scala)
 
 <!--
 ## Testing a template
 -->
-テンプレートのテスト
+## テンプレートのテスト
 
 <!--
 Since a template is a standard Scala function, you can execute it from your test, and check the result:
@@ -262,7 +262,7 @@ SQL データベースを使用する時、`inMemoryDatabase` を使用して H2
 <!--
 If you are calling a web service, you can use [`WSTestClient`](api/scala/play/api/test/WsTestClient.html).  There are two calls available, `wsCall` and `wsUrl` that will take a Call or a string, respectively.  Note that they expect to be called in the context of `WithApplication`.
 -->
-Web サービスの呼び出しを行う時、[`WSTestClient`](api/scala/play/api/test/WsTestClient.html) を使用することができます。`wsCall` と `wsUrl` の 2 つの呼び出しが可能で、それぞれ Call および文字列を引数に取ります。`WithApplication` のコンテキスト内での呼び出しが期待されていることに注意してください。
+Web サービスの呼び出しを行う時、[`WSTestClient`](api/scala/play/api/test/WsTestClient.html) を使用することができます。`wsCall` と `wsUrl` の 2 つの呼び出しが可能で、それぞれ Call または文字列を引数に取ります。`WithApplication` のコンテキスト内での呼び出しが期待されていることに注意してください。
 
 ```
 wsCall(controllers.routes.Application.index()).get()
