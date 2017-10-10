@@ -24,7 +24,7 @@ By default, an action uses an **any content** body parser, which you can use to 
 <!--
 Of course it’s way better (and simpler) to specify our own `BodyParser` to ask Play to parse the content body directly as XML:
 -->
-この場合、専用の`BodyParser` を指定することで Play にコンテントボディを直接的に XML としてパースさせると、記述がシンプル化されてなお良いでしょう。
+この場合、専用の `BodyParser` を指定することで Play にコンテントボディを直接的に XML としてパースさせると、記述がシンプル化されてなお良いでしょう。
 
 @[xml-hello-bodyparser](code/javaguide/xml/JavaXmlRequests.java)
 
@@ -67,7 +67,7 @@ Hello Guillaume
 <!--
 In our previous example, we handled an XML request, but replied with a `text/plain` response. Let’s change it to send back a valid XML HTTP response:
 -->
-前述の例では XML リクエストを処理して、`text/plain` のレスポンスを返してしまっていました。これを、正しい XML HTTP レスポンスを送り返すように変更してみましょう。
+前述の例では XML リクエストを処理して、 `text/plain` のレスポンスを返してしまっていました。これを、正しい XML HTTP レスポンスを送り返すように変更してみましょう。
 
 @[xml-reply](code/javaguide/xml/JavaXmlRequests.java)
 
