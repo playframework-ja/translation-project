@@ -85,7 +85,7 @@ A [`FakeApplication`](api/scala/play/api/test/FakeApplication.html) can also be 
 <!--
 If you want to test your application using a browser, you can use [Selenium WebDriver](https://github.com/seleniumhq/selenium). Play will start the WebDriver for you, and wrap it in the convenient API provided by [FluentLenium](https://github.com/FluentLenium/FluentLenium) using [`WithBrowser`](api/scala/play/api/test/WithBrowser.html).  Like [`WithServer`](api/scala/play/api/test/WithServer.html), you can change the port, [`Application`](api/scala/play/api/Application.html), and you can also select the web browser to use:
 -->
-もし、ブラウザを使用したアプリケーションのテストを行いたい場合は、[Selenium WebDriver](https://github.com/seleniumhq/selenium) を使用できます。Play は WebDriver を開始し、[`WithBrowser`](api/scala/play/api/test/WithBrowser.html) を用いた [FluentLenium](https://github.com/FluentLenium/FluentLenium) から提供された便利な API によってラップします。[`WithServer`](api/scala/play/api/test/WithServer.html) のように、ポートを変更でき、使用する web ブラウザを選択することもできます。
+もし、ブラウザを使用したアプリケーションのテストを行いたい場合は、[Selenium WebDriver](https://github.com/seleniumhq/selenium) を使用できます。Play は WebDriver を開始し、[`WithBrowser`](api/scala/play/api/test/WithBrowser.html) を使って [FluentLenium](https://github.com/FluentLenium/FluentLenium) が提供する便利な API でラップします。[`WithServer`](api/scala/play/api/test/WithServer.html) のように、ポートや [`Application`](api/scala/play/api/Application.html) を変更でき、使用する web ブラウザを選択することもできます。
 
 @[scalafunctionaltest-testwithbrowser](code/specs2/ScalaFunctionalTestSpec.scala)
 
