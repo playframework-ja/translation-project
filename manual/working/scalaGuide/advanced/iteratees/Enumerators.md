@@ -139,7 +139,10 @@ Or more generally enumerating a `java.io.InputStream` using `Enumerator.fromStre
 -->
 より汎用的には、 `Enumerator.fromStream` を利用して `java.io.InputStream` 内のデータを列挙することができます。この場合、 `Enumerator` に割り当てられている Iteratee が次の入力データを読み込めるような状態になるまで、Enumerator 側でも新しいデータが読み込まれないことに注意してください。
 
+<!--
 Actually both methods are based on the more generic `Enumerator.generateM` that has the following signature:
+-->
+実際に両方のメソッドは、下記のシグネチャを持つ、より汎用的な `Enumerator.generateM` をベースにしています。
 
 ```scala
 def generateM[E](e: => Future[Option[E]]) = {
@@ -147,7 +150,10 @@ def generateM[E](e: => Future[Option[E]]) = {
 }
 ```
 
+<!--
 This method defined on the `Enumerator` object is one of the most important methods for creating `Enumerator`s from imperative logic. Looking closely at the signature, this method takes a callback function `e: => Future[Option[E]]` that will be called each time the iteratee this `Enumerator` is applied to is ready to take some input.
+-->
+`Enumerator` オブジェクトに定義されたこのメソッドは、手続き的なロジックから `Enumerator` を生成するためのもっとも重要なメソッドのひとつです。シグネチャをよく見てみると、このメソッドは、`Enumerator` に割り当てられている Iteratee が何らかの入力データを読み込む度に呼ばれるコールバック関数 `e: => Future[Option[E]]` を持ちます。
 
 <!--
 It can be easily used to create an `Enumerator` that represents a stream of time values every 100 millisecond using the opportunity that we can return a promise, like the following:
@@ -180,7 +186,10 @@ val printlnSink = Iteratee.foreach[Date](date => println(date))
 timeStream |>> printlnSink
 ```
 
+<!--
 Another, more imperative, way of creating an `Enumerator` is by using `Concurrent.unicast` which once it is ready will give a `Channel` interface on which defined methods `push` and `end`:
+-->
+もうひとつの、より手続き的な、`Enumerator` を生成する方法は、一度準備した `Concurrent.unicast` を使用することにより、`push` および `end` メソッドを定義した `Channel` インターフェースを与えることです。
 
 ```scala
 val enumerator = Concurrent.unicast[String](onStart = channel => {
@@ -191,7 +200,10 @@ val enumerator = Concurrent.unicast[String](onStart = channel => {
 enumerator |>> Iteratee.foreach(println)
 ```
 
+<!--
 The `onStart` function will be called each time the `Enumerator` is applied to an `Iteratee`. In some applications, a chatroom for instance, it makes sense to assign the `enumerator` to a synchronized global value (using STMs for example) that will contain a list of listeners. `Concurrent.unicast` accepts two other functions, `onComplete` and `onError`.
+-->
+`onStart` 関数は、`Enumerator` が `Iteratee` に割り当てられる度に呼ばれます。例えばチャットルームのような、いくつかのアプリーケーションでは、(例えばSTMを使用して)同期された、リスナーのリストに含むグローバル値に `enumerator` を割り当てることを感知させます。
 
 <!--
 One more interesting method is the `interleave` or `>-` method which as the name says, itrerleaves two Enumerators. For reactive `Enumerator`s Input will be passed as it happens from any of the interleaved `Enumerator`s
