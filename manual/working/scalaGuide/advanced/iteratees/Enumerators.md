@@ -54,7 +54,7 @@ val newIteratee: Future[Iteratee[String,String]] = enumerateUsers(consume)
 <!--
 To terminate the iteratee and extract the computed result we pass `Input.EOF`. An `Iteratee` carries a `run` method that does just this. It pushes an `Input.EOF` and returns a `Future[A]`, ignoring left input if any.
 -->
-Iteratee を終了させて、計算結果を取り出すためには、 `Input.EOF` を渡します。 `Iteratee` にはそのための `run` メソッドが用意されています。このメソッドを呼び出すと、 `Input.EOF` が送信されて、 `Future[A]` が帰ります。残りの入力データは無視されます。
+Iteratee を終了させて、計算結果を取り出すためには、 `Input.EOF` を渡します。 `Iteratee` にはそのための `run` メソッドが用意されています。このメソッドを呼び出すと、 `Input.EOF` が送信されて、 `Future[A]` が返ります。残りの入力データは無視されます。
 
 ```scala
 // We use flatMap since newIteratee is a promise, 
@@ -113,7 +113,7 @@ val eventuallyIteratee = combinedEnumerator(consume)
 <!--
 As for apply, there is a symbolic version of the `andThen` called `>>>` that can be used to save some parentheses when appropriate:
 -->
-apply メソッドと同様に、 `andThen` にも `>>>` という演算子版が容易されています。これも、状況によっては括弧の節約に役立つでしょう。
+apply メソッドと同様に、 `andThen` にも `>>>` という演算子版が用意されています。これも、状況によっては括弧の節約に役立つでしょう。
 
 ```scala
 val eventuallyIteratee = {
