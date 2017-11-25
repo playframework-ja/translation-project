@@ -114,7 +114,7 @@ trait Enumeratee[From, To] {
 <!--
 Indeed, an `Enumeratee` is more powerful than just transforming an `Iteratee` type. It really acts like an adapter in that you can get back your original `Iteratee` after pushing some different input through an `Enumeratee`. So in the previous example, we can get back the original `Iteratee[Int,Int]` to continue pushing some `Int` objects in:
 -->
-`Enumeratee` が出来るのは、単に `Iteratee` の方を変換することだけではありません。 `Enumeratee` は取り外し可能なアダプターのようなものなので、 `Enumeratee` を通して異なる種類の入力データを送信し終わった後は、本来の `Iteratee` に戻すことができます。前述の例でいえば、 本来の `Iteratee[Int,Int]` に戻してから、今度は `Int` の入力データを送ることができます。
+`Enumeratee` ができるのは、単に `Iteratee` の型を変換することだけではありません。 `Enumeratee` は取り外し可能なアダプターのようなものなので、 `Enumeratee` を通して異なる種類の入力データを送信し終わった後は、本来の `Iteratee` に戻すことができます。前述の例で言えば、 本来の `Iteratee[Int,Int]` に戻してから、今度は `Int` の入力データを送ることができます。
 
 ```scala
 val sum:Iteratee[Int,Int] = Iteratee.fold[Int,Int](0){ (s,e) => s + e }
@@ -150,7 +150,7 @@ That’s why we call the adapted (original) `Iteratee` ‘inner’ and the resul
 <!--
 Now that the `Enumeratee` picture is clear, it is important to know that `transform` drops the left input of the inner `Iteratee` when it is `Done`. This means that if we use `Enumeratee.map` to transform input, if the inner `Iteratee` is `Done` with some left transformed input, the `transform` method will just ignore it.
 -->
-`Enumeratee` の全体像が見えてきた所で、少し重要な話をします。実は、 `transform` は内側の `Iteratee` が `Done` 状態になったときにに与えられる最後の入力データを取りこぼしてしまいます。つまり、 `Enumeratee.map` を使って入力データを変換すると、内側の `Iteratee` が入力データの最後のチャンクとともに `Done` 状態になった際、 `transform` メソッドがそれを無視してしまいます。
+`Enumeratee` の全体像が見えてきた所で、少し重要な話をします。実は、 `transform` は内側の `Iteratee` が `Done` 状態になったときに与えられる最後の入力データを取りこぼしてしまいます。つまり、 `Enumeratee.map` を使って入力データを変換すると、内側の `Iteratee` が入力データの最後のチャンクとともに `Done` 状態になった際、 `transform` メソッドがそれを無視してしまいます。
 
 <!--
 That might have seemed like a bit too much detail, but it is useful for grasping the model.
@@ -216,7 +216,7 @@ val limitedFillInMemory: Iteratee[Array[Byte],Array[Byte]] = {
 <!--
 It looks good, but how many bytes are we taking? What would ideally limit the size, in bytes, of loaded input. What we do above is to limit the number of chunks instead, whatever the size of each chunk is. It seems that the `Enumeratee.take` is not enough here since it has no information about the type of input (in our case an `Array[Byte]`) and this is why it can’t count what’s inside.
 -->
-一見問題なさそうにみえますが、実際のところ合計で何バイトのデータが残っているのでしょうか？どうすれば、入力データの最大サイズをうまく制限できるのでしょうか。実は、上の例は入力データのチャンク数を制限しただけで、それぞれのチャンクの大きさは制限できていません。どうやら、`Enumeratee.take` は入力データの型（ここでは `Array[Byte]`）について何の情報も参照できないので、入力のデータの大きさを測ることもできないようです。
+一見問題なさそうに見えますが、実際のところ合計で何バイトのデータが残っているのでしょうか？どうすれば、入力データの最大サイズをうまく制限できるのでしょうか。実は、上の例は入力データのチャンク数を制限しただけで、それぞれのチャンクの大きさは制限できていません。どうやら、`Enumeratee.take` は入力データの型（ここでは `Array[Byte]`）について何の情報も参照できないので、入力のデータの大きさを測ることもできないようです。
 
 <!--
 Luckily there is a `Traversable` object that offers a set of methods for creating `Enumeratee` instances for Input types that are `TraversableLike`. An `Array[Byte]` is `TraversableLike` and so we can use`Traversable.take`:
