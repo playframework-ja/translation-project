@@ -153,7 +153,7 @@ def generateM[E](e: => Future[Option[E]]) = {
 <!--
 This method defined on the `Enumerator` object is one of the most important methods for creating `Enumerator`s from imperative logic. Looking closely at the signature, this method takes a callback function `e: => Future[Option[E]]` that will be called each time the iteratee this `Enumerator` is applied to is ready to take some input.
 -->
-`Enumerator` オブジェクトに定義されたこのメソッドは、手続き的なロジックから `Enumerator` を生成するためのもっとも重要なメソッドのひとつです。シグネチャをよく見てみると、このメソッドは、`Enumerator` に割り当てられている Iteratee が何らかの入力データを読み込む度に呼ばれるコールバック関数 `e: => Future[Option[E]]` を持ちます。
+`Enumerator` オブジェクトに定義されたこのメソッドは、手続き的なロジックから `Enumerator` を生成するためのもっとも重要なメソッドのひとつです。シグネチャをよく見てみると、このメソッドは、`Enumerator` が割り当てられている iteratee が入力を受け付けられるようになるたびに呼び出されるコールバック関数 `e: => Future[Option[E]]` を取ります。
 
 <!--
 It can be easily used to create an `Enumerator` that represents a stream of time values every 100 millisecond using the opportunity that we can return a promise, like the following:
@@ -189,7 +189,7 @@ timeStream |>> printlnSink
 <!--
 Another, more imperative, way of creating an `Enumerator` is by using `Concurrent.unicast` which once it is ready will give a `Channel` interface on which defined methods `push` and `end`:
 -->
-もうひとつの、より手続き的な、`Enumerator` を生成する方法は、一度準備した `Concurrent.unicast` を使用することにより、`push` および `end` メソッドを定義した `Channel` インターフェースを与えることです。
+`Enumerator` を生成する、より命令的なもうひとつの方法は、準備が整い次第、`push` および `end` メソッドが定義されている `Channel` インターフェースを提供する `Concurrent.unicast` を使うことです。
 
 ```scala
 val enumerator = Concurrent.unicast[String](onStart = channel => {
@@ -203,7 +203,7 @@ enumerator |>> Iteratee.foreach(println)
 <!--
 The `onStart` function will be called each time the `Enumerator` is applied to an `Iteratee`. In some applications, a chatroom for instance, it makes sense to assign the `enumerator` to a synchronized global value (using STMs for example) that will contain a list of listeners. `Concurrent.unicast` accepts two other functions, `onComplete` and `onError`.
 -->
-`onStart` 関数は、`Enumerator` が `Iteratee` に割り当てられる度に呼ばれます。例えばチャットルームのような、いくつかのアプリーケーションでは、(例えばSTMを使用して)同期された、リスナーのリストに含むグローバル値に `enumerator` を割り当てることを感知させます。
+`onStart` 関数は、`Enumerator` が `Iteratee` に割り当てられる度に呼ばれます。例えばチャットルームのような、いくつかのアプリーケーションにおいて、(例えばSTMを使用して)同期された、リスナーのリストに含むグローバル値に `enumerator` を割り当てることは理にかなっています。`Concurrent.unicast` は他に `onComplete` と `onError` という 2 つの関数を受け付けます。
 
 <!--
 One more interesting method is the `interleave` or `>-` method which as the name says, itrerleaves two Enumerators. For reactive `Enumerator`s Input will be passed as it happens from any of the interleaved `Enumerator`s
