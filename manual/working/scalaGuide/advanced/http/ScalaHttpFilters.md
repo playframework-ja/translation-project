@@ -12,7 +12,7 @@ Play は、あらゆるリクエストに適用するグローバルフィルタ
 <!--
 ## Filters vs action composition
 -->
-## フィルター vs アクション合成
+## フィルター vs アクション組成
 
 <!--
 The filter API is intended for cross cutting concerns that are applied indiscriminately to all routes.  For example, here are some common use cases for filters:
@@ -31,7 +31,7 @@ The filter API is intended for cross cutting concerns that are applied indiscrim
 <!--
 In contrast, [[action composition|ScalaActionsComposition]] is intended for route specific concerns, such as authentication and authorisation, caching and so on.  If your filter is not one that you want applied to every route, consider using action composition instead, it is far more powerful.  And don't forget that you can create your own action builders that compose your own custom defined sets of actions to each route, to minimise boilerplate.
 -->
-対照的に、[[アクション合成|ScalaActionsComposition]] は認証や認可、キャッシュなど、特定のルートに対する関心事を対象としています。もし、フィルターをすべてのルートに適用したいのでなければ、代わりにアクション合成の使用を検討してみてください。アクション合成はフィルターよりも遙かに強力です。また、定型的なコードを最小限にするために、ルート毎に独自の定義済みアクション群を構成する、アクションビルダーを作成できることも忘れないでください。
+対照的に、[[アクション組成|ScalaActionsComposition]] は認証や認可、キャッシュなど、特定のルートに対する関心事を対象としています。もし、フィルターをすべてのルートに適用したいのでなければ、代わりにアクション組成の使用を検討してみてください。アクション組成はフィルターよりも遙かに強力です。また、定型的なコードを最小限にするために、ルート毎に独自の定義済みアクション群を構成する、アクションビルダーを作成できることも忘れないでください。
 
 <!--
 ## A simple logging filter
@@ -41,7 +41,7 @@ In contrast, [[action composition|ScalaActionsComposition]] is intended for rout
 <!--
 The following is a simple filter that times and logs how long a request takes to execute in Play framework:
 -->
-以下は、Play framework があるリクエストを処理するためにどれくらい時間が掛かったのか計測してロギングする、シンプルなフィルターです:
+以下は、Play framework があるリクエストを処理するためにどれくらい時間が掛かったのか計測してロギングする、シンプルなフィルターです。
 
 @[simple-filter](code/ScalaHttpFilters.scala)
 
@@ -92,7 +92,7 @@ Filters wrap the action after the action has been looked up by the router.  This
 <!--
 Since filters are applied after routing is done, it is possible to access routing information from the request, via the `tags` map on the `RequestHeader`.  For example, you might want to log the time against the action method.  In that case, you might update the `logTime` method to look like this:
 -->
-フィルターはルーティングが完了した後に適用されるので、`RequestHeader` の `tags` マップによってリクエストからルーティング情報にアクセスすることができます。例えば、アクションメソッドに対する実行時間をログに出力したいとします。この場合、`logTime` を以下のように書き換えることができます:
+フィルターはルーティングが完了した後に適用されるので、`RequestHeader` の `tags` マップによってリクエストからルーティング情報にアクセスすることができます。例えば、アクションメソッドに対する実行時間をログに出力したいとします。この場合、`logTime` を以下のように書き換えることができます。
 
 @[routing-info-access](code/FiltersRouting.scala)
 
@@ -114,7 +114,7 @@ Play は リクエストボディ全体にアクセスすることのできる�
 <!--
 Here is the above filter example rewritten as an `EssentialFilter`:
 -->
-上記のフィルター例を `EssentialFilter` として書き直すと、以下のようになります:
+上記のフィルター例を `EssentialFilter` として書き直すと、以下のようになります。
 
 @[essential-filter-example](code/EssentialFilter.scala)
 
