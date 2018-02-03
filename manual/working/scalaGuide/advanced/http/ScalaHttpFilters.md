@@ -12,7 +12,7 @@ Play は、あらゆるリクエストに適用するグローバルフィルタ
 <!--
 ## Filters vs action composition
 -->
-## フィルター vs アクション組成
+## フィルター vs アクション合成
 
 <!--
 The filter API is intended for cross cutting concerns that are applied indiscriminately to all routes.  For example, here are some common use cases for filters:
@@ -31,7 +31,7 @@ The filter API is intended for cross cutting concerns that are applied indiscrim
 <!--
 In contrast, [[action composition|ScalaActionsComposition]] is intended for route specific concerns, such as authentication and authorisation, caching and so on.  If your filter is not one that you want applied to every route, consider using action composition instead, it is far more powerful.  And don't forget that you can create your own action builders that compose your own custom defined sets of actions to each route, to minimise boilerplate.
 -->
-対照的に、[[アクション組成|ScalaActionsComposition]] は認証や認可、キャッシュなど、特定のルートに対する関心事を対象としています。もし、フィルターをすべてのルートに適用したいのでなければ、代わりにアクション組成の使用を検討してみてください。アクション組成はフィルターよりも遙かに強力です。また、定型的なコードを最小限にするために、ルート毎に独自の定義済みアクション群を構成する、アクションビルダーを作成できることも忘れないでください。
+対照的に、[[アクション合成|ScalaActionsComposition]] は認証や認可、キャッシュなど、特定のルートに対する関心事を対象としています。もし、フィルターをすべてのルートに適用したいのでなければ、代わりにアクション合成の使用を検討してみてください。アクション合成はフィルターよりも遙かに強力です。また、定型的なコードを最小限にするために、ルート毎に独自の定義済みアクション群を構成する、アクションビルダーを作成できることも忘れないでください。
 
 <!--
 ## A simple logging filter
@@ -48,17 +48,17 @@ The following is a simple filter that times and logs how long a request takes to
 <!--
 Let's understand what's happening here.  The first thing to notice is the signature of the `apply` method.  It's a curried function, with the first parameter, `nextFilter`, being a function that takes a request header and produces a result, and the second parameter, `requestHeader`, being the actual request header of the incoming request.
 -->
-ここで何が起こっているのかを見てみましょう。最初に注文すべきは `apply` メソッドのシグネチャです。これはカリー化された関数で、最初のパラメータ `nextFilter` はリクエストヘッダを取得して結果を生成する関数で、次のパラメータ `requestHeader` は受信するリクエストの実際のリクエストヘッダです。
+ここで何が起こっているのかを見てみましょう。最初に注目すべきは `apply` メソッドのシグネチャです。これはカリー化された関数です。最初のパラメータ `nextFilter` はリクエストヘッダを取得して結果を生成する関数で、次のパラメータ `requestHeader` は受信するリクエストの実際のリクエストヘッダです。
 
 <!--
 The `nextFilter` parameter represents the next action in the filter chain. Invoking it will cause the action to be invoked.  In most cases you will probably want to invoke this at some point in your future.  You may decide to not invoke it if for some reason you want to block the request.
 -->
-`nextFilter` パラメータはフィルタチェーン内の次のアクションを表します。これを呼び出すとアクションが呼び出されます。ほとんどの場合、将来的にはいつでもこのメソッドを呼び出すことになります。なんらかの理由でリクエストをブロックしたい場合は、これを呼び出さないようにします。
+`nextFilter` パラメータはフィルタチェーン内の次のアクションを表します。フィルタチェーンを呼び出すことで、次のアクションが呼び出されます。ほとんどの場合、未来のある同じ時点でこのフィルタを起動したい場合が多くあるでしょう。なんらかの理由でリクエストをブロックしたい場合は、これを呼び出したくない場合があるかもしれません。
 
 <!--
 We save a timestamp before invoking the next filter in the chain. Invoking the next filter returns a `Future[Result]` that will redeemed eventually. Take a look at the [[Handling asynchronous results|ScalaAsync]] chapter for more details on asynchronous results. We then manipulate the `Result` in the `Future` by calling the `map` method with a closure that takes a `Result`. We calculate the time it took for the request, log it and send it back to the client in the response headers by calling `result.withHeaders("Request-Time" -> requestTime.toString)`.
 -->
-チェーン内で次のフィルタを呼び出す前にタイムスタンプを保持します。次のフィルタを呼び出すと、最終的に使用される `Future[Result]` が返されます。非同期レスポンスの詳細については、[[非同期レスポンスの処理|ScalaAsync]] の章を見てください。`Result` を持つクロージャを使って `map` メソッドを呼び出すことによって、`Future` 内の `Result` を操作します。リクエストに要した時間を計算し、ログに記録し、`result.withHeaders("Request-Time" -> requestTime.toString)` を呼び出してレスポンスヘッダでクライアントにも送信します。
+チェーン内で次のフィルタを呼び出す前にタイムスタンプを保持します。次のフィルタを呼び出すと、最終的に使用される `Future[Result]` が返されます。非同期レスポンスの詳細については、[[非同期レスポンスの処理|ScalaAsync]] の章を見てください。`Result` を受け取るクロージャを使って `map` メソッドを呼び出すことによって、`Future` 内の `Result` を操作します。リクエストに要した時間を計算し、ログに記録し、`result.withHeaders("Request-Time" -> requestTime.toString)` を呼び出してレスポンスヘッダでクライアントに送信します。
 
 <!--
 ## Using filters
@@ -121,9 +121,9 @@ Here is the above filter example rewritten as an `EssentialFilter`:
 <!--
 The key difference here, apart from creating a new `EssentialAction` to wrap the passed in `next` action, is when we invoke next, we get back an `Iteratee`.  You could wrap this in an `Enumeratee` to do some transformations if you wished.  We then `map` the result of the iteratee and thus handle it.
 -->
-ここでの主な違いは、渡された `next` アクションをラップするための新しい `EssentialAction` を作成することとは別に、次に呼び出すときに `Iteratee` を返すことです。あなたが望むなら `Enumeratee` でこれを包み込み、いくつかの変換を行うことができます。iteratee の結果を `map` して処理します。
+`next` アクションとして渡されたものをラップするために `EssentialAction` を新しく作成していることは別として、ここでの主な違いは、`next` アクションを呼び出したときに `Iteratee` を受け取ることです。これを `Enumeratee` でラップしていくつかの変換を行うこともできます。その後、iteratee の結果を `map` して処理します。
 
 <!--
 > Although it may seem that there are two different filter APIs, there is only one, `EssentialFilter`.  The simpler `Filter` API in the earlier examples extends `EssentialFilter`, and implements it by creating a new `EssentialAction`.  The passed in callback makes it appear to skip the body parsing by creating a promise for the `Result`, while the body parsing and the rest of the action are executed asynchronously.
 -->
-> 2 つの異なるフィルタ API があるように見えるかもしれませんが、`EssentialFilter` は 1 つのみです。以前の例の、より簡単な `Filter` API は、`EssentialFilter` を継承し、新しい `EssentialAction` を作成することでそれを実装します。渡されたコールバックは、ボディ解析と残りのアクションが非同期に実行されている間、`Result` の promise を作成することでボディ解析をスキップするように見えます。
+> 2 つの異なるフィルタ API があるように見えるかもしれませんが、ただ 1 つ `EssentialFilter` があるだけです。以前の例の、より簡単な `Filter` API は、`EssentialFilter` を継承し、新しい `EssentialAction` を作成することでそれを実装します。コールバックに渡された次のアクションは、ボディ解析と残りのアクションが非同期に実行されている間、`Result` の promise を作ることでボディ解析をスキップするように見せます。
