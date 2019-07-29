@@ -1,9 +1,19 @@
 <!--- Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com> -->
+<!--
 # Introducing Play 2
+-->
+# Play 2 の紹介
 
+<!--
 Since 2007, we have been working on making Java web application development easier. Play started as an internal project at Zenexity (now [Zengularity](http://zengularity.com/)) and was heavily influenced by our way of doing web projects: focusing on developer productivity, respecting web architecture, and using a fresh approach to packaging conventions from the start - breaking so-called JEE best practices where it made sense.
+-->
+2007 年以来、私たちは Java での web アプリケーション の開発を容易なものにしようとしてきました。Play は、 Zenexity (現在は [Zengularity](http://zengularity.com/)) における内部的なプロジェクトとしてスタートし、私たちの web プロジェクトの進め方に強く影響されてきました。つまり、開発者の生産性に焦点を当て、 web のアーキテクチャを尊重し、初めからパッケージング規約に対して斬新なやり方を採用してきたのです - そうすることが理にかなっている場合には、いわゆる JEE のベストプラクティスをも破ってきました。
 
+
+<!--
 In 2009, we decided to share these ideas with the community as an open source project. The immediate feedback was extremely positive and the project gained a lot of traction. Today - after years of active public development - Play has several versions, an active community of more than 10,000 people, with a growing number of applications running in production all over the globe.
+-->
+2009 年に、私たちはこれらのアイデアを、オープンソースプロジェクトとしてコミュニティと共有することを決断しました。即座に返されたフィードバックは極めてポジティブなものであり、このプロジェクトは大きな関心を引きつけました。今日 - 幾年かの活発でパブリックな開発を経て - Play にはいくつかのバージョンができ、10,000 人以上の参加者からなる活発なコミュニティが存在し、世界中で実際に使われているアプリケーションの数は増え続けています。
 
 Opening a project to the world certainly means more feedback, but it also means discovering and learning about new use cases, required features and unearthing bugs that were not specifically considered in the original design and its assumptions. During these years of work on Play as an open source project we have worked to fix this kind of issues, as well as to integrate new features to support a wider range of scenarios. As the project has grown, we have learned a lot from our community and from our own experience - using Play in more and more complex and varied projects.
 
