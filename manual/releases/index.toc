@@ -1,4 +1,4 @@
-Releases:About Play releases
+Releases:Playのリリースについて
 !release26:Play 2.6
 !release25:Play 2.5
 !release24:Play 2.4
