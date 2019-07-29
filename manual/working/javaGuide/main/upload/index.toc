@@ -1,1 +1,1 @@
-JavaFileUpload:Direct upload and multipart/form-data
+JavaFileUpload:multipart/form-dataのアップロード

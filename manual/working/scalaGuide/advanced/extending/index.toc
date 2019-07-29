@@ -1,2 +1,2 @@
-ScalaPlayModules:Writing Play modules
-ScalaPlugins:Migrating from Plugins API
+ScalaPlayModules:Playモジュールの作成
+ScalaPlugins:Plugins APIからの移行
