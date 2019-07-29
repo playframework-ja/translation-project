@@ -1,4 +1,0 @@
-Migration24:Play 2.4 移行ガイド
-GlobalSettings:`GlobalSettings` の削除
-Anorm:Anorm
-PluginsToModules:Plugin から Module への移行

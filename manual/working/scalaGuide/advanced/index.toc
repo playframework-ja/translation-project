@@ -1,6 +1,0 @@
-iteratees:リアクティブなストリーム処理 
-http:HTTP アーキテクチャ
-dependencyinjection:依存性の注入
-routing:拡張ルーティング
-extending:Play の拡張
-embedding:Play の組み込み

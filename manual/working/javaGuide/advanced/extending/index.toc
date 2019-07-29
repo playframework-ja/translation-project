@@ -1,1 +1,0 @@
-JavaPlugins:プラグインの書き方

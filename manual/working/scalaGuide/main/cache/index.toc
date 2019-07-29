@@ -1,1 +1,0 @@
-ScalaCache:Cache を使う

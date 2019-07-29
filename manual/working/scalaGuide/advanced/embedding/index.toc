@@ -1,1 +1,0 @@
-ScalaEmbeddingPlay:Play の組み込み

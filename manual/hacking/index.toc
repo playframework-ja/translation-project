@@ -1,7 +1,0 @@
-BuildingFromSource:ソースから Play をビルドする
-Repositories:リポジトリ
-Issues:課題トラッカ
-Documentation:ドキュメントガイドライン
-Translations:翻訳ガイドライン
-WorkingWithGit:git を使う
-ThirdPartyTools:サードパーティツール

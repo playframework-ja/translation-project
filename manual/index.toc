@@ -1,9 +1,0 @@
-Home:Home
-gettingStarted:はじめに
-working:Play で開発する
-detailedTopics:詳細なトピック
-experimental:実験的なライブラリ
-hacking:Play を Hack する
-about:Play について
-releases:Play のリリース
-ModuleDirectory:一時的なモジュールディレクトリ

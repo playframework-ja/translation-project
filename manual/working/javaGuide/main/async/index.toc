@@ -1,4 +1,0 @@
-JavaAsync:非同期レスポンスの処理
-JavaStream:HTTP レスポンスのストリーミング
-JavaComet:Comet
-JavaWebSockets:WebSocket

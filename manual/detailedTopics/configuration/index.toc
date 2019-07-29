@@ -1,7 +1,0 @@
-Configuration:設定ファイルの文法と機能
-ApplicationSecret:アプリケーション秘密鍵の設定
-SettingsJDBC:JDBC コネクションプールの設定
-ThreadPools:Play スレッドプールの設定
-SettingsLogger:ログの設定
-filters:Play フィルタの設定
-ws:WS SSL の設定

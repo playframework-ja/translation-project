@@ -1,2 +1,0 @@
-ScalaSirdRouter:文字列補間ルーティング DSL
-ScalaJavascriptRouting:Javascript ルーティング

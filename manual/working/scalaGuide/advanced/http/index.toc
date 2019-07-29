@@ -1,3 +1,0 @@
-HttpApi:HTTP API
-ScalaHttpFilters:HTTP フィルタ
-ScalaHttpRequestHandlers:HTTP リクエストの処理

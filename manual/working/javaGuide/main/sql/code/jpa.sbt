@@ -1,1 +1,0 @@
-PlayKeys.externalizeResources := false

@@ -1,3 +1,0 @@
-ScalaWS:The Play WS API
-ScalaOpenID:OpenID サーバへの接続
-ScalaOAuth:OAuth によリ保護されたデータへのアクセス

@@ -1,3 +1,0 @@
-JavaDatabase:JDBC の設定と使用
-JavaJPA:JPA との統合
-JavaEbean:Ebean ORM を使う

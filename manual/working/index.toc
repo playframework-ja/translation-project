@@ -1,2 +1,0 @@
-!scalaGuide:Scala 開発者のための Play
-!javaGuide:Java 開発者のための Play

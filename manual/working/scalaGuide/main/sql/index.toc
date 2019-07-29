@@ -1,4 +1,0 @@
-ScalaDatabase:JDBC の設定と利用
-slick:Slick によるデータベースアクセス
-ScalaAnorm:Anorm によるデータベースアクセス
-ScalaDatabaseOthers:その他のデータベースライブラリとの統合

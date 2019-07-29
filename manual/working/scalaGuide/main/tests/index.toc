@@ -1,8 +1,0 @@
-ScalaTestingYourApplication:アプリケーションのテスト
-ScalaTestingWithScalaTest:ScalaTest によるテスト
-ScalaFunctionalTestingWithScalaTest:ScalaTest による機能テスト
-ScalaTestingWithSpecs2:Specs2 によるテスト
-ScalaFunctionalTestingWithSpecs2:Specs2 による機能テスト
-ScalaTestingWithGuice:Guice によるテスト
-ScalaTestingWithDatabases:データベースを使ったテスト
-ScalaTestingWebServiceClients:web サービスクライアントのテスト

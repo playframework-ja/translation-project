@@ -1,6 +1,0 @@
-build:ビルドシステム
-assets:公開アセットを使う
-configuration:設定
-database:データベース
-evolutions:Evolutions によるデータベースの管理
-production:アプリケーションのデプロイ

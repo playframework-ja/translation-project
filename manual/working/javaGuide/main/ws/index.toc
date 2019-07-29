@@ -1,3 +1,0 @@
-JavaWS:Play WS API
-JavaOpenID:OpenID サーバへの接続
-JavaOAuth:OAuth で保護されたリソースへのアクセス
