@@ -1,0 +1,17 @@
+@(form: Form[_])
+
+@* #global-errors *@
+@if(form.hasGlobalErrors) {
+    <p class="error">
+        @for(error <- form.globalErrors) {
+            <p>@error.format(messages())</p>
+        }
+    </p>
+}
+@* #global-errors *@
+
+@* #field-errors *@
+@for(error <- form("email").errors) {
+    <p>@error.format(messages())</p>
+}
+@* #field-errors *@

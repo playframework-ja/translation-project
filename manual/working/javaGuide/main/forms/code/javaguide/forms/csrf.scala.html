@@ -1,0 +1,15 @@
+
+@* #csrf-call *@
+@import helper._
+
+@form(CSRF(scalaguide.forms.csrf.routes.ItemsController.save())) {
+    ...
+}
+@* #csrf-call *@
+
+@* #csrf-input *@
+@form(scalaguide.forms.csrf.routes.ItemsController.save()) {
+    @CSRF.formField
+    ...
+}
+@* #csrf-input *@
