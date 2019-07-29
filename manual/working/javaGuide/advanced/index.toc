@@ -1,4 +1,4 @@
 JavaAdvanced:Section contents
-routing:Advanced routing
-extending:Extending Play
-embedding:Embedding Play
+routing:高度なルーティング
+extending:Playの拡張
+embedding:Playの組み込み
