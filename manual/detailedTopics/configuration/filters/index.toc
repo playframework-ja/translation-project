@@ -1,3 +1,0 @@
-GzipEncoding:gzip エンコーディングの設定
-SecurityHeaders:セキュリティヘッダの設定
-CorsFilter:CORS の設定

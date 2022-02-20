@@ -1,16 +1,13 @@
 /*
- * Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com>
+ * Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com>
  */
 package scalaguide.tests.specs2
 
 import play.api.test._
-import play.api.test.Helpers._
 
-import org.specs2.execute.{Result, AsResult}
+import org.specs2.execute.Result
+import org.specs2.execute.AsResult
 
-/**
- *
- */
 class WithDbDataSpec extends PlaySpecification {
 
   // #scalafunctionaltest-withdbdata
@@ -20,7 +17,7 @@ class WithDbDataSpec extends PlaySpecification {
       t
     }
 
-    def setupData() {
+    def setupData(): Unit = {
       // setup data
     }
   }

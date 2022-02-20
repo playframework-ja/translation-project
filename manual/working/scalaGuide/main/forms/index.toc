@@ -1,4 +1,4 @@
 ScalaForms:フォームの送信
-ScalaCsrf:CSRF 対策
+ScalaCsrf:CSRF対策
 ScalaCustomValidations:カスタムバリデーション
 ScalaCustomFieldConstructors:カスタムフィールドコンストラクタ

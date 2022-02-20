@@ -1,2 +1,3 @@
-ScalaSirdRouter:文字列補間ルーティング DSL
-ScalaJavascriptRouting:Javascript ルーティング
+ScalaSirdRouter:String Interpolating Routing DSL
+ScalaJavascriptRouting:Javascript routing
+ScalaRequestBinders:Custom Binding

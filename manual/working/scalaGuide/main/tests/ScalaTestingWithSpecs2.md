@@ -1,184 +1,80 @@
-<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
-<!--
+<!--- Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com> -->
 # Testing your application with specs2
--->
-# specs2 を使用したアプリケーションのテスト
 
-<!--
 Writing tests for your application can be an involved process.  Play provides a default test framework for you, and provides helpers and application stubs to make testing your application as easy as possible.
--->
-アプリケーションのテストを作成するのは複雑な作業となりがちです。Play は標準のテストフレームワークを提供しており、テストの作成をできる限り容易にするヘルパーやスタブを提供しています。
 
-<!--
 ## Overview
--->
-## 概要
 
-<!--
 The location for tests is in the "test" folder.  There are two sample test files created in the test folder which can be used as templates.
--->
-テストのソースファイルは "test" フォルダに配置します。テンプレートとして使えるサンプルファイルが二つ、 test フォルダに配置してあります。
 
-<!--
 You can run tests from the Play console.
--->
-テストは Play のコンソールから実行できます。
 
-<!--
 * To run all tests, run `test`.
 * To run only one test class, run `test-only` followed by the name of the class i.e. `test-only my.namespace.MySpec`.
 * To run only the tests that have failed, run `test-quick`.
 * To run tests continually, run a command with a tilde in front, i.e. `~test-quick`.
-* To access test helpers such as `FakeApplication` in console, run `test:console`.
--->
-* `test` を実行すると全てのテストが実行されます。
-* `test-only` を実行すると、その後に続くクラス名のテストクラスのみが実行されます。 例）`test-only my.namespace.MySpec`
-* 失敗したテストだけ走らせたい場合は、 `test-quick` を実行します。
-* 継続的にテストを走らせたい場合は、実行するテストコマンドの前にチルダをつけます。 例）`~test-quick`
-* `FakeApplication` などのヘルパーにアクセスしたい場合は、 `test:console` を実行します。
+* To access test helpers such as `FakeRequest` in console, run `test:console`.
 
-<!--
-Testing in Play is based on SBT, and a full description is available in the [testing SBT](http://www.scala-sbt.org/0.13.0/docs/Detailed-Topics/Testing) chapter.
--->
-Play のテストは SBT に基づいており、 [testing SBT](http://www.scala-sbt.org/0.13.0/docs/Detailed-Topics/Testing) に詳細が記載されています。
+Testing in Play is based on sbt, and a full description is available in the [testing sbt](https://www.scala-sbt.org/0.13/docs/Testing.html) chapter.
 
-<!--
 ## Using specs2
--->
-## specs2 を使う
 
-<!--
 To use Play's specs2 support, add the Play specs2 dependency to your build as a test scoped dependency:
--->
-Play の specs2 サポートを使用するには、Play の specs2 への依存をテストスコープの依存性としてビルドに追加します。
 
 ```scala
 libraryDependencies += specs2 % Test
 ```
 
-<!--
 In [specs2](https://etorreborre.github.io/specs2/), tests are organized into specifications, which contain examples which run the system under test through various different code paths.
--->
-[specs2](https://etorreborre.github.io/specs2/) のテストは、様々なコードパスでテスト対象システムを動作させるサンプル値を含んだ specifications にまとめられます。 
 
-<!--
-Specifications extend the [`Specification`](https://etorreborre.github.io/specs2/api/SPECS2-3.4/index.html#org.specs2.mutable.Specification) trait and are using the should/in format:
--->
-specification は [`Specification`](https://etorreborre.github.io/specs2/api/SPECS2-3.4/index.html#org.specs2.mutable.Specification) トレイトを継承し、 should/in といった形式を使って記述します。
+Specifications extend the [`Specification`](https://etorreborre.github.io/specs2/api/SPECS2-3.6.6/index.html#org.specs2.mutable.Specification) trait and are using the should/in format:
 
 @[scalatest-helloworldspec](code/specs2/HelloWorldSpec.scala)
 
-<!--
 Specifications can be run in either IntelliJ IDEA (using the [Scala plugin](https://blog.jetbrains.com/scala/)) or in Eclipse (using the [Scala IDE](http://scala-ide.org/)).  Please see the [[IDE page|IDE]] for more details.
--->
-specification は [Scala plugin](https://blog.jetbrains.com/scala/) を使用した IntelliJ IDEA あるいは [Scala IDE](http://scala-ide.org/) を使用した Eclipse で実行可能です。詳しくは [[IDE|IDE]] のページを参照してください。
 
-<!--
-NOTE: Due to a bug in the [presentation compiler](https://scala-ide-portfolio.assembla.com/spaces/scala-ide/support/tickets/1001843-specs2-tests-with-junit-runner-are-not-recognized-if-there-is-package-directory-mismatch#/activity/ticket:), tests must be defined in a specific format to work with Eclipse:
--->
-> NOTE: [presentation compiler](https://scala-ide-portfolio.assembla.com/spaces/scala-ide/support/tickets/1001843-specs2-tests-with-junit-runner-are-not-recognized-if-there-is-package-directory-mismatch#/activity/ticket:) のバグで、 Eclipse でコーディングする場合、特定のフォーマットで書く必要があります。
+> **Note:** Due to a bug in the [presentation compiler](https://scala-ide-portfolio.assembla.com/spaces/scala-ide/support/tickets/1001843-specs2-tests-with-junit-runner-are-not-recognized-if-there-is-package-directory-mismatch#/activity/ticket:), tests must be defined in a specific format to work with Eclipse:
 
-<!--
 * The package must be exactly the same as the directory path.
 * The specification must be annotated with `@RunWith(classOf[JUnitRunner])`.
--->
-* パッケージはディレクトリパスと同じでなければいけません。
-* specification は、 `@RunWith(classOf[JUnitRunner])` でアノテーションされなければいけません。
 
-<!--
 Here is a valid specification for Eclipse:
--->
-Eclipse では以下のように書きます。
 
-```scala
-package models // このファイルは、"models" というディレクトリに配置されている必要があります。
+@[basic-spec](code/models/UserSpec.scala)
 
-import org.specs2.mutable._
-import org.specs2.runner._
-import org.junit.runner._
-
-@RunWith(classOf[JUnitRunner])
-class ApplicationSpec extends Specification {
-  ...
-}
-```
-
-<!--
-### Matchers
--->
 ### Matchers
 
-<!--
 When you use an example, you must return an example result. Usually, you will see a statement containing a `must`:
--->
-サンプル値を使うと、サンプル値の結果を返さなければいけません。通例、`must` という宣言がよく使われます。
 
-```scala
-"Hello world" must endWith("world")
-```
+@[assertion-example](code/models/UserSpec.scala)
 
-<!--
-The expression that follows the `must` keyword are known as [`matchers`](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.Matchers.html). Matchers return an example result, typically Success or Failure.  The example will not compile if it does not return a result.
--->
-`must` のあとの表現は、 [`matchers`](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.Matchers.html) と呼ばれます。matchers は、Success や Failure など、サンプル値の結果を返します。結果を返さない場合、サンプル値はコンパイルされません。
+The expression that follows the `must` keyword are known as [`matchers`](https://etorreborre.github.io/specs2/guide/SPECS2-3.6.6/org.specs2.guide.Matchers.html). Matchers return an example result, typically Success or Failure.  The example will not compile if it does not return a result.
 
-<!--
-The most useful matchers are the [match results](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.Matchers.html#out-of-the-box). These are used to check for equality, determine the result of Option and Either, and even check if exceptions are thrown.
--->
-最も便利な matchers は、[match results](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.Matchers.html#out-of-the-box) です。同一性の検査や、 Option や Either の結果を判定、例外が投げられたかどうかの検査に使われます。
+The most useful matchers are the [match results](https://etorreborre.github.io/specs2/guide/SPECS2-3.6.6/org.specs2.guide.Matchers.html#out-of-the-box). These are used to check for equality, determine the result of Option and Either, and even check if exceptions are thrown.
 
-<!--
-There are also [optional matchers](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.Matchers.html#optional) that allow for XML and JSON matching in tests.
--->
-他にも XML や JSON を比較するテストの [optional matchers](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.Matchers.html#optional) などもあります。
+There are also [optional matchers](https://etorreborre.github.io/specs2/guide/SPECS2-3.6.6/org.specs2.guide.Matchers.html#optional) that allow for XML and JSON matching in tests.
 
-<!--
-### Mockito
--->
 ### Mockito
 
-<!--
 Mocks are used to isolate unit tests against external dependencies.  For example, if your class depends on an external `DataService` class, you can feed appropriate data to your class without instantiating a `DataService` object.
--->
-モックは外部の依存関係から独立したユニットテストを行う際に用います。例えば、クラスが外部の `DataService` クラスに依存する場合、 `DataService` のオブジェクトをインスタンス化しなくても、モックを使って適切なデータを提供できます。
 
-<!--
-[Mockito](https://github.com/mockito/mockito) is integrated into specs2 as the default [mocking library](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.UseMockito.html).
--->
-[Mockito](https://github.com/mockito/mockito) は、標準の[モックライブラリ](https://etorreborre.github.io/specs2/guide/SPECS2-3.4/org.specs2.guide.UseMockito.html)として、 specs2 に組み込まれています。
+[Mockito](https://github.com/mockito/mockito) is integrated into specs2 as the default [mocking library](https://etorreborre.github.io/specs2/guide/SPECS2-3.6.6/org.specs2.guide.UseMockito.html).
 
-<!--
 To use Mockito, add the following import:
--->
-Mockito は以下のように使います。
 
-```scala
-import org.specs2.mock._
-```
+@[import-mockito](code/models/UserSpec.scala)
 
-<!--
 You can mock out references to classes like so:
--->
-Mockito を使えば、クラスへの参照を次のようにモックに向けることができます。
 
 @[specs2-mockito-dataservice](code/specs2/ExampleMockitoSpec.scala)
 
 @[specs2-mockito](code/specs2/ExampleMockitoSpec.scala)
 
-<!--
 Mocking is especially useful for testing the public methods of classes.  Mocking objects and private methods is possible, but considerably harder.
--->
-モックは特に、public なメソッドに対してのテストに便利です。object や private メソッドのモックも可能ではありますが、非常に困難です。
 
-<!--
 ## Unit Testing Models
--->
-## モデルのユニットテスト
 
-<!--
 Play does not require models to use a particular database data access layer.  However, if the application uses Anorm or Slick, then frequently the Model will have a reference to database access internally.
--->
-Play はモデルを使う際に特定のデータベースアクセス層を必要としません。しかし、アプリケーションが Anorm や Slick を使っていた場合、モデルは内部的にデータベースアクセス層への参照を頻繁に行うでしょう。
 
 ```scala
 import anorm._
@@ -191,15 +87,9 @@ case class User(id: String, name: String, email: String) {
 }
 ```
 
-<!--
 For unit testing, this approach can make mocking out the `roles` method tricky.
--->
-ユニットテストをするには、 `roles` メソッドをうまく使うことでモック化することが出来ます。
 
-<!--
 A common approach is to keep the models isolated from the database and as much logic as possible, and abstract database access behind a repository layer.
--->
-一般的には、モデルをデータベースから隔離し、ロジックに集中させ、リポジトリ層を利用して抽象的にデータベースアクセスを行うというアプローチをとります。
 
 @[scalatest-models](code/models/User.scala)
 
@@ -216,52 +106,66 @@ class AnormUserRepository extends UserRepository {
 }
 ```
 
-<!--
 and then access them through services:
--->
-そして、サービスを経由してアクセスします。
 
 @[scalatest-userservice](code/services/UserService.scala)
 
-<!--
 In this way, the `isAdmin` method can be tested by mocking out the `UserRepository` reference and passing it into the service:
--->
-こうすることで、モック化した `UserRepository` の参照をサービスに渡して `isAdmin` メソッドをテストすることができます
 
 @[scalatest-userservicespec](code/specs2/UserServiceSpec.scala)
 
-<!--
 ## Unit Testing Controllers
--->
-## コントローラのユニットテスト
 
-<!--
-When defining controllers as objects, they can be trickier to unit test. In Play this can be alleviated by [[dependency injection|ScalaDependencyInjection]]. Another way to finesse unit testing with a controller declared as a object is to use a trait with an [explicitly typed self reference](http://www.naildrivin5.com/scalatour/wiki_pages/ExplcitlyTypedSelfReferences) to the controller:
--->
-コントローラを object として定義すると、ユニットテストするのが難しくなります。Play では [[依存性注入|ScalaDependencyInjection]] で緩和できます。あるいは、コントローラに [明示的に型付けられた自己参照](http://www.naildrivin5.com/scalatour/wiki_pages/ExplcitlyTypedSelfReferences) のトレイトを使用するという方法によっても、object として定義されたコントローラのユニットテストを幾分楽にすることができます。 
+Since your controllers are just regular classes, you can easily unit test them using Play helpers. If your controllers depends on another classes, using [[dependency injection|ScalaDependencyInjection]] will enable you to mock these dependencies. Per instance, given the following controller:
 
 @[scalatest-examplecontroller](code/specs2/ExampleControllerSpec.scala)
 
-<!--
-and then test the trait:
--->
-そして、トレイトのテストを追加します。
+You can test it like:
 
 @[scalatest-examplecontrollerspec](code/specs2/ExampleControllerSpec.scala)
 
-<!--
+### StubControllerComponents
+
+The [`StubControllerComponentsFactory`](api/scala/play/api/test/StubControllerComponentsFactory.html) creates a stub [`ControllerComponents`](api/scala/play/api/mvc/ControllerComponents.html) that can be used for unit testing a controller:
+
+@[scalatest-stubcontrollercomponents](code/specs2/ExampleHelpersSpec.scala)
+
+### StubBodyParser
+
+The [`StubBodyParserFactory`](api/scala/play/api/test/StubBodyParserFactory.html) creates a stub [`BodyParser`](api/scala/play/api/mvc/BodyParser.html) that can be used for unit testing content:
+
+@[scalatest-stubbodyparser](code/specs2/ExampleHelpersSpec.scala)
+
+## Unit Testing Forms
+
+Forms are also just regular classes, and can unit tested using Play's Test Helpers. Using [`FakeRequest`](api/scala/play/api/test/FakeRequest.html), you can call `form.bindFromRequest` and test for errors against any custom constraints.
+
+To unit test form processing and render validation errors, you will want a [`MessagesApi`](api/scala/play/api/i18n/MessagesApi.html) instance in implicit scope.  The default implementation of [`MessagesApi`](api/scala/play/api/i18n/MessagesApi.html) is [`DefaultMessagesApi`](api/scala/play/api/i18n/DefaultMessagesApi.html):
+  
+You can test it like:
+
+@[scalatest-exampleformspec](code/specs2/ExampleControllerSpec.scala)
+
+When rendering a template that takes form helpers, you can pass in a Messages the same way, or use [`Helpers.stubMessages()`](api/scala/play/api/test/Helpers$.html#stubMessages\(messagesApi:play.api.i18n.MessagesApi,requestHeader:play.api.mvc.RequestHeader\):play.api.i18n.Messages):
+
+@[scalatest-exampletemplatespec](code/specs2/ExampleControllerSpec.scala)
+
+Or, if you are using a form that uses `CSRF.formField` and requires an implicit request, you can use [`MessagesRequest`](api/scala/play/api/mvc/MessagesRequest.html) in the template and use [`Helpers.stubMessagesRequest()`](api/scala/play/api/test/Helpers$.html#stubMessagesRequest\(messagesApi:play.api.i18n.MessagesApi,request:play.api.mvc.Request[play.api.mvc.AnyContentAsEmpty.type]\):play.api.mvc.MessagesRequest[play.api.mvc.AnyContentAsEmpty.type]):
+
+@[scalatest-examplecsrftemplatespec](code/specs2/ExampleControllerSpec.scala)
+
 ## Unit Testing EssentialAction
--->
-## EssentialAction のテスト
 
-<!--
-Testing [`Action`](api/scala/play/api/mvc/Action.html) or [`Filter`](api/scala/play/api/mvc/Filter.html) can require to test an [`EssentialAction`](api/scala/play/api/mvc/EssentialAction.html) ([[more information about what an EssentialAction is|HttpApi]])
--->
-[`Action`](api/scala/play/api/mvc/Action.html) や [`Filter`](api/scala/play/api/mvc/Filter.html) のテストには [`EssentialAction`](api/scala/play/api/mvc/EssentialAction.html) のテストが必要になることがあります ([[EssentialAction の詳細はこちら|HttpApi]])。
+Testing [`Action`](api/scala/play/api/mvc/Action.html) or [`Filter`](api/scala/play/api/mvc/Filter.html) can require to test an [`EssentialAction`](api/scala/play/api/mvc/EssentialAction.html) ([[more information about what an EssentialAction is|ScalaEssentialAction]])
 
-<!--
-For this, the test [`Helpers.call`](api/scala/play/api/test/Helpers$.html#call) can be used like that:
--->
-そのためには、以下のように [`Helpers.call`](api/scala/play/api/test/Helpers$.html#call) テストを使用します。
+For this, the test [`Helpers.call()`](api/scala/play/api/test/Helpers$.html#call[T]\(action:play.api.mvc.EssentialAction,rh:play.api.mvc.RequestHeader,body:T\)\(implicitw:play.api.http.Writeable[T],implicitmat:akka.stream.Materializer\):scala.concurrent.Future[play.api.mvc.Result]) can be used like that:
 
 @[scalatest-exampleessentialactionspec](code/specs2/ExampleEssentialActionSpec.scala)
+
+## Unit Testing Messages
+
+For unit testing purposes, [`DefaultMessagesApi`](api/scala/play/api/i18n/DefaultMessagesApi.html) can be instantiated without arguments, and will take a raw map, so you can test forms and validation failures against custom [`MessagesApi`](api/scala/play/api/i18n/MessagesApi.html):
+
+@[scalatest-examplemessagesspec](code/specs2/ExampleMessagesSpec.scala)
+
+You can also use [`Helpers.stubMessagesApi()`](api/scala/play/api/test/Helpers$.html#stubMessagesApi\(messages:Map[String,Map[String,String]],langs:play.api.i18n.Langs,langCookieName:String,langCookieSecure:Boolean,langCookieHttpOnly:Boolean,httpConfiguration:play.api.http.HttpConfiguration\):play.api.i18n.MessagesApi) in testing to provide a premade empty [`MessagesApi`](api/scala/play/api/i18n/MessagesApi.html).

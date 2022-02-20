@@ -1,4 +1,5 @@
 @* #template *@
-@import play.i18n._
-@Messages.get("hello")
+@import play.mvc.Http.Context.Implicit._
+@()
+@{messages().at("hello")}
 @* #template *@

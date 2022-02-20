@@ -1,40 +1,47 @@
 /*
- * Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com>
+ * Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com>
  */
 package javaguide.forms.u3;
 
-import play.data.validation.Constraints;
 import static javaguide.forms.JavaForms.authenticate;
 
-//#user
-public class User {
+// #user
+import play.data.validation.Constraints;
+import play.data.validation.Constraints.Validate;
+import play.data.validation.Constraints.Validatable;
 
-    @Constraints.Required
-    protected String email;
-    protected String password;
+@Validate
+public class User implements Validatable<String> {
 
-    public String validate() {
-        if (authenticate(email, password) == null) {
-            return "Invalid email or password";
-        }
-        return null;
+  @Constraints.Required protected String email;
+  protected String password;
+
+  @Override
+  public String validate() {
+    if (authenticate(email, password) == null) {
+      // You could also return a key defined in conf/messages
+      return "Invalid email or password";
     }
+    return null;
+  }
 
-    public void setEmail(String email) {
-    	this.email = email;
-    }
+  // getters and setters
 
-    public String getEmail() {
-    	return email;
-    }
+  // ###skip: 16
+  public void setEmail(String email) {
+    this.email = email;
+  }
 
-    public void setPassword(String password) {
-    	this.password = password;
-    }
+  public String getEmail() {
+    return email;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
+  public String getPassword() {
+    return password;
+  }
 }
-//#user
+// #user

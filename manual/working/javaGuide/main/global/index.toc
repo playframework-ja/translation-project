@@ -1,2 +1,0 @@
-JavaGlobal:アプリケーションのグローバル設定
-JavaInterceptors:リクエストのインターセプト

@@ -1,1 +1,2 @@
-ScalaEmbeddingPlay:Play の組み込み
+ScalaEmbeddingPlayAkkaHttp:Akka HTTPサーバーへのPlayの組み込み
+ScalaEmbeddingPlayNetty:Netty ServerへのPlayの組み込み

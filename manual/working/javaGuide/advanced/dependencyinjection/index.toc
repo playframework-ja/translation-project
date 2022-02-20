@@ -1,1 +1,0 @@
-JavaDependencyInjection:Guice による依存性の注入

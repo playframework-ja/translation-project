@@ -1,9 +1,9 @@
 Home:Home
-gettingStarted:はじめに
-working:Play で開発する
-detailedTopics:詳細なトピック
-experimental:実験的なライブラリ
-hacking:Play を Hack する
-about:Play について
-releases:Play のリリース
-ModuleDirectory:一時的なモジュールディレクトリ
+LatestRelease:最新のリリース
+gettingStarted:Getting started
+tutorial: Hello Worldチュートリアル
+working:Playで開発する
+hacking:Playにコントリビュートする
+about:Playについて
+releases:Playのリリース
+ModuleDirectory:モジュールディレクトリ

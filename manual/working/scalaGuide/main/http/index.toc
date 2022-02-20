@@ -1,8 +1,8 @@
-ScalaActions:アクション、コントローラ、レスポンス
-ScalaRouting:HTTP ルーティング
-ScalaResults:レスポンスの操作
-ScalaSessionFlash:Session と Flash スコープ
-ScalaBodyParsers:ボディパーサー
-ScalaActionsComposition:アクションの構成
-ScalaContentNegotiation:コンテンツネゴシエーション
-ScalaErrorHandling:エラーハンドリング
+ScalaActions:Actions, Controllers and Results
+ScalaRouting:HTTP Routing
+ScalaResults:Manipulating results
+ScalaSessionFlash:Session and Flash scopes
+ScalaBodyParsers:Body parsers
+ScalaActionsComposition:Actions composition
+ScalaContentNegotiation:Content negotiation
+ScalaErrorHandling:Handling errors

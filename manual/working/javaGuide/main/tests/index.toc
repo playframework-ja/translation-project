@@ -2,4 +2,4 @@ JavaTest:テストの書き方
 JavaFunctionalTest:機能テストの書き方
 JavaTestingWithGuice:Guice によるテスト
 JavaTestingWithDatabases:データベースを使ったテスト
-JavaTestingWebServiceClients:web サービスクライアントのテスト
+JavaTestingWebServiceClients:webサービスクライアントのテスト

@@ -1,7 +1,7 @@
-Installing:Play のインストール
+Introduction: What is Play?
+Requirements:Play Requirements
+LearningExamples:Learning from Play Examples
 NewApplication:新しいアプリケーションを作る
-PlayConsole:Play コンソールを使う
+Anatomy:Playアプリケーションの構造
+PlayConsole:Playコンソールを使う
 IDE:好みの IDE を設定する
-Anatomy:Play アプリケーションの構造
-Tutorials:Play チュートリアル
-Modules:Play モジュール

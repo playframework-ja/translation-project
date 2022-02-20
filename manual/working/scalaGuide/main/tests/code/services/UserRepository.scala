@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com>
+ * Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com>
  */
 package scalaguide.tests
 
@@ -9,8 +9,6 @@ import models._
 
 // #scalatest-repository
 trait UserRepository {
-  def roles(user:User) : Set[Role]
+  def roles(user: User): Set[Role]
 }
 // #scalatest-repository
-
-

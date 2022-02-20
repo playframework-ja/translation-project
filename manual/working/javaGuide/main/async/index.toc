@@ -1,4 +1,4 @@
-JavaAsync:非同期レスポンスの処理
-JavaStream:HTTP レスポンスのストリーミング
+JavaAsync:Handling asynchronous results
+JavaStream:Streaming HTTP responses
 JavaComet:Comet
-JavaWebSockets:WebSocket
+JavaWebSockets:WebSockets

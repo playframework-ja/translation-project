@@ -1,1 +1,2 @@
-JavaPlugins:プラグインの書き方
+JavaPlayModules:Playモジュールを作成する
+JavaPlugins:プラグインAPIからの移行

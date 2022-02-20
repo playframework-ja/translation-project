@@ -1,8 +1,7 @@
-Highlights24:Play 2.4 の変更点
-Highlights23:Play 2.3 の変更点
-Highlights22:Play 2.2 の変更点
-Highlights21:Play 2.1 の変更点
-migration24:Play 2.4 移行ガイド
-Migration23:Play 2.3 移行ガイド
-Migration22:Play 2.2 移行ガイド
-Migration21:Play 2.1 移行ガイド
+Releases:Playのリリースについて
+!release26:Play 2.6
+!release25:Play 2.5
+!release24:Play 2.4
+!release23:Play 2.3
+!release22:Play 2.2
+!release21:Play 2.1

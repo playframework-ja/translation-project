@@ -1,7 +1,7 @@
-<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
+<!--- Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com> -->
 # Integrating with Akka
 
-[Akka](http://akka.io/) uses the Actor Model to raise the abstraction level and provide a better platform to build correct concurrent and scalable applications. For fault-tolerance it adopts the ‘Let it crash’ model, which has been used with great success in the telecoms industry to build applications that self-heal - systems that never stop. Actors also provide the abstraction for transparent distribution and the basis for truly scalable and fault-tolerant applications.
+[Akka](https://akka.io/) uses the Actor Model to raise the abstraction level and provide a better platform to build correct concurrent and scalable applications. For fault-tolerance it adopts the ‘Let it crash’ model, which has been used with great success in the telecoms industry to build applications that self-heal - systems that never stop. Actors also provide the abstraction for transparent distribution and the basis for truly scalable and fault-tolerant applications.
 
 ## The application actor system
 
@@ -15,7 +15,7 @@ To start using Akka, you need to write an actor.  Below is a simple actor that s
 
 @[actor](code/javaguide/akka/HelloActor.java)
 
-Notice here that the `HelloActor` defines a static method called `props`, this returns a `Props` object that describes how to create the actor.  This is a good Akka convention, to separate the instantiation logic from the code that creates the actor.
+Notice here that the `HelloActor` defines a static method called `getProps`, this method returns a `Props` object that describes how to create the actor.  This is a good Akka convention, to separate the instantiation logic from the code that creates the actor.
 
 Another best practice shown here is that the messages that `HelloActor` sends and receives are defined as static inner classes of another class called `HelloActorProtocol`:
 
@@ -27,7 +27,7 @@ To create and/or use an actor, you need an `ActorSystem`.  This can be obtained 
 
 The most basic thing that you can do with an actor is send it a message.  When you send a message to an actor, there is no response, it's fire and forget.  This is also known as the _tell_ pattern.
   
-In a web application however, the _tell_ pattern is often not useful, since HTTP is a protocol that has requests and responses.  In this case, it is much more likely that you will want to use the _ask_ pattern.  The ask pattern returns a Scala `Future`, which you can then wrap in a Play `Promise`, and then map to your own result type.
+In a web application however, the _tell_ pattern is often not useful, since HTTP is a protocol that has requests and responses.  In this case, it is much more likely that you will want to use the _ask_ pattern.  The ask pattern returns a Scala `Future`, which you can convert to a Java `CompletionStage` using `scala.compat.java8.FutureConverts.toJava`, and then map to your own result type.
 
 Below is an example of using our `HelloActor` with the ask pattern:
 
@@ -36,7 +36,7 @@ Below is an example of using our `HelloActor` with the ask pattern:
 A few things to notice:
 
 * The ask pattern needs to be imported, it's often most convenient to static import the `ask` method.
-* The returned future is wrapped in a `Promise`.  The resulting promise is a `Promise<Object>`, so when you access its value, you need to cast it to the type you are expecting back from the actor.
+* The returned future is converted to a `CompletionStage`.  The resulting promise is a `CompletionStage<Object>`, so when you access its value, you need to cast it to the type you are expecting back from the actor.
 * The ask pattern requires a timeout, we have supplied 1000 milliseconds.  If the actor takes longer than that to respond, the returned promise will be completed with a timeout error.
 * Since we're creating the actor in the constructor, we need to scope our controller as `Singleton`, so that a new actor isn't created every time this controller is used.
 
@@ -78,7 +78,7 @@ Now, the actor that depends on this can extend [`InjectedActorSupport`](api/java
 
 @[injectedparent](code/javaguide/akka/ParentActor.java)
 
-It uses the `injectedChild` to create and get a reference to the child actor, passing in the key.
+It uses the `injectedChild` to create and get a reference to the child actor, passing in the key. The second parameter (`key` in this example) will be used as the child actor's name.
 
 Finally, we need to bind our actors.  In our module, we use the `bindActorFactory` method to bind the parent actor, and also bind the child factory to the child implementation:
 
@@ -105,7 +105,7 @@ play.akka.config = "my-akka"
 Now settings will be read from the `my-akka` prefix instead of the `akka` prefix.
 
 ```
-my-akka.actor.default-dispatcher.fork-join-executor.pool-size-max = 64
+my-akka.actor.default-dispatcher.fork-join-executor.parallelism-max = 64
 my-akka.actor.debug.receive = on
 ```
 
@@ -117,7 +117,7 @@ By default the name of the Play actor system is `application`. You can change th
 play.akka.actor-system = "custom-name"
 ```
 
-> **Note:** This feature is useful if you want to put your play application ActorSystem in an akka cluster.
+> **Note:** This feature is useful if you want to put your play application `ActorSystem` in an akka cluster.
 
 ## Executing a block of code asynchronously
 
@@ -125,14 +125,39 @@ A common use case within Akka is to have some computation performed concurrently
 
 @[async](code/javaguide/akka/async/Application.java)
 
-## Scheduling asynchronous tasks
+## Akka Coordinated Shutdown
 
-You can schedule sending messages to actors and executing tasks (functions or `Runnable` instances). You will get a `Cancellable` back that you can call `cancel` on to cancel the execution of the scheduled operation.
+Play terminates the built-in Akka actor system using Akka's [Coordinated Shutdown](https://doc.akka.io/docs/akka/current/actors.html?language=java#coordinated-shutdown). By default Play will run the Coordinated Shutdown using only the last phase where the actor system is terminated. You can override that settings using:
 
-For example, to send a message to the `testActor` every 30 minutes:
+```
+# Runs Akka CoordinatedShutdown for Play's actor system
+# from phase "service-stop". See Akka docs on Coordinated 
+# Shutdown for other phase names. In Play, this defaults 
+# to "actor-system-terminate"
+play.akka.run-cs-from-phase = "service-stop" 
+```
 
-@[schedule-actor](code/javaguide/akka/JavaAkka.java)
+If you are using extra actor systems in your Play Application and tests, make sure they are all terminated and feel free to migrate your termination code from the traditional `actorSystem.terminate()` to the new [Coordinated Shutdown](https://doc.akka.io/docs/akka/current/actors.html?language=java#coordinated-shutdown)
 
-Alternatively, to run a block of code ten milliseconds from now:
+## Akka Cluster
 
-@[schedule-code](code/javaguide/akka/JavaAkka.java)
+You can make your Play application join an existing [Akka Cluster](https://doc.akka.io/docs/akka/snapshot/cluster-usage.html). In that case it is recommended that you leave the cluster gracefully. Play ships with Akka's Coordinated Shutdown since Play 2.6 which can take care of that graceful leave but it is disabled. 
+
+If you are joining an Akka Cluster with your Play application and you already have custom Cluster Leave code it is recommended that you replace it and enable Akka's handling using `play.akka.run-cs-from-phase` described above and set it to run from, at least, `before-cluster-shutdown` phase. See [Akka docs](https://doc.akka.io/docs/akka/current/actors.html?language=java#coordinated-shutdown) for more details.
+
+## Updating Akka version
+
+If you want to use a newer version of Akka, one that is not used by Play yet, you can add the following to your `build.sbt` file:
+
+@[akka-update](code/javaguide.akkaupdate.sbt)
+
+Of course, other Akka artifacts can be added transitively. Use [sbt-dependency-graph](https://github.com/jrudolph/sbt-dependency-graph) to better inspect your build and check which ones you need to add explicitly.
+
+If you also want to update Akka HTTP, you should also add its dependencies explicitly:
+
+@[akka-http-update](code/javaguide.akkaupdate.sbt)
+
+> **Note:** When doing such updates, keep in mind that you need to follow Akka's [Binary Compatibility Rules](https://doc.akka.io/docs/akka/2.5/common/binary-compatibility-rules.html). And if you are manually adding other Akka artifacts, remember to keep the version of all the Akka artifacts consistent since [mixed versioning is not allowed](https://doc.akka.io/docs/akka/2.5/common/binary-compatibility-rules.html#mixed-versioning-is-not-allowed).
+
+> **Note:** When resolving dependencies, sbt will get the newest one declared for this project or added transitively. It means that if Play depends on a newer Akka (or Akka HTTP) version than the one you are declaring, Play version wins. See more details about [how sbt does evictions here](https://www.scala-sbt.org/1.x/docs/Library-Management.html#Eviction+warning).
+

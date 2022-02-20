@@ -1,10 +1,15 @@
+/*
+ * Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com>
+ */
 package javaguide.tests;
 
-//#content
+// #content
+import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
+
 import com.fasterxml.jackson.databind.node.*;
 import org.junit.*;
-import play.api.routing.Router;
 import play.libs.Json;
 import play.libs.ws.*;
 import play.routing.RoutingDsl;
@@ -15,39 +20,44 @@ import static org.junit.Assert.*;
 import static org.hamcrest.core.IsCollectionContaining.*;
 
 public class GitHubClientTest {
-    GitHubClient client;
-    WSClient ws;
-    Server server;
+  private GitHubClient client;
+  private WSClient ws;
+  private Server server;
 
-    @Before
-    public void setup() {
-        Router router = new RoutingDsl()
-            .GET("/repositories").routeTo(() -> {
-                ArrayNode repos = Json.newArray();
-                ObjectNode repo = Json.newObject();
-                repo.put("full_name", "octocat/Hello-World");
-                repos.add(repo);
-                return ok(repos);
-            })
-            .build();
+  @Before
+  public void setup() {
+    server =
+        Server.forRouter(
+            (components) ->
+                RoutingDsl.fromComponents(components)
+                    .GET("/repositories")
+                    .routeTo(
+                        () -> {
+                          ArrayNode repos = Json.newArray();
+                          ObjectNode repo = Json.newObject();
+                          repo.put("full_name", "octocat/Hello-World");
+                          repos.add(repo);
+                          return ok(repos);
+                        })
+                    .build());
+    ws = play.test.WSTestClient.newClient(server.httpPort());
+    client = new GitHubClient(ws);
+    client.baseUrl = "";
+  }
 
-        server = Server.forRouter(router);
-        ws = WS.newClient(server.httpPort());
-        client = new GitHubClient();
-        client.baseUrl = "";
-        client.ws = ws;
+  @After
+  public void tearDown() throws IOException {
+    try {
+      ws.close();
+    } finally {
+      server.stop();
     }
+  }
 
-    @After
-    public void tearDown() {
-        ws.close();
-        server.stop();
-    }
-
-    @Test
-    public void repositories() {
-        List<String> repos = client.getRepositories().get(10000);
-        assertThat(repos, hasItem("octocat/Hello-World"));
-    }
+  @Test
+  public void repositories() throws Exception {
+    List<String> repos = client.getRepositories().toCompletableFuture().get(10, TimeUnit.SECONDS);
+    assertThat(repos, hasItem("octocat/Hello-World"));
+  }
 }
-//#content
+// #content

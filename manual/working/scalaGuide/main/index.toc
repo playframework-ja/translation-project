@@ -1,14 +1,18 @@
-http:HTTP プログラミング
-async:非同期 HTTP プログラミング
-templates:テンプレートエンジン
-forms:フォーム送信とバリデーション
-json:Json を使う
-xml:XML を使う
-upload:ファイルアップロード処理
-sql:SQL データベースアクセス
-cache:キャッシュを使う
-ws:Web サービスの呼び出し
-akka:Akka との統合
-i18n:国際化
-tests:アプリケーションのテスト
-logging:ロギング
+ScalaHome:Section introduction
+config:Configuration API
+http:HTTP programming
+async:Asynchronous HTTP programming
+templates:The Twirl template engine
+forms:Form submission and validation
+json:Working with Json
+xml:Working with XML
+upload:Handling file upload
+sql:Accessing an SQL database
+cache:Using the Cache
+ws:Calling REST APIs with Play WS
+akka:Integrating with Akka
+i18n:Internationalization with Messages
+dependencyinjection:Dependency injection
+application:Application Settings
+tests:Testing your application
+logging:Logging

@@ -1,54 +1,29 @@
-<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
-<!--
+<!--- Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com> -->
 # Accessing an SQL database
--->
-# SQL データベースアクセス
 
-<!--
+> **NOTE**: JDBC is a blocking operation that will cause threads to wait.  You can negatively impact the performance of your Play application by running JDBC queries directly in your controller!  Please see the "Configuring a CustomExecutionContext" section.
+
 ## Configuring JDBC connection pools
- -->
-## JDBC コネクションプールの構成
 
-<!--
 Play provides a plug-in for managing JDBC connection pools. You can configure as many databases as you need.
- -->
-Play には JDBC コネクションプールを管理するプラグインが同梱されています。これを使って、必要なだけデータベースへの接続設定を書くことができます。
 
-<!--
 To enable the database plug-in, add jdbc in your build dependencies :
- -->
-DB プラグインを有効にするために、依存ライブラリに jdbc を追加しましょう：
 
 ```scala
 libraryDependencies += jdbc
 ```
 
-<!--
 Then you must configure a connection pool in the `conf/application.conf` file. By convention, the default JDBC data source must be called `default` and the corresponding configuration properties are `db.default.driver` and `db.default.url`.
- -->
-そして `conf/application.conf` でコネクションプールの設定を行う必要があります。規約により、デフォルトの JDBC データソースは `default` という名前である必要があり、これに関連する設定属性名は `db.default.driver` や `db.default.url` のようになります。
 
-<!--
 If something isn’t properly configured you will be notified directly in your browser:
- -->
-もし設定が適切でない場合は、ブラウザ上ですぐに気づくことができるでしょう：
 
 [[images/dbError.png]]
 
-<!--
 > **Note:** You likely need to enclose the JDBC URL configuration value with double quotes, since ':' is a reserved character in the configuration syntax.
- -->
-> **注意:** 設定ファイルの文法において `:` は予約文字となっているため、JDBC の URL 属性をダブルクォーテーションで囲まなければならない場合があります。
 
-<!--
 ### H2 database engine connection properties
- -->
-### H2 データベースエンジン接続設定
 
-<!--
 In memory database:
- -->
-インメモリデータベース：
 
 ```properties
 # Default database configuration using H2 database engine in an in-memory mode
@@ -56,10 +31,7 @@ db.default.driver=org.h2.Driver
 db.default.url="jdbc:h2:mem:play"
 ```
 
-<!--
 File based database:
- -->
-ファイルベースデータベース：
 
 ```properties
 # Default database configuration using H2 database engine in a persistent mode
@@ -67,15 +39,9 @@ db.default.driver=org.h2.Driver
 db.default.url="jdbc:h2:/path/to/db-file"
 ```
 
-<!--
 The details of the H2 database URLs are found from [H2 Database Engine Cheat Sheet](http://www.h2database.com/html/cheatSheet.html).
- -->
-H2 データベースの URL 設定に関する詳細については [H2 Database Engine Cheat Sheet](http://www.h2database.com/html/cheatSheet.html) を見てください。
 
-<!--
 ### SQLite database engine connection properties
- -->
-### SQLite データベースエンジン接続設定
 
 ```properties
 # Default database configuration using SQLite database engine
@@ -83,10 +49,7 @@ db.default.driver=org.sqlite.JDBC
 db.default.url="jdbc:sqlite:/path/to/db-file"
 ```
 
-<!--
 ### PostgreSQL database engine connection properties
- -->
-### PostgreSQL データベースエンジン接続設定
 
 ```properties
 # Default database configuration using PostgreSQL database engine
@@ -94,10 +57,7 @@ db.default.driver=org.postgresql.Driver
 db.default.url="jdbc:postgresql://database.example.com/playdb"
 ```
 
-<!--
 ### MySQL database engine connection properties
- -->
-### MySQL データベースエンジン接続設定
 
 ```properties
 # Default database configuration using MySQL database engine
@@ -108,10 +68,7 @@ db.default.username=playdbuser
 db.default.password="a strong password"
 ```
 
-<!--
 ## How to configure several data sources
- -->
-## 複数データソースを設定する方法
 
 ```properties
 # Orders database
@@ -123,171 +80,109 @@ db.customers.driver=org.h2.Driver
 db.customers.url="jdbc:h2:mem:customers"
 ```
 
-<!--
-## Configuring the JDBC Driver
- -->
-## JDBC ドライバの設定
+## Exposing the datasource through JNDI
 
-<!--
+Some libraries expect to retrieve the `Datasource` reference from JNDI. You can expose any Play managed datasource via JNDI by adding this configuration in `conf/application.conf`:
+
+```properties
+db.default.driver=org.h2.Driver
+db.default.url="jdbc:h2:mem:play"
+db.default.jndiName=DefaultDS
+```
+
+
+## How to configure SQL log statement
+
+Not all connection pools offer (out of the box) a way to log SQL statements. HikariCP, per instance, suggests that you use the log capacities of your database vendor. From [HikariCP docs](https://github.com/brettwooldridge/HikariCP/tree/dev#log-statement-text--slow-query-logging):
+
+#### *Log Statement Text / Slow Query Logging*
+
+*Like Statement caching, most major database vendors support statement logging through properties of their own driver. This includes Oracle, MySQL, Derby, MSSQL, and others. Some even support slow query logging. We consider this a "development-time" feature. For those few databases that do not support it, jdbcdslog-exp is a good option. Great stuff during development and pre-Production.*
+
+Because of that, Play uses [jdbcdslog-exp](https://github.com/jdbcdslog/jdbcdslog) to enable consistent SQL log statement support for supported pools. The SQL log statement can be configured by database, using `logSql` property:
+
+```properties
+# Default database configuration using PostgreSQL database engine
+db.default.driver=org.postgresql.Driver
+db.default.url="jdbc:postgresql://database.example.com/playdb"
+db.default.logSql=true
+```
+
+After that, you can configure the jdbcdslog-exp [log level as explained in their manual](https://code.google.com/p/jdbcdslog/wiki/UserGuide#Setup_logging_engine). Basically, you need to configure your root logger to `INFO` and then decide what jdbcdslog-exp will log (connections, statements and result sets). Here is an example using `logback.xml` to configure the logs:
+
+@[](/confs/play-logback/logback-play-logSql.xml)
+
+> **Warning**: Keep in mind that this is intended to be used just in development environments and you should not configure it in production, since there is a performance degradation and it will pollute your logs.
+
+## Configuring the JDBC Driver dependency
+
 Play is bundled only with an [H2](http://www.h2database.com) database driver. Consequently, to deploy in production you will need to add your database driver as a dependency.
- -->
-Play には [H2](http://www.h2database.com) データベースのドライバのみが同梱されています。そのため、本番環境にデプロイする際は必要なデータベースドライバを依存ライブラリに追加する必要があるでしょう。
 
-<!--
-For example, if you use MySQL5, you need to add a [[dependency|SBTDependencies]] for the connector:
- -->
-例えば MySQL5 を使用する場合、接続するために以下の [[依存性|SBTDependencies]] を追加する必要があります:
+For example, if you use MySQL5, you need to add a [[dependency|sbtDependencies]] for the connector:
 
 ```scala
-libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.34"
+libraryDependencies += "mysql" % "mysql-connector-java" % "5.1.41"
 ```
 
-<!--
 Or if the driver can't be found from repositories you can drop the driver into your project's [[unmanaged dependencies|Anatomy]] `lib` directory.
- -->
-あるいは Maven/Ivy2 リポジトリに必要なドライバが見つからない場合、Play プロジェクトの [[unmanaged な依存ライブラリ|Anatomy]] を配置するための場所である `lib` ディレクトリにドライバを放り込むことができます。
 
-<!--
-## Accessing the JDBC datasource
- -->
-## JDBC データソースの参照
+## Configuring a CustomExecutionContext
 
-<!--
-The `play.api.db` package provides access to the configured data sources:
- -->
-`play.api.db` パッケージ（の DB オブジェクト）は設定されたデータソースにアクセスする手段を提供します。
+You should always use a custom execution context when using JDBC, to ensure that Play's rendering thread pool is completely focused on rendering pages and using cores to their full extent.  You can use Play's `CustomExecutionContext` class to configure a custom execution context dedicated to serving JDBC operations.  See [[ScalaAsync]] and [[ThreadPools]] for more details.
 
-```scala
-import play.api.db._
+All of the Play example templates on [Play's download page](https://playframework.com/download#examples) that use blocking APIs (i.e. Anorm, JPA) have been updated to use custom execution contexts where appropriate.  For example, going to https://github.com/playframework/play-scala-anorm-example/ shows that the [CompanyRepository](https://github.com/playframework/play-scala-anorm-example/blob/2.6.x/app/models/CompanyRepository.scala) class takes a `DatabaseExecutionContext` that wraps all the database operations.
 
-val ds = DB.getDataSource()
+For thread pool sizing involving JDBC connection pools, you want a fixed thread pool size matching the connection pool, using a thread pool executor.  Following the advice in [HikariCP's pool sizing page]( https://github.com/brettwooldridge/HikariCP/wiki/About-Pool-Sizing), you should configure your JDBC connection pool to double the number of physical cores, plus the number of disk spindles, i.e. if you have a four core CPU and one disk, you have a total of 9 JDBC connections in the pool:
+
 ```
+# db connections = ((physical_core_count * 2) + effective_spindle_count)
+fixedConnectionPool = 9
 
-<!--
-## Obtaining a JDBC connection
- -->
-## JDBC コネクションの取得
-
-<!--
-There are several ways to retrieve a JDBC connection. The simplest way is:
- -->
-JDBC コネクションを取得する方法は何種類かあります。以下が一番シンプルな方法です：
-
-```scala
-val connection = DB.getConnection()
-```
-
-<!--
-Following code show you a JDBC example very simple, working with MySQL 5.*:
- -->
-以下のコードは、MySQL 5.* を使った JDBC のとてもシンプルな例です：
-
-```scala
-package controllers
-import play.api.Play.current
-import play.api.mvc._
-import play.api.db._
-
-object Application extends Controller {
-
-  def index = Action {
-    var outString = "Number is "
-    val conn = DB.getConnection()
-    try {
-      val stmt = conn.createStatement
-      val rs = stmt.executeQuery("SELECT 9 as testkey ")
-      while (rs.next()) {
-        outString += rs.getString("testkey")
-      }
-    } finally {
-      conn.close()
-    }
-    Ok(outString)
+database.dispatcher {
+  executor = "thread-pool-executor"
+  throughput = 1
+  thread-pool-executor {
+    fixed-pool-size = ${fixedConnectionPool}
   }
-
 }
 ```
 
-<!--
+## Obtaining a JDBC connection
+
+There are several ways to retrieve a JDBC connection. The following code show you a JDBC example very simple, working with MySQL 5.*:
+
+@[inject-controller](code/ScalaControllerInject.scala)
+
 But of course you need to call `close()` at some point on the opened connection to return it to the connection pool. Another way is to let Play manage closing the connection for you:
- -->
-しかし、当然ながらこの方法では取得したコネクションをコネクションプールに返却するために、必ずどこかで `close()` を呼び出さなければなりません。あなたの代わりに Play にコネクションのクローズを管理させる別のやり方があります。
 
-```scala
-// access "default" database
-DB.withConnection { conn =>
-  // do whatever you need with the connection
-}
-```
+@[access-default-database](code/ScalaControllerInject.scala)
 
-<!--
-For a database other than the default:
- -->
-default 以外のデータベースの場合は以下のようにします。
-
-```scala
-// access "orders" database instead of "default"
-DB.withConnection("orders") { conn =>
-  // do whatever you need with the connection
-}
-```
-
-<!--
 The connection will be automatically closed at the end of the block.
- -->
-このコネクションはブロックの終わりで自動的にクローズされます。
 
-<!--
 > **Tip:** Each `Statement` and `ResultSet` created with this connection will be closed as well.
- -->
-> **Tip:** `Statement` と `ResultSet` もコネクションと一緒にクローズされます。
 
-<!--
 A variant is to set the connection's auto-commit to `false` and to manage a transaction for the block:
- -->
-少し違ったやり方として、コネクションの auto-commit を `false` に設定し、ブロック内をトランザクション制御する方法もあります。
 
-```scala
-DB.withTransaction { conn =>
-  // do whatever you need with the connection
-}
-```
+@[access-db-connection](code/ScalaControllerInject.scala)
 
-<!--
+For a database other than the default:
+
+@[named-database](code/ScalaInjectNamed.scala)
+
 ## Selecting and configuring the connection pool
- -->
-## コネクションプールの選択と設定
 
-<!--
-Out of the box, Play provides two database connection pool implementations, [HikariCP](https://github.com/brettwooldridge/HikariCP) and [BoneCP](http://jolbox.com/). **The default is HikariCP**, but this can be changed by setting the `play.db.pool` property:
- -->
-特別な設定がなくても、Play は [HikariCP](https://github.com/brettwooldridge/HikariCP) と [BoneCP](http://jolbox.com/) の 2 つのデータベースコネクションプールの実装を提供しています。 **デフォルトは HikariCP です** が、 `play.db.pool` 属性を設定することで変更できます:
+Out of the box, Play provides two database connection pool implementations, [HikariCP](https://github.com/brettwooldridge/HikariCP) and [BoneCP](http://www.jolbox.com/). **The default is HikariCP**, but this can be changed by setting the `play.db.pool` property:
 
 ```
 play.db.pool=bonecp
 ```
 
-<!--
 The full range of configuration options for connection pools can be found by inspecting the `play.db.prototype` property in Play's JDBC [`reference.conf`](resources/confs/play-jdbc/reference.conf).
- -->
-コネクションプールに関するすべての設定オプションは、Play のJDBC の [`reference.conf`](resources/confs/play-jdbc/reference.conf) 内の `play.db.prototype` 属性を参照してください。
 
-<!--
 ## Testing
- -->
-## テスト
 
-<!--
 For information on testing with databases, including how to setup in-memory databases and, see [[Testing With Databases|ScalaTestingWithDatabases]].
- -->
-データベースのテストに関する情報は、インメモリデータベースのセットアップを含め、[[データベースを使用したテスト|ScalaTestingWithDatabases]] を参照してください。
 
-<!--
 ## Enabling Play database evolutions
- -->
-## Play の データベースエボリューションを使用する
 
-<!--
 Read [[Evolutions]] to find out what Play database evolutions are useful for, and follow the setup instructions for using it.
- -->
-Play のデータベースエボリューションの利便性については、[[Evolutions]] を参照し、使用に際してはセットアップ方法に従ってください。

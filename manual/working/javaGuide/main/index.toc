@@ -1,15 +1,18 @@
-http:HTTP プログラミング
-async:非同期 HTTP プログラミング
-templates:テンプレートエンジン
-forms:フォーム送信とバリデーション
-json:Json を使う
-xml:XML を使う
-upload:ファイルアップロード処理
-sql:SQL データベースアクセス
-cache:キャッシュを使う
-ws:Web サービスの呼び出し
-akka:Akka との統合
+JavaHome:Section contents
+config:Config API
+http:HTTPプログラミング
+async:非同期HTTPプログラミング
+templates:テンプレートエンジンTwirl
+forms:Formの送信とバリデーション
+json:Jsonを扱う
+xml:XMLを扱う
+upload:ファイルアップロード
+sql:SQLデータベースへの接続
+cache:Cacheを使う
+ws:Play WSを使ったREST APIsの呼び出し
+akka:Akkaとのインテグレーション
 i18n:国際化
-global:アプリケーション Global オブジェクト
-tests:アプリケーションのテスト
+dependencyinjection:依存性の注入
+application:アプリケーションの設定
+tests:アプリケーションをテストする
 logging:ロギング

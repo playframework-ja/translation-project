@@ -1,36 +1,39 @@
 /*
- * Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com>
+ * Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com>
  */
 package javaguide.async.controllers;
 
 import play.mvc.Result;
-import play.libs.F.Function;
-import play.libs.F.Function0;
-import play.libs.F.Promise;
 import play.mvc.Controller;
-//#async-explicit-ec-imports
-import play.libs.HttpExecution;
-import scala.concurrent.ExecutionContext;
-//#async-explicit-ec-imports
 
+// #async-explicit-ec-imports
+import play.libs.concurrent.HttpExecution;
+
+import javax.inject.Inject;
+import java.util.concurrent.Executor;
+import java.util.concurrent.CompletionStage;
+import static java.util.concurrent.CompletableFuture.supplyAsync;
+// #async-explicit-ec-imports
+
+// #async-explicit-ec
 public class Application extends Controller {
-  //#async
-  public Promise<Result> index() {
-    return Promise.promise(() -> intensiveComputation())
-            .map((Integer i) -> ok("Got result: " + i));
+
+  private MyExecutionContext myExecutionContext;
+
+  @Inject
+  public Application(MyExecutionContext myExecutionContext) {
+    this.myExecutionContext = myExecutionContext;
   }
-  //#async
 
-  private ExecutionContext myThreadPool = null;
-
-  //#async-explicit-ec
-  public Promise<Result> index2() {
+  public CompletionStage<Result> index() {
     // Wrap an existing thread pool, using the context from the current thread
-    ExecutionContext myEc = HttpExecution.fromThread(myThreadPool);
-    return Promise.promise(() -> intensiveComputation(), myEc)
-            .map((Integer i) -> ok("Got result: " + i), myEc);
+    Executor myEc = HttpExecution.fromThread((Executor) myExecutionContext);
+    return supplyAsync(() -> intensiveComputation(), myEc)
+        .thenApplyAsync(i -> ok("Got result: " + i), myEc);
   }
-  //#async-explicit-ec
 
-    public int intensiveComputation() { return 2;}
+  public int intensiveComputation() {
+    return 2;
+  }
 }
+// #async-explicit-ec

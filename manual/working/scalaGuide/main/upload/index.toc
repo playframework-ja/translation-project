@@ -1,1 +1,1 @@
-ScalaFileUpload:multipart/form-data のアップロード
+ScalaFileUpload:Direct upload and multipart/form-data

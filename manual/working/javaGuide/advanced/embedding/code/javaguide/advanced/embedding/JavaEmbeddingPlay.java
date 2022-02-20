@@ -1,81 +1,99 @@
 /*
- * Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com>
+ * Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com>
  */
 package javaguide.advanced.embedding;
 
-import com.ning.http.client.AsyncHttpClientConfig;
+import java.io.IOException;
+
 import org.junit.Test;
 
-import play.libs.F;
 import play.libs.ws.WSClient;
 import play.libs.ws.WSResponse;
-import play.libs.ws.ning.NingWSClient;
+
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.CompletionStage;
 import java.util.function.Consumer;
 
-//#imports
-import play.Mode;
+// #imports
 import play.routing.RoutingDsl;
 import play.server.Server;
 import static play.mvc.Controller.*;
-//#imports
+// #imports
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.junit.Assert.*;
 
 public class JavaEmbeddingPlay {
 
-    @Test
-    public void simple() {
-        //#simple
-        Server server = Server.forRouter(new RoutingDsl()
-            .GET("/hello/:to").routeTo(to ->
-                ok("Hello " + to)
-            )
-            .build()
-        );
-        //#simple
+  @Test
+  public void simple() throws Exception {
+    // #simple
+    Server server =
+        Server.forRouter(
+            (components) ->
+                RoutingDsl.fromComponents(components)
+                    .GET("/hello/:to")
+                    .routeTo(to -> ok("Hello " + to))
+                    .build());
+    // #simple
 
-        try {
-            withClient(ws -> {
-                //#http-port
-                F.Promise<WSResponse> response = ws.url(
-                    "http://localhost:" + server.httpPort() + "/hello/world"
-                ).get();
-                //#http-port
-                assertThat(response.get(10000).getBody(), equalTo("Hello world"));
-            });
-        } finally {
-            //#stop
-            server.stop();
-            //#stop
-        }
+    try {
+      withClient(
+          ws -> {
+            // #http-port
+            CompletionStage<WSResponse> response =
+                ws.url("http://localhost:" + server.httpPort() + "/hello/world").get();
+            // #http-port
+            try {
+              assertThat(
+                  response.toCompletableFuture().get(10, TimeUnit.SECONDS).getBody(),
+                  equalTo("Hello world"));
+            } catch (Exception e) {
+              throw new RuntimeException(e);
+            }
+          });
+    } finally {
+      // #stop
+      server.stop();
+      // #stop
     }
+  }
 
-    @Test
-    public void config() {
-        //#config
-        Server server = Server.forRouter(new RoutingDsl()
-            .GET("/hello/:to").routeTo(to ->
-                ok("Hello " + to)
-            )
-            .build(),
-            Mode.TEST, 19000
-        );
-        //#config
+  @Test
+  public void config() throws Exception {
+    // #config
+    Server server =
+        Server.forRouter(
+            (components) ->
+                RoutingDsl.fromComponents(components)
+                    .GET("/hello/:to")
+                    .routeTo(to -> ok("Hello " + to))
+                    .build());
+    // #config
 
-        try {
-            withClient(ws ->
-                assertThat(ws.url("http://localhost:19000/hello/world").get().get(10000).getBody(), equalTo("Hello world"))
-            );
-        } finally {
-            server.stop();
-        }
+    try {
+      withClient(
+          ws -> {
+            try {
+              assertThat(
+                  ws.url("http://localhost:" + server.httpPort() + "/hello/world")
+                      .get()
+                      .toCompletableFuture()
+                      .get(10, TimeUnit.SECONDS)
+                      .getBody(),
+                  equalTo("Hello world"));
+            } catch (Exception e) {
+              throw new RuntimeException(e);
+            }
+          });
+    } finally {
+      server.stop();
     }
+  }
 
-    private void withClient(Consumer<WSClient> callback) {
-        try (WSClient client = new NingWSClient(new AsyncHttpClientConfig.Builder().build())) {
-            callback.accept(client);
-        }
+  private void withClient(Consumer<WSClient> callback) throws IOException {
+    try (WSClient client = play.test.WSTestClient.newClient(19000)) {
+      callback.accept(client);
     }
-
+  }
 }

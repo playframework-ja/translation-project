@@ -1,1 +1,1 @@
-JavaXmlRequests:XML リクエストの処理と送信
+JavaXmlRequests:XMLリクエストの処理と送信

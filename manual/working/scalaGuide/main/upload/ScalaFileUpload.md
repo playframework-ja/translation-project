@@ -1,83 +1,65 @@
-<!--- Copyright (C) 2009-2015 Typesafe Inc. <http://www.typesafe.com> -->
-<!--
+<!--- Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com> -->
 # Handling file upload
--->
-# ファイルアップロード
 
-<!--
 ## Uploading files in a form using multipart/form-data
--->
-## multipart/form-data を利用したフォームからのファイルアップロード
 
-<!--
 The standard way to upload files in a web application is to use a form with a special `multipart/form-data` encoding, which lets you mix standard form data with file attachment data. 
--->
-Web アプリケーションにおけるファイルアップロードの標準的な方法は、 `multipart/form-data` エンコーディングのフォームを使うことです。 `multipart/form-data` を使うと、標準的なフォームデータに加えて、ファイルを添付データとして一緒に送信することができます。
 
-<!--
-> **Note**: The HTTP method used to submit the form must be `POST` (not `GET`). 
--->
-> **Note**: フォームの HTTP メソッドは `GET` ではなく `POST` である必要があることに留意してください。 
+> **Note:** The HTTP method used to submit the form must be `POST` (not `GET`).
 
-<!--
 Start by writing an HTML form:
--->
-まず、 HTML フォームを書きます。
 
 @[file-upload-form](code/scalaguide/templates/views/uploadForm.scala.html)
 
-<!--
+Add a CSRF token to the form, unless you have the [[CSRF filter|ScalaCsrf]] disabled. The CSRF filter checks the multi-part form in the order the fields are listed, so put the CSRF token before the file input field. This improves efficiency and avoids a token-not-found error if the file size exceeds `play.filters.csrf.body.bufferSize`.
+
 Now define the `upload` action using a `multipartFormData` body parser:
--->
-次に、`multipartFormData` ボディパーサーを利用して、 `upload` アクションを定義します。
 
 @[upload-file-action](code/ScalaFileUpload.scala)
 
-<!--
-The `ref` attribute give you a reference to a `TemporaryFile`. This is the default way the `mutipartFormData` parser handles file upload.
--->
-`ref` 属性は `TemporaryFile` への参照です。これは、 `multipartFormData` パーサーがファイルアップロードを処理するデフォルトの方法です。
+The `ref` attribute give you a reference to a `TemporaryFile`. This is the default way the `multipartFormData` parser handles file upload.
 
-<!--
 > **Note:** As always, you can also use the `anyContent` body parser and retrieve it as `request.body.asMultipartFormData`.
--->
-これまでのように `anyContent` ボディパーサーを使って、 `request.body.asMultipartFormData` によりフォームデータを参照することもできます。
 
-<!--
 At last, add a `POST` router
--->
-最後に、 `POST` ルーティングを追加します
 
 @[application-upload-routes](code/scalaguide.upload.fileupload.routes)
 
-<!--
 ## Direct file upload
--->
-直接的なファイルアップロード
 
-<!--
 Another way to send files to the server is to use Ajax to upload the file asynchronously in a form. In this case the request body will not have been encoded as `multipart/form-data`, but will just contain the plain file content.
--->
-サーバへファイルを送信する別の方法は、Ajax を活用してフォームからファイルを非同期的にアップロードするというものです。この方法では、リクエストボディは `multipart/form-data` としてエンコードされず、単にファイルの内容を含むだけになります。
 
-<!--
 In this case we can just use a body parser to store the request body content in a file. For this example, let’s use the `temporaryFile` body parser:
--->
-この場合も、リクエストボディの内容をファイルへ保存するためのボディパーサーを使うだけです。この例では、 `temporaryFile` ボディパーサーを使ってみましょう。
 
 @[upload-file-directly-action](code/ScalaFileUpload.scala)
 
-<!--
 ## Writing your own body parser
--->
-## ボディパーサーを自作する
 
-<!--
 If you want to handle the file upload directly without buffering it in a temporary file, you can just write your own `BodyParser`. In this case, you will receive chunks of data that you are free to push anywhere you want.
--->
-一時ファイルへのバッファリングなしでファイルアップロードを直接的に処理したい場合、 `BodyParser` を自作するという方法があります。その場合、チャンクに分割されたデータを受信して、それを好きなところに PUSH 送信することになります。
 
-<!--
-If you want to use `multipart/form-data` encoding, you can still use the default `mutipartFormData` parser by providing your own `PartHandler[FilePart[A]]`. You receive the part headers, and you have to provide an `Iteratee[Array[Byte], FilePart[A]]` that will produce the right `FilePart`.
--->
-`multipart/form-data` エンコーディングを利用したい場合は、 `PartHandler[FilePart[A]]` を指定して、デフォルトの `multipartFormData` パーサーを利用することができます。その場合、パートヘッダーを元に、正しい `FilePart` を生成するような `Iteratee[Array[Byte], FilePart[A]]` を生成する必要があります。
+If you want to use `multipart/form-data` encoding, you can still use the default `multipartFormData` parser by providing a `FilePartHandler[A]` and using a different Sink to accumulate data.  For example, you can use a `FilePartHandler[File]` rather than a TemporaryFile by specifying an `Accumulator(fileSink)`:
+
+@[upload-file-customparser](code/ScalaFileUpload.scala)
+
+## Cleaning up temporary files
+
+Uploading files uses a [`TemporaryFile`](api/scala/play/api/libs/Files$$TemporaryFile.html) API which relies on storing files in a temporary filesystem, accessible through the `ref` attribute.  All [`TemporaryFile`](api/scala/play/api/libs/Files$$TemporaryFile.html) references come from a [`TemporaryFileCreator`](api/scala/play/api/libs/Files$$TemporaryFileCreator.html) trait, and the implementation can be swapped out as necessary, and there's now an [`atomicMoveWithFallback`](api/scala/play/api/libs/Files$$TemporaryFile.html#atomicMoveWithFallback\(to:java.nio.file.Path\):play.api.libs.Files.TemporaryFile) method that uses `StandardCopyOption.ATOMIC_MOVE` if available.
+
+Uploading files is an inherently dangerous operation, because unbounded file upload can cause the filesystem to fill up -- as such, the idea behind [`TemporaryFile`](api/scala/play/api/libs/Files$$TemporaryFile.html) is that it's only in scope at completion and should be moved out of the temporary file system as soon as possible.  Any temporary files that are not moved are deleted. 
+
+However, under [certain conditions](https://github.com/playframework/playframework/issues/5545), garbage collection does not occur in a timely fashion.  As such, there's also a [`play.api.libs.Files.TemporaryFileReaper`](api/scala/play/api/libs/Files$$DefaultTemporaryFileReaper.html) that can be enabled to delete temporary files on a scheduled basis using the Akka scheduler, distinct from the garbage collection method.
+
+The reaper is disabled by default, and is enabled through `application.conf`:
+
+```
+play.temporaryFile {
+  reaper {
+    enabled = true
+    initialDelay = "5 minutes"
+    interval = "30 seconds"
+    olderThan = "30 minutes"
+  }
+}
+```
+
+The above configuration will delete files that are more than 30 minutes old, using the "olderThan" property.  It will start the reaper five minutes after the application starts, and will check the filesystem every 30 seconds thereafter.  The reaper is not aware of any existing file uploads, so protracted file uploads may run into the reaper if the system is not carefully configured.

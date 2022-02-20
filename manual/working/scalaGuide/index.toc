@@ -1,3 +1,2 @@
-ScalaHome:目次
-main:主要なコンセプト
-advanced:上級編
+!main:Main concepts
+!advanced:Advanced topics

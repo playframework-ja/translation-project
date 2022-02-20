@@ -1,2 +1,0 @@
-ScalaDependencyInjection:実行時の DI
-ScalaCompileTimeDependencyInjection:コンパイル時の DI

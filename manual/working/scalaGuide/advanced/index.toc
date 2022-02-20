@@ -1,6 +1,5 @@
-iteratees:リアクティブなストリーム処理 
-http:HTTP アーキテクチャ
-dependencyinjection:依存性の注入
-routing:拡張ルーティング
-extending:Play の拡張
-embedding:Play の組み込み
+ScalaAdvanced:Section contents
+iteratees:リアクティブなストリーム処理
+routing:高度なルーティング
+extending:Playの拡張
+embedding:Playの組み込み

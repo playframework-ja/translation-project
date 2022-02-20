@@ -1,3 +1,6 @@
+/*
+ * Copyright (C) 2009-2019 Lightbend Inc. <https://www.lightbend.com>
+ */
 package javaguide.tests;
 
 import static play.test.Helpers.*;
@@ -22,28 +25,32 @@ import play.test.Helpers;
 
 public class InjectionTest {
 
-    //#test-injection
-    @Inject Application application;
+  // #test-injection
+  @Inject Application application;
 
-    @Before
-    public void setup() {
-      Module testModule = new AbstractModule() {
-        @Override
-        public void configure() {
-          // Install custom test binding here
-        }
-      };
+  @Before
+  public void setup() {
+    Module testModule =
+        new AbstractModule() {
+          @Override
+          public void configure() {
+            // Install custom test binding here
+          }
+        };
 
-      GuiceApplicationBuilder builder = new GuiceApplicationLoader()
-          .builder(new Context(Environment.simple()))
-          .overrides(testModule);
-      Guice.createInjector(builder.applicationModule()).injectMembers(this);      
-    }
+    GuiceApplicationBuilder builder =
+        new GuiceApplicationLoader()
+            .builder(new Context(Environment.simple()))
+            .overrides(testModule);
+    Guice.createInjector(builder.applicationModule()).injectMembers(this);
 
-    @After
-    public void teardown() {
-      Helpers.stop(application);
-    }
-    //#test-injection
+    Helpers.start(application);
+  }
+
+  @After
+  public void teardown() {
+    Helpers.stop(application);
+  }
+  // #test-injection
 
 }
